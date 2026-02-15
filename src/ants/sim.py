@@ -2,7 +2,7 @@ from __future__ import annotations
 import random
 from typing import TYPE_CHECKING
 
-from .config import GRID_HEIGHT, GRID_WIDTH
+from .config import ANT_LIFESPAN, GRID_HEIGHT, GRID_WIDTH
 
 if TYPE_CHECKING:
     from .world import World
@@ -161,6 +161,7 @@ class Ant:
         if world.food[fy, fx] > 0:
             eaten = world.eat_food(fy, fx, amount=1)
             self.food += eaten
+            self.food = min(self.food, self.MAX_FOOD_CARRY)
 
     def move_toward(self, y, x, world):
         self.last_direction = self.direction
@@ -255,6 +256,9 @@ class Ant:
         available = self.food - 1
         amount = min(max_share, available)
 
+        if other.food + amount > other.MAX_FOOD_CARRY:
+            return False
+
         if amount <= 0:
             return False
 
@@ -267,7 +271,7 @@ class Ant:
     def wander(self, world):
         if self.commit_timer == 0:
             d = random.randint(0, 3)
-            self.start_commit(d, steps=random.randint(6, 15))
+            self.start_commit(d, steps=random.randint(1, 15))
 
     def deposit_home_pheromone(self, world: World):
         world.home_pheromone[self.y, self.x] += 1.0
@@ -296,6 +300,10 @@ class Ant:
             return
 
         self.step_count += 1
+        if self.step_count > ANT_LIFESPAN:
+            self.alive = False
+            return
+    
         self.try_eat(world)
         self.update_hunger()
 
@@ -306,9 +314,11 @@ class Ant:
         neighbors = self.sense_neighbors(world)
         food_pos = self.sense_closest_food(world)
 
-        if self.needs_to_tend_queen(queen) and self.food >= RETURN_TO_QUEEN_THRESHOLD:
+        print(self.food, self.intent)
+
+        if (self.needs_to_tend_queen(queen) and self.food >= RETURN_TO_QUEEN_THRESHOLD) or (self.food == self.MAX_FOOD_CARRY and queen.is_kind_of_hungry()):
             self.intent = Ant.RETURNING
-        elif self.intent == Ant.RETURNING and self.food <= 0:
+        elif (self.intent == Ant.RETURNING and self.is_hungry) or not queen.is_kind_of_hungry():
             self.intent = Ant.FORAGING
 
         
@@ -419,6 +429,9 @@ class QueenAnt(Ant):
 
         if self.can_lay_egg():
             self.lay_egg(world)
+
+    def is_kind_of_hungry(self):
+        return self.food < 20
 
     def update_hunger(self):
         self.food -= 0.2
