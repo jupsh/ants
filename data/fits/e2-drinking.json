@@ -1,0 +1,22 @@
+{
+  "experiment": "E2 drinking & trail-laying decision (Mailleux et al. 1999, 2009)",
+  "fittedOn": [
+    "1999 drinking times and % trail (1/4/8 days)",
+    "2009 first-drop intake & time"
+  ],
+  "validatedOn": [
+    "2009 trail fractions, second drop, between/total times"
+  ],
+  "dt": 0.1,
+  "scoutsPerCondition": 150,
+  "seconds": 282.144,
+  "loss": 30.71003432699304,
+  "forager": {
+    "desiredFed": 0.658111450095691,
+    "desiredHungry": 0.8283649687087025,
+    "desiredSd": 0.3675508829629416,
+    "stopHazard": 0.06149006191467572,
+    "unsatisfiedLayProb": 0.3449411315009742
+  },
+  "pipetteAccessible": 0.7681408069303254
+}
