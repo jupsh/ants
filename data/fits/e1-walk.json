@@ -1,0 +1,118 @@
+{
+  "experiment": "E1 exploratory walking (Khuong et al. 2013)",
+  "fittedOn": [
+    "incline1 (0)",
+    "incline3 (π/6)",
+    "incline5 (π/3)"
+  ],
+  "validatedOn": [
+    "incline2 (π/9)",
+    "incline4 (π/4)"
+  ],
+  "conditions": "26 °C, 50% RH",
+  "dt": 0.02,
+  "antsPerEval": 160,
+  "seconds": 504.58,
+  "params": {
+    "speed": 55.41107606391765,
+    "speedSdBetween": 0.2811567723111964,
+    "speedSdWithin": 0.3587457208467387,
+    "speedTau": 1.2434674811191244,
+    "meanFreePath": 10.079370624664397,
+    "g": 0.6037790001800335,
+    "jitter": 0.0014251144941529975,
+    "pauseRate": 0.052917957368167186,
+    "pauseMean": 0.700448109160251,
+    "slopeSpeedK": 0.40753600717295324,
+    "slopePauseK": 1.0852347821015746,
+    "slopeJitterK": 0.9288189507766671,
+    "slopeSpeedSdK": 0.9464482809941557,
+    "geoRunGain": 0.03294786488082038,
+    "geoHeadingPull": 0.10184865039410958,
+    "homeRunBias": 0.5670750863131675,
+    "homeHeadingPull": 0.1272881357687236,
+    "homeRange": 76.51631881258147
+  },
+  "report": {
+    "incline1": {
+      "role": "fit",
+      "loss": 18.840283669010137,
+      "parts": {
+        "speedKS": 4.6105769612770295,
+        "trackSpeedKS": 0.17260612849774795,
+        "stopped": 0.008461082390243386,
+        "headingCorrPath": 0.6200667915355754,
+        "turnSd": 2.793707812528238,
+        "turnKurtosis": 1.34926743403248,
+        "exitKS": 4.05668398494728,
+        "radial": 1.4525839291156333,
+        "align": 0.9077342236304977,
+        "straightness": 2.8685953210554134
+      }
+    },
+    "incline2": {
+      "role": "validation",
+      "loss": 22.720632444469192,
+      "parts": {
+        "speedKS": 6.149354352885085,
+        "trackSpeedKS": 2.701020793950851,
+        "stopped": 3.8843576613777713,
+        "headingCorrPath": 1.6194501351471389,
+        "turnSd": 0.38389466716690746,
+        "turnKurtosis": 2.1912415190462733,
+        "exitKS": 3.667257928101429,
+        "radial": 0.28792932826223055,
+        "align": 1.5050957989908822,
+        "straightness": 0.33103025954062065
+      }
+    },
+    "incline3": {
+      "role": "fit",
+      "loss": 29.926427728686814,
+      "parts": {
+        "speedKS": 7.8471208947338065,
+        "trackSpeedKS": 7.188615837009034,
+        "stopped": 1.9368771142445524,
+        "headingCorrPath": 3.7906267477002316,
+        "turnSd": 4.182359002786394,
+        "turnKurtosis": 0.13015805302984362,
+        "exitKS": 0.20496929174273823,
+        "radial": 2.304307187857451,
+        "align": 0.2151180375944039,
+        "straightness": 2.1262755619883578
+      }
+    },
+    "incline4": {
+      "role": "validation",
+      "loss": 44.58111069219951,
+      "parts": {
+        "speedKS": 15.168457739295352,
+        "trackSpeedKS": 15.53959252257929,
+        "stopped": 1.4428655343264487,
+        "headingCorrPath": 6.220399023572268,
+        "turnSd": 0.0560317379197988,
+        "turnKurtosis": 3.1256026311826566,
+        "exitKS": 1.1147251073225126,
+        "radial": 1.7027813954015287,
+        "align": 0.001586510887074185,
+        "straightness": 0.2090684897125786
+      }
+    },
+    "incline5": {
+      "role": "fit",
+      "loss": 113.9819055497436,
+      "parts": {
+        "speedKS": 19.391913940814426,
+        "trackSpeedKS": 14.794614576769588,
+        "stopped": 2.038164963224746,
+        "headingCorrPath": 13.126650039713212,
+        "turnSd": 14.039293113592219,
+        "turnKurtosis": 38.52880645446102,
+        "exitKS": 0.9205454313790514,
+        "radial": 1.5226340372582399,
+        "align": 0.3374475080514935,
+        "straightness": 9.281835484479595
+      }
+    }
+  }
+}

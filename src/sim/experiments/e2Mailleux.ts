@@ -1,0 +1,144 @@
+import { Body } from '../agent/body';
+import { drawTraits, lasiusForager, startTrip, type ForagerParams } from '../behavior/lasiusForager';
+import { newMind } from '../mind/mind';
+import type { WalkParams } from '../models/walk';
+import { interocept, perceive } from '../perception/perceive';
+import { applyForagerAction, type PhysParams } from '../physics/antPhysics';
+import { mailleuxApparatus } from '../world/apparatus';
+import { SugarDroplet } from '../world/food';
+import { World, type Agent } from '../world/world';
+
+/**
+ * E2 — scouts at sucrose drops in the Mailleux et al. apparatus
+ * (nest → bridge → 6 × 6 cm area; 22 °C). One scout at a time, as in the
+ * experiments; measurements follow the papers' definitions.
+ */
+export interface LasiusParams {
+  walk: WalkParams;
+  forager: ForagerParams;
+  phys: PhysParams;
+  morph: { len: number; mass: number; cropCapacity: number; antennaReach: number; reserveDays: number };
+}
+
+export interface ScoutResult {
+  /** From entering the area to first touching the drop (s). */
+  findTime: number;
+  drinks: { ul: number; time: number }[];
+  /** Laid trail on the return trip (any gaster contact) — overall and per bridge section. */
+  laidTrail: boolean;
+  laidSection1: boolean;
+  laidSection2: boolean;
+  /** Fraction of the return trip with the gaster down. */
+  intensity: number;
+  /** From leaving the (last) food to entering the nest (s). */
+  returnTime: number;
+  /** From stopping at drop 1 to starting at drop 2 (s); NaN if no second drop drunk. */
+  betweenTime: number;
+  total: number;
+  satisfiedAt1: boolean;
+  reachedNest: boolean;
+}
+
+export interface ScoutOptions {
+  seed: number;
+  /** Drop at the area centre: volume (µL), molarity. */
+  drop1: { ul: number; molar: number };
+  /** Optional second drop on the bridge, offered on the way home (Mailleux 2009). */
+  drop2?: { ul: number; molar: number };
+  /** Fraction of a micropipette drop that can be imbibed. */
+  pipetteAccessible: number;
+  starvationDays: number;
+  dt?: number;
+  maxTime?: number;
+}
+
+export function runScout(P: LasiusParams, o: ScoutOptions): ScoutResult {
+  return runScoutWorld(P, o).result;
+}
+
+/** As runScout, also returning the world (for conservation checks and visualisation). */
+export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: World) => void): { result: ScoutResult; world: World } {
+  const dt = o.dt ?? 0.05;
+  const { app, entrance, feeder1, feeder2 } = mailleuxApparatus();
+  const w = new World(app, entrance, o.seed, 22, 50);
+  const m = P.morph;
+  const reserveMax = (P.phys.metabolic * Math.pow(m.mass, 0.75) * 24 * m.reserveDays) / 1; // mg at ~resting rate
+  const body = new Body(1, o.seed, { len: m.len, mass: m.mass, cropCapacity: m.cropCapacity, antennaReach: m.antennaReach }, Math.max(0.02, 1 - o.starvationDays / m.reserveDays), reserveMax);
+  w.ledger.move('sugar', 'external', 'reserve', body.reserve);
+  w.ledger.move('water', 'external', 'reserve', body.water);
+  // The papers observe scouts from the moment they reach the foraging area,
+  // so the scout starts at the area end of the bridge, with the path-integration
+  // state it would have after walking the bridge (true displacement read
+  // through its per-trip compass bias).
+  const start = app.regions.find((r) => r.kind === 'arena')!.x0 - 2;
+  body.x = start;
+  body.y = entrance[1];
+  body.heading = 0;
+  const mind = newMind(drawTraits(P.forager, body.rng), P.walk, body.rng);
+  mind.walk.heading = 0;
+  const agent: Agent = { body, mind, inactive: false };
+  w.ants.push(agent);
+  startTrip(mind, P.forager, interocept(body), body.rng);
+  const walked = start - entrance[0];
+  mind.pi.x = Math.cos(mind.piBias) * walked;
+  mind.pi.y = Math.sin(mind.piBias) * walked;
+  w.addFood((id) => new SugarDroplet(id, feeder1[0], feeder1[1], o.drop1.ul, o.drop1.molar, o.pipetteAccessible));
+
+  const res: ScoutResult = { findTime: NaN, drinks: [], laidTrail: false, laidSection1: false, laidSection2: false, intensity: NaN, returnTime: NaN, betweenTime: NaN, total: NaN, satisfiedAt1: false, reachedNest: false };
+  let tArea = NaN;
+  let drinkStart = NaN;
+  let lastDrinkEnd = NaN;
+  let firstDrinkEnd = NaN;
+  let currentDrinkUl = 0;
+  let returnGaster = 0;
+  let returnSteps = 0;
+  let drop2Added = false;
+  const maxTime = o.maxTime ?? 1800;
+  while (w.time < maxTime && !agent.inactive && body.alive) {
+    const per = perceive(w, body, dt);
+    const io = interocept(body);
+    const prevMode = mind.mode;
+    const cropBefore = body.cropUl;
+    const act = lasiusForager(per, io, mind, P.forager, body.rng);
+    applyForagerAction(w, agent, act, per, P.walk, P.phys, dt);
+    w.time += dt;
+    if (onStep) onStep(w);
+    // --- Observations (experimenter's view).
+    if (Number.isNaN(tArea) && body.x >= 120) tArea = w.time;
+    if (mind.mode === 'drink' && prevMode !== 'drink') {
+      drinkStart = w.time;
+      currentDrinkUl = 0;
+      if (Number.isNaN(res.findTime)) res.findTime = w.time - (Number.isNaN(tArea) ? 0 : tArea);
+      if (res.drinks.length === 1) res.betweenTime = w.time - firstDrinkEnd;
+      if (o.drop2 && !drop2Added) {
+        // The second drop is set out once the scout is at the first one (out of reach on its way out).
+        w.addFood((id) => new SugarDroplet(id, feeder2[0], feeder2[1], o.drop2!.ul, o.drop2!.molar, o.pipetteAccessible));
+        drop2Added = true;
+      }
+    }
+    if (mind.mode === 'drink') currentDrinkUl += Math.max(0, body.cropUl - cropBefore);
+    if (prevMode === 'drink' && mind.mode !== 'drink') {
+      res.drinks.push({ ul: currentDrinkUl, time: w.time - drinkStart });
+      lastDrinkEnd = w.time;
+      if (res.drinks.length === 1) {
+        firstDrinkEnd = w.time;
+        res.satisfiedAt1 = mind.satisfied;
+      }
+    }
+    if (mind.mode === 'return') {
+      returnSteps++;
+      if (body.gasterDown) {
+        returnGaster++;
+        res.laidTrail = true;
+        // Section 1: first 3 cm of the bridge from the area; section 2: bridge between drop 2 and the nest.
+        if (body.x >= 90 && body.x < 120) res.laidSection1 = true;
+        if (body.x >= 10 && body.x < 50) res.laidSection2 = true;
+      }
+    }
+  }
+  res.reachedNest = agent.inactive;
+  if (res.reachedNest && !Number.isNaN(lastDrinkEnd)) res.returnTime = w.time - lastDrinkEnd;
+  res.intensity = returnSteps ? returnGaster / returnSteps : NaN;
+  if (!Number.isNaN(tArea)) res.total = w.time - tArea;
+  return { result: res, world: w };
+}
