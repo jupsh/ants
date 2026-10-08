@@ -15,9 +15,10 @@ exists as reserved code.
 
 **Notation.** Mathematics is written in LaTeX, inline as `$…$` and displayed
 in fenced code blocks with the language `math`; GitHub and the VS Code
-Markdown preview render both. Inside `$…$`, avoid backslash-punctuation
-such as `\,` or `\!`: GitHub's Markdown strips the backslash before the math
-is rendered. Angles are in rad and headings $h$ in the surface's own
+Markdown preview render both. Two GitHub rules: never put a math block
+inside a list item (it shows as plain code), and inside `$…$` avoid
+backslash-punctuation such as `\,` or `\!` (GitHub's Markdown strips the
+backslash before the math is rendered). Angles are in rad and headings $h$ in the surface's own
 coordinates. $\sigma(x) = 1/(1+e^{-x})$ is the
 logistic function (a $\sigma$ with a subscript is a standard deviation).
 $\mathcal N(\mu, s^2)$ is a normal with SD $s$, $\mathrm{Exp}(m)$ an
@@ -394,35 +395,37 @@ with $P_g$ = `geoHeadingPull` and $P_h$ = `homeHeadingPull`.
 
 Between events, over a walked piece of length $\ell$ taking time $t$:
 
-- **Heading diffusion**:
+**Heading diffusion**:
 
-  ```math
-  h \leftarrow h + \sqrt{D_s(\theta)\,\ell + D_t\, t}\; \xi, \qquad \xi \sim \mathcal N(0,1), \qquad D_s(\theta) = D_s\, e^{k_j \theta},
-  ```
+```math
+h \leftarrow h + \sqrt{D_s(\theta)\,\ell + D_t\, t}\; \xi, \qquad \xi \sim \mathcal N(0,1), \qquad D_s(\theta) = D_s\, e^{k_j \theta},
+```
 
-  with $D_s$ = `jitter` per distance and $D_t$ = `jitterTime` per time
-  (also while paused).
-- **Continuous geomenotaxis** (candidate C), with
-  $\psi = \Delta(h, h_\downarrow)$ the heading relative to downhill and $s$
-  the path length:
+with $D_s$ = `jitter` per distance and $D_t$ = `jitterTime` per time
+(also while paused).
 
-  ```math
-  \begin{aligned}
-  \text{axial:} \quad \frac{d\psi}{ds} &= -a \sin\theta \, \sin 2\psi &&\Longrightarrow\quad \tan\psi(s) = \tan\psi_0 \; e^{-2a \sin\theta\, s}, \\
-  \text{polar:} \quad \frac{d\psi}{ds} &= -b \sin\theta \, \sin \psi &&\Longrightarrow\quad \tan\frac{\psi(s)}{2} = \tan\frac{\psi_0}{2} \; e^{-b \sin\theta\, s}.
-  \end{aligned}
-  ```
+**Continuous geomenotaxis** (candidate C), with
+$\psi = \Delta(h, h_\downarrow)$ the heading relative to downhill and $s$
+the path length:
 
-  The axial torque ($a$ = `geoTorque`) pulls towards the nearest end of the
-  slope axis (applied after folding $\psi$ onto $(-\pi/2, \pi/2]$); the
-  polar torque ($b$ = `geoPolar`) pulls downhill. Both are integrated
-  exactly, one after the other (operator splitting).
-- **Goal steering** (from behaviour, e.g. the home vector), first-order
-  relaxation with gain $k$, exact for a constant goal:
+```math
+\begin{aligned}
+\text{axial:} \quad \frac{d\psi}{ds} &= -a \sin\theta \, \sin 2\psi &&\Longrightarrow\quad \tan\psi(s) = \tan\psi_0 \; e^{-2a \sin\theta\, s}, \\
+\text{polar:} \quad \frac{d\psi}{ds} &= -b \sin\theta \, \sin \psi &&\Longrightarrow\quad \tan\frac{\psi(s)}{2} = \tan\frac{\psi_0}{2} \; e^{-b \sin\theta\, s}.
+\end{aligned}
+```
 
-  ```math
-  h \leftarrow h + \Delta(h_{\text{goal}}, h)\,\bigl(1 - e^{-k t}\bigr).
-  ```
+The axial torque ($a$ = `geoTorque`) pulls towards the nearest end of the
+slope axis (applied after folding $\psi$ onto $(-\pi/2, \pi/2]$); the
+polar torque ($b$ = `geoPolar`) pulls downhill. Both are integrated
+exactly, one after the other (operator splitting).
+
+**Goal steering** (from behaviour, e.g. the home vector), first-order
+relaxation with gain $k$, exact for a constant goal:
+
+```math
+h \leftarrow h + \Delta(h_{\text{goal}}, h)\,\bigl(1 - e^{-k t}\bigr).
+```
 
 ### 5.4 Speed
 
@@ -437,14 +440,7 @@ v = v_0 \; I_i \; \exp\!\Bigl(X - \tfrac12 \sigma_w(\theta)^2\Bigr) \; s_i(\thet
 - $X$: within-ant log-speed fluctuation, an Ornstein–Uhlenbeck process with
   stationary SD $\sigma_w(\theta) = \sigma_w e^{k_{sd}\theta}$
   (`speedSdWithin`, `slopeSpeedSdK`) and correlation time $\tau_v$
-  (`speedTau`), updated exactly over a walking interval $t$:
-
-  ```math
-  X \leftarrow a X + \sigma_w(\theta) \sqrt{1 - a^2}\; \xi, \qquad a = e^{-t/\tau_v}, \qquad \xi \sim \mathcal N(0,1).
-  ```
-
-  Since $\mathbb E e^{X} = e^{\sigma_w^2/2}$ in the stationary state, the
-  $-\tfrac12\sigma_w^2$ term keeps the mean multiplier at 1.
+  (`speedTau`); see below.
 - $s_i(\theta) = \max\bigl(0.05, 1 - k_\theta \kappa_i \theta\bigr)$:
   slope slowing, independent of walking direction (as Khuong et al. found),
   with $k_\theta$ = `slopeSpeedK` and $\kappa_i$ an individual log-normal
@@ -452,6 +448,16 @@ v = v_0 \; I_i \; \exp\!\Bigl(X - \tfrac12 \sigma_w(\theta)^2\Bigr) \; s_i(\thet
   fit).
 - $u$: turn-linked slowing (below).
 - $\gamma_{\text{speed}}$: from behaviour and physiology (load, §6.5).
+
+**Within-ant fluctuation.** $X$ is updated exactly over a walking interval
+$t$:
+
+```math
+X \leftarrow a X + \sigma_w(\theta) \sqrt{1 - a^2}\; \xi, \qquad a = e^{-t/\tau_v}, \qquad \xi \sim \mathcal N(0,1).
+```
+
+Since $\mathbb E e^{X} = e^{\sigma_w^2/2}$ in the stationary state, the
+$-\tfrac12\sigma_w^2$ term keeps the mean multiplier at 1.
 
 **Pauses.** Pause onsets form a Poisson process with rate
 $p(\theta) = p_0 e^{k_p \theta}$ (`pauseRate`, `slopePauseK`), placed
@@ -812,20 +818,18 @@ event count, which checks the observer.
   the share of donation events made by non-foragers;
 - $T_{50}$: the (lower) median start minute of events after food
   introduction;
-- Gini of events per participant, with $x_{(1)} \le \dots \le x_{(n)}$ the
-  sorted counts:
+- the Gini coefficient $G$ of events per participant;
+- network (one secondary family): fraction with both roles, and the global
+  efficiency $\mathcal E$ of the undirected interaction graph.
 
-  ```math
-  G = \frac{\sum_{i=1}^{n} (2i - n - 1)\, x_{(i)}}{n \sum_{i=1}^{n} x_i};
-  ```
+With $x_{(1)} \le \dots \le x_{(n)}$ the sorted event counts of the $n$
+participants, and $d_{ij}$ the shortest-path length between participants
+$i$ and $j$ ($1/d_{ij} = 0$ if disconnected) among the $N$ in the graph:
 
-- network (one secondary family): fraction with both roles, and global
-  efficiency of the undirected interaction graph over its $N$ participants,
-  with $d_{ij}$ the shortest-path length ($1/d_{ij} = 0$ if disconnected):
-
-  ```math
-  \mathcal E = \frac{1}{N(N-1)} \sum_{i \ne j} \frac{1}{d_{ij}}.
-  ```
+```math
+G = \frac{\sum_{i=1}^{n} (2i - n - 1)\, x_{(i)}}{n \sum_{i=1}^{n} x_i}, \qquad
+\mathcal E = \frac{1}{N(N-1)} \sum_{i \ne j} \frac{1}{d_{ij}}.
+```
 
 A simulated ant counts as a forager after ≥ 5 consecutive seconds of feeding
 at the source (the paper's definition).
@@ -899,59 +903,62 @@ consistent, $\le 3$ marginal, else off. A calibration test (model vs itself,
 
 Other comparisons:
 
-- **Spread** (between-ant or between-colony SD), separately from means:
+**Spread** (between-ant or between-colony SD), separately from means:
 
-  ```math
-  z = \frac{\ln(s_{\text{sim}} / s_{\text{data}})}{\sqrt{\dfrac{1}{2(n_{\text{sim}} - 1)} + \dfrac{1}{2(n_{\text{data}} - 1)}}}.
-  ```
+```math
+z = \frac{\ln(s_{\text{sim}} / s_{\text{data}})}{\sqrt{\dfrac{1}{2(n_{\text{sim}} - 1)} + \dfrac{1}{2(n_{\text{data}} - 1)}}}.
+```
 
-  This uses $\mathrm{SE}(\ln s) \approx 1/\sqrt{2(n-1)}$, exact only for
-  normal samples, so it is read as indicative for skewed times; E1 uses
-  bootstrap SEs instead.
-- **Distributions** of per-individual values: two-sample KS statistic $D$
-  with sample sizes $n, m$; p-value from the Kolmogorov distribution with
-  Stephens' correction, reported as the equivalent two-sided normal $z$
-  (capped at 8) and signed by the direction of the median difference:
+This uses $\mathrm{SE}(\ln s) \approx 1/\sqrt{2(n-1)}$, exact only for
+normal samples, so it is read as indicative for skewed times; E1 uses
+bootstrap SEs instead.
 
-  ```math
-  n_e = \frac{nm}{n+m}, \qquad
-  p = Q_{\text{KS}}\!\Bigl( \bigl(\sqrt{n_e} + 0.12 + 0.11/\sqrt{n_e}\bigr) D \Bigr), \qquad
-  Q_{\text{KS}}(x) = 2 \sum_{k \ge 1} (-1)^{k-1} e^{-2k^2 x^2}, \qquad
-  \lvert z\rvert = \Phi^{-1}(1 - p/2).
-  ```
+**Distributions** of per-individual values: two-sample KS statistic $D$
+with sample sizes $n, m$; p-value from the Kolmogorov distribution with
+Stephens' correction, reported as the equivalent two-sided normal $z$
+(capped at 8) and signed by the direction of the median difference:
+
+```math
+n_e = \frac{nm}{n+m}, \qquad
+p = Q_{\text{KS}}\!\Bigl( \bigl(\sqrt{n_e} + 0.12 + 0.11/\sqrt{n_e}\bigr) D \Bigr), \qquad
+Q_{\text{KS}}(x) = 2 \sum_{k \ge 1} (-1)^{k-1} e^{-2k^2 x^2}, \qquad
+\lvert z\rvert = \Phi^{-1}(1 - p/2).
+```
 
 ### 10.2 Standard errors
 
-- **Cluster bootstrap over ants** (E1, data and simulation): resample ants
-  with replacement $B = 200$ times, recompute every statistic $\hat\vartheta$
-  from the summed per-ant sufficient statistics, and take
-  $\mathrm{SE} = \mathrm{SD}_b\bigl(\hat\vartheta^{*b}\bigr)$. Ants are the
-  independent units (each simulated ant has its own stream).
-- **Seed blocks** (E2, E6): $R$ independent blocks of possibly unequal size
-  $n_b$ with means $m_b$; batch-means ratio estimator around the pooled
-  mean $m$, with $\bar n$ the mean block size:
+**Cluster bootstrap over ants** (E1, data and simulation): resample ants
+with replacement $B = 200$ times, recompute every statistic $\hat\vartheta$
+from the summed per-ant sufficient statistics, and take
+$\mathrm{SE} = \mathrm{SD}_b\bigl(\hat\vartheta^{*b}\bigr)$. Ants are the
+independent units (each simulated ant has its own stream).
 
-  ```math
-  \mathrm{SE}^2 = \frac{1}{R(R-1)} \sum_{b=1}^{R} \left( \frac{n_b}{\bar n} \right)^2 (m_b - m)^2.
-  ```
+**Seed blocks** (E2, E6): $R$ independent blocks of possibly unequal size
+$n_b$ with means $m_b$; batch-means ratio estimator around the pooled
+mean $m$, with $\bar n$ the mean block size:
+
+```math
+\mathrm{SE}^2 = \frac{1}{R(R-1)} \sum_{b=1}^{R} \left( \frac{n_b}{\bar n} \right)^2 (m_b - m)^2.
+```
 
 ### 10.3 Losses
 
-- **E1**: statistics are grouped into **families** $f$ of correlated
-  statistics (speed quantiles, heading-correlation lags, radial bins,
-  big-turn fractions by speed, …), 15 in all, and
+**E1**: statistics are grouped into **families** $f$ of correlated
+statistics (speed quantiles, heading-correlation lags, radial bins,
+big-turn fractions by speed, …), 15 in all, and
 
-  ```math
-  \mathcal L_{\text{E1}} = \sum_{f} \frac{1}{\lvert f\rvert} \sum_{i \in f} z_i^2,
-  ```
+```math
+\mathcal L_{\text{E1}} = \sum_{f} \frac{1}{\lvert f\rvert} \sum_{i \in f} z_i^2,
+```
 
-  so a family counts once however many lags it has. In judging, a statistic
-  the simulation cannot estimate scores $z^2 = 100$; in fitting, a candidate
-  with any inestimable statistic ranks below every candidate that estimates
-  all of them ($+10^7$ each).
-- **E2**: $\mathcal L_{\text{E2}} = \sum_{i \in \text{fit}} z_i^2$ over the
-  targets with role *fit* (inestimable: 100). Model comparison reports $k$
-  and $\mathcal L + 2k$ (a heuristic AIC-like penalty).
+so a family counts once however many lags it has. In judging, a statistic
+the simulation cannot estimate scores $z^2 = 100$; in fitting, a candidate
+with any inestimable statistic ranks below every candidate that estimates
+all of them ($+10^7$ each).
+
+**E2**: $\mathcal L_{\text{E2}} = \sum_{i \in \text{fit}} z_i^2$ over the
+targets with role *fit* (inestimable: 100). Model comparison reports $k$
+and $\mathcal L + 2k$ (a heuristic AIC-like penalty).
 
 ### 10.4 Fitting procedure
 
@@ -990,15 +997,8 @@ updates.
 - The estimate is the **final distribution mean** $\mathbf m$, not the best
   point seen (which is biased towards lucky evaluations).
 - Initial per-coordinate SDs come from the local curvature at the start
-  $\mathbf x_0$, with step $\Delta x = 0.2$ and target loss rise
-  $\delta = 10$:
-
-  ```math
-  c_i = \frac{f(\mathbf x_0 + \Delta x\, \mathbf e_i) + f(\mathbf x_0 - \Delta x\, \mathbf e_i) - 2 f(\mathbf x_0)}{\Delta x^2}, \qquad
-  \sigma_i = \mathrm{clip}\!\left( \sqrt{\delta / c_i},\, 0.02,\, 0.3 \right),
-  ```
-
-  so a 1-SD step raises the loss by about $\delta$.
+  (below), so the first generations are not wasted on steps far too large in
+  the sensitive coordinates.
 - Each stage runs from two starts plus IPOP restarts (population doubled
   per restart) from the best; runs stop at a generation cap or when
   $\sigma$ times the largest axis of the distribution falls below `tolX`.
@@ -1006,6 +1006,16 @@ updates.
   which is therefore selection data. The chosen fit is judged only on
   independent batches (5 × 1000 flat-ground ants; 300 per incline for the
   report).
+
+**Initial step sizes.** At the start $\mathbf x_0$, with step
+$\Delta x = 0.2$ and target loss rise $\delta = 10$:
+
+```math
+c_i = \frac{f(\mathbf x_0 + \Delta x\, \mathbf e_i) + f(\mathbf x_0 - \Delta x\, \mathbf e_i) - 2 f(\mathbf x_0)}{\Delta x^2}, \qquad
+\sigma_i = \mathrm{clip}\!\left( \sqrt{\delta / c_i},\, 0.02,\, 0.3 \right),
+```
+
+so a 1-SD step raises the loss by about $\delta$.
 
 **Strategies**: *staged* (default): stage 1 fits speed, pauses, turning and
 homing on flat ground; stage 2 fits the slope terms on 30° and 60° (mean
@@ -1096,52 +1106,54 @@ Order and scope are set in STATUS § Milestones.
 
 ### 12.1 World
 
-- **One 3D coordinate system** (mm, +z up): a heightmap surface for
-  foraging (2.5D; pheromone lives on it) and a **sparse 3D voxel nest**
-  under (or, for mound builders, above) the entrance, walked continuously
-  from the surface down the shaft. Chamber floor area, helical shafts,
-  vertical temperature gradients and crowding are intrinsically 3D
-  (Tschinkel's casts). *Reserved:* `world/terrain.ts` (heightmap; spoil
-  relaxes to the 34° angle of repose), `nest/` (voxel grid with
-  26-neighbour BFS navigation fields, chamber detection, species
-  architecture templates excavated pellet by pellet).
-- **Climate** (*reserved:* `env/climate.ts`, `env/soilHeat.ts`). Diel air
-  and soil-surface temperature by Parton & Logan (1981): with day length
-  $D$ (sunrise $t_r$, sunset $t_s$), night length $N = 24 - D$, hours $n$
-  since sunset and lag/decay coefficients $a, b$,
+**One 3D coordinate system** (mm, +z up): a heightmap surface for
+foraging (2.5D; pheromone lives on it) and a **sparse 3D voxel nest**
+under (or, for mound builders, above) the entrance, walked continuously
+from the surface down the shaft. Chamber floor area, helical shafts,
+vertical temperature gradients and crowding are intrinsically 3D
+(Tschinkel's casts). *Reserved:* `world/terrain.ts` (heightmap; spoil
+relaxes to the 34° angle of repose), `nest/` (voxel grid with
+26-neighbour BFS navigation fields, chamber detection, species
+architecture templates excavated pellet by pellet).
 
-  ```math
-  T_{\text{day}}(t) = T_{\min} + (T_{\max} - T_{\min}) \sin\frac{\pi (t - t_r)}{D + 2a}, \qquad
-  T_{\text{night}}(n) = T_{\min} + \bigl(T_{\text{day}}(t_s) - T_{\min}\bigr) \frac{e^{-b n/N} - e^{-b}}{1 - e^{-b}}
-  ```
+**Climate** (*reserved:* `env/climate.ts`, `env/soilHeat.ts`). Diel air
+and soil-surface temperature by Parton & Logan (1981): with day length
+$D$ (sunrise $t_r$, sunset $t_s$), night length $N = 24 - D$, hours $n$
+since sunset and lag/decay coefficients $a, b$,
 
-  (air $a$ = 1.86 h, $b$ = 2.2; soil surface $a$ = 1.0 h, $b$ = 1.8).
-  Soil temperature at depth follows the 1D heat equation, forced at the
-  surface. For a sinusoidal surface wave of frequency $\omega$ in a deep
-  soil it gives exponential damping and a linear phase lag with depth:
+```math
+T_{\text{day}}(t) = T_{\min} + (T_{\max} - T_{\min}) \sin\frac{\pi (t - t_r)}{D + 2a}, \qquad
+T_{\text{night}}(n) = T_{\min} + \bigl(T_{\text{day}}(t_s) - T_{\min}\bigr) \frac{e^{-b n/N} - e^{-b}}{1 - e^{-b}}
+```
 
-  ```math
-  \frac{\partial T}{\partial t} = \kappa \frac{\partial^2 T}{\partial z^2}, \qquad
-  T(z, t) = \bar T + A_0\, e^{-z/z_d} \sin\!\left(\omega t - \frac{z}{z_d}\right), \qquad
-  z_d = \sqrt{\frac{2\kappa}{\omega}} \approx 10\text{–}13\ \text{cm}.
-  ```
+(air $a$ = 1.86 h, $b$ = 2.2; soil surface $a$ = 1.0 h, $b$ = 1.8).
+Soil temperature at depth follows the 1D heat equation, forced at the
+surface. For a sinusoidal surface wave of frequency $\omega$ in a deep
+soil it gives exponential damping and a linear phase lag with depth:
 
-  Body temperature lies between air and surface temperature according to
-  how high the body is held: $T_b = T_{\text{air}} + (T_{\text{surf}} - T_{\text{air}}) e^{-z_{\text{body}}/2.5\text{ mm}}$.
-- **Chemical signals.** Multiple trail channels per species (e.g. Pharaoh
-  ant attractive and repellent). Trail following by osmotropotaxis
-  (Hangartner 1967): steer to reduce the bilateral difference between the
-  antennae, Weber-normalised. The grid, decay and antennal sampling exist
-  (§4.3); the response does not. Alarm pheromone as instantaneous point
-  releases of amount $Q$ in a half-space (Bossert & Wilson 1963), with
-  response threshold $K$, calibrated from the active-space radius $R$ and
-  fade time $t_{\text{fade}}$ (*reserved:* `world/plumes.ts`):
+```math
+\frac{\partial T}{\partial t} = \kappa \frac{\partial^2 T}{\partial z^2}, \qquad
+T(z, t) = \bar T + A_0\, e^{-z/z_d} \sin\!\left(\omega t - \frac{z}{z_d}\right), \qquad
+z_d = \sqrt{\frac{2\kappa}{\omega}} \approx 10\text{–}13\ \text{cm}.
+```
 
-  ```math
-  C(r, t) = \frac{2Q}{(4\pi D t)^{3/2}} \exp\!\left( -\frac{r^2}{4 D t} \right), \qquad
-  D = \frac{e\, R^2}{6\, t_{\text{fade}}}, \qquad
-  \frac{Q}{K} = \frac{(4\pi D\, t_{\text{fade}})^{3/2}}{2}.
-  ```
+Body temperature lies between air and surface temperature according to
+how high the body is held: $T_b = T_{\text{air}} + (T_{\text{surf}} - T_{\text{air}}) e^{-z_{\text{body}}/2.5\text{ mm}}$.
+
+**Chemical signals.** Multiple trail channels per species (e.g. Pharaoh
+ant attractive and repellent). Trail following by osmotropotaxis
+(Hangartner 1967): steer to reduce the bilateral difference between the
+antennae, Weber-normalised. The grid, decay and antennal sampling exist
+(§4.3); the response does not. Alarm pheromone as instantaneous point
+releases of amount $Q$ in a half-space (Bossert & Wilson 1963), with
+response threshold $K$, calibrated from the active-space radius $R$ and
+fade time $t_{\text{fade}}$ (*reserved:* `world/plumes.ts`):
+
+```math
+C(r, t) = \frac{2Q}{(4\pi D t)^{3/2}} \exp\!\left( -\frac{r^2}{4 D t} \right), \qquad
+D = \frac{e\, R^2}{6\, t_{\text{fade}}}, \qquad
+\frac{Q}{K} = \frac{(4\pi D\, t_{\text{fade}})^{3/2}}{2}.
+```
 
 ### 12.2 Individuals
 
