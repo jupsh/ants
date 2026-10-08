@@ -34,7 +34,7 @@ export interface E1Options {
 }
 
 /** RNG key of the per-ant observer stream. */
-const OBSERVER_KEY = 0x0b5e;
+export const OBSERVER_KEY = 0x0b5e;
 
 export function runE1(p: WalkParams, o: E1Options): Track[] {
   const surface = new PlaneSurface(o.incline, -Math.PI / 2);

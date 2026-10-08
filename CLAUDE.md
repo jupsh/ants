@@ -27,7 +27,8 @@ when a step starts or finishes, and log decisions there before acting on them.
   - Judge without writing: `reportE1.ts [--fit f]` (~9 s), `diagE1.ts
     [--fit f]` (step-5 structure diagnostics, data vs model),
     `diagE1Stops.ts [--fits A0=f,B=g] [--clean]` (stop reorientation, within- vs
-    between-ant speed–turning), `scanE1.ts` (loss on a 2-parameter grid), `reportE2.ts` (~9 s),
+    between-ant speed–turning), `reportE1Ref.ts [--fits walk,A0,T]`
+    (our walkers vs the Khuong/Bonavita reference walkers), `scanE1.ts` (loss on a 2-parameter grid), `reportE2.ts` (~9 s),
     `reportE6.ts [--fit]` (~4 s), `compareE2.ts`, `identifyE2.ts --variant X`.
   - Profiling: `node --cpu-prof node_modules/.bin/vite-node <script>` and sum
     self time per function from the `.cpuprofile`.
@@ -55,8 +56,15 @@ when a step starts or finishes, and log decisions there before acting on them.
   / derived / estimated). Fit files are applied with `applyFit`, so records
   show the value actually used. `data/fits/e2-drinking.json` is the adopted E2
   fit; `e2-<variant>.json` are step-3 candidates.
-- Reference models of other authors live in `src/sim/reference/` (e.g. Bles et
-  al. TEC); they are baselines, not part of our ant.
+- Reference models of other authors live in `src/sim/reference/` (Bles et
+  al. TEC for E6; Khuong/Bonavita sectored walkers for E1, built from
+  `data/reference/khuong-segments.json`); they are baselines, not part of our
+  ant.
+- **Licence:** the repo is MIT (`LICENSE`); third-party data and adapted code
+  keep their licences (`NOTICE.md`). The Khuong segmentation port
+  (`src/sim/reference/khuongSegmentation.ts`, `scripts/segmentKhuong.ts`,
+  `test/local/`) derives from CeCILL 2.1 code and is local only (excluded
+  via `.git/info/exclude`): never commit it; commit only its output.
 - Commits: plain messages, **no Claude co-author/attribution lines**. Ask
   before committing unless told to. `side-projects/` is the user's; leave it
   alone (excluded via `.git/info/exclude`).

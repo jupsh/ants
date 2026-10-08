@@ -323,11 +323,25 @@ Claude Code loads automatically.
     ants × white and red light, same lab, flat 50 cm arena, 25 °C,
     tooth-pick release, arena cleaned between ants; raw 25 Hz tracks, CC
     BY 4.0). Only the file format, counts and the paper's methods have
-    been read; no statistic has been computed, and the paper's results on
-    these data are unread. It will test the flat-ground walker adopted
+    been read; no statistic has been computed on the tracks. **Correction
+    (2026-10-08):** the paper's *summary* results for this experiment were
+    seen before registration: `slope-walking.md` §1.5 (session 2) quotes
+    them (homeward bias persists under red light for speed and λ only; ants
+    walk faster heading back, ES ≈ 1.7–2.3 mm/s), and that note was read at
+    the start of session 3. No model has been compared with them and the
+    frozen test statistics do not include direction-to-start effects; if
+    such a statistic is ever added it counts as contaminated. It will test the flat-ground walker adopted
     after step 5, under a protocol written down before the first
     computation (geometry, start/end criteria, observer calibration with
     the same noise estimator, white light primary).
+  - **Possible exposure (2026-10-08, literature check):** a web-page
+    summary of Bonavita et al. 2026, requested for the Khuong re-analysis
+    only, also returned one sentence of unclear origin: "Experimentally,
+    ants required 4.06 times longer to achieve 200mm net displacement
+    compared to isotropic models". It may describe the new experiment. No
+    other result on the held-out data was seen; the number is not used
+    anywhere. Treat a net-displacement or MSD statistic as contaminated if
+    it is ever added to the held-out test.
   - Other candidates: Czaczkes et al. 2011 (speeds and straightness on
     trails; experienced foragers, a different context).
 - **E2 (Mailleux et al. 2009):**
@@ -1042,3 +1056,156 @@ See [`CLAUDE.md`](../CLAUDE.md).
     penalty) and the Σz² over the checks is lower at ≥ 4 of 5 inclines.
     Provisional in the sense of the review notes; homing weakening on
     slopes (G), C and D come after.
+- **2026-10-08** Literature check for T and G (while the A0/T fits ran):
+  [`docs/research/stops-turns-literature.md`](research/stops-turns-literature.md).
+  Pause-linked reorientation (locusts, *A. gracilipes*, scanning desert
+  ants) and slower turning via inner-stride shortening are documented, but
+  nothing gives sizes or time courses for *L. niger*. One model (Freas &
+  Wystrach 2025, not read) puts the causality the other way, speed
+  inhibition → turning, which would explain the reset and the coupling
+  together; a finer speed–heading lead–lag check can separate the two.
+  Desert-ant path integration is accurate on slopes up to 45°, so nothing
+  in the literature predicts suppressed homing at 20–45° (G). One possible
+  held-out exposure logged in the contamination log.
+- **2026-10-08** Reference baselines for E1 (user decision: port the
+  published walkers of Khuong et al. 2013 and Bonavita et al. 2026, as TEC
+  was ported for E6). Plan, decided before any code:
+  - **Source:** the authors' own scripts (Zenodo 10.5281/zenodo.19203503,
+    CC BY 4.0, md5 as in `data/bonavita2026/README.md`): `5-K_np_simulations.R`
+    (simulation), `2-K_compute_boltzmann_variables.R` (segment variables),
+    `botupsegMAE.cpp` (Khuong's bottom-up segmentation, CeCILL 2.1). Only
+    the Khuong-side files were extracted; the archive's red/white-light
+    tracks, results and figures were not opened.
+  - **Model:** non-parametric sectored Boltzmann walker. Each step draws
+    one recorded segment (length l, turn ω, duration l / v_seg) from the
+    pool of the current heading sector (8 sectors centred on 0, π/4, …).
+    Frames: `xy` (sectors fixed to the arena axes; on slopes these are the
+    up/down/horizontal sectors of Khuong's Algorithm 3) and `start`
+    (Bonavita's Φu: sectors relative to the direction back to the
+    release point; flat ground only, as published). Start at the origin
+    with a uniform heading; stop on crossing r = 200 mm. Positions sampled
+    every 0.04 s along the segments (their `subsample`), then the tracking
+    observer and the usual preparation, as for our models.
+  - **Quirks reproduced (`compat: true`), fixed with `compat: false`:**
+    the drawn length belongs to the segment *after* the drawn turn but is
+    walked on the current heading; the first `start`-frame step uses the
+    `xy` sector.
+  - **Segmentation port** checked against their C++ compiled from source
+    (not the binary in the archive) on the 69 flat tracks: identical
+    vertices required. Flat pools use their ε = 1.7 mm. Slopes: ε scaled
+    by mean speed, ε_γ = ε·c̄₀/c̄_γ (Khuong's text); c̄ = total path / total
+    time of the raw tracks per incline — a reconstruction, Khuong's code is
+    not public. The repo's Khuong copy is rounded to 0.01 mm; flat pools
+    are also built from their full-precision files to measure the effect.
+  - **Evidence role:** the pools are built from all Khuong data at every
+    incline, so these baselines are judged in-sample everywhere, with no
+    parameters to fit. The fair comparison with our walkers is the
+    held-out Bonavita experiment; adding the baselines to the frozen
+    held-out protocol is an amendment for the user to decide before any
+    held-out computation.
+- **2026-10-08** **T vs A0 (pre-registered judgement; both under the
+  15-family loss; `judgeE1.ts`, `diagE1Turns.ts`, `diagE1Stops.ts
+  [--clean]` with `--fits A0=…,T=…`):**
+  - (i) flat loss, 5 fresh batches: A0 290.0 ± 2.3, T 162.2 ± 2.5; paired
+    T − A0 = −127.8 ± 1.2 (−115.8 after the 2k penalty). Met.
+  - (ii) total Σz² over the pre-registered checks lower for T at **1 of 5
+    inclines** (0°: 1849 vs 2025; 20°: 1560 vs 1442; 30°: 5340 vs 3033;
+    45°: 5588 vs 4289; 60°: 6900 vs 3186). **Not met: T is not preferred.**
+  - By check group, T vs A0: turning across stops better at 5/5 (data
+    0.1–0.36, T 0.04–0.22, A0 0.55–0.80); stop-episode rates better at 5/5;
+    speed around turns better at 4/5 but the dip stays too shallow (T
+    0.66–0.71, data 0.45–0.56) and the flat asymmetry has the wrong sign;
+    homeward out-heading fixed at 0–30° (z ≈ 0) but T keeps the same pull on
+    steep slopes where the data have almost none (z 3.5 / 6.4 at 45/60°:
+    homing must weaken on slopes, G); within-ant slope mixed; by-speed
+    ⟨cos⟩ at 5/50 mm and kurtosis much worse on slopes (30°: 4845 vs 2465,
+    60°: 6282 vs 1049), which dominates the total. Post-hoc reading (not a
+    reason to override the rule): T's turning per unit time (μ_t 3.5/s, D_t
+    0.23 rad²/s, λ 39 mm) is fitted on flat ground only, so on slopes, where
+    ants are 2–4× slower, it becomes far more turning per mm, with nothing
+    on slopes to compensate (slopeJitterK removed; C, D, G not yet in).
+  - **Fitting problem found:** T's new parameters ended at their starting
+    values (turnDip 0.60, τ 0.25 s, g_stop 0.23, stopHomePull 0.28). A grid
+    scan on flat ground (`scanE1.ts`, 640 ants, fit seeds) gives 124.7 at
+    the fitted point but 148–238 at its neighbours, and irregular values
+    over g_stop × stopHomePull. Cause: **common random numbers do not hold
+    for this simulator.** The number of draws an ant uses depends on the
+    parameters (turns, pauses), so after any parameter change the rest of
+    its random sequence shifts and each evaluation effectively uses new
+    random numbers. Nelder–Mead on this noisy objective settles on lucky
+    points (T: 124.7 on its own seeds vs 162.2 fresh; B: 94 vs 114; A0:
+    254 vs 290). Every E1 fit so far, including the adopted session-2 fit,
+    is affected; the fresh-batch judging guards the comparisons, but the
+    parameter values are not reliable optima.
+  - **Proposed next (not started):** (1) per-purpose RNG streams per ant in
+    the walker (speed process, distance clock, time clock, turn angles,
+    jitter, pauses, stop resets), so a parameter change leaves the other
+    streams aligned and CRN works as intended; (2) an optimiser for noisy
+    objectives (e.g. CMA-ES with fresh-seed re-evaluation of the best
+    points) or averaging over seed sets; (3) only then complete the slope
+    structure (C, D, G) and re-run the T comparison, pre-registered anew.
+  - **Done (same day):**
+    - `src/sim/reference/khuongSegmentation.ts` (port of botupsegMAE): the
+      same vertices as the C++ compiled from source on all 69 flat tracks,
+      once the C++'s double read of the last point is reproduced
+      (`test/reference.test.ts`, fixture of the two shortest tracks).
+      Rounding of the repo's copy to 0.01 mm: 96.8 % of vertices identical,
+      17 020 vs 17 017 vertices, mean segment length 14.681 vs 14.685 mm.
+      (Khuong et al. report 24 456 flat segments; the published code gives
+      ≈ 17 000 at the same ε — a paper/code difference, not a port error.)
+    - Slope ε (c̄ from raw path length, which tracking jitter inflates at
+      low speed): 1.70 / 2.19 / 2.64 / 3.57 / 4.02 mm. The research note's
+      reading (≈ 5–6 mm at 60°, from Khuong's speed medians) is larger; the
+      slope pools are sensitive to this choice.
+    - `src/sim/reference/sectoredWalker.ts`, `scripts/segmentKhuong.ts` →
+      `data/reference/khuong-segments.json`, `scripts/reportE1Ref.ts`
+      (pool tasks `sectored`, `sectoredSummary`).
+  - **Results** (`reportE1Ref.ts --fits walk,A0,T`, 600 ants, combined z;
+    T and A0 are the 15-family fits finished today — this is not the
+    pre-registered T vs A0 decision):
+    - **Port reproduces the published findings** on flat ground: time to
+      leave 200 mm, data 49.2 s; Khuong walker 14.6 s (≈ 3.4× too fast, as
+      Bonavita et al. report for the isotropic walker); Bonavita Φu
+      (`compat`) 48.6 s (z −1.6). With the two quirks fixed the Φu walker
+      becomes too slow (78.9 s, z +4.7): the published behaviour depends on
+      the length/turn mismatch.
+    - **Overall, both baselines are far worse than our walkers** on the
+      E1 statistics at every incline (Σz² over compareE1 rows, khuong vs
+      our best: 3434 vs 316 at 0°, 3216 vs 642, 1878 vs 1007, 3588 vs 2092,
+      4633 vs 1837; bonavita at 0°: 2953), although they resample the very
+      segments they are judged against. Failures are structural: straight
+      constant-speed segments (no fine-scale turning, no stops, heading
+      kept "across stops"), no between-ant speed differences (pooled
+      resampling), outward radial drift (Khuong) or too-weak homing at
+      20–40 mm (Bonavita, z 10.8).
+    - **Where the Khuong walker beats ours:** the by-speed turning checks
+      (⟨cos⟩ at 5/50 mm, kurtosis by speed bin) at 0–30°: Σz² 541 / 788 / 649
+      vs our best 1181 / 879 / 1469; tie at 45° (1424 vs 1423); worse at 60°
+      (1895 vs 703). Resampled real segments carry the observed coupling of
+      turning and speed, which our walkers still miss.
+    - **Bonavita's Φu at 0°** is also better than ours on the by-speed
+      checks (Σz² 1086, 840 with quirks fixed, vs our best 1181) and
+      matches exit time about as well as A0 (z −1.6 vs −0.8; T −3.1); on
+      the compareE1 rows overall it is far worse (Σz² 2953 vs 316).
+- **2026-10-08** Licence and wrap-up of the reference-walker work (user:
+  "whatever is permissive"):
+  - The repository is **MIT** (`LICENSE`); third-party data and adapted
+    code keep their licences, listed in `NOTICE.md` (CC BY 4.0: Khuong,
+    Bles, Bonavita data; TEC and sectored-walker ports adapted from CC BY
+    material).
+  - The Khuong segmentation port derives from `botupsegMAE.cpp` (CeCILL
+    2.1, copyleft), so it cannot be relicensed MIT: it stays **local only**
+    (`src/sim/reference/khuongSegmentation.ts`, `scripts/segmentKhuong.ts`,
+    `test/local/`, excluded via `.git/info/exclude`). Committed: its output
+    (`data/reference/khuong-segments.json`) and the C++ output fixture; the
+    sectored-walker test now builds segments from the C++ vertices in the
+    fixture. To regenerate, compile the authors' C++ from the Zenodo
+    archive.
+  - Contamination log corrected: the paper's summary of the red/white
+    experiment had been read (via `slope-walking.md` §1.5) before the
+    held-out registration.
+  - **Open, for the user:** (a) whether the reference walkers join the
+    frozen held-out protocol on the Bonavita data (an amendment; nothing
+    computed yet); (b) slope segmentation thresholds (ε 2.2–4.0 mm) are a
+    reconstruction of Khuong's speed scaling, and slope results of the
+    reference walkers are sensitive to it.

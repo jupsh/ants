@@ -5,6 +5,7 @@ import { runScout, type LasiusParams, type ScoutOptions, type ScoutResult } from
 import { simulateColonies, type E6Metrics } from '../experiments/e6Bles';
 import type { WalkParams } from '../models/walk';
 import { runBles, type BlesParams } from '../reference/blesTEC';
+import { runSectored, type SectoredOptions, type SectorPools } from '../reference/sectoredWalker';
 
 /**
  * Units of simulation work that can run on any worker. Each is a pure
@@ -19,6 +20,10 @@ export const TASKS = {
   e1: (p: WalkParams, o: E1Options): Track[] => runE1(p, o),
   /** E1: the same ants, reduced in the worker to per-ant comparison summaries. */
   e1Summary: (p: WalkParams, o: E1Options): (Acc | null)[] => runE1(p, o).map(summarizeTrack),
+  /** E1 reference walkers (Khuong / Bonavita): a contiguous range of ants. */
+  sectored: (pools: SectorPools, o: SectoredOptions): Track[] => runSectored(pools, o),
+  /** The same, reduced in the worker to per-ant comparison summaries. */
+  sectoredSummary: (pools: SectorPools, o: SectoredOptions): (Acc | null)[] => runSectored(pools, o).map(summarizeTrack),
   /** E6: colonies [first, first + count) of the Bles et al. reference model, observed and summarised. */
   blesColonies: (P: BlesParams, seed: number, first: number, count: number): E6Metrics[] => simulateColonies((rng) => runBles(P, rng), count, seed, first),
 };

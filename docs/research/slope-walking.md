@@ -121,7 +121,7 @@ Qualitative statements [S]:
   - Median speed showed no bias in Khuong's data.
 - **[S]** The image-frame (Φx) analysis showed no ±X/±Y bias in g, sω, λ or speed.
 - **[S]** The MSD is bounded and sub-diffusive. The Φu simulation reproduces the time to a 200 mm net displacement (experimental/simulated ratio 0.83 ± 0.10). The isotropic walker is 3.4× too fast.
-- **[S]** Their new experiment, a tooth-pick release, ran under white and red light:
+- **[S]** Their new experiment, a tooth-pick release, ran under white and red light (_these data became the held-out E1 test in session 3; the summary below was read before registration, see the STATUS contamination log_):
   - The return bias persists under red light, for speed and λ only.
   - Ants walk faster when heading back: ES ≈ 1.7–2.3 mm/s.
   - Their candidate explanations are chemical cues (judged unlikely), path integration from idiothetic cues, or uneven curtain light.
