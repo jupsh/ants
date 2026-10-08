@@ -26,7 +26,8 @@ when a step starts or finishes, and log decisions there before acting on them.
     Ma|Mb|Mc|Mc0|Md`, `fitE6TEC.ts` — minutes with the pool.
   - Judge without writing: `reportE1.ts [--fit f]` (~9 s), `diagE1.ts
     [--fit f]` (step-5 structure diagnostics, data vs model),
-    `scanE1.ts` (loss on a 2-parameter grid), `reportE2.ts` (~9 s),
+    `diagE1Stops.ts [--fits A0=f,B=g] [--clean]` (stop reorientation, within- vs
+    between-ant speed–turning), `scanE1.ts` (loss on a 2-parameter grid), `reportE2.ts` (~9 s),
     `reportE6.ts [--fit]` (~4 s), `compareE2.ts`, `identifyE2.ts --variant X`.
   - Profiling: `node --cpu-prof node_modules/.bin/vite-node <script>` and sum
     self time per function from the `.cpuprofile`.

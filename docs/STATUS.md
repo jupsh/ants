@@ -909,8 +909,8 @@ See [`CLAUDE.md`](../CLAUDE.md).
     avoids the "turns shorten displacement" artefact). B predicts within ≈
     between; a correlated per-ant turning trait predicts between steeper
     than within.
-  - **Results** (600 simulated ants per incline; scratch script, not in
-    the repo yet; z = combined):
+  - **Results** (600 simulated ants per incline; `scripts/diagE1Stops.ts`;
+    z = combined):
     - **Reorientation at stops: confirmed, at every incline.** For real
       stops (0.13–0.8 s) the data's ⟨cos⟩ in vs out is 0.03–0.41 (mostly
       0.1–0.3); A0 0.64–0.81, B 0.57–0.79 (z 1.8–9.3). It is already low for
@@ -954,3 +954,24 @@ See [`CLAUDE.md`](../CLAUDE.md).
   - then pre-register one combined candidate (heading reset at stops,
     corrected pause-duration distribution, the coupling the checks support,
     B's per-time terms only if still needed) and fit it against A0.
+- **2026-10-08** Review of the exploratory stop/trait checks
+  (`scripts/diagE1Stops.ts`; reproduced exactly, 600 ants, adopted fit):
+  - **Homeward redirection at stops is not reversal geometry.** If the
+    turn at a stop were independent of where home lies, ⟨cos(out − home)⟩
+    would be ⟨cos Δ⟩ · ⟨cos(in − home)⟩: ≈ 0.00 / +0.04 / −0.01 at 0/20/30°.
+    The data show +0.21 / +0.24 / +0.16 (model ≈ 0.01). At 45/60° the
+    excess is small (+0.03 / +0.08 vs predicted −0.03). So ants redirect
+    homeward when they stop, and less on steep slopes (cf. G).
+  - **Speed–turning coupling is not a by-product of stops.** Excluding
+    every 10 mm segment within 0.4 s of a stop, the data's within-ant slope
+    is −3.9 / −3.3 / −3.0 / −2.4 / −2.0 (all segments: −3.6 … −1.9); the
+    model's is unchanged (A0 −1.6 … −0.3, z 13–20). Reset at stops and the
+    steep coupling are separate phenomena; a candidate needs both.
+    Without stop-adjacent segments the between-ant slope shrinks (0°
+    −0.52, 45° −0.00, 60° +0.09): part of it came from how often ants
+    stop.
+  - Caveat for interpreting slope values: smoothing cuts corners, so
+    tortuous segments get a lower measured arc speed. That inflates the
+    within-ant slope on both sides (A0 has no speed-dependent turning, yet
+    shows −0.3 to −1.6), so compare data with model rather than with
+    theoretical values such as "−1 for per-time noise".
