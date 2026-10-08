@@ -1,7 +1,9 @@
-import { E2_TARGETS } from '../sim/experiments/e2Targets';
+import type { E2Row } from '../sim/experiments/e2Targets';
 import { REFS } from '../sim/species/refs';
 import type { E2Request, E2Response, TripFrame } from '../worker/e2Worker';
 import E2Worker from '../worker/e2Worker?worker';
+import { drawAnt } from './antSprite';
+import { fitCanvas, labeled, zCell } from './dom';
 
 const CONDITIONS = [
   { id: 'two', label: 'Two 0.7 µL drops (Mailleux 2009)' },
@@ -26,7 +28,7 @@ export function renderE2(root: HTMLElement): () => void {
   const lede = document.createElement('p');
   lede.className = 'lede';
   lede.textContent =
-    'Single Lasius niger scouts find a drop of 0.6 M sucrose in the Mailleux et al. apparatus (nest → bridge → 6 × 6 cm area). Each ant has its own desired volume; leaving satiated triggers trail laying on the way home. The drinking/decision parameters are fitted to the targets marked “fit”; the rows marked “withheld” were not used for fitting.';
+    'Single Lasius niger scouts find a drop of 0.6 M sucrose in the Mailleux et al. apparatus (nest → bridge → 6 × 6 cm area). Each ant has its own desired volume; leaving satiated triggers trail laying on the way home. The drinking/decision parameters are fitted to the targets marked “fit”; the rows marked “development” were not fitted but have been inspected while choosing the model’s structure, so they are no longer independent tests.';
   root.append(h, lede);
 
   const bar = document.createElement('div');
@@ -42,11 +44,6 @@ export function renderE2(root: HTMLElement): () => void {
   const runBtn = Object.assign(document.createElement('button'), { className: 'primary', textContent: 'Run' });
   const status = document.createElement('span');
   status.className = 'note';
-  const lab = (t: string, e: HTMLElement) => {
-    const l = document.createElement('label');
-    l.append(t, e);
-    return l;
-  };
   const speedSel = document.createElement('select');
   for (const v of [1, 5, 10, 30]) {
     const o = document.createElement('option');
@@ -55,7 +52,7 @@ export function renderE2(root: HTMLElement): () => void {
     if (v === 10) o.selected = true;
     speedSel.appendChild(o);
   }
-  bar.append(lab('Animate', sel), lab('Playback', speedSel), lab('Scouts per condition', nIn), runBtn, status);
+  bar.append(labeled('Animate', sel), labeled('Playback', speedSel), labeled('Scouts per condition', nIn), runBtn, status);
   root.appendChild(bar);
 
   const grid = document.createElement('div');
@@ -111,7 +108,7 @@ export function renderE2(root: HTMLElement): () => void {
     frameIdx = 0;
     playT = 0;
     holdEnd = 0;
-    renderTable(tableCard, res.metrics);
+    renderTable(tableCard, res.rows, res.foundBoth);
   };
   runBtn.onclick = run;
   sel.onchange = run;
@@ -119,16 +116,7 @@ export function renderE2(root: HTMLElement): () => void {
   const draw = () => {
     const now = performance.now();
     const css = getComputedStyle(document.documentElement);
-    const dpr = window.devicePixelRatio || 1;
-    const W = canvas.clientWidth;
-    const H = canvas.clientHeight;
-    if (canvas.width !== Math.round(W * dpr)) {
-      canvas.width = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
-    }
-    const ctx = canvas.getContext('2d')!;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const { ctx, dpr } = fitCanvas(canvas);
     // World window: x ∈ [-25, 185] mm, y ∈ [-40, 40] mm.
     const sx = canvas.width / 210;
     const sy = canvas.height / 95;
@@ -190,7 +178,7 @@ export function renderE2(root: HTMLElement): () => void {
         }
       const f: TripFrame | undefined = fr[frameIdx];
       if (f) {
-        drawAnt(ctx, X(f.x), Y(f.y), -f.heading, s, f.crop, css.getPropertyValue('--text-primary'));
+        drawAnt(ctx, X(f.x), Y(f.y), -f.heading, { scale: s, load: f.crop / 1.2, color: css.getPropertyValue('--text-primary'), gait: f.mode === 'drink' ? undefined : f.t * 9 });
         info.textContent = `Trip ${(tripIdx % res.trips.length) + 1}/${res.trips.length} · t = ${f.t.toFixed(0)} s · ${MODE_LABEL[f.mode] ?? f.mode} · crop ${f.crop.toFixed(2)} µL · playback ${speedSel.value}× real time`;
       }
     }
@@ -205,75 +193,48 @@ export function renderE2(root: HTMLElement): () => void {
   };
 }
 
-/** Simple top-view ant: head, mesosoma, gaster swelling with the crop load. */
-function drawAnt(ctx: CanvasRenderingContext2D, x: number, y: number, heading: number, s: number, crop: number, color: string): void {
-  const L = 4.1 * s;
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(heading);
-  ctx.fillStyle = color;
-  const g = 0.32 + 0.12 * Math.min(1, crop / 1.2);
-  ctx.beginPath();
-  ctx.ellipse(-L * 0.28, 0, L * g, L * g * 0.75, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.ellipse(L * 0.08, 0, L * 0.18, L * 0.09, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.ellipse(L * 0.36, 0, L * 0.13, L * 0.11, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
-
-function renderTable(card: HTMLElement, sim: Record<string, number>): void {
+function renderTable(card: HTMLElement, rows: E2Row[], foundBoth: number): void {
   card.textContent = '';
   const h = document.createElement('h2');
   h.textContent = 'Simulation vs data (Mailleux et al. 1999, 2009)';
   const note = document.createElement('p');
   note.className = 'note';
-  note.textContent = 'z = (simulated − data) / standard error of the data mean. |z| ≤ 2 is within sampling uncertainty.';
+  note.textContent =
+    'Mean: z = (simulated − data) / √(SE_data² + SE_sim²), SE_sim from 10 independent seed blocks. Spread: z of log(SD_sim / SD_data), approximate because times are right-skewed. |z| ≤ 2 is consistent with sampling noise; ≤ 3 marginal.';
   card.append(h, note);
   const t = document.createElement('table');
   t.className = 'params';
   const head = document.createElement('tr');
-  for (const c of ['Measure', 'Data', 'Simulated', 'z', '', 'Role']) {
+  for (const c of ['Measure', 'Data', 'Simulated', 'z (mean)', 'z (SD)', 'Role']) {
     const th = document.createElement('th');
     th.textContent = c;
     head.appendChild(th);
   }
   t.appendChild(head);
-  const fmt = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)} %` : `${v.toFixed(unit === 'µL' ? 2 : 0)} ${unit}`);
-  for (const tg of E2_TARGETS) {
-    const v = sim[tg.id];
-    const z = (v - tg.value) / tg.se;
+  const dp = (unit: string) => (unit === 'µL/s' ? 4 : unit === 'µL' || unit === 'r' ? 2 : 0);
+  const fmt = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)} %` : `${v.toFixed(dp(unit))} ${unit}`);
+  for (const { target: tg, sim, mean, spread } of rows) {
     const tr = document.createElement('tr');
     const c1 = document.createElement('td');
     c1.textContent = tg.label;
     c1.title = REFS[tg.source]?.full ?? tg.source;
     const c2 = document.createElement('td');
     c2.className = 'num';
-    c2.textContent = fmt(tg.value, tg.unit) + (tg.sd !== undefined ? ` ± ${tg.unit === 'µL' ? tg.sd.toFixed(2) : tg.sd}` : '');
+    c2.textContent = fmt(tg.value, tg.unit) + (tg.sd !== undefined ? ` ± ${tg.sd.toFixed(dp(tg.unit))}` : '') + ` (n = ${tg.n})`;
     const c3 = document.createElement('td');
     c3.className = 'num';
-    c3.textContent = Number.isFinite(v) ? fmt(v, tg.unit) : '—';
-    const c4 = document.createElement('td');
-    c4.className = 'num';
-    c4.textContent = Number.isFinite(z) ? z.toFixed(1) : '—';
-    const c5 = document.createElement('td');
-    const az = Math.abs(z);
-    c5.className = az <= 2 ? 'status-ok' : az <= 4 ? 'status-warn' : 'status-bad';
-    c5.textContent = az <= 2 ? '✓ within' : az <= 4 ? '~ marginal' : '✗ off';
+    c3.textContent = Number.isFinite(sim.mean) ? fmt(sim.mean, tg.unit) + (tg.sd !== undefined ? ` ± ${sim.sd.toFixed(dp(tg.unit))}` : '') + ` (n = ${sim.n})` : '—';
     const c6 = document.createElement('td');
     const b = document.createElement('span');
     b.className = `badge ${tg.role}`;
-    b.textContent = tg.role === 'fit' ? 'fit' : 'withheld';
+    b.textContent = tg.role === 'fit' ? 'fit' : 'development';
     c6.appendChild(b);
-    tr.append(c1, c2, c3, c4, c5, c6);
+    tr.append(c1, c2, c3, zCell(mean.z), zCell(spread?.z), c6);
     t.appendChild(tr);
   }
   card.appendChild(t);
   const p = document.createElement('p');
   p.className = 'note';
-  p.textContent = `Simulated scouts finding both drops (2009 protocol): ${((sim['two.foundBoth'] ?? NaN) * 100).toFixed(0)} % (data: > 95 %).`;
+  p.textContent = `“± x” is the SD between ants. Simulated scouts finding both drops (2009 protocol): ${(foundBoth * 100).toFixed(0)} % (data: > 95 %).`;
   card.appendChild(p);
 }

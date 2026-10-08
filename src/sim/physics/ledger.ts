@@ -22,38 +22,40 @@ export type Account =
   | 'waste';
 
 export const QUANTITIES: Quantity[] = ['sugar', 'water', 'protein'];
+const ACCOUNTS: Account[] = ['external', 'food', 'crop', 'reserve', 'brood', 'store', 'respired', 'evaporated', 'waste'];
+const QI: Record<Quantity, number> = { sugar: 0, water: 1, protein: 2 };
+const AI = Object.fromEntries(ACCOUNTS.map((a, i) => [a, i])) as Record<Account, number>;
+const NA = ACCOUNTS.length;
 
 export class Ledger {
-  private readonly bal = new Map<string, number>();
+  /** Balances indexed by quantity × account (fixed indices: this runs every step for every ant). */
+  private readonly bal = new Float64Array(QUANTITIES.length * NA);
   transfers = 0;
 
-  private key(q: Quantity, a: Account): string {
-    return `${q}:${a}`;
-  }
-
   get(q: Quantity, a: Account): number {
-    return this.bal.get(this.key(q, a)) ?? 0;
+    return this.bal[QI[q] * NA + AI[a]];
   }
 
   move(q: Quantity, from: Account, to: Account, amount: number): void {
     if (amount === 0 || from === to) return;
     if (!Number.isFinite(amount)) throw new Error(`ledger: non-finite ${q} transfer ${from}→${to}`);
-    const kf = this.key(q, from);
-    const kt = this.key(q, to);
-    this.bal.set(kf, (this.bal.get(kf) ?? 0) - amount);
-    this.bal.set(kt, (this.bal.get(kt) ?? 0) + amount);
+    const base = QI[q] * NA;
+    this.bal[base + AI[from]] -= amount;
+    this.bal[base + AI[to]] += amount;
     this.transfers++;
   }
 
   /** Sum over all accounts (must be 0 by construction). */
   total(q: Quantity): number {
     let s = 0;
-    for (const [k, v] of this.bal) if (k.startsWith(`${q}:`)) s += v;
+    for (let i = 0; i < NA; i++) s += this.bal[QI[q] * NA + i];
     return s;
   }
 
   snapshot(): Record<string, number> {
-    return Object.fromEntries(this.bal);
+    const out: Record<string, number> = {};
+    for (const q of QUANTITIES) for (const a of ACCOUNTS) if (this.bal[QI[q] * NA + AI[a]] !== 0) out[`${q}:${a}`] = this.bal[QI[q] * NA + AI[a]];
+    return out;
   }
 }
 

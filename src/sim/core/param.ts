@@ -121,3 +121,22 @@ export function flattenParams(def: unknown, prefix = ''): ParamRow[] {
   }
   return rows;
 }
+
+/**
+ * Put the values of a fit file into a definition, so that each provenance
+ * record carries the value actually used. Keys listed in `free` (default:
+ * every key given) become `fitted` with `fit` recorded; other changed keys
+ * (fixed by a model variant) keep their status and gain a note. A key that
+ * the definition lacks is an error.
+ */
+export function applyFit<T extends Record<string, Sourced<unknown>>>(def: T, values: Record<string, unknown> | undefined, o: { fit: string; free?: string[] }): T {
+  if (!values) return def;
+  const out: Record<string, Sourced<unknown>> = { ...def };
+  for (const [k, v] of Object.entries(values)) {
+    const rec = def[k];
+    if (!rec) throw new Error(`applyFit: fit sets unknown parameter "${k}"`);
+    if (v === rec.v) continue;
+    out[k] = (o.free ?? Object.keys(values)).includes(k) ? { ...rec, v, conf: 'fitted', fit: o.fit } : { ...rec, v, note: `${rec.note ?? ''} Set to ${String(v)} by ${o.fit}.`.trim() };
+  }
+  return out as T;
+}

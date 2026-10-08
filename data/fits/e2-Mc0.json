@@ -1,0 +1,63 @@
+{
+  "experiment": "E2 drinking & trail-laying decision (Mailleux et al. 1999, 2009)",
+  "variant": "Mc0",
+  "label": "M_c0 (M_c without q)",
+  "description": "M_c with no trail laying by unsatisfied ants (q = 0).",
+  "fittedOn": [
+    "d1.drink",
+    "d1.trail",
+    "d4.drink",
+    "d4.trail",
+    "d8.drink",
+    "d8.trail",
+    "two.ul1",
+    "two.t1",
+    "two.tl1",
+    "two.vtSlope",
+    "two.vtRs"
+  ],
+  "dt": 0.1,
+  "scoutsPerCondition": 150,
+  "evals": 161,
+  "seconds": 518.382,
+  "loss": 26.217368570097065,
+  "k": 8,
+  "free": {
+    "forager.desiredFed": 0.6040794795122506,
+    "forager.desiredHungry": 0.8053793192635761,
+    "setup.accessible": 0.7738283091740811,
+    "phys.intakeSd": 0.2110397303733646,
+    "setup.volumeSd": 0.20624230978720742,
+    "forager.desiredSd": 0.40054924381166557,
+    "forager.stopHazard": 0.06586832162055062,
+    "forager.neverLayFraction": 0.11984628871699572
+  },
+  "forager": {
+    "desiredFed": 0.6040794795122506,
+    "desiredHungry": 0.8053793192635761,
+    "hungerScale": 0.3,
+    "desiredSd": 0.40054924381166557,
+    "stopHazard": 0.06586832162055062,
+    "stopEta": 4.3,
+    "stopPerVolume": 0,
+    "emptyPatience": 3,
+    "neverLayFraction": 0.11984628871699572,
+    "unsatisfiedLayProb": 0,
+    "layIntensity": 0.13,
+    "layIntensitySd": 0.08,
+    "gasterBout": 0.25,
+    "arsMean": 80,
+    "arsRunScale": 0.4,
+    "homeGain": 1,
+    "homeRunScale": 3,
+    "compassBias": 0.08,
+    "loadSlowdown": 1
+  },
+  "phys": {
+    "intakeSd": 0.2110397303733646
+  },
+  "pipetteAccessible": 0.7738283091740811,
+  "observer": {
+    "volumeSd": 0.20624230978720742
+  }
+}

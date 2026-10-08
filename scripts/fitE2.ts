@@ -1,100 +1,78 @@
 /**
- * Fit the L. niger drinking / trail-laying decision to Mailleux et al. data.
+ * Fit an E2 model variant (src/sim/experiments/e2Variants.ts) to the
+ * Mailleux et al. targets marked "fit" in e2Targets.ts:
+ *   - 1999: drinking time and % trail at a 3 µL drop after 1, 4, 8 days;
+ *   - 2009: drop-1 intake, drinking time and trail fraction; the pooled
+ *     volume–time regression (slope, Spearman r).
+ * Development rows and the between-ant SDs are reported, never fitted.
  *
- * Fit targets (independent of apparatus geometry):
- *   - 1999: drinking time at a 3 µL 0.6 M drop after 1, 4, 8 days of
- *     starvation (65 ± 21, 88 ± 24, 93 ± 23 s; n = 63, 135, 92) and the
- *     proportion of scouts laying trail (85, 94, 88 %; n = 67, 141, 97).
- *   - 2009: first-drop intake 0.47 ± 0.25 µL, drinking time 51 ± 12 s and
- *     trail fraction after drop 1 (38 %) (n = 63) — the latter identifies
- *     the unsatisfied-laying probability.
- * Withheld (validation, reported only): 2009 overall trail fraction (84 %),
- * second-drop intake 0.28 ± 0.20 µL and
- * drinking time 23 ± 11 s, between-drop times (TL1 58 ± 33 s, nTL1 134 ± 87 s),
- * total 178 ± 83 s.
+ * Objective: Σ z² with SE_data only; 150 scouts per condition; common random
+ * numbers; 160 Nelder–Mead evaluations (the step-3 budget, same for all
+ * variants).
  *
- * Usage: npx vite-node scripts/fitE2.ts
+ * Usage: npx vite-node scripts/fitE2.ts --variant Ma|Mb|Mc|Mc0|Md
+ * Writes data/fits/e2-<variant>.json.
  */
 import fs from 'node:fs';
 import { nelderMead } from '../src/sim/analysis/optimize';
-import { summarize } from '../src/sim/analysis/trajectory';
-import { runScout, type LasiusParams, type ScoutResult } from '../src/sim/experiments/e2Mailleux';
+import { e2Compare, e2Loss, e2Table, simulateE2Async, E2_TARGETS } from '../src/sim/experiments/e2Targets';
+import { decode, encode, freeValues, E2_VARIANTS, type E2Model } from '../src/sim/experiments/e2Variants';
 import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
+import { arg, readJson } from './lib';
+import { SimPool } from './pool';
 
 const N = 150;
 const DT = 0.1;
-const base: LasiusParams = { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER }, phys: { ...LASIUS_PHYS }, morph: LASIUS_MORPH };
-let accessible = 0.75;
+const BUDGET = 160;
+const variant = E2_VARIANTS.find((v) => v.id === arg('--variant', 'Ma'));
+if (!variant) throw new Error(`unknown variant; use one of ${E2_VARIANTS.map((v) => v.id).join(', ')}`);
 
-function scouts(P: LasiusParams, opts: Omit<Parameters<typeof runScout>[1], 'seed'>, seed0: number): ScoutResult[] {
-  return Array.from({ length: N }, (_, i) => runScout(P, { ...opts, seed: seed0 + i, dt: DT, maxTime: 900 }));
-}
-
-function evaluate(P: LasiusParams, acc: number, report = false): number {
-  let loss = 0;
-  const z = (sim: number, data: number, se: number) => ((sim - data) / se) ** 2;
-  const lines: string[] = [];
-  const d1999 = [
-    { days: 1, drink: 65, sd: 21, n: 63, trail: 0.85, nt: 67 },
-    { days: 4, drink: 88, sd: 24, n: 135, trail: 0.94, nt: 141 },
-    { days: 8, drink: 93, sd: 23, n: 92, trail: 0.88, nt: 97 },
-  ];
-  for (const d of d1999) {
-    const rs = scouts(P, { drop1: { ul: 3, molar: 0.6 }, pipetteAccessible: acc, starvationDays: d.days }, 1000 * d.days).filter((r) => r.drinks.length);
-    const drink = summarize(rs.map((r) => r.drinks[0].time));
-    const trail = rs.filter((r) => r.laidTrail).length / rs.length;
-    const se = d.sd / Math.sqrt(d.n);
-    const seT = Math.sqrt((d.trail * (1 - d.trail)) / d.nt);
-    loss += z(drink.mean, d.drink, se) + z(trail, d.trail, seT);
-    lines.push(`1999 ${d.days}d: drink ${drink.mean.toFixed(1)}±${drink.sd.toFixed(1)} (data ${d.drink}±${d.sd}); trail ${(trail * 100).toFixed(0)}% (data ${d.trail * 100}%)`);
-  }
-  const rs = scouts(P, { drop1: { ul: 0.7, molar: 0.6 }, drop2: { ul: 0.7, molar: 0.6 }, pipetteAccessible: acc, starvationDays: 4 }, 50000);
-  const first = rs.filter((r) => r.drinks.length);
-  const ul1 = summarize(first.map((r) => r.drinks[0].ul));
-  const t1 = summarize(first.map((r) => r.drinks[0].time));
-  const tl1Frac = first.filter((r) => r.laidSection1).length / Math.max(1, first.length);
-  loss += z(ul1.mean, 0.47, 0.25 / Math.sqrt(63)) + z(t1.mean, 51, 12 / Math.sqrt(63)) + z(tl1Frac, 0.38, Math.sqrt((0.38 * 0.62) / 63));
-  lines.push(`2009 drop1 trail (fit): ${(tl1Frac * 100).toFixed(0)}% (data 38%)`);
-  lines.push(`2009 drop1 (fit): intake ${ul1.mean.toFixed(2)}±${ul1.sd.toFixed(2)} µL (data 0.47±0.25); drink ${t1.mean.toFixed(1)}±${t1.sd.toFixed(1)} s (data 51±12)`);
-  if (report) {
-    const both = rs.filter((r) => r.drinks.length >= 2);
-    const tl1 = both.filter((r) => r.laidSection1);
-    const ntl1 = both.filter((r) => !r.laidSection1);
-    const s = (xs: number[]) => {
-      const q = summarize(xs);
-      return `${q.mean.toFixed(2)}±${q.sd.toFixed(2)}`;
-    };
-    lines.push(`2009 VALIDATION (n=${both.length} found both drops):`);
-    lines.push(`  overall ${((both.filter((r) => r.laidTrail).length / both.length) * 100).toFixed(0)}% (data 84%)`);
-    lines.push(`  drop 2 intake ${s(both.map((r) => r.drinks[1].ul))} µL (data 0.28±0.20); drink ${s(both.map((r) => r.drinks[1].time))} s (data 23±11)`);
-    lines.push(`  between drops: TL1 ${s(tl1.map((r) => r.betweenTime))} s (data 58±33), nTL1 ${s(ntl1.map((r) => r.betweenTime))} s (data 134±87)`);
-    lines.push(`  total intake ${s(both.map((r) => r.drinks[0].ul + r.drinks[1].ul))} µL (data 0.75±0.30); total time ${s(both.map((r) => r.total))} s (data 178±83)`);
-    console.log(lines.join('\n'));
-  }
-  return loss;
-}
-
-const keys = ['desiredFed', 'desiredHungry', 'desiredSd', 'stopHazard', 'unsatisfiedLayProb'] as const;
-const logit = (p: number) => Math.log(p / (1 - p));
-const sig = (x: number) => 1 / (1 + Math.exp(-x));
-const enc = (P: LasiusParams, acc: number) => [...keys.map((k) => (k === 'unsatisfiedLayProb' ? logit(P.forager[k]) : Math.log(P.forager[k]))), logit(acc)];
-const dec = (x: number[]): [LasiusParams, number] => {
-  const f = { ...base.forager };
-  keys.forEach((k, i) => (f[k] = k === 'unsatisfiedLayProb' ? sig(x[i]) : Math.exp(x[i])));
-  return [{ ...base, forager: f }, 1 / (1 + Math.exp(-x[keys.length]))];
+// Starting points: the session-1 M_a fit for the M_a family; published values for M_b.
+const prev = readJson<any>('data/fits/e2-drinking.json');
+const base: E2Model = {
+  P: { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER, ...prev.forager }, phys: { ...LASIUS_PHYS, intakeSd: 0.2 }, morph: LASIUS_MORPH },
+  setup: { accessible: prev.pipetteAccessible ?? 0.75, volumeSd: 0.2 },
 };
+const start = variant.id === 'Mb' ? { ...base, P: { ...base.P, forager: { ...base.P.forager, desiredFed: 0.57, desiredHungry: 0.88, stopEta: 4.3 } } } : base;
+
+const pool = await SimPool.create();
+const run = pool.scouts.bind(pool);
+const loss = async (m: E2Model) => e2Loss(await simulateE2Async(m.P, N, m.setup, DT, 0, 1, run), 'fit');
 const t0 = Date.now();
-console.log('initial loss', evaluate(base, accessible, true).toFixed(2));
-const r = nelderMead((x) => {
-  const [P, acc] = dec(x);
-  return evaluate(P, acc);
-}, enc(base, accessible), 0.25, 160, 1e-4, (s) => console.log(`eval ${s.evals} loss ${s.f.toFixed(2)}`));
-const [P, acc] = dec(r.x);
-console.log('\nfinal loss', evaluate(P, acc, true).toFixed(2));
-accessible = acc;
+const x0 = encode(variant, variant.fix(start));
+console.log(`${variant.label}: ${variant.free.length} free parameters; start loss ${(await loss(decode(variant, start, x0))).toFixed(2)}`);
+const r = await nelderMead((x) => loss(decode(variant, start, x)), x0, 0.25, BUDGET, 1e-4, (s) => console.log(`eval ${s.evals} loss ${s.f.toFixed(2)}`));
+const best = decode(variant, start, r.x);
+const k = variant.free.length;
+console.log(`\nfinal fit loss ${r.f.toFixed(2)}, k = ${k}, loss + 2k = ${(r.f + 2 * k).toFixed(2)}`);
+console.log(Object.entries(freeValues(variant, best)).map(([key, v]) => `${key} = ${v.toPrecision(3)}`).join(', '));
+// Judge on fresh seeds (10 blocks) with the combined-SE criteria.
+console.log(e2Table(e2Compare(await simulateE2Async(best.P, N, best.setup, DT, 7_000_000, 10, run))));
 fs.mkdirSync('data/fits', { recursive: true });
 fs.writeFileSync(
-  'data/fits/e2-drinking.json',
-  JSON.stringify({ experiment: 'E2 drinking & trail-laying decision (Mailleux et al. 1999, 2009)', fittedOn: ['1999 drinking times and % trail (1/4/8 days)', '2009 first-drop intake, time and trail fraction'], validatedOn: ['2009 overall trail fraction, second drop, between/total times'], dt: DT, scoutsPerCondition: N, seconds: (Date.now() - t0) / 1000, loss: r.f, forager: Object.fromEntries(keys.map((k) => [k, P.forager[k]])), pipetteAccessible: accessible }, null, 2),
+  `data/fits/e2-${variant.id}.json`,
+  JSON.stringify(
+    {
+      experiment: 'E2 drinking & trail-laying decision (Mailleux et al. 1999, 2009)',
+      variant: variant.id,
+      label: variant.label,
+      description: variant.description,
+      fittedOn: E2_TARGETS.filter((t) => t.role === 'fit').map((t) => t.id),
+      dt: DT,
+      scoutsPerCondition: N,
+      evals: r.evals,
+      seconds: (Date.now() - t0) / 1000,
+      loss: r.f,
+      k,
+      free: freeValues(variant, best),
+      forager: best.P.forager,
+      phys: { intakeSd: best.P.phys.intakeSd },
+      pipetteAccessible: best.setup.accessible,
+      observer: { volumeSd: best.setup.volumeSd },
+    },
+    null,
+    2,
+  ),
 );
-console.log('wrote data/fits/e2-drinking.json');
+console.log(`wrote data/fits/e2-${variant.id}.json`);
+pool.close();

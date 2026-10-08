@@ -232,7 +232,8 @@ table.params td.num {
 .badge.fit {
   color: var(--text-secondary);
 }
-.badge.validation {
+.badge.validation,
+.badge.development {
   color: var(--accent);
   border-color: var(--accent);
 }

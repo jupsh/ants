@@ -12,6 +12,8 @@ import type { Agent, World } from '../world/world';
 export interface PhysParams {
   /** Ingestion rate of 0.6 M sucrose (µL/s) at the reference temperature. */
   intakeRate: number;
+  /** SD of log individual intake rate (mean-preserving log-normal multiplier). */
+  intakeSd: number;
   /** Resting metabolic rate (mg sucrose-equivalent per hour per mg^0.75) at 25 °C, and the factor while walking. */
   metabolic: number;
   activeFactor: number;
@@ -106,7 +108,7 @@ function drink(w: World, b: Body, foodId: number, phys: PhysParams, dt: number):
   // Intake scales inversely with viscosity relative to 0.6 M (sucrose viscosity rises ~exponentially with concentration).
   const visc = Math.exp(1.05 * (f.molar - 0.6));
   const temp = arrhenius(w.tempC, 22, 0.3);
-  const ul = Math.min(phys.intakeRate * dt * temp / visc, f.accessibleUl(), b.morph.cropCapacity - b.cropUl);
+  const ul = Math.min(phys.intakeRate * b.intakeFactor * dt * temp / visc, f.accessibleUl(), b.morph.cropCapacity - b.cropUl);
   if (ul <= 0) return;
   const s = ul * f.sugarPerUl();
   const wa = ul * f.waterPerUl();
@@ -123,8 +125,19 @@ function drink(w: World, b: Body, foodId: number, phys: PhysParams, dt: number):
  * reserve); oxidation yields metabolic water (0.579 mg H2O per mg sucrose).
  * Cuticular water loss follows the vapour pressure deficit.
  */
+/** Per-(mass, temperature, humidity) constants of metabolism; recomputed only when they change. */
+const metaCache = { mass: NaN, tempC: NaN, rh: NaN, massTemp: 0, vpd: 0 };
+
 function metabolise(w: World, b: Body, phys: PhysParams, active: boolean, dt: number): void {
-  const rate = (phys.metabolic * Math.pow(b.morph.mass, 0.75) * arrhenius(w.tempC, 25, 0.65) * (active ? phys.activeFactor : 1)) / 3600; // mg/s
+  const c = metaCache;
+  if (c.mass !== b.morph.mass || c.tempC !== w.tempC || c.rh !== w.rh) {
+    c.mass = b.morph.mass;
+    c.tempC = w.tempC;
+    c.rh = w.rh;
+    c.massTemp = Math.pow(b.morph.mass, 0.75) * arrhenius(w.tempC, 25, 0.65);
+    c.vpd = satVapourMmHg(w.tempC) * (1 - w.rh / 100);
+  }
+  const rate = (phys.metabolic * c.massTemp * (active ? phys.activeFactor : 1)) / 3600; // mg/s
   let need = rate * dt;
   // Absorb crop sugar into the reserve when the reserve is not full.
   const room = Math.max(0, b.reserveMax - b.reserve);
@@ -147,7 +160,7 @@ function metabolise(w: World, b: Body, phys: PhysParams, active: boolean, dt: nu
   b.water += metabolicWater;
   w.ledger.move('water', 'external', 'reserve', metabolicWater);
   // Evaporation.
-  const vpd = satVapourMmHg(w.tempC) * (1 - w.rh / 100);
+  const vpd = c.vpd;
   const loss = Math.min(b.water, ((phys.permeability * (phys.surfaceArea / 100) * vpd) / 1000 / 3600) * dt); // mg
   b.water -= loss;
   w.ledger.move('water', 'reserve', 'evaporated', loss);

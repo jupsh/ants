@@ -1,6 +1,7 @@
 import statusMd from '../docs/STATUS.md?raw';
 import { renderE1 } from './ui/e1Page';
 import { renderE2 } from './ui/e2Page';
+import { renderE6 } from './ui/e6Page';
 import './ui/style.css';
 
 type Page = { id: string; label: string; render?: (root: HTMLElement) => (() => void) | void };
@@ -8,7 +9,7 @@ type Page = { id: string; label: string; render?: (root: HTMLElement) => (() => 
 const PAGES: Page[] = [
   { id: 'e1', label: 'E1 Walking', render: renderE1 },
   { id: 'e2', label: 'E2 Recruit decision', render: renderE2 },
-  { id: 'e6', label: 'E6 Food sharing (planned)' },
+  { id: 'e6', label: 'E6 Food sharing', render: renderE6 },
   { id: 'colony', label: 'Colony (planned)' },
   { id: 'status', label: 'Project status', render: renderStatus },
 ];

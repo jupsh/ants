@@ -1,6 +1,6 @@
 import e1fit from '../../../data/fits/e1-walk.json';
 import e2fit from '../../../data/fits/e2-drinking.json';
-import { derived, estimated, fitted, measured, resolve } from '../core/param';
+import { applyFit, derived, estimated, fitted, measured, resolve } from '../core/param';
 import { walkParams, type WalkParams } from '../models/walk';
 
 /**
@@ -17,13 +17,33 @@ export const LASIUS_WALK_DEF = Object.fromEntries(
 
 const MAILLEUX = { conditions: '22 ± 3 °C, colonies of 1000–2000 workers, 0.6 M sucrose, nest–bridge–6 × 6 cm area' };
 
-export const LASIUS_FORAGER_DEF = {
+/**
+ * The adopted E2 fit (data/fits/e2-drinking.json). Variant fits written by
+ * scripts/fitE2.ts list their free parameters as "group.key"; older fits
+ * list only the fitted forager values.
+ */
+interface E2Fit {
+  variant?: string;
+  free?: Record<string, number>;
+  forager?: Record<string, number>;
+  phys?: Record<string, number>;
+  pipetteAccessible?: number;
+  observer?: { volumeSd?: number };
+}
+const E2FIT = e2fit as E2Fit;
+const e2Free = (group: string) => (E2FIT.free ? Object.keys(E2FIT.free).filter((k) => k.startsWith(`${group}.`)).map((k) => k.slice(group.length + 1)) : undefined);
+const E2_FIT_LABEL = `E2 fit${E2FIT.variant ? ` (variant ${E2FIT.variant})` : ''}, data/fits/e2-drinking.json`;
+
+const LASIUS_FORAGER_BASE = {
   desiredFed: fitted(0.65, 'µL', ['mailleux1999', 'mailleux2009'], 'Median desired volume of a recently fed forager.', { ...MAILLEUX, fit: 'E2 (scripts/fitE2.ts) on 1-, 4-, 8-day starvation drinking times and trail-laying proportions', uncertainty: { kind: 'to be estimated by profile likelihood' } }),
   desiredHungry: fitted(1.06, 'µL', ['mailleux1999', 'mailleux2009'], 'Median desired volume of a strongly starved forager (Vc ≈ 1 µL after 4 days).', { ...MAILLEUX, fit: 'E2' }),
   hungerScale: estimated(0.3, '', 'Reserve deficit at which the desired volume saturates; tied to the starvation→reserve mapping (reserveDays).'),
   desiredSd: fitted(0.4, 'log units', 'mailleux2005', 'Between-individual variation of desired volume; the individual value is constant across trips.', { ...MAILLEUX, fit: 'E2' }),
   stopHazard: fitted(0.05, '1/s', 'mailleux2009', 'Maximum per-second probability of leaving the food once the desired volume is exceeded.', { ...MAILLEUX, fit: 'E2' }),
-  stopEta: derived(4.3, '1/µL', 'mailleux2009', 'Sensitivity η of the response-threshold function in Mailleux et al.’s model (formula transcribed from the PDF text layer; interpretation as logistic in η(V − Vd)).', MAILLEUX),
+  stopEta: derived(4.3, '1/µL', ['mailleux2003', 'mailleux2009'], 'Sensitivity η of the response-threshold function S(V) = ηΔV/(1 + e^{−η(V − Vc)}) (Mailleux et al. 2003 eq. 2.1; docs/research/mailleux-rules.md).', MAILLEUX),
+  stopPerVolume: estimated(0, '', 'Stopping rule: 0 = per-second hazard (M_a), 1 = per-µL response threshold (M_b). Chosen by the step-3 mechanism comparison.'),
+  satiationOnTime: estimated(0, '', 'Satiation signal: 0 = volume ingested (M_a), 1 = drinking time in µL-equivalents (M_d, step 3b).'),
+  nominalIntake: derived(0.0095, 'µL/s', ['mailleux2009'], 'Population mean intake rate (= phys.intakeRate); converts M_d’s drinking-time signal into µL-equivalents.', MAILLEUX),
   emptyPatience: estimated(3, 's', 'Time an ant keeps probing an exhausted drop before leaving.'),
   neverLayFraction: measured(0.12, '', ['mailleux2005', 'mailleux2009'], '14 % of foragers never lay trail (2005); 10–20 % in 2009.', { ...MAILLEUX, uncertainty: { range: [0.1, 0.2] } }),
   unsatisfiedLayProb: fitted(0.3, '', 'mailleux2009', 'Probability that a scout leaving an exhausted drop before reaching its desired volume still lays trail. Needed because trail layers and non-layers drank the same volume at a 0.7 µL drop (0.49 vs 0.46 µL); identified from the 38 % drop-1 trail fraction.', { ...MAILLEUX, fit: 'E2' }),
@@ -38,8 +58,9 @@ export const LASIUS_FORAGER_DEF = {
   loadSlowdown: fitted(1.0, '', 'mailleux1999', 'Return times rise with starvation (110 → 137 → 156 s) as ingested volume rises (≈0.65 → 0.9 µL).', { ...MAILLEUX, fit: 'E2 return times' }),
 };
 
-export const LASIUS_PHYS_DEF = {
+const LASIUS_PHYS_BASE = {
   intakeRate: fitted(0.0095, 'µL/s', ['mailleux2009'], '0.47 µL ingested in 51 s at a 0.7 µL drop of 0.6 M sucrose; Mailleux et al. model uses 0.01 µL/s.', { ...MAILLEUX, transform: 'volume ÷ drinking time' }),
+  intakeSd: estimated(0, 'log units', 'Between-worker SD of log intake rate; intake rate is an individual trait (Mailleux et al. 2009). Set by the step-3 fits.'),
   metabolic: derived(1.2e-3, 'mg/h/mg^0.75', 'gillooly2001', 'Resting ant metabolism ≈1 µL O2 h⁻¹ mg⁻¹ converted to sucrose equivalents.'),
   activeFactor: estimated(3, '×', 'Walking raises metabolic rate several-fold.'),
   permeability: estimated(20, 'µg cm⁻² h⁻¹ mmHg⁻¹', 'Mid-range cuticular permeability of mesic ants (≈5–60).'),
@@ -47,6 +68,9 @@ export const LASIUS_PHYS_DEF = {
   depositPerMm: estimated(1, 'units/mm', 'Normalisation of trail units: one gaster-contact millimetre deposits 1 unit.'),
   compassNoise: estimated(0.0005, 'rad²/mm', 'Small random PI heading error per mm walked.'),
 };
+
+export const LASIUS_FORAGER_DEF = applyFit(LASIUS_FORAGER_BASE, E2FIT.forager, { fit: E2_FIT_LABEL, free: e2Free('forager') });
+export const LASIUS_PHYS_DEF = applyFit(LASIUS_PHYS_BASE, E2FIT.phys, { fit: E2_FIT_LABEL, free: e2Free('phys') });
 
 export const LASIUS_MORPH_DEF = {
   len: measured(4.1, 'mm', 'khuong2016', '4.1 ± 0.14 mm.', { uncertainty: { sd: 0.14, kind: 'between workers' } }),
@@ -61,11 +85,8 @@ export const LASIUS_FORAGER = resolve(LASIUS_FORAGER_DEF);
 export const LASIUS_PHYS = resolve(LASIUS_PHYS_DEF);
 export const LASIUS_MORPH = resolve(LASIUS_MORPH_DEF);
 
-/** Complete M1 parameter set (fitted values merged from data/fits where present). */
-export const LASIUS_PARAMS = {
-  walk: LASIUS_WALK,
-  forager: { ...LASIUS_FORAGER, ...((e2fit as { forager?: Partial<typeof LASIUS_FORAGER> }).forager ?? {}) },
-  phys: LASIUS_PHYS,
-  morph: LASIUS_MORPH,
-};
-export const MAILLEUX_PIPETTE_ACCESSIBLE: number = (e2fit as { pipetteAccessible?: number }).pipetteAccessible ?? 0.75;
+/** Complete M1 parameter set (fitted values from data/fits already applied to the definitions). */
+export const LASIUS_PARAMS = { walk: LASIUS_WALK, forager: LASIUS_FORAGER, phys: LASIUS_PHYS, morph: LASIUS_MORPH };
+export const MAILLEUX_PIPETTE_ACCESSIBLE: number = E2FIT.pipetteAccessible ?? 0.75;
+/** Mailleux apparatus and observer settings fitted with the E2 model (volume-estimate SD in µL). */
+export const MAILLEUX_SETUP = { accessible: MAILLEUX_PIPETTE_ACCESSIBLE, volumeSd: E2FIT.observer?.volumeSd ?? 0 };

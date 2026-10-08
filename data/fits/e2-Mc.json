@@ -1,0 +1,64 @@
+{
+  "experiment": "E2 drinking & trail-laying decision (Mailleux et al. 1999, 2009)",
+  "variant": "Mc",
+  "label": "M_c (M_a, never-layers free)",
+  "description": "M_a with the never-layer fraction estimated within 10–20 %.",
+  "fittedOn": [
+    "d1.drink",
+    "d1.trail",
+    "d4.drink",
+    "d4.trail",
+    "d8.drink",
+    "d8.trail",
+    "two.ul1",
+    "two.t1",
+    "two.tl1",
+    "two.vtSlope",
+    "two.vtRs"
+  ],
+  "dt": 0.1,
+  "scoutsPerCondition": 150,
+  "evals": 160,
+  "seconds": 504.144,
+  "loss": 21.538099790823654,
+  "k": 9,
+  "free": {
+    "forager.desiredFed": 0.6054978449785262,
+    "forager.desiredHungry": 0.8021232495370958,
+    "setup.accessible": 0.7853575898648164,
+    "phys.intakeSd": 0.20800975175109063,
+    "setup.volumeSd": 0.20346182845180377,
+    "forager.desiredSd": 0.3794111368983709,
+    "forager.stopHazard": 0.06243449297886775,
+    "forager.unsatisfiedLayProb": 0.365029199031635,
+    "forager.neverLayFraction": 0.11971852324302898
+  },
+  "forager": {
+    "desiredFed": 0.6054978449785262,
+    "desiredHungry": 0.8021232495370958,
+    "hungerScale": 0.3,
+    "desiredSd": 0.3794111368983709,
+    "stopHazard": 0.06243449297886775,
+    "stopEta": 4.3,
+    "stopPerVolume": 0,
+    "emptyPatience": 3,
+    "neverLayFraction": 0.11971852324302898,
+    "unsatisfiedLayProb": 0.365029199031635,
+    "layIntensity": 0.13,
+    "layIntensitySd": 0.08,
+    "gasterBout": 0.25,
+    "arsMean": 80,
+    "arsRunScale": 0.4,
+    "homeGain": 1,
+    "homeRunScale": 3,
+    "compassBias": 0.08,
+    "loadSlowdown": 1
+  },
+  "phys": {
+    "intakeSd": 0.20800975175109063
+  },
+  "pipetteAccessible": 0.7853575898648164,
+  "observer": {
+    "volumeSd": 0.20346182845180377
+  }
+}

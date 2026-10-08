@@ -1,4 +1,5 @@
 import { Body } from '../agent/body';
+import { RNG } from '../core/rng';
 import { drawTraits, lasiusForager, startTrip, type ForagerParams } from '../behavior/lasiusForager';
 import { newMind } from '../mind/mind';
 import type { WalkParams } from '../models/walk';
@@ -23,7 +24,8 @@ export interface LasiusParams {
 export interface ScoutResult {
   /** From entering the area to first touching the drop (s). */
   findTime: number;
-  drinks: { ul: number; time: number }[];
+  /** Per drop: volume as the experimenter would estimate it, true volume, drinking time. */
+  drinks: { ul: number; trueUl: number; time: number }[];
   /** Laid trail on the return trip (any gaster contact) — overall and per bridge section. */
   laidTrail: boolean;
   laidSection1: boolean;
@@ -37,6 +39,15 @@ export interface ScoutResult {
   total: number;
   satisfiedAt1: boolean;
   reachedNest: boolean;
+  /** Distinct drops drunk from (2003: "micropipettes visited"). */
+  dropsVisited: number;
+  /** One gaster estimate of the total intake (true + observer noise), and the true total (µL). */
+  totalUl: number;
+  totalTrueUl: number;
+  /** First drop contact → leaving the area onto the bridge for the last time (s). */
+  exploitTime: number;
+  /** Gaster contact on the first 2.5 cm of the bridge from the area (2003 trail criterion). */
+  laidFirst25: boolean;
 }
 
 export interface ScoutOptions {
@@ -45,12 +56,22 @@ export interface ScoutOptions {
   drop1: { ul: number; molar: number };
   /** Optional second drop on the bridge, offered on the way home (Mailleux 2009). */
   drop2?: { ul: number; molar: number };
+  /**
+   * Drops present from the start at explicit positions (mm), replacing drop1
+   * (Mailleux 2003: six 0.3 µL micropipettes).
+   */
+  drops?: { x: number; y: number; ul: number; molar: number }[];
   /** Fraction of a micropipette drop that can be imbibed. */
   pipetteAccessible: number;
   starvationDays: number;
+  /** SD (µL) of the experimenter's gaster-ellipsoid volume estimate (observation noise). */
+  volumeSd?: number;
   dt?: number;
   maxTime?: number;
 }
+
+/** x (mm) where the bridge meets the foraging area in the Mailleux apparatus. */
+const AREA_X = 120;
 
 export function runScout(P: LasiusParams, o: ScoutOptions): ScoutResult {
   return runScoutWorld(P, o).result;
@@ -74,6 +95,11 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   body.x = start;
   body.y = entrance[1];
   body.heading = 0;
+  // Physiological trait from its own stream (does not shift behavioural draws).
+  const physRng = RNG.stream(o.seed, 0x1a7a);
+  body.intakeFactor = Math.exp(physRng.normal(0, P.phys.intakeSd) - (P.phys.intakeSd * P.phys.intakeSd) / 2);
+  // The experimenter's volume estimates, from another independent stream.
+  const obsRng = RNG.stream(o.seed, 0x0b5e);
   const mind = newMind(drawTraits(P.forager, body.rng), P.walk, body.rng);
   mind.walk.heading = 0;
   const agent: Agent = { body, mind, inactive: false };
@@ -82,9 +108,14 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   const walked = start - entrance[0];
   mind.pi.x = Math.cos(mind.piBias) * walked;
   mind.pi.y = Math.sin(mind.piBias) * walked;
-  w.addFood((id) => new SugarDroplet(id, feeder1[0], feeder1[1], o.drop1.ul, o.drop1.molar, o.pipetteAccessible));
+  if (o.drops) for (const d of o.drops) w.addFood((id) => new SugarDroplet(id, d.x, d.y, d.ul, d.molar, o.pipetteAccessible));
+  else w.addFood((id) => new SugarDroplet(id, feeder1[0], feeder1[1], o.drop1.ul, o.drop1.molar, o.pipetteAccessible));
 
-  const res: ScoutResult = { findTime: NaN, drinks: [], laidTrail: false, laidSection1: false, laidSection2: false, intensity: NaN, returnTime: NaN, betweenTime: NaN, total: NaN, satisfiedAt1: false, reachedNest: false };
+  const res: ScoutResult = { findTime: NaN, drinks: [], laidTrail: false, laidSection1: false, laidSection2: false, intensity: NaN, returnTime: NaN, betweenTime: NaN, total: NaN, satisfiedAt1: false, reachedNest: false, dropsVisited: 0, totalUl: NaN, totalTrueUl: 0, exploitTime: NaN, laidFirst25: false };
+  const visited = new Set<number>();
+  let firstContact = NaN;
+  let lastExit = NaN;
+  let inArea = body.x >= AREA_X;
   let tArea = NaN;
   let drinkStart = NaN;
   let lastDrinkEnd = NaN;
@@ -104,10 +135,15 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
     w.time += dt;
     if (onStep) onStep(w);
     // --- Observations (experimenter's view).
+    const nowInArea = body.x >= AREA_X;
+    if (inArea && !nowInArea) lastExit = w.time;
+    inArea = nowInArea;
     if (Number.isNaN(tArea) && body.x >= 120) tArea = w.time;
     if (mind.mode === 'drink' && prevMode !== 'drink') {
       drinkStart = w.time;
       currentDrinkUl = 0;
+      visited.add(mind.foodId);
+      if (Number.isNaN(firstContact)) firstContact = w.time;
       if (Number.isNaN(res.findTime)) res.findTime = w.time - (Number.isNaN(tArea) ? 0 : tArea);
       if (res.drinks.length === 1) res.betweenTime = w.time - firstDrinkEnd;
       if (o.drop2 && !drop2Added) {
@@ -118,7 +154,8 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
     }
     if (mind.mode === 'drink') currentDrinkUl += Math.max(0, body.cropUl - cropBefore);
     if (prevMode === 'drink' && mind.mode !== 'drink') {
-      res.drinks.push({ ul: currentDrinkUl, time: w.time - drinkStart });
+      const est = currentDrinkUl + (o.volumeSd ? obsRng.normal(0, o.volumeSd) : 0);
+      res.drinks.push({ ul: Math.max(0, est), trueUl: currentDrinkUl, time: w.time - drinkStart });
       lastDrinkEnd = w.time;
       if (res.drinks.length === 1) {
         firstDrinkEnd = w.time;
@@ -133,10 +170,15 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
         // Section 1: first 3 cm of the bridge from the area; section 2: bridge between drop 2 and the nest.
         if (body.x >= 90 && body.x < 120) res.laidSection1 = true;
         if (body.x >= 10 && body.x < 50) res.laidSection2 = true;
+        if (body.x >= AREA_X - 25 && body.x < AREA_X) res.laidFirst25 = true;
       }
     }
   }
   res.reachedNest = agent.inactive;
+  res.dropsVisited = visited.size;
+  res.totalTrueUl = res.drinks.reduce((s, d) => s + d.trueUl, 0);
+  res.totalUl = Math.max(0, res.totalTrueUl + (o.volumeSd ? obsRng.normal(0, o.volumeSd) : 0));
+  if (!Number.isNaN(firstContact) && !Number.isNaN(lastExit)) res.exploitTime = lastExit - firstContact;
   if (res.reachedNest && !Number.isNaN(lastDrinkEnd)) res.returnTime = w.time - lastDrinkEnd;
   res.intensity = returnSteps ? returnGaster / returnSteps : NaN;
   if (!Number.isNaN(tArea)) res.total = w.time - tArea;

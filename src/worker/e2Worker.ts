@@ -1,9 +1,10 @@
 /// <reference lib="webworker" />
 import { runScoutWorld } from '../sim/experiments/e2Mailleux';
-import { E2_CONDITIONS } from '../sim/experiments/e2Targets';
-import { LASIUS_PARAMS, MAILLEUX_PIPETTE_ACCESSIBLE } from '../sim/species/lasiusM1';
+import { e2Compare, simulateE2, type E2Row } from '../sim/experiments/e2Targets';
+import { LASIUS_PARAMS, MAILLEUX_PIPETTE_ACCESSIBLE, MAILLEUX_SETUP } from '../sim/species/lasiusM1';
 
 export interface E2Request {
+  /** Scouts per condition, split into `BLOCKS` seed blocks for SE_sim. */
   scouts: number;
   seed: number;
   /** Condition id whose example trips should be recorded for animation. */
@@ -21,7 +22,9 @@ export interface TripFrame {
 }
 
 export interface E2Response {
-  metrics: Record<string, number>;
+  rows: E2Row[];
+  /** Fraction of 2009-protocol scouts that found both drops. */
+  foundBoth: number;
   trips: { frames: TripFrame[]; drops: { x: number; y: number; ul: number }[] }[];
   ms: number;
 }
@@ -29,8 +32,8 @@ export interface E2Response {
 self.onmessage = (ev: MessageEvent<E2Request>) => {
   const r = ev.data;
   const t0 = performance.now();
-  const metrics: Record<string, number> = {};
-  E2_CONDITIONS.forEach((c, i) => Object.assign(metrics, c.metrics(c.run(LASIUS_PARAMS, r.scouts, r.seed + 100000 * (i + 1), MAILLEUX_PIPETTE_ACCESSIBLE, 0.1))));
+  const BLOCKS = 10;
+  const sim = simulateE2(LASIUS_PARAMS, Math.ceil(r.scouts / BLOCKS), MAILLEUX_SETUP, 0.1, r.seed, BLOCKS);
   // Record a few example trips for the animation.
   const trips: E2Response['trips'] = [];
   const two = r.showCondition === 'two';
@@ -49,6 +52,6 @@ self.onmessage = (ev: MessageEvent<E2Request>) => {
     );
     trips.push({ frames, drops: world.food.map((f) => ({ x: f.x, y: f.y, ul: f.initialUl })) });
   }
-  const res: E2Response = { metrics, trips, ms: performance.now() - t0 };
+  const res: E2Response = { rows: e2Compare(sim), foundBoth: sim['two.foundBoth'].mean, trips, ms: performance.now() - t0 };
   (self as unknown as Worker).postMessage(res);
 };

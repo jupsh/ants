@@ -30,6 +30,56 @@ export function parseScans(csv: string): Scan[] {
     .map(([colony, minute, donor, receiver]) => ({ colony, minute, donor, receiver }));
 }
 
+/** A trophallactic contact in a simulation (times in s since food introduction). */
+export interface ContactInterval {
+  donor: number;
+  receiver: number;
+  start: number;
+  end: number;
+}
+
+export interface ObserverOptions {
+  colony: number;
+  /** Scan period (s). */
+  period?: number;
+  /** A contact counts if mouth-to-mouth contact lasts longer than this (s). */
+  minContact?: number;
+  /**
+   * Time of the first scan after food introduction (s, in [0, period)). The
+   * real phase is unknown, so callers draw it uniformly per colony.
+   */
+  phase?: number;
+  /** Number of scans (Bles et al.: minutes 30–90 inclusive = 61). */
+  scans?: number;
+  /** Minute label of the first scan (food introduced at minute 30). */
+  foodMinute?: number;
+}
+
+/**
+ * Simulated observer matching the Bles et al. protocol: every `period` s,
+ * record each donor→receiver pair whose contact is in progress at the scan
+ * instant and lasts > `minContact` s in total. Returns scan records in the
+ * same form as the data, so `scansToEvents` and `colonyStats` apply as-is.
+ */
+export function observeContacts(contacts: ContactInterval[], o: ObserverOptions): Scan[] {
+  const period = o.period ?? 60;
+  const minContact = o.minContact ?? 5;
+  const phase = o.phase ?? 0;
+  const nScans = o.scans ?? 61;
+  const foodMinute = o.foodMinute ?? 30;
+  const out: Scan[] = [];
+  for (const c of contacts) {
+    if (c.end - c.start <= minContact) continue;
+    const k0 = Math.max(0, Math.ceil((c.start - phase) / period));
+    for (let k = k0; k < nScans; k++) {
+      const tau = phase + k * period;
+      if (tau >= c.end) break;
+      out.push({ colony: o.colony, minute: foodMinute + k, donor: c.donor, receiver: c.receiver });
+    }
+  }
+  return out;
+}
+
 /** Merge consecutive-minute scans of the same directed pair into events. */
 export function scansToEvents(scans: Scan[]): TrophEvent[] {
   const sorted = [...scans].sort((a, b) => a.colony - b.colony || a.donor - b.donor || a.receiver - b.receiver || a.minute - b.minute);
@@ -66,6 +116,8 @@ export interface ColonyTrophStats {
   participants: number;
   /** Gini coefficient of per-individual event counts (over `colonySize` ants, zeros included). */
   gini: number;
+  /** Gini over participants only (zeros excluded), as reported by Bles et al. */
+  giniParticipants: number;
   /** Fraction of participants that both donated and received. */
   bothRoles: number;
   /** Global efficiency of the undirected interaction network (mean inverse shortest path). */
@@ -94,6 +146,7 @@ export function colonyStats(events: TrophEvent[], colony: number, foodMinute: nu
   }
   const participants = count.size;
   const counts = [...count.values()];
+  const giniParticipants = gini(counts);
   while (counts.length < colonySize) counts.push(0);
   let both = 0;
   for (const id of count.keys()) if (gave.has(id) && got.has(id)) both++;
@@ -110,5 +163,5 @@ export function colonyStats(events: TrophEvent[], colony: number, foodMinute: nu
     for (const [n, d] of dist) if (n !== s) effSum += 1 / d;
   }
   const np = nodes.length;
-  return { colony, events: ev.length, t50, participants, gini: gini(counts), bothRoles: participants ? both / participants : NaN, efficiency: np > 1 ? effSum / (np * (np - 1)) : 0 };
+  return { colony, events: ev.length, t50, participants, gini: gini(counts), giniParticipants, bothRoles: participants ? both / participants : NaN, efficiency: np > 1 ? effSum / (np * (np - 1)) : 0 };
 }

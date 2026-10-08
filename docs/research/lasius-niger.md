@@ -26,7 +26,11 @@ only used to test the calibrated model.
 - Constrains: speed at 26 °C, rotational diffusion, slope effects.
 
 ### E2 — Food volume and the trail-laying decision (Mailleux, Deneubourg & Detrain 2000; 2005; 2009) — Fit
-- Scouts finding droplets of 0.3, 0.7, 1, 3, 6 µL 1 M sucrose: for 3 and 6 µL
+Full source extraction (equations verbatim, all tables, contradictions):
+[`mailleux-rules.md`](mailleux-rules.md).
+
+- Scouts finding droplets of 0.3, 0.7, 1, 3, 6 µL sucrose (2000; concentration
+  unverified — the follow-ups used 0.6 M): for 3 and 6 µL
   (more than a crop holds), 90 % return immediately laying trail; for small
   droplets many scouts keep searching and return without laying trail.
 - Rule: each forager has an individual "desired volume"; trail laying is
@@ -35,9 +39,12 @@ only used to test the calibrated model.
 - Desired volume is constant per individual across trips; 14 % of foragers
   never lay trail (Mailleux et al. 2005).
 - Trail layers do not fill their crops completely and keep drinking from other
-  sources on the way home (Mailleux et al. 2009); mean drinking time of
-  trail-laying ants ≈ 51 s.
-- Constrains: distribution of desired volumes, crop capacity (< 3 µL),
+  sources on the way home (Mailleux et al. 2009). Drinking time is 65–94 s
+  at an unlimited 3 µL drop (1999, 2006) and 51 ± 12 s for *all* scouts at a
+  0.7 µL drop that runs out (2009). (An earlier version of these notes
+  misread the 51 s as the drinking time of trail layers.)
+- Constrains: distribution of desired volumes, crop capacity (max ingested
+  1.8 µL, Mailleux et al. 2006),
   drinking rate, fraction of non-layers.
 
 #### E2 details from open sources
@@ -73,11 +80,16 @@ offered on the way home; 63 scouts):
   ants (which search around the first source); total 178 ± 83 s.
 - Trail-laying intensity (gaster-contact fraction) 0.16 ± 0.07 before vs
   0.11 ± 0.08 after the 2nd drop; 10–20 % of scouts never lay trail.
-- Their individual model: intake 0.01 µL/s; per-second probability of leaving
-  the food is a response-threshold function of the ingested volume V with
-  sensitivity η = 4.3 µL⁻¹ and population threshold Vc = 1 µL; 90 % of ants
-  that reach their threshold lay trail. (The printed formula is garbled in the
-  PDF text layer; we treat it as a logistic in η(V − Vc) and re-calibrate.)
+- Their individual model: intake ΔV = 0.01 µL per second; per-second
+  probability of leaving the food S(V) = ηΔV / (1 + e^{−η(V − Vc)}), which
+  levels off at ηΔV ≈ 0.043 s⁻¹ (**not** 1). It is the hazard of a logistic
+  distribution of desired volumes (centre Vc, scale 1/η). η = 4.3 µL⁻¹,
+  Vc = 1 µL here (0.9 in 2003; 2006: η = 5, Vc = 0.64/0.86/0.90 at 1/4/8
+  days). 90 % of ants that reach their threshold lay trail. The 2009 print
+  has a sign typo (+η) and its text layer drops the Δ; 2003 and 2006 print
+  −η. See `mailleux-rules.md` §1–3.
+- Ingested volume ≈ 0.006 × drinking time + 0.15 µL (r_s = 0.46, N = 126);
+  intake rate looks like an individual trait (2009).
 
 #### E6 targets computed from the Bles et al. raw scans (`scripts/analyzeBles.ts`)
 Mean ± SD over 5 colonies, from food introduction (minute 30) to minute 90:
@@ -143,8 +155,8 @@ counts 0.41 ± 0.03; participants with both donor and receiver roles
 | Body length | 4.1 ± 0.14 mm | Khuong et al. 2016 (measured) |
 | Fresh mass | ≥ 2 mg (weak) | Bles et al. 2022: a 0.1 mg tag was "< 5 % of the average mass" |
 | Crop load carried | > 1 mg | Bles et al. 2022: tag "< 10 % of the amount of food a worker carries" |
-| Crop capacity | < 3 µL | Mailleux et al. 2000: 3 and 6 µL droplets exceed crop capacity |
-| Drinking time (trail layers) | ≈ 51 s | Mailleux et al. 2009 / follow-up |
+| Crop capacity | max ingested 1.8 µL | Mailleux et al. 2006 ("1.8 µl was the maximum ingested volume") |
+| Drinking time | 65–94 s at an unlimited 3 µL drop; 51 ± 12 s at a 0.7 µL drop | Mailleux et al. 1999, 2006; 2009 |
 | Sucrose acceptance | 0.1–2.5 M; intake efficiency maximal ≥ 1 M | Detrain & Prieur 2014 |
 
 ## Open evidence gaps (search priorities)

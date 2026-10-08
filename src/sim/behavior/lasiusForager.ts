@@ -28,6 +28,22 @@ export interface ForagerParams {
   /** Maximum leaving hazard (1/s) and its steepness around the desired volume (1/µL). */
   stopHazard: number;
   stopEta: number;
+  /**
+   * 0: leaving hazard per second, stopHazard·σ(η(V − Vd)) (model M_a).
+   * 1: leaving hazard per µL ingested, η·σ(η(V − Vd)) (Mailleux et al.'s
+   * response-threshold rule, model M_b; stopHazard unused). Equivalent to the
+   * published per-second form ηΔV·σ(…) at a fixed intake rate ΔV, and keeps
+   * logistic-distributed stopping volumes when intake rates differ.
+   */
+  stopPerVolume: number;
+  /**
+   * 0: the satiation signal is the volume ingested (M_a, M_b).
+   * 1: it grows by nominalIntake·dt for each step of successful ingestion,
+   * i.e. it measures drinking time (M_d), in µL-equivalents.
+   */
+  satiationOnTime: number;
+  /** Population mean intake rate (µL/s) used to express M_d's signal in µL-equivalents. */
+  nominalIntake: number;
   /** Seconds without liquid at the mouthparts before giving up on a drop. */
   emptyPatience: number;
   /** Fraction of foragers that never lay trail. */
@@ -116,11 +132,14 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
       return { ...NONE, motor: { noHomeBias: true } };
 
     case 'drink': {
-      m.ingested += Math.max(0, io.cropUl - m.lastCropUl);
+      const dV = Math.max(0, io.cropUl - m.lastCropUl);
+      m.ingested += p.satiationOnTime ? (dV > 0 ? p.nominalIntake * per.dt : 0) : dV;
       m.lastCropUl = io.cropUl;
       const available = !!per.food && per.food.available && per.food.id === m.foodId;
       // Leaving hazard: response-threshold function of the volume ingested.
-      const hazard = p.stopHazard / (1 + Math.exp(-p.stopEta * (m.ingested - m.desired)));
+      const threshold = 1 / (1 + Math.exp(-p.stopEta * (m.ingested - m.desired)));
+      const hazard = p.stopPerVolume ? (p.stopEta * threshold * dV) / per.dt : p.stopHazard * threshold;
+      // (In M_d, m.ingested is the time-based signal; actual crop volume still caps intake.)
       const cropFull = io.cropUl >= io.cropCapacity * 0.98;
       if (cropFull || rng.hazard(hazard, per.dt)) {
         // Satiated departure.

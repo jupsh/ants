@@ -1,0 +1,65 @@
+{
+  "experiment": "E2 drinking & trail-laying decision (Mailleux et al. 1999, 2009)",
+  "variant": "Md",
+  "label": "M_d (time-based satiation)",
+  "description": "M_a with a satiation signal that measures drinking time (µL-equivalents at the population mean intake rate) instead of the volume ingested (step 3b, pre-registered).",
+  "fittedOn": [
+    "d1.drink",
+    "d1.trail",
+    "d4.drink",
+    "d4.trail",
+    "d8.drink",
+    "d8.trail",
+    "two.ul1",
+    "two.t1",
+    "two.tl1",
+    "two.vtSlope",
+    "two.vtRs"
+  ],
+  "dt": 0.1,
+  "scoutsPerCondition": 150,
+  "evals": 167,
+  "seconds": 86.35,
+  "loss": 20.050696583479397,
+  "k": 8,
+  "free": {
+    "forager.desiredFed": 0.6002832458251031,
+    "forager.desiredHungry": 0.8989601001211273,
+    "setup.accessible": 0.7908147380904665,
+    "phys.intakeSd": 0.2191819928896111,
+    "setup.volumeSd": 0.21544155889866232,
+    "forager.desiredSd": 0.38035879271659834,
+    "forager.stopHazard": 0.06081092425901899,
+    "forager.unsatisfiedLayProb": 0.3841536615244703
+  },
+  "forager": {
+    "desiredFed": 0.6002832458251031,
+    "desiredHungry": 0.8989601001211273,
+    "hungerScale": 0.3,
+    "desiredSd": 0.38035879271659834,
+    "stopHazard": 0.06081092425901899,
+    "stopEta": 4.3,
+    "stopPerVolume": 0,
+    "satiationOnTime": 1,
+    "nominalIntake": 0.0095,
+    "emptyPatience": 3,
+    "neverLayFraction": 0.12,
+    "unsatisfiedLayProb": 0.3841536615244703,
+    "layIntensity": 0.13,
+    "layIntensitySd": 0.08,
+    "gasterBout": 0.25,
+    "arsMean": 80,
+    "arsRunScale": 0.4,
+    "homeGain": 1,
+    "homeRunScale": 3,
+    "compassBias": 0.08,
+    "loadSlowdown": 1
+  },
+  "phys": {
+    "intakeSd": 0.2191819928896111
+  },
+  "pipetteAccessible": 0.7908147380904665,
+  "observer": {
+    "volumeSd": 0.21544155889866232
+  }
+}
