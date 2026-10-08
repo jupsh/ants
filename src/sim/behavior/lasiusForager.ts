@@ -36,6 +36,14 @@ export interface ForagerParams {
    * logistic-distributed stopping volumes when intake rates differ.
    */
   stopPerVolume: number;
+  /**
+   * 0: the satiation signal is the volume ingested (M_a, M_b).
+   * 1: it grows by nominalIntake·dt for each step of successful ingestion,
+   * i.e. it measures drinking time (M_d), in µL-equivalents.
+   */
+  satiationOnTime: number;
+  /** Population mean intake rate (µL/s) used to express M_d's signal in µL-equivalents. */
+  nominalIntake: number;
   /** Seconds without liquid at the mouthparts before giving up on a drop. */
   emptyPatience: number;
   /** Fraction of foragers that never lay trail. */
@@ -125,12 +133,13 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
 
     case 'drink': {
       const dV = Math.max(0, io.cropUl - m.lastCropUl);
-      m.ingested += dV;
+      m.ingested += p.satiationOnTime ? (dV > 0 ? p.nominalIntake * per.dt : 0) : dV;
       m.lastCropUl = io.cropUl;
       const available = !!per.food && per.food.available && per.food.id === m.foodId;
       // Leaving hazard: response-threshold function of the volume ingested.
       const threshold = 1 / (1 + Math.exp(-p.stopEta * (m.ingested - m.desired)));
       const hazard = p.stopPerVolume ? (p.stopEta * threshold * dV) / per.dt : p.stopHazard * threshold;
+      // (In M_d, m.ingested is the time-based signal; actual crop volume still caps intake.)
       const cropFull = io.cropUl >= io.cropCapacity * 0.98;
       if (cropFull || rng.hazard(hazard, per.dt)) {
         // Satiated departure.

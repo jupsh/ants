@@ -18,7 +18,7 @@ when a step starts or finishes, and log decisions there before acting on them.
   `src/sim/parallel/tasks.ts` as pure functions of cloneable arguments with
   per-individual RNG streams, joined in order.
   - Fits (write `data/fits/*.json`): `fitE1.ts`, `fitE2.ts --variant
-    Ma|Mb|Mc|Mc0`, `fitE6TEC.ts` — minutes with the pool.
+    Ma|Mb|Mc|Mc0|Md`, `fitE6TEC.ts` — minutes with the pool.
   - Judge without writing: `reportE1.ts` (~9 s), `reportE2.ts` (~9 s),
     `reportE6.ts [--fit]` (~4 s), `compareE2.ts`, `identifyE2.ts --variant X`.
   - Profiling: `node --cpu-prof node_modules/.bin/vite-node <script>` and sum

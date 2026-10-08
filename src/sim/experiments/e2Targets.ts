@@ -139,8 +139,8 @@ export function runCondition(c: Condition, P: LasiusParams, n: number, seed0: nu
  * `runner` (a worker pool) all blocks run concurrently; results are
  * identical to the serial run.
  */
-export async function simulateE2Async(P: LasiusParams, n: number, setup: E2Setup, dt = 0.1, seedBase = 0, blocks = 1, runner: ScoutRunner = serialRunner): Promise<E2Sim> {
-  const jobs = E2_CONDITIONS.flatMap((c, i) => Array.from({ length: blocks }, (_, b) => ({ c, opts: c.options(n, seedBase + 100000 * (i + 1) + b * n, setup, dt) })));
+export async function simulateE2Async(P: LasiusParams, n: number, setup: E2Setup, dt = 0.1, seedBase = 0, blocks = 1, runner: ScoutRunner = serialRunner, conditions: Condition[] = E2_CONDITIONS): Promise<E2Sim> {
+  const jobs = conditions.flatMap((c, i) => Array.from({ length: blocks }, (_, b) => ({ c, opts: c.options(n, seedBase + 100000 * (i + 1) + b * n, setup, dt) })));
   const results = await Promise.all(jobs.map((j) => runner(P, j.opts)));
   const per: Record<string, number[][]> = {};
   jobs.forEach((j, k) => {
@@ -179,8 +179,8 @@ export interface E2Row {
 }
 
 /** Judge simulated results against every target with the combined-SE criteria. */
-export function e2Compare(sim: E2Sim): E2Row[] {
-  return E2_TARGETS.map((t) => {
+export function e2Compare(sim: E2Sim, targets: Target[] = E2_TARGETS): E2Row[] {
+  return targets.map((t) => {
     const s = sim[t.id] ?? blockEstimate([]);
     const mean: Comparison = { id: t.id, label: t.label, kind: t.unit === '' ? 'proportion' : 'mean', data: t.value, sim: s.mean, seData: t.se, seSim: s.se, z: combinedZ(s.mean, s.se, t.value, t.se) };
     // SE(log s) ≈ 1/√(2(n−1)) assumes normality; drinking and travel times are
@@ -193,7 +193,7 @@ export function e2Compare(sim: E2Sim): E2Row[] {
 
 /** Plain-text table of `e2Compare` rows (scripts and logs). */
 export function e2Table(rows: E2Row[]): string {
-  const f = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)}%` : unit === 'µL/s' ? v.toFixed(4) : v.toFixed(unit === 'µL' || unit === 'r' ? 2 : 0));
+  const f = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)}%` : unit === 'µL/s' ? v.toFixed(4) : v.toFixed(unit === 'µL' || unit === 'r' || unit === 'n' ? 2 : 0));
   return rows
     .map(({ target: t, sim, mean, spread }) => {
       const sd = (x: number | undefined) => (t.sd !== undefined && x !== undefined ? `±${f(x, t.unit)}` : '');

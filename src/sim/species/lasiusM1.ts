@@ -42,6 +42,8 @@ const LASIUS_FORAGER_BASE = {
   stopHazard: fitted(0.05, '1/s', 'mailleux2009', 'Maximum per-second probability of leaving the food once the desired volume is exceeded.', { ...MAILLEUX, fit: 'E2' }),
   stopEta: derived(4.3, '1/µL', ['mailleux2003', 'mailleux2009'], 'Sensitivity η of the response-threshold function S(V) = ηΔV/(1 + e^{−η(V − Vc)}) (Mailleux et al. 2003 eq. 2.1; docs/research/mailleux-rules.md).', MAILLEUX),
   stopPerVolume: estimated(0, '', 'Stopping rule: 0 = per-second hazard (M_a), 1 = per-µL response threshold (M_b). Chosen by the step-3 mechanism comparison.'),
+  satiationOnTime: estimated(0, '', 'Satiation signal: 0 = volume ingested (M_a), 1 = drinking time in µL-equivalents (M_d, step 3b).'),
+  nominalIntake: derived(0.0095, 'µL/s', ['mailleux2009'], 'Population mean intake rate (= phys.intakeRate); converts M_d’s drinking-time signal into µL-equivalents.', MAILLEUX),
   emptyPatience: estimated(3, 's', 'Time an ant keeps probing an exhausted drop before leaving.'),
   neverLayFraction: measured(0.12, '', ['mailleux2005', 'mailleux2009'], '14 % of foragers never lay trail (2005); 10–20 % in 2009.', { ...MAILLEUX, uncertainty: { range: [0.1, 0.2] } }),
   unsatisfiedLayProb: fitted(0.3, '', 'mailleux2009', 'Probability that a scout leaving an exhausted drop before reaching its desired volume still lays trail. Needed because trail layers and non-layers drank the same volume at a 0.7 µL drop (0.49 vs 0.46 µL); identified from the 38 % drop-1 trail fraction.', { ...MAILLEUX, fit: 'E2' }),

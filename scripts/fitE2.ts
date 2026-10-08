@@ -10,7 +10,7 @@
  * numbers; 160 Nelder–Mead evaluations (the step-3 budget, same for all
  * variants).
  *
- * Usage: npx vite-node scripts/fitE2.ts --variant Ma|Mb|Mc|Mc0
+ * Usage: npx vite-node scripts/fitE2.ts --variant Ma|Mb|Mc|Mc0|Md
  * Writes data/fits/e2-<variant>.json.
  */
 import fs from 'node:fs';

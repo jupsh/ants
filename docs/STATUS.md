@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-07 (session 2: steps 1–3 done; next is step 3b, E2 profiles and the time-based stopping candidate). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-07 (session 2: steps 1–3b done; next: E2 search around food (3c) or E6 encounter model (4)). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
@@ -122,19 +122,40 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      interpretable. Diagonal curvature: desiredHungry, stopHazard,
      desiredFed, σ_r, desiredSd well constrained; σ_m, q and pipette
      accessibility weakly.
-3b. **E2 follow-up** (new):
-   - Profile likelihoods for M_a (re-fit with one parameter pinned on a
-     grid), now affordable with the process pool; σ_m matters most.
-   - **Candidate M_d, time-based satiation** (development-motivated by the
-     spread failure, so it needs a held-out test): the leaving hazard
-     depends on cumulative drinking time relative to an individual desired
-     drinking time instead of on volume. With time CV 0.26 (data), σ_r 0.2
-     and σ_m 0.2 it predicts a volume CV ≈ 0.40 (data 0.43), whereas volume
-     rules need time CV ≥ volume CV. Distinguishing observations: drop-2
-     drinking time after an exhausted drop 1 (data 23 s), the volume–time
-     regression, and the held-out 2003 six-pipette experiment.
-   - Pre-register M_d (same targets, budget and shared base) before
-     fitting it, then test M_a and M_d once on the 2003 experiment.
+3b. ~~**E2 follow-up.**~~ Done (session 2), as pre-registered:
+   - **M_d (time-based satiation):** fit Σz² + 2k 34.3 (M_a 31.9),
+     development Σz² 140.7 (M_a 148.8), drinking-time SD still z 7–11 (the
+     fit keeps a wide spread of individual thresholds, desiredSd ≈ 0.38).
+     Fails decision condition (i) → **M_a stays.**
+   - **Held-out test, Mailleux 2003 six pipettes** (`scripts/testE2Heldout.ts`,
+     run once; 4 days primary):
+
+     | | primary Σz² | trail | volume | pipettes visited | exploitation |
+     |---|---|---|---|---|---|
+     | M_a | 27.5 | 55 % vs 57 % (z −0.3) | 0.64 vs 0.80 µL (−2.5) | 3.4 vs 2.8 (+4.2) | 101 vs 115 s (−1.9) |
+     | M_d | 26.7 | −0.9 | −2.3 | +4.2 | −1.8 |
+
+     The **trail decision transfers** to a new experiment; both models
+     **fail overall** (Σz² ≈ 27 for 4 primaries, ≈ 4 expected) through too
+     many pipette visits with too little intake per visit (0.19 vs
+     0.29 µL; the data even exceed our accessible 0.24 µL per 0.3 µL drop)
+     and too-narrow spreads. 1- and 8-day sensitivity runs agree.
+   - **Common failure across experiments:** search between food sources is
+     too fast and efficient (2009 between-drop times 25 vs 58 s and 68 vs
+     134 s; 2003 visits too many). Drop accessibility may also differ
+     between the 2009 pipettes and the 2003 sticks.
+   - **Pending:** profile likelihoods for M_a's weakly constrained
+     parameters were running when session 2 ended. Re-run:
+     `npx vite-node scripts/profileE2.ts --variant Ma --params
+     setup.volumeSd,forager.unsatisfiedLayProb,setup.accessible` (~15 min
+     with the pool) and record the results here.
+3c. **Search around food (new, next E2 work).** Revisit the area-restricted
+   search after leaving a drop and local movement in the foraging area,
+   using development data (2009 between-drop times; 2003 visits and the
+   time between pipette visits, 19.4 ± 18.9 s, n = 55) together with the
+   E1 walking-model revisit (step 5), which governs the same movement.
+   Drop accessibility per apparatus to be decided first (the 2003 drops
+   were delivered onto a stick as the ant climbed it).
 4. **E6 encounter-based model:**
    - Build the lab nest (56 × 41 × 2 mm chamber, 4 × 3 × 2 mm passage,
      61 × 49 mm area) with resting and active workers and trophallaxis on
@@ -241,6 +262,10 @@ Claude Code loads automatically.
     were the pre-registered checks; they have now been inspected for all
     variants and become **development**. Any variant motivated by them
     (e.g. M_d) needs a held-out test.
+  - **Step 3b (session 2):** the Mailleux 2003 six-pipette data were used
+    once as a held-out test of M_a and M_d (pre-registered); they are now
+    **development**. Remaining fresh E2 candidates: Beckers et al. 1993,
+    Detrain & Prieur 2014, Portha et al. 2004.
 - **E6 (Bles et al. 2022):**
   - The raw data have been *summarised descriptively* (`scripts/analyzeBles.ts`)
     but **no model has been run against them**. E6 remains **held-out** for
@@ -542,3 +567,33 @@ See [`CLAUDE.md`](../CLAUDE.md).
   per core − 1) runs E1 ants, E2 scouts and E6 colonies in parallel, with
   results bit-identical to serial runs (checked for all three).
   reportE1 2 min → 9 s, reportE2 25 s → 9 s, reportE6 → 4 s.
+- **2026-10-07** Step 3b pre-registration (before fitting M_d and before
+  running any model on the 2003 data):
+  - **M_d (time-based satiation):** identical to M_a (same free parameters,
+    k = 8; never-layers 12 %; q free) except that the satiation signal
+    grows by `nominalIntake·dt` for each step in which the ant actually
+    ingests, instead of by the volume ingested. `nominalIntake` = the
+    population mean intake rate (phys.intakeRate, 0.0095 µL/s, fixed): a
+    unit conversion so desired values stay in µL-equivalents. Same targets,
+    budget (160 evaluations, 150 scouts/condition), start at the M_a fit.
+  - **Held-out test: Mailleux et al. 2003 six-pipette experiment**
+    (`mailleux-rules.md` §1; seen in the research note, never compared with
+    any model version). Simulation: six 0.3 µL drops of 0.6 M sucrose,
+    two rows of three 10 mm apart centred in the area (x = 140/150/160 mm,
+    y = ±5 mm), present from the start, same pipette accessibility and
+    observer σ_m as the adopted fit; starvation not reported → **4 days
+    primary**, 1 and 8 days as sensitivity; 150 scouts × 10 seed blocks;
+    scouts that never drink are not observed.
+  - Measures: trail layer = any gaster contact on the first 2.5 cm of the
+    bridge from the area; pipettes visited = distinct drops drunk from;
+    ingested volume = one gaster estimate of the total (true + N(0, σ_m),
+    floored at 0); exploitation time = first pipette contact → leaving the
+    area onto the bridge for the last time.
+  - **Primary (4):** % trail layers 57 % (n = 88); ingested volume, all
+    0.8 ± 0.5 µL (65); pipettes visited, all 2.8 ± 1.3 (88); exploitation
+    time, all 115 ± 67 s (86). Secondary: the layer / non-layer splits.
+    Spreads reported separately (log-SD z).
+  - **Decision rule:** M_d replaces M_a only if it is no worse on fit
+    Σz² + 2k, better on development Σz², and no worse on the held-out
+    primary Σz². Both are reported whatever the outcome; after this test
+    the 2003 data become development.

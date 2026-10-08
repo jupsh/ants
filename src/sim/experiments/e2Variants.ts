@@ -45,7 +45,7 @@ export const E2_VARIANTS: E2Variant[] = [
     id: 'Ma',
     label: 'M_a (current)',
     description: 'Individual log-normal desired volume; per-second leaving hazard with a low maximum; 12 % never-layers; unsatisfied ants lay trail with probability q.',
-    fix: (m) => withForager(m, { stopPerVolume: 0, neverLayFraction: 0.12 }),
+    fix: (m) => withForager(m, { stopPerVolume: 0, satiationOnTime: 0, neverLayFraction: 0.12 }),
     free: [...SHARED, { key: 'forager.desiredSd', tf: 'log' }, { key: 'forager.stopHazard', tf: 'log' }, { key: 'forager.unsatisfiedLayProb', tf: 'logit' }],
   },
   {
@@ -54,6 +54,13 @@ export const E2_VARIANTS: E2Variant[] = [
     description: 'Published response-threshold rule: per-µL leaving hazard η·σ(η(V − Vc)) with a shared Vc (logistic stopping volumes); 90 % of satisfied ants lay trail; unsatisfied ants never do.',
     fix: (m) => withForager(m, { stopPerVolume: 1, desiredSd: 0, neverLayFraction: 0.1, unsatisfiedLayProb: 0 }),
     free: [...SHARED, { key: 'forager.stopEta', tf: 'log' }],
+  },
+  {
+    id: 'Md',
+    label: 'M_d (time-based satiation)',
+    description: 'M_a with a satiation signal that measures drinking time (µL-equivalents at the population mean intake rate) instead of the volume ingested (step 3b, pre-registered).',
+    fix: (m) => withForager(m, { stopPerVolume: 0, satiationOnTime: 1, neverLayFraction: 0.12 }),
+    free: [...SHARED, { key: 'forager.desiredSd', tf: 'log' }, { key: 'forager.stopHazard', tf: 'log' }, { key: 'forager.unsatisfiedLayProb', tf: 'logit' }],
   },
   {
     id: 'Mc',
