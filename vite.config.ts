@@ -1,7 +1,19 @@
 import { defineConfig } from 'vitest/config';
+import { simHash } from './scripts/simHash';
 
 export default defineConfig({
   base: './',
+  // Precomputed page results are used only when they match this (scripts/precompute.ts).
+  define: { __SIM_HASH__: JSON.stringify(simHash()) },
+  plugins: [
+    {
+      // The dev server answers with the current hash, so edits made while it runs are seen.
+      name: 'sim-hash',
+      configureServer(server) {
+        server.middlewares.use('/__sim_hash', (_req, res) => res.end(simHash()));
+      },
+    },
+  ],
   worker: { format: 'es' },
   build: { target: 'es2022', sourcemap: true },
   test: {
