@@ -12,8 +12,9 @@ when a step starts or finishes, and log decisions there before acting on them.
   workflow runs test + build on push to `main`).
 - Scripts run with `npx vite-node scripts/<name>.ts`; shared helpers (args,
   data loading, JSON) in `scripts/lib.ts`. Simulation-heavy scripts use the
-  process pool `scripts/pool.ts` (one vite-node child per core − 1, override
-  with `SIM_WORKERS=n`; ~2 s start-up). Pooled results are bit-identical to
+  process pool `scripts/pool.ts` (one vite-node child per core − 1, fewer if
+  free memory is short — ~350 MB each; override with `SIM_WORKERS=n`, e.g.
+  half the cores each when running two fits at once; ~2 s start-up). Pooled results are bit-identical to
   serial ones — keep it that way: new parallel work goes in
   `src/sim/parallel/tasks.ts` as pure functions of cloneable arguments with
   per-individual RNG streams, joined in order.

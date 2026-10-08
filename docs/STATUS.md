@@ -607,3 +607,10 @@ See [`CLAUDE.md`](../CLAUDE.md).
     Σz² + 2k, better on development Σz², and no worse on the held-out
     primary Σz². Both are reported whatever the outcome; after this test
     the 2003 data become development.
+- **2026-10-08** Pool size follows free memory (tooling; results
+  unaffected): `SimPool` defaults to min(cores − 1, (MemAvailable − 1 GB) /
+  350 MB) workers (`defaultWorkers` in `scripts/pool.ts`; E1 workers
+  measured at ≈ 270 MB RSS) and says so on stderr when memory is the limit.
+  Why: two concurrent E1 fits started 30 workers on a 16-thread, 16 GB
+  laptop and pushed it into swap. Two fits launched at the same moment both
+  see the same free memory, so give each `SIM_WORKERS` ≈ half the cores.
