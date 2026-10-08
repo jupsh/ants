@@ -35,8 +35,8 @@ when a step starts or finishes, and log decisions there before acting on them.
 - Pages open on **precomputed results** for their default settings
   (`npm run precompute` → `public/precomputed/*.json`, not committed; `npm
   run build` runs it first). Each file carries the request and a hash of the
-  simulation inputs (`scripts/simHash.ts`: `src/sim`, `src/worker`, fits,
-  data), and a page uses it only if both match, else it simulates live (the
+  simulation inputs (`scripts/simHash.ts`: `src/sim`, `src/worker`, the
+  three fits the pages use, data), and a page uses it only if both match, else it simulates live (the
   dev server serves the current hash at `/__sim_hash`, so after changing
   simulation code pages run live until `npm run precompute` is rerun). Page
   computations live in `src/worker/e*Compute.ts`, shared by the workers and

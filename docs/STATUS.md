@@ -168,7 +168,7 @@ step: repo Settings → Pages → Source = "GitHub Actions".
    E1 walking-model revisit (step 5), which governs the same movement.
    Drop accessibility per apparatus to be decided first (the 2003 drops
    were delivered onto a stick as the ant climbed it).
-4. **E6 encounter-based model:**
+4. **E6 encounter-based model** (bounded version implemented 2026-10-08, provisional; calibration and the E6 test wait for the walking decision):
    - Build the lab nest (56 × 41 × 2 mm chamber, 4 × 3 × 2 mm passage,
      61 × 49 mm area) with resting and active workers and trophallaxis on
      actual contact.
@@ -1528,6 +1528,72 @@ See [`CLAUDE.md`](../CLAUDE.md).
   - **Provisional colony page:** minimal, for inspecting movement, contact
     events and food conservation; parameters labelled provisional; visual
     polish allowed before the encounter model is complete.
+- **2026-10-08** Step 4, bounded version — plan (decided before code; all
+  behavioural parameters **provisional**, `estimated` provenance, no
+  calibration and no E6 comparison until the walking decision):
+  - **Geometry** (`blesApparatus`, world/apparatus.ts): nest chamber 56 ×
+    41 mm (covered), passage 4 × 3 mm, foraging area 61 × 49 mm (Bles et
+    al. 2022; 2 mm height ignored: planar). Food drop at the area centre
+    (position not reported; assumption). Temperature 25 °C (not reported;
+    assumption).
+  - **Contact detection** (physics/contacts.ts): head point at 0.4 body
+    lengths ahead of the centre; *antennal contact* when a head is within
+    antennal reach of the other ant's head or centre; *mouth contact*
+    when heads are within 0.3 body lengths and headings roughly opposed
+    (cos Δ < −0.5). Spatial hash; pairs reported in a fixed order. The
+    percept gains `mouthContact` (perception stays the only bridge).
+  - **Food transfer** (physics/trophallaxis.ts): only when the donor acts
+    "give" to B and B acts "receive" from the donor; moves crop volume at
+    a fixed rate (crop capacity / 120 s, from TEC's unit, 1 unit = 1 s of
+    transfer, mean load 120 units), sugar and water in the donor crop's
+    proportions, limited by donor content and receiver space. Crop → crop
+    leaves the ledger's account totals unchanged by construction; tests
+    check per-ant sums against the ledger and the transfer log. While
+    sharing, both stand and the pair is held face to face (as the drinking
+    ant is held at the drop edge). No collisions between ants (limitation).
+  - **Provisional behaviour** (behavior/lasiusNestWorker.ts, percepts
+    only): rest ↔ active switching at fixed rates; give when own crop is
+    above 10 % of capacity and the mouth-contact partner is not carrying;
+    receive when own reserve is below 80 % and crop not full; sharing ends
+    on empty/full or at a fixed hazard. Foragers (a fixed subset, ~12 of 50
+    as in the paper) leave the nest when their crop is nearly empty at a
+    fixed rate and then run the existing forager policy; on entering the
+    nest they switch back to the nest policy.
+  - **Walker** used provisionally through a replaceable motor function
+    (default: the adopted E1 walker).
+  - **Runner** (experiments/colonyBles.ts): 50 ants, starved 4 days, 90
+    min, food at minute 30, dt 0.1 s; outputs trophallaxis intervals in the
+    `ContactInterval` form the E6 observer takes (not compared to E6
+    yet), the ledger, and frames for the page.
+  - **Tests:** geometry, contact detection cases, transfer conservation,
+    whole-run conservation (ledger = entities, every quantity), and
+    determinism (same seed → identical events and frames).
+  - **Colony page** (`#colony`): the run animated (ants, crop loads,
+    sharing pairs, foragers), with a conservation readout and an event
+    log; labelled provisional.
+- **2026-10-08** **Acceptance test (ii) result — not passed as
+  pre-registered.** Warm start, large flat reference (2000 ants scored as
+  69), stage 1 only, full procedure (code of 9c48571):
+  - Runs (selection batch, selection data): start 0 17.2, start 1 4.0, IPOP
+    restart (λ 24) 2.0; each stopped by the convergence rule (116/114/112
+    generations, σ ≈ 0.09), far below the 400 cap.
+  - **Fresh batches: 2.34 ± 0.22 vs the truth's 1.12** → excess 1.2,
+    ≈ 5.5 SE: fails "within 2 SE of the truth's own".
+  - In data units the excess is small: ≈ 0.08 per family (≈ 0.3 data SE
+    per statistic), which the prediction-recovery rule would call
+    recovered — not substituted for the pre-registered criterion.
+  - Parameters vs truth: meanFreePath 62 vs 39.5 mm, jitter 0.0046 vs
+    0.0015 rad²/mm, speedTau 0.66 vs 1.57 s; speed 64.0 vs 62.4,
+    speedSdBetween/Within 0.165/0.366 vs 0.138/0.378. The turning split
+    differs again while predictions nearly agree (identifiability
+    ambiguity, flat ground only).
+  - **Next (diagnostic, decided before running):** polish from this result
+    with a 6× tighter convergence tolerance (tolX 0.005, ≤ 400
+    generations). If the fresh-batch loss then reaches the truth's within
+    2 SE, the stop rule was too loose: tighten it for all fits and rerun
+    (ii). If it stays ≈ 2.3, the gap is a flat ridge the noisy objective
+    cannot resolve, which goes back to the user (criterion or statistics).
+    The four cells do not run until this is settled.
 - **2026-10-08** Docs (user request, no model change): `docs/DESIGN.md`
   rewritten to describe the M1 model as built: architecture and step
   order, RNG streams and exact event timing, world, walking model with its
@@ -1537,3 +1603,55 @@ See [`CLAUDE.md`](../CLAUDE.md).
   models; the earlier long-term design is kept, condensed, as § 12 with
   reserved code marked. `README.md` updated (pages, test tiers, data
   roles, licence).
+- **2026-10-08** Step 4, bounded version — **implemented** (provisional
+  throughout; no calibration, no E6 comparison):
+  - `blesApparatus`, `physics/contacts.ts` (head points, antennal and mouth
+    contact, face-to-face alignment, hashed detection equal to all-pairs),
+    `physics/trophallaxis.ts` (`shareCrop`), `behavior/lasiusNestWorker.ts`,
+    `LASIUS_NEST` (`estimated`, each note says provisional),
+    `experiments/colonyBles.ts` (`runColony`), `world/pathField.ts`;
+    `MotorFn` makes the walker replaceable (`walkAnt`, default `walkStep`).
+  - **Changes forced by what the first runs showed:**
+    - *Mouth-flow sense* (`Body.mouthFlow`, `Interoception.mouthFlow`):
+      inferring flow from crop volume failed (absorption also lowers it),
+      leaving 12 ants stuck in "receive".
+    - *Walls:* only a move's end point was checked, so long steps jumped
+      the 4 mm wall between nest and area. Moves are now walked in ≤ 0.5 mm
+      pieces up to the wall, then the ant turns along it. Unobstructed
+      moves are bit-identical; E2 changes only where scouts had cut the
+      bridge/area corners: `reportE2.ts` before → after, |Δz| ≤ 0.6 on every
+      row except drop-2 drinking time 8.8 → 10.6 (mean 37 → 38 s; its
+      SE_sim 0.81 → 0.36), no verdict changes.
+    - *Nest fidelity and cues along the surface:* nest workers wandered out
+      and could not find the way back (path integration drifts tens of mm
+      over minutes; a straight-line entrance cue points into the wall
+      beside the 3 mm passage). Provisional: nest odour and an exit cue as
+      path-distance fields (`PathField`, Dijkstra on a 0.5 mm grid); a
+      worker outside the nest that is not on a trip heads back. E2 keeps
+      its entrance cue (fields unset).
+  - **Tests** (`test/colony.test.ts`): geometry, contact cases, hashed =
+    all-pairs detection, alignment, transfer proportions/limits/flow sense,
+    path field through the passage, no wall jump, whole-run conservation
+    (ledger = per-entity sums for sugar and water, |Σ ledger| < 1e-9 of
+    inputs), determinism. Fast tier: 52 pass + 2 expected-fail.
+  - **Observation (placeholder parameters, not a result):** sharing stops
+    ≈ 15 min after food appears: one crop load lifts a starved ant's
+    reserve above `receiveReserve`, so the colony stops foraging and
+    accepting. Bles et al. see sharing for the whole hour; this is for the
+    step-4 calibration.
+  - **Colony page** (`#colony`, provisional): animated run (2× default
+    playback), click-to-follow, sharing glow, conservation readout (where
+    the sugar went, ledger sum), sharing log, sugar-flow and activity
+    charts, the provisional parameter table. Opens on the precomputed
+    default run like the other pages.
+  - Page infrastructure fixes: the simulation hash covers only the three
+    fits the pages use (recovery fits written to `data/fits/recover/` had
+    marked every page stale), and `precompute.ts` overwrites files in place
+    (deleting the folder made the dev server stop serving it).
+- **2026-10-08** Polish diagnostic (tolX 0.005 from the acceptance result)
+  **interrupted** at generation 380 of 400 when the session restarted; no
+  output written. Up to then it had not converged: σ grew from 0.08 to 0.20
+  instead of shrinking, and generation medians stayed ≈ 3 (best 1.3–2.5 on
+  generation seeds). That leans towards a flat, noisy ridge rather than a
+  loose stop rule, but it is not a result: rerun to completion before
+  deciding (acceptance still open; the four cells still wait).

@@ -40,6 +40,7 @@ export class Apparatus {
     return this.regionAt(x, y) !== null;
   }
 
+
   /** Distance from (x, y) to the nearest boundary of the walkable union (0 outside). */
   edgeDistance(x: number, y: number): number {
     if (!this.inside(x, y)) return 0;
@@ -77,4 +78,17 @@ export function mailleuxApparatus(): { app: Apparatus; entrance: [number, number
   const bridge: Region = { name: 'bridge', kind: 'bridge', x0: 0, y0: -2.5, x1: 120, y1: 2.5, covered: false };
   const area: Region = { name: 'area', kind: 'arena', x0: 120, y0: -30, x1: 180, y1: 30, covered: false };
   return { app: new Apparatus([nest, bridge, area]), entrance: [0, 0], feeder1: [150, 0], feeder2: [60, 0] };
+}
+
+/**
+ * Bles et al. (2022) lab nest: a covered chamber 56 × 41 mm, a 4 × 3 mm
+ * passage and a 61 × 49 mm foraging area, all 2 mm high (planar here). The
+ * drop position is not reported; it is placed at the area centre
+ * (assumption, STATUS 2026-10-08, step 4 plan).
+ */
+export function blesApparatus(): { app: Apparatus; entrance: [number, number]; feeder: [number, number] } {
+  const nest: Region = { name: 'nest', kind: 'nest', x0: 0, y0: 0, x1: 56, y1: 41, covered: true };
+  const passage: Region = { name: 'passage', kind: 'bridge', x0: 56, y0: 19, x1: 60, y1: 22, covered: false };
+  const area: Region = { name: 'area', kind: 'arena', x0: 60, y0: -4, x1: 121, y1: 45, covered: false };
+  return { app: new Apparatus([nest, passage, area]), entrance: [56, 20.5], feeder: [90.5, 20.5] };
 }

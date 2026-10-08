@@ -13,3 +13,6 @@ export const E2_CONDITIONS = [
 ];
 
 export const E6_DEFAULTS = { colonies: 200, seed: 6_000_000 };
+
+/** Colony page (step 4, provisional): one Bles et al. colony. */
+export const COLONY_DEFAULTS = { seed: 1, ants: 50, minutes: 90, foodMinute: 30, frameDt: 0.5 };

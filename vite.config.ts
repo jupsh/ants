@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitest/config';
-import { simHash } from './scripts/simHash';
+import { simHash } from './scripts/simHash.ts';
 
 export default defineConfig({
   base: './',

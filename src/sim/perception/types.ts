@@ -24,6 +24,8 @@ export interface SurfacePercept {
    * null if below threshold.
    */
   nestCue: { bearing: number; strength: number } | null;
+  /** Inside the nest: bearing (rel. to heading) towards the way out, where the world provides such a cue; else null. */
+  exitCue: { bearing: number } | null;
   /** Edge of the walkable surface sensed by the antennae ahead (bearing rel. to heading), or null. */
   edge: { bearing: number } | null;
   /** Trail pheromone at the left and right antenna tips (normalised to detection threshold). */
@@ -52,6 +54,8 @@ export interface ContactPercept {
   /** Observable cues on antennation. */
   layingTrail: boolean;
   carrying: boolean;
+  /** Heads touching face to face (the posture of trophallaxis). */
+  mouthContact: boolean;
 }
 
 /** The ant's sense of its own body state. */
@@ -65,9 +69,11 @@ export interface Interoception {
   water: number;
   /** Own body mass (mg), as sensed through effort. */
   bodyMass: number;
+  /** Liquid through the mouthparts in the last step (µL; + in, − out). */
+  mouthFlow: number;
 }
 
 /** A percept with only the self-referential senses (open arena, no objects). */
 export function basicPercept(dt: number, incline: number, downhill: number, bodyTemp: number, light = 1): SurfacePercept {
-  return { dt, incline, downhill, bodyTemp, light, inNest: false, nestCue: null, edge: null, trailL: 0, trailR: 0, food: null, contacts: [] };
+  return { dt, incline, downhill, bodyTemp, light, inNest: false, nestCue: null, exitCue: null, edge: null, trailL: 0, trailR: 0, food: null, contacts: [] };
 }
