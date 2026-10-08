@@ -1655,3 +1655,8 @@ See [`CLAUDE.md`](../CLAUDE.md).
   generation seeds). That leans towards a flat, noisy ridge rather than a
   loose stop rule, but it is not a result: rerun to completion before
   deciding (acceptance still open; the four cells still wait).
+- **2026-10-08** Pages: precomputed files are fetched as
+  `precomputed/<name>.json?v=<simulation hash>`. GitHub Pages serves them
+  with max-age=600, so for 10 min after a deploy a browser could reuse the
+  previous build's files, whose hash no longer matched, and the page
+  simulated live (seen on E2/E6 after the step-4 deploy).
