@@ -87,8 +87,8 @@ export interface DiagTrack {
   cosShort: number[];
   cosLong: number[];
   turn: number[][];
-  /** Per speed bin: histogram of |turn| (TURN_BIN rad bins) and count of turns above BIG_TURN. */
-  turnHist: Float64Array[];
+  /** Per speed bin: histogram of |turn| (TURN_BIN rad bins, sparse: occupied bins and counts) and count of turns above BIG_TURN. */
+  turnHist: { idx: Uint16Array; cnt: Float64Array }[];
   bigTurn: number[];
   /** ⟨cos⟩ of chord headings 10 mm apart along the moving path, all speeds (sum, n). */
   cos10Sum: number;
@@ -147,8 +147,12 @@ function addMoments(m: number[], x: number): void {
   m[4] += x2 * x2;
 }
 
-/** Diagnostics of one prepared track. */
-export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS): DiagTrack | null {
+/**
+ * Diagnostics of one prepared track. `full = false` skips the parts that no
+ * fit uses (alignment by displacement, steering drift, radial velocity and
+ * returns), leaving them at zero; everything else is identical.
+ */
+export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS, full = true): DiagTrack | null {
   const { x, y } = tr;
   const n = x.length;
   const nb = SPEED_BINS.length;
@@ -158,7 +162,7 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS): DiagTrack | nu
     cosShort: new Array(nb).fill(0),
     cosLong: new Array(nb).fill(0),
     turn: SPEED_BINS.map(() => [0, 0, 0, 0, 0]),
-    turnHist: SPEED_BINS.map(() => new Float64Array(TURN_NBIN)),
+    turnHist: SPEED_BINS.map(() => ({ idx: new Uint16Array(0), cnt: new Float64Array(0) })),
     bigTurn: new Array(nb).fill(0),
     cos10Sum: 0,
     cos10N: 0,
@@ -196,7 +200,7 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS): DiagTrack | nu
   }
 
   // Axial alignment by displacement length, over several sample windows.
-  for (const w of [2, 5, 10, 20, 40]) {
+  if (full) for (const w of [2, 5, 10, 20, 40]) {
     for (let i = 0; i + w < n; i++) {
       const dx = x[i + w] - x[i];
       const dy = y[i + w] - y[i];
@@ -232,12 +236,13 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS): DiagTrack | nu
   const m = px.length;
   const H = new Float64Array(Math.max(0, m - o.chord));
   for (let j = 0; j + o.chord < m; j++) H[j] = Math.atan2(py[j + o.chord] - py[j], px[j + o.chord] - px[j]);
+  const hist = SPEED_BINS.map(() => new Float64Array(TURN_NBIN));
   const lag10 = 2 * o.shortLag;
   for (let j = 0; j + lag10 < H.length; j += 2) {
     d.cos10Sum += Math.cos(H[j + lag10] - H[j]);
     d.cos10N++;
   }
-  for (let j = 0; j + o.shortLag < H.length; j += 2) {
+  if (full) for (let j = 0; j + o.shortLag < H.length; j += 2) {
     const dh = wrap(H[j + o.shortLag] - H[j]);
     const phi = H[j] - o.downhill;
     const acc3 = Math.abs(dh) < o.smallTurn ? d.driftSmall : d.driftLarge;
@@ -253,7 +258,7 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS): DiagTrack | nu
     d.cosLong[b] += Math.cos(H[j + o.longLag] - H[j]);
     const dh = wrap(H[j + o.chord] - H[j]);
     addMoments(d.turn[b], dh);
-    d.turnHist[b][Math.floor(Math.abs(dh) / TURN_BIN)]++;
+    hist[b][Math.floor(Math.abs(dh) / TURN_BIN)]++;
     if (Math.abs(dh) > BIG_TURN) d.bigTurn[b]++;
   }
 
@@ -280,7 +285,7 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS): DiagTrack | nu
 
   // Radial velocity (moving samples) and returns inside `returnRadius`.
   let out = false;
-  for (let i = 0; i + k < n; i++) {
+  if (full) for (let i = 0; i + k < n; i++) {
     const r = Math.hypot(x[i], y[i]);
     if (r > o.returnRadius) out = true;
     if (out) {
@@ -295,6 +300,11 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS): DiagTrack | nu
       d.radN[b]++;
     }
   }
+  d.turnHist = hist.map((h) => {
+    const idx: number[] = [];
+    for (let c = 0; c < h.length; c++) if (h[c]) idx.push(c);
+    return { idx: Uint16Array.from(idx), cnt: Float64Array.from(idx, (c) => h[c]) };
+  });
   return d;
 }
 
@@ -408,7 +418,7 @@ export function diagValues(parts: (DiagTrack | null)[], noise: NoiseTrack[], idx
       cl[b] += p.cosLong[b];
       for (let c = 0; c < 5; c++) turn[b][c] += p.turn[b][c];
       const h = p.turnHist[b];
-      for (let c = 0; c < TURN_NBIN; c++) turnHist[b][c] += h[c];
+      for (let c = 0; c < h.idx.length; c++) turnHist[b][h.idx[c]] += h.cnt[c];
       big[b] += p.bigTurn[b];
     }
     p.align.forEach((a, b) => a.forEach((v, c) => (align[b][c] += v)));

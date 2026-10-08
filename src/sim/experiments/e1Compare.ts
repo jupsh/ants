@@ -1,5 +1,6 @@
 import { bootstrapSE, combinedZ, fitZ, ksTest, type Comparison, type CompareKind } from '../analysis/compare';
 import { combineWalkStats, KHUONG_PREP, prepareTrack, summarize, trackStats, type Track, type TrackStats, type WalkStats } from '../analysis/trajectory';
+import { diagTrack, diagValues, SPEED_BINS, type DiagTrack } from '../analysis/walkDiagnostics';
 
 /**
  * Comparison of simulated and recorded exploratory walks (E1), following the
@@ -45,17 +46,19 @@ export interface Acc {
   straightN: number;
   trackSpeeds: number[];
   exitTimes: number[];
+  /** Structure diagnostics of the same prepared track (speed-resolved turning etc.). */
+  diag: DiagTrack;
 }
 
 /** Totals over ants: as `Acc`, with a dense speed histogram. */
-interface Total extends Omit<Acc, 'speedIdx' | 'speedCnt'> {
+interface Total extends Omit<Acc, 'speedIdx' | 'speedCnt' | 'diag'> {
   speedHist: Float64Array;
 }
 
 const BIN = 0.05;
 const NBIN = 6000; // 0–300 mm/s; faster samples go in the last bin
 
-function accFor(t: TrackStats): Acc {
+function accFor(t: TrackStats, diag: DiagTrack): Acc {
   const counts = new Map<number, number>();
   for (const v of t.speeds) {
     const b = Math.min(NBIN - 1, Math.floor(v / BIN));
@@ -88,6 +91,7 @@ function accFor(t: TrackStats): Acc {
     straightN: t.straightness.length,
     trackSpeeds: t.trackSpeed === null ? [] : [t.trackSpeed],
     exitTimes: t.exitTime === null ? [] : [t.exitTime],
+    diag,
   };
 }
 
@@ -95,7 +99,8 @@ function accFor(t: TrackStats): Acc {
 export function summarizeTrack(t: Track): Acc | null {
   const prep = prepareTrack(t, KHUONG_PREP);
   const ts = prep ? trackStats(prep) : null;
-  return ts ? accFor(ts) : null;
+  const d = prep ? diagTrack(prep, undefined, false) : null;
+  return ts && d ? accFor(ts, d) : null;
 }
 
 function aggregate(accs: (Acc | null)[], idx?: number[]): Total {
@@ -176,6 +181,25 @@ export const SCALARS: Scalar[] = [
   { id: 'trackSpeed.logSd', label: 'Between-ant SD of mean speed (log)', family: 'trackSpeedSpread', kind: 'spread', f: (g) => Math.log(summarize(g.trackSpeeds).sd) },
 ];
 
+/**
+ * Speed-resolved turning statistics from walkDiagnostics that are fitted
+ * (step 5, docs/STATUS.md Decisions 2026-10-08); the other diagnostics stay
+ * never-fitted checks.
+ */
+interface DiagScalar {
+  id: string;
+  label: string;
+  family: string;
+}
+const speedTag = (b: number) => `${SPEED_BINS[b][0]}–${SPEED_BINS[b][1]} mm/s`;
+export const DIAG_SCALARS: DiagScalar[] = [
+  ...SPEED_BINS.map((_, b): DiagScalar => ({ id: `turnBig.${b}`, label: `P(|turn| > 0.5 rad) per 2.5 mm chord, ${speedTag(b)}`, family: 'turnBig' })),
+  ...SPEED_BINS.map((_, b): DiagScalar => ({ id: `turnMed.${b}`, label: `Median |turn| per 2.5 mm chord (rad), ${speedTag(b)}`, family: 'turnMed' })),
+  { id: 'antTurn.slope', label: 'Per-ant slope of log(1 − ⟨cos⟩ at 10 mm) on log median speed', family: 'antTurnSlope' },
+  { id: 'stopCos.0', label: 'Heading into vs out of stops < 0.4 s, ⟨cos⟩', family: 'stopTurn' },
+  { id: 'stopCos.1', label: 'Heading into vs out of stops 0.4–1.2 s, ⟨cos⟩', family: 'stopTurn' },
+];
+
 export interface E1Sample {
   /** Per-ant summaries, in ant order (null for unusable tracks). */
   acc: (Acc | null)[];
@@ -185,31 +209,39 @@ export interface E1Sample {
 
 export interface E1Reference {
   sample: E1Sample & { stats: WalkStats };
-  /** Values and bootstrap SEs of the scalar statistics, in `SCALARS` order. */
+  /** Values and bootstrap SEs of the scalar statistics, in `SCALARS` then `DIAG_SCALARS` order. */
   values: number[];
   se: number[];
 }
 
 export function sampleFor(tracks: Track[]): E1Sample & { stats: WalkStats } {
-  const parts = tracks.map((t) => prepareTrack(t, KHUONG_PREP)).map((t) => (t ? trackStats(t) : null));
-  return { stats: combineWalkStats(parts), acc: parts.map((p) => (p ? accFor(p) : null)) };
+  const prepared = tracks.map((t) => prepareTrack(t, KHUONG_PREP));
+  const parts = prepared.map((t) => (t ? trackStats(t) : null));
+  const diags = prepared.map((t) => (t ? diagTrack(t) : null));
+  return { stats: combineWalkStats(parts), acc: parts.map((p, i) => (p && diags[i] ? accFor(p, diags[i]!) : null)) };
 }
 
 export function statsFor(tracks: Track[]): WalkStats {
   return sampleFor(tracks).stats;
 }
 
-const scalarValues = (g: Total) => SCALARS.map((c) => c.f(g));
+/** Values of SCALARS then DIAG_SCALARS for a sample (optionally a resample of its ants). */
+function statValues(sample: E1Sample, idx?: number[]): number[] {
+  const g = aggregate(sample.acc, idx);
+  const diags = (idx ? idx.map((i) => sample.acc[i]) : sample.acc).map((a) => (a ? a.diag : null));
+  const dv = new Map(diagValues(diags, []).map((v) => [v.id, v.value]));
+  return [...SCALARS.map((c) => c.f(g)), ...DIAG_SCALARS.map((c) => dv.get(c.id) ?? NaN)];
+}
 
 /** Bootstrap SEs of the scalar statistics (resampling ants). */
 export function scalarSE(sample: E1Sample, reps = 200, seed = 1): number[] {
-  return bootstrapSE(sample.acc.length, (idx) => scalarValues(aggregate(sample.acc, idx)), reps, seed);
+  return bootstrapSE(sample.acc.length, (idx) => statValues(sample, idx), reps, seed);
 }
 
 /** Precompute the data side once: values plus bootstrap SEs. */
 export function referenceFor(tracks: Track[], reps = 200): E1Reference {
   const sample = sampleFor(tracks);
-  return { sample, values: scalarValues(aggregate(sample.acc)), se: scalarSE(sample, reps) };
+  return { sample, values: statValues(sample), se: scalarSE(sample, reps) };
 }
 
 export interface E1Comparison {
@@ -227,11 +259,15 @@ export interface E1Comparison {
 export function compareE1(sim: E1Sample, ref: E1Reference, simSE?: number[]): E1Comparison {
   const simTotal = aggregate(sim.acc);
   const refTotal = aggregate(ref.sample.acc);
-  const sv = scalarValues(simTotal);
-  const rows: E1Comparison['rows'] = SCALARS.map((c, i) => {
+  const sv = statValues(sim);
+  const meta = [...SCALARS.map((c) => ({ id: c.id, label: c.label, family: c.family, kind: c.kind })), ...DIAG_SCALARS.map((c) => ({ ...c, kind: 'mean' as CompareKind }))];
+  const rows: E1Comparison['rows'] = [];
+  meta.forEach((c, i) => {
+    // A statistic the data cannot estimate at this incline is left out.
+    if (!Number.isFinite(ref.values[i]) || !(ref.se[i] > 0)) return;
     const seSim = simSE ? simSE[i] : NaN;
     const z = simSE ? combinedZ(sv[i], seSim, ref.values[i], ref.se[i]) : fitZ(sv[i], ref.values[i], ref.se[i]);
-    return { id: c.id, label: c.label, family: c.family, kind: c.kind, data: ref.values[i], sim: sv[i], seData: ref.se[i], seSim, z };
+    rows.push({ ...c, data: ref.values[i], sim: sv[i], seData: ref.se[i], seSim, z });
   });
   const ks = (id: string, label: string, family: string, a: number[], b: number[]) => {
     const r = ksTest(a, b);

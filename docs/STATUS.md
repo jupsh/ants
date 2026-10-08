@@ -218,8 +218,33 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      - Downhill exits (model 0.48–0.52 vs data 0.67–0.83), slope-axis tilt
        10–20° at 20–45°, flat alignment, outward radial drift on ≥ 30° and
        within-ant speed SD all confirm the note.
-   - **Next:** candidate B as pre-registered in the Decisions log
-     (2026-10-08), then C, D, G, H.
+   - **B vs A0 (pre-registered test, exact pause rule; `judgeE1.ts
+     --checks loss11`; fits kept as `data/fits/e1-{A0,B}-loss11.json`):**
+     - (i) flat loss on 5 fresh 1000-ant batches: A0 123.5 ± 2.8, B
+       114.3 ± 1.3; paired B − A0 = −9.2 ± 3.5 (2.6 SE), −5.2 after the
+       heuristic 2k penalty. Met.
+     - (ii) the primary checks (per-ant tortuosity–speed slope, big-turn
+       fraction by speed) improve at 5 of 5 inclines. Met.
+     - **But both models stay far off the checks** (primary Σz² over 6
+       statistics: B 576–2694, A0 633–3109, i.e. |z| ≈ 10–20). B's
+       per-ant slope is −0.18 to −0.22 vs A0 −0.06 to −0.17 and data
+       −0.33 to −0.63; over all turning checks B is better on 0–45° but
+       worse at 30° and 60°. On the fitted slopes B loses (stage-2 loss 239
+       vs 199; combined-SE report at 45°/60°: 269/341 vs 221/271), since
+       `slopeJitterK` is gone and C/D are not yet in.
+     - The fit keeps the time-based terms small (D_t 0.05 rad²/s, μ_t
+       0.29/s; λ 9.9 mm, g 0.65), so per-distance turning still dominates.
+       Reading: the current loss barely rewards the turning structure the
+       checks expose (it has no speed-resolved turning statistics), so the
+       fit cannot pull B towards it.
+     - **Decision:** B is preferred over A0 by the pre-registered rule;
+       provisional (review notes). It is not evidence that ants turn "per
+       unit time" in a specific mechanistic sense, and it does not fix the
+       turning structure.
+   - **Next:** decide whether the speed-resolved turning statistics move
+     into the fit (they are then no longer checks; the flat-ground walker
+     is tested on the held-out Bonavita data instead), then C and D on the
+     adopted structure.
    - **Cascade:** E2 takes its walk parameters from the E1 fit
      (`LASIUS_PARAMS`). Adopting a new E1 fit means re-running
      `reportE2.ts` and, if E2 moves, refitting E2 before 3c.
@@ -836,6 +861,31 @@ See [`CLAUDE.md`](../CLAUDE.md).
     above; checks reported alongside. Run once, on the walker adopted at
     the end of step 5; reported whatever the outcome; afterwards the data
     are development.
+- **2026-10-08** Step 5: speed-resolved turning moves into the E1 fit
+  (user decision after the B vs A0 result; pre-registered before any fit
+  with the new loss):
+  - **Why:** the loss had no speed-resolved turning statistics, so the
+    fits could not see the structure the checks expose (B kept its
+    time-based terms small). With held-out flat-ground data now available
+    (Bonavita et al. 2026), the independent test of the flat walker moves
+    there, and these statistics can become fit targets.
+  - **New loss families** (fit-z with bootstrap SE_data, every incline; a
+    statistic the data cannot estimate at an incline, e.g. < 10 stops in a
+    bin, is left out there, not penalised):
+    `turnBig` (P(|turn| > 0.5 rad) per 2.5 mm chord, 5 speed bins),
+    `turnMed` (median |turn|, 5 speed bins), `antTurnSlope` (per-ant slope
+    of log(1 − ⟨cos⟩ at 10 mm) on log median speed), `stopTurn` (⟨cos⟩
+    heading into vs out of stops, < 0.4 s and 0.4–1.2 s). 11 → 15 families.
+  - **Remaining checks, never fitted:** ⟨cos⟩ at 5 and 50 mm and kurtosis
+    by speed bin, steering drift, alignment by displacement, downhill
+    exits, radial/returns, log-speed decomposition, longer stops.
+  - **Comparison:** refit A0 and B with the new loss and the same search;
+    decision as before (paired difference over 5 fresh batches > 2 SE, and
+    lower Σz² of the remaining by-speed checks — cos5, cos50, kurtosis — at
+    ≥ 4 of 5 inclines), provisional in the sense of the review notes.
+  - **Held-out criterion amended accordingly** (before any inspection):
+    the rule "no |z| > 3, at most 2 of ≈ 24 marginal" becomes "no |z| > 3,
+    at most 10 % of the statistics marginal" over all `compareE1` rows.
 - **2026-10-08** Pool size follows free memory (tooling; results
   unaffected): `SimPool` defaults to min(cores − 1, (MemAvailable − 1 GB) /
   350 MB) workers (`defaultWorkers` in `scripts/pool.ts`; E1 workers
@@ -843,3 +893,64 @@ See [`CLAUDE.md`](../CLAUDE.md).
   Why: two concurrent E1 fits started 30 workers on a 16-thread, 16 GB
   laptop and pushed it into swap. Two fits launched at the same moment both
   see the same free memory, so give each `SIM_WORKERS` ≈ half the cores.
+- **2026-10-08** Two exploratory E1 checks (user request; Khuong data only,
+  already fit/development; Bonavita held-out untouched; adopted A0 fit and
+  candidate B, both through the tracking observer). Predictions written
+  before running:
+  - **Reorientation at stops:** ⟨cos⟩ heading in vs out of a stop by finer
+    stop-duration bins, plus the change in alignment with downhill and with
+    the release direction across the stop. A reset at stops predicts low
+    ⟨cos⟩ even for the shortest stops in the data; diffusion while stopped
+    predicts a decay with duration; the model (no stop mechanism) should
+    stay high. A downhill or homeward shift ties the reset to C or G.
+  - **Trait vs instantaneous speed–turning:** slope of log(1 − ⟨cos⟩ at
+    10 mm) on log speed between ants vs within ants (ant fixed effects,
+    within-ant speed terciles; speed from arc length / moving time, which
+    avoids the "turns shorten displacement" artefact). B predicts within ≈
+    between; a correlated per-ant turning trait predicts between steeper
+    than within.
+  - **Results** (600 simulated ants per incline; scratch script, not in
+    the repo yet; z = combined):
+    - **Reorientation at stops: confirmed, at every incline.** For real
+      stops (0.13–0.8 s) the data's ⟨cos⟩ in vs out is 0.03–0.41 (mostly
+      0.1–0.3); A0 0.64–0.81, B 0.57–0.79 (z 1.8–9.3). It is already low for
+      0.13–0.25 s stops and shows no decay with duration: a reset on
+      stopping, not diffusion while stopped. B's per-time terms do not
+      produce it. Not downhill-directed (|Δ| ≤ 0.11, |z| ≤ 2.5); a weak,
+      noisy homeward tendency (out-heading vs release direction 0.08–0.23
+      at 0–30°, model ≈ 0).
+    - **Side finding, stop durations:** the data's stops (with movement on
+      both sides) are almost all < 0.25 s (0°: 296 of 325); the model's are
+      long (A0 0°: 464 of 997 over 0.4 s). The stopped fraction matches via
+      fewer, longer pauses. Check the pause-duration distribution directly.
+    - **Side finding, homing via reversals:** most stop episodes are < 0.13
+      s and are sharp reversals (⟨cos⟩ in vs out ≈ 0 in data and model).
+      Over all stops, the data's new heading points towards the release
+      point (⟨cos⟩ +0.21/+0.24/+0.16 at 0/20/30°, +0.03/+0.08 at 45/60°);
+      the model's do not (−0.04 to +0.08; z −2.3 to −5.7 at 0–30°).
+      Homing may act through the direction of big turns; relevant to the
+      near-release drift gap and to G.
+    - **Trait hypothesis: rejected.** Within-ant slope (arc speed) −3.6 /
+      −2.9 / −2.8 / −2.1 / −1.9 is much steeper than between-ant −0.62 /
+      −0.60 / −0.62 / −0.37 / −0.46, the opposite of the trait prediction;
+      the displacement-speed version agrees. No per-ant turning trait.
+    - **But the within-ant coupling is the largest gap found so far:** A0
+      −0.30 to −1.53, B −0.33 to −1.39 (z 12–22; B no better than A0).
+      Per-time heading noise (B) gives at most ≈ −1, so B cannot reach −2 to
+      −3.6 at any parameter values. Candidates: turn-linked slowing (ants
+      decelerate for turns) or the slow-tortuous mode F. Distinguishing
+      observation: speed time course around big turns (short dip centred on
+      the turn → motor coupling; dwell and lag → F).
+- **2026-10-08** Refits of A0 and B with the 15-family loss **stopped**
+  before finishing (user decision). The exploratory checks above show
+  that neither structure has a heading reset at stops or the steep
+  within-ant speed–turning coupling, so their comparison under the new
+  loss would mostly measure which wrong structure distorts less. The
+  15-family loss stays as pre-registered and will be used for the next
+  candidate. Order of work:
+  - observational checks first (other session): pause/stop-duration
+    distribution; speed time course around big turns (short dip centred on
+    the turn → turn-linked slowing; dwell and lag → two-state F);
+  - then pre-register one combined candidate (heading reset at stops,
+    corrected pause-duration distribution, the coupling the checks support,
+    B's per-time terms only if still needed) and fit it against A0.
