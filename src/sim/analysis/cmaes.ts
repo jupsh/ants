@@ -18,6 +18,12 @@ import { RNG } from '../core/rng';
 export interface CmaOptions {
   /** Initial step size (same units as x). */
   sigma: number;
+  /**
+   * Initial per-coordinate scales (the initial covariance is σ²·diag(stds²));
+   * for badly scaled objectives, so the first generations are not wasted on
+   * steps far too large in the sensitive coordinates. Default all 1.
+   */
+  stds?: number[];
   /** Population size (default 4 + ⌊3 ln n⌋). */
   lambda?: number;
   maxGenerations: number;
@@ -66,9 +72,10 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
   let sigma = o.sigma;
   const pc = new Array(n).fill(0);
   const ps = new Array(n).fill(0);
-  let C = identity(n);
+  const s0 = o.stds ?? new Array(n).fill(1);
+  let C = identity(n).map((r, i) => r.map((v) => v * s0[i] * s0[i]));
   let B = identity(n);
-  let D = new Array(n).fill(1);
+  let D = s0.slice();
   let best = { x: m.slice(), f: Infinity };
   let evals = 0;
   let g = 0;

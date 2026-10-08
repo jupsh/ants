@@ -21,6 +21,19 @@ describe('CMA-ES', () => {
     for (const v of r.mean) expect(v).toBeCloseTo(1, 4);
   });
 
+  it('per-coordinate initial scales keep a badly scaled start near its optimum', async () => {
+    // Ellipsoid with axis scales 1 … 1000, started at the optimum with σ = 1:
+    // unit steps throw the mean far off in the sensitive coordinates; scaled
+    // steps (stds = 1/aᵢ) do not.
+    const n = 10;
+    const a = Array.from({ length: n }, (_, i) => 10 ** ((3 * i) / (n - 1)));
+    const f = (x: number[]) => x.reduce((s, v, i) => s + (a[i] * v) ** 2, 0);
+    const plain = await cmaes(f, new Array(n).fill(0), { sigma: 1, maxGenerations: 30, seed: 2 });
+    const scaled = await cmaes(f, new Array(n).fill(0), { sigma: 1, stds: a.map((v) => 1 / v), maxGenerations: 30, seed: 2 });
+    expect(f(scaled.mean)).toBeLessThan(f(plain.mean) / 100);
+    expect(f(scaled.mean)).toBeLessThan(1);
+  });
+
   it('averages over noise redrawn every generation: the final mean lands near the optimum', async () => {
     // Noise SD 0.5 on a sphere with minimum 0 at x = 1 (n = 8); fresh noise per generation and candidate.
     let k = 0;

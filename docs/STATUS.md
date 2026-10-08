@@ -1412,3 +1412,119 @@ See [`CLAUDE.md`](../CLAUDE.md).
   comparisons rather than the observer-free ones shown before. The E1 page
   sends the speed distribution as 1001 quantiles (same median) and omits
   per-sample arrays it never drew; the comparison uses the full statistics.
+- **2026-10-08** Staged vs joint comparison, first cell (T truth, 69 ants,
+  staged) — **optimiser failure, queue stopped:**
+  - Stage 1 converged (σ 0.05) to a flat loss of 56.0 ± 1.1 on the fresh
+    batches, where the true parameters score **17.8** on the same data: the
+    optimiser did not minimise its own objective, so this is not a sample-size
+    limit. The optimum it found explains speed variation by strong, slow
+    turn-linked slowing (turnDip 0.90, τ 0.88 s; truth 0.60, 0.25 s) with a
+    high base speed (84 vs 62 mm/s) and almost no within-ant speed noise
+    (0.04 vs 0.38): a different local optimum.
+  - Stage 2 drove slopeSpeedSdK to 5.4 (truth 0.93): at 60° no simulated
+    track is usable, every family is NaN and scores the fixed penalty 100,
+    the loss is flat there, and CMA-ES's σ grew (0.48 → 0.91) instead of
+    converging. 45°: stopped-fraction z = 82.
+  - The remaining three cells use the same procedure, so they were stopped
+    (≈ 9 h of compute that would only confirm this).
+  - **Fix before rerunning the four cells (same design, same decision
+    rule):** (1) bounded parameters: each fitted parameter gets a plausible
+    range (wide, written down with the code; a fit at a bound is reported),
+    encoded so the optimiser cannot leave it; (2) in the fit objective
+    only, a candidate whose simulation leaves any statistic inestimable
+    ranks below every candidate that estimates all of them, then by the
+    number of such statistics. The fixed 100 per family was *below* the real
+    misfit of most stage-2 candidates (2 000–9 000), so degenerate walkers
+    were preferred, not merely tolerated. The judging loss (`compareE1`) is
+    unchanged; (3) several starts (warm start and the variant's second
+    start) with restarts of increasing population (IPOP-CMA-ES, Auger &
+    Hansen 2005); the final mean that scores best on a fixed common batch is
+    kept.
+  - **Diagnostic first:** stage 1 started *at the truth* (same 69-ant data).
+    If it stays near the truth's loss, the failure is a local optimum and
+    (3) addresses it; if it drifts to a worse loss, the objective itself is
+    at fault (e.g. noise-dependent bias) and that is fixed first.
+  - **Acceptance test for the optimiser before the cells run:** on the
+    large flat reference, stage 1 from the usual warm start must reach a
+    fresh-batch loss within 2 SE of the truth's own.
+- **2026-10-08** Reference-walker slope-threshold sensitivity
+  (pre-registered above; `reportE1Ref.ts --fits walk,A0,T`, 600 ants, the
+  same seeds, default vs `--segments data/reference/khuong-segments-alt.json`;
+  per-purpose RNG streams, so our walkers' numbers differ from the earlier
+  single-stream report). Ours = best of walk/A0/T per incline.
+  - Σz² over compareE1 rows, ours vs Khuong walker (default → alt): 20° 591
+    vs 3216 → 3288; 30° 1011 vs 1878 → 1827; 45° 2114 vs 3588 → 3975; 60°
+    1842 vs 4633 → 5254. Ours better at every slope under both: **robust.**
+  - By-speed checks (primary), ours vs Khuong: 20° 671 vs 788 → 829 (ours
+    better); 30° 1409 vs 649 → 831 (Khuong better); 45° 1588 vs 1424 →
+    1497 (Khuong better); 60° 736 vs 1895 → 2454 (ours better). Same signs
+    under both thresholds, also for the corrected walker (khuong*):
+    **robust to the threshold.** Flat pools identical (0° unchanged).
+  - **But not robust to simulation noise at 20° and 45°:** the earlier
+    single-stream report had Khuong better at 20° (879 vs 788) and a tie at
+    45° (1423 vs 1424); only the random streams changed. Those two
+    comparisons are reported as uncertain; 30° (Khuong better) and 60°
+    (ours better) agree across all three runs. This supersedes the
+    by-speed reading in the reference-baselines results above.
+- **2026-10-08** Diagnostic result (stage 1 started at the truth, same
+  69-ant data, 60 generations, no restarts): CMA-ES **left the truth**:
+  final mean fresh-batch loss 76.5 ± 4.5 vs the truth's 17.8. Generation 0
+  candidates at σ = 0.5 around the truth scored 720 (best) and 4 700
+  (median): the objective is extremely sharp in some directions (a 0.5
+  step in transformed speed is a 38 % speed change; speed quantiles have
+  ≈ 3 % SEs), so the first update moves the mean to an average of far-off
+  candidates, and re-converging needs σ to shrink an order of magnitude and
+  the covariance to be learned (O(n²) generations for n = 18 with the
+  default population). Not a bias in the objective: slow convergence on an
+  ill-conditioned objective, which also explains the first cell (it stopped
+  wherever the budget ran out).
+  - **Fix (decided before implementing):** per-coordinate initial step
+    sizes from the local sensitivity at the start point: loss at x0 ± h·eᵢ
+    (h = 0.1, common seeds with x0), curvature cᵢ, initial SD
+    sᵢ = clamp(√(Δ/cᵢ), 0.02, 1) (then h 0.2, cap 0.3, below) with Δ = 10 loss units (≈ 3× the 640-ant
+    evaluation noise), passed to CMA-ES as the initial diagonal (σ = 1).
+    2n extra evaluations per start. Generation caps raised (stage 1 400,
+    stage 2 300, joint 600), with the convergence stop.
+  - **Test order:** (i) the truth-start diagnostic again: pass if the final
+    mean's fresh-batch loss is within 2 SE of the truth's; (ii) the
+    acceptance test above (warm start, large flat reference); (iii) the four
+    cells.
+  - **(i) first try** (h 0.1, SD cap 1): fresh-batch loss 31.3 ± 0.8 vs
+    the truth's 17.8 (was 76.5): better, not a pass. Six coordinates the
+    probe saw as flat at h = 0.1 got the cap (speedTau, jitter, homeRange,
+    homeHeadingPull, turnDip, stopTurnG/stopHomePull); unit steps take them
+    into poor regions (homing rows worst, radial z 6.3 near the start;
+    speedSdBetween 0.03 vs 0.14). Tweak (synthetic diagnostic only): h =
+    0.2, SD cap 0.3; wide exploration stays with the second start and the
+    IPOP restarts. Rerun (i).
+  - **(i) passed** (h 0.2, cap 0.3, 60 generations): fresh-batch loss 13.4
+    ± 0.8 vs the truth's 17.8 (below it, as expected: on 69 ants the data's
+    own optimum fits some sampling noise); parameters near the truth (speed
+    64.7 vs 62.4 mm/s, mean free path 42.6 vs 39.5 mm, between-/within-ant
+    SD 0.146/0.368 vs 0.138/0.378). Next (ii): warm start, large flat
+    reference, stage 1 only, full procedure (2 starts + 1 IPOP restart,
+    ≤ 400 generations each, convergence stop).
+- **2026-10-08** User decisions (after the start-at-truth result):
+  - **Checkpoint commit now**, acceptance test **pending** (it runs on the
+    code of that commit minus `--stage1From`, the `selectionLoss` rename
+    and the rep check, none of which touches stage 1). The result is
+    recorded separately when it finishes. The start-at-truth pass is
+    encouraging only; the large-reference test from the displaced warm
+    start is the acceptance check.
+  - **Selection data:** the common batch that picks the best of the
+    optimiser's runs is selection data. The selected run is reported only
+    on separate fresh batches (flatFresh: seeds +5000; report: +1000;
+    selection: +offset+77, distinct from every generation and probe seed).
+    Fit files now call those values `selectionLoss`.
+  - **Reference walkers:** keep the slope conclusions that are stable
+    across thresholds and streams (Σz²: ours better at every slope;
+    by-speed checks: Khuong better at 30°, ours at 60°); the 20° and 45°
+    by-speed comparisons are **unresolved**, not reported either way.
+  - **Step 4, bounded version, started in parallel:** nest geometry
+    (Bles lab nest), contact detection, food-transfer conservation,
+    deterministic tests, with the current walker used provisionally behind
+    a replaceable interface. No calibration and no E6 comparison until the
+    walking decision is settled.
+  - **Provisional colony page:** minimal, for inspecting movement, contact
+    events and food conservation; parameters labelled provisional; visual
+    polish allowed before the encounter model is complete.
