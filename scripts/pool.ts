@@ -1,6 +1,7 @@
 /**
  * Process pool for simulation scripts: one vite-node child per core (minus
- * one), each running scripts/poolWorker.ts. Tasks are pure (see
+ * one, fewer if memory is short), each running scripts/poolWorker.ts. Tasks
+ * are pure (see
  * src/sim/parallel/tasks.ts), and results come back in submission order, so
  * pooled runs are bit-identical to serial ones.
  *
@@ -19,6 +20,24 @@ import type { E6Metrics } from '../src/sim/experiments/e6Bles';
 import type { WalkParams } from '../src/sim/models/walk';
 import type { BlesParams } from '../src/sim/reference/blesTEC';
 import type { TaskArgs, TaskName, TaskResult } from '../src/sim/parallel/tasks';
+
+/** Memory per worker: measured RSS ≈ 270 MB during E1 fits, plus headroom. */
+const WORKER_MB = 350;
+/** Memory left for everything else. */
+const RESERVE_MB = 1024;
+
+/**
+ * Default pool size: cores − 1, capped so the workers fit in available memory
+ * (os.freemem() is MemAvailable on Linux), at least 1. A swapping pool is
+ * slower than a smaller one; results do not depend on the size.
+ */
+export function defaultWorkers(): number {
+  const cores = Math.max(1, os.availableParallelism() - 1);
+  const availMb = os.freemem() / 2 ** 20;
+  const fit = Math.max(1, Math.floor((availMb - RESERVE_MB) / WORKER_MB));
+  if (fit < cores) console.error(`pool: ${fit} workers instead of ${cores} (${(availMb / 1024).toFixed(1)} GB available; SIM_WORKERS=n overrides)`);
+  return Math.min(cores, fit);
+}
 
 interface Job {
   id: number;
@@ -40,8 +59,8 @@ export class SimPool {
     return this.workers.length;
   }
 
-  /** Start `n` workers (default: available cores − 1, at least 1; env SIM_WORKERS overrides). */
-  static async create(n = Number(process.env.SIM_WORKERS ?? Math.max(1, os.availableParallelism() - 1))): Promise<SimPool> {
+  /** Start `n` workers (default: `defaultWorkers()`; env SIM_WORKERS overrides). */
+  static async create(n = Number(process.env.SIM_WORKERS ?? defaultWorkers())): Promise<SimPool> {
     const bin = path.resolve('node_modules/.bin/vite-node');
     const script = path.resolve('scripts/poolWorker.ts');
     const workers = Array.from({ length: n }, () => fork(bin, [script], { serialization: 'advanced', stdio: ['ignore', 'inherit', 'inherit', 'ipc'] }));
