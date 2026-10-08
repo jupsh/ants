@@ -32,16 +32,25 @@
  * its candidates; the estimate is the final distribution mean. `--optimizer
  * nm` is the earlier multi-start Nelder–Mead on fixed seeds.
  *
- * Parameter recovery: `--recover truth.json --rep r` replaces the Khuong data
- * by 69 ants per incline simulated from the parameters in truth.json
- * (seeds depend on r) and writes data/fits/recover/e1-<variant>-rep<r>.json.
+ * Strategy (STATUS 2026-10-08, staged vs joint): `--strategy staged`
+ * (default; the two stages above) or `joint` (one CMA-ES over all stage-1
+ * and stage-2 parameters, loss = mean of the 0°, 30° and 60° losses).
+ *
+ * Parameter recovery: `--recover truth.json --rep r [--recoverAnts n]`
+ * replaces the Khuong data by n ants per incline (default 69, the real
+ * sample size) simulated from the parameters in truth.json (seeds depend on
+ * r). With n > 69 the reference is scored as 69 ants (`scaleReference`), so
+ * only its sampling error changes. Writes
+ * data/fits/recover/e1-<variant>-<strategy>-n<n>-rep<r>.json; prediction
+ * recovery is judged by scripts/recoverE1.ts.
  *
  * Usage: npx vite-node scripts/fitE1.ts --variant A0|B|T [--quick]
- *          [--optimizer cma|nm] [--gens1 150] [--gens2 120] [--recover f --rep r]
+ *          [--optimizer cma|nm] [--strategy staged|joint] [--gens1 150]
+ *          [--gens2 120] [--gensJ 250] [--recover f --rep r [--recoverAnts n]]
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
 import { nelderMead } from '../src/sim/analysis/optimize';
-import { compareE1, referenceFor, scalarSE, type E1Reference } from '../src/sim/experiments/e1Compare';
+import { compareE1, referenceFor, scalarSE, scaleReference, type E1Reference } from '../src/sim/experiments/e1Compare';
 import { walkParams, type WalkParams } from '../src/sim/models/walk';
 import { khuongTracking } from '../src/sim/species/lasiusM1';
 import { arg, flag, INCLINES, loadKhuong, numArg, readJson, writeJson } from './lib';
@@ -58,17 +67,30 @@ const OPT = arg('--optimizer', 'cma');
 if (!['cma', 'nm'].includes(OPT)) throw new Error('--optimizer cma|nm');
 const GENS1 = numArg('--gens1', quick ? 40 : 150);
 const GENS2 = numArg('--gens2', quick ? 30 : 120);
+const GENSJ = numArg('--gensJ', quick ? 60 : 250);
+const STRATEGY = arg('--strategy', 'staged');
+if (!['staged', 'joint'].includes(STRATEGY)) throw new Error('--strategy staged|joint');
+if (STRATEGY === 'joint' && OPT !== 'cma') throw new Error('--strategy joint needs --optimizer cma');
 const RECOVER = arg('--recover', '');
 const REP = numArg('--rep', 0);
-const OUT = RECOVER ? `data/fits/recover/e1-${VARIANT}-rep${REP}.json` : `data/fits/e1-${VARIANT}${OPT === 'nm' ? '-nm' : ''}${quick ? '-quick' : ''}.json`;
+const REC_N = numArg('--recoverAnts', 69);
+const OUT = RECOVER
+  ? `data/fits/recover/e1-${VARIANT}-${STRATEGY}-n${REC_N}-rep${REP}${quick ? '-quick' : ''}.json`
+  : `data/fits/e1-${VARIANT}${STRATEGY === 'joint' ? '-joint' : ''}${OPT === 'nm' ? '-nm' : ''}${quick ? '-quick' : ''}.json`;
 
 const pool = await SimPool.create();
 const runOpts = (i: number, ants: number, seed: number) => ({ incline: INCLINES[i], ants, seed, dt: DT, tracking: khuongTracking(i + 1) });
 
-// Reference data: the Khuong tracks, or (recovery test) 69 ants per incline simulated from known parameters.
+// Reference data: the Khuong tracks, or (recovery test) REC_N ants per incline simulated from known parameters.
 const truth = RECOVER ? walkParams(readJson<any>(RECOVER).params) : null;
 const data: E1Reference[] = [];
-for (let k = 1; k <= 5; k++) data.push(referenceFor(truth ? await pool.e1(truth, runOpts(k - 1, 69, 777000 + 10 * REP + k)) : loadKhuong(k)));
+for (let k = 1; k <= 5; k++) {
+  if (!truth) data.push(referenceFor(loadKhuong(k)));
+  else {
+    const ref = referenceFor(await pool.e1(truth, runOpts(k - 1, REC_N, 777000 + 10 * REP + k)));
+    data.push(REC_N > 69 ? scaleReference(ref, 69) : ref);
+  }
+}
 
 const logit = (p: number) => Math.log(p / (1 - p));
 const sigm = (x: number) => 1 / (1 + Math.exp(-x));
@@ -139,9 +161,6 @@ const dec1 = (x: number[], base: WalkParams): WalkParams => {
   return q;
 };
 const t0 = Date.now();
-const r1 = await stage('stage1', [0], (x) => dec1(x, p), [enc1(p), enc1({ ...p, ...second })], quick ? 150 : 500, GENS1, 100000);
-p = dec1(r1.x, p);
-console.log('stage 1 done', r1.f.toFixed(3), JSON.stringify(p));
 
 // ---- Stage 2: slopes
 const enc2 = (q: WalkParams) => [Math.log(q.slopeSpeedK), Math.log(q.geoRunGain), logit(Math.min(0.999, q.geoHeadingPull)), q.slopePauseK, q.slopeSpeedSdK, ...(VARIANT === 'A0' ? [q.slopeJitterK] : [])];
@@ -154,9 +173,27 @@ const dec2 = (x: number[], base: WalkParams): WalkParams => ({
   slopeSpeedSdK: x[4],
   ...(VARIANT === 'A0' ? { slopeJitterK: x[5] } : {}),
 });
-const r2 = await stage('stage2', [2, 4], (x) => dec2(x, p), [enc2(p), enc2({ ...p, geoRunGain: 0.3, geoHeadingPull: 0.3, slopeSpeedSdK: 0 })], quick ? 120 : 400, GENS2, 200000);
-p = dec2(r2.x, p);
-console.log('stage 2 done', r2.f.toFixed(3), JSON.stringify(p));
+const second2: Partial<WalkParams> = { geoRunGain: 0.3, geoHeadingPull: 0.3, slopeSpeedSdK: 0 };
+let fitLoss: Record<string, unknown>;
+if (STRATEGY === 'staged') {
+  const r1 = await stage('stage1', [0], (x) => dec1(x, p), [enc1(p), enc1({ ...p, ...second })], quick ? 150 : 500, GENS1, 100000);
+  p = dec1(r1.x, p);
+  console.log('stage 1 done', r1.f.toFixed(3), JSON.stringify(p));
+  const r2 = await stage('stage2', [2, 4], (x) => dec2(x, p), [enc2(p), enc2({ ...p, ...second2 })], quick ? 120 : 400, GENS2, 200000);
+  p = dec2(r2.x, p);
+  console.log('stage 2 done', r2.f.toFixed(3), JSON.stringify(p));
+  fitLoss = { stage1: r1.f, stage2: r2.f, evals: [r1.evals, r2.evals] };
+} else {
+  // ---- Joint: all parameters at once on the three fit inclines.
+  const n1 = enc1(p).length;
+  const encJ = (q: WalkParams) => [...enc1(q), ...enc2(q)];
+  const decJ = (x: number[], base: WalkParams) => dec2(x.slice(n1), dec1(x.slice(0, n1), base));
+  const base = p;
+  const rj = await stage('joint', [0, 2, 4], (x) => decJ(x, base), [encJ(p), encJ({ ...p, ...second, ...second2 })], 0, GENSJ, 300000);
+  p = decJ(rj.x, base);
+  console.log('joint done', rj.f.toFixed(3), JSON.stringify(p));
+  fitLoss = { joint: rj.f, evals: [rj.evals] };
+}
 
 // ---- Decision quantity: flat-ground loss (fit-z, as the objective) on 5
 // independent fresh batches of 1000 ants. Batch seeds are the same for every
@@ -202,8 +239,9 @@ writeJson(OUT, {
   antsPerEval: ANTS,
   k,
   optimizer: OPT,
-  ...(RECOVER ? { recovery: { truth: RECOVER, rep: REP, antsPerIncline: 69, truthFloor } } : {}),
-  fitLoss: { stage1: r1.f, stage2: r2.f, evals: [r1.evals, r2.evals] },
+  strategy: STRATEGY,
+  ...(RECOVER ? { recovery: { truth: RECOVER, rep: REP, antsPerIncline: REC_N, scoredAs: Math.min(REC_N, 69), truthFloor } } : {}),
+  fitLoss,
   flatFresh: { batches: flatBatches, mean: flatMean, se: flatSe, k1, penalised: flatMean + 2 * k1, antsPerBatch: 1000 },
   seconds: (Date.now() - t0) / 1000,
   params: p,

@@ -113,7 +113,7 @@ export interface KSResult {
  * independent units (e.g. one value per ant), not autocorrelated samples
  * from within tracks.
  */
-export function ksTest(a: ArrayLike<number>, b: ArrayLike<number>): KSResult {
+export function ksTest(a: ArrayLike<number>, b: ArrayLike<number>, mEff?: number): KSResult {
   const x = Array.from(a).sort((p, q) => p - q);
   const y = Array.from(b).sort((p, q) => p - q);
   const n = x.length;
@@ -127,7 +127,9 @@ export function ksTest(a: ArrayLike<number>, b: ArrayLike<number>): KSResult {
     while (j < m && y[j] <= v) j++;
     d = Math.max(d, Math.abs(i / n - j / m));
   }
-  const ne = Math.sqrt((n * m) / (n + m));
+  // mEff: score b as if it had that many values (synthetic references scaled to a real sample size).
+  const mm = mEff ?? m;
+  const ne = Math.sqrt((n * mm) / (n + mm));
   const p = kolmogorovQ((ne + 0.12 + 0.11 / ne) * d);
   return { d, n, m, p, z: pToZ(p) };
 }

@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-08 (session 3: step 5 (E1 walking revisit) started first, because 3c and 4 both depend on the walking model; see Decisions log). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-08 (session 3: step 5, E1 walking revisit — now the staged-vs-joint fitting comparison on synthetic data; see Decisions log). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
@@ -241,10 +241,21 @@ step: repo Settings → Pages → Source = "GitHub Actions".
        provisional (review notes). It is not evidence that ants turn "per
        unit time" in a specific mechanistic sense, and it does not fix the
        turning structure.
-   - **Next:** decide whether the speed-resolved turning statistics move
-     into the fit (they are then no longer checks; the flat-ground walker
-     is tested on the held-out Bonavita data instead), then C and D on the
-     adopted structure.
+   - Done since: speed-resolved turning in the fit (15-family loss); T
+     vs A0 (T not preferred, under the old fitting procedure); per-purpose
+     random streams; CMA-ES; reference walkers (Decisions log).
+   - **Now (Decisions log, "Review notes on the next phase"):** bounded
+     staged-vs-joint fitting comparison on synthetic data (T truth; large
+     and 69-ant references; prediction recovery primary,
+     `scripts/recoverE1.ts`); then one renewed A0 vs T comparison with
+     the chosen strategy; then the E2 sensitivity to plausible walkers,
+     which decides whether E1 work stops (stopping condition). C, D, G
+     deferred until then. The Bonavita held-out test runs only after all
+     of this, on the adopted walker, with the reference walkers as frozen
+     secondary benchmarks.
+   - Reference-walker slope threshold sensitivity (pre-registered
+     alternative ε): `reportE1Ref.ts --segments
+     data/reference/khuong-segments-alt.json` vs default.
    - **Cascade:** E2 takes its walk parameters from the E1 fit
      (`LASIUS_PARAMS`). Adopting a new E1 fit means re-running
      `reportE2.ts` and, if E2 moves, refitting E2 before 3c.
@@ -1260,3 +1271,130 @@ See [`CLAUDE.md`](../CLAUDE.md).
     can repair a wrong split. If confirmed, fits with time-based turning
     need a joint fit across inclines (and T's poor slope checks may partly
     be this).
+- **2026-10-08** User decisions on the two open items above, and on order
+  (logged before any computation they govern):
+  - **Order:** parameter recovery is completed and the fitting strategy
+    settled before anything is run on the Bonavita data. The adopted
+    walker's held-out acceptance criterion stays exactly as frozen above
+    (no |z| > 3; at most 2 of ≈ 24 statistics with 2 < |z| ≤ 3); nothing
+    below changes it.
+  - **Amendment to the frozen held-out protocol: reference walkers as
+    secondary benchmarks** (frozen now, before any held-out computation):
+    - Walkers: Khuong (`xy` frame) and Bonavita Φu (`start` frame, the
+      start being each simulated ant's own release position). **Primary:
+      the published-compatible versions (`compat: true`); sensitivity: the
+      corrected versions (`compat: false`).**
+    - Pools: the flat pools of the committed
+      `data/reference/khuong-segments.json` (ε = 1.7 mm on the repo's
+      Khuong copy), as at commit f4a4a26. No refit, nothing derived from
+      the Bonavita data except the observer.
+    - Geometry, stop rule, observer, preparation and statistics identical
+      to the adopted walker's: start at the matched recorded ant's first
+      position with a uniform heading, end at 180 s or at centre distance
+      ≥ 245 mm (segments truncated there, positions every 0.04 s), the
+      tracking noise calibrated on the Bonavita data, `KHUONG_PREP`, the
+      same `e1Compare` statistics and `walkDiagnostics` checks, same
+      number of simulated ants and seeds, white light primary.
+    - Reporting: per-statistic combined z for each benchmark, the same
+      criterion evaluated and reported for each (descriptive), and Σz²
+      over the frozen statistics and over the checks, ours minus each
+      benchmark. No decision about our walker depends on the benchmarks.
+      A statement "ours better/worse than benchmark X" on any statistic
+      group is made only if the published-compatible and the corrected
+      versions agree in sign; otherwise it is reported as sensitive to the
+      published quirks.
+    - **Disclosure:** the held-out report opens with the contamination
+      log's exposure entries: the paper's summary of this experiment was
+      read before registration (homeward bias under red light; faster
+      homeward walking), and the possibly related "4.06× longer to reach
+      200 mm net displacement than isotropic models" sentence. The
+      exit-time statistic (`exit.ks`, time to 200 mm) is in the frozen
+      set; its result, for our walker and the benchmarks, is flagged as
+      possibly exposed.
+  - **Slope segmentation thresholds of the reference walkers:**
+    - **Default (unchanged):** ε_γ = 1.7 mm · c̄₀/c̄_γ with c̄ = total path /
+      total time of the raw tracks of an incline: 1.70 / 2.19 / 2.64 /
+      3.57 / 4.02 mm.
+    - **Alternative, pre-registered here before computing it:** c̄_γ =
+      Khuong et al.'s per-ant median average speed (Fig. 3A, distance /
+      time including stops: 49 / 38 / 29 / 20 / 14 mm/s;
+      `slope-walking.md` table), i.e. the note's literal reading: ε =
+      1.70 / 2.19 / 2.87 / 4.17 / 5.95 mm. Same port, same tracks; flat
+      pools identical by construction. Output
+      `data/reference/khuong-segments-alt.json`.
+    - **Comparison:** `reportE1Ref.ts` on both pool files with the same
+      seeds, ants and our fits. For every slope result of the reference
+      walkers (Σz² over compareE1 rows; over the by-speed checks; each
+      vs our best walker), a conclusion is **robust** only if its sign is
+      the same under both thresholds; otherwise it is reported as
+      **uncertain (threshold-sensitive)**. This applies to the results
+      already recorded above (Khuong walker better than ours on the
+      by-speed checks at 20–30°, tie at 45°, worse at 60°) and to any later
+      slope conclusion about the reference walkers. The held-out test is
+      flat and unaffected.
+- **2026-10-08** Review notes on the next phase, adopted (logged before
+  implementation). Additional mechanisms (C, D, G) are **deferred** until
+  the fitting strategy is settled, so existing mechanisms get a fair test
+  first.
+  - **"T not preferred" stands as recorded, but it is a failure under the
+    previous fitting procedure** (single random stream, Nelder–Mead,
+    staged flat-then-slopes), not evidence that turn-linked slowing or the
+    stop reset cannot work. T is refitted and compared again below.
+  - **Precision vs certainty:** the 5 fresh batches measure Monte Carlo
+    precision of a model's score on this one data set. They do not include
+    sampling of real ants and colonies, or refitting. A precise score
+    difference can still support only a tentative biological conclusion;
+    reports say which uncertainty a ± is. The spread of refits over
+    recovery replicates at 69 ants (below) is the estimate of refit
+    variability used when interpreting the renewed comparison.
+  - **Bounded comparison: staged vs joint fitting, on synthetic data**
+    (truth = `data/fits/e1-T.json`, variant T, CMA-ES, 640 ants per
+    evaluation, as in a real fit). Four cells, replicate 0 each:
+    - reference size: **large** (2000 simulated ants per incline; data SEs
+      rescaled to the 69-ant equivalent, SE·√(2000/69), and KS rows use an
+      effective reference size of 69, so loss weights and scale match a
+      real fit) vs **69 ants** (the real sample size);
+    - strategy: **staged** (stage 1 flat, then stage 2 slope parameters
+      on 30°/60°; the current procedure) vs **joint** (one CMA-ES over all
+      stage-1 and stage-2 parameters, loss = mean over the 0°/30°/60°
+      losses, equal weights, ≤ 250 generations, same warm start).
+    - Large-reference failure points to the procedure or to uninformative
+      statistics; failure only at 69 ants means the data cannot identify
+      everything.
+    - **Prediction recovery is primary, parameter recovery secondary.**
+      For each fit and incline (all 5, including 20° and 45°, which are
+      never fitted): fresh 2000-ant simulations of the recovered and the
+      true parameters on different seeds, scored with the fit loss against
+      a 2000-ant truth reference (SEs at the 69-ant scale). Excess = loss −
+      the truth's own loss (floor). **Recovered**: excess ≤ 0.25 per family
+      on average and no family with mean z² excess > 1 (every family within
+      ≈ 1 data SE). **Failed**: average > 1 per family or any family > 4
+      (> 2 data SE). In between: approximate. Parameters that differ while
+      predictions are recovered are reported as an identifiability
+      ambiguity (e.g. per-time vs per-distance turning), not a failure.
+    - **Decision rule:** staged stays if it recovers predictions at every
+      incline on the large reference. Joint is adopted if staged fails
+      there and joint does better (more inclines recovered; tie → lower
+      total excess). If both fail on the large reference, the optimiser or
+      the statistics are at fault, and no model comparison is run until
+      that is resolved. The 69-ant cells are interpreted, not used for the
+      choice. The chosen strategy is then checked once on A0 (large
+      reference), and 2 more replicates at 69 ants (reps 1, 2) give the
+      refit spread.
+    - Caveat for real data: a joint fit lets slope misfit pull the flat
+      parameters (the reason for staging). If joint is adopted, the flat
+      loss of the joint fit is reported next to the staged one.
+  - **Then one renewed comparison**, A0 vs T, both refitted with the
+    chosen strategy, pre-registered anew before the fits.
+  - **Stopping condition for E1** (to be made concrete after the renewed
+    comparison):
+    - The walking outputs that matter downstream are search time (time to
+      reach a target or leave a region), encounter rates in a bounded area,
+      and spatial occupancy (radial and wall-zone distribution).
+    - Test how sensitive E2 (now) and E6 (once step 4 exists) are to
+      plausible walkers (the adopted session-2 fit and the refitted A0 and
+      T): rerun `reportE2.ts` with each.
+    - If the downstream verdicts are stable (|Δz| < 1 on every target, no
+      verdict change), E1 work stops with its remaining trajectory
+      discrepancies documented as limitations. If they move, further
+      walking work aims at the outputs that move them.

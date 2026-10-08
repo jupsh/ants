@@ -11,7 +11,10 @@
  * judged in-sample at every incline.
  *
  * Usage: npx vite-node scripts/reportE1Ref.ts [--fits walk,A0,T] [--ants 600] [--incline k] [--show regex]
- *   --show  also print every compareE1 row whose label matches (data, sim, z)
+ *          [--segments data/reference/khuong-segments-alt.json]
+ *   --show      also print every compareE1 row whose label matches (data, sim, z)
+ *   --segments  segment pools (default khuong-segments.json; -alt.json is the
+ *               pre-registered alternative slope threshold, STATUS 2026-10-08)
  */
 import { combinedZ, verdict } from '../src/sim/analysis/compare';
 import { KHUONG_PREP, prepareTrack, type Track } from '../src/sim/analysis/trajectory';
@@ -27,6 +30,7 @@ const FITS = arg('--fits', 'walk').split(',').filter(Boolean);
 const ANTS = numArg('--ants', 600);
 const ONLY = numArg('--incline', 0);
 const SHOW = arg('--show', '');
+const SEGMENTS = arg('--segments', 'data/reference/khuong-segments.json');
 const ROLE = ['fit', 'development', 'fit', 'development', 'fit'];
 const BINS = [0, 1, 2, 3, 4];
 const PRIMARY = BINS.flatMap((b) => [`cos5.${b}`, `cos50.${b}`, `kurt.${b}`]);
@@ -46,7 +50,7 @@ const models: Model[] = FITS.map((f) => {
 const ref = (name: string, frame: SectorFrame, compat: boolean, flatOnly = false): Model => ({
   name,
   flatOnly,
-  run: (k, seed) => pool.sectored(loadKhuongPools(k, frame), { ants: ANTS, seed, compat, tracking: khuongTracking(k) }),
+  run: (k, seed) => pool.sectored(loadKhuongPools(k, frame, SEGMENTS), { ants: ANTS, seed, compat, tracking: khuongTracking(k) }),
 });
 models.push(ref('khuong', 'xy', true), ref('khuong*', 'xy', false), ref('bonavita', 'start', true, true), ref('bonavita*', 'start', false, true));
 
@@ -57,7 +61,7 @@ const zOf = (sim: DiagSample, data: DiagSample, id: string) => {
   return combinedZ(sim.values[i].value, sim.se[i], data.values[i].value, data.se[i]);
 };
 
-console.log(`${ANTS} simulated ants per model and incline; z = combined (SE_data ⊕ SE_sim).`);
+console.log(`${ANTS} simulated ants per model and incline; z = combined (SE_data ⊕ SE_sim); segments ${SEGMENTS}.`);
 console.log('columns: loss = E1 fit objective (fit-z, 15 families); Σz² and off/marg over all compareE1 rows; primary = Σz² of the by-speed checks (cos5, cos50, kurtosis); turning = Σz² of all turning checks');
 for (let k = 1; k <= 5; k++) {
   if (ONLY && k !== ONLY) continue;

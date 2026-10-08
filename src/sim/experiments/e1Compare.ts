@@ -212,6 +212,11 @@ export interface E1Reference {
   /** Values and bootstrap SEs of the scalar statistics, in `SCALARS` then `DIAG_SCALARS` order. */
   values: number[];
   se: number[];
+  /**
+   * Synthetic reference scaled to a smaller real sample (`scaleReference`):
+   * the number of ants its SEs and KS rows stand for.
+   */
+  nEff?: number;
 }
 
 export function sampleFor(tracks: Track[]): E1Sample & { stats: WalkStats } {
@@ -244,6 +249,18 @@ export function referenceFor(tracks: Track[], reps = 200): E1Reference {
   return { sample, values: statValues(sample), se: scalarSE(sample, reps) };
 }
 
+/**
+ * A large synthetic reference scored as if it had `nEff` ants: SEs scaled by
+ * √(n/nEff) and KS rows with an effective reference size, so the loss keeps
+ * the weights and scale of a fit to nEff real ants while the reference values
+ * carry almost no sampling error (parameter-recovery tests, STATUS
+ * 2026-10-08).
+ */
+export function scaleReference(ref: E1Reference, nEff: number): E1Reference {
+  const n = ref.sample.acc.filter((a) => a !== null).length;
+  return { ...ref, se: ref.se.map((v) => v * Math.sqrt(n / nEff)), nEff };
+}
+
 export interface E1Comparison {
   /** Σ over families of the mean z² in that family (a family counts once). */
   loss: number;
@@ -270,7 +287,7 @@ export function compareE1(sim: E1Sample, ref: E1Reference, simSE?: number[]): E1
     rows.push({ ...c, data: ref.values[i], sim: sv[i], seData: ref.se[i], seSim, z });
   });
   const ks = (id: string, label: string, family: string, a: number[], b: number[]) => {
-    const r = ksTest(a, b);
+    const r = ksTest(a, b, ref.nEff ? (b.length * ref.nEff) / ref.sample.acc.filter((x) => x !== null).length : undefined);
     // Signed by the direction of the median difference, for readability.
     const sign = Math.sign(quantile(a, 0.5) - quantile(b, 0.5)) || 1;
     rows.push({ id, label: `${label} (KS D = ${r.d.toFixed(2)}, n = ${r.n}/${r.m})`, family, kind: 'distribution', data: quantile(b, 0.5), sim: quantile(a, 0.5), seData: NaN, seSim: NaN, z: sign * r.z });

@@ -40,8 +40,8 @@ export const BLES_SCANS = (): string => fs.readFileSync('data/bles2022/trophalla
  * (data/reference/khuong-segments.json, written by the local-only segmentation
  * port, see NOTICE.md).
  */
-export function loadKhuongPools(k: number, frame: SectorFrame): SectorPools {
-  const seg = readJson<{ inclines: { incline: number; tracks: { id: string; vertices: number[] }[] }[] }>('data/reference/khuong-segments.json');
+export function loadKhuongPools(k: number, frame: SectorFrame, file = 'data/reference/khuong-segments.json'): SectorPools {
+  const seg = readJson<{ inclines: { incline: number; tracks: { id: string; vertices: number[] }[] }[] }>(file);
   const inc = seg.inclines.find((i) => i.incline === k);
   if (!inc) throw new Error(`no segmentation for incline ${k}; run scripts/segmentKhuong.ts`);
   const raw = loadKhuong(k);
