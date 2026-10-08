@@ -13,6 +13,9 @@ import type { SurfacePercept } from '../perception/types';
  *  - turning generated per unit time (heading diffusion and reorientation
  *    events at constant rates in time, also while paused), so slow ants
  *    turn more per mm walked and reorient at stops;
+ *  - turn-linked slowing: each reorientation slows the ant in proportion to
+ *    the turn (a reversal nearly halts it), recovering exponentially in
+ *    time; and a heading reset, with a homeward pull, when a pause starts;
  *  - speed: per-individual mean (log-normal between ants) × an
  *    Ornstein–Uhlenbeck fluctuation within the individual, plus pauses;
  *  - substrate inclination: speed factor (independent of walking direction,
@@ -43,6 +46,16 @@ export interface WalkParams {
   jitterTime: number;
   /** Reorientation events per unit time (1/s), on top of the per-distance ones; also while paused. */
   turnRateTime: number;
+  /**
+   * Turn-linked slowing: a reorientation by Δ sets the dip state
+   * u ← max(u, turnDip·(1 − cos Δ)/2); speed is v·(1 − u), and u decays with
+   * time constant turnDipTau (s). turnDip ∈ [0, 0.99].
+   */
+  turnDip: number;
+  turnDipTau: number;
+  /** Heading reset when a pause starts: wrapped-Cauchy persistence (1 = no reset) and homeward pull (× homing weight). */
+  stopTurnG: number;
+  stopHomePull: number;
   /** Pause rate (1/s) and mean pause duration (s). */
   pauseRate: number;
   pauseMean: number;
@@ -86,6 +99,10 @@ export const DEFAULT_WALK: WalkParams = {
   jitter: 0.002,
   jitterTime: 0,
   turnRateTime: 0,
+  turnDip: 0,
+  turnDipTau: 0.25,
+  stopTurnG: 1,
+  stopHomePull: 0,
   pauseRate: 0.05,
   pauseMean: 1,
   slopeSpeedK: 0.68,
@@ -120,6 +137,8 @@ export interface WalkState {
   pauseClock: number;
   /** Individual multiplier of the slope speed loss (1 = population value). */
   slopeK: number;
+  /** Turn-linked slowing state u (speed factor 1 − u). */
+  dip: number;
 }
 
 export function initWalkState(p: WalkParams, rng: RNG): WalkState {
@@ -131,6 +150,7 @@ export function initWalkState(p: WalkParams, rng: RNG): WalkState {
     pauseClock: 0,
     // Drawn only when used, so models without it keep their random sequence.
     slopeK: p.slopeSpeedKSd > 0 ? Math.exp(rng.normal(-(p.slopeSpeedKSd ** 2) / 2, p.slopeSpeedKSd)) : 1,
+    dip: 0,
   };
 }
 
@@ -192,13 +212,23 @@ export function walkStep(p: WalkParams, s: WalkState, per: SurfacePercept, rng: 
     }
     total += walkFor(p, s, per, rng, speedScale, pi, move, t, mod);
     left -= t;
-    if (onset) s.pause = rng.exp(p.pauseMean);
+    if (onset) {
+      s.pause = rng.exp(p.pauseMean);
+      if (p.stopTurnG < 1) resetAtStop(p, s, pi, rng, mod);
+    }
   }
   s.heading = ((s.heading % TAU) + TAU) % TAU;
   return total;
 }
 
-/** Walk without pausing for `t` seconds: speed process, steering, turning. Returns the distance walked. */
+/**
+ * Walk without pausing for `t` seconds: speed process, steering, turning.
+ * Reorientations come from a distance clock (mean free path λ) and a time
+ * clock (rate turnRateTime), both scaled by the run-length modulation; with
+ * turn-linked slowing the speed decays back from v(1 − u) during the
+ * interval, and event positions in time and space are exact for that speed
+ * course. Returns the distance walked.
+ */
 function walkFor(p: WalkParams, s: WalkState, per: SurfacePercept, rng: RNG, speedScale: number, pi: { x: number; y: number }, move: MoveSink, t: number, mod?: MotorMod): number {
   // Within-individual speed fluctuation: exact OU update (the process runs while walking).
   const sdW = p.speedSdWithin * Math.exp(p.slopeSpeedSdK * per.incline);
@@ -213,27 +243,66 @@ function walkFor(p: WalkParams, s: WalkState, per: SurfacePercept, rng: RNG, spe
     const err = angleDiff(mod.goal, s.heading);
     s.heading += err * (1 - Math.exp(-mod.goalGain * t));
   }
-  // Heading diffusion and reorientation rate per mm: per-distance terms plus
-  // per-time terms converted at the current speed.
-  const jitter = p.jitter * Math.exp(p.slopeJitterK * per.incline) + (v > 0 ? p.jitterTime / v : 0);
-  const timeRate = v > 0 ? p.turnRateTime / v : 0;
-  let remaining = v * t;
-  const total = remaining;
-  while (remaining > 1e-9) {
-    // Run-length modulation (geomenotaxis, homing) scales the whole event rate.
+  const jitterD = p.jitter * Math.exp(p.slopeJitterK * per.incline);
+  const tau = p.turnDipTau;
+  let left = t;
+  let total = 0;
+  while (left > 1e-12) {
+    // Run-length modulation (geomenotaxis, homing) scales both event clocks.
     const homeW = homeWeight(p, pi, mod);
     const homeDir = homeW > 0 ? Math.atan2(-pi.y, -pi.x) : 0;
-    const lambda = runLength(p, timeRate > 0 ? 1 / (1 / p.meanFreePath + timeRate) : p.meanFreePath, s.heading, per, homeW, homeDir, mod);
-    const toEvent = rng.exp(lambda);
-    const seg = Math.min(toEvent, remaining);
-    // Continuous jitter, variance proportional to distance.
-    if (jitter > 0) s.heading += Math.sqrt(jitter * seg) * rng.gauss();
+    const lambda = runLength(p, p.meanFreePath, s.heading, per, homeW, homeDir, mod);
+    const toDist = rng.exp(lambda);
+    const toTime = p.turnRateTime > 0 ? rng.exp(lambda / p.meanFreePath / p.turnRateTime) : Infinity;
+    // Distance walked x seconds into the interval, with the dip decaying from u0.
+    const u0 = s.dip;
+    const dist = (x: number) => (u0 > 0 ? v * (x - u0 * tau * (1 - Math.exp(-x / tau))) : v * x);
+    let dt = Math.min(left, toTime);
+    let event = toTime < left;
+    let seg = dist(dt);
+    if (toDist < seg) {
+      dt = timeToWalk(v, u0, tau, toDist);
+      seg = toDist;
+      event = true;
+    }
+    // Continuous heading diffusion: per mm walked and per second.
+    const jv = jitterD * seg + p.jitterTime * dt;
+    if (jv > 0) s.heading += Math.sqrt(jv) * rng.gauss();
     if (per.incline > 0 && (p.geoTorque > 0 || p.geoPolar > 0)) s.heading = geoSteer(p, s.heading, per, seg);
     move(Math.cos(s.heading) * seg, Math.sin(s.heading) * seg, seg);
-    remaining -= seg;
-    if (toEvent <= seg) s.heading = reorient(p, s.heading, per, rng, homeW, homeDir);
+    total += seg;
+    left -= dt;
+    if (u0 > 0) s.dip = u0 * Math.exp(-dt / tau);
+    if (event) turnWithDip(p, s, reorient(p, s.heading, per, rng, homeW, homeDir));
   }
   return total;
+}
+
+/** Time needed to walk distance d at speed v(1 − u0·e^{−x/τ}) (Newton; the distance is convex in time). */
+function timeToWalk(v: number, u0: number, tau: number, d: number): number {
+  if (!(u0 > 0)) return d / v;
+  let x = d / v;
+  for (let i = 0; i < 30; i++) {
+    const e = Math.exp(-x / tau);
+    const step = (v * (x - u0 * tau * (1 - e)) - d) / (v * (1 - u0 * e));
+    x -= step;
+    if (Math.abs(step) < 1e-12 * (1 + x)) break;
+  }
+  return x;
+}
+
+/** Set a new heading; with turn-linked slowing the dip deepens with the size of the turn. */
+function turnWithDip(p: WalkParams, s: WalkState, h: number): void {
+  if (p.turnDip > 0) s.dip = Math.max(s.dip, Math.min(0.99, p.turnDip) * (1 - Math.cos(h - s.heading)) / 2);
+  s.heading = h;
+}
+
+/** Heading reset when a pause starts: persistence stopTurnG, then a homeward pull. */
+function resetAtStop(p: WalkParams, s: WalkState, pi: { x: number; y: number }, rng: RNG, mod?: MotorMod): void {
+  let h = s.heading + rng.wrappedCauchy(p.stopTurnG);
+  const homeW = homeWeight(p, pi, mod);
+  if (homeW > 0 && p.stopHomePull > 0) h += angleDiff(Math.atan2(-pi.y, -pi.x), h) * Math.min(1, p.stopHomePull * homeW);
+  turnWithDip(p, s, h);
 }
 
 /**
@@ -283,11 +352,21 @@ function reorient(p: WalkParams, heading: number, per: SurfacePercept, rng: RNG,
  * models without time-based turning keep their random-number sequence.
  */
 function turnInPlace(p: WalkParams, s: WalkState, per: SurfacePercept, rng: RNG, pi: { x: number; y: number }, t: number, mod?: MotorMod): void {
+  // The dip decays in time; reorientations at their exact times deepen it.
+  const decay = (x: number) => {
+    if (s.dip > 0) s.dip *= Math.exp(-x / p.turnDipTau);
+  };
+  let now = 0;
   if (p.turnRateTime > 0) {
     const homeW = homeWeight(p, pi, mod);
     const homeDir = homeW > 0 ? Math.atan2(-pi.y, -pi.x) : 0;
-    for (let u = rng.exp(1 / p.turnRateTime); u < t; u += rng.exp(1 / p.turnRateTime)) s.heading = reorient(p, s.heading, per, rng, homeW, homeDir);
+    for (let u = rng.exp(1 / p.turnRateTime); u < t; u += rng.exp(1 / p.turnRateTime)) {
+      decay(u - now);
+      now = u;
+      turnWithDip(p, s, reorient(p, s.heading, per, rng, homeW, homeDir));
+    }
   }
+  decay(t - now);
   if (p.jitterTime > 0) s.heading += Math.sqrt(p.jitterTime * t) * rng.gauss();
 }
 

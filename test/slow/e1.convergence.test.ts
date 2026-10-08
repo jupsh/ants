@@ -22,8 +22,8 @@ describe('E1 numerics (slow)', () => {
     expect(Math.abs(coarse.alignY - fine.alignY)).toBeLessThan(0.03);
   });
 
-  it('time-based turning (also while paused), continuous geomenotaxis and individual slope sensitivity converge when the time step is reduced eightfold', () => {
-    const p = { ...params, jitterTime: 0.3, turnRateTime: 2, pauseRate: 0.3, geoTorque: 0.05, geoPolar: 0.02, slopeSpeedKSd: 0.4 };
+  it('time-based turning (also while paused), turn-linked slowing, stop resets, continuous geomenotaxis and individual slope sensitivity converge when the time step is reduced eightfold', () => {
+    const p = { ...params, jitterTime: 0.3, turnRateTime: 2, pauseRate: 0.3, geoTorque: 0.05, geoPolar: 0.02, slopeSpeedKSd: 0.4, turnDip: 0.8, turnDipTau: 0.2, stopTurnG: 0.2, stopHomePull: 0.3 };
     const run = (dt: number) => {
       const tracks = [1, 2, 3].flatMap((seed) => runE1(p, { incline: Math.PI / 6, ants: 400, seed, dt }));
       return { stats: statsFor(tracks), diag: diagSample(tracks, tracks.map((t) => prepareTrack(t, KHUONG_PREP)), 2).values };

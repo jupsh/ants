@@ -15,6 +15,8 @@
  *   A0  the session-2 structure (per-distance turning, slopeJitterK free)
  *   B   + time-based heading diffusion and reorientation (jitterTime,
  *         turnRateTime), slopeJitterK fixed at 0
+ *   T   B + turn-linked slowing (turnDip, turnDipTau) + heading reset at
+ *         pause onset (stopTurnG, stopHomePull)
  * Search (amendment of 2026-10-08): 640 ants per evaluation (objective SD
  * ≈ ±3 on flat ground, vs ±15 at 160); each stage runs Nelder–Mead from two
  * starts, then restarts the simplex from the best point until a restart
@@ -24,7 +26,7 @@
  * Output: data/fits/e1-<variant>.json (candidates; data/fits/e1-walk.json is
  * the adopted fit and is never overwritten here).
  *
- * Usage: npx vite-node scripts/fitE1.ts --variant A0|B [--quick]
+ * Usage: npx vite-node scripts/fitE1.ts --variant A0|B|T [--quick]
  */
 import { nelderMead } from '../src/sim/analysis/optimize';
 import { compareE1, referenceFor, scalarSE, type E1Reference } from '../src/sim/experiments/e1Compare';
@@ -34,7 +36,8 @@ import { arg, flag, INCLINES, loadKhuong, readJson, writeJson } from './lib';
 import { SimPool } from './pool';
 
 const VARIANT = arg('--variant', '');
-if (!['A0', 'B'].includes(VARIANT)) throw new Error('--variant A0|B required');
+if (!['A0', 'B', 'T'].includes(VARIANT)) throw new Error('--variant A0|B|T required');
+const TIME_TURNING = VARIANT === 'B' || VARIANT === 'T';
 const quick = flag('--quick');
 const ANTS = quick ? 160 : 640;
 const DT = 0.02;
@@ -49,8 +52,9 @@ const sigm = (x: number) => 1 / (1 + Math.exp(-x));
 
 // Warm start from the adopted (session-2) fit; the second start is set per variant.
 let p: WalkParams = walkParams(readJson<any>('data/fits/e1-walk.json').params);
-if (VARIANT === 'B') p = { ...p, slopeJitterK: 0, jitterTime: 0.05, turnRateTime: 0.3 };
-const second: Partial<WalkParams> = VARIANT === 'B' ? { meanFreePath: 50, turnRateTime: 4, jitterTime: 0.2 } : { meanFreePath: 20, g: 0.75 };
+if (TIME_TURNING) p = { ...p, slopeJitterK: 0, jitterTime: 0.05, turnRateTime: 0.3 };
+if (VARIANT === 'T') p = { ...p, turnDip: 0.6, turnDipTau: 0.25, stopTurnG: 0.2, stopHomePull: 0.3 };
+const second: Partial<WalkParams> = TIME_TURNING ? { meanFreePath: 50, turnRateTime: 4, jitterTime: 0.2 } : { meanFreePath: 20, g: 0.75 };
 
 /** Nelder–Mead from several starts, then restarts from the best point. */
 async function search(name: string, f: (x: number[]) => Promise<number>, starts: number[][], evals: number) {
@@ -83,15 +87,18 @@ async function evalAt(par: WalkParams, idx: number[]): Promise<number> {
 
 // ---- Stage 1: flat ground (positive parameters on the log scale)
 const s1Keys: (keyof WalkParams)[] = ['speed', 'speedSdBetween', 'speedSdWithin', 'speedTau', 'pauseRate', 'pauseMean', 'meanFreePath', 'jitter', 'homeRange'];
-if (VARIANT === 'B') s1Keys.push('jitterTime', 'turnRateTime');
-const enc1 = (q: WalkParams) => [...s1Keys.map((k) => Math.log(q[k])), q.homeRunBias, logit(q.g), logit(Math.max(1e-3, q.homeHeadingPull))];
+if (TIME_TURNING) s1Keys.push('jitterTime', 'turnRateTime');
+if (VARIANT === 'T') s1Keys.push('turnDipTau');
+/** Parameters on (0, 1) (turnDip on (0, 0.99)), logit-encoded. */
+const unitKeys: (keyof WalkParams)[] = ['g', 'homeHeadingPull', ...(VARIANT === 'T' ? (['turnDip', 'stopTurnG', 'stopHomePull'] as const) : [])];
+const unitScale = (k: keyof WalkParams) => (k === 'turnDip' ? 0.99 : 1);
+const enc1 = (q: WalkParams) => [...s1Keys.map((k) => Math.log(q[k])), q.homeRunBias, ...unitKeys.map((k) => logit(Math.min(0.999, Math.max(1e-3, q[k] / unitScale(k)))))];
 const dec1 = (x: number[], base: WalkParams): WalkParams => {
   const q = { ...base };
   s1Keys.forEach((k, i) => (q[k] = Math.exp(x[i])));
   const n = s1Keys.length;
   q.homeRunBias = x[n];
-  q.g = sigm(x[n + 1]);
-  q.homeHeadingPull = sigm(x[n + 2]);
+  unitKeys.forEach((k, i) => (q[k] = unitScale(k) * sigm(x[n + 1 + i])));
   return q;
 };
 const t0 = Date.now();

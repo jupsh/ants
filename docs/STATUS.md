@@ -997,8 +997,11 @@ See [`CLAUDE.md`](../CLAUDE.md).
     adopted fit A0 and B-loss11, combined z):
     - **Speed around big turns: turn-linked slowing, not F.** In the data
       speed falls to 0.45–0.56 of baseline at the turn and recovers within
-      ≈ 0.3–0.4 s, more slowly after the turn than it fell before it
-      (asymmetry +0.03 … +0.12: slower after). At ±1–2 s it is back at
+      ≈ 0.3–0.4 s. On slopes it recovers more slowly after the turn than it
+      fell before it (asymmetry +0.03 / +0.06 / +0.12 / +0.05 at 20–60°:
+      slower after); on flat ground the dip is nearly symmetric (−0.03,
+      slightly faster after). [Corrected the same day: first written as
+      "+0.03 … +0.12" for all inclines.] At ±1–2 s it is back at
       baseline (0.99–1.00 at 0–30°; 0.93–0.95 at 45–60°, a weak broad
       component on steep slopes). Big turns are not clustered (inter-turn
       CV 0.89–1.00, 1.10 at 60°). Both models show the opposite: speed
@@ -1012,3 +1015,30 @@ See [`CLAUDE.md`](../CLAUDE.md).
       model), i.e. the deep dips at sharp turns. At 45–60° the model has
       too many long pauses (0.8–1.6 s: z 2.3–6.9). The pause process is not
       the main problem; the brief halts belong to the turn mechanics.
+- **2026-10-08** Step 5 candidate **T** (turn-coupled walking)
+  pre-registration (before implementation and any fit):
+  - **Structure:** B (per-distance λ, jitter; per-time μ_t, D_t;
+    `slopeJitterK` fixed 0) plus
+    - **turn-linked slowing:** each reorientation of angle Δ sets the
+      ant's dip state u ← max(u, a·(1 − cos Δ)/2); speed is v·(1 − u), and u
+      decays as e^{−t/τ} (a reversal nearly halts the ant; small turns
+      barely slow it);
+    - **heading reset at pause onset:** new heading = old + wrapped Cauchy
+      (g_stop), then a homeward pull of strength `stopHomePull`·homeW; the
+      reset counts as a turn for the dip.
+    - Event timing is exact in continuous time with the decaying speed
+      (separate distance and time clocks; per-time diffusion uses time
+      walked). k = 19 + 4 = 23 (a, τ, g_stop, stopHomePull; all stage 1).
+  - **Baseline:** A0 refitted under the 15-family loss (same search).
+    T's second start is B's ridge start with the same new-parameter
+    starting values.
+  - **Checks, never fitted:** speed around big turns (dip, 1–2 s shoulders,
+    asymmetry), within-ant speed–turning slope with and without
+    stop-adjacent segments, ⟨cos⟩ across stops by fine duration bins,
+    homeward out-heading at stops, stop-episode rates by duration, and the
+    by-speed ⟨cos⟩ at 5/50 mm and kurtosis.
+  - **Decision rule:** T is preferred over A0 if the paired fresh-batch
+    flat-loss difference is below −2 SE (also after the heuristic 2k
+    penalty) and the Σz² over the checks is lower at ≥ 4 of 5 inclines.
+    Provisional in the sense of the review notes; homing weakening on
+    slopes (G), C and D come after.
