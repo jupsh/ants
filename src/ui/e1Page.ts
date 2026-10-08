@@ -4,6 +4,7 @@ import incline2 from '../../data/khuong2013/incline2.csv.gz?url';
 import incline3 from '../../data/khuong2013/incline3.csv.gz?url';
 import incline4 from '../../data/khuong2013/incline4.csv.gz?url';
 import incline5 from '../../data/khuong2013/incline5.csv.gz?url';
+import { verdict } from '../sim/analysis/compare';
 import { summarize } from '../sim/analysis/trajectory';
 import { walkParams, type WalkParams } from '../sim/models/walk';
 import type { E1Request, E1Response, PlainTrack } from '../worker/e1Worker';
@@ -37,19 +38,6 @@ const PARAM_INFO: Record<string, [string, string]> = {
   homeRunBias: ['Homing: run-length bias towards start', ''],
   homeHeadingPull: ['Homing: heading pull towards start', ''],
   homeRange: ['Homing: distance over which the bias fades', 'mm'],
-};
-
-const PART_LABELS: Record<string, string> = {
-  speedKS: 'Speed distribution (KS)',
-  trackSpeedKS: 'Per-ant mean speed (KS)',
-  stopped: 'Fraction of time stopped',
-  headingCorrPath: 'Heading correlation vs path length',
-  turnSd: 'Turn increment SD (0.2 s)',
-  turnKurtosis: 'Turn increment kurtosis',
-  exitKS: 'Time to leave 0.2 m circle (KS)',
-  radial: 'Radial drift vs distance',
-  align: 'Alignment with steepest line',
-  straightness: 'Straightness over 50 mm',
 };
 
 export function renderE1(root: HTMLElement): () => void {
@@ -154,7 +142,7 @@ export function renderE1(root: HTMLElement): () => void {
     result = ev.data;
     runBtn.disabled = false;
     charts.style.opacity = '1';
-    status.textContent = `Done in ${(result.ms / 1000).toFixed(1)} s · overall discrepancy ${result.loss.toFixed(1)}`;
+    status.textContent = `Done in ${(result.ms / 1000).toFixed(1)} s · Σ family-mean z² = ${result.loss.toFixed(1)}`;
     playT = 0;
     renderCharts(slots, result);
     renderAgreement(agreeCard, result, INCLINES[Number(sel.value)].role);
@@ -265,23 +253,38 @@ function renderAgreement(card: HTMLElement, r: E1Response, role: string): void {
   card.appendChild(h);
   const note = document.createElement('p');
   note.className = 'note';
-  note.textContent = 'Each score is the squared discrepancy in units of the data’s own sampling uncertainty: ≤ 4 is within ~2 SE.';
+  note.textContent =
+    'z = (simulated − recorded) / √(SE_data² + SE_sim²), both SEs from resampling ants. Distributions of per-ant values use a two-sample KS test, shown as the equivalent z of its p-value. |z| ≤ 2 is consistent with sampling noise; ≤ 3 marginal.';
   card.appendChild(note);
   const t = document.createElement('table');
   t.className = 'params';
-  for (const [k, v] of Object.entries(r.parts)) {
+  const head = document.createElement('tr');
+  for (const c of ['Measure', 'Recorded', 'Simulated', 'z', '']) {
+    const th = document.createElement('th');
+    th.textContent = c;
+    head.appendChild(th);
+  }
+  t.appendChild(head);
+  const fmt = (v: number, se: number) => (Number.isFinite(v) ? v.toPrecision(3) + (Number.isFinite(se) ? ` ± ${se.toPrecision(2)}` : '') : '—');
+  const LABEL = { ok: '✓ within', marginal: '~ marginal', off: '✗ off' };
+  for (const row of r.rows) {
     const tr = document.createElement('tr');
     const name = document.createElement('td');
-    name.textContent = PART_LABELS[k] ?? k;
-    const val = document.createElement('td');
-    val.className = 'num';
-    val.textContent = v.toFixed(2);
+    name.textContent = row.label;
+    const d = document.createElement('td');
+    d.className = 'num';
+    d.textContent = fmt(row.data, row.seData);
+    const sm = document.createElement('td');
+    sm.className = 'num';
+    sm.textContent = fmt(row.sim, row.seSim);
+    const z = document.createElement('td');
+    z.className = 'num';
+    z.textContent = Number.isFinite(row.z) ? row.z.toFixed(1) : '—';
     const st = document.createElement('td');
-    const ok = v <= 4;
-    const warn = v <= 9;
-    st.className = ok ? 'status-ok' : warn ? 'status-warn' : 'status-bad';
-    st.textContent = ok ? '✓ within' : warn ? '~ marginal' : '✗ off';
-    tr.append(name, val, st);
+    const v = verdict(row.z);
+    st.className = `status-${v === 'marginal' ? 'warn' : v === 'off' ? 'bad' : 'ok'}`;
+    st.textContent = LABEL[v];
+    tr.append(name, d, sm, z, st);
     t.appendChild(tr);
   }
   card.appendChild(t);

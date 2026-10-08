@@ -3,14 +3,15 @@ import zlib from 'node:zlib';
 import { describe, expect, it } from 'vitest';
 import { parseKhuongCsv } from '../src/sim/analysis/khuongData';
 import { ksStatistic } from '../src/sim/analysis/trajectory';
-import { compareE1, statsFor } from '../src/sim/experiments/e1Compare';
+import { verdict } from '../src/sim/analysis/compare';
+import { compareE1, referenceFor, sampleFor, scalarSE, statsFor } from '../src/sim/experiments/e1Compare';
 import { runE1 } from '../src/sim/experiments/e1Exploration';
 import { walkParams } from '../src/sim/models/walk';
 
 const FIT = 'data/fits/e1-walk.json';
 const params = walkParams(fs.existsSync(FIT) ? JSON.parse(fs.readFileSync(FIT, 'utf8')).params : undefined);
 const INCLINES = [0, Math.PI / 9, Math.PI / 6, Math.PI / 4, Math.PI / 3];
-const data = (k: number) => statsFor(parseKhuongCsv(zlib.gunzipSync(fs.readFileSync(`data/khuong2013/incline${k}.csv.gz`)).toString('utf8')));
+const data = (k: number) => referenceFor(parseKhuongCsv(zlib.gunzipSync(fs.readFileSync(`data/khuong2013/incline${k}.csv.gz`)).toString('utf8')));
 
 describe('E1 numerics', () => {
   it('is deterministic for a given seed', () => {
@@ -38,16 +39,19 @@ describe('E1 numerics', () => {
 });
 
 function validate(k: number): void {
-  const sim = statsFor(runE1(params, { incline: INCLINES[k - 1], ants: 300, seed: 777 + k, dt: 0.02 }));
-  const { loss, parts } = compareE1(sim, data(k));
-  // Each term is scaled so ~1 equals the data's own sampling uncertainty.
-  for (const [name, v] of Object.entries(parts)) expect(v, name).toBeLessThan(9);
-  expect(loss).toBeLessThan(30);
+  const sim = sampleFor(runE1(params, { incline: INCLINES[k - 1], ants: 300, seed: 777 + k, dt: 0.02 }));
+  const { rows } = compareE1(sim, data(k), scalarSE(sim));
+  // Combined-SE criteria (docs/STATUS.md): no statistic may be clearly off
+  // (|z| > 3), and with ~24 statistics at most a couple may be marginal.
+  for (const r of rows) expect(verdict(r.z), `${r.label}: z = ${r.z.toFixed(2)}`).not.toBe('off');
+  expect(rows.filter((r) => verdict(r.z) !== 'ok').length).toBeLessThanOrEqual(2);
 }
 
-describe('E1 validation against Khuong et al. 2013 (withheld inclines)', () => {
-  it('incline 2 (20°) is reproduced within data uncertainty', () => validate(2));
-  // Known gap (docs/STATUS.md): on steep slopes the speed-distribution shape and
-  // fine-scale turning are not yet captured. Remove `.fails` when this passes.
-  it.fails('incline 4 (45°) is reproduced within data uncertainty [known gap]', () => validate(4));
+describe('E1 agreement with Khuong et al. 2013 (development inclines, combined-SE criteria)', () => {
+  // Known gaps (docs/STATUS.md): under the combined-SE criteria the current fit
+  // misses the slow tail of moving speeds, short-scale heading correlation and
+  // drift near the release point even at 20°; on steep slopes the speed
+  // distribution and turning are not captured. Remove `.fails` when these pass.
+  it.fails('incline 2 (20°) is consistent with the data [known gap]', () => validate(2));
+  it.fails('incline 4 (45°) is consistent with the data [known gap]', () => validate(4));
 });

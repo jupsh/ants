@@ -1,4 +1,5 @@
-import { E2_TARGETS } from '../sim/experiments/e2Targets';
+import { verdict, type Comparison } from '../sim/analysis/compare';
+import type { E2Row } from '../sim/experiments/e2Targets';
 import { REFS } from '../sim/species/refs';
 import type { E2Request, E2Response, TripFrame } from '../worker/e2Worker';
 import E2Worker from '../worker/e2Worker?worker';
@@ -26,7 +27,7 @@ export function renderE2(root: HTMLElement): () => void {
   const lede = document.createElement('p');
   lede.className = 'lede';
   lede.textContent =
-    'Single Lasius niger scouts find a drop of 0.6 M sucrose in the Mailleux et al. apparatus (nest → bridge → 6 × 6 cm area). Each ant has its own desired volume; leaving satiated triggers trail laying on the way home. The drinking/decision parameters are fitted to the targets marked “fit”; the rows marked “withheld” were not used for fitting.';
+    'Single Lasius niger scouts find a drop of 0.6 M sucrose in the Mailleux et al. apparatus (nest → bridge → 6 × 6 cm area). Each ant has its own desired volume; leaving satiated triggers trail laying on the way home. The drinking/decision parameters are fitted to the targets marked “fit”; the rows marked “development” were not fitted but have been inspected while choosing the model’s structure, so they are no longer independent tests.';
   root.append(h, lede);
 
   const bar = document.createElement('div');
@@ -111,7 +112,7 @@ export function renderE2(root: HTMLElement): () => void {
     frameIdx = 0;
     playT = 0;
     holdEnd = 0;
-    renderTable(tableCard, res.metrics);
+    renderTable(tableCard, res.rows, res.foundBoth);
   };
   runBtn.onclick = run;
   sel.onchange = run;
@@ -225,55 +226,60 @@ function drawAnt(ctx: CanvasRenderingContext2D, x: number, y: number, heading: n
   ctx.restore();
 }
 
-function renderTable(card: HTMLElement, sim: Record<string, number>): void {
+function renderTable(card: HTMLElement, rows: E2Row[], foundBoth: number): void {
   card.textContent = '';
   const h = document.createElement('h2');
   h.textContent = 'Simulation vs data (Mailleux et al. 1999, 2009)';
   const note = document.createElement('p');
   note.className = 'note';
-  note.textContent = 'z = (simulated − data) / standard error of the data mean. |z| ≤ 2 is within sampling uncertainty.';
+  note.textContent =
+    'Mean: z = (simulated − data) / √(SE_data² + SE_sim²), SE_sim from 10 independent seed blocks. Spread: z of log(SD_sim / SD_data), approximate because times are right-skewed. |z| ≤ 2 is consistent with sampling noise; ≤ 3 marginal.';
   card.append(h, note);
   const t = document.createElement('table');
   t.className = 'params';
   const head = document.createElement('tr');
-  for (const c of ['Measure', 'Data', 'Simulated', 'z', '', 'Role']) {
+  for (const c of ['Measure', 'Data', 'Simulated', 'z (mean)', 'z (SD)', 'Role']) {
     const th = document.createElement('th');
     th.textContent = c;
     head.appendChild(th);
   }
   t.appendChild(head);
-  const fmt = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)} %` : `${v.toFixed(unit === 'µL' ? 2 : 0)} ${unit}`);
-  for (const tg of E2_TARGETS) {
-    const v = sim[tg.id];
-    const z = (v - tg.value) / tg.se;
+  const dp = (unit: string) => (unit === 'µL' ? 2 : 0);
+  const fmt = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)} %` : `${v.toFixed(dp(unit))} ${unit}`);
+  const zCell = (c: Comparison | undefined) => {
+    const td = document.createElement('td');
+    td.className = 'num';
+    if (!c || !Number.isFinite(c.z)) {
+      td.textContent = '—';
+      return td;
+    }
+    const v = verdict(c.z);
+    td.classList.add(`status-${v === 'marginal' ? 'warn' : v === 'off' ? 'bad' : 'ok'}`);
+    td.textContent = `${c.z.toFixed(1)} ${v === 'ok' ? '✓' : v === 'marginal' ? '~' : '✗'}`;
+    return td;
+  };
+  for (const { target: tg, sim, mean, spread } of rows) {
     const tr = document.createElement('tr');
     const c1 = document.createElement('td');
     c1.textContent = tg.label;
     c1.title = REFS[tg.source]?.full ?? tg.source;
     const c2 = document.createElement('td');
     c2.className = 'num';
-    c2.textContent = fmt(tg.value, tg.unit) + (tg.sd !== undefined ? ` ± ${tg.unit === 'µL' ? tg.sd.toFixed(2) : tg.sd}` : '');
+    c2.textContent = fmt(tg.value, tg.unit) + (tg.sd !== undefined ? ` ± ${tg.sd.toFixed(dp(tg.unit))}` : '') + ` (n = ${tg.n})`;
     const c3 = document.createElement('td');
     c3.className = 'num';
-    c3.textContent = Number.isFinite(v) ? fmt(v, tg.unit) : '—';
-    const c4 = document.createElement('td');
-    c4.className = 'num';
-    c4.textContent = Number.isFinite(z) ? z.toFixed(1) : '—';
-    const c5 = document.createElement('td');
-    const az = Math.abs(z);
-    c5.className = az <= 2 ? 'status-ok' : az <= 4 ? 'status-warn' : 'status-bad';
-    c5.textContent = az <= 2 ? '✓ within' : az <= 4 ? '~ marginal' : '✗ off';
+    c3.textContent = Number.isFinite(sim.mean) ? fmt(sim.mean, tg.unit) + (tg.unit !== '' ? ` ± ${sim.sd.toFixed(dp(tg.unit))}` : '') + ` (n = ${sim.n})` : '—';
     const c6 = document.createElement('td');
     const b = document.createElement('span');
     b.className = `badge ${tg.role}`;
-    b.textContent = tg.role === 'fit' ? 'fit' : 'withheld';
+    b.textContent = tg.role === 'fit' ? 'fit' : 'development';
     c6.appendChild(b);
-    tr.append(c1, c2, c3, c4, c5, c6);
+    tr.append(c1, c2, c3, zCell(mean), zCell(spread), c6);
     t.appendChild(tr);
   }
   card.appendChild(t);
   const p = document.createElement('p');
   p.className = 'note';
-  p.textContent = `Simulated scouts finding both drops (2009 protocol): ${((sim['two.foundBoth'] ?? NaN) * 100).toFixed(0)} % (data: > 95 %).`;
+  p.textContent = `“± x” is the SD between ants. Simulated scouts finding both drops (2009 protocol): ${(foundBoth * 100).toFixed(0)} % (data: > 95 %).`;
   card.appendChild(p);
 }

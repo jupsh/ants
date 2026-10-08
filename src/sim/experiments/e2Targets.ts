@@ -1,21 +1,23 @@
-import { summarize } from '../analysis/trajectory';
+import { binomialSE, blockEstimate, combinedZ, fitZ, logSdZ, type BlockEstimate, type Comparison } from '../analysis/compare';
 import { runScout, type LasiusParams, type ScoutResult } from './e2Mailleux';
 
 /**
  * E2 targets from Mailleux et al. 1999 and 2009, with their role in model
  * building. One definition shared by the fit script, tests and the UI.
  */
-export type Role = 'fit' | 'validation';
+/** Evidence roles (docs/STATUS.md): fitted, or inspected while choosing model structure. */
+export type Role = 'fit' | 'development' | 'heldout';
 
 export interface Target {
   id: string;
   label: string;
   role: Role;
-  /** Data mean (or proportion) and its standard error. */
+  /** Data mean (or proportion), its standard error and sample size. */
   value: number;
   se: number;
+  n: number;
   unit: string;
-  /** Data SD (for display), if reported. */
+  /** Data SD between ants, if reported (compared separately from the mean). */
   sd?: number;
   source: string;
 }
@@ -24,36 +26,40 @@ export interface Condition {
   id: string;
   label: string;
   run: (P: LasiusParams, n: number, seed0: number, accessible: number, dt: number) => ScoutResult[];
-  metrics: (rs: ScoutResult[]) => Record<string, number>;
+  /** Per-scout values for each target id (proportions as 0/1 indicators). */
+  metrics: (rs: ScoutResult[]) => Record<string, number[]>;
 }
 
-const prop = (rs: ScoutResult[], f: (r: ScoutResult) => boolean) => (rs.length ? rs.filter(f).length / rs.length : NaN);
-const mean = (xs: number[]) => summarize(xs).mean;
+const ind = (rs: ScoutResult[], f: (r: ScoutResult) => boolean) => rs.map((r) => (f(r) ? 1 : 0));
+/** Mean ± SD target from a paper's summary. */
+const m = (id: string, label: string, role: Role, value: number, sd: number, n: number, unit: string, source: string): Target => ({ id, label, role, value, sd, n, se: sd / Math.sqrt(n), unit, source });
+/** Proportion target with its binomial SE. */
+const pr = (id: string, label: string, role: Role, value: number, n: number, source: string): Target => ({ id, label, role, value, n, se: binomialSE(value, n), unit: '', source });
 
 export const E2_TARGETS: Target[] = [
-  { id: 'd1.drink', label: '3 µL drop, 1 day starved: drinking time', role: 'fit', value: 65, sd: 21, se: 21 / Math.sqrt(63), unit: 's', source: 'mailleux1999' },
-  { id: 'd1.trail', label: '3 µL drop, 1 day starved: scouts laying trail', role: 'fit', value: 0.85, se: Math.sqrt((0.85 * 0.15) / 67), unit: '', source: 'mailleux1999' },
-  { id: 'd4.drink', label: '3 µL drop, 4 days starved: drinking time', role: 'fit', value: 88, sd: 24, se: 24 / Math.sqrt(135), unit: 's', source: 'mailleux1999' },
-  { id: 'd4.trail', label: '3 µL drop, 4 days starved: scouts laying trail', role: 'fit', value: 0.94, se: Math.sqrt((0.94 * 0.06) / 141), unit: '', source: 'mailleux1999' },
-  { id: 'd8.drink', label: '3 µL drop, 8 days starved: drinking time', role: 'fit', value: 93, sd: 23, se: 23 / Math.sqrt(92), unit: 's', source: 'mailleux1999' },
-  { id: 'd8.trail', label: '3 µL drop, 8 days starved: scouts laying trail', role: 'fit', value: 0.88, se: Math.sqrt((0.88 * 0.12) / 97), unit: '', source: 'mailleux1999' },
-  { id: 'two.ul1', label: 'Two drops: intake at drop 1', role: 'fit', value: 0.47, sd: 0.25, se: 0.25 / Math.sqrt(63), unit: 'µL', source: 'mailleux2009' },
-  { id: 'two.t1', label: 'Two drops: drinking time at drop 1', role: 'fit', value: 51, sd: 12, se: 12 / Math.sqrt(63), unit: 's', source: 'mailleux2009' },
-  { id: 'two.tl1', label: 'Two drops: laying trail after drop 1', role: 'fit', value: 0.38, se: Math.sqrt((0.38 * 0.62) / 63), unit: '', source: 'mailleux2009' },
-  { id: 'two.trail', label: 'Two drops: laying trail overall', role: 'validation', value: 0.84, se: Math.sqrt((0.84 * 0.16) / 63), unit: '', source: 'mailleux2009' },
-  { id: 'two.ul2', label: 'Two drops: intake at drop 2', role: 'validation', value: 0.28, sd: 0.2, se: 0.2 / Math.sqrt(63), unit: 'µL', source: 'mailleux2009' },
-  { id: 'two.t2', label: 'Two drops: drinking time at drop 2', role: 'validation', value: 23, sd: 11, se: 11 / Math.sqrt(63), unit: 's', source: 'mailleux2009' },
-  { id: 'two.ulTot', label: 'Two drops: total intake', role: 'validation', value: 0.75, sd: 0.3, se: 0.3 / Math.sqrt(63), unit: 'µL', source: 'mailleux2009' },
-  { id: 'two.betweenTL1', label: 'Two drops: time between drops, trail layers', role: 'validation', value: 58, sd: 33, se: 33 / Math.sqrt(24), unit: 's', source: 'mailleux2009' },
-  { id: 'two.betweenNTL1', label: 'Two drops: time between drops, non-layers', role: 'validation', value: 134, sd: 87, se: 87 / Math.sqrt(39), unit: 's', source: 'mailleux2009' },
-  { id: 'two.total', label: 'Two drops: total time on the apparatus', role: 'validation', value: 178, sd: 83, se: 83 / Math.sqrt(63), unit: 's', source: 'mailleux2009' },
+  m('d1.drink', '3 µL drop, 1 day starved: drinking time', 'fit', 65, 21, 63, 's', 'mailleux1999'),
+  pr('d1.trail', '3 µL drop, 1 day starved: scouts laying trail', 'fit', 0.85, 67, 'mailleux1999'),
+  m('d4.drink', '3 µL drop, 4 days starved: drinking time', 'fit', 88, 24, 135, 's', 'mailleux1999'),
+  pr('d4.trail', '3 µL drop, 4 days starved: scouts laying trail', 'fit', 0.94, 141, 'mailleux1999'),
+  m('d8.drink', '3 µL drop, 8 days starved: drinking time', 'fit', 93, 23, 92, 's', 'mailleux1999'),
+  pr('d8.trail', '3 µL drop, 8 days starved: scouts laying trail', 'fit', 0.88, 97, 'mailleux1999'),
+  m('two.ul1', 'Two drops: intake at drop 1', 'fit', 0.47, 0.25, 63, 'µL', 'mailleux2009'),
+  m('two.t1', 'Two drops: drinking time at drop 1', 'fit', 51, 12, 63, 's', 'mailleux2009'),
+  pr('two.tl1', 'Two drops: laying trail after drop 1', 'fit', 0.38, 63, 'mailleux2009'),
+  pr('two.trail', 'Two drops: laying trail overall', 'development', 0.84, 63, 'mailleux2009'),
+  m('two.ul2', 'Two drops: intake at drop 2', 'development', 0.28, 0.2, 63, 'µL', 'mailleux2009'),
+  m('two.t2', 'Two drops: drinking time at drop 2', 'development', 23, 11, 63, 's', 'mailleux2009'),
+  m('two.ulTot', 'Two drops: total intake', 'development', 0.75, 0.3, 63, 'µL', 'mailleux2009'),
+  m('two.betweenTL1', 'Two drops: time between drops, trail layers', 'development', 58, 33, 24, 's', 'mailleux2009'),
+  m('two.betweenNTL1', 'Two drops: time between drops, non-layers', 'development', 134, 87, 39, 's', 'mailleux2009'),
+  m('two.total', 'Two drops: total time on the apparatus', 'development', 178, 83, 63, 's', 'mailleux2009'),
 ];
 
 const single = (days: number): Condition => ({
   id: `d${days}`,
   label: `Mailleux 1999: 3 µL drop, ${days} day${days > 1 ? 's' : ''} starved`,
   run: (P, n, seed0, acc, dt) => Array.from({ length: n }, (_, i) => runScout(P, { seed: seed0 + i, drop1: { ul: 3, molar: 0.6 }, pipetteAccessible: acc, starvationDays: days, dt, maxTime: 900 })).filter((r) => r.drinks.length),
-  metrics: (rs) => ({ [`d${days}.drink`]: mean(rs.map((r) => r.drinks[0].time)), [`d${days}.trail`]: prop(rs, (r) => r.laidTrail) }),
+  metrics: (rs) => ({ [`d${days}.drink`]: rs.map((r) => r.drinks[0].time), [`d${days}.trail`]: ind(rs, (r) => r.laidTrail) }),
 });
 
 export const E2_CONDITIONS: Condition[] = [
@@ -68,32 +74,78 @@ export const E2_CONDITIONS: Condition[] = [
     metrics: (rs) => {
       const both = rs.filter((r) => r.drinks.length >= 2);
       return {
-        'two.ul1': mean(rs.map((r) => r.drinks[0].ul)),
-        'two.t1': mean(rs.map((r) => r.drinks[0].time)),
-        'two.tl1': prop(rs, (r) => r.laidSection1),
-        'two.trail': prop(both, (r) => r.laidTrail),
-        'two.ul2': mean(both.map((r) => r.drinks[1].ul)),
-        'two.t2': mean(both.map((r) => r.drinks[1].time)),
-        'two.ulTot': mean(both.map((r) => r.drinks[0].ul + r.drinks[1].ul)),
-        'two.betweenTL1': mean(both.filter((r) => r.laidSection1).map((r) => r.betweenTime)),
-        'two.betweenNTL1': mean(both.filter((r) => !r.laidSection1).map((r) => r.betweenTime)),
-        'two.total': mean(both.map((r) => r.total)),
-        'two.foundBoth': both.length / Math.max(1, rs.length),
+        'two.ul1': rs.map((r) => r.drinks[0].ul),
+        'two.t1': rs.map((r) => r.drinks[0].time),
+        'two.tl1': ind(rs, (r) => r.laidSection1),
+        'two.trail': ind(both, (r) => r.laidTrail),
+        'two.ul2': both.map((r) => r.drinks[1].ul),
+        'two.t2': both.map((r) => r.drinks[1].time),
+        'two.ulTot': both.map((r) => r.drinks[0].ul + r.drinks[1].ul),
+        'two.betweenTL1': both.filter((r) => r.laidSection1).map((r) => r.betweenTime),
+        'two.betweenNTL1': both.filter((r) => !r.laidSection1).map((r) => r.betweenTime),
+        'two.total': both.map((r) => r.total),
+        'two.foundBoth': ind(rs, (r) => r.drinks.length >= 2),
       };
     },
   },
 ];
 
-/** Run every condition and return simulated metrics keyed by target id. */
-export function simulateE2(P: LasiusParams, n: number, accessible: number, dt = 0.1, seedBase = 0): Record<string, number> {
-  const out: Record<string, number> = {};
-  E2_CONDITIONS.forEach((c, i) => Object.assign(out, c.metrics(c.run(P, n, seedBase + 100000 * (i + 1), accessible, dt))));
-  return out;
+export type E2Sim = Record<string, BlockEstimate>;
+
+/**
+ * Run every condition in `blocks` independent seed blocks of `n` scouts and
+ * return, per target id, the pooled estimate with a replicate-based SE.
+ * Block 0 uses the same seeds as a single-block run.
+ */
+export function simulateE2(P: LasiusParams, n: number, accessible: number, dt = 0.1, seedBase = 0, blocks = 1): E2Sim {
+  const per: Record<string, number[][]> = {};
+  E2_CONDITIONS.forEach((c, i) => {
+    for (let b = 0; b < blocks; b++)
+      for (const [id, v] of Object.entries(c.metrics(c.run(P, n, seedBase + 100000 * (i + 1) + b * n, accessible, dt)))) (per[id] ??= []).push(v);
+  });
+  return Object.fromEntries(Object.entries(per).map(([id, bl]) => [id, blockEstimate(bl)]));
 }
 
-/** Squared z-scores of simulated vs data values for targets with the given role. */
-export function e2Loss(sim: Record<string, number>, role: Role): number {
+/**
+ * Fitting objective: Σ z² over targets with the given role, z using SE_data
+ * only (so the optimiser cannot gain by making the simulation noisier).
+ */
+export function e2Loss(sim: E2Sim, role: Role): number {
   let l = 0;
-  for (const t of E2_TARGETS) if (t.role === role) l += Number.isFinite(sim[t.id]) ? ((sim[t.id] - t.value) / t.se) ** 2 : 100;
+  for (const t of E2_TARGETS) if (t.role === role) l += Number.isFinite(sim[t.id]?.mean) ? fitZ(sim[t.id].mean, t.value, t.se) ** 2 : 100;
   return l;
+}
+
+export interface E2Row {
+  target: Target;
+  sim: BlockEstimate;
+  /** Mean (or proportion): combined-SE z. */
+  mean: Comparison;
+  /** Spread between ants (log SD ratio), where the data SD is reported. */
+  spread?: Comparison;
+}
+
+/** Judge simulated results against every target with the combined-SE criteria. */
+export function e2Compare(sim: E2Sim): E2Row[] {
+  return E2_TARGETS.map((t) => {
+    const s = sim[t.id] ?? blockEstimate([]);
+    const mean: Comparison = { id: t.id, label: t.label, kind: t.unit === '' ? 'proportion' : 'mean', data: t.value, sim: s.mean, seData: t.se, seSim: s.se, z: combinedZ(s.mean, s.se, t.value, t.se) };
+    // SE(log s) ≈ 1/√(2(n−1)) assumes normality; drinking and travel times are
+    // right-skewed, so read spread z as indicative.
+    const spread: Comparison | undefined =
+      t.sd === undefined ? undefined : { id: `${t.id}.sd`, label: `${t.label} (SD between ants)`, kind: 'spread', data: t.sd, sim: s.sd, seData: NaN, seSim: NaN, z: logSdZ(s.sd, s.n, t.sd, t.n) };
+    return { target: t, sim: s, mean, spread };
+  });
+}
+
+/** Plain-text table of `e2Compare` rows (scripts and logs). */
+export function e2Table(rows: E2Row[]): string {
+  const f = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)}%` : v.toFixed(unit === 'µL' ? 2 : 0));
+  return rows
+    .map(({ target: t, sim, mean, spread }) => {
+      const sd = (x: number | undefined) => (t.unit !== '' && x !== undefined ? `±${f(x, t.unit)}` : '');
+      const zs = spread ? `  zSD=${spread.z.toFixed(1)}` : '';
+      return `${t.role.padEnd(11)} z=${mean.z.toFixed(1).padStart(5)}${zs.padEnd(11)} ${t.label}: data ${f(t.value, t.unit)}${sd(t.sd)} (n=${t.n}), sim ${f(sim.mean, t.unit)}${sd(sim.sd)} ±SE ${sim.se.toPrecision(2)} (n=${sim.n})`;
+    })
+    .join('\n');
 }

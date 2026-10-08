@@ -3,9 +3,11 @@
  *
  *   Stage 1 (flat ground, incline 0): speed process, run structure, homing bias.
  *   Stage 2 (inclines π/6, π/3):      slope speed factor and geomenotaxis.
- *   Validation (withheld): inclines π/9 and π/4 — reported, never fitted.
+ *   Development (reported, never fitted; inspected, so not held out): π/9, π/4.
  *
  * Common random numbers (fixed seeds) make the objective deterministic.
+ * The objective weights each statistic by its data SE only (bootstrap over
+ * recorded ants); the final report uses the combined-SE criteria.
  * Output: data/fits/e1-walk.json (parameters + fit diagnostics).
  *
  * Usage: npx vite-node scripts/fitE1.ts [--quick]
@@ -14,8 +16,7 @@ import fs from 'node:fs';
 import zlib from 'node:zlib';
 import { parseKhuongCsv } from '../src/sim/analysis/khuongData';
 import { nelderMead } from '../src/sim/analysis/optimize';
-import type { WalkStats } from '../src/sim/analysis/trajectory';
-import { compareE1, statsFor } from '../src/sim/experiments/e1Compare';
+import { compareE1, referenceFor, sampleFor, scalarSE, type E1Reference } from '../src/sim/experiments/e1Compare';
 import { runE1 } from '../src/sim/experiments/e1Exploration';
 import { DEFAULT_WALK, type WalkParams } from '../src/sim/models/walk';
 
@@ -24,8 +25,8 @@ const ANTS = quick ? 80 : 160;
 const DT = 0.02;
 const SEED = 20131105;
 
-const data: WalkStats[] = [];
-for (let k = 1; k <= 5; k++) data.push(statsFor(parseKhuongCsv(zlib.gunzipSync(fs.readFileSync(`data/khuong2013/incline${k}.csv.gz`)).toString('utf8'))));
+const data: E1Reference[] = [];
+for (let k = 1; k <= 5; k++) data.push(referenceFor(parseKhuongCsv(zlib.gunzipSync(fs.readFileSync(`data/khuong2013/incline${k}.csv.gz`)).toString('utf8'))));
 const INCLINES = [0, Math.PI / 9, Math.PI / 6, Math.PI / 4, Math.PI / 3];
 
 const logit = (p: number) => Math.log(p / (1 - p));
@@ -39,7 +40,7 @@ if (fs.existsSync('data/fits/e1-walk.json') && !process.argv.includes('--cold'))
 function evalAt(par: WalkParams, idx: number[]): number {
   let loss = 0;
   for (const i of idx) {
-    const sim = statsFor(runE1(par, { incline: INCLINES[i], ants: ANTS, seed: SEED + i, dt: DT }));
+    const sim = sampleFor(runE1(par, { incline: INCLINES[i], ants: ANTS, seed: SEED + i, dt: DT }));
     loss += compareE1(sim, data[i]).loss;
   }
   return loss / idx.length;
@@ -70,10 +71,11 @@ console.log('stage 2 done', r2.f.toFixed(3), JSON.stringify(p));
 // ---- Report all inclines (1 and 3 are withheld validation conditions)
 const report: Record<string, unknown> = {};
 for (let i = 0; i < 5; i++) {
-  const sim = statsFor(runE1(p, { incline: INCLINES[i], ants: 300, seed: SEED + 1000 + i, dt: DT }));
-  const c = compareE1(sim, data[i]);
-  report[`incline${i + 1}`] = { role: i === 1 || i === 3 ? 'validation' : 'fit', loss: c.loss, parts: c.parts };
-  console.log(`incline ${i + 1} (${i === 1 || i === 3 ? 'VALIDATION' : 'fit'}): loss ${c.loss.toFixed(2)}`, Object.entries(c.parts).map(([k, v]) => `${k}=${v.toFixed(2)}`).join(' '));
+  const sim = sampleFor(runE1(p, { incline: INCLINES[i], ants: 300, seed: SEED + 1000 + i, dt: DT }));
+  const c = compareE1(sim, data[i], scalarSE(sim));
+  const role = i === 1 || i === 3 ? 'development' : 'fit';
+  report[`incline${i + 1}`] = { role, loss: c.loss, z: Object.fromEntries(c.rows.map((r) => [r.id, r.z])) };
+  console.log(`incline ${i + 1} (${role}): loss ${c.loss.toFixed(2)}`, c.rows.map((r) => `${r.id}=${r.z.toFixed(1)}`).join(' '));
 }
 fs.mkdirSync('data/fits', { recursive: true });
 fs.writeFileSync(
