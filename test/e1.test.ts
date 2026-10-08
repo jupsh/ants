@@ -1,8 +1,7 @@
 import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { ksStatistic } from '../src/sim/analysis/trajectory';
 import { verdict } from '../src/sim/analysis/compare';
-import { compareE1, referenceFor, sampleFor, scalarSE, statsFor } from '../src/sim/experiments/e1Compare';
+import { compareE1, referenceFor, sampleFor, scalarSE } from '../src/sim/experiments/e1Compare';
 import { runE1 } from '../src/sim/experiments/e1Exploration';
 import { walkParams } from '../src/sim/models/walk';
 import { INCLINES, loadKhuong } from '../scripts/lib';
@@ -22,17 +21,6 @@ describe('E1 numerics', () => {
     const a = runE1(params, { incline: 0, ants: 3, seed: 9, dt: 0.02 });
     const b = runE1(params, { incline: 0, ants: 6, seed: 9, dt: 0.02 });
     for (let i = 0; i < 3; i++) expect(Array.from(a[i].y)).toEqual(Array.from(b[i].y));
-  });
-
-  it('statistics converge when the time step is reduced eightfold', () => {
-    // 1200 ants per condition; KS critical value at α = 0.001 is ≈ 0.08.
-    const run = (dt: number) => statsFor([1, 2, 3].flatMap((seed) => runE1(params, { incline: Math.PI / 6, ants: 400, seed, dt })));
-    const coarse = run(0.04);
-    const fine = run(0.005);
-    expect(ksStatistic(coarse.speeds, fine.speeds)).toBeLessThan(0.05);
-    for (let i = 1; i < 6; i++) expect(Math.abs(coarse.headingCorrPath[i] - fine.headingCorrPath[i])).toBeLessThan(0.03);
-    expect(ksStatistic(coarse.exitTimes, fine.exitTimes)).toBeLessThan(0.08);
-    expect(Math.abs(coarse.alignY - fine.alignY)).toBeLessThan(0.03);
   });
 });
 

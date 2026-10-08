@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:full": "FULL=1 vitest run",
     "test:watch": "vitest",
     "params": "vite-node scripts/genParams.ts"
   },
