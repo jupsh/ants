@@ -27,10 +27,17 @@
  * the adopted fit and is never overwritten here).
  *
  * Optimiser (2026-10-08, fitting machinery step 2): `--optimizer cma`
- * (default) runs CMA-ES per stage from the warm start (σ 0.5 in the
- * transformed parameters) with fresh seeds in every generation, shared by
- * its candidates; the estimate is the final distribution mean. `--optimizer
- * nm` is the earlier multi-start Nelder–Mead on fixed seeds.
+ * (default) runs CMA-ES per stage (initial step per coordinate from the local
+ * curvature at the start, `probe` in `stage`) with
+ * fresh seeds in every generation, shared by its candidates; the estimate is
+ * the final distribution mean. After the first recovery cell failed: every
+ * parameter is bounded to a wide range (S1, S2), a candidate with an
+ * inestimable statistic ranks last, and each stage runs from both starts
+ * plus `--restarts` IPOP restarts, keeping the best on a common batch.
+ * That batch is selection data: the fitted model is judged only on batches
+ * with other seeds (flatFresh, report), never on it.
+ * `--optimizer nm` is the earlier multi-start Nelder–Mead on fixed seeds.
+ * Diagnostics: `--start f` (start from fit f only), `--stages 1`.
  *
  * Strategy (STATUS 2026-10-08, staged vs joint): `--strategy staged`
  * (default; the two stages above) or `joint` (one CMA-ES over all stage-1
@@ -65,17 +72,26 @@ const DT = 0.02;
 const SEED = 20131105;
 const OPT = arg('--optimizer', 'cma');
 if (!['cma', 'nm'].includes(OPT)) throw new Error('--optimizer cma|nm');
-const GENS1 = numArg('--gens1', quick ? 40 : 150);
-const GENS2 = numArg('--gens2', quick ? 30 : 120);
-const GENSJ = numArg('--gensJ', quick ? 60 : 250);
+const GENS1 = numArg('--gens1', quick ? 40 : 400);
+const GENS2 = numArg('--gens2', quick ? 30 : 300);
+const GENSJ = numArg('--gensJ', quick ? 60 : 600);
 const STRATEGY = arg('--strategy', 'staged');
 if (!['staged', 'joint'].includes(STRATEGY)) throw new Error('--strategy staged|joint');
 if (STRATEGY === 'joint' && OPT !== 'cma') throw new Error('--strategy joint needs --optimizer cma');
 const RECOVER = arg('--recover', '');
 const REP = numArg('--rep', 0);
 const REC_N = numArg('--recoverAnts', 69);
+/** Diagnostics: start from the parameters of a fit file; run stage 1 only. */
+const START = arg('--start', '');
+const STAGES = numArg('--stages', 2);
+/**
+ * Reuse a finished stage 1 (same variant, data, seeds and code, e.g. a
+ * `--stages 1` run): its stage-1 parameters replace the warm start's and
+ * stage 1 is skipped. The run is deterministic, so this equals rerunning it.
+ */
+const STAGE1_FROM = arg('--stage1From', '');
 const OUT = RECOVER
-  ? `data/fits/recover/e1-${VARIANT}-${STRATEGY}-n${REC_N}-rep${REP}${quick ? '-quick' : ''}.json`
+  ? `data/fits/recover/e1-${VARIANT}-${STRATEGY}-n${REC_N}-rep${REP}${START ? '-from-' + START.replace(/.*\//, '').replace(/\.json$/, '') : ''}${STAGES < 2 ? '-stage1' : ''}${quick ? '-quick' : ''}.json`
   : `data/fits/e1-${VARIANT}${STRATEGY === 'joint' ? '-joint' : ''}${OPT === 'nm' ? '-nm' : ''}${quick ? '-quick' : ''}.json`;
 
 const pool = await SimPool.create();
@@ -99,6 +115,7 @@ const sigm = (x: number) => 1 / (1 + Math.exp(-x));
 let p: WalkParams = walkParams(readJson<any>('data/fits/e1-walk.json').params);
 if (TIME_TURNING) p = { ...p, slopeJitterK: 0, jitterTime: 0.05, turnRateTime: 0.3 };
 if (VARIANT === 'T') p = { ...p, turnDip: 0.6, turnDipTau: 0.25, stopTurnG: 0.2, stopHomePull: 0.3 };
+if (START) p = walkParams(readJson<any>(START).params);
 const second: Partial<WalkParams> = TIME_TURNING ? { meanFreePath: 50, turnRateTime: 4, jitterTime: 0.2 } : { meanFreePath: 20, g: 0.75 };
 
 /** Nelder–Mead from several starts, then restarts from the best point. */
@@ -122,74 +139,182 @@ async function search(name: string, f: (x: number[]) => Promise<number>, starts:
   return { x: best.x, f: best.f, evals: total };
 }
 
-async function evalAt(par: WalkParams, idx: number[], seedBase = SEED): Promise<number> {
-  const samples = await Promise.all(idx.map((i) => pool.e1Sample(par, runOpts(i, ANTS, seedBase + i))));
-  return idx.reduce((s, i, k) => s + compareE1(samples[k], data[i]).loss, 0) / idx.length;
+/**
+ * Fit objective: mean loss over the inclines `idx`. A candidate whose
+ * simulation leaves any statistic inestimable (NaN) ranks below every
+ * candidate that estimates all of them, then by how many (2026-10-08: the
+ * judging loss's fixed 100 per family was below the real misfit of most
+ * candidates, so degenerate walkers were preferred).
+ */
+const DEGENERATE = 1e7;
+async function evalAt(par: WalkParams, idx: number[], seedBase = SEED, ants = ANTS): Promise<number> {
+  const samples = await Promise.all(idx.map((i) => pool.e1Sample(par, runOpts(i, ants, seedBase + i))));
+  return (
+    idx.reduce((s, i, k) => {
+      const c = compareE1(samples[k], data[i]);
+      const bad = c.rows.filter((r) => !Number.isFinite(r.z)).length;
+      return s + c.loss + DEGENERATE * bad;
+    }, 0) / idx.length
+  );
 }
 
 /**
- * One stage: CMA-ES (fresh seeds per generation; estimate = final mean, whose
- * loss is then evaluated on the fixed seeds for the record) or Nelder–Mead.
+ * One stage: CMA-ES (fresh seeds per generation; estimate = final mean) from
+ * every start, then RESTARTS restarts from the best mean with doubled
+ * population (IPOP-CMA-ES, Auger & Hansen 2005); each run stops at `gens`
+ * generations or when converged (σ·max axis < TOLX). The final means are
+ * compared on a fixed common batch (3 × ANTS ants, the same seeds for all
+ * runs) and the best is kept. Or Nelder–Mead (`--optimizer nm`).
  */
+const RESTARTS = numArg('--restarts', 1);
+const TOLX = 0.03;
 async function stage(name: string, idx: number[], dec: (x: number[]) => WalkParams, starts: number[][], nmEvals: number, gens: number, offset: number) {
   if (OPT === 'nm') return search(name, (x) => evalAt(dec(x), idx), starts, nmEvals);
-  const r = await cmaes((x, g) => evalAt(dec(x), idx, SEED + offset + 1009 * (g + 1)), starts[0], {
-    sigma: 0.5,
-    maxGenerations: gens,
-    seed: SEED + offset,
-    log: (g) => g.generation % 10 === 0 && console.log(`${name} gen ${g.generation} evals ${g.evals} best ${g.fs[0].toFixed(2)} median ${g.fs[g.fs.length >> 1].toFixed(2)} σ ${g.sigma.toFixed(3)}`),
-  });
-  const f = await evalAt(dec(r.mean), idx);
-  console.log(`${name}: CMA-ES ${r.generations} generations, ${r.evals} evaluations, final σ ${r.sigma.toFixed(3)}; loss of the mean on fixed seeds ${f.toFixed(3)}`);
-  return { x: r.mean, f, evals: r.evals };
+  let evals = 0;
+  const score = (x: number[]) => evalAt(dec(x), idx, SEED + offset + 77, 3 * ANTS);
+  /**
+   * Initial per-coordinate SDs from the local curvature at x0 (common seeds):
+   * a 1-SD step raises the loss by ≈ PROBE_DELTA (2026-10-08, after the
+   * truth-start diagnostic showed σ = 0.5 steps 40–250× too costly).
+   */
+  const PROBE_H = 0.2;
+  const PROBE_DELTA = 10;
+  const PROBE_CAP = 0.3;
+  const probe = async (x0: number[], off: number) => {
+    const seed = SEED + off + 3;
+    const shifted = (i: number, d: number) => x0.map((v, j) => (j === i ? v + d : v));
+    const [f0, ...fs] = await Promise.all([evalAt(dec(x0), idx, seed), ...x0.flatMap((_, i) => [evalAt(dec(shifted(i, PROBE_H)), idx, seed), evalAt(dec(shifted(i, -PROBE_H)), idx, seed)])]);
+    evals += fs.length + 1;
+    return x0.map((_, i) => {
+      const c = (fs[2 * i] + fs[2 * i + 1] - 2 * f0) / PROBE_H ** 2;
+      return c > 0 && f0 < DEGENERATE ? Math.min(PROBE_CAP, Math.max(0.02, Math.sqrt(PROBE_DELTA / c))) : PROBE_CAP;
+    });
+  };
+  const one = async (label: string, x0: number[], lambda: number | undefined, off: number) => {
+    const stds = await probe(x0, off);
+    console.log(`${label}: initial SDs ${stds.map((v) => v.toFixed(2)).join(' ')}`);
+    const r = await cmaes((x, g) => evalAt(dec(x), idx, SEED + off + 1009 * (g + 1)), x0, {
+      sigma: 1,
+      stds,
+      lambda,
+      maxGenerations: gens,
+      tolX: TOLX,
+      seed: SEED + off,
+      log: (g) => g.generation % 10 === 0 && console.log(`${label} gen ${g.generation} evals ${g.evals} best ${g.fs[0].toFixed(2)} median ${g.fs[g.fs.length >> 1].toFixed(2)} σ ${g.sigma.toFixed(3)}`),
+    });
+    evals += r.evals;
+    const f = await score(r.mean);
+    console.log(`${label}: λ ${lambda ?? 'default'}, ${r.generations} generations, ${r.evals} evaluations, final σ ${r.sigma.toFixed(3)}; common-batch loss ${f.toFixed(3)}`);
+    return { x: r.mean, f };
+  };
+  const runs: { x: number[]; f: number }[] = [];
+  for (const [k, x0] of starts.entries()) runs.push(await one(`${name} start ${k}`, x0, undefined, offset + 10000 * k));
+  const lambda0 = 4 + Math.floor(3 * Math.log(starts[0].length));
+  for (let r = 1; r <= RESTARTS; r++) {
+    const best = runs.reduce((a, b) => (b.f < a.f ? b : a));
+    runs.push(await one(`${name} restart ${r}`, best.x, lambda0 * 2 ** r, offset + 50000 + 10000 * r));
+  }
+  const best = runs.reduce((a, b) => (b.f < a.f ? b : a));
+  console.log(`${name}: best common-batch loss ${best.f.toFixed(3)} (runs ${runs.map((r) => r.f.toFixed(1)).join(', ')}; selection data, judge on the fresh batches)`);
+  return { x: best.x, f: best.f, evals, runs: runs.map((r) => r.f) };
 }
 
-// ---- Stage 1: flat ground (positive parameters on the log scale)
-const s1Keys: (keyof WalkParams)[] = ['speed', 'speedSdBetween', 'speedSdWithin', 'speedTau', 'pauseRate', 'pauseMean', 'meanFreePath', 'jitter', 'homeRange'];
-if (TIME_TURNING) s1Keys.push('jitterTime', 'turnRateTime');
-if (VARIANT === 'T') s1Keys.push('turnDipTau');
-/** Parameters on (0, 1) (turnDip on (0, 0.99)), logit-encoded. */
-const unitKeys: (keyof WalkParams)[] = ['g', 'homeHeadingPull', ...(VARIANT === 'T' ? (['turnDip', 'stopTurnG', 'stopHomePull'] as const) : [])];
-const unitScale = (k: keyof WalkParams) => (k === 'turnDip' ? 0.99 : 1);
-const enc1 = (q: WalkParams) => [...s1Keys.map((k) => Math.log(q[k])), q.homeRunBias, ...unitKeys.map((k) => logit(Math.min(0.999, Math.max(1e-3, q[k] / unitScale(k)))))];
-const dec1 = (x: number[], base: WalkParams): WalkParams => {
-  const q = { ...base };
-  s1Keys.forEach((k, i) => (q[k] = Math.exp(x[i])));
-  const n = s1Keys.length;
-  q.homeRunBias = x[n];
-  unitKeys.forEach((k, i) => (q[k] = unitScale(k) * sigm(x[n + 1 + i])));
-  return q;
-};
+/**
+ * Fitted parameters and their ranges (2026-10-08, after the first recovery
+ * cell): wide plausibility limits, never meant to bind; a fit at a limit is
+ * reported. `log`: lo·(hi/lo)^u, `lin`: lo + (hi − lo)·u, with u = sigm(x),
+ * so the optimiser cannot leave the range (degenerate walkers, e.g. a
+ * slope-speed SD that leaves no usable track at 60°, were the second failure).
+ */
+type Spec = [keyof WalkParams, 'log' | 'lin', number, number];
+const S1: Spec[] = [
+  ['speed', 'log', 10, 150], // mm/s
+  ['speedSdBetween', 'log', 0.01, 1.5],
+  ['speedSdWithin', 'log', 0.01, 1.5],
+  ['speedTau', 'log', 0.05, 20], // s
+  ['pauseRate', 'log', 1e-3, 2], // 1/s
+  ['pauseMean', 'log', 0.05, 10], // s
+  ['meanFreePath', 'log', 1, 500], // mm
+  ['jitter', 'log', 1e-5, 0.05], // rad²/mm
+  ['homeRange', 'log', 10, 1000], // mm
+  ['homeRunBias', 'lin', -3, 3],
+  ['g', 'lin', 0, 1],
+  ['homeHeadingPull', 'lin', 0, 1],
+  ...(TIME_TURNING
+    ? ([
+        ['jitterTime', 'log', 1e-3, 5], // rad²/s
+        ['turnRateTime', 'log', 0.01, 30], // 1/s
+      ] as Spec[])
+    : []),
+  ...(VARIANT === 'T'
+    ? ([
+        ['turnDipTau', 'log', 0.02, 5], // s
+        ['turnDip', 'lin', 0, 0.99],
+        ['stopTurnG', 'lin', 0, 1],
+        ['stopHomePull', 'lin', 0, 1],
+      ] as Spec[])
+    : []),
+];
+const S2: Spec[] = [
+  ['slopeSpeedK', 'log', 0.01, 0.9], // 1/rad; speed factor max(0.05, 1 − kθ) reaches its floor at 60° for k ≈ 0.91
+  ['geoRunGain', 'log', 1e-4, 3], // 1/rad
+  ['geoHeadingPull', 'lin', 0, 1],
+  ['slopePauseK', 'lin', -3, 4], // 1/rad, rate × exp(kθ)
+  ['slopeSpeedSdK', 'lin', -2, 2], // 1/rad, SD × exp(kθ): at most ×8 at 60°
+  ...(VARIANT === 'A0' ? ([['slopeJitterK', 'lin', -3, 4]] as Spec[]) : []),
+];
+const encode = (specs: Spec[]) => (q: WalkParams) =>
+  specs.map(([k, kind, lo, hi]) => {
+    const u = kind === 'log' ? Math.log(q[k] / lo) / Math.log(hi / lo) : (q[k] - lo) / (hi - lo);
+    return logit(Math.min(0.999, Math.max(1e-3, u)));
+  });
+const decode =
+  (specs: Spec[]) =>
+  (x: number[], base: WalkParams): WalkParams => {
+    const q = { ...base };
+    specs.forEach(([k, kind, lo, hi], i) => {
+      const u = sigm(x[i]);
+      q[k] = kind === 'log' ? lo * (hi / lo) ** u : lo + (hi - lo) * u;
+    });
+    return q;
+  };
+/** Parameters within 1 % of a limit (log scale for `log`). */
+const atLimit = (specs: Spec[], q: WalkParams) =>
+  specs.filter(([k, kind, lo, hi]) => {
+    const u = kind === 'log' ? Math.log(q[k] / lo) / Math.log(hi / lo) : (q[k] - lo) / (hi - lo);
+    return u < 0.01 || u > 0.99;
+  }).map(([k]) => k);
+const enc1 = encode(S1);
+const dec1 = decode(S1);
+const enc2 = encode(S2);
+const dec2 = decode(S2);
 const t0 = Date.now();
 
 // ---- Stage 2: slopes
-const enc2 = (q: WalkParams) => [Math.log(q.slopeSpeedK), Math.log(q.geoRunGain), logit(Math.min(0.999, q.geoHeadingPull)), q.slopePauseK, q.slopeSpeedSdK, ...(VARIANT === 'A0' ? [q.slopeJitterK] : [])];
-const dec2 = (x: number[], base: WalkParams): WalkParams => ({
-  ...base,
-  slopeSpeedK: Math.exp(x[0]),
-  geoRunGain: Math.exp(x[1]),
-  geoHeadingPull: sigm(x[2]),
-  slopePauseK: x[3],
-  slopeSpeedSdK: x[4],
-  ...(VARIANT === 'A0' ? { slopeJitterK: x[5] } : {}),
-});
 const second2: Partial<WalkParams> = { geoRunGain: 0.3, geoHeadingPull: 0.3, slopeSpeedSdK: 0 };
 let fitLoss: Record<string, unknown>;
 if (STRATEGY === 'staged') {
-  const r1 = await stage('stage1', [0], (x) => dec1(x, p), [enc1(p), enc1({ ...p, ...second })], quick ? 150 : 500, GENS1, 100000);
+  const prior = STAGE1_FROM ? readJson<any>(STAGE1_FROM) : null;
+  if (prior) {
+    if (prior.variant !== VARIANT || prior.recovery?.antsPerIncline !== (RECOVER ? REC_N : undefined) || (prior.recovery?.rep ?? REP) !== REP) throw new Error('--stage1From: different variant or data');
+    for (const [k] of S1) p = { ...p, [k]: prior.params[k] };
+  }
+  const r1 = prior ? { x: enc1(p), f: (prior.selectionLoss ?? prior.fitLoss).stage1 as number, evals: 0 } : await stage('stage1', [0], (x) => dec1(x, p), START ? [enc1(p)] : [enc1(p), enc1({ ...p, ...second })], quick ? 150 : 500, GENS1, 100000);
   p = dec1(r1.x, p);
   console.log('stage 1 done', r1.f.toFixed(3), JSON.stringify(p));
-  const r2 = await stage('stage2', [2, 4], (x) => dec2(x, p), [enc2(p), enc2({ ...p, ...second2 })], quick ? 120 : 400, GENS2, 200000);
-  p = dec2(r2.x, p);
-  console.log('stage 2 done', r2.f.toFixed(3), JSON.stringify(p));
-  fitLoss = { stage1: r1.f, stage2: r2.f, evals: [r1.evals, r2.evals] };
+  const r2 = STAGES < 2 ? null : await stage('stage2', [2, 4], (x) => dec2(x, p), START ? [enc2(p)] : [enc2(p), enc2({ ...p, ...second2 })], quick ? 120 : 400, GENS2, 200000);
+  if (r2) {
+    p = dec2(r2.x, p);
+    console.log('stage 2 done', r2.f.toFixed(3), JSON.stringify(p));
+  }
+  fitLoss = { stage1: r1.f, stage2: r2?.f ?? null, evals: [r1.evals, r2?.evals ?? 0], ...(STAGE1_FROM ? { stage1From: STAGE1_FROM } : {}) };
 } else {
   // ---- Joint: all parameters at once on the three fit inclines.
   const n1 = enc1(p).length;
   const encJ = (q: WalkParams) => [...enc1(q), ...enc2(q)];
   const decJ = (x: number[], base: WalkParams) => dec2(x.slice(n1), dec1(x.slice(0, n1), base));
   const base = p;
-  const rj = await stage('joint', [0, 2, 4], (x) => decJ(x, base), [encJ(p), encJ({ ...p, ...second, ...second2 })], 0, GENSJ, 300000);
+  const rj = await stage('joint', [0, 2, 4], (x) => decJ(x, base), START ? [encJ(p)] : [encJ(p), encJ({ ...p, ...second, ...second2 })], 0, GENSJ, 300000);
   p = decJ(rj.x, base);
   console.log('joint done', rj.f.toFixed(3), JSON.stringify(p));
   fitLoss = { joint: rj.f, evals: [rj.evals] };
@@ -240,8 +365,12 @@ writeJson(OUT, {
   k,
   optimizer: OPT,
   strategy: STRATEGY,
+  restarts: RESTARTS,
+  atLimit: [...atLimit(S1, p), ...atLimit(S2, p)],
   ...(RECOVER ? { recovery: { truth: RECOVER, rep: REP, antsPerIncline: REC_N, scoredAs: Math.min(REC_N, 69), truthFloor } } : {}),
-  fitLoss,
+  // Losses on the batch that chose among optimiser runs: selection data, not
+  // an estimate of fit quality (use flatFresh and report, on other seeds).
+  selectionLoss: fitLoss,
   flatFresh: { batches: flatBatches, mean: flatMean, se: flatSe, k1, penalised: flatMean + 2 * k1, antsPerBatch: 1000 },
   seconds: (Date.now() - t0) / 1000,
   params: p,
