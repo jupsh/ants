@@ -66,7 +66,7 @@ export function runE1(p: WalkParams, o: E1Options): Track[] {
     const slope = surface.slopeAt();
     const per = basicPercept(o.dt, slope.incline, slope.downhill, 26);
     while (time < maxTime) {
-      walkStep(p, s, per, rng, 1, pi, move);
+      walkStep(p, s, per, 1, pi, move);
       time += o.dt;
       while (time >= nextSample - 1e-9) {
         t.push(nextSample);

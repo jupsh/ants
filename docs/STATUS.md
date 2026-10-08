@@ -1209,3 +1209,25 @@ See [`CLAUDE.md`](../CLAUDE.md).
     computed yet); (b) slope segmentation thresholds (ε 2.2–4.0 mm) are a
     reconstruction of Khuong's speed scaling, and slope results of the
     reference walkers are sensitive to it.
+- **2026-10-08** Fitting machinery, step 1 of the proposal above (decided
+  before implementation): the walker draws from **per-purpose streams**
+  derived per ant at `initWalkState` (speed process, distance clock, time
+  clock, turn angles, heading jitter, pause onset and duration, stop
+  resets). Applies to every caller (E1 and the E2 forager), so E2 results
+  shift by seed noise only; checked with `reportE2.ts` before and after.
+  Success measure: the loss along a one-parameter line (T fit, flat, fit
+  seeds) becomes smooth: neighbour-to-neighbour jumps well below the
+  fresh-batch SD, instead of the 20–100 jumps seen in the scan above.
+  - **Result:** done (`WalkState.r`; initial traits drawn as a fixed number
+    of standard normals scaled by the parameters; `walkStep` no longer
+    takes an RNG). Loss along turnDip × turnDipTau (T fit, flat, fit seeds,
+    640 ants): old single stream 124.7 at the fitted point with neighbours
+    up to 167 and no trend; per-purpose streams 152–185 (the fresh-batch
+    level) with a clear trend (loss rises with turnDip above ≈ 0.55).
+    Neighbour jumps shrink only modestly (mean ≈ 7, max 11, vs ≈ 10 / 24),
+    about the fresh-batch SD: the seed-chasing spike is gone, the residual
+    roughness (segment-count-dependent jitter draws, finite ants) is left to
+    a noise-robust optimiser. E2 (`reportE2.ts`) shifts by seed noise only
+    (|Δz| ≤ 1.2, typically ≈ 0.3; no verdict changes). All earlier E1/E2
+    numbers were produced with the single stream; they are reproducible
+    from git history, not from the current code.

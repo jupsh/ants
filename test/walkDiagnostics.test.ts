@@ -98,7 +98,7 @@ describe('pause process', () => {
       const per = basicPercept(dt, 0, 0, 26);
       const T = 20000;
       let walked = 0;
-      for (let t = 0; t < T - 1e-9; t += dt) walked += walkStep(p, s, per, rng, 1, { x: 0, y: 0 }, () => {});
+      for (let t = 0; t < T - 1e-9; t += dt) walked += walkStep(p, s, per, 1, { x: 0, y: 0 }, () => {});
       // ≈ 27 000 pauses: SE of the paused fraction ≈ 0.003.
       expect(1 - walked / (p.speed * T), `dt ${dt}`).toBeCloseTo(expected, 1);
       expect(Math.abs(1 - walked / (p.speed * T) - expected), `dt ${dt}`).toBeLessThan(0.01);

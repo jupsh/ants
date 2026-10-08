@@ -48,7 +48,6 @@ export function applyForagerAction(w: World, a: Agent, act: ForagerAction, per: 
       walkP,
       m.walk,
       per,
-      b.rng,
       1,
       m.pi,
       (dx, dy, len) => {
