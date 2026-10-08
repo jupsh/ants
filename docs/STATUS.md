@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-07 (session 1, after second external review). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-07 (session 2: step 1 in progress). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
@@ -11,13 +11,21 @@ fitted and partly validated. E2 (drinking and the trail-laying decision) is
 fitted, and its withheld checks are partly passing; it now needs a mechanism
 comparison rather than more parameters. For E6 (food sharing in the nest), the
 data are imported and summarised and no model has been run against them yet.
-Nothing is committed to git (all work is uncommitted on `main`); ask the user
-before committing.
+Session-1 work is committed on branch `browser-sim-m1` (a7b5269); ask the
+user before committing further. `side-projects/` is the user's own scratch
+area: it is excluded locally via `.git/info/exclude` and is outside the
+tsconfig/vitest scope — leave it alone.
+
+**In progress (session 2):** next step 1 (comparison statistics).
 
 **Guiding principle (from review 2):** tighten the evidence before adding
 biology. Keep asking *which observation could distinguish competing
 explanations?* Don't add mechanisms (grooming, wall-following, …) until the
 existing ones are shown to be identifiable and necessary.
+
+**Deployment.** GitHub Pages via `.github/workflows/pages.yml` (tests, build,
+deploy on push to `main`). Vite `base: './'` so it works under `/ants/`. One-time
+step: repo Settings → Pages → Source = "GitHub Actions".
 
 ### Next steps (in order)
 1. **Fix the comparison statistics** (see Evidence policy § Criteria):
