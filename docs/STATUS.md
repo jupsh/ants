@@ -246,8 +246,9 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      purely axial. Check the data's y orientation (assumed +y = uphill,
      matching `PlaneSurface(incline, −π/2)`).
    - Return-to-start bias near release fades on slopes (published for
-     flat ground by Bonavita et al. 2026, PLoS ONE e0327957 — a reanalysis
-     of the same data; citation not yet checked by me).
+     flat ground by Bonavita et al. 2026, PLoS ONE 21:e0327957, PMC13419209
+     — a reanalysis of the same flat data plus a new experiment; citation
+     checked in session 3).
    Candidate changes, in the note's order (each with its distinguishing
    observation in the note, §4):
    - **A** add measured tracking noise to the simulated observer (0
@@ -264,10 +265,9 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      two-state switching (+4–6).
    Then compare per-ant as well as pooled statistics (pooled quantiles are
    time-weighted towards slow ants), and refit with `scripts/fitE1.ts`.
-   **Evidence note:** all five inclines are now fit or development data;
-   E1 has no held-out walking data. Fresh candidates: L. niger walking in
-   other published experiments (e.g. Czaczkes et al. 2011), if conditions
-   match.
+   **Evidence note:** all five inclines are now fit or development data.
+   Held-out for the flat-ground walker: Bonavita et al. 2026's new
+   experiment (registered session 3, see contamination log).
 6. Backlog (below), sensitivity analysis.
 
 ### How to run, gotchas, code map
@@ -292,9 +292,18 @@ Claude Code loads automatically.
     slope-dependent pausing, jitter and speed variability were added.
   - Those terms were fitted only on 30° and 60°, but 20° and 45° are now
     **development**, not held-out.
-  - No fresh L. niger walking data are held out yet. Candidates: walking
-    statistics in other published L. niger experiments (e.g. Czaczkes et
-    al. 2011 speeds and straightness on trails), if the conditions match.
+  - **Held-out (registered 2026-10-08, never inspected):** Bonavita et
+    al. 2026's new experiment, `data/bonavita2026/redwhite.csv.gz` (60
+    ants × white and red light, same lab, flat 50 cm arena, 25 °C,
+    tooth-pick release, arena cleaned between ants; raw 25 Hz tracks, CC
+    BY 4.0). Only the file format, counts and the paper's methods have
+    been read; no statistic has been computed, and the paper's results on
+    these data are unread. It will test the flat-ground walker adopted
+    after step 5, under a protocol written down before the first
+    computation (geometry, start/end criteria, observer calibration with
+    the same noise estimator, white light primary).
+  - Other candidates: Czaczkes et al. 2011 (speeds and straightness on
+    trails; experienced foragers, a different context).
 - **E2 (Mailleux et al. 2009):**
   - The drop-1 trail fraction was moved into the fit.
   - The second-drop intake and time, between-drop times, overall trail
