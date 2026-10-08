@@ -1,20 +1,24 @@
 # Project status
 
-_Last updated: 2026-10-07 (session 2: step 1 done; research for steps 2–5 filed in `docs/research/`). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-07 (session 2: steps 1 and 2 done; next is step 3, the E2 mechanism comparison). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
 **State in one paragraph.** Milestone M1 (*Lasius niger* as the single
 reference species). The TypeScript simulation core compiles, runs and is
-tested (`npm test`: 22 pass + 2 expected-fail, ~20 s). Model–data
+tested (`npm test`: 32 pass + 2 expected-fail, ~35 s). Model–data
 comparisons now use the combined-SE criteria (step 1, done). Under them, E1
 (exploratory walking) fits the median speed, stopping and long-lag heading
 correlation but **not** the slow-speed tail, turn-increment shape, drift
 near the release point or straightness, even on flat ground; steep slopes are
 far off. E2 (drinking and trail laying) matches most means but the
 between-ant **spread** of drinking time is twice the data's — a new,
-discriminating observation for the mechanism comparison. For E6 (food sharing in the nest), the
-data are imported and summarised and no model has been run against them yet.
+discriminating observation for the mechanism comparison. For E6 (food
+sharing in the nest), the observation pipeline and the reference baseline
+are done (step 2): the authors' TEC model, ported and refitted through the
+scan observer, matches every colony-level target except T50; our own
+encounter-based model has not been run against E6 yet (step 4). The E6 page
+(`#e6`) animates one simulated colony.
 Session-1 work is committed on branch `browser-sim-m1` (a7b5269); ask the
 user before committing further. `side-projects/` is the user's own scratch
 area: it is excluded locally via `.git/info/exclude` and is outside the
@@ -53,6 +57,31 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      99**, and NF→NF ≈ 25 instead of 32 (non-forager-donor pairs are
      shorter: the code's pair-ending hazard is 1/130 s⁻¹ for NF donors vs
      1/260 for F donors because of a dead code branch; Fig. 1 says 1/120).
+   - **Done (session 2):** (a), (b) and (c).
+     - Tier 1: the TS port reproduces Table 1/S1 for all six variants
+       (TEC-exp: 99.1 events, 12.6 foragers, 9.5/50.0/7.2/32.4, T50 29.3).
+     - Published TEC-exp through the observer: events 82 (z −1.8), NF→NF
+       25 (z −1.9), T50 z −2.2.
+     - Tier 2 refit (`data/fits/e6-tec.json`, fitted on foragers + the four
+       pair types): θF 1/7.8, θW 1/21.7, ϒF 1/8.1, ϒW 1/21.8 (published
+       1/9, 1/23, 1/9, 1/27). Fresh colonies: every primary and network
+       metric |z| ≤ 1.1 **except T50: 29.6 vs 32.8 min (z −2.1, not
+       fitted)**. In the data the first exchanges come 2–5 min after food;
+       the model's foragers reach the food instantly. Discovery and travel
+       time are exactly what our spatial model adds — a concrete target.
+     - **Power caveat:** with n = 5 colonies, SE_data is large; even the
+       rejected one-caste model passes most colony-level means (only F→F
+       stands out). The fit loss of 0.29 for 4 parameters on 5 targets
+       also means the refit parameters are loosely determined. More
+       discriminating: per-ant distributions (267 ants: events given /
+       received by foragers and non-foragers, the authors' Fig. 3
+       histograms) — add them as KS targets before step 4's test.
+     Code: `observeContacts` in `src/sim/analysis/trophallaxis.ts`,
+     `src/sim/reference/blesTEC.ts` (TS port, `compat` flag),
+     `src/sim/experiments/e6Bles.ts` (targets, colonies, comparison),
+     `scripts/reportE6.ts`, `scripts/fitE6TEC.ts` → `data/fits/e6-tec.json`,
+     `test/e6.test.ts`, and the E6 page (`#e6`: animated colony,
+     cumulative events, comparison table).
    - (a) A reusable simulated observer in TS (as above, random scan
      phase). Reuse `src/sim/analysis/trophallaxis.ts` for the statistics.
    - (b) **Tier 1, exact reproduction (regression test):** port the TEC
@@ -160,9 +189,10 @@ step: repo Settings → Pages → Source = "GitHub Actions".
 
 ### How to run
 - The dev server is run by the user: `npx vite` → http://localhost:5173
-  (pages: `#e1` walking, `#e2` recruit decision, `#status`). Don't start a
+  (pages: `#e1` walking, `#e2` recruit decision, `#e6` food sharing,
+  `#status`). Don't start a
   second one.
-- Tests: `npm test` (~20 s).
+- Tests: `npm test` (~35 s).
 - Fits: `npx vite-node scripts/fitE1.ts` (~10 min) and
   `scripts/fitE2.ts` (~5 min). They write `data/fits/*.json`, which
   `src/sim/species/lasiusM1.ts` merges. Data summaries:

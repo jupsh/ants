@@ -8,6 +8,11 @@ export interface Series {
   x: number[];
   y: number[];
   dashed?: boolean;
+  /** Leave out of the legend (e.g. one of several thin context lines). */
+  noLegend?: boolean;
+  /** Stroke opacity and width (defaults 1 and 2). */
+  opacity?: number;
+  width?: number;
 }
 
 export interface LineChartOptions {
@@ -62,6 +67,7 @@ export function lineChart(container: HTMLElement, series: Series[], o: LineChart
   const legend = document.createElement('div');
   legend.className = 'legend';
   for (const s of series) {
+    if (s.noLegend) continue;
     const item = document.createElement('span');
     const key = document.createElement('span');
     key.className = 'key';
@@ -113,7 +119,7 @@ export function lineChart(container: HTMLElement, series: Series[], o: LineChart
     const pts = s.x.map((x, i) => [x, s.y[i]] as const).filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y));
     if (!pts.length) continue;
     const d = pts.map(([x, y], i) => `${i ? 'L' : 'M'}${sx(x).toFixed(1)},${sy(y).toFixed(1)}`).join('');
-    svg.appendChild(el('path', { d, fill: 'none', stroke: s.color, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', ...(s.dashed ? { 'stroke-dasharray': '5 4' } : {}) }));
+    svg.appendChild(el('path', { d, fill: 'none', stroke: s.color, 'stroke-width': s.width ?? 2, 'stroke-opacity': s.opacity ?? 1, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', ...(s.dashed ? { 'stroke-dasharray': '5 4' } : {}) }));
   }
   // Crosshair + tooltip.
   const cross = el('line', { y1: m.t, y2: H - m.b, stroke: 'var(--axis)', 'stroke-width': 1, visibility: 'hidden' });

@@ -3,6 +3,7 @@ import type { E2Row } from '../sim/experiments/e2Targets';
 import { REFS } from '../sim/species/refs';
 import type { E2Request, E2Response, TripFrame } from '../worker/e2Worker';
 import E2Worker from '../worker/e2Worker?worker';
+import { drawAnt } from './antSprite';
 
 const CONDITIONS = [
   { id: 'two', label: 'Two 0.7 µL drops (Mailleux 2009)' },
@@ -191,7 +192,7 @@ export function renderE2(root: HTMLElement): () => void {
         }
       const f: TripFrame | undefined = fr[frameIdx];
       if (f) {
-        drawAnt(ctx, X(f.x), Y(f.y), -f.heading, s, f.crop, css.getPropertyValue('--text-primary'));
+        drawAnt(ctx, X(f.x), Y(f.y), -f.heading, { scale: s, load: f.crop / 1.2, color: css.getPropertyValue('--text-primary'), gait: f.mode === 'drink' ? undefined : f.t * 9 });
         info.textContent = `Trip ${(tripIdx % res.trips.length) + 1}/${res.trips.length} · t = ${f.t.toFixed(0)} s · ${MODE_LABEL[f.mode] ?? f.mode} · crop ${f.crop.toFixed(2)} µL · playback ${speedSel.value}× real time`;
       }
     }
@@ -204,26 +205,6 @@ export function renderE2(root: HTMLElement): () => void {
     cancelAnimationFrame(raf);
     worker.terminate();
   };
-}
-
-/** Simple top-view ant: head, mesosoma, gaster swelling with the crop load. */
-function drawAnt(ctx: CanvasRenderingContext2D, x: number, y: number, heading: number, s: number, crop: number, color: string): void {
-  const L = 4.1 * s;
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(heading);
-  ctx.fillStyle = color;
-  const g = 0.32 + 0.12 * Math.min(1, crop / 1.2);
-  ctx.beginPath();
-  ctx.ellipse(-L * 0.28, 0, L * g, L * g * 0.75, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.ellipse(L * 0.08, 0, L * 0.18, L * 0.09, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.ellipse(L * 0.36, 0, L * 0.13, L * 0.11, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
 }
 
 function renderTable(card: HTMLElement, rows: E2Row[], foundBoth: number): void {
