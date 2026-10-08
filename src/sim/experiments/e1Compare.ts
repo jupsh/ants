@@ -21,12 +21,15 @@ import { combineWalkStats, KHUONG_PREP, prepareTrack, summarize, trackStats, typ
 
 /**
  * Per-ant sufficient statistics for the scalar comparisons. Resampling ants
- * only sums these, which keeps the bootstrap cheap. Speed quantiles come from
- * a 0.05 mm/s histogram (linear within a bin), applied identically to data
- * and simulation.
+ * only sums these, which keeps the bootstrap cheap, and they are small
+ * enough to compute in pool workers and send back instead of tracks. Speed
+ * quantiles come from a 0.05 mm/s histogram (linear within a bin), applied
+ * identically to data and simulation; per ant it is stored sparsely.
  */
-interface Acc {
-  speedHist: Float64Array;
+export interface Acc {
+  /** Occupied histogram bins and their counts. */
+  speedIdx: Uint16Array;
+  speedCnt: Float64Array;
   speedN: number;
   stopped: number;
   samples: number;
@@ -41,14 +44,24 @@ interface Acc {
   straightSum: number;
   straightN: number;
   trackSpeeds: number[];
+  exitTimes: number[];
+}
+
+/** Totals over ants: as `Acc`, with a dense speed histogram. */
+interface Total extends Omit<Acc, 'speedIdx' | 'speedCnt'> {
+  speedHist: Float64Array;
 }
 
 const BIN = 0.05;
 const NBIN = 6000; // 0–300 mm/s; faster samples go in the last bin
 
 function accFor(t: TrackStats): Acc {
-  const speedHist = new Float64Array(NBIN);
-  for (const v of t.speeds) speedHist[Math.min(NBIN - 1, Math.floor(v / BIN))]++;
+  const counts = new Map<number, number>();
+  for (const v of t.speeds) {
+    const b = Math.min(NBIN - 1, Math.floor(v / BIN));
+    counts.set(b, (counts.get(b) ?? 0) + 1);
+  }
+  const bins = [...counts.keys()].sort((a, b) => a - b);
   const turn = [0, 0, 0, 0, 0];
   for (const x of t.turnIncrements) {
     const x2 = x * x;
@@ -59,7 +72,8 @@ function accFor(t: TrackStats): Acc {
     turn[4] += x2 * x2;
   }
   return {
-    speedHist,
+    speedIdx: Uint16Array.from(bins),
+    speedCnt: Float64Array.from(bins, (b) => counts.get(b)!),
     speedN: t.speeds.length,
     stopped: t.stopped,
     samples: t.samples,
@@ -73,16 +87,24 @@ function accFor(t: TrackStats): Acc {
     straightSum: t.straightness.reduce((a, v) => a + v, 0),
     straightN: t.straightness.length,
     trackSpeeds: t.trackSpeed === null ? [] : [t.trackSpeed],
+    exitTimes: t.exitTime === null ? [] : [t.exitTime],
   };
 }
 
-function aggregate(accs: (Acc | null)[], idx?: number[]): Acc {
+/** Per-ant summary of one raw track (prepared as the Khuong data were), or null if too short. */
+export function summarizeTrack(t: Track): Acc | null {
+  const prep = prepareTrack(t, KHUONG_PREP);
+  const ts = prep ? trackStats(prep) : null;
+  return ts ? accFor(ts) : null;
+}
+
+function aggregate(accs: (Acc | null)[], idx?: number[]): Total {
   const sel = idx ? idx.map((i) => accs[i]) : accs;
-  const g: Acc = { speedHist: new Float64Array(NBIN), speedN: 0, stopped: 0, samples: 0, pcSum: [], pcN: [], turn: [0, 0, 0, 0, 0], radSum: [], radN: [], alignSum: 0, alignN: 0, straightSum: 0, straightN: 0, trackSpeeds: [] };
+  const g: Total = { speedHist: new Float64Array(NBIN), speedN: 0, stopped: 0, samples: 0, pcSum: [], pcN: [], turn: [0, 0, 0, 0, 0], radSum: [], radN: [], alignSum: 0, alignN: 0, straightSum: 0, straightN: 0, trackSpeeds: [], exitTimes: [] };
   const add = (a: number[], b: number[]) => b.forEach((v, i) => (a[i] = (a[i] ?? 0) + v));
   for (const a of sel) {
     if (!a) continue;
-    for (let i = 0; i < NBIN; i++) g.speedHist[i] += a.speedHist[i];
+    for (let i = 0; i < a.speedIdx.length; i++) g.speedHist[a.speedIdx[i]] += a.speedCnt[i];
     g.speedN += a.speedN;
     g.stopped += a.stopped;
     g.samples += a.samples;
@@ -96,11 +118,12 @@ function aggregate(accs: (Acc | null)[], idx?: number[]): Acc {
     g.straightSum += a.straightSum;
     g.straightN += a.straightN;
     for (const v of a.trackSpeeds) g.trackSpeeds.push(v);
+    for (const v of a.exitTimes) g.exitTimes.push(v);
   }
   return g;
 }
 
-function histQuantile(g: Acc, p: number): number {
+function histQuantile(g: Total, p: number): number {
   if (!g.speedN) return NaN;
   const target = p * g.speedN;
   let cum = 0;
@@ -112,7 +135,7 @@ function histQuantile(g: Acc, p: number): number {
   return NBIN * BIN;
 }
 
-function turnMoments(g: Acc): { sd: number; kurt: number } {
+function turnMoments(g: Total): { sd: number; kurt: number } {
   const [n, s1, s2, s3, s4] = g.turn;
   const m = s1 / n;
   const m2 = s2 / n - m * m;
@@ -127,7 +150,7 @@ interface Scalar {
   label: string;
   family: string;
   kind: CompareKind;
-  f: (g: Acc) => number;
+  f: (g: Total) => number;
 }
 
 const quantile = (xs: number[], p: number) => {
@@ -154,28 +177,29 @@ export const SCALARS: Scalar[] = [
 ];
 
 export interface E1Sample {
-  parts: (TrackStats | null)[];
-  stats: WalkStats;
+  /** Per-ant summaries, in ant order (null for unusable tracks). */
   acc: (Acc | null)[];
+  /** Full pooled statistics, when built from tracks (for display). */
+  stats?: WalkStats;
 }
 
 export interface E1Reference {
-  sample: E1Sample;
+  sample: E1Sample & { stats: WalkStats };
   /** Values and bootstrap SEs of the scalar statistics, in `SCALARS` order. */
   values: number[];
   se: number[];
 }
 
-export function sampleFor(tracks: Track[]): E1Sample {
+export function sampleFor(tracks: Track[]): E1Sample & { stats: WalkStats } {
   const parts = tracks.map((t) => prepareTrack(t, KHUONG_PREP)).map((t) => (t ? trackStats(t) : null));
-  return { parts, stats: combineWalkStats(parts), acc: parts.map((p) => (p ? accFor(p) : null)) };
+  return { stats: combineWalkStats(parts), acc: parts.map((p) => (p ? accFor(p) : null)) };
 }
 
 export function statsFor(tracks: Track[]): WalkStats {
   return sampleFor(tracks).stats;
 }
 
-const scalarValues = (g: Acc) => SCALARS.map((c) => c.f(g));
+const scalarValues = (g: Total) => SCALARS.map((c) => c.f(g));
 
 /** Bootstrap SEs of the scalar statistics (resampling ants). */
 export function scalarSE(sample: E1Sample, reps = 200, seed = 1): number[] {
@@ -201,7 +225,9 @@ export interface E1Comparison {
  *     cannot lower the loss by making the simulation noisier.
  */
 export function compareE1(sim: E1Sample, ref: E1Reference, simSE?: number[]): E1Comparison {
-  const sv = scalarValues(aggregate(sim.acc));
+  const simTotal = aggregate(sim.acc);
+  const refTotal = aggregate(ref.sample.acc);
+  const sv = scalarValues(simTotal);
   const rows: E1Comparison['rows'] = SCALARS.map((c, i) => {
     const seSim = simSE ? simSE[i] : NaN;
     const z = simSE ? combinedZ(sv[i], seSim, ref.values[i], ref.se[i]) : fitZ(sv[i], ref.values[i], ref.se[i]);
@@ -213,8 +239,8 @@ export function compareE1(sim: E1Sample, ref: E1Reference, simSE?: number[]): E1
     const sign = Math.sign(quantile(a, 0.5) - quantile(b, 0.5)) || 1;
     rows.push({ id, label: `${label} (KS D = ${r.d.toFixed(2)}, n = ${r.n}/${r.m})`, family, kind: 'distribution', data: quantile(b, 0.5), sim: quantile(a, 0.5), seData: NaN, seSim: NaN, z: sign * r.z });
   };
-  ks('trackSpeed.ks', 'Per-ant mean speed distribution', 'trackSpeedKS', sim.stats.trackSpeeds, ref.sample.stats.trackSpeeds);
-  ks('exit.ks', 'Exit-time distribution', 'exitKS', sim.stats.exitTimes, ref.sample.stats.exitTimes);
+  ks('trackSpeed.ks', 'Per-ant mean speed distribution', 'trackSpeedKS', simTotal.trackSpeeds, refTotal.trackSpeeds);
+  ks('exit.ks', 'Exit-time distribution', 'exitKS', simTotal.exitTimes, refTotal.exitTimes);
   const fam = new Map<string, number[]>();
   for (const r of rows) fam.set(r.family, [...(fam.get(r.family) ?? []), Number.isFinite(r.z) ? r.z * r.z : 100]);
   let loss = 0;

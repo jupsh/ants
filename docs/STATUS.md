@@ -1,12 +1,13 @@
 # Project status
 
-_Last updated: 2026-10-07 (session 2: steps 1–3b done; next: E2 search around food (3c) or E6 encounter model (4)). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-08 (session 3: step 5 (E1 walking revisit) started first, because 3c and 4 both depend on the walking model; see Decisions log). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
 **State in one paragraph.** Milestone M1 (*Lasius niger* as the single
 reference species). The TypeScript simulation core compiles, runs and is
-tested (`npm test`: 32 pass + 2 expected-fail, ~35 s). Model–data
+tested (`npm test`, fast tier: 28 pass + 2 expected-fail, ~7 s;
+`npm run test:full` adds the slow validation tests, run in CI). Model–data
 comparisons now use the combined-SE criteria (step 1, done). Under them, E1
 (exploratory walking) fits the median speed, stopping and long-lag heading
 correlation but **not** the slow-speed tail, turn-increment shape, drift
@@ -177,7 +178,52 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      trophallaxis, 69–93 % after other contacts. Table 2b's n values
      look copied from Table 1 — use its proportions with caution.
    - Then test once on E6.
-5. **E1 structure revisit** (new, from step 1). The walking model fails
+5. **E1 structure revisit** (in progress, session 3). Done so far:
+   - **5.0 Reproduction ✓.** `scripts/diagE1.ts` (code in
+     `src/sim/analysis/walkDiagnostics.ts`) reproduces every [C] number of
+     the research note from the TS pipeline (speed-binned persistence and
+     kurtosis, per-ant and within-ant log-speed spread, tracking noise,
+     flat alignment by displacement, downhill exits, radial drift,
+     returns), all to the note's rounding. The claims stand.
+   - **5.A Tracking observer ✓** (`E1Options.tracking`, per-ant observer
+     stream). The data's noise is white (σ² from 1st vs 2nd differences
+     1.03–1.05). Noise-free simulated ants already put 0.03–0.09 mm into
+     the same estimator through slow movement, so the observer SD is
+     deconvolved, σ² = σ_data² − σ_moving²: σx 0.149/0.142/0.141/0.139/0.133,
+     σy 0.167/0.159/0.187/0.228/0.357 mm (0–60°). With it, simulated tracks
+     reproduce the data's noise estimates (|z| ≤ 0.6) and whiteness. It
+     barely changes any behavioural statistic: **noise does not explain the
+     gaps.**
+   - **New diagnostics (same code on data and model):**
+     - Turn structure by speed, 2.5 mm chords: median |turn| and P(|turn| >
+       0.5 rad). In the data both fall steeply with speed (flat: big-turn
+       fraction 0.67/0.65/0.37/0.12/0.026 across the five speed bins); the
+       model has too few big turns when slow and 2–15× too many when fast
+       (0.06 per chord at every incline), hence the kurtosis gap (model
+       17–30 vs data 5–11 at ≥ 25 mm/s).
+     - Caveat, an estimator effect present in data and model alike: a turn
+       inside the 0.2 s window shortens the displacement, so "slow" bins
+       select turning. In the model the slow bins on flat ground are mostly
+       near-reversals (⟨cos⟩ at 5 mm −0.14).
+     - **Between ants** (free of that effect): slower ants are more
+       tortuous per mm. Slope of log(1 − ⟨cos⟩ at 10 mm) on log median
+       speed: data −0.63/−0.56/−0.57/−0.33/−0.40 (SE 0.06–0.15), model
+       −0.08 to −0.18. Per-distance turning predicts 0, per-time turning
+       about −1 (less once correlations saturate).
+     - **Across stops:** heading into vs out of a stop is nearly
+       uncorrelated in the data (⟨cos⟩ 0.0–0.26 for stops < 0.4 s, 0.16–0.37
+       for 0.4–1.2 s); the model keeps its heading (0.29–0.56 and 0.62–0.79).
+       Ants reorient at stops.
+     - Downhill exits (model 0.48–0.52 vs data 0.67–0.83), slope-axis tilt
+       10–20° at 20–45°, flat alignment, outward radial drift on ≥ 30° and
+       within-ant speed SD all confirm the note.
+   - **Next:** candidate B as pre-registered in the Decisions log
+     (2026-10-08), then C, D, G, H.
+   - **Cascade:** E2 takes its walk parameters from the E1 fit
+     (`LASIUS_PARAMS`). Adopting a new E1 fit means re-running
+     `reportE2.ts` and, if E2 moves, refitting E2 before 3c.
+
+   Original plan (session 2): the walking model fails
    the stricter criteria on flat ground too (see Results § E1). Research
    note [`slope-walking.md`](research/slope-walking.md) (session 2)
    re-reads the failures; its [C] numbers come from Python scripts and must
@@ -607,3 +653,117 @@ See [`CLAUDE.md`](../CLAUDE.md).
     Σz² + 2k, better on development Σz², and no worse on the held-out
     primary Σz². Both are reported whatever the outcome; after this test
     the 2003 data become development.
+- **2026-10-08** Session 3 order: **step 5 before 3c and 4.** Search around
+  food (3c) is governed by the same walking model, and the encounter
+  model (4) depends on how ants move in the nest, so the walking structure
+  should be settled first. Step 5 begins with its stated prerequisite:
+  - 5.0 reproduce the research note's [C] diagnostics in TS
+    (`src/sim/analysis/walkDiagnostics.ts`: per-track accumulators, so the
+    same code runs on data and simulations and gives cluster-bootstrap
+    SEs; `scripts/diagE1.ts` prints data vs model). Covered: speed-binned
+    persistence at 5/50 mm and 2.5 mm-chord turn kurtosis (B), per-ant vs
+    within-ant log-speed spread (D), tracking noise σx/σy (A), alignment
+    by displacement length (H), downhill exits (C), radial drift and
+    returns (G). Any number that does not reproduce is flagged in the note.
+  - 5.A then the tracking-noise observer (measured σx, σy per incline;
+    own RNG stream per ant), reported with and without, before any refit.
+  - Candidates B, C, D, G, H follow, each judged first on its
+    distinguishing observation; E1 has no held-out data, so all five
+    inclines remain fit/development.
+- **2026-10-08** Step 5 B pre-registration (before any fit with B):
+  - **Observer A** is part of every E1 fit and report from now on
+    (deconvolved σx, σy per incline, recorded in `lasiusM1.ts` as derived
+    values).
+  - **A0 (baseline):** current structure + observer, refitted with the
+    existing loss, stages and budget (stage 1: 500 evaluations on flat;
+    stage 2: 400 on 30° and 60°; 160 ants per evaluation; common random
+    numbers). Without this refit, B's gain would mix structure with
+    observer and optimiser effects.
+  - **B (time-based turning):** A0 plus heading diffusion per unit time
+    `jitterTime` D_t (rad²/s) and reorientation events per unit time
+    `turnRateTime` μ_t (1/s), both also running while the ant is paused;
+    `slopeJitterK` removed (fixed 0). Event rate per mm = 1/λ + μ_t/v, and
+    the existing run-length modulations (geomenotaxis, homing, runScale)
+    scale the whole rate. Heading variance per mm = D_s + D_t/v. Same phase
+    function (wrapped Cauchy, g) for both event kinds. k: +2 − 1 = +1. With
+    D_t = μ_t = 0 the model and its random-number sequence are unchanged.
+  - **Checks, never fitted:** speed-binned ⟨cos⟩ at 5/50 mm, kurtosis,
+    median |turn| and big-turn fraction; the per-ant tortuosity–speed
+    slope; ⟨cos⟩ across stops.
+  - **Decision rule:** B is adopted if (i) fit-inclines loss + 2k is lower
+    than A0's and (ii) the per-ant slope and the big-turn fractions move
+    towards the data (smaller Σz² over the checks) at ≥ 4 of 5 inclines.
+    Both are reported whatever the outcome. If B fails (ii), the two-state
+    model F (Decisions: deferred) is the next structural candidate.
+  - **Amendment (same day, after the first A0/B fits, before judging
+    them).** The pre-registered protocol could not answer the question:
+    - Nelder–Mead left B's new parameters at their starting values (D_t
+      0.054 rad²/s, μ_t 0.32/s) and barely moved anything else in A0.
+    - The objective is noisy: at 160 ants per evaluation the flat-ground
+      loss has a seed-to-seed SD of ±15 (60°: ±18), and the fitted points
+      sit ≈ 2.8 SD below their fresh-seed mean (95 vs 138 ± 15): the
+      optimiser fits seed noise under common random numbers. The session-2
+      fit has the same problem. Turn SD and kurtosis are the noisiest
+      families (rare large turns). At 640 ants: ±3.3 (flat), ±6.8 (60°).
+    - A grid scan (`scripts/scanE1.ts`) shows a ridge of near-constant
+      total turning rate (e.g. λ 50 mm with μ_t 4/s), which a warm-started
+      simplex with 0.3 log-steps does not cross.
+    - **Changes, identical for A0 and B:** 640 ants per evaluation; each
+      stage runs from two starts (warm start, and a second start: B on the
+      ridge, λ 50 mm, μ_t 4/s, D_t 0.2; A0 with λ 20 mm, g 0.75), then
+      restarts the simplex from the best point until a restart gains < 0.5
+      (≤ 3 restarts).
+    - **Decision quantity:** stage 1 (flat ground: no geomenotaxis, no
+      slope speed structure) is the clean test of B, since stage 2 is
+      confounded by the missing C and D. Criterion (i) becomes the
+      fresh-seed flat loss (1000 ants, not the optimiser's own seeds) + 2k
+      over the stage-1 parameters (A0 12, B 14). Criterion (ii) is
+      unchanged. Stage 2 is fitted and reported, but does not decide.
+    - First-run results, superseded and kept for the record (combined-SE
+      report, 300 fresh ants, loss at 0/20/30/45/60°): adopted session-2
+      fit with observer 99/100/127/244/423 (without observer
+      98/101/126/250/615); A0 104/83/101/220/341; B 90/69/109/204/332.
+- **2026-10-08** Step 5 C and D pre-registration (implemented with defaults
+  that leave the model bit-identical; nothing fitted yet). Their
+  distinguishing observations, computed before any fit (`diagE1.ts`,
+  adopted session-2 fit with observer, data / model):
+  - **C:** small-turn steering towards the slope axis, ⟨Δh·sin 2φ⟩ per
+    5 mm in turns < 0.3 rad, grows with incline in the data (−0.000,
+    −0.002, −0.004, −0.004, −0.005; SE 0.001), model −0.000 … −0.003; a
+    small-turn downhill drift ⟨Δh·sin φ⟩ ≈ −0.005 on slopes, model ≈ 0.
+    The model's large turns move headings *away* from the axis (+0.016 …
+    +0.033); the data's do not (−0.014 … +0.016).
+  - **D:** between-ant SD of log median speed *within sessions* grows with
+    incline (0.28, 0.43, 0.36, 0.46, 0.54; SE ≈ 0.04), model 0.28–0.36. So
+    individuals differ in slope sensitivity; it is not only session
+    effects.
+  - **Models.** C: `geoTorque` κ and `geoPolar` β (continuous, per mm, ×
+    sin θ; exact integration) replace the event pull `geoHeadingPull`
+    (fixed 0); `geoRunGain` kept; k +1. D: `slopeSpeedKSd` σ_k (log-normal
+    individual multiplier of `slopeSpeedK`) replaces `slopeSpeedSdK`
+    (fixed 0); k ±0.
+  - **Protocol** (after B is decided, on its adopted structure): refit
+    stage 2 only (stage-1 parameters fixed) for S0 (no change), C, D and
+    C+D, with the amended search (640 ants, two starts, restarts).
+    Decision quantity: fresh-seed loss on the fit slopes (30°, 60°; 1000
+    ants) + 2k over stage-2 parameters. Checks, never fitted: for C the
+    small-turn drifts, downhill-exit fraction, alignment by displacement
+    and 50 mm persistence by speed bin; for D the between-ant SDs (overall
+    and within session), within-ant SD and per-ant median quantiles. A
+    candidate is adopted if it lowers loss + 2k and lowers the Σz² of its
+    checks at ≥ 3 of the 4 sloped inclines.
+- **2026-10-08** E1 evaluation speed (user asked whether to port to
+  Rust/WebAssembly). Measured first: of one 640-ant evaluation, ≈ 60 % was
+  per-track statistics running serially on the main process; the
+  (already parallel) simulation kernel was the smaller part. So **no
+  port**: it would put the model in two languages that must agree
+  bit-for-bit with the browser's TypeScript (`exp`/`atan` differ between
+  JS engines and Rust's libm), for a minority of the time. Instead the
+  workers now return per-ant summaries (`pool.e1Sample`, task
+  `e1Summary`; sparse speed histogram per ant), so statistics run in
+  parallel and little data crosses processes. Losses, rows and bootstrap
+  SEs are bit-identical to the old path; warm evaluations 3.1–3.3× faster
+  (flat 760 → 233 ms, 60° 1155 → 368 ms). The worker time is now ≈ 60 %
+  simulation, 40 % `trackStats` (which also computes unused MSD), so
+  further micro-optimisation is worth ≤ 25 %. The larger remaining lever
+  is the optimiser (noisy objective, ridge); revisit if fits stay slow.

@@ -90,3 +90,20 @@ export const LASIUS_PARAMS = { walk: LASIUS_WALK, forager: LASIUS_FORAGER, phys:
 export const MAILLEUX_PIPETTE_ACCESSIBLE: number = E2FIT.pipetteAccessible ?? 0.75;
 /** Mailleux apparatus and observer settings fitted with the E2 model (volume-estimate SD in µL). */
 export const MAILLEUX_SETUP = { accessible: MAILLEUX_PIPETTE_ACCESSIBLE, volumeSd: E2FIT.observer?.volumeSd ?? 0 };
+
+/**
+ * Khuong et al. 2013 tracking error (E1 observer model A, step 5): white
+ * Gaussian position error per 25 Hz sample, per incline (0, π/9, π/6, π/4,
+ * π/3), along x and along the slope axis y. Derived with scripts/diagE1.ts:
+ * the data's second-difference estimate while ants are nearly still, minus
+ * the part that slow movement of noise-free simulated ants contributes to the
+ * same estimator. The y error grows roughly as 1/cos θ (camera viewing a
+ * tilted canvas).
+ */
+const KHUONG_TRACKING_META = { conditions: KHUONG.conditions, n: KHUONG.n, transform: 'σ² = σ²(2nd differences, speed < 3 mm/s) − σ²(same estimator on the noise-free model)', uncertainty: { sd: 0.006, kind: 'bootstrap SE over ants of the data estimate' } };
+export const KHUONG_TRACKING_DEF = {
+  sx: derived([0.149, 0.142, 0.141, 0.139, 0.133], 'mm', 'khuongTrajectories', 'Tracking-error SD along x, per incline.', KHUONG_TRACKING_META),
+  sy: derived([0.167, 0.159, 0.187, 0.228, 0.357], 'mm', 'khuongTrajectories', 'Tracking-error SD along the slope axis y, per incline.', KHUONG_TRACKING_META),
+};
+/** Tracking-error SDs for Khuong incline k = 1…5. */
+export const khuongTracking = (k: number): { sx: number; sy: number } => ({ sx: KHUONG_TRACKING_DEF.sx.v[k - 1], sy: KHUONG_TRACKING_DEF.sy.v[k - 1] });

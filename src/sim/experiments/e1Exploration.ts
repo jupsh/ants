@@ -25,7 +25,16 @@ export interface E1Options {
   piNoise?: number;
   /** Index of the first ant (each ant's stream is RNG.stream(seed, index)), for splitting runs across workers. */
   firstAnt?: number;
+  /**
+   * Simulated tracking: independent Gaussian position error per recorded
+   * sample (SD in mm along x and along the slope axis y), drawn from the
+   * ant's own observer stream so the walk itself is unchanged.
+   */
+  tracking?: { sx: number; sy: number };
 }
+
+/** RNG key of the per-ant observer stream. */
+const OBSERVER_KEY = 0x0b5e;
 
 export function runE1(p: WalkParams, o: E1Options): Track[] {
   const surface = new PlaneSurface(o.incline, -Math.PI / 2);
@@ -66,6 +75,13 @@ export function runE1(p: WalkParams, o: E1Options): Track[] {
         nextSample += sampleDt;
       }
       if (x * x + y * y > 205 * 205) break;
+    }
+    if (o.tracking) {
+      const obs = RNG.stream(o.seed, a, OBSERVER_KEY);
+      for (let i = 0; i < xs.length; i++) {
+        xs[i] += obs.normal(0, o.tracking.sx);
+        ys[i] += obs.normal(0, o.tracking.sy);
+      }
     }
     tracks.push({ id: `sim-${a}`, t: Float64Array.from(t), x: Float64Array.from(xs), y: Float64Array.from(ys) });
   }

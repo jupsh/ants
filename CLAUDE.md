@@ -8,7 +8,7 @@ when a step starts or finishes, and log decisions there before acting on them.
 ## Run
 - Dev server: the user runs `npx vite` (http://localhost:5173; pages `#e1`,
   `#e2`, `#e6`, `#status`). Never start a second one.
-- `npm test` (~35 s) · `npx tsc --noEmit -p .` · `npm run build` (GitHub Pages
+- `npm test` (fast tier, ~10 s; `npm run test:full` adds `test/slow/`) · `npx tsc --noEmit -p .` · `npm run build` (GitHub Pages
   workflow runs test + build on push to `main`).
 - Scripts run with `npx vite-node scripts/<name>.ts`; shared helpers (args,
   data loading, JSON) in `scripts/lib.ts`. Simulation-heavy scripts use the
@@ -16,10 +16,16 @@ when a step starts or finishes, and log decisions there before acting on them.
   with `SIM_WORKERS=n`; ~2 s start-up). Pooled results are bit-identical to
   serial ones — keep it that way: new parallel work goes in
   `src/sim/parallel/tasks.ts` as pure functions of cloneable arguments with
-  per-individual RNG streams, joined in order.
-  - Fits (write `data/fits/*.json`): `fitE1.ts`, `fitE2.ts --variant
+  per-individual RNG streams, joined in order. Reduce in the worker where
+  possible (e.g. `pool.e1Sample` returns per-ant summaries, not tracks):
+  serial statistics on the main process were 60 % of E1 fit time.
+  - Fits (write `data/fits/*.json`): `fitE1.ts --variant A0|B` (step-5
+    candidates → `e1-<variant>.json`; `e1-walk.json` is the adopted fit),
+    `fitE2.ts --variant
     Ma|Mb|Mc|Mc0|Md`, `fitE6TEC.ts` — minutes with the pool.
-  - Judge without writing: `reportE1.ts` (~9 s), `reportE2.ts` (~9 s),
+  - Judge without writing: `reportE1.ts [--fit f]` (~9 s), `diagE1.ts
+    [--fit f]` (step-5 structure diagnostics, data vs model),
+    `scanE1.ts` (loss on a 2-parameter grid), `reportE2.ts` (~9 s),
     `reportE6.ts [--fit]` (~4 s), `compareE2.ts`, `identifyE2.ts --variant X`.
   - Profiling: `node --cpu-prof node_modules/.bin/vite-node <script>` and sum
     self time per function from the `.cpuprofile`.

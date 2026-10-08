@@ -12,6 +12,7 @@ import { fork, type ChildProcess } from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
 import type { Track } from '../src/sim/analysis/trajectory';
+import type { E1Sample } from '../src/sim/experiments/e1Compare';
 import type { E1Options } from '../src/sim/experiments/e1Exploration';
 import type { ScoutOptions, ScoutResult, LasiusParams } from '../src/sim/experiments/e2Mailleux';
 import type { E6Metrics } from '../src/sim/experiments/e6Bles';
@@ -87,6 +88,15 @@ export class SimPool {
     const parts: TaskArgs<'e1'>[] = [];
     for (let a = 0; a < o.ants; a += size) parts.push([p, { ...o, firstAnt: first + a, ants: Math.min(size, o.ants - a) }]);
     return (await this.map('e1', parts)).flat();
+  }
+
+  /** E1 comparison sample for ants 0 … o.ants − 1: statistics are computed in the workers, only per-ant summaries come back. */
+  async e1Sample(p: WalkParams, o: E1Options): Promise<E1Sample> {
+    const first = o.firstAnt ?? 0;
+    const size = Math.max(4, Math.ceil(o.ants / (2 * this.size)));
+    const parts: TaskArgs<'e1Summary'>[] = [];
+    for (let a = 0; a < o.ants; a += size) parts.push([p, { ...o, firstAnt: first + a, ants: Math.min(size, o.ants - a) }]);
+    return { acc: (await this.map('e1Summary', parts)).flat() };
   }
 
   /** E6 Bles-model colonies 0 … count − 1, chunked across the pool; metrics in colony order. */

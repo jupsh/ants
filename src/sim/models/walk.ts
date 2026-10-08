@@ -10,6 +10,9 @@ import type { SurfacePercept } from '../perception/types';
  * that occur per distance walked (mean free path λ), with the new heading
  * drawn from a heavy-tailed phase function of mean cosine g. Added terms:
  *  - small continuous heading jitter per distance walked;
+ *  - turning generated per unit time (heading diffusion and reorientation
+ *    events at constant rates in time, also while paused), so slow ants
+ *    turn more per mm walked and reorient at stops;
  *  - speed: per-individual mean (log-normal between ants) × an
  *    Ornstein–Uhlenbeck fluctuation within the individual, plus pauses;
  *  - substrate inclination: speed factor (independent of walking direction,
@@ -36,6 +39,10 @@ export interface WalkParams {
   g: number;
   /** Continuous heading diffusion (rad² per mm). */
   jitter: number;
+  /** Continuous heading diffusion per unit time (rad²/s), also while paused. */
+  jitterTime: number;
+  /** Reorientation events per unit time (1/s), on top of the per-distance ones; also while paused. */
+  turnRateTime: number;
   /** Pause rate (1/s) and mean pause duration (s). */
   pauseRate: number;
   pauseMean: number;
@@ -48,6 +55,16 @@ export interface WalkParams {
   /** Geomenotaxis: run-length gain and new-heading pull towards the steepest line, per radian of inclination. */
   geoRunGain: number;
   geoHeadingPull: number;
+  /**
+   * Continuous geomenotaxis per mm walked, scaled by sin(incline): an axial
+   * torque towards the nearest end of the steepest line (rad/mm at sin θ = 1),
+   * dψ/ds = −geoTorque·sin θ·sin 2ψ, and a polar torque towards downhill,
+   * dψ/ds = −geoPolar·sin θ·sin ψ, with ψ the heading relative to downhill.
+   */
+  geoTorque: number;
+  geoPolar: number;
+  /** Between-individual SD of log slope sensitivity (individual slopeSpeedK = slopeSpeedK·lognormal). */
+  slopeSpeedKSd: number;
   /** Homing bias: run-length modulation and new-heading pull towards the PI origin. */
   homeRunBias: number;
   homeHeadingPull: number;
@@ -67,6 +84,8 @@ export const DEFAULT_WALK: WalkParams = {
   meanFreePath: 10,
   g: 0.6,
   jitter: 0.002,
+  jitterTime: 0,
+  turnRateTime: 0,
   pauseRate: 0.05,
   pauseMean: 1,
   slopeSpeedK: 0.68,
@@ -75,6 +94,9 @@ export const DEFAULT_WALK: WalkParams = {
   slopeSpeedSdK: 0.3,
   geoRunGain: 0.5,
   geoHeadingPull: 0.3,
+  geoTorque: 0,
+  geoPolar: 0,
+  slopeSpeedKSd: 0,
   homeRunBias: 0.3,
   homeHeadingPull: 0.1,
   homeRange: 60,
@@ -94,6 +116,8 @@ export interface WalkState {
   ou: number;
   /** Remaining pause time (s). */
   pause: number;
+  /** Individual multiplier of the slope speed loss (1 = population value). */
+  slopeK: number;
 }
 
 export function initWalkState(p: WalkParams, rng: RNG): WalkState {
@@ -102,6 +126,8 @@ export function initWalkState(p: WalkParams, rng: RNG): WalkState {
     indiv: Math.exp(rng.normal(0, p.speedSdBetween)),
     ou: rng.normal(0, p.speedSdWithin),
     pause: 0,
+    // Drawn only when used, so models without it keep their random sequence.
+    slopeK: p.slopeSpeedKSd > 0 ? Math.exp(rng.normal(-(p.slopeSpeedKSd ** 2) / 2, p.slopeSpeedKSd)) : 1,
   };
 }
 
@@ -136,16 +162,20 @@ export interface MotorMod {
 export function walkStep(p: WalkParams, s: WalkState, per: SurfacePercept, rng: RNG, speedScale: number, pi: { x: number; y: number }, move: MoveSink, mod?: MotorMod): number {
   const dt = per.dt;
   // Pauses (Poisson onset, exponential duration) — exact in continuous time.
+  // Time-based turning goes on while paused.
   let active = dt;
   if (s.pause > 0) {
     if (s.pause >= dt) {
       s.pause -= dt;
+      turnInPlace(p, s, per, rng, pi, dt, mod);
       return 0;
     }
     active = dt - s.pause;
+    turnInPlace(p, s, per, rng, pi, s.pause, mod);
     s.pause = 0;
   } else if (p.pauseRate > 0 && rng.hazard(p.pauseRate * Math.exp(p.slopePauseK * per.incline), dt)) {
     s.pause = rng.exp(p.pauseMean);
+    turnInPlace(p, s, per, rng, pi, dt, mod);
     return 0;
   }
   // Within-individual speed fluctuation: exact OU update.
@@ -154,39 +184,90 @@ export function walkStep(p: WalkParams, s: WalkState, per: SurfacePercept, rng: 
     const a = Math.exp(-dt / p.speedTau);
     s.ou = s.ou * a + sdW * Math.sqrt(1 - a * a) * rng.gauss();
   }
-  const slopeF = Math.max(0.05, 1 - p.slopeSpeedK * per.incline);
+  const slopeF = Math.max(0.05, 1 - p.slopeSpeedK * s.slopeK * per.incline);
   const v = p.speed * s.indiv * Math.exp(s.ou - (sdW * sdW) / 2) * slopeF * speedScale * (mod?.speedScale ?? 1);
   // Continuous steering towards a goal heading (first-order, exact for constant goal).
   if (mod?.goal !== undefined && mod.goalGain) {
     const err = angleDiff(mod.goal, s.heading);
     s.heading += err * (1 - Math.exp(-mod.goalGain * active));
   }
-  const jitter = p.jitter * Math.exp(p.slopeJitterK * per.incline);
+  // Heading diffusion and reorientation rate per mm: per-distance terms plus
+  // per-time terms converted at the current speed.
+  const jitter = p.jitter * Math.exp(p.slopeJitterK * per.incline) + (v > 0 ? p.jitterTime / v : 0);
+  const timeRate = v > 0 ? p.turnRateTime / v : 0;
   let remaining = v * active;
   const total = remaining;
   while (remaining > 1e-9) {
-    // Run-length modulation: geomenotaxis and homing bias.
-    let lambda = p.meanFreePath * (mod?.runScale ?? 1);
-    if (per.incline > 0) lambda *= Math.exp(p.geoRunGain * per.incline * Math.cos(2 * (s.heading - per.downhill)));
-    const r = Math.hypot(pi.x, pi.y);
-    const homeW = r > 1e-6 && !mod?.noHomeBias ? Math.exp(-r / p.homeRange) : 0;
+    // Run-length modulation (geomenotaxis, homing) scales the whole event rate.
+    const homeW = homeWeight(p, pi, mod);
     const homeDir = homeW > 0 ? Math.atan2(-pi.y, -pi.x) : 0;
-    if (homeW > 0 && p.homeRunBias !== 0) lambda *= Math.exp(p.homeRunBias * homeW * Math.cos(s.heading - homeDir));
+    const lambda = runLength(p, timeRate > 0 ? 1 / (1 / p.meanFreePath + timeRate) : p.meanFreePath, s.heading, per, homeW, homeDir, mod);
     const toEvent = rng.exp(lambda);
     const seg = Math.min(toEvent, remaining);
     // Continuous jitter, variance proportional to distance.
     if (jitter > 0) s.heading += Math.sqrt(jitter * seg) * rng.gauss();
+    if (per.incline > 0 && (p.geoTorque > 0 || p.geoPolar > 0)) s.heading = geoSteer(p, s.heading, per, seg);
     move(Math.cos(s.heading) * seg, Math.sin(s.heading) * seg, seg);
     remaining -= seg;
-    if (toEvent <= seg) {
-      let h = s.heading + rng.wrappedCauchy(p.g);
-      if (per.incline > 0 && p.geoHeadingPull > 0) h += angleDiff(nearestAxis(h, per.downhill), h) * Math.min(1, p.geoHeadingPull * per.incline);
-      if (homeW > 0 && p.homeHeadingPull > 0) h += angleDiff(homeDir, h) * Math.min(1, p.homeHeadingPull * homeW);
-      s.heading = h;
-    }
+    if (toEvent <= seg) s.heading = reorient(p, s.heading, per, rng, homeW, homeDir);
   }
   s.heading = ((s.heading % TAU) + TAU) % TAU;
   return total;
+}
+
+/**
+ * Continuous geomenotaxis over `seg` mm, integrated exactly for each torque
+ * (operator splitting): the axial term moves tan ψ by e^{−2a·seg}, the polar
+ * term moves tan(ψ/2) by e^{−b·seg}.
+ */
+export function geoSteer(p: WalkParams, heading: number, per: SurfacePercept, seg: number): number {
+  const sinI = Math.sin(per.incline);
+  let psi = angleDiff(heading, per.downhill);
+  if (p.geoTorque > 0) {
+    // Fold onto (−π/2, π/2] around the nearest axis end, relax towards it, unfold.
+    const up = Math.abs(psi) > Math.PI / 2;
+    const q = up ? angleDiff(psi, Math.PI) : psi;
+    const r = Math.atan(Math.tan(q) * Math.exp(-2 * p.geoTorque * sinI * seg));
+    psi = up ? r + Math.PI : r;
+  }
+  if (p.geoPolar > 0) psi = 2 * Math.atan(Math.tan(psi / 2) * Math.exp(-p.geoPolar * sinI * seg));
+  return per.downhill + psi;
+}
+
+/** Weight of the exploration homing bias at the current PI position (0 when off). */
+function homeWeight(p: WalkParams, pi: { x: number; y: number }, mod?: MotorMod): number {
+  const r = Math.hypot(pi.x, pi.y);
+  return r > 1e-6 && !mod?.noHomeBias ? Math.exp(-r / p.homeRange) : 0;
+}
+
+/** Mean free path `base` modulated by runScale, geomenotaxis and the homing bias. */
+function runLength(p: WalkParams, base: number, heading: number, per: SurfacePercept, homeW: number, homeDir: number, mod?: MotorMod): number {
+  let lambda = base * (mod?.runScale ?? 1);
+  if (per.incline > 0) lambda *= Math.exp(p.geoRunGain * per.incline * Math.cos(2 * (heading - per.downhill)));
+  if (homeW > 0 && p.homeRunBias !== 0) lambda *= Math.exp(p.homeRunBias * homeW * Math.cos(heading - homeDir));
+  return lambda;
+}
+
+/** One reorientation event: heavy-tailed turn, then the geomenotaxis and homing pulls. */
+function reorient(p: WalkParams, heading: number, per: SurfacePercept, rng: RNG, homeW: number, homeDir: number): number {
+  let h = heading + rng.wrappedCauchy(p.g);
+  if (per.incline > 0 && p.geoHeadingPull > 0) h += angleDiff(nearestAxis(h, per.downhill), h) * Math.min(1, p.geoHeadingPull * per.incline);
+  if (homeW > 0 && p.homeHeadingPull > 0) h += angleDiff(homeDir, h) * Math.min(1, p.homeHeadingPull * homeW);
+  return h;
+}
+
+/**
+ * Time-based turning while stationary for `t` seconds: heading diffusion and
+ * Poisson reorientation events. Draws nothing when both rates are zero, so
+ * models without time-based turning keep their random-number sequence.
+ */
+function turnInPlace(p: WalkParams, s: WalkState, per: SurfacePercept, rng: RNG, pi: { x: number; y: number }, t: number, mod?: MotorMod): void {
+  if (p.turnRateTime > 0) {
+    const homeW = homeWeight(p, pi, mod);
+    const homeDir = homeW > 0 ? Math.atan2(-pi.y, -pi.x) : 0;
+    for (let u = rng.exp(1 / p.turnRateTime); u < t; u += rng.exp(1 / p.turnRateTime)) s.heading = reorient(p, s.heading, per, rng, homeW, homeDir);
+  }
+  if (p.jitterTime > 0) s.heading += Math.sqrt(p.jitterTime * t) * rng.gauss();
 }
 
 function angleDiff(a: number, b: number): number {
