@@ -167,7 +167,7 @@ async function evalAt(par: WalkParams, idx: number[], seedBase = SEED, ants = AN
  * runs) and the best is kept. Or Nelder–Mead (`--optimizer nm`).
  */
 const RESTARTS = numArg('--restarts', 1);
-const TOLX = 0.03;
+const TOLX = numArg('--tolX', 0.03);
 async function stage(name: string, idx: number[], dec: (x: number[]) => WalkParams, starts: number[][], nmEvals: number, gens: number, offset: number) {
   if (OPT === 'nm') return search(name, (x) => evalAt(dec(x), idx), starts, nmEvals);
   let evals = 0;
