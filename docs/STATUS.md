@@ -151,11 +151,12 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      make volume-based stopping more compatible with the time-vs-volume
      variability pattern. An independent estimate of σ_m (e.g. a methods
      paper on the gaster-ellipsoid volume method) would settle it.
-   - **Pending:** profiles for q and pipette accessibility (session 2 ran
-     out of time). Re-run:
+   - **Profile, q:** 0.17 Δ 1.7 · 0.25 Δ 0.6 · 0.35 Δ 0 · 0.47 Δ −0.1 ·
+     0.60 Δ 0.1 — flat. q > 0 is needed (M_c0 loses by Δ 4.7) but its value
+     (≈ 0.15–0.6) is not identified by the current targets.
+   - **Pending:** profile for pipette accessibility. Re-run:
      `npx vite-node scripts/profileE2.ts --variant Ma --params
-     forager.unsatisfiedLayProb,setup.accessible` (~10 min with the pool)
-     and record the results here.
+     setup.accessible` (~5 min with the pool) and record it here.
 3c. **Search around food (new, next E2 work).** Revisit the area-restricted
    search after leaving a drop and local movement in the foraging area,
    using development data (2009 between-drop times; 2003 visits and the
