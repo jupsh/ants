@@ -19,7 +19,8 @@
  * ≈ ±3 on flat ground, vs ±15 at 160); each stage runs Nelder–Mead from two
  * starts, then restarts the simplex from the best point until a restart
  * gains < 0.5 (≤ 3 restarts). The flat-ground decision quantity is the loss
- * on fresh seeds with 1000 ants.
+ * on 5 fresh batches of 1000 ants (mean ± SE, per-batch values kept for
+ * paired comparison between variants); "+ 2k" is a heuristic penalty.
  * Output: data/fits/e1-<variant>.json (candidates; data/fits/e1-walk.json is
  * the adopted fit and is never overwritten here).
  *
@@ -113,10 +114,16 @@ const r2 = await search('stage2', (x) => evalAt(dec2(x, p), [2, 4]), [enc2(p), e
 p = dec2(r2.x, p);
 console.log('stage 2 done', r2.f.toFixed(3), JSON.stringify(p));
 
-// ---- Decision quantity: flat-ground loss on fresh seeds (fit-z, as the objective)
-const flatFresh = compareE1(await pool.e1Sample(p, runOpts(0, 1000, SEED + 5000)), data[0]).loss;
+// ---- Decision quantity: flat-ground loss (fit-z, as the objective) on 5
+// independent fresh batches of 1000 ants. Batch seeds are the same for every
+// variant, so variants can be compared batch by batch (paired differences).
+const BATCHES = 5;
+const flatBatches: number[] = [];
+for (let b = 0; b < BATCHES; b++) flatBatches.push(compareE1(await pool.e1Sample(p, runOpts(0, 1000, SEED + 5000 + b)), data[0]).loss);
+const flatMean = flatBatches.reduce((a, v) => a + v, 0) / BATCHES;
+const flatSe = Math.sqrt(flatBatches.reduce((a, v) => a + (v - flatMean) ** 2, 0) / (BATCHES - 1) / BATCHES);
 const k1 = enc1(p).length;
-console.log(`flat fresh-seed loss ${flatFresh.toFixed(2)}; k1 ${k1}; + 2k1 = ${(flatFresh + 2 * k1).toFixed(2)}`);
+console.log(`flat fresh loss ${flatMean.toFixed(2)} ± ${flatSe.toFixed(2)} (batches ${flatBatches.map((v) => v.toFixed(1)).join(', ')}); k1 ${k1}`);
 
 // ---- Report all inclines on fresh seeds (π/9 and π/4 are development conditions)
 const k = enc1(p).length + enc2(p).length;
@@ -139,7 +146,7 @@ writeJson(OUT, {
   antsPerEval: ANTS,
   k,
   fitLoss: { stage1: r1.f, stage2: r2.f, evals: [r1.evals, r2.evals] },
-  flatFresh: { loss: flatFresh, k1, aic: flatFresh + 2 * k1, ants: 1000 },
+  flatFresh: { batches: flatBatches, mean: flatMean, se: flatSe, k1, penalised: flatMean + 2 * k1, antsPerBatch: 1000 },
   seconds: (Date.now() - t0) / 1000,
   params: p,
   report,

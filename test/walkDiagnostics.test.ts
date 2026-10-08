@@ -84,3 +84,24 @@ describe('continuous geomenotaxis', () => {
     expect(Math.cos(po + Math.PI / 2)).toBeGreaterThan(Math.cos(Math.PI / 2 - 0.3 + Math.PI / 2));
   });
 });
+
+describe('pause process', () => {
+  it('is exact in continuous time: the paused fraction does not depend on the time step', async () => {
+    const { walkStep, initWalkState, DEFAULT_WALK } = await import('../src/sim/models/walk');
+    const { basicPercept } = await import('../src/sim/perception/types');
+    // Constant speed, so distance walked measures walking time exactly.
+    const p = { ...DEFAULT_WALK, speedSdBetween: 0, speedSdWithin: 0, pauseRate: 2, pauseMean: 0.25 };
+    const expected = (p.pauseRate * p.pauseMean) / (1 + p.pauseRate * p.pauseMean); // 1/3
+    for (const dt of [0.4, 0.01]) {
+      const rng = new RNG(17);
+      const s = initWalkState(p, rng);
+      const per = basicPercept(dt, 0, 0, 26);
+      const T = 20000;
+      let walked = 0;
+      for (let t = 0; t < T - 1e-9; t += dt) walked += walkStep(p, s, per, rng, 1, { x: 0, y: 0 }, () => {});
+      // ≈ 27 000 pauses: SE of the paused fraction ≈ 0.003.
+      expect(1 - walked / (p.speed * T), `dt ${dt}`).toBeCloseTo(expected, 1);
+      expect(Math.abs(1 - walked / (p.speed * T) - expected), `dt ${dt}`).toBeLessThan(0.01);
+    }
+  });
+});

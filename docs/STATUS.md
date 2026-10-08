@@ -147,7 +147,8 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      between the 2009 pipettes and the 2003 sticks.
    - **Profile, σ_m (M_a; Δ loss vs optimum, re-fitting all others):**
      0.10 µL Δ 6.0 · 0.15 Δ 1.6 · 0.21 Δ 0 · 0.27 Δ −0.3 · 0.33 Δ 0.8.
-     Bounded below (≳ 0.13 µL at 95 %) but **not above** within 0.33 µL:
+     Bounded below (≳ 0.13 µL; approximate, Δ loss < 2, not a calibrated
+     interval) but **not above** within 0.33 µL:
      the data cannot rule out larger gaster-estimate noise, which would
      make volume-based stopping more compatible with the time-vs-volume
      variability pattern. An independent estimate of σ_m (e.g. a methods
@@ -156,8 +157,8 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      0.60 Δ 0.1 — flat. q > 0 is needed (M_c0 loses by Δ 4.7) but its value
      (≈ 0.15–0.6) is not identified by the current targets.
    - **Profile, pipette accessibility:** 0.57 Δ 69.6 · 0.69 Δ 17.9 · 0.785
-     Δ 0 · 0.86 Δ 6.9 · 0.91 Δ 17.4 — well identified (≈ 0.73–0.84 at
-     95 %) for the 2009 pipettes. So the 2003 per-visit intake (0.29 µL,
+     Δ 0 · 0.86 Δ 6.9 · 0.91 Δ 17.4 — well identified (≈ 0.73–0.84, approximate: Δ loss < 2)
+     for the 2009 pipettes. So the 2003 per-visit intake (0.29 µL,
      above 0.785 × 0.3 = 0.24 µL) points to different accessibility for
      the 2003 sticks, or to volume-estimate bias, not to a loose fit.
 3c. **Search around food (new, next E2 work).** Revisit the area-restricted
@@ -776,3 +777,62 @@ See [`CLAUDE.md`](../CLAUDE.md).
   simulation, 40 % `trackStats` (which also computes unused MSD), so
   further micro-optimisation is worth ≤ 25 %. The larger remaining lever
   is the optimiser (noisy objective, ridge); revisit if fits stay slow.
+- **2026-10-08** Review notes (user, session 3) adopted:
+  - **Pause onset made exact** (`walkStep`: unit-rate exposure clock, a
+    pause starts and ends at its exact time inside a step; OU speed
+    process advances only while walking, as before). The old rule spent the
+    whole onset step paused and then the full drawn pause, a time-step bias
+    of ≈ +2–3 % in stopped fraction at dt 0.02 (60°: 0.0984 / 0.0968 /
+    0.0939 at dt 0.04 / 0.02 / 0.005). Now flat in dt (0.0943 / 0.0961 /
+    0.0935; B-like 0.1042 / 0.1041 / 0.1046), exit times and stop
+    turning within 2 SE. New exact test: paused fraction = rate·mean/(1 +
+    rate·mean) at dt 0.4 and 0.01 (the old rule gives 0.527 vs 0.333 at
+    dt 0.4). This changes the random-number sequence, so the in-flight A0/B
+    fits were stopped and are redone; the session-2 fit is not refitted,
+    but every report from now on uses the exact rule.
+  - **Rankings are provisional.** The E1 loss mixes family-averaged z² with
+    KS results converted to z, and "loss + 2k" is a penalised heuristic,
+    not AIC (no likelihood). Likewise the E2 profile "95 %" ranges
+    (Δloss < 2 thresholds) are approximate: incomplete optimisation and
+    simulation noise, not calibrated intervals. Consequences:
+    - candidates are judged on **several independent fresh-seed batches**
+      (5 × 1000 ants per incline), reported as mean ± SE; a loss
+      difference counts only if it exceeds 2 SE of the paired difference
+      *and* the pre-registered checks agree;
+    - the KS z depends on the simulated sample size, so judging always
+      uses the same number of simulated ants;
+    - a better score is a reason to prefer a structure, not evidence for a
+      specific biological mechanism; STATUS wording follows that.
+  - **E2 cascade** (reinforced): adopting any new E1 walker invalidates the
+    E2 calibration until checked — rerun `reportE2.ts` on several seed
+    batches; if any fit target moves beyond noise, refit M_a before 3c.
+- **2026-10-08** Held-out test protocol for Bonavita et al. 2026 (frozen
+  before any statistic is computed on those tracks):
+  - **Units and dependence:** the ant is the unit; each ant's white and red
+    tracks stay together (paired). SEs by a colony-stratified cluster
+    bootstrap over ants; a leave-one-colony-out jackknife is reported as a
+    sensitivity check, and with three colonies colony-level effects cannot
+    be estimated, which the report must say. The 119 tracks are never
+    treated as independent.
+  - **Primary condition:** white light (closest to an ordinary lit room);
+    red light secondary. The model has no light dependence, so the paired
+    light difference is reported descriptively, not as a test.
+  - **Geometry and pipeline:** each simulated ant starts at the matching
+    recorded ant's first tracked position in a 250 mm-radius circular
+    arena; a track ends at 180 s or on reaching the wall (centre distance
+    ≥ 245 mm), in data and simulation alike; then the unchanged
+    `KHUONG_PREP` (start 10 mm from the first point, end at 200 mm from it)
+    and the same statistics (`e1Compare` scalars, `walkDiagnostics`
+    checks). Exit times are therefore censored identically on both sides.
+  - **Observer:** tracking noise estimated on these data with the same
+    estimator and deconvolved as for Khuong (an observation-model
+    calibration, not a behavioural one); pixel quantisation (≈ 0.24 mm)
+    is part of that estimate.
+  - **Conditions:** 25 °C vs 26 °C in Khuong; the walker has no
+    temperature dependence and no correction is applied. A speed failure
+    is reported as such, with this caveat.
+  - **Criterion:** the E1 development-test rule (no statistic |z| > 3; at
+    most 2 of ≈ 24 with 2 < |z| ≤ 3), combined-SE z with the bootstrap
+    above; checks reported alongside. Run once, on the walker adopted at
+    the end of step 5; reported whatever the outcome; afterwards the data
+    are development.

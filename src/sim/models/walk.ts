@@ -116,6 +116,8 @@ export interface WalkState {
   ou: number;
   /** Remaining pause time (s). */
   pause: number;
+  /** Remaining unit-rate exposure until the next pause starts (0 = draw a new one). */
+  pauseClock: number;
   /** Individual multiplier of the slope speed loss (1 = population value). */
   slopeK: number;
 }
@@ -126,6 +128,7 @@ export function initWalkState(p: WalkParams, rng: RNG): WalkState {
     indiv: Math.exp(rng.normal(0, p.speedSdBetween)),
     ou: rng.normal(0, p.speedSdWithin),
     pause: 0,
+    pauseClock: 0,
     // Drawn only when used, so models without it keep their random sequence.
     slopeK: p.slopeSpeedKSd > 0 ? Math.exp(rng.normal(-(p.slopeSpeedKSd ** 2) / 2, p.slopeSpeedKSd)) : 1,
   };
@@ -153,35 +156,54 @@ export interface MotorMod {
 
 /**
  * Advance the motor program by dt and walk. Reorientation events are placed
- * exactly along the path (memoryless exponential distances), so the process
- * does not depend on the integration step. `pi` is the ant's
+ * exactly along the path (memoryless exponential distances) and pauses
+ * exactly in time, so the process does not depend on the integration step
+ * beyond the speed being held constant within a walking interval. `pi` is the ant's
  * path-integration estimate of its position relative to its origin; it is
  * read here (homing bias) and updated by the caller through `move`.
  * Returns the distance walked.
  */
 export function walkStep(p: WalkParams, s: WalkState, per: SurfacePercept, rng: RNG, speedScale: number, pi: { x: number; y: number }, move: MoveSink, mod?: MotorMod): number {
-  const dt = per.dt;
-  // Pauses (Poisson onset, exponential duration) — exact in continuous time.
-  // Time-based turning goes on while paused.
-  let active = dt;
-  if (s.pause > 0) {
-    if (s.pause >= dt) {
-      s.pause -= dt;
-      turnInPlace(p, s, per, rng, pi, dt, mod);
-      return 0;
+  // Pauses: Poisson onset and exponential duration, both placed exactly in
+  // continuous time, so a pause can start and end anywhere inside a step.
+  // The onset uses a unit-rate exposure clock, which stays exact if the rate
+  // changes between steps. Time-based turning goes on while paused.
+  const rate = p.pauseRate > 0 ? p.pauseRate * Math.exp(p.slopePauseK * per.incline) : 0;
+  let left = per.dt;
+  let total = 0;
+  while (left > 1e-12) {
+    if (s.pause > 0) {
+      const t = Math.min(s.pause, left);
+      s.pause -= t;
+      left -= t;
+      turnInPlace(p, s, per, rng, pi, t, mod);
+      continue;
     }
-    active = dt - s.pause;
-    turnInPlace(p, s, per, rng, pi, s.pause, mod);
-    s.pause = 0;
-  } else if (p.pauseRate > 0 && rng.hazard(p.pauseRate * Math.exp(p.slopePauseK * per.incline), dt)) {
-    s.pause = rng.exp(p.pauseMean);
-    turnInPlace(p, s, per, rng, pi, dt, mod);
-    return 0;
+    let t = left;
+    let onset = false;
+    if (rate > 0) {
+      if (!(s.pauseClock > 0)) s.pauseClock = rng.exp(1);
+      const untilPause = s.pauseClock / rate;
+      if (untilPause < left) {
+        t = untilPause;
+        s.pauseClock = 0;
+        onset = true;
+      } else s.pauseClock -= rate * left;
+    }
+    total += walkFor(p, s, per, rng, speedScale, pi, move, t, mod);
+    left -= t;
+    if (onset) s.pause = rng.exp(p.pauseMean);
   }
-  // Within-individual speed fluctuation: exact OU update.
+  s.heading = ((s.heading % TAU) + TAU) % TAU;
+  return total;
+}
+
+/** Walk without pausing for `t` seconds: speed process, steering, turning. Returns the distance walked. */
+function walkFor(p: WalkParams, s: WalkState, per: SurfacePercept, rng: RNG, speedScale: number, pi: { x: number; y: number }, move: MoveSink, t: number, mod?: MotorMod): number {
+  // Within-individual speed fluctuation: exact OU update (the process runs while walking).
   const sdW = p.speedSdWithin * Math.exp(p.slopeSpeedSdK * per.incline);
   if (p.speedTau > 0) {
-    const a = Math.exp(-dt / p.speedTau);
+    const a = Math.exp(-t / p.speedTau);
     s.ou = s.ou * a + sdW * Math.sqrt(1 - a * a) * rng.gauss();
   }
   const slopeF = Math.max(0.05, 1 - p.slopeSpeedK * s.slopeK * per.incline);
@@ -189,13 +211,13 @@ export function walkStep(p: WalkParams, s: WalkState, per: SurfacePercept, rng: 
   // Continuous steering towards a goal heading (first-order, exact for constant goal).
   if (mod?.goal !== undefined && mod.goalGain) {
     const err = angleDiff(mod.goal, s.heading);
-    s.heading += err * (1 - Math.exp(-mod.goalGain * active));
+    s.heading += err * (1 - Math.exp(-mod.goalGain * t));
   }
   // Heading diffusion and reorientation rate per mm: per-distance terms plus
   // per-time terms converted at the current speed.
   const jitter = p.jitter * Math.exp(p.slopeJitterK * per.incline) + (v > 0 ? p.jitterTime / v : 0);
   const timeRate = v > 0 ? p.turnRateTime / v : 0;
-  let remaining = v * active;
+  let remaining = v * t;
   const total = remaining;
   while (remaining > 1e-9) {
     // Run-length modulation (geomenotaxis, homing) scales the whole event rate.
@@ -211,7 +233,6 @@ export function walkStep(p: WalkParams, s: WalkState, per: SurfacePercept, rng: 
     remaining -= seg;
     if (toEvent <= seg) s.heading = reorient(p, s.heading, per, rng, homeW, homeDir);
   }
-  s.heading = ((s.heading % TAU) + TAU) % TAU;
   return total;
 }
 
