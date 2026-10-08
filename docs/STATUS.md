@@ -154,9 +154,11 @@ step: repo Settings → Pages → Source = "GitHub Actions".
    - **Profile, q:** 0.17 Δ 1.7 · 0.25 Δ 0.6 · 0.35 Δ 0 · 0.47 Δ −0.1 ·
      0.60 Δ 0.1 — flat. q > 0 is needed (M_c0 loses by Δ 4.7) but its value
      (≈ 0.15–0.6) is not identified by the current targets.
-   - **Pending:** profile for pipette accessibility. Re-run:
-     `npx vite-node scripts/profileE2.ts --variant Ma --params
-     setup.accessible` (~5 min with the pool) and record it here.
+   - **Profile, pipette accessibility:** 0.57 Δ 69.6 · 0.69 Δ 17.9 · 0.785
+     Δ 0 · 0.86 Δ 6.9 · 0.91 Δ 17.4 — well identified (≈ 0.73–0.84 at
+     95 %) for the 2009 pipettes. So the 2003 per-visit intake (0.29 µL,
+     above 0.785 × 0.3 = 0.24 µL) points to different accessibility for
+     the 2003 sticks, or to volume-estimate bias, not to a loose fit.
 3c. **Search around food (new, next E2 work).** Revisit the area-restricted
    search after leaving a drop and local movement in the foraging area,
    using development data (2009 between-drop times; 2003 visits and the
