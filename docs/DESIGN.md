@@ -17,9 +17,9 @@ exists as reserved code.
 and the VS Code Markdown preview render. Angles are in rad and headings
 $h$ in the surface's own coordinates. $\sigma(x) = 1/(1+e^{-x})$ is the
 logistic function (a $\sigma$ with a subscript is a standard deviation).
-$\mathcal N(\mu, s^2)$ is a normal with SD $s$, $\operatorname{Exp}(m)$ an
+$\mathcal N(\mu, s^2)$ is a normal with SD $s$, $\mathrm{Exp}(m)$ an
 exponential with mean $m$, $\mathcal U(a, b)$ a uniform,
-$\operatorname{WC}(\rho)$ the wrapped Cauchy (§5.2), and
+$\mathrm{WC}(\rho)$ the wrapped Cauchy (§5.2), and
 $\Delta(a, b) \in (-\pi, \pi]$ the signed angle from $b$ to $a$.
 Code names of parameters are given in backticks where they first appear.
 
@@ -169,11 +169,11 @@ All randomness comes from `RNG` (`core/rng.ts`, mulberry32). Independent
 streams are derived by hashing a seed with integer keys $k_1, k_2, \dots$:
 
 $$
-s_0 = \operatorname{mix32}(\text{seed} \oplus \texttt{0x9e3779b9}), \qquad
-s_j = \operatorname{mix32}\bigl(s_{j-1} \oplus \operatorname{mix32}(k_j + \texttt{0x7f4a7c15})\bigr)
+s_0 = \mathrm{mix32}(\text{seed} \oplus \mathtt{0x9e3779b9}), \qquad
+s_j = \mathrm{mix32}\bigl(s_{j-1} \oplus \mathrm{mix32}(k_j + \mathtt{0x7f4a7c15})\bigr)
 $$
 
-where $\operatorname{mix32}$ is a splitmix-style finaliser. The project uses
+where $\mathrm{mix32}$ is a splitmix-style finaliser. The project uses
 streams at three levels:
 
 - **per individual**: ant $a$ of a run uses `RNG.stream(seed, a)`, so its
@@ -195,7 +195,7 @@ numbers**: two parameter vectors evaluated with the same seed differ only
 through the parameters, which makes fit objectives smooth and paired
 comparisons sharp.
 
-Samplers: Marsaglia polar normals; $\operatorname{Exp}(m) = -m \ln(1-U)$
+Samplers: Marsaglia polar normals; $\mathrm{Exp}(m) = -m \ln(1-U)$
 with $U \sim \mathcal U(0,1)$; wrapped Cauchy by inversion (§5.2). A
 constant hazard $r$ over $\Delta t$ fires with probability
 $1 - e^{-r\,\Delta t}$, never the first-order $r\,\Delta t$.
@@ -205,10 +205,10 @@ $1 - e^{-r\,\Delta t}$, never the first-order $r\,\Delta t$.
 Rates are defined per unit time or per unit distance, never per step:
 
 - **Distance events** (reorientation): the distance to the next event is
-  drawn as $\operatorname{Exp}(\lambda)$ and the walk is cut exactly there,
+  drawn as $\mathrm{Exp}(\lambda)$ and the walk is cut exactly there,
   even inside a step.
 - **Time events** (pause onset, time-based turns): a *unit-rate exposure
-  clock* $E \sim \operatorname{Exp}(1)$ is consumed at the current rate
+  clock* $E \sim \mathrm{Exp}(1)$ is consumed at the current rate
   $r(t)$; the event happens at the first $t$ with
   $\int_0^t r(t')\,dt' = E$. This is exact even if $r$ changes between steps
   (e.g. with incline), and the remaining exposure carries over.
@@ -327,7 +327,7 @@ heading turns by a wrapped Cauchy angle:
 
 $$
 h \leftarrow h + \phi, \qquad
-\phi \sim \operatorname{WC}(\rho = g), \qquad
+\phi \sim \mathrm{WC}(\rho = g), \qquad
 f(\phi) = \frac{1-\rho^2}{2\pi\,(1 + \rho^2 - 2\rho\cos\phi)}, \qquad
 \langle \cos\phi \rangle = g,
 $$
@@ -453,7 +453,7 @@ $$
 **Pauses.** Pause onsets form a Poisson process with rate
 $p(\theta) = p_0 e^{k_p \theta}$ (`pauseRate`, `slopePauseK`), placed
 exactly with the exposure clock (§3.2); pause durations are
-$\operatorname{Exp}(\bar t_{\text{pause}})$ (`pauseMean`). Time-based
+$\mathrm{Exp}(\bar t_{\text{pause}})$ (`pauseMean`). Time-based
 turning and diffusion continue while paused.
 
 **Turn-linked slowing** (candidate T). A turn by $\phi$ deepens a slowing
@@ -475,7 +475,7 @@ which is convex in $t$, so the time to reach the next distance event is
 found by Newton's method and event positions stay exact.
 
 **Stop reset** (candidate T). When a pause starts the heading is redrawn,
-$h \leftarrow h + \operatorname{WC}(g_{\text{stop}})$, then pulled home by
+$h \leftarrow h + \mathrm{WC}(g_{\text{stop}})$, then pulled home by
 $\min(1, P_{\text{stop}} w)$ (`stopTurnG`, `stopHomePull`). This addresses
 the data's near-zero heading correlation across stops.
 
@@ -550,7 +550,7 @@ with $b_{\text{trip}}$ drawn once per trip ($\sigma_c$ = `compassBias`),
 $c$ = `compassNoise` (rad²/mm) and odometer gain $g_{\text{PI}}$. The error
 thus has a per-trip systematic part and a random-walk part whose variance
 grows with distance. The home heading is
-$h_{\text{home}} = \operatorname{atan2}(-p_y, -p_x)$.
+$h_{\text{home}} = \mathrm{atan2}(-p_y, -p_x)$.
 
 ### 6.5 Physiology (`physics/antPhysics.ts`)
 
@@ -634,7 +634,7 @@ With $\chi$ the hunger level read from the reserve fraction (interoception)
 and $F_i$ an individual factor fixed for life:
 
 $$
-\chi = \operatorname{clamp}\!\left( \frac{1 - \text{reserve}}{\text{hungerScale}},\, 0,\, 1 \right), \qquad
+\chi = \mathrm{clamp}\!\left( \frac{1 - \text{reserve}}{\text{hungerScale}},\, 0,\, 1 \right), \qquad
 V_d = \bigl( V_{\text{fed}} + (V_{\text{hungry}} - V_{\text{fed}})\,\chi \bigr)\, F_i, \qquad
 F_i = e^{\sigma_d z_i}.
 $$
@@ -675,7 +675,7 @@ unsatisfied.
 - **Unsatisfied** (source exhausted): lays trail with probability $q$
   (`unsatisfiedLayProb`; needed because layers and non-layers drank the
   same volume at a 0.7 µL drop), otherwise performs area-restricted search
-  for $\operatorname{Exp}(\bar t_{\text{ars}})$ s (`arsMean`) with shorter
+  for $\mathrm{Exp}(\bar t_{\text{ars}})$ s (`arsMean`) with shorter
   runs ($\gamma_{\text{run}} = 0.4$) and steering back to the food site when
   more than 15 mm from it. An ant that later reaches its desired volume
   becomes satiated and lays.
@@ -884,8 +884,8 @@ and hand-overs between the two policies. Sharing bouts are written as
 ### 10.1 Two z-scores
 
 $$
-z_{\text{judge}} = \frac{m_{\text{sim}} - m_{\text{data}}}{\sqrt{\mathrm{SE}_{\text{data}}^2 + \mathrm{SE}_{\text{sim}}^2}} \quad (\texttt{combinedZ}), \qquad
-z_{\text{fit}} = \frac{m_{\text{sim}} - m_{\text{data}}}{\mathrm{SE}_{\text{data}}} \quad (\texttt{fitZ}).
+z_{\text{judge}} = \frac{m_{\text{sim}} - m_{\text{data}}}{\sqrt{\mathrm{SE}_{\text{data}}^2 + \mathrm{SE}_{\text{sim}}^2}} \quad (\mathtt{combinedZ}), \qquad
+z_{\text{fit}} = \frac{m_{\text{sim}} - m_{\text{data}}}{\mathrm{SE}_{\text{data}}} \quad (\mathtt{fitZ}).
 $$
 
 Judging needs both sampling errors. Fitting uses fixed weights: with
@@ -992,7 +992,7 @@ updates.
 
   $$
   c_i = \frac{f(\mathbf x_0 + \Delta x\, \mathbf e_i) + f(\mathbf x_0 - \Delta x\, \mathbf e_i) - 2 f(\mathbf x_0)}{\Delta x^2}, \qquad
-  \sigma_i = \operatorname{clip}\!\left( \sqrt{\delta / c_i},\, 0.02,\, 0.3 \right),
+  \sigma_i = \mathrm{clip}\!\left( \sqrt{\delta / c_i},\, 0.02,\, 0.3 \right),
   $$
 
   so a 1-SD step raises the loss by about $\delta$.
