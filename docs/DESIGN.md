@@ -13,13 +13,16 @@ results, the evidence policy and the decisions log are in
 niger*) as it is built. Section 12 is the longer-term design, part of which
 exists as reserved code.
 
-**Notation.** Mathematics is written in LaTeX (`$…$`, `$$…$$`), which GitHub
-and the VS Code Markdown preview render. Angles are in rad and headings
-$h$ in the surface's own coordinates. $\sigma(x) = 1/(1+e^{-x})$ is the
+**Notation.** Mathematics is written in LaTeX, inline as `$…$` and displayed
+in fenced code blocks with the language `math`; GitHub and the VS Code
+Markdown preview render both. Inside `$…$`, avoid backslash-punctuation
+such as `\,` or `\!`: GitHub's Markdown strips the backslash before the math
+is rendered. Angles are in rad and headings $h$ in the surface's own
+coordinates. $\sigma(x) = 1/(1+e^{-x})$ is the
 logistic function (a $\sigma$ with a subscript is a standard deviation).
-$\mathcal N(\mu, s^2)$ is a normal with SD $s$, $\operatorname{Exp}(m)$ an
+$\mathcal N(\mu, s^2)$ is a normal with SD $s$, $\mathrm{Exp}(m)$ an
 exponential with mean $m$, $\mathcal U(a, b)$ a uniform,
-$\operatorname{WC}(\rho)$ the wrapped Cauchy (§5.2), and
+$\mathrm{WC}(\rho)$ the wrapped Cauchy (§5.2), and
 $\Delta(a, b) \in (-\pi, \pi]$ the signed angle from $b$ to $a$.
 Code names of parameters are given in backticks where they first appear.
 
@@ -168,12 +171,12 @@ worker where possible (e.g. per-ant E1 summaries instead of tracks).
 All randomness comes from `RNG` (`core/rng.ts`, mulberry32). Independent
 streams are derived by hashing a seed with integer keys $k_1, k_2, \dots$:
 
-$$
-s_0 = \operatorname{mix32}(\text{seed} \oplus \texttt{0x9e3779b9}), \qquad
-s_j = \operatorname{mix32}\bigl(s_{j-1} \oplus \operatorname{mix32}(k_j + \texttt{0x7f4a7c15})\bigr)
-$$
+```math
+s_0 = \mathrm{mix32}(\text{seed} \oplus \mathtt{0x9e3779b9}), \qquad
+s_j = \mathrm{mix32}\bigl(s_{j-1} \oplus \mathrm{mix32}(k_j + \mathtt{0x7f4a7c15})\bigr)
+```
 
-where $\operatorname{mix32}$ is a splitmix-style finaliser. The project uses
+where $\mathrm{mix32}$ is a splitmix-style finaliser. The project uses
 streams at three levels:
 
 - **per individual**: ant $a$ of a run uses `RNG.stream(seed, a)`, so its
@@ -195,22 +198,22 @@ numbers**: two parameter vectors evaluated with the same seed differ only
 through the parameters, which makes fit objectives smooth and paired
 comparisons sharp.
 
-Samplers: Marsaglia polar normals; $\operatorname{Exp}(m) = -m \ln(1-U)$
+Samplers: Marsaglia polar normals; $\mathrm{Exp}(m) = -m \ln(1-U)$
 with $U \sim \mathcal U(0,1)$; wrapped Cauchy by inversion (§5.2). A
 constant hazard $r$ over $\Delta t$ fires with probability
-$1 - e^{-r\,\Delta t}$, never the first-order $r\,\Delta t$.
+$1 - e^{-r \Delta t}$, never the first-order $r \Delta t$.
 
 ### 3.2 Event-exact timing
 
 Rates are defined per unit time or per unit distance, never per step:
 
 - **Distance events** (reorientation): the distance to the next event is
-  drawn as $\operatorname{Exp}(\lambda)$ and the walk is cut exactly there,
+  drawn as $\mathrm{Exp}(\lambda)$ and the walk is cut exactly there,
   even inside a step.
 - **Time events** (pause onset, time-based turns): a *unit-rate exposure
-  clock* $E \sim \operatorname{Exp}(1)$ is consumed at the current rate
+  clock* $E \sim \mathrm{Exp}(1)$ is consumed at the current rate
   $r(t)$; the event happens at the first $t$ with
-  $\int_0^t r(t')\,dt' = E$. This is exact even if $r$ changes between steps
+  $\int_0^t r(t') dt' = E$. This is exact even if $r$ changes between steps
   (e.g. with incline), and the remaining exposure carries over.
 - **Continuous processes** (speed fluctuation, heading diffusion,
   geotactic torque, goal steering, turn-linked slowing) use their exact
@@ -250,27 +253,27 @@ stays inside, else reverses.
 
 A `SugarDroplet` is a hemisphere of volume $V$ (1 µL = 1 mm³) and radius
 
-$$
+```math
 r_{\text{drop}} = \left(\frac{3V}{2\pi}\right)^{1/3}.
-$$
+```
 
 Only a fraction $a$ of the initial volume $V_0$ can be imbibed (a drop on a
 micropipette retracts into the tip): accessible volume
-$\max\bigl(0,\, V - V_0(1-a)\bigr)$. This is an apparatus property, fitted
+$\max\bigl(0, V - V_0(1-a)\bigr)$. This is an apparatus property, fitted
 for the Mailleux pipettes (§7). Sucrose solution of molarity $M$ contains
-$0.3423\,M$ mg sugar per µL and has density $0.998 + 0.1335\,M$ mg/µL;
+$0.3423 M$ mg sugar per µL and has density $0.998 + 0.1335 M$ mg/µL;
 water is the difference.
 
 ### 4.3 Pheromone field
 
 `PheromoneField` is a grid with exponential decay
-$C(t) = C_0\, e^{-(t-t_0)/\tau}$. Decay is applied **lazily**: a deposit at
+$C(t) = C_0 e^{-(t-t_0)/\tau}$. Decay is applied **lazily**: a deposit at
 time $t_{\text{dep}}$ is stored multiplied by
 $e^{(t_{\text{dep}} - t_{\text{base}})/\tau}$, so the true field is
 
-$$
+```math
 C(\mathbf x, t) = \text{stored}(\mathbf x) \cdot s(t), \qquad s(t) = e^{-(t - t_{\text{base}})/\tau},
-$$
+```
 
 one global factor. A step costs $O(1)$ whatever the grid size; the grid is
 renormalised (and $t_{\text{base}}$ reset) when $s < e^{-30}$. Deposits and
@@ -291,10 +294,10 @@ entities **and** recorded as `ledger.move(q, from, to, amount)`. With
 $B_{q,c}$ the balance of quantity $q$ in account $c$, two invariants are
 tested:
 
-$$
+```math
 \sum_{c} B_{q,c} = 0 \quad \text{(closed bookkeeping)}, \qquad
 B_{q,c} = \sum_{e \in c} q_e \quad \text{(each account equals what its entities hold)},
-$$
+```
 
 so nothing is created or destroyed silently.
 
@@ -325,27 +328,27 @@ Reorientation events come from two independent Poisson clocks:
 Both are scaled by the same run-length modulation (below). At an event the
 heading turns by a wrapped Cauchy angle:
 
-$$
+```math
 h \leftarrow h + \phi, \qquad
-\phi \sim \operatorname{WC}(\rho = g), \qquad
+\phi \sim \mathrm{WC}(\rho = g), \qquad
 f(\phi) = \frac{1-\rho^2}{2\pi\,(1 + \rho^2 - 2\rho\cos\phi)}, \qquad
 \langle \cos\phi \rangle = g,
-$$
+```
 
 sampled by inversion:
 
-$$
+```math
 \phi = 2 \arctan\!\left( \frac{1-\rho}{1+\rho} \tan\bigl(\pi (U - \tfrac12)\bigr) \right), \qquad U \sim \mathcal U(0,1).
-$$
+```
 
 **Heading correlation.** For a distance-clock walker with heading diffusion
 $D_s$ (rad²/mm) and no slope, homing or time-based terms, turns and
 diffusion are independent, so the characteristic functions multiply over $s$
 mm of path:
 
-$$
+```math
 \langle \cos \Delta h(s) \rangle = \exp\!\left( -s \left[ \frac{1-g}{\lambda} + \frac{D_s}{2} \right] \right).
-$$
+```
 
 The persistence length is therefore $\approx \lambda/(1-g) \approx 25$ mm for
 $\lambda = 10$ mm, $g = 0.6$. The data's path-lag heading correlations
@@ -353,12 +356,12 @@ $\lambda = 10$ mm, $g = 0.6$. The data's path-lag heading correlations
 
 **Run-length modulation.** The effective mean free path is
 
-$$
+```math
 \lambda_{\text{eff}} = \lambda \cdot \gamma_{\text{run}} \cdot
 \exp\!\bigl( G\,\theta \cos 2(h - h_\downarrow) \bigr) \cdot
 \exp\!\bigl( H\, w \cos(h - h_{\text{home}}) \bigr), \qquad
 w = e^{-r_{\text{PI}}/R_{\text{home}}},
-$$
+```
 
 with $r_{\text{PI}}$ the distance of the path-integration estimate from its
 origin ($w = 0$ when behaviour switches the homing bias off):
@@ -378,12 +381,12 @@ $\mu_t \lambda / \lambda_{\text{eff}}$.
 towards the nearest end of the slope axis, $h_{\text{axis}}$, and towards
 home:
 
-$$
+```math
 \begin{aligned}
 h &\leftarrow h + \min(1,\, P_g\,\theta)\; \Delta(h_{\text{axis}}, h), \\
 h &\leftarrow h + \min(1,\, P_h\, w)\; \Delta(h_{\text{home}}, h),
 \end{aligned}
-$$
+```
 
 with $P_g$ = `geoHeadingPull` and $P_h$ = `homeHeadingPull`.
 
@@ -393,9 +396,9 @@ Between events, over a walked piece of length $\ell$ taking time $t$:
 
 - **Heading diffusion**:
 
-  $$
+  ```math
   h \leftarrow h + \sqrt{D_s(\theta)\,\ell + D_t\, t}\; \xi, \qquad \xi \sim \mathcal N(0,1), \qquad D_s(\theta) = D_s\, e^{k_j \theta},
-  $$
+  ```
 
   with $D_s$ = `jitter` per distance and $D_t$ = `jitterTime` per time
   (also while paused).
@@ -403,12 +406,12 @@ Between events, over a walked piece of length $\ell$ taking time $t$:
   $\psi = \Delta(h, h_\downarrow)$ the heading relative to downhill and $s$
   the path length:
 
-  $$
+  ```math
   \begin{aligned}
   \text{axial:} \quad \frac{d\psi}{ds} &= -a \sin\theta \, \sin 2\psi &&\Longrightarrow\quad \tan\psi(s) = \tan\psi_0 \; e^{-2a \sin\theta\, s}, \\
   \text{polar:} \quad \frac{d\psi}{ds} &= -b \sin\theta \, \sin \psi &&\Longrightarrow\quad \tan\frac{\psi(s)}{2} = \tan\frac{\psi_0}{2} \; e^{-b \sin\theta\, s}.
   \end{aligned}
-  $$
+  ```
 
   The axial torque ($a$ = `geoTorque`) pulls towards the nearest end of the
   slope axis (applied after folding $\psi$ onto $(-\pi/2, \pi/2]$); the
@@ -417,15 +420,15 @@ Between events, over a walked piece of length $\ell$ taking time $t$:
 - **Goal steering** (from behaviour, e.g. the home vector), first-order
   relaxation with gain $k$, exact for a constant goal:
 
-  $$
+  ```math
   h \leftarrow h + \Delta(h_{\text{goal}}, h)\,\bigl(1 - e^{-k t}\bigr).
-  $$
+  ```
 
 ### 5.4 Speed
 
-$$
+```math
 v = v_0 \; I_i \; \exp\!\Bigl(X - \tfrac12 \sigma_w(\theta)^2\Bigr) \; s_i(\theta) \; (1 - u) \; \gamma_{\text{speed}}
-$$
+```
 
 - $v_0$ (`speed`): population median speed on flat ground at the reference
   temperature.
@@ -436,13 +439,13 @@ $$
   (`speedSdWithin`, `slopeSpeedSdK`) and correlation time $\tau_v$
   (`speedTau`), updated exactly over a walking interval $t$:
 
-  $$
+  ```math
   X \leftarrow a X + \sigma_w(\theta) \sqrt{1 - a^2}\; \xi, \qquad a = e^{-t/\tau_v}, \qquad \xi \sim \mathcal N(0,1).
-  $$
+  ```
 
-  Since $\mathbb E\, e^{X} = e^{\sigma_w^2/2}$ in the stationary state, the
+  Since $\mathbb E e^{X} = e^{\sigma_w^2/2}$ in the stationary state, the
   $-\tfrac12\sigma_w^2$ term keeps the mean multiplier at 1.
-- $s_i(\theta) = \max\bigl(0.05,\; 1 - k_\theta \kappa_i \theta\bigr)$:
+- $s_i(\theta) = \max\bigl(0.05, 1 - k_\theta \kappa_i \theta\bigr)$:
   slope slowing, independent of walking direction (as Khuong et al. found),
   with $k_\theta$ = `slopeSpeedK` and $\kappa_i$ an individual log-normal
   multiplier with mean 1 (candidate D, `slopeSpeedKSd`, SD 0 in the adopted
@@ -453,29 +456,29 @@ $$
 **Pauses.** Pause onsets form a Poisson process with rate
 $p(\theta) = p_0 e^{k_p \theta}$ (`pauseRate`, `slopePauseK`), placed
 exactly with the exposure clock (§3.2); pause durations are
-$\operatorname{Exp}(\bar t_{\text{pause}})$ (`pauseMean`). Time-based
+$\mathrm{Exp}(\bar t_{\text{pause}})$ (`pauseMean`). Time-based
 turning and diffusion continue while paused.
 
 **Turn-linked slowing** (candidate T). A turn by $\phi$ deepens a slowing
 state,
 
-$$
+```math
 u \leftarrow \max\!\left(u,\; u_{\max} \frac{1 - \cos\phi}{2}\right),
-$$
+```
 
 so a reversal nearly halts the ant ($u_{\max}$ = `turnDip`); $u$ decays as
 $e^{-t/\tau_u}$ (`turnDipTau`). The distance walked $t$ seconds into an
 interval that starts at $u_0$ is
 
-$$
+```math
 x(t) = v \left( t - u_0 \tau_u \bigl(1 - e^{-t/\tau_u}\bigr) \right),
-$$
+```
 
 which is convex in $t$, so the time to reach the next distance event is
 found by Newton's method and event positions stay exact.
 
 **Stop reset** (candidate T). When a pause starts the heading is redrawn,
-$h \leftarrow h + \operatorname{WC}(g_{\text{stop}})$, then pulled home by
+$h \leftarrow h + \mathrm{WC}(g_{\text{stop}})$, then pulled home by
 $\min(1, P_{\text{stop}} w)$ (`stopTurnG`, `stopHomePull`). This addresses
 the data's near-zero heading correlation across stops.
 
@@ -540,17 +543,17 @@ The path integrator $\mathbf p = (p_x, p_y)$ estimates the position relative
 to the trip origin. For each walked piece of length $\ell$ along the true
 heading $h$:
 
-$$
+```math
 \hat h = h + b_{\text{trip}} + \sqrt{c\,\ell}\;\xi, \qquad
 \mathbf p \leftarrow \mathbf p + g_{\text{PI}}\, \ell\, (\cos\hat h, \sin\hat h), \qquad
 b_{\text{trip}} \sim \mathcal N(0, \sigma_c^2),\ \xi \sim \mathcal N(0,1),
-$$
+```
 
 with $b_{\text{trip}}$ drawn once per trip ($\sigma_c$ = `compassBias`),
 $c$ = `compassNoise` (rad²/mm) and odometer gain $g_{\text{PI}}$. The error
 thus has a per-trip systematic part and a random-walk part whose variance
 grows with distance. The home heading is
-$h_{\text{home}} = \operatorname{atan2}(-p_y, -p_x)$.
+$h_{\text{home}} = \mathrm{atan2}(-p_y, -p_x)$.
 
 ### 6.5 Physiology (`physics/antPhysics.ts`)
 
@@ -558,16 +561,16 @@ Temperature dependence uses the Arrhenius factor relative to a reference
 temperature (temperatures in K, activation energy $E_a$ in eV, $k_B$ the
 Boltzmann constant):
 
-$$
+```math
 A(T; T_{\text{ref}}, E_a) = \exp\!\left( \frac{E_a}{k_B} \left( \frac{1}{T_{\text{ref}}} - \frac{1}{T} \right) \right).
-$$
+```
 
 **Drinking.** The drinking ant is held at the drop edge
 ($r_{\text{drop}}$ + 0.35 body lengths from its centre). Intake per step:
 
-$$
+```math
 \Delta V = \min\!\left( \dot V_0\, f_i\, \Delta t\; \frac{A(T;\, 22\,^\circ\text{C},\, 0.3\,\text{eV})}{e^{1.05\,(M - 0.6)}},\;\; V_{\text{accessible}},\;\; V_{\text{crop}}^{\max} - V_{\text{crop}} \right)
-$$
+```
 
 with $\dot V_0$ = 0.0095 µL/s for 0.6 M sucrose and $f_i$ the individual
 intake factor (log-normal with mean 1 and log-SD $\sigma_r$, fitted in E2).
@@ -575,41 +578,41 @@ The exponential term is the rise of viscosity with concentration.
 
 **Metabolism.** With body mass $m_b$, sugar is burnt at
 
-$$
+```math
 \text{rate} = m_0\; m_b^{0.75}\; A(T;\, 25\,^\circ\text{C},\, 0.65\,\text{eV}) \times \begin{cases} 3 & \text{walking} \\ 1 & \text{otherwise} \end{cases} \quad (\text{mg/h}),
-$$
+```
 
 drawn first from the crop (absorbed into the reserve together with a slow
 refill of 0.1 % of the reserve deficit per second) and then from the
 reserve. Oxidation releases 0.579 mg water per mg sucrose. The maximum
 reserve is the resting need for `reserveDays` $=14$ d at 25 °C,
 
-$$
+```math
 R_{\max} = m_0\, m_b^{0.75} \cdot 24 \cdot \text{reserveDays},
-$$
+```
 
 and an ant starved for $n$ days starts at reserve fraction
-$\max(0.02,\, 1 - n/\text{reserveDays})$. The desired volume reads this
+$\max(0.02, 1 - n/\text{reserveDays})$. The desired volume reads this
 through interoception (§7.1).
 
 **Water.** Cuticular loss follows the vapour-pressure deficit:
 
-$$
+```math
 \text{loss (mg/s)} = \frac{P \cdot (A_{\text{body}}/100) \cdot \text{VPD}}{1000 \cdot 3600}, \qquad
 \text{VPD} = e_s(T) \left(1 - \frac{\text{RH}}{100}\right), \qquad
 e_s(T) = 4.5808 \exp\!\left( \frac{17.27\, T}{T + 237.3} \right)\ \text{mmHg}
-$$
+```
 
 (Magnus–Tetens, $T$ in °C), with $P$ the cuticular permeability
 (µg cm⁻² h⁻¹ mmHg⁻¹) and $A_{\text{body}}$ in mm². An ant dies when its
 reserve is exhausted or its body water falls below 60 % of the maximum
-($0.7\, m_b$).
+($0.7 m_b$).
 
 **Load.** A laden ant walks at
 
-$$
+```math
 \gamma_{\text{speed}} = \frac{1}{1 + k_{\text{load}} \cdot 1.08\, V_{\text{crop}} / m_b}
-$$
+```
 
 (≈ 1.08 mg per µL of 0.6 M sucrose; $k_{\text{load}}$ = `loadSlowdown`).
 
@@ -633,11 +636,11 @@ explore ──touch food──► drink ──satiated / crop full────�
 With $\chi$ the hunger level read from the reserve fraction (interoception)
 and $F_i$ an individual factor fixed for life:
 
-$$
-\chi = \operatorname{clamp}\!\left( \frac{1 - \text{reserve}}{\text{hungerScale}},\, 0,\, 1 \right), \qquad
+```math
+\chi = \mathrm{clamp}\!\left( \frac{1 - \text{reserve}}{\text{hungerScale}},\, 0,\, 1 \right), \qquad
 V_d = \bigl( V_{\text{fed}} + (V_{\text{hungry}} - V_{\text{fed}})\,\chi \bigr)\, F_i, \qquad
 F_i = e^{\sigma_d z_i}.
-$$
+```
 
 ### 7.2 Leaving the food (the stopping rule)
 
@@ -646,22 +649,22 @@ leaving hazard $\nu$ is one of the step-3 variants:
 
 | Variant | Hazard | Notes |
 |---|---|---|
-| $M_a$ (adopted) | $\nu(V) = \nu_{\max}\, \sigma\bigl(\eta (V - V_d)\bigr)$ | per-second hazard with a low maximum $\nu_{\max}$ (`stopHazard`); individual $V_d$ |
-| $M_b$ | $\nu = \eta\, \sigma\bigl(\eta (V - V_c)\bigr)\, \dot V$ | the published rule, per µL ingested; shared $V_c$ |
-| $M_d$ | as $M_a$, but $V$ grows by $\bar{\dot V}\,\Delta t$ per step of actual ingestion | satiation measures drinking time |
+| $M_a$ (adopted) | $\nu(V) = \nu_{\max} \sigma\bigl(\eta (V - V_d)\bigr)$ | per-second hazard with a low maximum $\nu_{\max}$ (`stopHazard`); individual $V_d$ |
+| $M_b$ | $\nu = \eta \sigma\bigl(\eta (V - V_c)\bigr) \dot V$ | the published rule, per µL ingested; shared $V_c$ |
+| $M_d$ | as $M_a$, but $V$ grows by $\bar{\dot V} \Delta t$ per step of actual ingestion | satiation measures drinking time |
 
 For $M_b$ the hazard per µL gives a closed-form stopping-volume
 distribution. The survival to volume $V$ is
 
-$$
+```math
 S(V) = \exp\!\left( -\int_0^V \eta\, \sigma\bigl(\eta (v - V_c)\bigr)\, dv \right)
 = \frac{1 + e^{-\eta V_c}}{1 + e^{\eta (V - V_c)}},
-$$
+```
 
 which is logistic with location $V_c$ and scale $1/\eta$ (when
 $\eta V_c \gg 1$), whatever the intake rate. That is why the per-volume form
 is used rather than the published per-second form
-$\eta\, \Delta V\, \sigma(\cdot)$, which matches it only at a fixed intake
+$\eta \Delta V \sigma(\cdot)$, which matches it only at a fixed intake
 rate.
 
 A full crop (≥ 98 % of capacity) always ends drinking as satiated. A drop
@@ -675,7 +678,7 @@ unsatisfied.
 - **Unsatisfied** (source exhausted): lays trail with probability $q$
   (`unsatisfiedLayProb`; needed because layers and non-layers drank the
   same volume at a 0.7 µL drop), otherwise performs area-restricted search
-  for $\operatorname{Exp}(\bar t_{\text{ars}})$ s (`arsMean`) with shorter
+  for $\mathrm{Exp}(\bar t_{\text{ars}})$ s (`arsMean`) with shorter
   runs ($\gamma_{\text{run}} = 0.4$) and steering back to the food site when
   more than 15 mm from it. An ant that later reaches its desired volume
   becomes satiated and lays.
@@ -689,12 +692,12 @@ are a two-state Markov process with mean contact duration $\tau_g$ and an
 on-rate chosen so that the stationary fraction of time with the gaster down
 equals the individual's lay intensity $\ell_i$:
 
-$$
+```math
 r_{\text{on}} = \frac{\ell_i}{(1 - \ell_i)\,\tau_g}, \qquad
 r_{\text{off}} = \frac{1}{\tau_g}
 \quad\Longrightarrow\quad
 P(\text{down}) = \frac{r_{\text{on}}}{r_{\text{on}} + r_{\text{off}}} = \ell_i.
-$$
+```
 
 $\ell_i$ is log-normal with the measured mean 0.13 and SD 0.08 (capped at
 0.95). Pheromone is deposited along the walked path in ≤ 1 mm pieces while
@@ -722,9 +725,9 @@ second-difference noise estimate while ants are nearly still, minus what
 slow movement of noise-free simulated ants contributes to the same
 estimator,
 
-$$
+```math
 \sigma^2 = \sigma^2_{\text{data}} - \sigma^2_{\text{moving}}.
-$$
+```
 
 $\sigma_y$ rises with incline roughly as $1/\cos\theta$ (a camera viewing a
 tilted canvas).
@@ -749,7 +752,7 @@ heading come from displacements over 0.2 s; a sample is *stopped* below
 | speed spread | $\ln$ SD of per-ant mean moving speed |
 | per-ant speed, exit time | two-sample KS on per-ant values |
 | big-turn fraction, median turn | $P(\lvert\Delta h\rvert > 0.5)$ and median $\lvert\Delta h\rvert$ per 2.5 mm chord, in 5 speed bins (2–8 … 40–80 mm/s) |
-| per-ant turning–speed slope | OLS slope of $\ln\bigl(1 - \langle\cos\rangle_{10\,\text{mm}}\bigr)$ on $\ln$ median speed, across ants |
+| per-ant turning–speed slope | OLS slope of $\ln\bigl(1 - \langle\cos\rangle_{10\text{ mm}}\bigr)$ on $\ln$ median speed, across ants |
 | stop reorientation | $\langle\cos\rangle$ of heading into vs out of stops < 0.4 s and 0.4–1.2 s |
 
 Instantaneous speeds are autocorrelated within a track, so their
@@ -772,9 +775,9 @@ the papers (e.g. trail after drop 1 = any gaster contact on the first 3 cm
 of the bridge). Volumes were gaster-ellipsoid estimates, so the simulated
 observer reports
 
-$$
+```math
 \hat V = \max\bigl(0,\; V_{\text{true}} + \epsilon\bigr), \qquad \epsilon \sim \mathcal N(0, \sigma_m^2),
-$$
+```
 
 from its own stream; $\sigma_m$ is fitted together with the intake-rate SD
 $\sigma_r$ on the 2009 volume–time regression (slope and Spearman $r_s$).
@@ -794,9 +797,9 @@ experiments. $\mathrm{SE}_{\text{sim}}$ comes from independent seed blocks
 if mouth contact lasts more than 5 s in total and is in progress at the scan
 instant
 
-$$
+```math
 \tau_k = \varphi + 60\,k\ \text{s}, \qquad k = 0, \dots, 60, \qquad \varphi \sim \mathcal U(0, 60)\ \text{s},
-$$
+```
 
 with the phase $\varphi$ drawn per colony because the real one is unknown.
 The same donor → receiver pair on consecutive minutes is merged into one
@@ -812,17 +815,17 @@ event count, which checks the observer.
 - Gini of events per participant, with $x_{(1)} \le \dots \le x_{(n)}$ the
   sorted counts:
 
-  $$
+  ```math
   G = \frac{\sum_{i=1}^{n} (2i - n - 1)\, x_{(i)}}{n \sum_{i=1}^{n} x_i};
-  $$
+  ```
 
 - network (one secondary family): fraction with both roles, and global
   efficiency of the undirected interaction graph over its $N$ participants,
   with $d_{ij}$ the shortest-path length ($1/d_{ij} = 0$ if disconnected):
 
-  $$
+  ```math
   \mathcal E = \frac{1}{N(N-1)} \sum_{i \ne j} \frac{1}{d_{ij}}.
-  $$
+  ```
 
 A simulated ant counts as a forager after ≥ 5 consecutive seconds of feeding
 at the source (the paper's definition).
@@ -840,11 +843,11 @@ compared with E6 until the walking decision (STATUS step 5) is settled.
 ### 9.1 Contact geometry (`physics/contacts.ts`)
 
 With body length $L_b$, antennal reach $R_a$ and head point
-$\mathbf c + 0.4\, L_b\, (\cos h, \sin h)$ for body centre $\mathbf c$:
+$\mathbf c + 0.4 L_b (\cos h, \sin h)$ for body centre $\mathbf c$:
 
 - **Antennal contact**: one ant's head within $R_a$ of the other's head or
   body centre (either way round).
-- **Mouth contact**: heads within $0.3\, L_b$ and headings roughly opposed,
+- **Mouth contact**: heads within $0.3 L_b$ and headings roughly opposed,
   $\cos(h_1 - h_2) < -0.5$, the posture of trophallaxis.
 
 Contacts are found with a spatial hash and reported in a fixed $(a, b)$
@@ -856,10 +859,10 @@ Food moves only when the donor acts "give" to B **and** B acts "receive"
 from the donor. The pair is then held face to face and the donor's crop
 flows at
 
-$$
+```math
 \Delta V = \min\bigl( r_{\text{share}}\, \Delta t,\; V_{\text{donor}},\; V_{\text{crop}}^{\max} - V_{\text{receiver}} \bigr), \qquad
 r_{\text{share}} = V_{\text{crop}}^{\max} / 120\ \text{s}
-$$
+```
 
 (from the TEC model's unit), with sugar and water in the donor crop's
 proportions. Crop-to-crop transfers leave the ledger's account totals
@@ -883,10 +886,10 @@ and hand-overs between the two policies. Sharing bouts are written as
 
 ### 10.1 Two z-scores
 
-$$
-z_{\text{judge}} = \frac{m_{\text{sim}} - m_{\text{data}}}{\sqrt{\mathrm{SE}_{\text{data}}^2 + \mathrm{SE}_{\text{sim}}^2}} \quad (\texttt{combinedZ}), \qquad
-z_{\text{fit}} = \frac{m_{\text{sim}} - m_{\text{data}}}{\mathrm{SE}_{\text{data}}} \quad (\texttt{fitZ}).
-$$
+```math
+z_{\text{judge}} = \frac{m_{\text{sim}} - m_{\text{data}}}{\sqrt{\mathrm{SE}_{\text{data}}^2 + \mathrm{SE}_{\text{sim}}^2}} \quad (\mathtt{combinedZ}), \qquad
+z_{\text{fit}} = \frac{m_{\text{sim}} - m_{\text{data}}}{\mathrm{SE}_{\text{data}}} \quad (\mathtt{fitZ}).
+```
 
 Judging needs both sampling errors. Fitting uses fixed weights: with
 $\mathrm{SE}_{\text{sim}}$ in the objective, an optimiser could lower the
@@ -898,9 +901,9 @@ Other comparisons:
 
 - **Spread** (between-ant or between-colony SD), separately from means:
 
-  $$
+  ```math
   z = \frac{\ln(s_{\text{sim}} / s_{\text{data}})}{\sqrt{\dfrac{1}{2(n_{\text{sim}} - 1)} + \dfrac{1}{2(n_{\text{data}} - 1)}}}.
-  $$
+  ```
 
   This uses $\mathrm{SE}(\ln s) \approx 1/\sqrt{2(n-1)}$, exact only for
   normal samples, so it is read as indicative for skewed times; E1 uses
@@ -910,12 +913,12 @@ Other comparisons:
   Stephens' correction, reported as the equivalent two-sided normal $z$
   (capped at 8) and signed by the direction of the median difference:
 
-  $$
+  ```math
   n_e = \frac{nm}{n+m}, \qquad
   p = Q_{\text{KS}}\!\Bigl( \bigl(\sqrt{n_e} + 0.12 + 0.11/\sqrt{n_e}\bigr) D \Bigr), \qquad
   Q_{\text{KS}}(x) = 2 \sum_{k \ge 1} (-1)^{k-1} e^{-2k^2 x^2}, \qquad
   \lvert z\rvert = \Phi^{-1}(1 - p/2).
-  $$
+  ```
 
 ### 10.2 Standard errors
 
@@ -928,9 +931,9 @@ Other comparisons:
   $n_b$ with means $m_b$; batch-means ratio estimator around the pooled
   mean $m$, with $\bar n$ the mean block size:
 
-  $$
+  ```math
   \mathrm{SE}^2 = \frac{1}{R(R-1)} \sum_{b=1}^{R} \left( \frac{n_b}{\bar n} \right)^2 (m_b - m)^2.
-  $$
+  ```
 
 ### 10.3 Losses
 
@@ -938,9 +941,9 @@ Other comparisons:
   statistics (speed quantiles, heading-correlation lags, radial bins,
   big-turn fractions by speed, …), 15 in all, and
 
-  $$
+  ```math
   \mathcal L_{\text{E1}} = \sum_{f} \frac{1}{\lvert f\rvert} \sum_{i \in f} z_i^2,
-  $$
+  ```
 
   so a family counts once however many lags it has. In judging, a statistic
   the simulation cannot estimate scores $z^2 = 100$; in fitting, a candidate
@@ -956,10 +959,10 @@ Other comparisons:
 $[\text{lo}, \text{hi}]$, wide enough never to bind, and the optimiser works
 on an unbounded $x$ with $u = \sigma(x)$:
 
-$$
+```math
 p = \text{lo} \left( \frac{\text{hi}}{\text{lo}} \right)^{u} \quad \text{(log scale)}, \qquad
 p = \text{lo} + (\text{hi} - \text{lo})\, u \quad \text{(linear)}.
-$$
+```
 
 A fit ending within 1 % of a limit is reported (`atLimit`).
 
@@ -968,16 +971,16 @@ $(\mu/\mu_w, \lambda)$ strategy with default settings for $n$ parameters:
 population $\lambda = 4 + \lfloor 3 \ln n \rfloor$, parents
 $\mu = \lfloor\lambda/2\rfloor$. Each generation samples and recombines
 
-$$
+```math
 \mathbf x_k = \mathbf m + \sigma\, \mathbf B \mathbf D \mathbf z_k,\ \ \mathbf z_k \sim \mathcal N(\mathbf 0, \mathbf I), \qquad
 \mathbf m \leftarrow \mathbf m + \sigma \sum_{i=1}^{\mu} w_i\, \mathbf y_{i:\lambda}, \qquad
 w_i \propto \ln\!\left(\mu + \tfrac12\right) - \ln i,
-$$
+```
 
 where $\mathbf C = \mathbf B \mathbf D^2 \mathbf B^\top$ and
 $\mathbf y_{i:\lambda}$ is the step of the $i$-th best candidate. The step
 size follows cumulative step-size adaptation,
-$\sigma \leftarrow \sigma \exp\!\bigl( \tfrac{c_\sigma}{d_\sigma} ( \lVert \mathbf p_\sigma \rVert / \mathbb E\lVert \mathcal N(\mathbf 0, \mathbf I)\rVert - 1 ) \bigr)$,
+$\sigma \leftarrow \sigma \exp \bigl( \tfrac{c_\sigma}{d_\sigma} ( \lVert \mathbf p_\sigma \rVert / \mathbb E\lVert \mathcal N(\mathbf 0, \mathbf I)\rVert - 1 ) \bigr)$,
 and $\mathbf C$ gets rank-one (evolution path $\mathbf p_c$) and rank-$\mu$
 updates.
 
@@ -990,10 +993,10 @@ updates.
   $\mathbf x_0$, with step $\Delta x = 0.2$ and target loss rise
   $\delta = 10$:
 
-  $$
+  ```math
   c_i = \frac{f(\mathbf x_0 + \Delta x\, \mathbf e_i) + f(\mathbf x_0 - \Delta x\, \mathbf e_i) - 2 f(\mathbf x_0)}{\Delta x^2}, \qquad
-  \sigma_i = \operatorname{clip}\!\left( \sqrt{\delta / c_i},\, 0.02,\, 0.3 \right),
-  $$
+  \sigma_i = \mathrm{clip}\!\left( \sqrt{\delta / c_i},\, 0.02,\, 0.3 \right),
+  ```
 
   so a 1-SD step raises the loss by about $\delta$.
 - Each stage runs from two starts plus IPOP restarts (population doubled
@@ -1048,18 +1051,18 @@ forager or worker means: two emergent castes) and a source-leaving
 propensity $\alpha_i = U^{30}$, $U \sim \mathcal U(0,1)$ (a power-function
 distribution with shape 1/30). With the Hill functions
 
-$$
+```math
 g(q) = \frac{q^2}{q^2 + k^2}, \qquad \bar g(q) = 1 - g(q) = \frac{k^2}{q^2 + k^2}, \qquad k = 120\ \text{units},
-$$
+```
 
 the per-tick probabilities are:
 
-$$
+```math
 \begin{aligned}
 P(\text{offer}) &= \theta_i\, g(q_i), & P(\text{accept}) &= \Upsilon_j\, \bar g(q_j), \\
 P(\text{go to source}) &= \alpha_i\, \bar g(q_i)\ \ (\alpha' = 1/50 \text{ for foragers}), & P(\text{leave source}) &= \beta = 1/120,
 \end{aligned}
-$$
+```
 
 pairs transfer 1 unit/s and separate with probability 1/260 per member per
 tick, and an ant leaving the source carries the time it spent feeding. Full
@@ -1073,9 +1076,9 @@ Each vertex gives a row $(\omega, l, \Delta t)$: the turn at the vertex and
 the length and duration of the next segment. Rows are pooled by the sector
 of the incoming heading $\varphi$,
 
-$$
+```math
 k(\varphi) = \left\lfloor \frac{\varphi + \pi + \pi/8}{\pi/4} \right\rfloor \bmod 8,
-$$
+```
 
 measured in the arena frame (`xy`) or relative to the direction home
 (`start`). The walker repeatedly draws a row from its current sector's pool
@@ -1107,24 +1110,24 @@ Order and scope are set in STATUS § Milestones.
   $D$ (sunrise $t_r$, sunset $t_s$), night length $N = 24 - D$, hours $n$
   since sunset and lag/decay coefficients $a, b$,
 
-  $$
+  ```math
   T_{\text{day}}(t) = T_{\min} + (T_{\max} - T_{\min}) \sin\frac{\pi (t - t_r)}{D + 2a}, \qquad
   T_{\text{night}}(n) = T_{\min} + \bigl(T_{\text{day}}(t_s) - T_{\min}\bigr) \frac{e^{-b n/N} - e^{-b}}{1 - e^{-b}}
-  $$
+  ```
 
   (air $a$ = 1.86 h, $b$ = 2.2; soil surface $a$ = 1.0 h, $b$ = 1.8).
   Soil temperature at depth follows the 1D heat equation, forced at the
   surface. For a sinusoidal surface wave of frequency $\omega$ in a deep
   soil it gives exponential damping and a linear phase lag with depth:
 
-  $$
+  ```math
   \frac{\partial T}{\partial t} = \kappa \frac{\partial^2 T}{\partial z^2}, \qquad
   T(z, t) = \bar T + A_0\, e^{-z/z_d} \sin\!\left(\omega t - \frac{z}{z_d}\right), \qquad
   z_d = \sqrt{\frac{2\kappa}{\omega}} \approx 10\text{–}13\ \text{cm}.
-  $$
+  ```
 
   Body temperature lies between air and surface temperature according to
-  how high the body is held: $T_b = T_{\text{air}} + (T_{\text{surf}} - T_{\text{air}})\, e^{-z_{\text{body}}/2.5\,\text{mm}}$.
+  how high the body is held: $T_b = T_{\text{air}} + (T_{\text{surf}} - T_{\text{air}}) e^{-z_{\text{body}}/2.5\text{ mm}}$.
 - **Chemical signals.** Multiple trail channels per species (e.g. Pharaoh
   ant attractive and repellent). Trail following by osmotropotaxis
   (Hangartner 1967): steer to reduce the bilateral difference between the
@@ -1134,18 +1137,18 @@ Order and scope are set in STATUS § Milestones.
   response threshold $K$, calibrated from the active-space radius $R$ and
   fade time $t_{\text{fade}}$ (*reserved:* `world/plumes.ts`):
 
-  $$
+  ```math
   C(r, t) = \frac{2Q}{(4\pi D t)^{3/2}} \exp\!\left( -\frac{r^2}{4 D t} \right), \qquad
   D = \frac{e\, R^2}{6\, t_{\text{fade}}}, \qquad
   \frac{Q}{K} = \frac{(4\pi D\, t_{\text{fade}})^{3/2}}{2}.
-  $$
+  ```
 
 ### 12.2 Individuals
 
 - Size distributions per species (monomorphic to strongly polymorphic),
   with mass, speed, carrying capacity and crop volume scaling
   allometrically.
-- Locomotion: speed $\propto A(T; T_{\text{ref}}, E_a)\, m_b^{0.25}$ ×
+- Locomotion: speed $\propto A(T; T_{\text{ref}}, E_a) m_b^{0.25}$ ×
   load × slope terms (Hurlbert et al. 2008); chill coma below
   $\mathrm{CT}_{\min}$, heat death above $\mathrm{CT}_{\max}$.
 - Navigation beyond path integration: systematic search around the fictive
