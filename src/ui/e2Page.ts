@@ -4,13 +4,8 @@ import type { E2Request, E2Response, TripFrame } from '../worker/e2Worker';
 import E2Worker from '../worker/e2Worker?worker';
 import { drawAnt } from './antSprite';
 import { fitCanvas, labeled, zCell } from './dom';
-
-const CONDITIONS = [
-  { id: 'two', label: 'Two 0.7 µL drops (Mailleux 2009)' },
-  { id: 'd1', label: '3 µL drop, 1 day starved (1999)' },
-  { id: 'd4', label: '3 µL drop, 4 days starved (1999)' },
-  { id: 'd8', label: '3 µL drop, 8 days starved (1999)' },
-];
+import { E2_CONDITIONS as CONDITIONS, E2_DEFAULTS } from './pageDefaults';
+import { loadPrecomputed } from './precomputed';
 
 const MODE_LABEL: Record<string, string> = {
   explore: 'exploring',
@@ -40,7 +35,7 @@ export function renderE2(root: HTMLElement): () => void {
     o.textContent = c.label;
     sel.appendChild(o);
   }
-  const nIn = Object.assign(document.createElement('input'), { type: 'number', value: '150', min: '20', max: '1000', step: '10' });
+  const nIn = Object.assign(document.createElement('input'), { type: 'number', value: String(E2_DEFAULTS.scouts), min: '20', max: '1000', step: '10' });
   const runBtn = Object.assign(document.createElement('button'), { className: 'primary', textContent: 'Run' });
   const status = document.createElement('span');
   status.className = 'note';
@@ -92,26 +87,42 @@ export function renderE2(root: HTMLElement): () => void {
   let raf = 0;
   let lastTick = performance.now();
 
-  const run = () => {
-    runBtn.disabled = true;
-    status.textContent = 'Simulating scouts…';
-    tableCard.style.opacity = '0.5';
-    const req: E2Request = { scouts: Number(nIn.value), seed: 1, showCondition: sel.value };
-    worker.postMessage(req);
-  };
-  worker.onmessage = (ev: MessageEvent<E2Response>) => {
-    res = ev.data;
+  /** Bumped on every request; `live` is the token of the live run in flight. */
+  let token = 0;
+  let live = -1;
+  const request = (): E2Request => ({ scouts: Number(nIn.value), seed: E2_DEFAULTS.seed, showCondition: sel.value });
+  const show = (r: E2Response, how: string) => {
+    res = r;
     runBtn.disabled = false;
     tableCard.style.opacity = '1';
-    status.textContent = `Done in ${(res.ms / 1000).toFixed(1)} s`;
+    status.textContent = how;
     tripIdx = 0;
     frameIdx = 0;
     playT = 0;
     holdEnd = 0;
-    renderTable(tableCard, res.rows, res.foundBoth);
+    renderTable(tableCard, r.rows, r.foundBoth);
+  };
+  const run = () => {
+    live = ++token;
+    runBtn.disabled = true;
+    status.textContent = 'Simulating scouts…';
+    tableCard.style.opacity = '0.5';
+    worker.postMessage(request());
+  };
+  /** Show the build-time result for these settings if there is one, else simulate. */
+  const open = async () => {
+    const t = ++token;
+    status.textContent = 'Loading…';
+    const pre = await loadPrecomputed<E2Response>(`e2-${sel.value}`, request());
+    if (t !== token) return;
+    if (pre) show(pre, `Precomputed (${nIn.value} scouts per condition) · Run to simulate again`);
+    else run();
+  };
+  worker.onmessage = (ev: MessageEvent<E2Response>) => {
+    if (live === token) show(ev.data, `Done in ${(ev.data.ms / 1000).toFixed(1)} s`);
   };
   runBtn.onclick = run;
-  sel.onchange = run;
+  sel.onchange = open;
 
   const draw = () => {
     const now = performance.now();
@@ -186,7 +197,7 @@ export function renderE2(root: HTMLElement): () => void {
     raf = requestAnimationFrame(draw);
   };
   raf = requestAnimationFrame(draw);
-  run();
+  void open();
   return () => {
     cancelAnimationFrame(raf);
     worker.terminate();

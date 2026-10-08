@@ -6,18 +6,21 @@ import incline4 from '../../data/khuong2013/incline4.csv.gz?url';
 import incline5 from '../../data/khuong2013/incline5.csv.gz?url';
 import { summarize } from '../sim/analysis/trajectory';
 import { walkParams, type WalkParams } from '../sim/models/walk';
-import type { E1Request, E1Response, PlainTrack } from '../worker/e1Worker';
+import { e1Request } from '../worker/e1Compute';
+import type { E1Response, E1WorkerRequest, PlainTrack } from '../worker/e1Worker';
 import E1Worker from '../worker/e1Worker?worker';
 import { verdict } from '../sim/analysis/compare';
 import { fitCanvas, labeled, statusClass, VERDICT_LABEL } from './dom';
 import { ecdf, lineChart } from './lineChart';
+import { E1_DEFAULTS } from './pageDefaults';
+import { loadPrecomputed } from './precomputed';
 
 const INCLINES = [
-  { label: '0° (flat)', rad: 0, url: incline1, role: 'fit' },
-  { label: '20° (π/9)', rad: Math.PI / 9, url: incline2, role: 'validation' },
-  { label: '30° (π/6)', rad: Math.PI / 6, url: incline3, role: 'fit' },
-  { label: '45° (π/4)', rad: Math.PI / 4, url: incline4, role: 'validation' },
-  { label: '60° (π/3)', rad: Math.PI / 3, url: incline5, role: 'fit' },
+  { label: '0° (flat)', url: incline1, role: 'fit' },
+  { label: '20° (π/9)', url: incline2, role: 'validation' },
+  { label: '30° (π/6)', url: incline3, role: 'fit' },
+  { label: '45° (π/4)', url: incline4, role: 'validation' },
+  { label: '60° (π/3)', url: incline5, role: 'fit' },
 ];
 
 const PARAM_INFO: Record<string, [string, string]> = {
@@ -62,8 +65,8 @@ export function renderE1(root: HTMLElement): () => void {
     o.textContent = `${c.label} — ${c.role}`;
     sel.appendChild(o);
   });
-  const antsIn = Object.assign(document.createElement('input'), { type: 'number', value: '300', min: '20', max: '2000', step: '20' });
-  const seedIn = Object.assign(document.createElement('input'), { type: 'number', value: '1', min: '1', step: '1' });
+  const antsIn = Object.assign(document.createElement('input'), { type: 'number', value: String(E1_DEFAULTS.ants), min: '20', max: '2000', step: '20' });
+  const seedIn = Object.assign(document.createElement('input'), { type: 'number', value: String(E1_DEFAULTS.seed), min: '1', step: '1' });
   const runBtn = Object.assign(document.createElement('button'), { className: 'primary', textContent: 'Run simulation' });
   const status = document.createElement('span');
   status.className = 'note';
@@ -125,26 +128,44 @@ export function renderE1(root: HTMLElement): () => void {
   let last = performance.now();
   let raf = 0;
 
+  /** Bumped on every request, so a late precomputed file never replaces a newer result. */
+  let token = 0;
+  const request = () => e1Request(Number(sel.value), Number(antsIn.value), Number(seedIn.value));
+  const show = (r: E1Response, how: string) => {
+    result = r;
+    runBtn.disabled = false;
+    charts.style.opacity = '1';
+    status.textContent = `${how} · Σ family-mean z² = ${r.loss.toFixed(1)}`;
+    playT = 0;
+    renderCharts(slots, r);
+    renderAgreement(agreeCard, r, INCLINES[Number(sel.value)].role);
+  };
+  /** Token of the live run in flight (a newer request makes its answer stale). */
+  let live = -1;
   const run = () => {
-    const c = INCLINES[Number(sel.value)];
+    live = ++token;
     runBtn.disabled = true;
     status.textContent = 'Simulating…';
     root.style.opacity = '1';
     charts.style.opacity = '0.5';
-    const req: E1Request = { dataUrl: c.url, incline: c.rad, ants: Number(antsIn.value), seed: Number(seedIn.value), dt: 0.02, params: walkParams(fit.params as Partial<WalkParams>) };
+    const req: E1WorkerRequest = { ...request(), dataUrl: INCLINES[Number(sel.value)].url };
     worker.postMessage(req);
   };
+  /** Show the build-time result for these settings if there is one, else simulate. */
+  const open = async () => {
+    const t = ++token;
+    status.textContent = 'Loading…';
+    charts.style.opacity = '0.5';
+    const pre = await loadPrecomputed<E1Response>(`e1-${sel.value}`, request());
+    if (t !== token) return;
+    if (pre) show(pre, `Precomputed (seed ${seedIn.value}, ${antsIn.value} ants) · Run to simulate again`);
+    else run();
+  };
   worker.onmessage = (ev: MessageEvent<E1Response>) => {
-    result = ev.data;
-    runBtn.disabled = false;
-    charts.style.opacity = '1';
-    status.textContent = `Done in ${(result.ms / 1000).toFixed(1)} s · Σ family-mean z² = ${result.loss.toFixed(1)}`;
-    playT = 0;
-    renderCharts(slots, result);
-    renderAgreement(agreeCard, result, INCLINES[Number(sel.value)].role);
+    if (live === token) show(ev.data, `Done in ${(ev.data.ms / 1000).toFixed(1)} s`);
   };
   runBtn.onclick = run;
-  sel.onchange = run;
+  sel.onchange = open;
   playBtn.onclick = () => {
     playing = !playing;
     playBtn.textContent = playing ? 'Pause' : 'Play';
@@ -198,7 +219,7 @@ export function renderE1(root: HTMLElement): () => void {
     raf = requestAnimationFrame(draw);
   };
   raf = requestAnimationFrame(draw);
-  run();
+  void open();
   return () => {
     cancelAnimationFrame(raf);
     worker.terminate();

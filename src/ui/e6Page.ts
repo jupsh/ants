@@ -1,18 +1,13 @@
-import refit from '../../data/fits/e6-tec.json';
 import type { E6Row } from '../sim/experiments/e6Bles';
-import { BLES_TABLE1, type BlesParams } from '../sim/reference/blesTEC';
 import { REFS } from '../sim/species/refs';
+import { E6_MODELS as MODELS, reviveE6 } from '../worker/e6Compute';
 import type { E6Request, E6Response } from '../worker/e6Worker';
 import E6Worker from '../worker/e6Worker?worker';
 import { drawAnt } from './antSprite';
 import { fitCanvas, labeled, zCell } from './dom';
 import { lineChart } from './lineChart';
-
-const MODELS: { id: string; label: string; params: () => BlesParams }[] = [
-  { id: 'refit', label: 'TEC, refitted through the observer', params: () => ({ ...BLES_TABLE1.TEC_exp, T: 3660, ...refit.params }) },
-  { id: 'published', label: 'TEC, published parameters', params: () => ({ ...BLES_TABLE1.TEC_exp, T: 3660 }) },
-  { id: 'oc', label: 'One caste, published parameters', params: () => ({ ...BLES_TABLE1.OC_exp, T: 3660 }) },
-];
+import { E6_DEFAULTS } from './pageDefaults';
+import { loadPrecomputed } from './precomputed';
 
 // Lab geometry of Bles et al. (mm): nest chamber, access route, foraging area.
 const NEST = { x: 0, y: 0, w: 56, h: 41 };
@@ -35,7 +30,7 @@ export function renderE6(root: HTMLElement): () => void {
   bar.className = 'toolbar';
   const modelSel = document.createElement('select');
   for (const m of MODELS) modelSel.append(Object.assign(document.createElement('option'), { value: m.id, textContent: m.label }));
-  const nIn = Object.assign(document.createElement('input'), { type: 'number', value: '200', min: '20', max: '2000', step: '20' });
+  const nIn = Object.assign(document.createElement('input'), { type: 'number', value: String(E6_DEFAULTS.colonies), min: '20', max: '2000', step: '20' });
   const runBtn = Object.assign(document.createElement('button'), { className: 'primary', textContent: 'Run' });
   const speedSel = document.createElement('select');
   for (const v of [10, 30, 60, 120]) speedSel.append(Object.assign(document.createElement('option'), { value: String(v), textContent: `${v}×`, selected: v === 30 }));
@@ -91,27 +86,42 @@ export function renderE6(root: HTMLElement): () => void {
   let flash = 0;
   let pos: Float32Array | null = null;
 
-  const run = () => {
-    runBtn.disabled = true;
-    status.textContent = 'Simulating colonies…';
-    tableCard.style.opacity = '0.5';
-    const m = MODELS.find((x) => x.id === modelSel.value)!;
-    const req: E6Request = { params: m.params(), colonies: Number(nIn.value), seed: 6_000_000 };
-    worker.postMessage(req);
-  };
-  worker.onmessage = (ev: MessageEvent<E6Response>) => {
-    res = ev.data;
+  /** Bumped on every request; `live` is the token of the live run in flight. */
+  let token = 0;
+  let live = -1;
+  const request = (): E6Request => ({ params: MODELS.find((x) => x.id === modelSel.value)!.params(), colonies: Number(nIn.value), seed: E6_DEFAULTS.seed });
+  const show = (r: E6Response, how: string) => {
+    res = r;
     runBtn.disabled = false;
     tableCard.style.opacity = '1';
-    status.textContent = `Done in ${(res.ms / 1000).toFixed(1)} s`;
+    status.textContent = how;
     playT = 0;
     lastScan = -1;
     pos = null;
-    renderChart(chartSlot, res);
-    renderTable(tableCard, res.rows);
+    renderChart(chartSlot, r);
+    renderTable(tableCard, r.rows);
+  };
+  const run = () => {
+    live = ++token;
+    runBtn.disabled = true;
+    status.textContent = 'Simulating colonies…';
+    tableCard.style.opacity = '0.5';
+    worker.postMessage(request());
+  };
+  /** Show the build-time result for these settings if there is one, else simulate. */
+  const open = async () => {
+    const t = ++token;
+    status.textContent = 'Loading…';
+    const pre = await loadPrecomputed<E6Response>(`e6-${modelSel.value}`, request());
+    if (t !== token) return;
+    if (pre) show(reviveE6(pre), `Precomputed (${nIn.value} colonies) · Run to simulate again`);
+    else run();
+  };
+  worker.onmessage = (ev: MessageEvent<E6Response>) => {
+    if (live === token) show(ev.data, `Done in ${(ev.data.ms / 1000).toFixed(1)} s`);
   };
   runBtn.onclick = run;
-  modelSel.onchange = run;
+  modelSel.onchange = open;
   playBtn.onclick = () => {
     playing = !playing;
     playBtn.textContent = playing ? 'Pause' : 'Play';
@@ -225,7 +235,7 @@ export function renderE6(root: HTMLElement): () => void {
     raf = requestAnimationFrame(draw);
   };
   raf = requestAnimationFrame(draw);
-  run();
+  void open();
   return () => {
     cancelAnimationFrame(raf);
     worker.terminate();

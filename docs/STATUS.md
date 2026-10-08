@@ -1398,3 +1398,17 @@ See [`CLAUDE.md`](../CLAUDE.md).
       verdict change), E1 work stops with its remaining trajectory
       discrepancies documented as limitations. If they move, further
       walking work aims at the outputs that move them.
+- **2026-10-08** UI: pages open on precomputed results (user request:
+  "a pre-ran simulation should be loaded already"). `npm run build` runs
+  `scripts/precompute.ts` for each page's default settings (E1: every
+  incline, 300 ants, seed 1; E2: 150 scouts, every animated condition; E6:
+  every model, 200 colonies) and the pages show those at once; Run, or any
+  changed setting, simulates live as before. A precomputed file is used only
+  if its request and the hash of the simulation inputs match the build, so
+  the site never shows results of other code. The page computations moved to
+  `src/worker/e*Compute.ts` (shared by the workers and the script). **The E1
+  page now applies the tracking observer** (`khuongTracking`), as the
+  scripts have since step 5.A; its z-scores now match `reportE1.ts`-style
+  comparisons rather than the observer-free ones shown before. The E1 page
+  sends the speed distribution as 1001 quantiles (same median) and omits
+  per-sample arrays it never drew; the comparison uses the full statistics.

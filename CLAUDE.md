@@ -32,6 +32,15 @@ when a step starts or finishes, and log decisions there before acting on them.
     `reportE6.ts [--fit]` (~4 s), `compareE2.ts`, `identifyE2.ts --variant X`.
   - Profiling: `node --cpu-prof node_modules/.bin/vite-node <script>` and sum
     self time per function from the `.cpuprofile`.
+- Pages open on **precomputed results** for their default settings
+  (`npm run precompute` → `public/precomputed/*.json`, not committed; `npm
+  run build` runs it first). Each file carries the request and a hash of the
+  simulation inputs (`scripts/simHash.ts`: `src/sim`, `src/worker`, fits,
+  data), and a page uses it only if both match, else it simulates live (the
+  dev server serves the current hash at `/__sim_hash`, so after changing
+  simulation code pages run live until `npm run precompute` is rerun). Page
+  computations live in `src/worker/e*Compute.ts`, shared by the workers and
+  the precompute script; defaults in `src/ui/pageDefaults.ts`.
 - Headless page check: `node scripts/probe.mjs '#e6' out.png 'text to wait for'`
   (prints console errors and page text; `WAIT=ms` lets animations run,
   `CANVAS=1` screenshots only the arena canvas).
