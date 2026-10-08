@@ -144,11 +144,18 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      too fast and efficient (2009 between-drop times 25 vs 58 s and 68 vs
      134 s; 2003 visits too many). Drop accessibility may also differ
      between the 2009 pipettes and the 2003 sticks.
-   - **Pending:** profile likelihoods for M_a's weakly constrained
-     parameters were running when session 2 ended. Re-run:
+   - **Profile, σ_m (M_a; Δ loss vs optimum, re-fitting all others):**
+     0.10 µL Δ 6.0 · 0.15 Δ 1.6 · 0.21 Δ 0 · 0.27 Δ −0.3 · 0.33 Δ 0.8.
+     Bounded below (≳ 0.13 µL at 95 %) but **not above** within 0.33 µL:
+     the data cannot rule out larger gaster-estimate noise, which would
+     make volume-based stopping more compatible with the time-vs-volume
+     variability pattern. An independent estimate of σ_m (e.g. a methods
+     paper on the gaster-ellipsoid volume method) would settle it.
+   - **Pending:** profiles for q and pipette accessibility (session 2 ran
+     out of time). Re-run:
      `npx vite-node scripts/profileE2.ts --variant Ma --params
-     setup.volumeSd,forager.unsatisfiedLayProb,setup.accessible` (~15 min
-     with the pool) and record the results here.
+     forager.unsatisfiedLayProb,setup.accessible` (~10 min with the pool)
+     and record the results here.
 3c. **Search around food (new, next E2 work).** Revisit the area-restricted
    search after leaving a drop and local movement in the foraging area,
    using development data (2009 between-drop times; 2003 visits and the
