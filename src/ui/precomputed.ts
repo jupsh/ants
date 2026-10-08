@@ -13,7 +13,9 @@ export async function loadPrecomputed<T>(name: string, req: unknown): Promise<T 
   try {
     // A built site carries its hash; the dev server computes it per request.
     const sim = import.meta.env.DEV ? await (await fetch(`${import.meta.env.BASE_URL}__sim_hash`)).text() : __SIM_HASH__;
-    const res = await fetch(`${import.meta.env.BASE_URL}precomputed/${name}.json`);
+    // The hash in the URL: GitHub Pages lets browsers reuse a file for 10 min
+    // (max-age=600), which after a deploy served the previous build's files.
+    const res = await fetch(`${import.meta.env.BASE_URL}precomputed/${name}.json?v=${sim}`);
     if (!res.ok) return null;
     const j = (await res.json()) as { key: string; result: T };
     return j.key === precomputedKey(req, sim) ? j.result : null;
