@@ -1528,3 +1528,12 @@ See [`CLAUDE.md`](../CLAUDE.md).
   - **Provisional colony page:** minimal, for inspecting movement, contact
     events and food conservation; parameters labelled provisional; visual
     polish allowed before the encounter model is complete.
+- **2026-10-08** Docs (user request, no model change): `docs/DESIGN.md`
+  rewritten to describe the M1 model as built: architecture and step
+  order, RNG streams and exact event timing, world, walking model with its
+  equations and variants, perception, path integration, physiology,
+  forager rules (incl. the M_b stopping-volume distribution), observers
+  and statistics per experiment, comparison and fitting maths, reference
+  models; the earlier long-term design is kept, condensed, as § 12 with
+  reserved code marked. `README.md` updated (pages, test tiers, data
+  roles, licence).
