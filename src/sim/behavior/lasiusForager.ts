@@ -65,6 +65,12 @@ export interface ForagerParams {
   compassBias: number;
   /** Speed loss of laden ants per unit crop load relative to body mass (speed × 1/(1 + k·load/mass)). */
   loadSlowdown: number;
+  /**
+   * Scouts that find nothing head home after this long exploring (s);
+   * unset: never (E2, where every scout finds the drop). Provisional, used by
+   * the colony runner (step 4).
+   */
+  exploreGiveUp?: number;
 }
 
 export interface ForagerAction {
@@ -128,6 +134,11 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
 
   switch (m.mode) {
     case 'explore':
+      if (p.exploreGiveUp !== undefined && m.modeTime > p.exploreGiveUp) {
+        m.site = null;
+        setMode(m, 'return');
+        return { ...NONE };
+      }
       // Outbound scouts explore without the release-point bias seen in isolated ants.
       return { ...NONE, motor: { noHomeBias: true } };
 

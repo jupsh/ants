@@ -1,4 +1,5 @@
 import type { Body } from '../agent/body';
+import { antennalContact, mouthContact } from '../physics/contacts';
 import type { World } from '../world/world';
 import type { ContactPercept, FoodContact, Interoception, SurfacePercept } from './types';
 
@@ -42,19 +43,33 @@ export function perceive(w: World, b: Body, dt: number): SurfacePercept {
       break;
     }
   }
-  // Nest odour near the entrance.
+  // Nest odour: spreading along the surface where the world provides it, else near the entrance.
   let nestCue: SurfacePercept['nestCue'] = null;
-  const dx = w.entrance[0] - b.x;
-  const dy = w.entrance[1] - b.y;
-  const de = Math.hypot(dx, dy);
-  if (de < w.nestCueRadius) nestCue = { bearing: wrap(Math.atan2(dy, dx) - b.heading), strength: w.nestCueRadius / Math.max(de, 1) };
+  let exitCue: SurfacePercept['exitCue'] = null;
+  const inNest = region?.kind === 'nest';
+  if (w.nestOdour) {
+    const d = w.nestOdour.distanceAt(b.x, b.y);
+    const dir = inNest || !(d <= w.nestCueRadius) ? null : w.nestOdour.descentAt(b.x, b.y);
+    if (dir !== null) nestCue = { bearing: wrap(dir - b.heading), strength: w.nestCueRadius / Math.max(d, 1) };
+  } else {
+    const dx = w.entrance[0] - b.x;
+    const dy = w.entrance[1] - b.y;
+    const de = Math.hypot(dx, dy);
+    if (de < w.nestCueRadius) nestCue = { bearing: wrap(Math.atan2(dy, dx) - b.heading), strength: w.nestCueRadius / Math.max(de, 1) };
+  }
+  if (w.exitCue && inNest) {
+    const dir = w.exitCue.descentAt(b.x, b.y);
+    if (dir !== null) exitCue = { bearing: wrap(dir - b.heading) };
+  }
   const contacts: ContactPercept[] = [];
   for (const o of w.ants) {
     if (o.body === b || !o.body.alive) continue;
     const ox = o.body.x - b.x;
     const oy = o.body.y - b.y;
     const d = Math.hypot(ox, oy);
-    if (d <= 2 * reach) contacts.push({ id: o.body.id, bearing: wrap(Math.atan2(oy, ox) - b.heading), dist: d, layingTrail: o.body.gasterDown, carrying: o.body.cropUl > 0.2 * o.body.morph.cropCapacity });
+    // Cheap bound first: no antennal contact beyond reach plus both head offsets.
+    if (d > reach + o.body.morph.antennaReach + b.morph.len + o.body.morph.len || !antennalContact(b, o.body)) continue;
+    contacts.push({ id: o.body.id, bearing: wrap(Math.atan2(oy, ox) - b.heading), dist: d, layingTrail: o.body.gasterDown, carrying: o.body.cropUl > 0.2 * o.body.morph.cropCapacity, mouthContact: mouthContact(b, o.body) });
   }
   return {
     dt,
@@ -62,8 +77,9 @@ export function perceive(w: World, b: Body, dt: number): SurfacePercept {
     downhill: slope.downhill,
     bodyTemp: w.tempC,
     light: region?.covered ? 0 : w.light,
-    inNest: region?.kind === 'nest',
+    inNest,
     nestCue,
+    exitCue,
     edge,
     trailL,
     trailR,
@@ -73,7 +89,7 @@ export function perceive(w: World, b: Body, dt: number): SurfacePercept {
 }
 
 export function interocept(b: Body): Interoception {
-  return { reserve: b.reserve / b.reserveMax, cropUl: b.cropUl, cropCapacity: b.morph.cropCapacity, water: b.water / b.waterMax, bodyMass: b.morph.mass };
+  return { reserve: b.reserve / b.reserveMax, cropUl: b.cropUl, cropCapacity: b.morph.cropCapacity, water: b.water / b.waterMax, bodyMass: b.morph.mass, mouthFlow: b.mouthFlow };
 }
 
 function wrap(a: number): number {

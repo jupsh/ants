@@ -107,3 +107,24 @@ export const KHUONG_TRACKING_DEF = {
 };
 /** Tracking-error SDs for Khuong incline k = 1…5. */
 export const khuongTracking = (k: number): { sx: number; sy: number } => ({ sx: KHUONG_TRACKING_DEF.sx.v[k - 1], sy: KHUONG_TRACKING_DEF.sy.v[k - 1] });
+
+/**
+ * In-nest worker policy (step 4, bounded version, STATUS 2026-10-08):
+ * PROVISIONAL placeholders for inspecting movement, contacts and food flow.
+ * None is calibrated; none may be compared with E6 before the step-4
+ * calibration (after the E1 walking decision).
+ */
+const PROVISIONAL = 'Provisional placeholder (step 4, not calibrated).';
+export const LASIUS_NEST_DEF = {
+  restToActive: estimated(1 / 120, '1/s', `${PROVISIONAL} Resting → walking.`),
+  activeToRest: estimated(1 / 180, '1/s', `${PROVISIONAL} Walking → resting.`),
+  giveFrac: estimated(0.1, '', `${PROVISIONAL} Crop fill above which an ant offers food.`),
+  receiveReserve: estimated(0.8, '', `${PROVISIONAL} Reserve fraction below which an ant accepts food.`),
+  shareEnd: estimated(1 / 60, '1/s', `${PROVISIONAL} Ending hazard of a sharing bout.`),
+  stallTime: estimated(3, 's', `${PROVISIONAL} A bout ends after this long without flow.`),
+  shareRate: estimated(2 / 120, 'µL/s', `${PROVISIONAL} Crop capacity per 120 s (Bles et al. TEC: 1 unit = 1 s of transfer, mean load 120 units).`),
+  leaveRate: estimated(1 / 300, '1/s', `${PROVISIONAL} Rate at which a hungry ant with an empty crop leaves to forage.`),
+  forageDriveSd: estimated(1, '', `${PROVISIONAL} SD of log individual foraging propensity.`),
+  leaveGain: estimated(1.5, '1/s', `${PROVISIONAL} Steering gain towards the entrance while leaving, or returning after straying out.`),
+};
+export const LASIUS_NEST = resolve(LASIUS_NEST_DEF);

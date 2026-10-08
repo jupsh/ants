@@ -9,7 +9,8 @@ import path from 'node:path';
  * `__SIM_HASH__` define in vite.config.ts) use a precomputed result only when
  * it matches, so a stale file is never shown as the current model's output.
  */
-const ROOTS = ['src/sim', 'src/worker', 'data/fits', 'data/khuong2013', 'data/bles2022'];
+// Only the fits the pages use: candidate and recovery fits elsewhere in data/fits must not mark the pages stale.
+const ROOTS = ['src/sim', 'src/worker', 'data/fits/e1-walk.json', 'data/fits/e2-drinking.json', 'data/fits/e6-tec.json', 'data/khuong2013', 'data/bles2022'];
 
 export function simHash(root = process.cwd()): string {
   const files: string[] = [];
@@ -20,7 +21,12 @@ export function simHash(root = process.cwd()): string {
       else files.push(p);
     }
   };
-  for (const r of ROOTS) if (fs.existsSync(path.join(root, r))) walk(path.join(root, r));
+  for (const r of ROOTS) {
+    const p = path.join(root, r);
+    if (!fs.existsSync(p)) continue;
+    if (fs.statSync(p).isDirectory()) walk(p);
+    else files.push(p);
+  }
   const h = crypto.createHash('sha256');
   for (const f of files.sort()) {
     h.update(path.relative(root, f).split(path.sep).join('/'));

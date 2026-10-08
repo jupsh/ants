@@ -13,6 +13,8 @@ export interface Traits {
   neverLays: boolean;
   /** Mean fraction of time the gaster touches the ground while laying trail. */
   layIntensity: number;
+  /** In-nest workers: individual propensity to leave the nest to forage (multiplies the base rate). */
+  forageDrive?: number;
 }
 
 /** Everything an ant knows and intends. Never contains world truth. */
@@ -42,6 +44,9 @@ export interface Mind {
   lastCropUl: number;
   /** Gaster tip currently lowered for marking. */
   gasterDown: boolean;
+  /** Nestmate currently shared with (trophallaxis), or −1, and seconds since food last flowed. */
+  partner: number;
+  shareStall: number;
   /** Event counters for experiments (observational, not used by behaviour). */
   log: { foundFoodAt?: number; drinkStart?: number; drinkEnd?: number; drinks: { id: number; start: number; end: number; ul: number; satisfiedAfter: boolean }[]; layingFrom?: number };
 }
@@ -64,6 +69,8 @@ export function newMind(traits: Traits, walkP: WalkParams, rng: RNG): Mind {
     foodId: -1,
     lastCropUl: 0,
     gasterDown: false,
+    partner: -1,
+    shareStall: 0,
     log: { drinks: [] },
   };
 }

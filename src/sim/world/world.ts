@@ -4,6 +4,7 @@ import type { Mind } from '../mind/mind';
 import type { Apparatus } from './apparatus';
 import type { PheromoneField } from './field';
 import type { SugarDroplet } from './food';
+import type { PathField } from './pathField';
 import { PlaneSurface, type Surface } from './surface';
 
 export interface Agent {
@@ -31,6 +32,14 @@ export class World {
   trailThreshold = 1;
   /** Radius (mm) within which nest odour at the entrance is detectable. */
   nestCueRadius = 8;
+  /**
+   * Optional cues that spread along the surface (step 4): nest odour sensed
+   * outside the nest (replacing the straight-line entrance cue, detectable
+   * within nestCueRadius of path distance), and the exit cue (air/light from
+   * the passage) sensed inside it.
+   */
+  nestOdour: PathField | null = null;
+  exitCue: PathField | null = null;
   private nextFoodId = 1;
 
   constructor(

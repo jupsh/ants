@@ -1,4 +1,5 @@
 import statusMd from '../docs/STATUS.md?raw';
+import { renderColony } from './ui/colonyPage';
 import { renderE1 } from './ui/e1Page';
 import { renderE2 } from './ui/e2Page';
 import { renderE6 } from './ui/e6Page';
@@ -10,7 +11,7 @@ const PAGES: Page[] = [
   { id: 'e1', label: 'E1 Walking', render: renderE1 },
   { id: 'e2', label: 'E2 Recruit decision', render: renderE2 },
   { id: 'e6', label: 'E6 Food sharing', render: renderE6 },
-  { id: 'colony', label: 'Colony (planned)' },
+  { id: 'colony', label: 'Colony (provisional)', render: renderColony },
   { id: 'status', label: 'Project status', render: renderStatus },
 ];
 

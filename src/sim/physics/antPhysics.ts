@@ -1,7 +1,7 @@
 import { arrhenius } from '../core/math';
 import type { ForagerAction } from '../behavior/lasiusForager';
 import type { Body } from '../agent/body';
-import type { WalkParams } from '../models/walk';
+import type { MotorMod, WalkParams } from '../models/walk';
 import { walkStep } from '../models/walk';
 import type { SurfacePercept } from '../perception/types';
 import type { Agent, World } from '../world/world';
@@ -32,64 +32,88 @@ export function satVapourMmHg(t: number): number {
 }
 
 /**
+ * The motor program that turns an intended movement into a path. The
+ * adopted E1 walker (`walkStep`) by default; replaceable (step 4 uses the
+ * walker provisionally, STATUS 2026-10-08), same signature as walkStep.
+ */
+export type MotorFn = typeof walkStep;
+
+/**
  * Execute a forager's action for one step: walking with obstacle edges,
  * path-integration update (self-motion sense with compass error), trail
  * deposition, drinking, metabolism and water loss. All mass flows go
  * through the ledger.
  */
-export function applyForagerAction(w: World, a: Agent, act: ForagerAction, per: SurfacePercept, walkP: WalkParams, phys: PhysParams, dt: number): void {
+export function applyForagerAction(w: World, a: Agent, act: ForagerAction, per: SurfacePercept, walkP: WalkParams, phys: PhysParams, dt: number, motor: MotorFn = walkStep): void {
   const b = a.body;
-  const m = a.mind;
   b.gasterDown = act.gasterDown;
   b.stepLen = 0;
-  let walked = 0;
-  if (!act.stand) {
-    walked = walkStep(
-      walkP,
-      m.walk,
-      per,
-      1,
-      m.pi,
-      (dx, dy, len) => {
-        const nx = b.x + dx;
-        const ny = b.y + dy;
-        if (!w.apparatus.inside(nx, ny)) {
-          // Edge of the surface: the ant turns along it (smallest turn that stays on the surface).
-          for (let k = 1; k <= 12; k++)
-            for (const sgn of [1, -1]) {
-              const h = m.walk.heading + sgn * k * 0.26;
-              if (w.apparatus.inside(b.x + Math.cos(h) * len, b.y + Math.sin(h) * len)) {
-                m.walk.heading = h;
-                return;
-              }
-            }
-          m.walk.heading += Math.PI;
-          return;
-        }
-        if (b.gasterDown && w.trail) {
-          // Deposit along the segment in ≤ 1 mm pieces.
-          const pieces = Math.max(1, Math.ceil(len));
-          for (let i = 0; i < pieces; i++) {
-            const f = (i + 0.5) / pieces;
-            w.trail.deposit(b.x + dx * f, b.y + dy * f, phys.depositPerMm, len / pieces);
-          }
-        }
-        b.x = nx;
-        b.y = ny;
-        b.heading = Math.atan2(dy, dx);
-        b.stepLen += len;
-        b.gait += len / (b.morph.len * 0.8);
-        // Path integration: true self-motion read through a biased, noisy compass.
-        const he = b.heading + m.piBias + Math.sqrt(phys.compassNoise * len) * b.rng.gauss();
-        m.pi.x += Math.cos(he) * len * m.piGain;
-        m.pi.y += Math.sin(he) * len * m.piGain;
-      },
-      act.motor,
-    );
-  }
+  const walked = act.stand ? 0 : walkAnt(w, a, per, walkP, phys, act.motor, motor);
   if (act.drinkFrom >= 0) drink(w, b, act.drinkFrom, phys, dt);
   metabolise(w, b, phys, walked > 0, dt);
   if (act.enterNest) a.inactive = true;
+}
+
+/**
+ * Walk one step with the motor program: edges of the surface turn the ant
+ * along them, trail is deposited where the gaster touches, and path
+ * integration reads the true self-motion through a biased, noisy compass.
+ * Returns the path length walked (mm).
+ */
+export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkParams, phys: PhysParams, mod: MotorMod, motor: MotorFn = walkStep): number {
+  const b = a.body;
+  const m = a.mind;
+  return motor(
+    walkP,
+    m.walk,
+    per,
+    1,
+    m.pi,
+    (dx, dy, len) => {
+      // Walk the segment in ≤ 0.5 mm pieces, up to the edge of the surface:
+      // checking only the end point let long steps jump the 4 mm wall
+      // between the Bles nest and its foraging area, or cut corners.
+      const x0 = b.x;
+      const y0 = b.y;
+      const pieces = Math.max(1, Math.ceil(len / 0.5));
+      let done = 0;
+      while (done < pieces && w.apparatus.inside(x0 + (dx * (done + 1)) / pieces, y0 + (dy * (done + 1)) / pieces)) done++;
+      const f = done / pieces;
+      const walked = len * f;
+      if (walked > 0) {
+        if (b.gasterDown && w.trail) {
+          // Deposit along the walked part in ≤ 1 mm pieces.
+          const n = Math.max(1, Math.ceil(walked));
+          for (let i = 0; i < n; i++) {
+            const g = ((i + 0.5) / n) * f;
+            w.trail.deposit(x0 + dx * g, y0 + dy * g, phys.depositPerMm, walked / n);
+          }
+        }
+        b.x = x0 + dx * f;
+        b.y = y0 + dy * f;
+        b.heading = Math.atan2(dy, dx);
+        b.stepLen += walked;
+        b.gait += walked / (b.morph.len * 0.8);
+        // Path integration: true self-motion read through a biased, noisy compass.
+        const he = b.heading + m.piBias + Math.sqrt(phys.compassNoise * walked) * b.rng.gauss();
+        m.pi.x += Math.cos(he) * walked * m.piGain;
+        m.pi.y += Math.sin(he) * walked * m.piGain;
+      }
+      if (done < pieces) {
+        // Edge of the surface: the ant turns along it (smallest turn whose next 0.5 mm stays on the surface).
+        for (let k = 1; k <= 12; k++)
+          for (const sgn of [1, -1]) {
+            const h = m.walk.heading + sgn * k * 0.26;
+            if (w.apparatus.inside(b.x + Math.cos(h) * 0.5, b.y + Math.sin(h) * 0.5)) {
+              m.walk.heading = h;
+              return;
+            }
+          }
+        m.walk.heading += Math.PI;
+      }
+    },
+    mod,
+  );
 }
 
 function drink(w: World, b: Body, foodId: number, phys: PhysParams, dt: number): void {
@@ -115,6 +139,7 @@ function drink(w: World, b: Body, foodId: number, phys: PhysParams, dt: number):
   b.cropUl += ul;
   b.cropSugar += s;
   b.cropWater += wa;
+  b.mouthFlow += ul;
   w.ledger.move('sugar', 'food', 'crop', s);
   w.ledger.move('water', 'food', 'crop', wa);
 }
@@ -127,7 +152,7 @@ function drink(w: World, b: Body, foodId: number, phys: PhysParams, dt: number):
 /** Per-(mass, temperature, humidity) constants of metabolism; recomputed only when they change. */
 const metaCache = { mass: NaN, tempC: NaN, rh: NaN, massTemp: 0, vpd: 0 };
 
-function metabolise(w: World, b: Body, phys: PhysParams, active: boolean, dt: number): void {
+export function metabolise(w: World, b: Body, phys: PhysParams, active: boolean, dt: number): void {
   const c = metaCache;
   if (c.mass !== b.morph.mass || c.tempC !== w.tempC || c.rh !== w.rh) {
     c.mass = b.morph.mass;

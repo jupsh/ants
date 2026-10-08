@@ -36,6 +36,11 @@ export class Body {
   stepLen = 0;
   /** Accumulated gait phase (strides). */
   gait = 0;
+  /**
+   * Liquid that passed the mouthparts this step (µL; + taken in by drinking
+   * or receiving, − given away). Physics sets it; interoception reports it.
+   */
+  mouthFlow = 0;
   /** Individual intake-rate multiplier (pharyngeal pumping differs between workers; Mailleux et al. 2009). */
   intakeFactor = 1;
 

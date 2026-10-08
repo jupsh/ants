@@ -156,8 +156,12 @@ button.primary:disabled {
   grid-template-columns: minmax(280px, 520px) 1fr;
   gap: 16px;
 }
+.grid.wide-left {
+  grid-template-columns: minmax(0, 3fr) minmax(280px, 2fr);
+}
 @media (max-width: 900px) {
-  .grid {
+  .grid,
+  .grid.wide-left {
     grid-template-columns: 1fr;
   }
 }
@@ -278,4 +282,54 @@ table.params td.num {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px;
+}
+
+/* Colony page (provisional step-4 view). */
+.badge.warn {
+  border-color: color-mix(in srgb, var(--warning) 60%, transparent);
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--warning) 18%, transparent);
+  vertical-align: middle;
+}
+.notice {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border-left: 3px solid var(--warning);
+  background: color-mix(in srgb, var(--warning) 8%, var(--surface-1));
+  color: var(--text-secondary);
+  font-size: 13px;
+  border-radius: 4px;
+}
+.toolbar.scrub {
+  margin: 8px 0 4px;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+.chip .key {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.mono {
+  font-variant-numeric: tabular-nums;
+}
+table.params tr.total td {
+  border-top: 1px solid var(--axis);
+  font-weight: 600;
 }
