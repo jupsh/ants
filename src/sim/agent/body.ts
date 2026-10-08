@@ -36,6 +36,8 @@ export class Body {
   stepLen = 0;
   /** Accumulated gait phase (strides). */
   gait = 0;
+  /** Individual intake-rate multiplier (pharyngeal pumping differs between workers; Mailleux et al. 2009). */
+  intakeFactor = 1;
 
   constructor(id: number, seed: number, morph: Morphology, reserveFrac: number, reserveMax: number) {
     this.id = id;

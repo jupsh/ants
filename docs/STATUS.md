@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-07 (session 2: steps 1 and 2 done; next is step 3, the E2 mechanism comparison). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-07 (session 2: steps 1–3 done; next is step 3b, E2 profiles and the time-based stopping candidate). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
@@ -96,39 +96,45 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      E6, so it is a reference, not a test of ours.
    - Our encounter-based model (step 4) must go through the same observer.
 
-3. **Bounded E2 mechanism comparison** (before any new E2 mechanism):
-   - **M_a (current):** individual desired volume plus a low-max stop
-     hazard, never-layers fixed at 12 %, and an unsatisfied-lay probability.
-   - **M_b (Mailleux et al.'s published rule, corrected 2026-10-07):**
-     S(V) = ηΔV / (1 + e^{−η(V − Vc)}) per second with ΔV = 0.01 µL/s, so
-     the ceiling is ηΔV ≈ 0.043 s⁻¹, **not 1** (a max-1 rule stops ants at
-     ~0.2 µL). Equivalent to logistic desired volumes (centre Vc, scale
-     1/η). Pt = 0.9 of satisfied ants lay trail. Published η = 4.3, Vc =
-     0.9–1.0 (2006: η = 5, Vc by starvation 0.64/0.86/0.90). Run it both
-     with published parameters and refitted. See `mailleux-rules.md`.
-     - Noted by the research agent (inferred, not by the authors): with
-       published parameters M_b predicts 8–19 % trail after the first
-       0.7 µL drop (data 38 %) and too little trail at 0.3 µL drops.
-     - A logistic volume spread with fixed intake implies a drinking-time
-       SD ≈ 36–42 s (data 21–26 s). 2009 reports intake rate as an
-       individual trait (volume ≈ 0.006 × time + 0.15). Between-ant intake
-       rate is therefore a documented candidate for the spread problem in
-       both M_a and M_b; decide before the comparison whether it is part of
-       the shared base model, and log it.
-   - **M_c:** M_a with the never-layer fraction free (prior 10–20 %),
-     tested with and without the unsatisfied-lay probability.
-   - **How:** same fit targets and same optimiser budget. Report the
-     parameter count and the fit.
-   - **New discriminating observation:** the between-ant SD of drinking
-     time (data 21–24 s at the 3 µL drop; M_a gives 42–53 s) and of
-     first-drop intake (data 0.25 µL; M_a 0.12). Decide *before fitting*
-     whether the SDs become fit targets or stay as development checks, and
-     log it.
-   - **Identifiability check for M_a:** profiles or correlations of
-     desiredFed/Hungry, stopHazard, pipette accessibility and
-     unsatisfiedLayProb, plus the `reserveDays` mapping.
-   - **Then decide.** The between-drop timing failure may then be addressed
-     (homing/edge behaviour), now explicitly as development evidence.
+3. ~~**Bounded E2 mechanism comparison.**~~ Done (session 2); pre-
+   registration in the Decisions log. Fresh seeds, combined SE
+   (`scripts/compareE2.ts`):
+
+   | Variant | k | fit Σz² | + 2k | dev Σz² | drinking-time SD z (1/4/8 d) |
+   |---|---|---|---|---|---|
+   | **M_a (adopted)** | 8 | 15.9 | **31.9** | 148.8 | 7.1 / 12.2 / 11.8 |
+   | M_c (never-layers free) | 9 | 16.3 | 34.3 | 150.7 | 7.2 / 12.2 / 11.6 |
+   | M_c0 (q = 0) | 8 | 23.0 | 39.0 | 183.1 | 7.3 / 12.5 / 12.1 |
+   | M_b (Mailleux rule) | 6 | 27.6 | 39.6 | 168.7 | 5.5 / 7.9 / 9.3 |
+
+   - q is supported (M_c vs M_c0: Δ 4.7); a free never-layer fraction is
+     not (stays at 0.12). M_b's rule (only satisfied ants lay) gives 21 %
+     trail after drop 1 (38 %) and 58 % overall (84 %).
+   - Shared parameters agree across variants: volume-estimate SD σ_m ≈
+     0.20–0.21 µL, intake-rate SD σ_r ≈ 0.19–0.21. The 2009 volume–time
+     regression is now reproduced (Spearman 0.45–0.49 vs 0.46).
+   - **Every variant fails the pre-registered spread check**: drinking
+     time at the 3 µL drop is about twice as variable as in the data.
+   - Adopted: M_a + σ_r + σ_m (`data/fits/e2-drinking.json` = `e2-Ma.json`).
+   - Identifiability (`scripts/identifyE2.ts`): the finite-difference
+     Hessian is indefinite (160 evaluations may not reach the minimum, and
+     the Monte-Carlo loss is rough at 150 scouts), so correlations are not
+     interpretable. Diagonal curvature: desiredHungry, stopHazard,
+     desiredFed, σ_r, desiredSd well constrained; σ_m, q and pipette
+     accessibility weakly.
+3b. **E2 follow-up** (new):
+   - Profile likelihoods for M_a (re-fit with one parameter pinned on a
+     grid), now affordable with the process pool; σ_m matters most.
+   - **Candidate M_d, time-based satiation** (development-motivated by the
+     spread failure, so it needs a held-out test): the leaving hazard
+     depends on cumulative drinking time relative to an individual desired
+     drinking time instead of on volume. With time CV 0.26 (data), σ_r 0.2
+     and σ_m 0.2 it predicts a volume CV ≈ 0.40 (data 0.43), whereas volume
+     rules need time CV ≥ volume CV. Distinguishing observations: drop-2
+     drinking time after an exhausted drop 1 (data 23 s), the volume–time
+     regression, and the held-out 2003 six-pipette experiment.
+   - Pre-register M_d (same targets, budget and shared base) before
+     fitting it, then test M_a and M_d once on the 2003 experiment.
 4. **E6 encounter-based model:**
    - Build the lab nest (56 × 41 × 2 mm chamber, 4 × 3 × 2 mm passage,
      61 × 49 mm area) with resting and active workers and trophallaxis on
@@ -187,37 +193,9 @@ step: repo Settings → Pages → Source = "GitHub Actions".
    match.
 6. Backlog (below), sensitivity analysis.
 
-### How to run
-- The dev server is run by the user: `npx vite` → http://localhost:5173
-  (pages: `#e1` walking, `#e2` recruit decision, `#e6` food sharing,
-  `#status`). Don't start a
-  second one.
-- Tests: `npm test` (~35 s).
-- Fits: `npx vite-node scripts/fitE1.ts` (~10 min) and
-  `scripts/fitE2.ts` (~5 min). They write `data/fits/*.json`, which
-  `src/sim/species/lasiusM1.ts` merges. Data summaries:
-  `scripts/analyzeKhuong.ts` and `scripts/analyzeBles.ts`.
-- Judge the current fits (combined-SE criteria, writes nothing):
-  `npx vite-node scripts/reportE1.ts` (~2 min) and `scripts/reportE2.ts`
-  (~25 s, 10 seed blocks × 150 scouts).
-
-### Gotchas learned
-- Never `pkill -f`/`pgrep -f` with a pattern that also appears in your own
-  shell command: it kills the tool shell. Use
-  `ps -eo pid,args | grep fitE2 | grep -v grep`, then `kill -9 <pids>`
-  (vite-node ignores SIGTERM).
-- Don't run two fits writing the same log or JSON. A non-monotone "best
-  loss" in a Nelder–Mead log means two processes are running (fits are
-  deterministic through common random numbers, `RNG.stream(seed, id)`).
-- Vite dev serves `.gz` with `Content-Encoding: gzip`. Loaders check the
-  gzip magic bytes before decompressing (`src/worker/e1Worker.ts`).
-- Headless browser checks: scratchpad `pw/probe.mjs` (args: hash, png
-  path, text to wait for) imports playwright-core from
-  `/home/norma/repos/math-ui/node_modules/playwright-core/index.mjs` with
-  `~/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome`. Recreate
-  it if the scratchpad is gone.
-- Animation clocks must persist across frames. Advancing from the current
-  frame's timestamp each tick froze the E2 playback at 60 fps; this is fixed.
+### How to run, gotchas, code map
+Moved to [`CLAUDE.md`](../CLAUDE.md) at the repo root (session 2), which
+Claude Code loads automatically.
 
 ---
 
@@ -259,6 +237,10 @@ step: repo Settings → Pages → Source = "GitHub Actions".
     and should not be used as a held-out test of any E2 model.
   - The 2006 3 µL data largely overlap the 1999 data (same lab, near-equal
     means, re-selected n). Never treat them as an independent replicate.
+  - **Step 3 (session 2):** the between-ant drinking-time SDs (1999, 3 µL)
+    were the pre-registered checks; they have now been inspected for all
+    variants and become **development**. Any variant motivated by them
+    (e.g. M_d) needs a held-out test.
 - **E6 (Bles et al. 2022):**
   - The raw data have been *summarised descriptively* (`scripts/analyzeBles.ts`)
     but **no model has been run against them**. E6 remains **held-out** for
@@ -447,42 +429,12 @@ step: repo Settings → Pages → Source = "GitHub Actions".
   - The *P. barbatus* tunnel width is now correctly labelled as derived
     from *P. badius*.
 - **E1:** steep-slope gap.
-- **E2:** never-layer fraction; between-drop timing; second-drop drinking.
+- **E2:** drinking-time spread (all variants); 4-day trail fraction (the
+  never-layer ceiling, z −3.3); between-drop timing; second-drop drinking
+  time (38 vs 23 s).
 
-## Code map (M1 architecture)
-- `src/sim/core/`: rng (per-agent streams, wrapped Cauchy), math, param
-  (provenance v2: measured/fitted/derived/estimated, plus conditions, n,
-  uncertainty, fit, validatedBy).
-- `src/sim/analysis/`: trajectory statistics (per-track accumulation +
-  combine, for cheap bootstraps), Khuong parser, trophallaxis statistics
-  (Bles), Nelder–Mead, and `compare.ts` (combined-SE z, log-SD z, KS
-  test, block estimates, cluster bootstrap).
-- `src/sim/models/walk.ts`: the motor program (MotorMod hooks for steering).
-- `src/sim/perception/`: percept types and `perceive.ts`, the only bridge
-  from world to behaviour.
-- `src/sim/mind/mind.ts`: traits and cognitive state.
-- `src/sim/behavior/lasiusForager.ts`: the policy. It uses only percepts,
-  mind and interoception; `test/architecture.test.ts` enforces this.
-- `src/sim/physics/`: `antPhysics.ts` (walls, path integration with compass
-  error, drinking, trail deposition, metabolism, evaporation) and
-  `ledger.ts`.
-- `src/sim/world/`: apparatus (lab geometries), food, world, surface,
-  pheromone field, alarm plumes, terrain, items, spatial hash.
-- `src/sim/experiments/`: `e1Exploration` and `e1Compare`; `e2Mailleux`
-  (protocols) and `e2Targets` (targets with roles, shared by fit, tests and
-  UI).
-- `src/sim/species/`: `lasiusM1.ts` (M1 parameters; merges
-  `data/fits/*.json`), `refs.ts`, and 7 other draft species (unvalidated).
-- `src/sim/nest/` and `src/sim/env/`: the 3D voxel nest and the soil
-  heat/climate models, built early and reserved for field colonies.
-- `attic/`: pre-rework draft code, excluded from the build. Its colony,
-  brood and task logic is to be ported later.
-- UI: `src/main.ts`, `src/ui/` (E1 and E2 pages, charts), `src/worker/`.
-- Scripts: `scripts/analyzeKhuong.ts`, `analyzeBles.ts`, `fitE1.ts`,
-  `fitE2.ts`, `reportE1.ts`, `reportE2.ts`.
-- Data: `data/khuong2013/`, `data/bles2022/`, `data/fits/`.
-- Evidence base: `docs/research/lasius-niger.md`. Architecture:
-  `docs/DESIGN.md`.
+## Code map
+See [`CLAUDE.md`](../CLAUDE.md).
 
 ## Milestones
 - **M1 (current):** L. niger reproduces food collection and food sharing
@@ -538,3 +490,55 @@ step: repo Settings → Pages → Source = "GitHub Actions".
   - E2 roles renamed: `validation` → `development` (they were inspected).
   - The E1 20° test is now an expected failure: the earlier pass came from
     loose tolerances, not from agreement.
+- **2026-10-07** Step 3 pre-registration (decided before any step-3 fit):
+  - The between-ant SDs (drinking time at the 3 µL drop, drop-1 intake)
+    stay **checks, never fit targets**, so they can discriminate M_a, M_b
+    and M_c fairly.
+  - Between-ant variation in intake rate joins the **shared base model**
+    for all variants (+1 parameter: SD of log intake rate). Its value is
+    estimated from the 2009 volume–time relation (volume ≈ 0.006 × time +
+    0.15 µL, r_s = 0.46, N = 126) and the 1999/2006 volume and time
+    summaries, not tuned to the drinking-time SD.
+  - **Amendment (same day, still before any step-3 fit):** the papers'
+    volumes are gaster-ellipsoid estimates, and drinking *time* varies
+    less than *volume* (3 µL drop, 2006: CV 0.26 vs 0.43; 2009 drop 1:
+    0.24 vs 0.53). Under any volume-threshold rule time must vary at least
+    as much as volume, so the volume data carry measurement error of
+    ≈ 0.2–0.3 µL. The simulated observer therefore reports volume + N(0,
+    σ_m) (floored at 0), from its own RNG stream; σ_m joins the shared base
+    (+1 observation parameter).
+  - σ_r and σ_m are fitted in every variant to the 2009 volume–time
+    regression (slope 0.006 µL/s, Spearman r_s = 0.46, N = 126; SEs from
+    the usual large-sample formulas, ≈ 0.001 and ≈ 0.07). The drop-1
+    intake SD involves the same ants, so it is **no longer an independent
+    check**; the 1999 3 µL drinking-time SDs remain fully independent.
+  - M_b is implemented as a per-volume hazard η·σ(η(V − Vc)) per µL
+    ingested (identical to the published per-second form at a fixed intake
+    rate, and it keeps the logistic volume distribution the authors fitted
+    when intake rates vary). M_b = shared Vc (desiredSd = 0), Pt = 0.9
+    (never-layers 10 %), q = 0; η free.
+  - Same targets and optimiser budget (160 Nelder–Mead evaluations, 150
+    scouts per condition, common random numbers) for M_a, M_b, M_c (never-
+    layer fraction free within 10–20 %) and M_c0 (M_c with q = 0). Report k
+    and loss + 2k.
+- **2026-10-07** Refactor for maintainability (behaviour-preserving; tests,
+  build, page probes and `reportE2` output unchanged):
+  - `CLAUDE.md` (auto-loaded) now holds run instructions, conventions,
+    code map and gotchas; STATUS keeps progress, plan, evidence, results.
+  - `scripts/lib.ts` (args, Khuong/Bles loading, JSON) used by all scripts
+    and tests; `scripts/probe.mjs` replaces the scratchpad browser probe.
+  - `applyFit` (core/param.ts): fit files now update the provenance
+    records, which had drifted from the values in use.
+  - `src/ui/dom.ts` (labelled controls, verdict cells, canvas sizing)
+    shared by the E1/E2/E6 pages; `meanSd` in compare.ts.
+  - Proposed, not done: decide the fate of ~2.4 k lines of unreachable
+    reserved code (nest/, env/, draft species, terrain/items/spatialHash);
+    split STATUS further (evidence / results / decisions files); one fit-file
+    schema for e1/e2/e6; playwright-core as a devDependency.
+- **2026-10-07** Speed (session 2): profiling showed the conservation ledger
+  (string keys, Map lookups) at 18 % and per-step recomputation of
+  metabolic constants at ~10 % of E2 run time; both fixed (−30 %, results
+  bit-identical). A process pool (`scripts/pool.ts`, one vite-node child
+  per core − 1) runs E1 ants, E2 scouts and E6 colonies in parallel, with
+  results bit-identical to serial runs (checked for all three).
+  reportE1 2 min → 9 s, reportE2 25 s → 9 s, reportE6 → 4 s.

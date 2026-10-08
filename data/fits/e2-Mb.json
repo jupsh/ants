@@ -1,0 +1,61 @@
+{
+  "experiment": "E2 drinking & trail-laying decision (Mailleux et al. 1999, 2009)",
+  "variant": "Mb",
+  "label": "M_b (Mailleux et al.)",
+  "description": "Published response-threshold rule: per-µL leaving hazard η·σ(η(V − Vc)) with a shared Vc (logistic stopping volumes); 90 % of satisfied ants lay trail; unsatisfied ants never do.",
+  "fittedOn": [
+    "d1.drink",
+    "d1.trail",
+    "d4.drink",
+    "d4.trail",
+    "d8.drink",
+    "d8.trail",
+    "two.ul1",
+    "two.t1",
+    "two.tl1",
+    "two.vtSlope",
+    "two.vtRs"
+  ],
+  "dt": 0.1,
+  "scoutsPerCondition": 150,
+  "evals": 161,
+  "seconds": 523.139,
+  "loss": 39.827224200533045,
+  "k": 6,
+  "free": {
+    "forager.desiredFed": 0.5609195949138243,
+    "forager.desiredHungry": 0.6933441108952608,
+    "setup.accessible": 0.7802320223858878,
+    "phys.intakeSd": 0.18785401782669564,
+    "setup.volumeSd": 0.21234289047758595,
+    "forager.stopEta": 5.530457766133732
+  },
+  "forager": {
+    "desiredFed": 0.5609195949138243,
+    "desiredHungry": 0.6933441108952608,
+    "hungerScale": 0.3,
+    "desiredSd": 0,
+    "stopHazard": 0.06149006191467572,
+    "stopEta": 5.530457766133732,
+    "stopPerVolume": 1,
+    "emptyPatience": 3,
+    "neverLayFraction": 0.1,
+    "unsatisfiedLayProb": 0,
+    "layIntensity": 0.13,
+    "layIntensitySd": 0.08,
+    "gasterBout": 0.25,
+    "arsMean": 80,
+    "arsRunScale": 0.4,
+    "homeGain": 1,
+    "homeRunScale": 3,
+    "compassBias": 0.08,
+    "loadSlowdown": 1
+  },
+  "phys": {
+    "intakeSd": 0.18785401782669564
+  },
+  "pipetteAccessible": 0.7802320223858878,
+  "observer": {
+    "volumeSd": 0.21234289047758595
+  }
+}

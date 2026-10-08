@@ -5,15 +5,16 @@ export interface NMResult {
   evals: number;
 }
 
-export function nelderMead(fn: (x: number[]) => number, x0: number[], step: number[] | number = 0.2, maxEvals = 400, tol = 1e-4, log?: (r: NMResult) => void): NMResult {
+/** The objective may be asynchronous (e.g. simulations run on a worker pool). */
+export async function nelderMead(fn: (x: number[]) => number | Promise<number>, x0: number[], step: number[] | number = 0.2, maxEvals = 400, tol = 1e-4, log?: (r: NMResult) => void): Promise<NMResult> {
   const n = x0.length;
   const steps = Array.isArray(step) ? step : x0.map(() => step);
-  let simplex: { x: number[]; f: number }[] = [{ x: x0.slice(), f: fn(x0) }];
+  let simplex: { x: number[]; f: number }[] = [{ x: x0.slice(), f: await fn(x0) }];
   let evals = 1;
   for (let i = 0; i < n; i++) {
     const x = x0.slice();
     x[i] += steps[i];
-    simplex.push({ x, f: fn(x) });
+    simplex.push({ x, f: await fn(x) });
     evals++;
   }
   const alpha = 1;
@@ -28,11 +29,11 @@ export function nelderMead(fn: (x: number[]) => number, x0: number[], step: numb
     for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) centroid[j] += simplex[i].x[j] / n;
     const worst = simplex[n];
     const xr = centroid.map((c, j) => c + alpha * (c - worst.x[j]));
-    const fr = fn(xr);
+    const fr = await fn(xr);
     evals++;
     if (fr < simplex[0].f) {
       const xe = centroid.map((c, j) => c + gamma * (xr[j] - c));
-      const fe = fn(xe);
+      const fe = await fn(xe);
       evals++;
       simplex[n] = fe < fr ? { x: xe, f: fe } : { x: xr, f: fr };
     } else if (fr < simplex[n - 1].f) {
@@ -40,17 +41,16 @@ export function nelderMead(fn: (x: number[]) => number, x0: number[], step: numb
     } else {
       const outside = fr < worst.f;
       const xc = outside ? centroid.map((c, j) => c + rho * (xr[j] - c)) : centroid.map((c, j) => c + rho * (worst.x[j] - c));
-      const fc = fn(xc);
+      const fc = await fn(xc);
       evals++;
       if (fc < (outside ? fr : worst.f)) simplex[n] = { x: xc, f: fc };
       else {
         const best = simplex[0];
-        simplex = simplex.map((v, i) => {
-          if (i === 0) return v;
-          const x = v.x.map((xi, j) => best.x[j] + sigma * (xi - best.x[j]));
+        for (let i = 1; i <= n; i++) {
+          const x = simplex[i].x.map((xi, j) => best.x[j] + sigma * (xi - best.x[j]));
           evals++;
-          return { x, f: fn(x) };
-        });
+          simplex[i] = { x, f: await fn(x) };
+        }
       }
     }
   }

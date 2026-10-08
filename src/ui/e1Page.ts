@@ -4,11 +4,12 @@ import incline2 from '../../data/khuong2013/incline2.csv.gz?url';
 import incline3 from '../../data/khuong2013/incline3.csv.gz?url';
 import incline4 from '../../data/khuong2013/incline4.csv.gz?url';
 import incline5 from '../../data/khuong2013/incline5.csv.gz?url';
-import { verdict } from '../sim/analysis/compare';
 import { summarize } from '../sim/analysis/trajectory';
 import { walkParams, type WalkParams } from '../sim/models/walk';
 import type { E1Request, E1Response, PlainTrack } from '../worker/e1Worker';
 import E1Worker from '../worker/e1Worker?worker';
+import { verdict } from '../sim/analysis/compare';
+import { fitCanvas, labeled, statusClass, VERDICT_LABEL } from './dom';
 import { ecdf, lineChart } from './lineChart';
 
 const INCLINES = [
@@ -66,12 +67,7 @@ export function renderE1(root: HTMLElement): () => void {
   const runBtn = Object.assign(document.createElement('button'), { className: 'primary', textContent: 'Run simulation' });
   const status = document.createElement('span');
   status.className = 'note';
-  const lab = (t: string, e: HTMLElement) => {
-    const l = document.createElement('label');
-    l.append(t, e);
-    return l;
-  };
-  bar.append(lab('Incline', sel), lab('Simulated ants', antsIn), lab('Seed', seedIn), runBtn, status);
+  bar.append(labeled('Incline', sel), labeled('Simulated ants', antsIn), labeled('Seed', seedIn), runBtn, status);
   root.appendChild(bar);
 
   const grid = document.createElement('div');
@@ -99,7 +95,7 @@ export function renderE1(root: HTMLElement): () => void {
   const playBtn = Object.assign(document.createElement('button'), { className: 'primary', textContent: 'Pause' });
   const tLabel = document.createElement('span');
   tLabel.className = 'note';
-  playBar.append(lab('Recorded', showData), lab('Simulated', showSim), playBtn, tLabel);
+  playBar.append(labeled('Recorded', showData), labeled('Simulated', showSim), playBtn, tLabel);
   arenaCard.appendChild(playBar);
   left.appendChild(arenaCard);
 
@@ -158,15 +154,7 @@ export function renderE1(root: HTMLElement): () => void {
     const now = performance.now();
     if (playing) playT += ((now - last) / 1000) * 2;
     last = now;
-    const dpr = window.devicePixelRatio || 1;
-    const size = canvas.clientWidth;
-    if (canvas.width !== Math.round(size * dpr)) {
-      canvas.width = Math.round(size * dpr);
-      canvas.height = Math.round(size * dpr);
-    }
-    const ctx = canvas.getContext('2d')!;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const { ctx, dpr } = fitCanvas(canvas);
     const css = getComputedStyle(document.documentElement);
     const scale = (canvas.width / 2 - 8 * dpr) / 210;
     ctx.translate(canvas.width / 2, canvas.height / 2);
@@ -266,7 +254,6 @@ function renderAgreement(card: HTMLElement, r: E1Response, role: string): void {
   }
   t.appendChild(head);
   const fmt = (v: number, se: number) => (Number.isFinite(v) ? v.toPrecision(3) + (Number.isFinite(se) ? ` ± ${se.toPrecision(2)}` : '') : '—');
-  const LABEL = { ok: '✓ within', marginal: '~ marginal', off: '✗ off' };
   for (const row of r.rows) {
     const tr = document.createElement('tr');
     const name = document.createElement('td');
@@ -282,8 +269,8 @@ function renderAgreement(card: HTMLElement, r: E1Response, role: string): void {
     z.textContent = Number.isFinite(row.z) ? row.z.toFixed(1) : '—';
     const st = document.createElement('td');
     const v = verdict(row.z);
-    st.className = `status-${v === 'marginal' ? 'warn' : v === 'off' ? 'bad' : 'ok'}`;
-    st.textContent = LABEL[v];
+    st.className = statusClass(v);
+    st.textContent = VERDICT_LABEL[v];
     tr.append(name, d, sm, z, st);
     t.appendChild(tr);
   }

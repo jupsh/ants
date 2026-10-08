@@ -1,11 +1,11 @@
 import refit from '../../data/fits/e6-tec.json';
-import { verdict, type Comparison } from '../sim/analysis/compare';
 import type { E6Row } from '../sim/experiments/e6Bles';
 import { BLES_TABLE1, type BlesParams } from '../sim/reference/blesTEC';
 import { REFS } from '../sim/species/refs';
 import type { E6Request, E6Response } from '../worker/e6Worker';
 import E6Worker from '../worker/e6Worker?worker';
 import { drawAnt } from './antSprite';
+import { fitCanvas, labeled, zCell } from './dom';
 import { lineChart } from './lineChart';
 
 const MODELS: { id: string; label: string; params: () => BlesParams }[] = [
@@ -41,12 +41,7 @@ export function renderE6(root: HTMLElement): () => void {
   for (const v of [10, 30, 60, 120]) speedSel.append(Object.assign(document.createElement('option'), { value: String(v), textContent: `${v}×`, selected: v === 30 }));
   const status = document.createElement('span');
   status.className = 'note';
-  const lab = (t: string, e: HTMLElement) => {
-    const l = document.createElement('label');
-    l.append(t, e);
-    return l;
-  };
-  bar.append(lab('Model', modelSel), lab('Colonies', nIn), runBtn, lab('Playback', speedSel), status);
+  bar.append(labeled('Model', modelSel), labeled('Colonies', nIn), runBtn, labeled('Playback', speedSel), status);
   root.appendChild(bar);
 
   const grid = document.createElement('div');
@@ -131,16 +126,7 @@ export function renderE6(root: HTMLElement): () => void {
     const dtReal = Math.min(0.1, (now - lastTick) / 1000);
     lastTick = now;
     const css = getComputedStyle(document.documentElement);
-    const dpr = window.devicePixelRatio || 1;
-    const W = canvas.clientWidth;
-    const H = canvas.clientHeight;
-    if (canvas.width !== Math.round(W * dpr)) {
-      canvas.width = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
-    }
-    const ctx = canvas.getContext('2d')!;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const { ctx, dpr } = fitCanvas(canvas);
     // World window: x ∈ [−3, 124], y ∈ [−7, 48] mm.
     const s = Math.min(canvas.width / 127, canvas.height / 55);
     const X = (x: number) => (x + 3) * s;
@@ -287,18 +273,6 @@ function renderTable(card: HTMLElement, rows: E6Row[]): void {
   for (const c of ['Measure', 'Data', 'Simulated', 'z (mean)', 'z (SD)', 'Family']) head.appendChild(Object.assign(document.createElement('th'), { textContent: c }));
   t.appendChild(head);
   const f = (v: number) => (Math.abs(v) < 1 ? v.toFixed(2) : v.toFixed(1));
-  const zCell = (c: Comparison) => {
-    const td = document.createElement('td');
-    td.className = 'num';
-    if (!Number.isFinite(c.z)) {
-      td.textContent = '—';
-      return td;
-    }
-    const v = verdict(c.z);
-    td.classList.add(`status-${v === 'marginal' ? 'warn' : v === 'off' ? 'bad' : 'ok'}`);
-    td.textContent = `${c.z.toFixed(1)} ${v === 'ok' ? '✓' : v === 'marginal' ? '~' : '✗'}`;
-    return td;
-  };
   for (const r of rows) {
     const tr = document.createElement('tr');
     const c1 = Object.assign(document.createElement('td'), { textContent: r.target.label, title: REFS.bles2022?.full ?? 'Bles et al. 2022' });
@@ -306,7 +280,7 @@ function renderTable(card: HTMLElement, rows: E6Row[]): void {
     const c3 = Object.assign(document.createElement('td'), { className: 'num', textContent: `${f(r.simMean)} ± ${f(r.simSd)}` });
     const c6 = document.createElement('td');
     c6.appendChild(Object.assign(document.createElement('span'), { className: `badge ${r.target.family === 'primary' ? 'fit' : 'development'}`, textContent: r.target.family === 'primary' ? 'primary' : 'network (one family)' }));
-    tr.append(c1, c2, c3, zCell(r.mean), zCell(r.spread), c6);
+    tr.append(c1, c2, c3, zCell(r.mean.z), zCell(r.spread.z), c6);
     t.appendChild(tr);
   }
   card.appendChild(t);

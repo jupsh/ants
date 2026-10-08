@@ -1,17 +1,15 @@
 import fs from 'node:fs';
-import zlib from 'node:zlib';
 import { describe, expect, it } from 'vitest';
-import { parseKhuongCsv } from '../src/sim/analysis/khuongData';
 import { ksStatistic } from '../src/sim/analysis/trajectory';
 import { verdict } from '../src/sim/analysis/compare';
 import { compareE1, referenceFor, sampleFor, scalarSE, statsFor } from '../src/sim/experiments/e1Compare';
 import { runE1 } from '../src/sim/experiments/e1Exploration';
 import { walkParams } from '../src/sim/models/walk';
+import { INCLINES, loadKhuong } from '../scripts/lib';
 
 const FIT = 'data/fits/e1-walk.json';
 const params = walkParams(fs.existsSync(FIT) ? JSON.parse(fs.readFileSync(FIT, 'utf8')).params : undefined);
-const INCLINES = [0, Math.PI / 9, Math.PI / 6, Math.PI / 4, Math.PI / 3];
-const data = (k: number) => referenceFor(parseKhuongCsv(zlib.gunzipSync(fs.readFileSync(`data/khuong2013/incline${k}.csv.gz`)).toString('utf8')));
+const data = (k: number) => referenceFor(loadKhuong(k));
 
 describe('E1 numerics', () => {
   it('is deterministic for a given seed', () => {

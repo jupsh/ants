@@ -201,3 +201,57 @@ export function bootstrapSE(n: number, stat: (idx: number[]) => number[], reps =
     return Math.sqrt(v.reduce((s, x) => s + (x - m) ** 2, 0) / (v.length - 1));
   });
 }
+
+/** Ordinary least-squares slope and intercept of y on x. */
+export function olsFit(x: number[], y: number[]): { slope: number; intercept: number } {
+  const n = x.length;
+  const mx = x.reduce((a, b) => a + b, 0) / n;
+  const my = y.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0;
+  let sxx = 0;
+  for (let i = 0; i < n; i++) {
+    sxy += (x[i] - mx) * (y[i] - my);
+    sxx += (x[i] - mx) ** 2;
+  }
+  const slope = sxy / sxx;
+  return { slope, intercept: my - slope * mx };
+}
+
+/** Average ranks (ties share the mean rank). */
+function ranks(v: number[]): number[] {
+  const idx = v.map((x, i) => [x, i] as const).sort((a, b) => a[0] - b[0]);
+  const r = new Array<number>(v.length);
+  for (let i = 0; i < idx.length; ) {
+    let j = i;
+    while (j + 1 < idx.length && idx[j + 1][0] === idx[i][0]) j++;
+    for (let k = i; k <= j; k++) r[idx[k][1]] = (i + j) / 2 + 1;
+    i = j + 1;
+  }
+  return r;
+}
+
+/** Spearman rank correlation. */
+export function spearman(x: number[], y: number[]): number {
+  const rx = ranks(x);
+  const ry = ranks(y);
+  const n = x.length;
+  const m = (n + 1) / 2;
+  let sxy = 0;
+  let sxx = 0;
+  let syy = 0;
+  for (let i = 0; i < n; i++) {
+    sxy += (rx[i] - m) * (ry[i] - m);
+    sxx += (rx[i] - m) ** 2;
+    syy += (ry[i] - m) ** 2;
+  }
+  return sxy / Math.sqrt(sxx * syy);
+}
+
+/** Mean and sample SD (n − 1) of finite values. */
+export function meanSd(values: number[]): { mean: number; sd: number; n: number } {
+  const v = values.filter(Number.isFinite);
+  const n = v.length;
+  const mean = n ? v.reduce((a, b) => a + b, 0) / n : NaN;
+  const sd = n > 1 ? Math.sqrt(v.reduce((a, b) => a + (b - mean) ** 2, 0) / (n - 1)) : NaN;
+  return { mean, sd, n };
+}

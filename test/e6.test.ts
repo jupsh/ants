@@ -1,10 +1,10 @@
-import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { combinedZ } from '../src/sim/analysis/compare';
+import { combinedZ, meanSd } from '../src/sim/analysis/compare';
 import { observeContacts, scansToEvents } from '../src/sim/analysis/trophallaxis';
 import { RNG } from '../src/sim/core/rng';
 import { dataMetrics } from '../src/sim/experiments/e6Bles';
 import { BLES_TABLE1, runBles, type BlesRun } from '../src/sim/reference/blesTEC';
+import { BLES_SCANS } from '../scripts/lib';
 
 describe('E6 scan observer', () => {
   const c = (start: number, end: number, donor = 1, receiver = 2) => ({ donor, receiver, start, end });
@@ -39,7 +39,7 @@ describe('E6 scan observer', () => {
 
 describe('E6 data pipeline', () => {
   it('merging the raw scans reproduces the published event counts', () => {
-    const d = dataMetrics(fs.readFileSync('data/bles2022/trophallaxis_scans.csv', 'utf8'));
+    const d = dataMetrics(BLES_SCANS());
     // 492 merged events (the authors' script has 495); paper: 99.0 per colony.
     expect(d.reduce((s, m) => s + m.events, 0)).toBe(492);
   });
@@ -62,10 +62,6 @@ function raw(variant: string, runs: number, seed: number) {
   return out;
 }
 
-const ms = (v: number[]) => {
-  const m = v.reduce((a, b) => a + b, 0) / v.length;
-  return { m, sd: Math.sqrt(v.reduce((a, b) => a + (b - m) ** 2, 0) / (v.length - 1)), n: v.length };
-};
 
 describe('E6 reference model: exact reproduction of Bles et al. 2022 (tier 1)', () => {
   // Published means over 1000 runs (Table 1, Table S1, Fig. S4); their SE is
@@ -78,9 +74,9 @@ describe('E6 reference model: exact reproduction of Bles et al. 2022 (tier 1)', 
     it(`${variant} matches the published outputs`, () => {
       const sim = raw(variant, 400, 314159) as Record<string, number[]>;
       for (const [k, v] of Object.entries(ref)) {
-        const s = ms(sim[k]);
-        const z = combinedZ(s.m, s.sd / Math.sqrt(s.n), v, s.sd / Math.sqrt(1000));
-        expect(Math.abs(z), `${k}: sim ${s.m.toFixed(2)} vs paper ${v} (z = ${z.toFixed(2)})`).toBeLessThan(3);
+        const s = meanSd(sim[k]);
+        const z = combinedZ(s.mean, s.sd / Math.sqrt(s.n), v, s.sd / Math.sqrt(1000));
+        expect(Math.abs(z), `${k}: sim ${s.mean.toFixed(2)} vs paper ${v} (z = ${z.toFixed(2)})`).toBeLessThan(3);
       }
     });
 
@@ -107,7 +103,7 @@ describe('E6 reference model: exact reproduction of Bles et al. 2022 (tier 1)', 
         const { contacts, forager } = runBles({ ...BLES_TABLE1.TEC_exp, compat }, RNG.stream(11, r));
         for (const c of contacts) if (forager[c.donor] && c.end < 3600) d.push(c.end - c.start);
       }
-      return ms(d).m;
+      return meanSd(d).mean;
     };
     // The dead branch roughly halves the separation hazard for F donors.
     expect(dur(false)).toBeLessThan(0.8 * dur(true));

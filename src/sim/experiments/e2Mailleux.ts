@@ -1,4 +1,5 @@
 import { Body } from '../agent/body';
+import { RNG } from '../core/rng';
 import { drawTraits, lasiusForager, startTrip, type ForagerParams } from '../behavior/lasiusForager';
 import { newMind } from '../mind/mind';
 import type { WalkParams } from '../models/walk';
@@ -23,7 +24,8 @@ export interface LasiusParams {
 export interface ScoutResult {
   /** From entering the area to first touching the drop (s). */
   findTime: number;
-  drinks: { ul: number; time: number }[];
+  /** Per drop: volume as the experimenter would estimate it, true volume, drinking time. */
+  drinks: { ul: number; trueUl: number; time: number }[];
   /** Laid trail on the return trip (any gaster contact) — overall and per bridge section. */
   laidTrail: boolean;
   laidSection1: boolean;
@@ -48,6 +50,8 @@ export interface ScoutOptions {
   /** Fraction of a micropipette drop that can be imbibed. */
   pipetteAccessible: number;
   starvationDays: number;
+  /** SD (µL) of the experimenter's gaster-ellipsoid volume estimate (observation noise). */
+  volumeSd?: number;
   dt?: number;
   maxTime?: number;
 }
@@ -74,6 +78,11 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   body.x = start;
   body.y = entrance[1];
   body.heading = 0;
+  // Physiological trait from its own stream (does not shift behavioural draws).
+  const physRng = RNG.stream(o.seed, 0x1a7a);
+  body.intakeFactor = Math.exp(physRng.normal(0, P.phys.intakeSd) - (P.phys.intakeSd * P.phys.intakeSd) / 2);
+  // The experimenter's volume estimates, from another independent stream.
+  const obsRng = RNG.stream(o.seed, 0x0b5e);
   const mind = newMind(drawTraits(P.forager, body.rng), P.walk, body.rng);
   mind.walk.heading = 0;
   const agent: Agent = { body, mind, inactive: false };
@@ -118,7 +127,8 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
     }
     if (mind.mode === 'drink') currentDrinkUl += Math.max(0, body.cropUl - cropBefore);
     if (prevMode === 'drink' && mind.mode !== 'drink') {
-      res.drinks.push({ ul: currentDrinkUl, time: w.time - drinkStart });
+      const est = currentDrinkUl + (o.volumeSd ? obsRng.normal(0, o.volumeSd) : 0);
+      res.drinks.push({ ul: Math.max(0, est), trueUl: currentDrinkUl, time: w.time - drinkStart });
       lastDrinkEnd = w.time;
       if (res.drinks.length === 1) {
         firstDrinkEnd = w.time;

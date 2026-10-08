@@ -1,9 +1,9 @@
-import { verdict, type Comparison } from '../sim/analysis/compare';
 import type { E2Row } from '../sim/experiments/e2Targets';
 import { REFS } from '../sim/species/refs';
 import type { E2Request, E2Response, TripFrame } from '../worker/e2Worker';
 import E2Worker from '../worker/e2Worker?worker';
 import { drawAnt } from './antSprite';
+import { fitCanvas, labeled, zCell } from './dom';
 
 const CONDITIONS = [
   { id: 'two', label: 'Two 0.7 µL drops (Mailleux 2009)' },
@@ -44,11 +44,6 @@ export function renderE2(root: HTMLElement): () => void {
   const runBtn = Object.assign(document.createElement('button'), { className: 'primary', textContent: 'Run' });
   const status = document.createElement('span');
   status.className = 'note';
-  const lab = (t: string, e: HTMLElement) => {
-    const l = document.createElement('label');
-    l.append(t, e);
-    return l;
-  };
   const speedSel = document.createElement('select');
   for (const v of [1, 5, 10, 30]) {
     const o = document.createElement('option');
@@ -57,7 +52,7 @@ export function renderE2(root: HTMLElement): () => void {
     if (v === 10) o.selected = true;
     speedSel.appendChild(o);
   }
-  bar.append(lab('Animate', sel), lab('Playback', speedSel), lab('Scouts per condition', nIn), runBtn, status);
+  bar.append(labeled('Animate', sel), labeled('Playback', speedSel), labeled('Scouts per condition', nIn), runBtn, status);
   root.appendChild(bar);
 
   const grid = document.createElement('div');
@@ -121,16 +116,7 @@ export function renderE2(root: HTMLElement): () => void {
   const draw = () => {
     const now = performance.now();
     const css = getComputedStyle(document.documentElement);
-    const dpr = window.devicePixelRatio || 1;
-    const W = canvas.clientWidth;
-    const H = canvas.clientHeight;
-    if (canvas.width !== Math.round(W * dpr)) {
-      canvas.width = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
-    }
-    const ctx = canvas.getContext('2d')!;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const { ctx, dpr } = fitCanvas(canvas);
     // World window: x ∈ [-25, 185] mm, y ∈ [-40, 40] mm.
     const sx = canvas.width / 210;
     const sy = canvas.height / 95;
@@ -225,20 +211,8 @@ function renderTable(card: HTMLElement, rows: E2Row[], foundBoth: number): void 
     head.appendChild(th);
   }
   t.appendChild(head);
-  const dp = (unit: string) => (unit === 'µL' ? 2 : 0);
+  const dp = (unit: string) => (unit === 'µL/s' ? 4 : unit === 'µL' || unit === 'r' ? 2 : 0);
   const fmt = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)} %` : `${v.toFixed(dp(unit))} ${unit}`);
-  const zCell = (c: Comparison | undefined) => {
-    const td = document.createElement('td');
-    td.className = 'num';
-    if (!c || !Number.isFinite(c.z)) {
-      td.textContent = '—';
-      return td;
-    }
-    const v = verdict(c.z);
-    td.classList.add(`status-${v === 'marginal' ? 'warn' : v === 'off' ? 'bad' : 'ok'}`);
-    td.textContent = `${c.z.toFixed(1)} ${v === 'ok' ? '✓' : v === 'marginal' ? '~' : '✗'}`;
-    return td;
-  };
   for (const { target: tg, sim, mean, spread } of rows) {
     const tr = document.createElement('tr');
     const c1 = document.createElement('td');
@@ -249,13 +223,13 @@ function renderTable(card: HTMLElement, rows: E2Row[], foundBoth: number): void 
     c2.textContent = fmt(tg.value, tg.unit) + (tg.sd !== undefined ? ` ± ${tg.sd.toFixed(dp(tg.unit))}` : '') + ` (n = ${tg.n})`;
     const c3 = document.createElement('td');
     c3.className = 'num';
-    c3.textContent = Number.isFinite(sim.mean) ? fmt(sim.mean, tg.unit) + (tg.unit !== '' ? ` ± ${sim.sd.toFixed(dp(tg.unit))}` : '') + ` (n = ${sim.n})` : '—';
+    c3.textContent = Number.isFinite(sim.mean) ? fmt(sim.mean, tg.unit) + (tg.sd !== undefined ? ` ± ${sim.sd.toFixed(dp(tg.unit))}` : '') + ` (n = ${sim.n})` : '—';
     const c6 = document.createElement('td');
     const b = document.createElement('span');
     b.className = `badge ${tg.role}`;
     b.textContent = tg.role === 'fit' ? 'fit' : 'development';
     c6.appendChild(b);
-    tr.append(c1, c2, c3, zCell(mean), zCell(spread), c6);
+    tr.append(c1, c2, c3, zCell(mean.z), zCell(spread?.z), c6);
     t.appendChild(tr);
   }
   card.appendChild(t);

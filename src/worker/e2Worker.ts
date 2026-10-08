@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 import { runScoutWorld } from '../sim/experiments/e2Mailleux';
 import { e2Compare, simulateE2, type E2Row } from '../sim/experiments/e2Targets';
-import { LASIUS_PARAMS, MAILLEUX_PIPETTE_ACCESSIBLE } from '../sim/species/lasiusM1';
+import { LASIUS_PARAMS, MAILLEUX_PIPETTE_ACCESSIBLE, MAILLEUX_SETUP } from '../sim/species/lasiusM1';
 
 export interface E2Request {
   /** Scouts per condition, split into `BLOCKS` seed blocks for SE_sim. */
@@ -33,7 +33,7 @@ self.onmessage = (ev: MessageEvent<E2Request>) => {
   const r = ev.data;
   const t0 = performance.now();
   const BLOCKS = 10;
-  const sim = simulateE2(LASIUS_PARAMS, Math.ceil(r.scouts / BLOCKS), MAILLEUX_PIPETTE_ACCESSIBLE, 0.1, r.seed, BLOCKS);
+  const sim = simulateE2(LASIUS_PARAMS, Math.ceil(r.scouts / BLOCKS), MAILLEUX_SETUP, 0.1, r.seed, BLOCKS);
   // Record a few example trips for the animation.
   const trips: E2Response['trips'] = [];
   const two = r.showCondition === 'two';

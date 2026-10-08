@@ -23,6 +23,8 @@ export interface E1Options {
   maxTime?: number;
   /** Path-integration noise (rad² per mm); 0 = perfect. */
   piNoise?: number;
+  /** Index of the first ant (each ant's stream is RNG.stream(seed, index)), for splitting runs across workers. */
+  firstAnt?: number;
 }
 
 export function runE1(p: WalkParams, o: E1Options): Track[] {
@@ -30,7 +32,8 @@ export function runE1(p: WalkParams, o: E1Options): Track[] {
   const sampleDt = o.sampleDt ?? 0.04;
   const maxTime = o.maxTime ?? 600;
   const tracks: Track[] = [];
-  for (let a = 0; a < o.ants; a++) {
+  const first = o.firstAnt ?? 0;
+  for (let a = first; a < first + o.ants; a++) {
     // One independent stream per ant: results do not depend on the number of
     // ants simulated before it, or on the time step used for other ants.
     const rng = RNG.stream(o.seed, a);

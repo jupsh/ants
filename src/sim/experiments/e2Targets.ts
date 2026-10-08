@@ -1,5 +1,5 @@
-import { binomialSE, blockEstimate, combinedZ, fitZ, logSdZ, type BlockEstimate, type Comparison } from '../analysis/compare';
-import { runScout, type LasiusParams, type ScoutResult } from './e2Mailleux';
+import { binomialSE, blockEstimate, combinedZ, fitZ, logSdZ, olsFit, spearman, type BlockEstimate, type Comparison } from '../analysis/compare';
+import { runScout, type LasiusParams, type ScoutOptions, type ScoutResult } from './e2Mailleux';
 
 /**
  * E2 targets from Mailleux et al. 1999 and 2009, with their role in model
@@ -22,11 +22,24 @@ export interface Target {
   source: string;
 }
 
+/** Apparatus and observer settings shared by all conditions. */
+export interface E2Setup {
+  /** Fraction of a micropipette drop that can be imbibed. */
+  accessible: number;
+  /** SD (µL) of the experimenter's volume estimates. */
+  volumeSd: number;
+}
+
 export interface Condition {
   id: string;
   label: string;
-  run: (P: LasiusParams, n: number, seed0: number, accessible: number, dt: number) => ScoutResult[];
-  /** Per-scout values for each target id (proportions as 0/1 indicators). */
+  /** The scout trips of this condition (seeds seed0 … seed0 + n − 1). */
+  options: (n: number, seed0: number, setup: E2Setup, dt: number) => ScoutOptions[];
+  /**
+   * Per-scout values for each target id (proportions as 0/1 indicators).
+   * Statistics of a whole sample (e.g. a regression slope) are returned as a
+   * one-element array, so seed blocks give their replicate SE.
+   */
   metrics: (rs: ScoutResult[]) => Record<string, number[]>;
 }
 
@@ -53,12 +66,18 @@ export const E2_TARGETS: Target[] = [
   m('two.betweenTL1', 'Two drops: time between drops, trail layers', 'development', 58, 33, 24, 's', 'mailleux2009'),
   m('two.betweenNTL1', 'Two drops: time between drops, non-layers', 'development', 134, 87, 39, 's', 'mailleux2009'),
   m('two.total', 'Two drops: total time on the apparatus', 'development', 178, 83, 63, 's', 'mailleux2009'),
+  // Volume–time relation pooled over both drops (2009, N = 126): identifies the
+  // between-ant intake-rate SD and the volume measurement error (docs/STATUS.md,
+  // step-3 pre-registration). SEs from large-sample formulas: slope
+  // b·√((1 − r²)/(r²(N − 2))), correlation (1 − r²)/√(N − 3).
+  { id: 'two.vtSlope', label: 'Two drops: volume vs drinking time, regression slope', role: 'fit', value: 0.006, se: 0.006 * Math.sqrt((1 - 0.46 ** 2) / (0.46 ** 2 * 124)), n: 126, unit: 'µL/s', source: 'mailleux2009' },
+  { id: 'two.vtRs', label: 'Two drops: volume vs drinking time, Spearman r', role: 'fit', value: 0.46, se: (1 - 0.46 ** 2) / Math.sqrt(123), n: 126, unit: 'r', source: 'mailleux2009' },
 ];
 
 const single = (days: number): Condition => ({
   id: `d${days}`,
   label: `Mailleux 1999: 3 µL drop, ${days} day${days > 1 ? 's' : ''} starved`,
-  run: (P, n, seed0, acc, dt) => Array.from({ length: n }, (_, i) => runScout(P, { seed: seed0 + i, drop1: { ul: 3, molar: 0.6 }, pipetteAccessible: acc, starvationDays: days, dt, maxTime: 900 })).filter((r) => r.drinks.length),
+  options: (n, seed0, su, dt) => Array.from({ length: n }, (_, i) => ({ seed: seed0 + i, drop1: { ul: 3, molar: 0.6 }, pipetteAccessible: su.accessible, volumeSd: su.volumeSd, starvationDays: days, dt, maxTime: 900 })),
   metrics: (rs) => ({ [`d${days}.drink`]: rs.map((r) => r.drinks[0].time), [`d${days}.trail`]: ind(rs, (r) => r.laidTrail) }),
 });
 
@@ -69,8 +88,8 @@ export const E2_CONDITIONS: Condition[] = [
   {
     id: 'two',
     label: 'Mailleux 2009: two 0.7 µL drops, 4 days starved',
-    run: (P, n, seed0, acc, dt) =>
-      Array.from({ length: n }, (_, i) => runScout(P, { seed: seed0 + i, drop1: { ul: 0.7, molar: 0.6 }, drop2: { ul: 0.7, molar: 0.6 }, pipetteAccessible: acc, starvationDays: 4, dt, maxTime: 900 })).filter((r) => r.drinks.length),
+    options: (n, seed0, su, dt) =>
+      Array.from({ length: n }, (_, i) => ({ seed: seed0 + i, drop1: { ul: 0.7, molar: 0.6 }, drop2: { ul: 0.7, molar: 0.6 }, pipetteAccessible: su.accessible, volumeSd: su.volumeSd, starvationDays: 4, dt, maxTime: 900 })),
     metrics: (rs) => {
       const both = rs.filter((r) => r.drinks.length >= 2);
       return {
@@ -85,23 +104,57 @@ export const E2_CONDITIONS: Condition[] = [
         'two.betweenNTL1': both.filter((r) => !r.laidSection1).map((r) => r.betweenTime),
         'two.total': both.map((r) => r.total),
         'two.foundBoth': ind(rs, (r) => r.drinks.length >= 2),
+        ...volumeTime(both),
       };
     },
   },
 ];
 
+function volumeTime(both: ScoutResult[]): Record<string, number[]> {
+  const t = both.flatMap((r) => [r.drinks[0].time, r.drinks[1].time]);
+  const v = both.flatMap((r) => [r.drinks[0].ul, r.drinks[1].ul]);
+  if (t.length < 10) return { 'two.vtSlope': [NaN], 'two.vtRs': [NaN] };
+  return { 'two.vtSlope': [olsFit(t, v).slope], 'two.vtRs': [spearman(t, v)] };
+}
+
 export type E2Sim = Record<string, BlockEstimate>;
+
+/** Runs a batch of scout trips (serially here; scripts/pool.ts runs them across cores). */
+export type ScoutRunner = (P: LasiusParams, opts: ScoutOptions[]) => ScoutResult[] | Promise<ScoutResult[]>;
+
+const serialRunner: ScoutRunner = (P, opts) => opts.map((o) => runScout(P, o));
+
+/** Only scouts that found and drank from the first drop are observed. */
+const observed = (rs: ScoutResult[]) => rs.filter((r) => r.drinks.length);
+
+/** Run one condition (as the experimenters observed it). */
+export function runCondition(c: Condition, P: LasiusParams, n: number, seed0: number, setup: E2Setup, dt: number): ScoutResult[] {
+  return observed(serialRunner(P, c.options(n, seed0, setup, dt)) as ScoutResult[]);
+}
 
 /**
  * Run every condition in `blocks` independent seed blocks of `n` scouts and
  * return, per target id, the pooled estimate with a replicate-based SE.
- * Block 0 uses the same seeds as a single-block run.
+ * Block 0 uses the same seeds as a single-block run. With an asynchronous
+ * `runner` (a worker pool) all blocks run concurrently; results are
+ * identical to the serial run.
  */
-export function simulateE2(P: LasiusParams, n: number, accessible: number, dt = 0.1, seedBase = 0, blocks = 1): E2Sim {
+export async function simulateE2Async(P: LasiusParams, n: number, setup: E2Setup, dt = 0.1, seedBase = 0, blocks = 1, runner: ScoutRunner = serialRunner): Promise<E2Sim> {
+  const jobs = E2_CONDITIONS.flatMap((c, i) => Array.from({ length: blocks }, (_, b) => ({ c, opts: c.options(n, seedBase + 100000 * (i + 1) + b * n, setup, dt) })));
+  const results = await Promise.all(jobs.map((j) => runner(P, j.opts)));
+  const per: Record<string, number[][]> = {};
+  jobs.forEach((j, k) => {
+    for (const [id, v] of Object.entries(j.c.metrics(observed(results[k])))) (per[id] ??= []).push(v);
+  });
+  return Object.fromEntries(Object.entries(per).map(([id, bl]) => [id, blockEstimate(bl)]));
+}
+
+/** Serial version of `simulateE2Async` (tests, browser worker). */
+export function simulateE2(P: LasiusParams, n: number, setup: E2Setup, dt = 0.1, seedBase = 0, blocks = 1): E2Sim {
   const per: Record<string, number[][]> = {};
   E2_CONDITIONS.forEach((c, i) => {
     for (let b = 0; b < blocks; b++)
-      for (const [id, v] of Object.entries(c.metrics(c.run(P, n, seedBase + 100000 * (i + 1) + b * n, accessible, dt)))) (per[id] ??= []).push(v);
+      for (const [id, v] of Object.entries(c.metrics(runCondition(c, P, n, seedBase + 100000 * (i + 1) + b * n, setup, dt)))) (per[id] ??= []).push(v);
   });
   return Object.fromEntries(Object.entries(per).map(([id, bl]) => [id, blockEstimate(bl)]));
 }
@@ -140,10 +193,10 @@ export function e2Compare(sim: E2Sim): E2Row[] {
 
 /** Plain-text table of `e2Compare` rows (scripts and logs). */
 export function e2Table(rows: E2Row[]): string {
-  const f = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)}%` : v.toFixed(unit === 'µL' ? 2 : 0));
+  const f = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)}%` : unit === 'µL/s' ? v.toFixed(4) : v.toFixed(unit === 'µL' || unit === 'r' ? 2 : 0));
   return rows
     .map(({ target: t, sim, mean, spread }) => {
-      const sd = (x: number | undefined) => (t.unit !== '' && x !== undefined ? `±${f(x, t.unit)}` : '');
+      const sd = (x: number | undefined) => (t.sd !== undefined && x !== undefined ? `±${f(x, t.unit)}` : '');
       const zs = spread ? `  zSD=${spread.z.toFixed(1)}` : '';
       return `${t.role.padEnd(11)} z=${mean.z.toFixed(1).padStart(5)}${zs.padEnd(11)} ${t.label}: data ${f(t.value, t.unit)}${sd(t.sd)} (n=${t.n}), sim ${f(sim.mean, t.unit)}${sd(sim.sd)} ±SE ${sim.se.toPrecision(2)} (n=${sim.n})`;
     })

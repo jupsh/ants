@@ -1,4 +1,4 @@
-import { blockEstimate, combinedZ, logSdZ, type Comparison } from '../analysis/compare';
+import { blockEstimate, combinedZ, logSdZ, meanSd, type Comparison } from '../analysis/compare';
 import { colonyStats, observeContacts, parseScans, scansToEvents, type ContactInterval, type TrophEvent } from '../analysis/trophallaxis';
 import { RNG } from '../core/rng';
 
@@ -72,11 +72,6 @@ export function dataMetrics(csv: string): E6Metrics[] {
   return [1, 2, 3, 4, 5].map((c) => metricsFromEvents(events, c));
 }
 
-const meanSd = (v: number[]) => {
-  const m = v.reduce((a, b) => a + b, 0) / v.length;
-  return { mean: m, sd: Math.sqrt(v.reduce((a, b) => a + (b - m) ** 2, 0) / (v.length - 1)) };
-};
-
 /**
  * Targets: raw-data metrics computed by our pipeline, plus forager-based
  * numbers from the paper (forager identities are not in the raw file).
@@ -108,8 +103,9 @@ export function e6Targets(csv: string): E6Target[] {
  * each with a scan phase drawn uniformly over one period, and return
  * per-colony metrics.
  */
-export function simulateColonies(run: (rng: RNG) => ColonyRun, colonies: number, seed: number): E6Metrics[] {
-  return Array.from({ length: colonies }, (_, c) => {
+export function simulateColonies(run: (rng: RNG) => ColonyRun, colonies: number, seed: number, first = 0): E6Metrics[] {
+  return Array.from({ length: colonies }, (_, i) => {
+    const c = first + i;
     const rng = RNG.stream(seed, c);
     const r = run(rng);
     const phase = RNG.stream(seed, c, 1).range(0, 60);
