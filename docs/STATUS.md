@@ -975,3 +975,40 @@ See [`CLAUDE.md`](../CLAUDE.md).
     within-ant slope on both sides (A0 has no speed-dependent turning, yet
     shows −0.3 to −1.6), so compare data with model rather than with
     theoretical values such as "−1 for per-time noise".
+- **2026-10-08** Two more exploratory E1 checks (Khuong data only; this
+  session takes over from the other one). Predictions before running:
+  - **Stop durations** (`sp` < 2 mm/s episodes, as in `diagTrack`), as
+    episodes per minute of track by duration bin. The model's exponential
+    pauses (mean 0.7 s) should give too few short and too many long stops;
+    if the data's excess is all in < 0.13 s it may be reversals rather than
+    halts (those also form "episodes"), so the 0.13–0.4 s bins decide the
+    pause-duration question.
+  - **Speed around big turns** (turn > 1 rad between the 0.2 s
+    displacements before and after a sample, local maxima only): each
+    ant's 3-point speed divided by its median moving speed, averaged at
+    lags −2 … +2 s from the turn.
+    - Turn-linked slowing (motor coupling): a dip centred on the turn,
+      ≈ 0.2–0.6 s wide, roughly symmetric, back to baseline within ≈ 1 s.
+    - Two-state switching (F): a broad depression still visible at ±1–2 s,
+      and big turns clustered in time (inter-turn CV > 1, more than speed
+      changes alone explain).
+    - A0/B: little beyond the geometric dip from the turn itself.
+  - **Results** (`scripts/diagE1Turns.ts`, 600 simulated ants per incline,
+    adopted fit A0 and B-loss11, combined z):
+    - **Speed around big turns: turn-linked slowing, not F.** In the data
+      speed falls to 0.45–0.56 of baseline at the turn and recovers within
+      ≈ 0.3–0.4 s, more slowly after the turn than it fell before it
+      (asymmetry +0.03 … +0.12: slower after). At ±1–2 s it is back at
+      baseline (0.99–1.00 at 0–30°; 0.93–0.95 at 45–60°, a weak broad
+      component on steep slopes). Big turns are not clustered (inter-turn
+      CV 0.89–1.00, 1.10 at 60°). Both models show the opposite: speed
+      around turns *above* baseline (1.04–1.45; per-distance turning puts
+      more turns into fast stretches), with only the geometric dip at the
+      turn (0.75–0.99), z up to 50. Reading: turn timing is independent of
+      the slow speed fluctuations (as for events in time), and each turn
+      carries a short deceleration.
+    - **Stop durations:** at 0–30° stops ≥ 0.4 s occur at the model's rate
+      (|z| ≤ 1.6); the data's excess is in < 0.4 s episodes (3–4× the
+      model), i.e. the deep dips at sharp turns. At 45–60° the model has
+      too many long pauses (0.8–1.6 s: z 2.3–6.9). The pause process is not
+      the main problem; the brief halts belong to the turn mechanics.
