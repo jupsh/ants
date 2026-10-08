@@ -5,92 +5,247 @@
  *   Stage 2 (inclines π/6, π/3):      slope speed factor and geomenotaxis.
  *   Development (reported, never fitted; inspected, so not held out): π/9, π/4.
  *
- * Common random numbers (fixed seeds) make the objective deterministic.
- * The objective weights each statistic by its data SE only (bootstrap over
- * recorded ants); the final report uses the combined-SE criteria.
- * Output: data/fits/e1-walk.json (parameters + fit diagnostics).
+ * Simulated tracks go through the tracking observer (model A) before the
+ * statistics, as the recorded ones did. Common random numbers (fixed seeds)
+ * make the objective deterministic. The objective weights each statistic by
+ * its data SE only (bootstrap over recorded ants); the final report uses the
+ * combined-SE criteria.
  *
- * Usage: npx vite-node scripts/fitE1.ts [--quick]
+ * Variants (step 5, docs/STATUS.md Decisions 2026-10-08):
+ *   A0  the session-2 structure (per-distance turning, slopeJitterK free)
+ *   B   + time-based heading diffusion and reorientation (jitterTime,
+ *         turnRateTime), slopeJitterK fixed at 0
+ *   T   B + turn-linked slowing (turnDip, turnDipTau) + heading reset at
+ *         pause onset (stopTurnG, stopHomePull)
+ * Search (amendment of 2026-10-08): 640 ants per evaluation (objective SD
+ * ≈ ±3 on flat ground, vs ±15 at 160); each stage runs Nelder–Mead from two
+ * starts, then restarts the simplex from the best point until a restart
+ * gains < 0.5 (≤ 3 restarts). The flat-ground decision quantity is the loss
+ * on 5 fresh batches of 1000 ants (mean ± SE, per-batch values kept for
+ * paired comparison between variants); "+ 2k" is a heuristic penalty.
+ * Output: data/fits/e1-<variant>.json (candidates; data/fits/e1-walk.json is
+ * the adopted fit and is never overwritten here).
+ *
+ * Optimiser (2026-10-08, fitting machinery step 2): `--optimizer cma`
+ * (default) runs CMA-ES per stage from the warm start (σ 0.5 in the
+ * transformed parameters) with fresh seeds in every generation, shared by
+ * its candidates; the estimate is the final distribution mean. `--optimizer
+ * nm` is the earlier multi-start Nelder–Mead on fixed seeds.
+ *
+ * Strategy (STATUS 2026-10-08, staged vs joint): `--strategy staged`
+ * (default; the two stages above) or `joint` (one CMA-ES over all stage-1
+ * and stage-2 parameters, loss = mean of the 0°, 30° and 60° losses).
+ *
+ * Parameter recovery: `--recover truth.json --rep r [--recoverAnts n]`
+ * replaces the Khuong data by n ants per incline (default 69, the real
+ * sample size) simulated from the parameters in truth.json (seeds depend on
+ * r). With n > 69 the reference is scored as 69 ants (`scaleReference`), so
+ * only its sampling error changes. Writes
+ * data/fits/recover/e1-<variant>-<strategy>-n<n>-rep<r>.json; prediction
+ * recovery is judged by scripts/recoverE1.ts.
+ *
+ * Usage: npx vite-node scripts/fitE1.ts --variant A0|B|T [--quick]
+ *          [--optimizer cma|nm] [--strategy staged|joint] [--gens1 150]
+ *          [--gens2 120] [--gensJ 250] [--recover f --rep r [--recoverAnts n]]
  */
-import fs from 'node:fs';
+import { cmaes } from '../src/sim/analysis/cmaes';
 import { nelderMead } from '../src/sim/analysis/optimize';
-import { compareE1, referenceFor, sampleFor, scalarSE, type E1Reference } from '../src/sim/experiments/e1Compare';
-import { DEFAULT_WALK, type WalkParams } from '../src/sim/models/walk';
-import { flag, INCLINES, loadKhuong } from './lib';
+import { compareE1, referenceFor, scalarSE, scaleReference, type E1Reference } from '../src/sim/experiments/e1Compare';
+import { walkParams, type WalkParams } from '../src/sim/models/walk';
+import { khuongTracking } from '../src/sim/species/lasiusM1';
+import { arg, flag, INCLINES, loadKhuong, numArg, readJson, writeJson } from './lib';
 import { SimPool } from './pool';
 
+const VARIANT = arg('--variant', '');
+if (!['A0', 'B', 'T'].includes(VARIANT)) throw new Error('--variant A0|B|T required');
+const TIME_TURNING = VARIANT === 'B' || VARIANT === 'T';
 const quick = flag('--quick');
-const ANTS = quick ? 80 : 160;
+const ANTS = quick ? 160 : 640;
 const DT = 0.02;
 const SEED = 20131105;
+const OPT = arg('--optimizer', 'cma');
+if (!['cma', 'nm'].includes(OPT)) throw new Error('--optimizer cma|nm');
+const GENS1 = numArg('--gens1', quick ? 40 : 150);
+const GENS2 = numArg('--gens2', quick ? 30 : 120);
+const GENSJ = numArg('--gensJ', quick ? 60 : 250);
+const STRATEGY = arg('--strategy', 'staged');
+if (!['staged', 'joint'].includes(STRATEGY)) throw new Error('--strategy staged|joint');
+if (STRATEGY === 'joint' && OPT !== 'cma') throw new Error('--strategy joint needs --optimizer cma');
+const RECOVER = arg('--recover', '');
+const REP = numArg('--rep', 0);
+const REC_N = numArg('--recoverAnts', 69);
+const OUT = RECOVER
+  ? `data/fits/recover/e1-${VARIANT}-${STRATEGY}-n${REC_N}-rep${REP}${quick ? '-quick' : ''}.json`
+  : `data/fits/e1-${VARIANT}${STRATEGY === 'joint' ? '-joint' : ''}${OPT === 'nm' ? '-nm' : ''}${quick ? '-quick' : ''}.json`;
 
+const pool = await SimPool.create();
+const runOpts = (i: number, ants: number, seed: number) => ({ incline: INCLINES[i], ants, seed, dt: DT, tracking: khuongTracking(i + 1) });
+
+// Reference data: the Khuong tracks, or (recovery test) REC_N ants per incline simulated from known parameters.
+const truth = RECOVER ? walkParams(readJson<any>(RECOVER).params) : null;
 const data: E1Reference[] = [];
-for (let k = 1; k <= 5; k++) data.push(referenceFor(loadKhuong(k)));
+for (let k = 1; k <= 5; k++) {
+  if (!truth) data.push(referenceFor(loadKhuong(k)));
+  else {
+    const ref = referenceFor(await pool.e1(truth, runOpts(k - 1, REC_N, 777000 + 10 * REP + k)));
+    data.push(REC_N > 69 ? scaleReference(ref, 69) : ref);
+  }
+}
 
 const logit = (p: number) => Math.log(p / (1 - p));
 const sigm = (x: number) => 1 / (1 + Math.exp(-x));
 
-let p: WalkParams = { ...DEFAULT_WALK };
+// Warm start from the adopted (session-2) fit; the second start is set per variant.
+let p: WalkParams = walkParams(readJson<any>('data/fits/e1-walk.json').params);
+if (TIME_TURNING) p = { ...p, slopeJitterK: 0, jitterTime: 0.05, turnRateTime: 0.3 };
+if (VARIANT === 'T') p = { ...p, turnDip: 0.6, turnDipTau: 0.25, stopTurnG: 0.2, stopHomePull: 0.3 };
+const second: Partial<WalkParams> = TIME_TURNING ? { meanFreePath: 50, turnRateTime: 4, jitterTime: 0.2 } : { meanFreePath: 20, g: 0.75 };
 
-// Warm start from a previous fit if present.
-if (fs.existsSync('data/fits/e1-walk.json') && !flag('--cold')) p = { ...p, ...JSON.parse(fs.readFileSync('data/fits/e1-walk.json', 'utf8')).params };
-
-const pool = await SimPool.create();
-
-async function evalAt(par: WalkParams, idx: number[]): Promise<number> {
-  const tracks = await Promise.all(idx.map((i) => pool.e1(par, { incline: INCLINES[i], ants: ANTS, seed: SEED + i, dt: DT })));
-  return idx.reduce((s, i, k) => s + compareE1(sampleFor(tracks[k]), data[i]).loss, 0) / idx.length;
+/** Nelder–Mead from several starts, then restarts from the best point. */
+async function search(name: string, f: (x: number[]) => Promise<number>, starts: number[][], evals: number) {
+  let best = { x: starts[0], f: Infinity, evals: 0 };
+  let total = 0;
+  for (const [i, x0] of starts.entries()) {
+    const r = await nelderMead(f, x0, 0.3, evals, 1e-4, (r) => r.evals % 50 === 0 && console.log(`${name} start ${i} eval ${r.evals} loss ${r.f.toFixed(3)}`));
+    total += r.evals;
+    console.log(`${name} start ${i}: loss ${r.f.toFixed(3)} after ${r.evals} evaluations`);
+    if (r.f < best.f) best = r;
+  }
+  for (let k = 0; k < 3; k++) {
+    const r = await nelderMead(f, best.x, 0.15, evals, 1e-4);
+    total += r.evals;
+    const gain = best.f - r.f;
+    console.log(`${name} restart ${k}: loss ${r.f.toFixed(3)} (gain ${gain.toFixed(3)})`);
+    if (r.f < best.f) best = r;
+    if (gain < 0.5) break;
+  }
+  return { x: best.x, f: best.f, evals: total };
 }
 
-// ---- Stage 1: flat ground
-const s1Keys = ['speed', 'speedSdBetween', 'speedSdWithin', 'speedTau', 'pauseRate', 'pauseMean', 'meanFreePath', 'jitter', 'homeRunBias', 'homeRange'] as const;
-const enc1 = (q: WalkParams) => [...s1Keys.map((k) => (k === 'homeRunBias' ? q[k] : Math.log(q[k]))), logit(q.g), logit(Math.max(1e-3, q.homeHeadingPull))];
+async function evalAt(par: WalkParams, idx: number[], seedBase = SEED): Promise<number> {
+  const samples = await Promise.all(idx.map((i) => pool.e1Sample(par, runOpts(i, ANTS, seedBase + i))));
+  return idx.reduce((s, i, k) => s + compareE1(samples[k], data[i]).loss, 0) / idx.length;
+}
+
+/**
+ * One stage: CMA-ES (fresh seeds per generation; estimate = final mean, whose
+ * loss is then evaluated on the fixed seeds for the record) or Nelder–Mead.
+ */
+async function stage(name: string, idx: number[], dec: (x: number[]) => WalkParams, starts: number[][], nmEvals: number, gens: number, offset: number) {
+  if (OPT === 'nm') return search(name, (x) => evalAt(dec(x), idx), starts, nmEvals);
+  const r = await cmaes((x, g) => evalAt(dec(x), idx, SEED + offset + 1009 * (g + 1)), starts[0], {
+    sigma: 0.5,
+    maxGenerations: gens,
+    seed: SEED + offset,
+    log: (g) => g.generation % 10 === 0 && console.log(`${name} gen ${g.generation} evals ${g.evals} best ${g.fs[0].toFixed(2)} median ${g.fs[g.fs.length >> 1].toFixed(2)} σ ${g.sigma.toFixed(3)}`),
+  });
+  const f = await evalAt(dec(r.mean), idx);
+  console.log(`${name}: CMA-ES ${r.generations} generations, ${r.evals} evaluations, final σ ${r.sigma.toFixed(3)}; loss of the mean on fixed seeds ${f.toFixed(3)}`);
+  return { x: r.mean, f, evals: r.evals };
+}
+
+// ---- Stage 1: flat ground (positive parameters on the log scale)
+const s1Keys: (keyof WalkParams)[] = ['speed', 'speedSdBetween', 'speedSdWithin', 'speedTau', 'pauseRate', 'pauseMean', 'meanFreePath', 'jitter', 'homeRange'];
+if (TIME_TURNING) s1Keys.push('jitterTime', 'turnRateTime');
+if (VARIANT === 'T') s1Keys.push('turnDipTau');
+/** Parameters on (0, 1) (turnDip on (0, 0.99)), logit-encoded. */
+const unitKeys: (keyof WalkParams)[] = ['g', 'homeHeadingPull', ...(VARIANT === 'T' ? (['turnDip', 'stopTurnG', 'stopHomePull'] as const) : [])];
+const unitScale = (k: keyof WalkParams) => (k === 'turnDip' ? 0.99 : 1);
+const enc1 = (q: WalkParams) => [...s1Keys.map((k) => Math.log(q[k])), q.homeRunBias, ...unitKeys.map((k) => logit(Math.min(0.999, Math.max(1e-3, q[k] / unitScale(k)))))];
 const dec1 = (x: number[], base: WalkParams): WalkParams => {
   const q = { ...base };
-  s1Keys.forEach((k, i) => (q[k] = k === 'homeRunBias' ? x[i] : Math.exp(x[i])));
-  q.g = sigm(x[s1Keys.length]);
-  q.homeHeadingPull = sigm(x[s1Keys.length + 1]);
+  s1Keys.forEach((k, i) => (q[k] = Math.exp(x[i])));
+  const n = s1Keys.length;
+  q.homeRunBias = x[n];
+  unitKeys.forEach((k, i) => (q[k] = unitScale(k) * sigm(x[n + 1 + i])));
   return q;
 };
 const t0 = Date.now();
-const r1 = await nelderMead((x) => evalAt(dec1(x, p), [0]), enc1(p), 0.3, quick ? 150 : 500, 1e-4, (r) => console.log(`stage1 eval ${r.evals} loss ${r.f.toFixed(3)}`));
-p = dec1(r1.x, p);
-console.log('stage 1 done', r1.f.toFixed(3), JSON.stringify(p));
 
 // ---- Stage 2: slopes
-const enc2 = (q: WalkParams) => [Math.log(q.slopeSpeedK), Math.log(q.geoRunGain), logit(Math.min(0.999, q.geoHeadingPull)), q.slopePauseK, q.slopeJitterK, q.slopeSpeedSdK];
-const dec2 = (x: number[], base: WalkParams): WalkParams => ({ ...base, slopeSpeedK: Math.exp(x[0]), geoRunGain: Math.exp(x[1]), geoHeadingPull: sigm(x[2]), slopePauseK: x[3], slopeJitterK: x[4], slopeSpeedSdK: x[5] });
-const r2 = await nelderMead((x) => evalAt(dec2(x, p), [2, 4]), enc2(p), 0.3, quick ? 120 : 400, 1e-4, (r) => console.log(`stage2 eval ${r.evals} loss ${r.f.toFixed(3)}`));
-p = dec2(r2.x, p);
-console.log('stage 2 done', r2.f.toFixed(3), JSON.stringify(p));
+const enc2 = (q: WalkParams) => [Math.log(q.slopeSpeedK), Math.log(q.geoRunGain), logit(Math.min(0.999, q.geoHeadingPull)), q.slopePauseK, q.slopeSpeedSdK, ...(VARIANT === 'A0' ? [q.slopeJitterK] : [])];
+const dec2 = (x: number[], base: WalkParams): WalkParams => ({
+  ...base,
+  slopeSpeedK: Math.exp(x[0]),
+  geoRunGain: Math.exp(x[1]),
+  geoHeadingPull: sigm(x[2]),
+  slopePauseK: x[3],
+  slopeSpeedSdK: x[4],
+  ...(VARIANT === 'A0' ? { slopeJitterK: x[5] } : {}),
+});
+const second2: Partial<WalkParams> = { geoRunGain: 0.3, geoHeadingPull: 0.3, slopeSpeedSdK: 0 };
+let fitLoss: Record<string, unknown>;
+if (STRATEGY === 'staged') {
+  const r1 = await stage('stage1', [0], (x) => dec1(x, p), [enc1(p), enc1({ ...p, ...second })], quick ? 150 : 500, GENS1, 100000);
+  p = dec1(r1.x, p);
+  console.log('stage 1 done', r1.f.toFixed(3), JSON.stringify(p));
+  const r2 = await stage('stage2', [2, 4], (x) => dec2(x, p), [enc2(p), enc2({ ...p, ...second2 })], quick ? 120 : 400, GENS2, 200000);
+  p = dec2(r2.x, p);
+  console.log('stage 2 done', r2.f.toFixed(3), JSON.stringify(p));
+  fitLoss = { stage1: r1.f, stage2: r2.f, evals: [r1.evals, r2.evals] };
+} else {
+  // ---- Joint: all parameters at once on the three fit inclines.
+  const n1 = enc1(p).length;
+  const encJ = (q: WalkParams) => [...enc1(q), ...enc2(q)];
+  const decJ = (x: number[], base: WalkParams) => dec2(x.slice(n1), dec1(x.slice(0, n1), base));
+  const base = p;
+  const rj = await stage('joint', [0, 2, 4], (x) => decJ(x, base), [encJ(p), encJ({ ...p, ...second, ...second2 })], 0, GENSJ, 300000);
+  p = decJ(rj.x, base);
+  console.log('joint done', rj.f.toFixed(3), JSON.stringify(p));
+  fitLoss = { joint: rj.f, evals: [rj.evals] };
+}
 
-// ---- Report all inclines (1 and 3 are withheld validation conditions)
+// ---- Decision quantity: flat-ground loss (fit-z, as the objective) on 5
+// independent fresh batches of 1000 ants. Batch seeds are the same for every
+// variant, so variants can be compared batch by batch (paired differences).
+const BATCHES = 5;
+const flatBatches: number[] = [];
+for (let b = 0; b < BATCHES; b++) flatBatches.push(compareE1(await pool.e1Sample(p, runOpts(0, 1000, SEED + 5000 + b)), data[0]).loss);
+const flatMean = flatBatches.reduce((a, v) => a + v, 0) / BATCHES;
+const flatSe = Math.sqrt(flatBatches.reduce((a, v) => a + (v - flatMean) ** 2, 0) / (BATCHES - 1) / BATCHES);
+const k1 = enc1(p).length;
+console.log(`flat fresh loss ${flatMean.toFixed(2)} ± ${flatSe.toFixed(2)} (batches ${flatBatches.map((v) => v.toFixed(1)).join(', ')}); k1 ${k1}`);
+
+// ---- Report all inclines on fresh seeds (π/9 and π/4 are development conditions)
+const k = enc1(p).length + enc2(p).length;
 const report: Record<string, unknown> = {};
+// Recovery test: the true parameters' own losses on the same batches are the noise floor.
+const truthFloor: Record<string, number> = {};
+if (truth) {
+  const tb: number[] = [];
+  for (let b = 0; b < BATCHES; b++) tb.push(compareE1(await pool.e1Sample(truth, runOpts(0, 1000, SEED + 5000 + b)), data[0]).loss);
+  truthFloor.flatFresh = tb.reduce((a, v) => a + v, 0) / BATCHES;
+  for (let i = 0; i < 5; i++) {
+    const sim = await pool.e1Sample(truth, runOpts(i, 300, SEED + 1000 + i));
+    truthFloor[`incline${i + 1}`] = compareE1(sim, data[i], scalarSE(sim)).loss;
+  }
+  console.log('truth (noise floor):', JSON.stringify(truthFloor));
+}
 for (let i = 0; i < 5; i++) {
-  const sim = sampleFor(await pool.e1(p, { incline: INCLINES[i], ants: 300, seed: SEED + 1000 + i, dt: DT }));
+  const sim = await pool.e1Sample(p, runOpts(i, 300, SEED + 1000 + i));
   const c = compareE1(sim, data[i], scalarSE(sim));
   const role = i === 1 || i === 3 ? 'development' : 'fit';
   report[`incline${i + 1}`] = { role, loss: c.loss, z: Object.fromEntries(c.rows.map((r) => [r.id, r.z])) };
   console.log(`incline ${i + 1} (${role}): loss ${c.loss.toFixed(2)}`, c.rows.map((r) => `${r.id}=${r.z.toFixed(1)}`).join(' '));
 }
-fs.mkdirSync('data/fits', { recursive: true });
-fs.writeFileSync(
-  'data/fits/e1-walk.json',
-  JSON.stringify(
-    {
-      experiment: 'E1 exploratory walking (Khuong et al. 2013)',
-      fittedOn: ['incline1 (0)', 'incline3 (π/6)', 'incline5 (π/3)'],
-      validatedOn: ['incline2 (π/9)', 'incline4 (π/4)'],
-      conditions: '26 °C, 50% RH',
-      dt: DT,
-      antsPerEval: ANTS,
-      seconds: (Date.now() - t0) / 1000,
-      params: p,
-      report,
-    },
-    null,
-    2,
-  ),
-);
-console.log('wrote data/fits/e1-walk.json');
+writeJson(OUT, {
+  experiment: 'E1 exploratory walking (Khuong et al. 2013)',
+  variant: VARIANT,
+  fittedOn: ['incline1 (0)', 'incline3 (π/6)', 'incline5 (π/3)'],
+  developmentOn: ['incline2 (π/9)', 'incline4 (π/4)'],
+  conditions: '26 °C, 50% RH',
+  observer: 'tracking noise (khuongTracking, src/sim/species/lasiusM1.ts)',
+  dt: DT,
+  antsPerEval: ANTS,
+  k,
+  optimizer: OPT,
+  strategy: STRATEGY,
+  ...(RECOVER ? { recovery: { truth: RECOVER, rep: REP, antsPerIncline: REC_N, scoredAs: Math.min(REC_N, 69), truthFloor } } : {}),
+  fitLoss,
+  flatFresh: { batches: flatBatches, mean: flatMean, se: flatSe, k1, penalised: flatMean + 2 * k1, antsPerBatch: 1000 },
+  seconds: (Date.now() - t0) / 1000,
+  params: p,
+  report,
+});
+console.log(`wrote ${OUT}`);
 pool.close();

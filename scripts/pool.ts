@@ -13,11 +13,13 @@ import { fork, type ChildProcess } from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
 import type { Track } from '../src/sim/analysis/trajectory';
+import type { E1Sample } from '../src/sim/experiments/e1Compare';
 import type { E1Options } from '../src/sim/experiments/e1Exploration';
 import type { ScoutOptions, ScoutResult, LasiusParams } from '../src/sim/experiments/e2Mailleux';
 import type { E6Metrics } from '../src/sim/experiments/e6Bles';
 import type { WalkParams } from '../src/sim/models/walk';
 import type { BlesParams } from '../src/sim/reference/blesTEC';
+import type { SectoredOptions, SectorPools } from '../src/sim/reference/sectoredWalker';
 import type { TaskArgs, TaskName, TaskResult } from '../src/sim/parallel/tasks';
 
 /** Memory per worker: measured RSS ≈ 270 MB during E1 fits, plus headroom. */
@@ -106,6 +108,33 @@ export class SimPool {
     const parts: TaskArgs<'e1'>[] = [];
     for (let a = 0; a < o.ants; a += size) parts.push([p, { ...o, firstAnt: first + a, ants: Math.min(size, o.ants - a) }]);
     return (await this.map('e1', parts)).flat();
+  }
+
+  /** E1 comparison sample for ants 0 … o.ants − 1: statistics are computed in the workers, only per-ant summaries come back. */
+  async e1Sample(p: WalkParams, o: E1Options): Promise<E1Sample> {
+    const first = o.firstAnt ?? 0;
+    const size = Math.max(4, Math.ceil(o.ants / (2 * this.size)));
+    const parts: TaskArgs<'e1Summary'>[] = [];
+    for (let a = 0; a < o.ants; a += size) parts.push([p, { ...o, firstAnt: first + a, ants: Math.min(size, o.ants - a) }]);
+    return { acc: (await this.map('e1Summary', parts)).flat() };
+  }
+
+  /** E1 reference-walker ants 0 … o.ants − 1 (from o.firstAnt), chunked across the pool; tracks in ant order. */
+  async sectored(pools: SectorPools, o: SectoredOptions): Promise<Track[]> {
+    return (await this.map('sectored', this.antChunks(o).map((c) => [pools, c] as TaskArgs<'sectored'>))).flat();
+  }
+
+  /** The same ants as per-ant comparison summaries (computed in the workers). */
+  async sectoredSample(pools: SectorPools, o: SectoredOptions): Promise<E1Sample> {
+    return { acc: (await this.map('sectoredSummary', this.antChunks(o).map((c) => [pools, c] as TaskArgs<'sectoredSummary'>))).flat() };
+  }
+
+  private antChunks<O extends { ants: number; firstAnt?: number }>(o: O): O[] {
+    const first = o.firstAnt ?? 0;
+    const size = Math.max(4, Math.ceil(o.ants / (2 * this.size)));
+    const parts: O[] = [];
+    for (let a = 0; a < o.ants; a += size) parts.push({ ...o, firstAnt: first + a, ants: Math.min(size, o.ants - a) });
+    return parts;
   }
 
   /** E6 Bles-model colonies 0 … count − 1, chunked across the pool; metrics in colony order. */

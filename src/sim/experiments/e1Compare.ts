@@ -1,5 +1,6 @@
 import { bootstrapSE, combinedZ, fitZ, ksTest, type Comparison, type CompareKind } from '../analysis/compare';
 import { combineWalkStats, KHUONG_PREP, prepareTrack, summarize, trackStats, type Track, type TrackStats, type WalkStats } from '../analysis/trajectory';
+import { diagTrack, diagValues, SPEED_BINS, type DiagTrack } from '../analysis/walkDiagnostics';
 
 /**
  * Comparison of simulated and recorded exploratory walks (E1), following the
@@ -21,12 +22,15 @@ import { combineWalkStats, KHUONG_PREP, prepareTrack, summarize, trackStats, typ
 
 /**
  * Per-ant sufficient statistics for the scalar comparisons. Resampling ants
- * only sums these, which keeps the bootstrap cheap. Speed quantiles come from
- * a 0.05 mm/s histogram (linear within a bin), applied identically to data
- * and simulation.
+ * only sums these, which keeps the bootstrap cheap, and they are small
+ * enough to compute in pool workers and send back instead of tracks. Speed
+ * quantiles come from a 0.05 mm/s histogram (linear within a bin), applied
+ * identically to data and simulation; per ant it is stored sparsely.
  */
-interface Acc {
-  speedHist: Float64Array;
+export interface Acc {
+  /** Occupied histogram bins and their counts. */
+  speedIdx: Uint16Array;
+  speedCnt: Float64Array;
   speedN: number;
   stopped: number;
   samples: number;
@@ -41,14 +45,26 @@ interface Acc {
   straightSum: number;
   straightN: number;
   trackSpeeds: number[];
+  exitTimes: number[];
+  /** Structure diagnostics of the same prepared track (speed-resolved turning etc.). */
+  diag: DiagTrack;
+}
+
+/** Totals over ants: as `Acc`, with a dense speed histogram. */
+interface Total extends Omit<Acc, 'speedIdx' | 'speedCnt' | 'diag'> {
+  speedHist: Float64Array;
 }
 
 const BIN = 0.05;
 const NBIN = 6000; // 0–300 mm/s; faster samples go in the last bin
 
-function accFor(t: TrackStats): Acc {
-  const speedHist = new Float64Array(NBIN);
-  for (const v of t.speeds) speedHist[Math.min(NBIN - 1, Math.floor(v / BIN))]++;
+function accFor(t: TrackStats, diag: DiagTrack): Acc {
+  const counts = new Map<number, number>();
+  for (const v of t.speeds) {
+    const b = Math.min(NBIN - 1, Math.floor(v / BIN));
+    counts.set(b, (counts.get(b) ?? 0) + 1);
+  }
+  const bins = [...counts.keys()].sort((a, b) => a - b);
   const turn = [0, 0, 0, 0, 0];
   for (const x of t.turnIncrements) {
     const x2 = x * x;
@@ -59,7 +75,8 @@ function accFor(t: TrackStats): Acc {
     turn[4] += x2 * x2;
   }
   return {
-    speedHist,
+    speedIdx: Uint16Array.from(bins),
+    speedCnt: Float64Array.from(bins, (b) => counts.get(b)!),
     speedN: t.speeds.length,
     stopped: t.stopped,
     samples: t.samples,
@@ -73,16 +90,26 @@ function accFor(t: TrackStats): Acc {
     straightSum: t.straightness.reduce((a, v) => a + v, 0),
     straightN: t.straightness.length,
     trackSpeeds: t.trackSpeed === null ? [] : [t.trackSpeed],
+    exitTimes: t.exitTime === null ? [] : [t.exitTime],
+    diag,
   };
 }
 
-function aggregate(accs: (Acc | null)[], idx?: number[]): Acc {
+/** Per-ant summary of one raw track (prepared as the Khuong data were), or null if too short. */
+export function summarizeTrack(t: Track): Acc | null {
+  const prep = prepareTrack(t, KHUONG_PREP);
+  const ts = prep ? trackStats(prep) : null;
+  const d = prep ? diagTrack(prep, undefined, false) : null;
+  return ts && d ? accFor(ts, d) : null;
+}
+
+function aggregate(accs: (Acc | null)[], idx?: number[]): Total {
   const sel = idx ? idx.map((i) => accs[i]) : accs;
-  const g: Acc = { speedHist: new Float64Array(NBIN), speedN: 0, stopped: 0, samples: 0, pcSum: [], pcN: [], turn: [0, 0, 0, 0, 0], radSum: [], radN: [], alignSum: 0, alignN: 0, straightSum: 0, straightN: 0, trackSpeeds: [] };
+  const g: Total = { speedHist: new Float64Array(NBIN), speedN: 0, stopped: 0, samples: 0, pcSum: [], pcN: [], turn: [0, 0, 0, 0, 0], radSum: [], radN: [], alignSum: 0, alignN: 0, straightSum: 0, straightN: 0, trackSpeeds: [], exitTimes: [] };
   const add = (a: number[], b: number[]) => b.forEach((v, i) => (a[i] = (a[i] ?? 0) + v));
   for (const a of sel) {
     if (!a) continue;
-    for (let i = 0; i < NBIN; i++) g.speedHist[i] += a.speedHist[i];
+    for (let i = 0; i < a.speedIdx.length; i++) g.speedHist[a.speedIdx[i]] += a.speedCnt[i];
     g.speedN += a.speedN;
     g.stopped += a.stopped;
     g.samples += a.samples;
@@ -96,11 +123,12 @@ function aggregate(accs: (Acc | null)[], idx?: number[]): Acc {
     g.straightSum += a.straightSum;
     g.straightN += a.straightN;
     for (const v of a.trackSpeeds) g.trackSpeeds.push(v);
+    for (const v of a.exitTimes) g.exitTimes.push(v);
   }
   return g;
 }
 
-function histQuantile(g: Acc, p: number): number {
+function histQuantile(g: Total, p: number): number {
   if (!g.speedN) return NaN;
   const target = p * g.speedN;
   let cum = 0;
@@ -112,7 +140,7 @@ function histQuantile(g: Acc, p: number): number {
   return NBIN * BIN;
 }
 
-function turnMoments(g: Acc): { sd: number; kurt: number } {
+function turnMoments(g: Total): { sd: number; kurt: number } {
   const [n, s1, s2, s3, s4] = g.turn;
   const m = s1 / n;
   const m2 = s2 / n - m * m;
@@ -127,7 +155,7 @@ interface Scalar {
   label: string;
   family: string;
   kind: CompareKind;
-  f: (g: Acc) => number;
+  f: (g: Total) => number;
 }
 
 const quantile = (xs: number[], p: number) => {
@@ -153,39 +181,84 @@ export const SCALARS: Scalar[] = [
   { id: 'trackSpeed.logSd', label: 'Between-ant SD of mean speed (log)', family: 'trackSpeedSpread', kind: 'spread', f: (g) => Math.log(summarize(g.trackSpeeds).sd) },
 ];
 
+/**
+ * Speed-resolved turning statistics from walkDiagnostics that are fitted
+ * (step 5, docs/STATUS.md Decisions 2026-10-08); the other diagnostics stay
+ * never-fitted checks.
+ */
+interface DiagScalar {
+  id: string;
+  label: string;
+  family: string;
+}
+const speedTag = (b: number) => `${SPEED_BINS[b][0]}–${SPEED_BINS[b][1]} mm/s`;
+export const DIAG_SCALARS: DiagScalar[] = [
+  ...SPEED_BINS.map((_, b): DiagScalar => ({ id: `turnBig.${b}`, label: `P(|turn| > 0.5 rad) per 2.5 mm chord, ${speedTag(b)}`, family: 'turnBig' })),
+  ...SPEED_BINS.map((_, b): DiagScalar => ({ id: `turnMed.${b}`, label: `Median |turn| per 2.5 mm chord (rad), ${speedTag(b)}`, family: 'turnMed' })),
+  { id: 'antTurn.slope', label: 'Per-ant slope of log(1 − ⟨cos⟩ at 10 mm) on log median speed', family: 'antTurnSlope' },
+  { id: 'stopCos.0', label: 'Heading into vs out of stops < 0.4 s, ⟨cos⟩', family: 'stopTurn' },
+  { id: 'stopCos.1', label: 'Heading into vs out of stops 0.4–1.2 s, ⟨cos⟩', family: 'stopTurn' },
+];
+
 export interface E1Sample {
-  parts: (TrackStats | null)[];
-  stats: WalkStats;
+  /** Per-ant summaries, in ant order (null for unusable tracks). */
   acc: (Acc | null)[];
+  /** Full pooled statistics, when built from tracks (for display). */
+  stats?: WalkStats;
 }
 
 export interface E1Reference {
-  sample: E1Sample;
-  /** Values and bootstrap SEs of the scalar statistics, in `SCALARS` order. */
+  sample: E1Sample & { stats: WalkStats };
+  /** Values and bootstrap SEs of the scalar statistics, in `SCALARS` then `DIAG_SCALARS` order. */
   values: number[];
   se: number[];
+  /**
+   * Synthetic reference scaled to a smaller real sample (`scaleReference`):
+   * the number of ants its SEs and KS rows stand for.
+   */
+  nEff?: number;
 }
 
-export function sampleFor(tracks: Track[]): E1Sample {
-  const parts = tracks.map((t) => prepareTrack(t, KHUONG_PREP)).map((t) => (t ? trackStats(t) : null));
-  return { parts, stats: combineWalkStats(parts), acc: parts.map((p) => (p ? accFor(p) : null)) };
+export function sampleFor(tracks: Track[]): E1Sample & { stats: WalkStats } {
+  const prepared = tracks.map((t) => prepareTrack(t, KHUONG_PREP));
+  const parts = prepared.map((t) => (t ? trackStats(t) : null));
+  const diags = prepared.map((t) => (t ? diagTrack(t) : null));
+  return { stats: combineWalkStats(parts), acc: parts.map((p, i) => (p && diags[i] ? accFor(p, diags[i]!) : null)) };
 }
 
 export function statsFor(tracks: Track[]): WalkStats {
   return sampleFor(tracks).stats;
 }
 
-const scalarValues = (g: Acc) => SCALARS.map((c) => c.f(g));
+/** Values of SCALARS then DIAG_SCALARS for a sample (optionally a resample of its ants). */
+function statValues(sample: E1Sample, idx?: number[]): number[] {
+  const g = aggregate(sample.acc, idx);
+  const diags = (idx ? idx.map((i) => sample.acc[i]) : sample.acc).map((a) => (a ? a.diag : null));
+  const dv = new Map(diagValues(diags, []).map((v) => [v.id, v.value]));
+  return [...SCALARS.map((c) => c.f(g)), ...DIAG_SCALARS.map((c) => dv.get(c.id) ?? NaN)];
+}
 
 /** Bootstrap SEs of the scalar statistics (resampling ants). */
 export function scalarSE(sample: E1Sample, reps = 200, seed = 1): number[] {
-  return bootstrapSE(sample.acc.length, (idx) => scalarValues(aggregate(sample.acc, idx)), reps, seed);
+  return bootstrapSE(sample.acc.length, (idx) => statValues(sample, idx), reps, seed);
 }
 
 /** Precompute the data side once: values plus bootstrap SEs. */
 export function referenceFor(tracks: Track[], reps = 200): E1Reference {
   const sample = sampleFor(tracks);
-  return { sample, values: scalarValues(aggregate(sample.acc)), se: scalarSE(sample, reps) };
+  return { sample, values: statValues(sample), se: scalarSE(sample, reps) };
+}
+
+/**
+ * A large synthetic reference scored as if it had `nEff` ants: SEs scaled by
+ * √(n/nEff) and KS rows with an effective reference size, so the loss keeps
+ * the weights and scale of a fit to nEff real ants while the reference values
+ * carry almost no sampling error (parameter-recovery tests, STATUS
+ * 2026-10-08).
+ */
+export function scaleReference(ref: E1Reference, nEff: number): E1Reference {
+  const n = ref.sample.acc.filter((a) => a !== null).length;
+  return { ...ref, se: ref.se.map((v) => v * Math.sqrt(n / nEff)), nEff };
 }
 
 export interface E1Comparison {
@@ -201,20 +274,26 @@ export interface E1Comparison {
  *     cannot lower the loss by making the simulation noisier.
  */
 export function compareE1(sim: E1Sample, ref: E1Reference, simSE?: number[]): E1Comparison {
-  const sv = scalarValues(aggregate(sim.acc));
-  const rows: E1Comparison['rows'] = SCALARS.map((c, i) => {
+  const simTotal = aggregate(sim.acc);
+  const refTotal = aggregate(ref.sample.acc);
+  const sv = statValues(sim);
+  const meta = [...SCALARS.map((c) => ({ id: c.id, label: c.label, family: c.family, kind: c.kind })), ...DIAG_SCALARS.map((c) => ({ ...c, kind: 'mean' as CompareKind }))];
+  const rows: E1Comparison['rows'] = [];
+  meta.forEach((c, i) => {
+    // A statistic the data cannot estimate at this incline is left out.
+    if (!Number.isFinite(ref.values[i]) || !(ref.se[i] > 0)) return;
     const seSim = simSE ? simSE[i] : NaN;
     const z = simSE ? combinedZ(sv[i], seSim, ref.values[i], ref.se[i]) : fitZ(sv[i], ref.values[i], ref.se[i]);
-    return { id: c.id, label: c.label, family: c.family, kind: c.kind, data: ref.values[i], sim: sv[i], seData: ref.se[i], seSim, z };
+    rows.push({ ...c, data: ref.values[i], sim: sv[i], seData: ref.se[i], seSim, z });
   });
   const ks = (id: string, label: string, family: string, a: number[], b: number[]) => {
-    const r = ksTest(a, b);
+    const r = ksTest(a, b, ref.nEff ? (b.length * ref.nEff) / ref.sample.acc.filter((x) => x !== null).length : undefined);
     // Signed by the direction of the median difference, for readability.
     const sign = Math.sign(quantile(a, 0.5) - quantile(b, 0.5)) || 1;
     rows.push({ id, label: `${label} (KS D = ${r.d.toFixed(2)}, n = ${r.n}/${r.m})`, family, kind: 'distribution', data: quantile(b, 0.5), sim: quantile(a, 0.5), seData: NaN, seSim: NaN, z: sign * r.z });
   };
-  ks('trackSpeed.ks', 'Per-ant mean speed distribution', 'trackSpeedKS', sim.stats.trackSpeeds, ref.sample.stats.trackSpeeds);
-  ks('exit.ks', 'Exit-time distribution', 'exitKS', sim.stats.exitTimes, ref.sample.stats.exitTimes);
+  ks('trackSpeed.ks', 'Per-ant mean speed distribution', 'trackSpeedKS', simTotal.trackSpeeds, refTotal.trackSpeeds);
+  ks('exit.ks', 'Exit-time distribution', 'exitKS', simTotal.exitTimes, refTotal.exitTimes);
   const fam = new Map<string, number[]>();
   for (const r of rows) fam.set(r.family, [...(fam.get(r.family) ?? []), Number.isFinite(r.z) ? r.z * r.z : 100]);
   let loss = 0;

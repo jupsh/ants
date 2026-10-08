@@ -64,6 +64,11 @@ export const REFS: Record<string, Ref> = {
     full: 'Evison SEF, Petchey OL, Beckerman AP, Ratnieks FLW (2008) Combined use of pheromone trails and visual landmarks by the common garden ant Lasius niger. Behav Ecol Sociobiol 63:261–267.',
     url: 'https://link.springer.com/article/10.1007/s00265-008-0657-6',
   },
+  bonavita2026: {
+    short: 'Bonavita et al. 2026',
+    full: 'Bonavita P, Albino M, Gautrais J, Fourcassié V, Combe M, Lacour L, Eibner S, Jost C (2026) Discovering search behaviour in black garden ant trajectories. PLoS ONE 21:e0327957. Data: Zenodo doi:10.5281/zenodo.19203503 (CC BY 4.0).',
+    url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC13419209/',
+  },
   khuong2016: {
     short: 'Khuong et al. 2016',
     full: 'Khuong A, Gautrais J, Perna A, Sbaï C, Combe M, Kuntz P, Jost C, Theraulaz G (2016) Stigmergic construction and topochemical information shape ant nest architecture. PNAS 113:1303–1308. (L. niger body length 4.1 ± 0.14 mm; building-pheromone lifetime.)',

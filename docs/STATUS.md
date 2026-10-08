@@ -1,12 +1,13 @@
 # Project status
 
-_Last updated: 2026-10-07 (session 2: steps 1–3b done; next: E2 search around food (3c) or E6 encounter model (4)). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-08 (session 3: step 5, E1 walking revisit — now the staged-vs-joint fitting comparison on synthetic data; see Decisions log). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
 **State in one paragraph.** Milestone M1 (*Lasius niger* as the single
 reference species). The TypeScript simulation core compiles, runs and is
-tested (`npm test`: 32 pass + 2 expected-fail, ~35 s). Model–data
+tested (`npm test`, fast tier: 28 pass + 2 expected-fail, ~7 s;
+`npm run test:full` adds the slow validation tests, run in CI). Model–data
 comparisons now use the combined-SE criteria (step 1, done). Under them, E1
 (exploratory walking) fits the median speed, stopping and long-lag heading
 correlation but **not** the slow-speed tail, turn-increment shape, drift
@@ -146,7 +147,8 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      between the 2009 pipettes and the 2003 sticks.
    - **Profile, σ_m (M_a; Δ loss vs optimum, re-fitting all others):**
      0.10 µL Δ 6.0 · 0.15 Δ 1.6 · 0.21 Δ 0 · 0.27 Δ −0.3 · 0.33 Δ 0.8.
-     Bounded below (≳ 0.13 µL at 95 %) but **not above** within 0.33 µL:
+     Bounded below (≳ 0.13 µL; approximate, Δ loss < 2, not a calibrated
+     interval) but **not above** within 0.33 µL:
      the data cannot rule out larger gaster-estimate noise, which would
      make volume-based stopping more compatible with the time-vs-volume
      variability pattern. An independent estimate of σ_m (e.g. a methods
@@ -155,8 +157,8 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      0.60 Δ 0.1 — flat. q > 0 is needed (M_c0 loses by Δ 4.7) but its value
      (≈ 0.15–0.6) is not identified by the current targets.
    - **Profile, pipette accessibility:** 0.57 Δ 69.6 · 0.69 Δ 17.9 · 0.785
-     Δ 0 · 0.86 Δ 6.9 · 0.91 Δ 17.4 — well identified (≈ 0.73–0.84 at
-     95 %) for the 2009 pipettes. So the 2003 per-visit intake (0.29 µL,
+     Δ 0 · 0.86 Δ 6.9 · 0.91 Δ 17.4 — well identified (≈ 0.73–0.84, approximate: Δ loss < 2)
+     for the 2009 pipettes. So the 2003 per-visit intake (0.29 µL,
      above 0.785 × 0.3 = 0.24 µL) points to different accessibility for
      the 2003 sticks, or to volume-estimate bias, not to a loose fit.
 3c. **Search around food (new, next E2 work).** Revisit the area-restricted
@@ -177,7 +179,88 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      trophallaxis, 69–93 % after other contacts. Table 2b's n values
      look copied from Table 1 — use its proportions with caution.
    - Then test once on E6.
-5. **E1 structure revisit** (new, from step 1). The walking model fails
+5. **E1 structure revisit** (in progress, session 3). Done so far:
+   - **5.0 Reproduction ✓.** `scripts/diagE1.ts` (code in
+     `src/sim/analysis/walkDiagnostics.ts`) reproduces every [C] number of
+     the research note from the TS pipeline (speed-binned persistence and
+     kurtosis, per-ant and within-ant log-speed spread, tracking noise,
+     flat alignment by displacement, downhill exits, radial drift,
+     returns), all to the note's rounding. The claims stand.
+   - **5.A Tracking observer ✓** (`E1Options.tracking`, per-ant observer
+     stream). The data's noise is white (σ² from 1st vs 2nd differences
+     1.03–1.05). Noise-free simulated ants already put 0.03–0.09 mm into
+     the same estimator through slow movement, so the observer SD is
+     deconvolved, σ² = σ_data² − σ_moving²: σx 0.149/0.142/0.141/0.139/0.133,
+     σy 0.167/0.159/0.187/0.228/0.357 mm (0–60°). With it, simulated tracks
+     reproduce the data's noise estimates (|z| ≤ 0.6) and whiteness. It
+     barely changes any behavioural statistic: **noise does not explain the
+     gaps.**
+   - **New diagnostics (same code on data and model):**
+     - Turn structure by speed, 2.5 mm chords: median |turn| and P(|turn| >
+       0.5 rad). In the data both fall steeply with speed (flat: big-turn
+       fraction 0.67/0.65/0.37/0.12/0.026 across the five speed bins); the
+       model has too few big turns when slow and 2–15× too many when fast
+       (0.06 per chord at every incline), hence the kurtosis gap (model
+       17–30 vs data 5–11 at ≥ 25 mm/s).
+     - Caveat, an estimator effect present in data and model alike: a turn
+       inside the 0.2 s window shortens the displacement, so "slow" bins
+       select turning. In the model the slow bins on flat ground are mostly
+       near-reversals (⟨cos⟩ at 5 mm −0.14).
+     - **Between ants** (free of that effect): slower ants are more
+       tortuous per mm. Slope of log(1 − ⟨cos⟩ at 10 mm) on log median
+       speed: data −0.63/−0.56/−0.57/−0.33/−0.40 (SE 0.06–0.15), model
+       −0.08 to −0.18. Per-distance turning predicts 0, per-time turning
+       about −1 (less once correlations saturate).
+     - **Across stops:** heading into vs out of a stop is nearly
+       uncorrelated in the data (⟨cos⟩ 0.0–0.26 for stops < 0.4 s, 0.16–0.37
+       for 0.4–1.2 s); the model keeps its heading (0.29–0.56 and 0.62–0.79).
+       Ants reorient at stops.
+     - Downhill exits (model 0.48–0.52 vs data 0.67–0.83), slope-axis tilt
+       10–20° at 20–45°, flat alignment, outward radial drift on ≥ 30° and
+       within-ant speed SD all confirm the note.
+   - **B vs A0 (pre-registered test, exact pause rule; `judgeE1.ts
+     --checks loss11`; fits kept as `data/fits/e1-{A0,B}-loss11.json`):**
+     - (i) flat loss on 5 fresh 1000-ant batches: A0 123.5 ± 2.8, B
+       114.3 ± 1.3; paired B − A0 = −9.2 ± 3.5 (2.6 SE), −5.2 after the
+       heuristic 2k penalty. Met.
+     - (ii) the primary checks (per-ant tortuosity–speed slope, big-turn
+       fraction by speed) improve at 5 of 5 inclines. Met.
+     - **But both models stay far off the checks** (primary Σz² over 6
+       statistics: B 576–2694, A0 633–3109, i.e. |z| ≈ 10–20). B's
+       per-ant slope is −0.18 to −0.22 vs A0 −0.06 to −0.17 and data
+       −0.33 to −0.63; over all turning checks B is better on 0–45° but
+       worse at 30° and 60°. On the fitted slopes B loses (stage-2 loss 239
+       vs 199; combined-SE report at 45°/60°: 269/341 vs 221/271), since
+       `slopeJitterK` is gone and C/D are not yet in.
+     - The fit keeps the time-based terms small (D_t 0.05 rad²/s, μ_t
+       0.29/s; λ 9.9 mm, g 0.65), so per-distance turning still dominates.
+       Reading: the current loss barely rewards the turning structure the
+       checks expose (it has no speed-resolved turning statistics), so the
+       fit cannot pull B towards it.
+     - **Decision:** B is preferred over A0 by the pre-registered rule;
+       provisional (review notes). It is not evidence that ants turn "per
+       unit time" in a specific mechanistic sense, and it does not fix the
+       turning structure.
+   - Done since: speed-resolved turning in the fit (15-family loss); T
+     vs A0 (T not preferred, under the old fitting procedure); per-purpose
+     random streams; CMA-ES; reference walkers (Decisions log).
+   - **Now (Decisions log, "Review notes on the next phase"):** bounded
+     staged-vs-joint fitting comparison on synthetic data (T truth; large
+     and 69-ant references; prediction recovery primary,
+     `scripts/recoverE1.ts`); then one renewed A0 vs T comparison with
+     the chosen strategy; then the E2 sensitivity to plausible walkers,
+     which decides whether E1 work stops (stopping condition). C, D, G
+     deferred until then. The Bonavita held-out test runs only after all
+     of this, on the adopted walker, with the reference walkers as frozen
+     secondary benchmarks.
+   - Reference-walker slope threshold sensitivity (pre-registered
+     alternative ε): `reportE1Ref.ts --segments
+     data/reference/khuong-segments-alt.json` vs default.
+   - **Cascade:** E2 takes its walk parameters from the E1 fit
+     (`LASIUS_PARAMS`). Adopting a new E1 fit means re-running
+     `reportE2.ts` and, if E2 moves, refitting E2 before 3c.
+
+   Original plan (session 2): the walking model fails
    the stricter criteria on flat ground too (see Results § E1). Research
    note [`slope-walking.md`](research/slope-walking.md) (session 2)
    re-reads the failures; its [C] numbers come from Python scripts and must
@@ -200,8 +283,9 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      purely axial. Check the data's y orientation (assumed +y = uphill,
      matching `PlaneSurface(incline, −π/2)`).
    - Return-to-start bias near release fades on slopes (published for
-     flat ground by Bonavita et al. 2026, PLoS ONE e0327957 — a reanalysis
-     of the same data; citation not yet checked by me).
+     flat ground by Bonavita et al. 2026, PLoS ONE 21:e0327957, PMC13419209
+     — a reanalysis of the same flat data plus a new experiment; citation
+     checked in session 3).
    Candidate changes, in the note's order (each with its distinguishing
    observation in the note, §4):
    - **A** add measured tracking noise to the simulated observer (0
@@ -218,10 +302,9 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      two-state switching (+4–6).
    Then compare per-ant as well as pooled statistics (pooled quantiles are
    time-weighted towards slow ants), and refit with `scripts/fitE1.ts`.
-   **Evidence note:** all five inclines are now fit or development data;
-   E1 has no held-out walking data. Fresh candidates: L. niger walking in
-   other published experiments (e.g. Czaczkes et al. 2011), if conditions
-   match.
+   **Evidence note:** all five inclines are now fit or development data.
+   Held-out for the flat-ground walker: Bonavita et al. 2026's new
+   experiment (registered session 3, see contamination log).
 6. Backlog (below), sensitivity analysis.
 
 ### How to run, gotchas, code map
@@ -246,9 +329,32 @@ Claude Code loads automatically.
     slope-dependent pausing, jitter and speed variability were added.
   - Those terms were fitted only on 30° and 60°, but 20° and 45° are now
     **development**, not held-out.
-  - No fresh L. niger walking data are held out yet. Candidates: walking
-    statistics in other published L. niger experiments (e.g. Czaczkes et
-    al. 2011 speeds and straightness on trails), if the conditions match.
+  - **Held-out (registered 2026-10-08, never inspected):** Bonavita et
+    al. 2026's new experiment, `data/bonavita2026/redwhite.csv.gz` (60
+    ants × white and red light, same lab, flat 50 cm arena, 25 °C,
+    tooth-pick release, arena cleaned between ants; raw 25 Hz tracks, CC
+    BY 4.0). Only the file format, counts and the paper's methods have
+    been read; no statistic has been computed on the tracks. **Correction
+    (2026-10-08):** the paper's *summary* results for this experiment were
+    seen before registration: `slope-walking.md` §1.5 (session 2) quotes
+    them (homeward bias persists under red light for speed and λ only; ants
+    walk faster heading back, ES ≈ 1.7–2.3 mm/s), and that note was read at
+    the start of session 3. No model has been compared with them and the
+    frozen test statistics do not include direction-to-start effects; if
+    such a statistic is ever added it counts as contaminated. It will test the flat-ground walker adopted
+    after step 5, under a protocol written down before the first
+    computation (geometry, start/end criteria, observer calibration with
+    the same noise estimator, white light primary).
+  - **Possible exposure (2026-10-08, literature check):** a web-page
+    summary of Bonavita et al. 2026, requested for the Khuong re-analysis
+    only, also returned one sentence of unclear origin: "Experimentally,
+    ants required 4.06 times longer to achieve 200mm net displacement
+    compared to isotropic models". It may describe the new experiment. No
+    other result on the held-out data was seen; the number is not used
+    anywhere. Treat a net-displacement or MSD statistic as contaminated if
+    it is ever added to the held-out test.
+  - Other candidates: Czaczkes et al. 2011 (speeds and straightness on
+    trails; experienced foragers, a different context).
 - **E2 (Mailleux et al. 2009):**
   - The drop-1 trail fraction was moved into the fit.
   - The second-drop intake and time, between-drop times, overall trail
@@ -607,6 +713,204 @@ See [`CLAUDE.md`](../CLAUDE.md).
     Σz² + 2k, better on development Σz², and no worse on the held-out
     primary Σz². Both are reported whatever the outcome; after this test
     the 2003 data become development.
+- **2026-10-08** Session 3 order: **step 5 before 3c and 4.** Search around
+  food (3c) is governed by the same walking model, and the encounter
+  model (4) depends on how ants move in the nest, so the walking structure
+  should be settled first. Step 5 begins with its stated prerequisite:
+  - 5.0 reproduce the research note's [C] diagnostics in TS
+    (`src/sim/analysis/walkDiagnostics.ts`: per-track accumulators, so the
+    same code runs on data and simulations and gives cluster-bootstrap
+    SEs; `scripts/diagE1.ts` prints data vs model). Covered: speed-binned
+    persistence at 5/50 mm and 2.5 mm-chord turn kurtosis (B), per-ant vs
+    within-ant log-speed spread (D), tracking noise σx/σy (A), alignment
+    by displacement length (H), downhill exits (C), radial drift and
+    returns (G). Any number that does not reproduce is flagged in the note.
+  - 5.A then the tracking-noise observer (measured σx, σy per incline;
+    own RNG stream per ant), reported with and without, before any refit.
+  - Candidates B, C, D, G, H follow, each judged first on its
+    distinguishing observation; E1 has no held-out data, so all five
+    inclines remain fit/development.
+- **2026-10-08** Step 5 B pre-registration (before any fit with B):
+  - **Observer A** is part of every E1 fit and report from now on
+    (deconvolved σx, σy per incline, recorded in `lasiusM1.ts` as derived
+    values).
+  - **A0 (baseline):** current structure + observer, refitted with the
+    existing loss, stages and budget (stage 1: 500 evaluations on flat;
+    stage 2: 400 on 30° and 60°; 160 ants per evaluation; common random
+    numbers). Without this refit, B's gain would mix structure with
+    observer and optimiser effects.
+  - **B (time-based turning):** A0 plus heading diffusion per unit time
+    `jitterTime` D_t (rad²/s) and reorientation events per unit time
+    `turnRateTime` μ_t (1/s), both also running while the ant is paused;
+    `slopeJitterK` removed (fixed 0). Event rate per mm = 1/λ + μ_t/v, and
+    the existing run-length modulations (geomenotaxis, homing, runScale)
+    scale the whole rate. Heading variance per mm = D_s + D_t/v. Same phase
+    function (wrapped Cauchy, g) for both event kinds. k: +2 − 1 = +1. With
+    D_t = μ_t = 0 the model and its random-number sequence are unchanged.
+  - **Checks, never fitted:** speed-binned ⟨cos⟩ at 5/50 mm, kurtosis,
+    median |turn| and big-turn fraction; the per-ant tortuosity–speed
+    slope; ⟨cos⟩ across stops.
+  - **Decision rule:** B is adopted if (i) fit-inclines loss + 2k is lower
+    than A0's and (ii) the per-ant slope and the big-turn fractions move
+    towards the data (smaller Σz² over the checks) at ≥ 4 of 5 inclines.
+    Both are reported whatever the outcome. If B fails (ii), the two-state
+    model F (Decisions: deferred) is the next structural candidate.
+  - **Amendment (same day, after the first A0/B fits, before judging
+    them).** The pre-registered protocol could not answer the question:
+    - Nelder–Mead left B's new parameters at their starting values (D_t
+      0.054 rad²/s, μ_t 0.32/s) and barely moved anything else in A0.
+    - The objective is noisy: at 160 ants per evaluation the flat-ground
+      loss has a seed-to-seed SD of ±15 (60°: ±18), and the fitted points
+      sit ≈ 2.8 SD below their fresh-seed mean (95 vs 138 ± 15): the
+      optimiser fits seed noise under common random numbers. The session-2
+      fit has the same problem. Turn SD and kurtosis are the noisiest
+      families (rare large turns). At 640 ants: ±3.3 (flat), ±6.8 (60°).
+    - A grid scan (`scripts/scanE1.ts`) shows a ridge of near-constant
+      total turning rate (e.g. λ 50 mm with μ_t 4/s), which a warm-started
+      simplex with 0.3 log-steps does not cross.
+    - **Changes, identical for A0 and B:** 640 ants per evaluation; each
+      stage runs from two starts (warm start, and a second start: B on the
+      ridge, λ 50 mm, μ_t 4/s, D_t 0.2; A0 with λ 20 mm, g 0.75), then
+      restarts the simplex from the best point until a restart gains < 0.5
+      (≤ 3 restarts).
+    - **Decision quantity:** stage 1 (flat ground: no geomenotaxis, no
+      slope speed structure) is the clean test of B, since stage 2 is
+      confounded by the missing C and D. Criterion (i) becomes the
+      fresh-seed flat loss (1000 ants, not the optimiser's own seeds) + 2k
+      over the stage-1 parameters (A0 12, B 14). Criterion (ii) is
+      unchanged. Stage 2 is fitted and reported, but does not decide.
+    - First-run results, superseded and kept for the record (combined-SE
+      report, 300 fresh ants, loss at 0/20/30/45/60°): adopted session-2
+      fit with observer 99/100/127/244/423 (without observer
+      98/101/126/250/615); A0 104/83/101/220/341; B 90/69/109/204/332.
+- **2026-10-08** Step 5 C and D pre-registration (implemented with defaults
+  that leave the model bit-identical; nothing fitted yet). Their
+  distinguishing observations, computed before any fit (`diagE1.ts`,
+  adopted session-2 fit with observer, data / model):
+  - **C:** small-turn steering towards the slope axis, ⟨Δh·sin 2φ⟩ per
+    5 mm in turns < 0.3 rad, grows with incline in the data (−0.000,
+    −0.002, −0.004, −0.004, −0.005; SE 0.001), model −0.000 … −0.003; a
+    small-turn downhill drift ⟨Δh·sin φ⟩ ≈ −0.005 on slopes, model ≈ 0.
+    The model's large turns move headings *away* from the axis (+0.016 …
+    +0.033); the data's do not (−0.014 … +0.016).
+  - **D:** between-ant SD of log median speed *within sessions* grows with
+    incline (0.28, 0.43, 0.36, 0.46, 0.54; SE ≈ 0.04), model 0.28–0.36. So
+    individuals differ in slope sensitivity; it is not only session
+    effects.
+  - **Models.** C: `geoTorque` κ and `geoPolar` β (continuous, per mm, ×
+    sin θ; exact integration) replace the event pull `geoHeadingPull`
+    (fixed 0); `geoRunGain` kept; k +1. D: `slopeSpeedKSd` σ_k (log-normal
+    individual multiplier of `slopeSpeedK`) replaces `slopeSpeedSdK`
+    (fixed 0); k ±0.
+  - **Protocol** (after B is decided, on its adopted structure): refit
+    stage 2 only (stage-1 parameters fixed) for S0 (no change), C, D and
+    C+D, with the amended search (640 ants, two starts, restarts).
+    Decision quantity: fresh-seed loss on the fit slopes (30°, 60°; 1000
+    ants) + 2k over stage-2 parameters. Checks, never fitted: for C the
+    small-turn drifts, downhill-exit fraction, alignment by displacement
+    and 50 mm persistence by speed bin; for D the between-ant SDs (overall
+    and within session), within-ant SD and per-ant median quantiles. A
+    candidate is adopted if it lowers loss + 2k and lowers the Σz² of its
+    checks at ≥ 3 of the 4 sloped inclines.
+- **2026-10-08** E1 evaluation speed (user asked whether to port to
+  Rust/WebAssembly). Measured first: of one 640-ant evaluation, ≈ 60 % was
+  per-track statistics running serially on the main process; the
+  (already parallel) simulation kernel was the smaller part. So **no
+  port**: it would put the model in two languages that must agree
+  bit-for-bit with the browser's TypeScript (`exp`/`atan` differ between
+  JS engines and Rust's libm), for a minority of the time. Instead the
+  workers now return per-ant summaries (`pool.e1Sample`, task
+  `e1Summary`; sparse speed histogram per ant), so statistics run in
+  parallel and little data crosses processes. Losses, rows and bootstrap
+  SEs are bit-identical to the old path; warm evaluations 3.1–3.3× faster
+  (flat 760 → 233 ms, 60° 1155 → 368 ms). The worker time is now ≈ 60 %
+  simulation, 40 % `trackStats` (which also computes unused MSD), so
+  further micro-optimisation is worth ≤ 25 %. The larger remaining lever
+  is the optimiser (noisy objective, ridge); revisit if fits stay slow.
+- **2026-10-08** Review notes (user, session 3) adopted:
+  - **Pause onset made exact** (`walkStep`: unit-rate exposure clock, a
+    pause starts and ends at its exact time inside a step; OU speed
+    process advances only while walking, as before). The old rule spent the
+    whole onset step paused and then the full drawn pause, a time-step bias
+    of ≈ +2–3 % in stopped fraction at dt 0.02 (60°: 0.0984 / 0.0968 /
+    0.0939 at dt 0.04 / 0.02 / 0.005). Now flat in dt (0.0943 / 0.0961 /
+    0.0935; B-like 0.1042 / 0.1041 / 0.1046), exit times and stop
+    turning within 2 SE. New exact test: paused fraction = rate·mean/(1 +
+    rate·mean) at dt 0.4 and 0.01 (the old rule gives 0.527 vs 0.333 at
+    dt 0.4). This changes the random-number sequence, so the in-flight A0/B
+    fits were stopped and are redone; the session-2 fit is not refitted,
+    but every report from now on uses the exact rule.
+  - **Rankings are provisional.** The E1 loss mixes family-averaged z² with
+    KS results converted to z, and "loss + 2k" is a penalised heuristic,
+    not AIC (no likelihood). Likewise the E2 profile "95 %" ranges
+    (Δloss < 2 thresholds) are approximate: incomplete optimisation and
+    simulation noise, not calibrated intervals. Consequences:
+    - candidates are judged on **several independent fresh-seed batches**
+      (5 × 1000 ants per incline), reported as mean ± SE; a loss
+      difference counts only if it exceeds 2 SE of the paired difference
+      *and* the pre-registered checks agree;
+    - the KS z depends on the simulated sample size, so judging always
+      uses the same number of simulated ants;
+    - a better score is a reason to prefer a structure, not evidence for a
+      specific biological mechanism; STATUS wording follows that.
+  - **E2 cascade** (reinforced): adopting any new E1 walker invalidates the
+    E2 calibration until checked — rerun `reportE2.ts` on several seed
+    batches; if any fit target moves beyond noise, refit M_a before 3c.
+- **2026-10-08** Held-out test protocol for Bonavita et al. 2026 (frozen
+  before any statistic is computed on those tracks):
+  - **Units and dependence:** the ant is the unit; each ant's white and red
+    tracks stay together (paired). SEs by a colony-stratified cluster
+    bootstrap over ants; a leave-one-colony-out jackknife is reported as a
+    sensitivity check, and with three colonies colony-level effects cannot
+    be estimated, which the report must say. The 119 tracks are never
+    treated as independent.
+  - **Primary condition:** white light (closest to an ordinary lit room);
+    red light secondary. The model has no light dependence, so the paired
+    light difference is reported descriptively, not as a test.
+  - **Geometry and pipeline:** each simulated ant starts at the matching
+    recorded ant's first tracked position in a 250 mm-radius circular
+    arena; a track ends at 180 s or on reaching the wall (centre distance
+    ≥ 245 mm), in data and simulation alike; then the unchanged
+    `KHUONG_PREP` (start 10 mm from the first point, end at 200 mm from it)
+    and the same statistics (`e1Compare` scalars, `walkDiagnostics`
+    checks). Exit times are therefore censored identically on both sides.
+  - **Observer:** tracking noise estimated on these data with the same
+    estimator and deconvolved as for Khuong (an observation-model
+    calibration, not a behavioural one); pixel quantisation (≈ 0.24 mm)
+    is part of that estimate.
+  - **Conditions:** 25 °C vs 26 °C in Khuong; the walker has no
+    temperature dependence and no correction is applied. A speed failure
+    is reported as such, with this caveat.
+  - **Criterion:** the E1 development-test rule (no statistic |z| > 3; at
+    most 2 of ≈ 24 with 2 < |z| ≤ 3), combined-SE z with the bootstrap
+    above; checks reported alongside. Run once, on the walker adopted at
+    the end of step 5; reported whatever the outcome; afterwards the data
+    are development.
+- **2026-10-08** Step 5: speed-resolved turning moves into the E1 fit
+  (user decision after the B vs A0 result; pre-registered before any fit
+  with the new loss):
+  - **Why:** the loss had no speed-resolved turning statistics, so the
+    fits could not see the structure the checks expose (B kept its
+    time-based terms small). With held-out flat-ground data now available
+    (Bonavita et al. 2026), the independent test of the flat walker moves
+    there, and these statistics can become fit targets.
+  - **New loss families** (fit-z with bootstrap SE_data, every incline; a
+    statistic the data cannot estimate at an incline, e.g. < 10 stops in a
+    bin, is left out there, not penalised):
+    `turnBig` (P(|turn| > 0.5 rad) per 2.5 mm chord, 5 speed bins),
+    `turnMed` (median |turn|, 5 speed bins), `antTurnSlope` (per-ant slope
+    of log(1 − ⟨cos⟩ at 10 mm) on log median speed), `stopTurn` (⟨cos⟩
+    heading into vs out of stops, < 0.4 s and 0.4–1.2 s). 11 → 15 families.
+  - **Remaining checks, never fitted:** ⟨cos⟩ at 5 and 50 mm and kurtosis
+    by speed bin, steering drift, alignment by displacement, downhill
+    exits, radial/returns, log-speed decomposition, longer stops.
+  - **Comparison:** refit A0 and B with the new loss and the same search;
+    decision as before (paired difference over 5 fresh batches > 2 SE, and
+    lower Σz² of the remaining by-speed checks — cos5, cos50, kurtosis — at
+    ≥ 4 of 5 inclines), provisional in the sense of the review notes.
+  - **Held-out criterion amended accordingly** (before any inspection):
+    the rule "no |z| > 3, at most 2 of ≈ 24 marginal" becomes "no |z| > 3,
+    at most 10 % of the statistics marginal" over all `compareE1` rows.
 - **2026-10-08** Pool size follows free memory (tooling; results
   unaffected): `SimPool` defaults to min(cores − 1, (MemAvailable − 1 GB) /
   350 MB) workers (`defaultWorkers` in `scripts/pool.ts`; E1 workers
@@ -614,3 +918,483 @@ See [`CLAUDE.md`](../CLAUDE.md).
   Why: two concurrent E1 fits started 30 workers on a 16-thread, 16 GB
   laptop and pushed it into swap. Two fits launched at the same moment both
   see the same free memory, so give each `SIM_WORKERS` ≈ half the cores.
+- **2026-10-08** Two exploratory E1 checks (user request; Khuong data only,
+  already fit/development; Bonavita held-out untouched; adopted A0 fit and
+  candidate B, both through the tracking observer). Predictions written
+  before running:
+  - **Reorientation at stops:** ⟨cos⟩ heading in vs out of a stop by finer
+    stop-duration bins, plus the change in alignment with downhill and with
+    the release direction across the stop. A reset at stops predicts low
+    ⟨cos⟩ even for the shortest stops in the data; diffusion while stopped
+    predicts a decay with duration; the model (no stop mechanism) should
+    stay high. A downhill or homeward shift ties the reset to C or G.
+  - **Trait vs instantaneous speed–turning:** slope of log(1 − ⟨cos⟩ at
+    10 mm) on log speed between ants vs within ants (ant fixed effects,
+    within-ant speed terciles; speed from arc length / moving time, which
+    avoids the "turns shorten displacement" artefact). B predicts within ≈
+    between; a correlated per-ant turning trait predicts between steeper
+    than within.
+  - **Results** (600 simulated ants per incline; `scripts/diagE1Stops.ts`;
+    z = combined):
+    - **Reorientation at stops: confirmed, at every incline.** For real
+      stops (0.13–0.8 s) the data's ⟨cos⟩ in vs out is 0.03–0.41 (mostly
+      0.1–0.3); A0 0.64–0.81, B 0.57–0.79 (z 1.8–9.3). It is already low for
+      0.13–0.25 s stops and shows no decay with duration: a reset on
+      stopping, not diffusion while stopped. B's per-time terms do not
+      produce it. Not downhill-directed (|Δ| ≤ 0.11, |z| ≤ 2.5); a weak,
+      noisy homeward tendency (out-heading vs release direction 0.08–0.23
+      at 0–30°, model ≈ 0).
+    - **Side finding, stop durations:** the data's stops (with movement on
+      both sides) are almost all < 0.25 s (0°: 296 of 325); the model's are
+      long (A0 0°: 464 of 997 over 0.4 s). The stopped fraction matches via
+      fewer, longer pauses. Check the pause-duration distribution directly.
+    - **Side finding, homing via reversals:** most stop episodes are < 0.13
+      s and are sharp reversals (⟨cos⟩ in vs out ≈ 0 in data and model).
+      Over all stops, the data's new heading points towards the release
+      point (⟨cos⟩ +0.21/+0.24/+0.16 at 0/20/30°, +0.03/+0.08 at 45/60°);
+      the model's do not (−0.04 to +0.08; z −2.3 to −5.7 at 0–30°).
+      Homing may act through the direction of big turns; relevant to the
+      near-release drift gap and to G.
+    - **Trait hypothesis: rejected.** Within-ant slope (arc speed) −3.6 /
+      −2.9 / −2.8 / −2.1 / −1.9 is much steeper than between-ant −0.62 /
+      −0.60 / −0.62 / −0.37 / −0.46, the opposite of the trait prediction;
+      the displacement-speed version agrees. No per-ant turning trait.
+    - **But the within-ant coupling is the largest gap found so far:** A0
+      −0.30 to −1.53, B −0.33 to −1.39 (z 12–22; B no better than A0).
+      Per-time heading noise (B) gives at most ≈ −1, so B cannot reach −2 to
+      −3.6 at any parameter values. Candidates: turn-linked slowing (ants
+      decelerate for turns) or the slow-tortuous mode F. Distinguishing
+      observation: speed time course around big turns (short dip centred on
+      the turn → motor coupling; dwell and lag → F).
+- **2026-10-08** Refits of A0 and B with the 15-family loss **stopped**
+  before finishing (user decision). The exploratory checks above show
+  that neither structure has a heading reset at stops or the steep
+  within-ant speed–turning coupling, so their comparison under the new
+  loss would mostly measure which wrong structure distorts less. The
+  15-family loss stays as pre-registered and will be used for the next
+  candidate. Order of work:
+  - observational checks first (other session): pause/stop-duration
+    distribution; speed time course around big turns (short dip centred on
+    the turn → turn-linked slowing; dwell and lag → two-state F);
+  - then pre-register one combined candidate (heading reset at stops,
+    corrected pause-duration distribution, the coupling the checks support,
+    B's per-time terms only if still needed) and fit it against A0.
+- **2026-10-08** Review of the exploratory stop/trait checks
+  (`scripts/diagE1Stops.ts`; reproduced exactly, 600 ants, adopted fit):
+  - **Homeward redirection at stops is not reversal geometry.** If the
+    turn at a stop were independent of where home lies, ⟨cos(out − home)⟩
+    would be ⟨cos Δ⟩ · ⟨cos(in − home)⟩: ≈ 0.00 / +0.04 / −0.01 at 0/20/30°.
+    The data show +0.21 / +0.24 / +0.16 (model ≈ 0.01). At 45/60° the
+    excess is small (+0.03 / +0.08 vs predicted −0.03). So ants redirect
+    homeward when they stop, and less on steep slopes (cf. G).
+  - **Speed–turning coupling is not a by-product of stops.** Excluding
+    every 10 mm segment within 0.4 s of a stop, the data's within-ant slope
+    is −3.9 / −3.3 / −3.0 / −2.4 / −2.0 (all segments: −3.6 … −1.9); the
+    model's is unchanged (A0 −1.6 … −0.3, z 13–20). Reset at stops and the
+    steep coupling are separate phenomena; a candidate needs both.
+    Without stop-adjacent segments the between-ant slope shrinks (0°
+    −0.52, 45° −0.00, 60° +0.09): part of it came from how often ants
+    stop.
+  - Caveat for interpreting slope values: smoothing cuts corners, so
+    tortuous segments get a lower measured arc speed. That inflates the
+    within-ant slope on both sides (A0 has no speed-dependent turning, yet
+    shows −0.3 to −1.6), so compare data with model rather than with
+    theoretical values such as "−1 for per-time noise".
+- **2026-10-08** Two more exploratory E1 checks (Khuong data only; this
+  session takes over from the other one). Predictions before running:
+  - **Stop durations** (`sp` < 2 mm/s episodes, as in `diagTrack`), as
+    episodes per minute of track by duration bin. The model's exponential
+    pauses (mean 0.7 s) should give too few short and too many long stops;
+    if the data's excess is all in < 0.13 s it may be reversals rather than
+    halts (those also form "episodes"), so the 0.13–0.4 s bins decide the
+    pause-duration question.
+  - **Speed around big turns** (turn > 1 rad between the 0.2 s
+    displacements before and after a sample, local maxima only): each
+    ant's 3-point speed divided by its median moving speed, averaged at
+    lags −2 … +2 s from the turn.
+    - Turn-linked slowing (motor coupling): a dip centred on the turn,
+      ≈ 0.2–0.6 s wide, roughly symmetric, back to baseline within ≈ 1 s.
+    - Two-state switching (F): a broad depression still visible at ±1–2 s,
+      and big turns clustered in time (inter-turn CV > 1, more than speed
+      changes alone explain).
+    - A0/B: little beyond the geometric dip from the turn itself.
+  - **Results** (`scripts/diagE1Turns.ts`, 600 simulated ants per incline,
+    adopted fit A0 and B-loss11, combined z):
+    - **Speed around big turns: turn-linked slowing, not F.** In the data
+      speed falls to 0.45–0.56 of baseline at the turn and recovers within
+      ≈ 0.3–0.4 s. On slopes it recovers more slowly after the turn than it
+      fell before it (asymmetry +0.03 / +0.06 / +0.12 / +0.05 at 20–60°:
+      slower after); on flat ground the dip is nearly symmetric (−0.03,
+      slightly faster after). [Corrected the same day: first written as
+      "+0.03 … +0.12" for all inclines.] At ±1–2 s it is back at
+      baseline (0.99–1.00 at 0–30°; 0.93–0.95 at 45–60°, a weak broad
+      component on steep slopes). Big turns are not clustered (inter-turn
+      CV 0.89–1.00, 1.10 at 60°). Both models show the opposite: speed
+      around turns *above* baseline (1.04–1.45; per-distance turning puts
+      more turns into fast stretches), with only the geometric dip at the
+      turn (0.75–0.99), z up to 50. Reading: turn timing is independent of
+      the slow speed fluctuations (as for events in time), and each turn
+      carries a short deceleration.
+    - **Stop durations:** at 0–30° stops ≥ 0.4 s occur at the model's rate
+      (|z| ≤ 1.6); the data's excess is in < 0.4 s episodes (3–4× the
+      model), i.e. the deep dips at sharp turns. At 45–60° the model has
+      too many long pauses (0.8–1.6 s: z 2.3–6.9). The pause process is not
+      the main problem; the brief halts belong to the turn mechanics.
+- **2026-10-08** Step 5 candidate **T** (turn-coupled walking)
+  pre-registration (before implementation and any fit):
+  - **Structure:** B (per-distance λ, jitter; per-time μ_t, D_t;
+    `slopeJitterK` fixed 0) plus
+    - **turn-linked slowing:** each reorientation of angle Δ sets the
+      ant's dip state u ← max(u, a·(1 − cos Δ)/2); speed is v·(1 − u), and u
+      decays as e^{−t/τ} (a reversal nearly halts the ant; small turns
+      barely slow it);
+    - **heading reset at pause onset:** new heading = old + wrapped Cauchy
+      (g_stop), then a homeward pull of strength `stopHomePull`·homeW; the
+      reset counts as a turn for the dip.
+    - Event timing is exact in continuous time with the decaying speed
+      (separate distance and time clocks; per-time diffusion uses time
+      walked). k = 19 + 4 = 23 (a, τ, g_stop, stopHomePull; all stage 1).
+  - **Baseline:** A0 refitted under the 15-family loss (same search).
+    T's second start is B's ridge start with the same new-parameter
+    starting values.
+  - **Checks, never fitted:** speed around big turns (dip, 1–2 s shoulders,
+    asymmetry), within-ant speed–turning slope with and without
+    stop-adjacent segments, ⟨cos⟩ across stops by fine duration bins,
+    homeward out-heading at stops, stop-episode rates by duration, and the
+    by-speed ⟨cos⟩ at 5/50 mm and kurtosis.
+  - **Decision rule:** T is preferred over A0 if the paired fresh-batch
+    flat-loss difference is below −2 SE (also after the heuristic 2k
+    penalty) and the Σz² over the checks is lower at ≥ 4 of 5 inclines.
+    Provisional in the sense of the review notes; homing weakening on
+    slopes (G), C and D come after.
+- **2026-10-08** Literature check for T and G (while the A0/T fits ran):
+  [`docs/research/stops-turns-literature.md`](research/stops-turns-literature.md).
+  Pause-linked reorientation (locusts, *A. gracilipes*, scanning desert
+  ants) and slower turning via inner-stride shortening are documented, but
+  nothing gives sizes or time courses for *L. niger*. One model (Freas &
+  Wystrach 2025, not read) puts the causality the other way, speed
+  inhibition → turning, which would explain the reset and the coupling
+  together; a finer speed–heading lead–lag check can separate the two.
+  Desert-ant path integration is accurate on slopes up to 45°, so nothing
+  in the literature predicts suppressed homing at 20–45° (G). One possible
+  held-out exposure logged in the contamination log.
+- **2026-10-08** Reference baselines for E1 (user decision: port the
+  published walkers of Khuong et al. 2013 and Bonavita et al. 2026, as TEC
+  was ported for E6). Plan, decided before any code:
+  - **Source:** the authors' own scripts (Zenodo 10.5281/zenodo.19203503,
+    CC BY 4.0, md5 as in `data/bonavita2026/README.md`): `5-K_np_simulations.R`
+    (simulation), `2-K_compute_boltzmann_variables.R` (segment variables),
+    `botupsegMAE.cpp` (Khuong's bottom-up segmentation, CeCILL 2.1). Only
+    the Khuong-side files were extracted; the archive's red/white-light
+    tracks, results and figures were not opened.
+  - **Model:** non-parametric sectored Boltzmann walker. Each step draws
+    one recorded segment (length l, turn ω, duration l / v_seg) from the
+    pool of the current heading sector (8 sectors centred on 0, π/4, …).
+    Frames: `xy` (sectors fixed to the arena axes; on slopes these are the
+    up/down/horizontal sectors of Khuong's Algorithm 3) and `start`
+    (Bonavita's Φu: sectors relative to the direction back to the
+    release point; flat ground only, as published). Start at the origin
+    with a uniform heading; stop on crossing r = 200 mm. Positions sampled
+    every 0.04 s along the segments (their `subsample`), then the tracking
+    observer and the usual preparation, as for our models.
+  - **Quirks reproduced (`compat: true`), fixed with `compat: false`:**
+    the drawn length belongs to the segment *after* the drawn turn but is
+    walked on the current heading; the first `start`-frame step uses the
+    `xy` sector.
+  - **Segmentation port** checked against their C++ compiled from source
+    (not the binary in the archive) on the 69 flat tracks: identical
+    vertices required. Flat pools use their ε = 1.7 mm. Slopes: ε scaled
+    by mean speed, ε_γ = ε·c̄₀/c̄_γ (Khuong's text); c̄ = total path / total
+    time of the raw tracks per incline — a reconstruction, Khuong's code is
+    not public. The repo's Khuong copy is rounded to 0.01 mm; flat pools
+    are also built from their full-precision files to measure the effect.
+  - **Evidence role:** the pools are built from all Khuong data at every
+    incline, so these baselines are judged in-sample everywhere, with no
+    parameters to fit. The fair comparison with our walkers is the
+    held-out Bonavita experiment; adding the baselines to the frozen
+    held-out protocol is an amendment for the user to decide before any
+    held-out computation.
+- **2026-10-08** **T vs A0 (pre-registered judgement; both under the
+  15-family loss; `judgeE1.ts`, `diagE1Turns.ts`, `diagE1Stops.ts
+  [--clean]` with `--fits A0=…,T=…`):**
+  - (i) flat loss, 5 fresh batches: A0 290.0 ± 2.3, T 162.2 ± 2.5; paired
+    T − A0 = −127.8 ± 1.2 (−115.8 after the 2k penalty). Met.
+  - (ii) total Σz² over the pre-registered checks lower for T at **1 of 5
+    inclines** (0°: 1849 vs 2025; 20°: 1560 vs 1442; 30°: 5340 vs 3033;
+    45°: 5588 vs 4289; 60°: 6900 vs 3186). **Not met: T is not preferred.**
+  - By check group, T vs A0: turning across stops better at 5/5 (data
+    0.1–0.36, T 0.04–0.22, A0 0.55–0.80); stop-episode rates better at 5/5;
+    speed around turns better at 4/5 but the dip stays too shallow (T
+    0.66–0.71, data 0.45–0.56) and the flat asymmetry has the wrong sign;
+    homeward out-heading fixed at 0–30° (z ≈ 0) but T keeps the same pull on
+    steep slopes where the data have almost none (z 3.5 / 6.4 at 45/60°:
+    homing must weaken on slopes, G); within-ant slope mixed; by-speed
+    ⟨cos⟩ at 5/50 mm and kurtosis much worse on slopes (30°: 4845 vs 2465,
+    60°: 6282 vs 1049), which dominates the total. Post-hoc reading (not a
+    reason to override the rule): T's turning per unit time (μ_t 3.5/s, D_t
+    0.23 rad²/s, λ 39 mm) is fitted on flat ground only, so on slopes, where
+    ants are 2–4× slower, it becomes far more turning per mm, with nothing
+    on slopes to compensate (slopeJitterK removed; C, D, G not yet in).
+  - **Fitting problem found:** T's new parameters ended at their starting
+    values (turnDip 0.60, τ 0.25 s, g_stop 0.23, stopHomePull 0.28). A grid
+    scan on flat ground (`scanE1.ts`, 640 ants, fit seeds) gives 124.7 at
+    the fitted point but 148–238 at its neighbours, and irregular values
+    over g_stop × stopHomePull. Cause: **common random numbers do not hold
+    for this simulator.** The number of draws an ant uses depends on the
+    parameters (turns, pauses), so after any parameter change the rest of
+    its random sequence shifts and each evaluation effectively uses new
+    random numbers. Nelder–Mead on this noisy objective settles on lucky
+    points (T: 124.7 on its own seeds vs 162.2 fresh; B: 94 vs 114; A0:
+    254 vs 290). Every E1 fit so far, including the adopted session-2 fit,
+    is affected; the fresh-batch judging guards the comparisons, but the
+    parameter values are not reliable optima.
+  - **Proposed next (not started):** (1) per-purpose RNG streams per ant in
+    the walker (speed process, distance clock, time clock, turn angles,
+    jitter, pauses, stop resets), so a parameter change leaves the other
+    streams aligned and CRN works as intended; (2) an optimiser for noisy
+    objectives (e.g. CMA-ES with fresh-seed re-evaluation of the best
+    points) or averaging over seed sets; (3) only then complete the slope
+    structure (C, D, G) and re-run the T comparison, pre-registered anew.
+  - **Done (same day):**
+    - `src/sim/reference/khuongSegmentation.ts` (port of botupsegMAE): the
+      same vertices as the C++ compiled from source on all 69 flat tracks,
+      once the C++'s double read of the last point is reproduced
+      (`test/reference.test.ts`, fixture of the two shortest tracks).
+      Rounding of the repo's copy to 0.01 mm: 96.8 % of vertices identical,
+      17 020 vs 17 017 vertices, mean segment length 14.681 vs 14.685 mm.
+      (Khuong et al. report 24 456 flat segments; the published code gives
+      ≈ 17 000 at the same ε — a paper/code difference, not a port error.)
+    - Slope ε (c̄ from raw path length, which tracking jitter inflates at
+      low speed): 1.70 / 2.19 / 2.64 / 3.57 / 4.02 mm. The research note's
+      reading (≈ 5–6 mm at 60°, from Khuong's speed medians) is larger; the
+      slope pools are sensitive to this choice.
+    - `src/sim/reference/sectoredWalker.ts`, `scripts/segmentKhuong.ts` →
+      `data/reference/khuong-segments.json`, `scripts/reportE1Ref.ts`
+      (pool tasks `sectored`, `sectoredSummary`).
+  - **Results** (`reportE1Ref.ts --fits walk,A0,T`, 600 ants, combined z;
+    T and A0 are the 15-family fits finished today — this is not the
+    pre-registered T vs A0 decision):
+    - **Port reproduces the published findings** on flat ground: time to
+      leave 200 mm, data 49.2 s; Khuong walker 14.6 s (≈ 3.4× too fast, as
+      Bonavita et al. report for the isotropic walker); Bonavita Φu
+      (`compat`) 48.6 s (z −1.6). With the two quirks fixed the Φu walker
+      becomes too slow (78.9 s, z +4.7): the published behaviour depends on
+      the length/turn mismatch.
+    - **Overall, both baselines are far worse than our walkers** on the
+      E1 statistics at every incline (Σz² over compareE1 rows, khuong vs
+      our best: 3434 vs 316 at 0°, 3216 vs 642, 1878 vs 1007, 3588 vs 2092,
+      4633 vs 1837; bonavita at 0°: 2953), although they resample the very
+      segments they are judged against. Failures are structural: straight
+      constant-speed segments (no fine-scale turning, no stops, heading
+      kept "across stops"), no between-ant speed differences (pooled
+      resampling), outward radial drift (Khuong) or too-weak homing at
+      20–40 mm (Bonavita, z 10.8).
+    - **Where the Khuong walker beats ours:** the by-speed turning checks
+      (⟨cos⟩ at 5/50 mm, kurtosis by speed bin) at 0–30°: Σz² 541 / 788 / 649
+      vs our best 1181 / 879 / 1469; tie at 45° (1424 vs 1423); worse at 60°
+      (1895 vs 703). Resampled real segments carry the observed coupling of
+      turning and speed, which our walkers still miss.
+    - **Bonavita's Φu at 0°** is also better than ours on the by-speed
+      checks (Σz² 1086, 840 with quirks fixed, vs our best 1181) and
+      matches exit time about as well as A0 (z −1.6 vs −0.8; T −3.1); on
+      the compareE1 rows overall it is far worse (Σz² 2953 vs 316).
+- **2026-10-08** Licence and wrap-up of the reference-walker work (user:
+  "whatever is permissive"):
+  - The repository is **MIT** (`LICENSE`); third-party data and adapted
+    code keep their licences, listed in `NOTICE.md` (CC BY 4.0: Khuong,
+    Bles, Bonavita data; TEC and sectored-walker ports adapted from CC BY
+    material).
+  - The Khuong segmentation port derives from `botupsegMAE.cpp` (CeCILL
+    2.1, copyleft), so it cannot be relicensed MIT: it stays **local only**
+    (`src/sim/reference/khuongSegmentation.ts`, `scripts/segmentKhuong.ts`,
+    `test/local/`, excluded via `.git/info/exclude`). Committed: its output
+    (`data/reference/khuong-segments.json`) and the C++ output fixture; the
+    sectored-walker test now builds segments from the C++ vertices in the
+    fixture. To regenerate, compile the authors' C++ from the Zenodo
+    archive.
+  - Contamination log corrected: the paper's summary of the red/white
+    experiment had been read (via `slope-walking.md` §1.5) before the
+    held-out registration.
+  - **Open, for the user:** (a) whether the reference walkers join the
+    frozen held-out protocol on the Bonavita data (an amendment; nothing
+    computed yet); (b) slope segmentation thresholds (ε 2.2–4.0 mm) are a
+    reconstruction of Khuong's speed scaling, and slope results of the
+    reference walkers are sensitive to it.
+- **2026-10-08** Fitting machinery, step 1 of the proposal above (decided
+  before implementation): the walker draws from **per-purpose streams**
+  derived per ant at `initWalkState` (speed process, distance clock, time
+  clock, turn angles, heading jitter, pause onset and duration, stop
+  resets). Applies to every caller (E1 and the E2 forager), so E2 results
+  shift by seed noise only; checked with `reportE2.ts` before and after.
+  Success measure: the loss along a one-parameter line (T fit, flat, fit
+  seeds) becomes smooth: neighbour-to-neighbour jumps well below the
+  fresh-batch SD, instead of the 20–100 jumps seen in the scan above.
+  - **Result:** done (`WalkState.r`; initial traits drawn as a fixed number
+    of standard normals scaled by the parameters; `walkStep` no longer
+    takes an RNG). Loss along turnDip × turnDipTau (T fit, flat, fit seeds,
+    640 ants): old single stream 124.7 at the fitted point with neighbours
+    up to 167 and no trend; per-purpose streams 152–185 (the fresh-batch
+    level) with a clear trend (loss rises with turnDip above ≈ 0.55).
+    Neighbour jumps shrink only modestly (mean ≈ 7, max 11, vs ≈ 10 / 24),
+    about the fresh-batch SD: the seed-chasing spike is gone, the residual
+    roughness (segment-count-dependent jitter draws, finite ants) is left to
+    a noise-robust optimiser. E2 (`reportE2.ts`) shifts by seed noise only
+    (|Δz| ≤ 1.2, typically ≈ 0.3; no verdict changes). All earlier E1/E2
+    numbers were produced with the single stream; they are reproducible
+    from git history, not from the current code.
+- **2026-10-08** Fitting machinery, step 2 (decided before implementation):
+  **CMA-ES** (`src/sim/analysis/cmaes.ts`, standard (μ/μ_w, λ) update after
+  Hansen's tutorial) replaces Nelder–Mead for E1 fits.
+  - The population of a generation is evaluated in parallel on the pool.
+  - Seeds are **fresh in every generation** and shared within it (ranking
+    on common random numbers, no accumulation of seed luck across
+    generations); the estimate is the final **distribution mean**, not the
+    best point seen.
+  - Validation before any model comparison uses it: unit tests (sphere,
+    Rosenbrock, noisy sphere), then a **parameter-recovery test** on data
+    simulated by the model itself (69 ants, the Khuong sample size, known
+    parameters; refit from a perturbed start; recovered vs true values
+    and their spread over repeated recoveries). This also shows which
+    parameters the E1 statistics can identify at all.
+  - **Implemented** (`cmaes.ts`, unit tests: exact eigendecomposition,
+    sphere, Rosenbrock, noisy sphere with noise redrawn per generation;
+    `fitE1.ts --optimizer cma` default, `--recover truth.json --rep r`; the
+    recovery output also records the true parameters' own losses on the
+    same data, the noise floor).
+  - **Smoke test** (quick settings: 40/30 generations, 160 ants; truth =
+    the T fit): stage 1 did not recover the turning split (λ 7.1 vs true
+    39.5 mm; g 0.75 vs 0.65), and stage 2 then failed (60° loss ≈ 2470 on
+    the model's own data). **Hypothesis (to test at full settings):** flat
+    ground has too little speed variation to separate per-distance from
+    per-time turning; slopes (2–4× slower) separate them. The two-stage fit
+    fixes the turning split on flat ground alone, and no slope parameter
+    can repair a wrong split. If confirmed, fits with time-based turning
+    need a joint fit across inclines (and T's poor slope checks may partly
+    be this).
+- **2026-10-08** User decisions on the two open items above, and on order
+  (logged before any computation they govern):
+  - **Order:** parameter recovery is completed and the fitting strategy
+    settled before anything is run on the Bonavita data. The adopted
+    walker's held-out acceptance criterion stays exactly as frozen above
+    (no |z| > 3; at most 2 of ≈ 24 statistics with 2 < |z| ≤ 3); nothing
+    below changes it.
+  - **Amendment to the frozen held-out protocol: reference walkers as
+    secondary benchmarks** (frozen now, before any held-out computation):
+    - Walkers: Khuong (`xy` frame) and Bonavita Φu (`start` frame, the
+      start being each simulated ant's own release position). **Primary:
+      the published-compatible versions (`compat: true`); sensitivity: the
+      corrected versions (`compat: false`).**
+    - Pools: the flat pools of the committed
+      `data/reference/khuong-segments.json` (ε = 1.7 mm on the repo's
+      Khuong copy), as at commit f4a4a26. No refit, nothing derived from
+      the Bonavita data except the observer.
+    - Geometry, stop rule, observer, preparation and statistics identical
+      to the adopted walker's: start at the matched recorded ant's first
+      position with a uniform heading, end at 180 s or at centre distance
+      ≥ 245 mm (segments truncated there, positions every 0.04 s), the
+      tracking noise calibrated on the Bonavita data, `KHUONG_PREP`, the
+      same `e1Compare` statistics and `walkDiagnostics` checks, same
+      number of simulated ants and seeds, white light primary.
+    - Reporting: per-statistic combined z for each benchmark, the same
+      criterion evaluated and reported for each (descriptive), and Σz²
+      over the frozen statistics and over the checks, ours minus each
+      benchmark. No decision about our walker depends on the benchmarks.
+      A statement "ours better/worse than benchmark X" on any statistic
+      group is made only if the published-compatible and the corrected
+      versions agree in sign; otherwise it is reported as sensitive to the
+      published quirks.
+    - **Disclosure:** the held-out report opens with the contamination
+      log's exposure entries: the paper's summary of this experiment was
+      read before registration (homeward bias under red light; faster
+      homeward walking), and the possibly related "4.06× longer to reach
+      200 mm net displacement than isotropic models" sentence. The
+      exit-time statistic (`exit.ks`, time to 200 mm) is in the frozen
+      set; its result, for our walker and the benchmarks, is flagged as
+      possibly exposed.
+  - **Slope segmentation thresholds of the reference walkers:**
+    - **Default (unchanged):** ε_γ = 1.7 mm · c̄₀/c̄_γ with c̄ = total path /
+      total time of the raw tracks of an incline: 1.70 / 2.19 / 2.64 /
+      3.57 / 4.02 mm.
+    - **Alternative, pre-registered here before computing it:** c̄_γ =
+      Khuong et al.'s per-ant median average speed (Fig. 3A, distance /
+      time including stops: 49 / 38 / 29 / 20 / 14 mm/s;
+      `slope-walking.md` table), i.e. the note's literal reading: ε =
+      1.70 / 2.19 / 2.87 / 4.17 / 5.95 mm. Same port, same tracks; flat
+      pools identical by construction. Output
+      `data/reference/khuong-segments-alt.json`.
+    - **Comparison:** `reportE1Ref.ts` on both pool files with the same
+      seeds, ants and our fits. For every slope result of the reference
+      walkers (Σz² over compareE1 rows; over the by-speed checks; each
+      vs our best walker), a conclusion is **robust** only if its sign is
+      the same under both thresholds; otherwise it is reported as
+      **uncertain (threshold-sensitive)**. This applies to the results
+      already recorded above (Khuong walker better than ours on the
+      by-speed checks at 20–30°, tie at 45°, worse at 60°) and to any later
+      slope conclusion about the reference walkers. The held-out test is
+      flat and unaffected.
+- **2026-10-08** Review notes on the next phase, adopted (logged before
+  implementation). Additional mechanisms (C, D, G) are **deferred** until
+  the fitting strategy is settled, so existing mechanisms get a fair test
+  first.
+  - **"T not preferred" stands as recorded, but it is a failure under the
+    previous fitting procedure** (single random stream, Nelder–Mead,
+    staged flat-then-slopes), not evidence that turn-linked slowing or the
+    stop reset cannot work. T is refitted and compared again below.
+  - **Precision vs certainty:** the 5 fresh batches measure Monte Carlo
+    precision of a model's score on this one data set. They do not include
+    sampling of real ants and colonies, or refitting. A precise score
+    difference can still support only a tentative biological conclusion;
+    reports say which uncertainty a ± is. The spread of refits over
+    recovery replicates at 69 ants (below) is the estimate of refit
+    variability used when interpreting the renewed comparison.
+  - **Bounded comparison: staged vs joint fitting, on synthetic data**
+    (truth = `data/fits/e1-T.json`, variant T, CMA-ES, 640 ants per
+    evaluation, as in a real fit). Four cells, replicate 0 each:
+    - reference size: **large** (2000 simulated ants per incline; data SEs
+      rescaled to the 69-ant equivalent, SE·√(2000/69), and KS rows use an
+      effective reference size of 69, so loss weights and scale match a
+      real fit) vs **69 ants** (the real sample size);
+    - strategy: **staged** (stage 1 flat, then stage 2 slope parameters
+      on 30°/60°; the current procedure) vs **joint** (one CMA-ES over all
+      stage-1 and stage-2 parameters, loss = mean over the 0°/30°/60°
+      losses, equal weights, ≤ 250 generations, same warm start).
+    - Large-reference failure points to the procedure or to uninformative
+      statistics; failure only at 69 ants means the data cannot identify
+      everything.
+    - **Prediction recovery is primary, parameter recovery secondary.**
+      For each fit and incline (all 5, including 20° and 45°, which are
+      never fitted): fresh 2000-ant simulations of the recovered and the
+      true parameters on different seeds, scored with the fit loss against
+      a 2000-ant truth reference (SEs at the 69-ant scale). Excess = loss −
+      the truth's own loss (floor). **Recovered**: excess ≤ 0.25 per family
+      on average and no family with mean z² excess > 1 (every family within
+      ≈ 1 data SE). **Failed**: average > 1 per family or any family > 4
+      (> 2 data SE). In between: approximate. Parameters that differ while
+      predictions are recovered are reported as an identifiability
+      ambiguity (e.g. per-time vs per-distance turning), not a failure.
+    - **Decision rule:** staged stays if it recovers predictions at every
+      incline on the large reference. Joint is adopted if staged fails
+      there and joint does better (more inclines recovered; tie → lower
+      total excess). If both fail on the large reference, the optimiser or
+      the statistics are at fault, and no model comparison is run until
+      that is resolved. The 69-ant cells are interpreted, not used for the
+      choice. The chosen strategy is then checked once on A0 (large
+      reference), and 2 more replicates at 69 ants (reps 1, 2) give the
+      refit spread.
+    - Caveat for real data: a joint fit lets slope misfit pull the flat
+      parameters (the reason for staging). If joint is adopted, the flat
+      loss of the joint fit is reported next to the staged one.
+  - **Then one renewed comparison**, A0 vs T, both refitted with the
+    chosen strategy, pre-registered anew before the fits.
+  - **Stopping condition for E1** (to be made concrete after the renewed
+    comparison):
+    - The walking outputs that matter downstream are search time (time to
+      reach a target or leave a region), encounter rates in a bounded area,
+      and spatial occupancy (radial and wall-zone distribution).
+    - Test how sensitive E2 (now) and E6 (once step 4 exists) are to
+      plausible walkers (the adopted session-2 fit and the refitted A0 and
+      T): rerun `reportE2.ts` with each.
+    - If the downstream verdicts are stable (|Δz| < 1 on every target, no
+      verdict change), E1 work stops with its remaining trajectory
+      discrepancies documented as limitations. If they move, further
+      walking work aims at the outputs that move them.

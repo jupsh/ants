@@ -4,6 +4,7 @@ import { verdict } from '../src/sim/analysis/compare';
 import { compareE1, referenceFor, sampleFor, scalarSE } from '../src/sim/experiments/e1Compare';
 import { runE1 } from '../src/sim/experiments/e1Exploration';
 import { walkParams } from '../src/sim/models/walk';
+import { khuongTracking } from '../src/sim/species/lasiusM1';
 import { INCLINES, loadKhuong } from '../scripts/lib';
 
 const FIT = 'data/fits/e1-walk.json';
@@ -25,7 +26,7 @@ describe('E1 numerics', () => {
 });
 
 function validate(k: number): void {
-  const sim = sampleFor(runE1(params, { incline: INCLINES[k - 1], ants: 300, seed: 777 + k, dt: 0.02 }));
+  const sim = sampleFor(runE1(params, { incline: INCLINES[k - 1], ants: 300, seed: 777 + k, dt: 0.02, tracking: khuongTracking(k) }));
   const { rows } = compareE1(sim, data(k), scalarSE(sim));
   // Combined-SE criteria (docs/STATUS.md): no statistic may be clearly off
   // (|z| > 3), and with ~24 statistics at most a couple may be marginal.
