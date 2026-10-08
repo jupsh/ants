@@ -1231,3 +1231,32 @@ See [`CLAUDE.md`](../CLAUDE.md).
     (|Δz| ≤ 1.2, typically ≈ 0.3; no verdict changes). All earlier E1/E2
     numbers were produced with the single stream; they are reproducible
     from git history, not from the current code.
+- **2026-10-08** Fitting machinery, step 2 (decided before implementation):
+  **CMA-ES** (`src/sim/analysis/cmaes.ts`, standard (μ/μ_w, λ) update after
+  Hansen's tutorial) replaces Nelder–Mead for E1 fits.
+  - The population of a generation is evaluated in parallel on the pool.
+  - Seeds are **fresh in every generation** and shared within it (ranking
+    on common random numbers, no accumulation of seed luck across
+    generations); the estimate is the final **distribution mean**, not the
+    best point seen.
+  - Validation before any model comparison uses it: unit tests (sphere,
+    Rosenbrock, noisy sphere), then a **parameter-recovery test** on data
+    simulated by the model itself (69 ants, the Khuong sample size, known
+    parameters; refit from a perturbed start; recovered vs true values
+    and their spread over repeated recoveries). This also shows which
+    parameters the E1 statistics can identify at all.
+  - **Implemented** (`cmaes.ts`, unit tests: exact eigendecomposition,
+    sphere, Rosenbrock, noisy sphere with noise redrawn per generation;
+    `fitE1.ts --optimizer cma` default, `--recover truth.json --rep r`; the
+    recovery output also records the true parameters' own losses on the
+    same data, the noise floor).
+  - **Smoke test** (quick settings: 40/30 generations, 160 ants; truth =
+    the T fit): stage 1 did not recover the turning split (λ 7.1 vs true
+    39.5 mm; g 0.75 vs 0.65), and stage 2 then failed (60° loss ≈ 2470 on
+    the model's own data). **Hypothesis (to test at full settings):** flat
+    ground has too little speed variation to separate per-distance from
+    per-time turning; slopes (2–4× slower) separate them. The two-stage fit
+    fixes the turning split on flat ground alone, and no slope parameter
+    can repair a wrong split. If confirmed, fits with time-based turning
+    need a joint fit across inclines (and T's poor slope checks may partly
+    be this).

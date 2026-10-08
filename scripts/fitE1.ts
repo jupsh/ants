@@ -26,13 +26,25 @@
  * Output: data/fits/e1-<variant>.json (candidates; data/fits/e1-walk.json is
  * the adopted fit and is never overwritten here).
  *
+ * Optimiser (2026-10-08, fitting machinery step 2): `--optimizer cma`
+ * (default) runs CMA-ES per stage from the warm start (σ 0.5 in the
+ * transformed parameters) with fresh seeds in every generation, shared by
+ * its candidates; the estimate is the final distribution mean. `--optimizer
+ * nm` is the earlier multi-start Nelder–Mead on fixed seeds.
+ *
+ * Parameter recovery: `--recover truth.json --rep r` replaces the Khuong data
+ * by 69 ants per incline simulated from the parameters in truth.json
+ * (seeds depend on r) and writes data/fits/recover/e1-<variant>-rep<r>.json.
+ *
  * Usage: npx vite-node scripts/fitE1.ts --variant A0|B|T [--quick]
+ *          [--optimizer cma|nm] [--gens1 150] [--gens2 120] [--recover f --rep r]
  */
+import { cmaes } from '../src/sim/analysis/cmaes';
 import { nelderMead } from '../src/sim/analysis/optimize';
 import { compareE1, referenceFor, scalarSE, type E1Reference } from '../src/sim/experiments/e1Compare';
 import { walkParams, type WalkParams } from '../src/sim/models/walk';
 import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { arg, flag, INCLINES, loadKhuong, readJson, writeJson } from './lib';
+import { arg, flag, INCLINES, loadKhuong, numArg, readJson, writeJson } from './lib';
 import { SimPool } from './pool';
 
 const VARIANT = arg('--variant', '');
@@ -42,10 +54,21 @@ const quick = flag('--quick');
 const ANTS = quick ? 160 : 640;
 const DT = 0.02;
 const SEED = 20131105;
-const OUT = `data/fits/e1-${VARIANT}${quick ? '-quick' : ''}.json`;
+const OPT = arg('--optimizer', 'cma');
+if (!['cma', 'nm'].includes(OPT)) throw new Error('--optimizer cma|nm');
+const GENS1 = numArg('--gens1', quick ? 40 : 150);
+const GENS2 = numArg('--gens2', quick ? 30 : 120);
+const RECOVER = arg('--recover', '');
+const REP = numArg('--rep', 0);
+const OUT = RECOVER ? `data/fits/recover/e1-${VARIANT}-rep${REP}.json` : `data/fits/e1-${VARIANT}${OPT === 'nm' ? '-nm' : ''}${quick ? '-quick' : ''}.json`;
 
+const pool = await SimPool.create();
+const runOpts = (i: number, ants: number, seed: number) => ({ incline: INCLINES[i], ants, seed, dt: DT, tracking: khuongTracking(i + 1) });
+
+// Reference data: the Khuong tracks, or (recovery test) 69 ants per incline simulated from known parameters.
+const truth = RECOVER ? walkParams(readJson<any>(RECOVER).params) : null;
 const data: E1Reference[] = [];
-for (let k = 1; k <= 5; k++) data.push(referenceFor(loadKhuong(k)));
+for (let k = 1; k <= 5; k++) data.push(referenceFor(truth ? await pool.e1(truth, runOpts(k - 1, 69, 777000 + 10 * REP + k)) : loadKhuong(k)));
 
 const logit = (p: number) => Math.log(p / (1 - p));
 const sigm = (x: number) => 1 / (1 + Math.exp(-x));
@@ -77,12 +100,26 @@ async function search(name: string, f: (x: number[]) => Promise<number>, starts:
   return { x: best.x, f: best.f, evals: total };
 }
 
-const pool = await SimPool.create();
-const runOpts = (i: number, ants: number, seed: number) => ({ incline: INCLINES[i], ants, seed, dt: DT, tracking: khuongTracking(i + 1) });
-
-async function evalAt(par: WalkParams, idx: number[]): Promise<number> {
-  const samples = await Promise.all(idx.map((i) => pool.e1Sample(par, runOpts(i, ANTS, SEED + i))));
+async function evalAt(par: WalkParams, idx: number[], seedBase = SEED): Promise<number> {
+  const samples = await Promise.all(idx.map((i) => pool.e1Sample(par, runOpts(i, ANTS, seedBase + i))));
   return idx.reduce((s, i, k) => s + compareE1(samples[k], data[i]).loss, 0) / idx.length;
+}
+
+/**
+ * One stage: CMA-ES (fresh seeds per generation; estimate = final mean, whose
+ * loss is then evaluated on the fixed seeds for the record) or Nelder–Mead.
+ */
+async function stage(name: string, idx: number[], dec: (x: number[]) => WalkParams, starts: number[][], nmEvals: number, gens: number, offset: number) {
+  if (OPT === 'nm') return search(name, (x) => evalAt(dec(x), idx), starts, nmEvals);
+  const r = await cmaes((x, g) => evalAt(dec(x), idx, SEED + offset + 1009 * (g + 1)), starts[0], {
+    sigma: 0.5,
+    maxGenerations: gens,
+    seed: SEED + offset,
+    log: (g) => g.generation % 10 === 0 && console.log(`${name} gen ${g.generation} evals ${g.evals} best ${g.fs[0].toFixed(2)} median ${g.fs[g.fs.length >> 1].toFixed(2)} σ ${g.sigma.toFixed(3)}`),
+  });
+  const f = await evalAt(dec(r.mean), idx);
+  console.log(`${name}: CMA-ES ${r.generations} generations, ${r.evals} evaluations, final σ ${r.sigma.toFixed(3)}; loss of the mean on fixed seeds ${f.toFixed(3)}`);
+  return { x: r.mean, f, evals: r.evals };
 }
 
 // ---- Stage 1: flat ground (positive parameters on the log scale)
@@ -102,7 +139,7 @@ const dec1 = (x: number[], base: WalkParams): WalkParams => {
   return q;
 };
 const t0 = Date.now();
-const r1 = await search('stage1', (x) => evalAt(dec1(x, p), [0]), [enc1(p), enc1({ ...p, ...second })], quick ? 150 : 500);
+const r1 = await stage('stage1', [0], (x) => dec1(x, p), [enc1(p), enc1({ ...p, ...second })], quick ? 150 : 500, GENS1, 100000);
 p = dec1(r1.x, p);
 console.log('stage 1 done', r1.f.toFixed(3), JSON.stringify(p));
 
@@ -117,7 +154,7 @@ const dec2 = (x: number[], base: WalkParams): WalkParams => ({
   slopeSpeedSdK: x[4],
   ...(VARIANT === 'A0' ? { slopeJitterK: x[5] } : {}),
 });
-const r2 = await search('stage2', (x) => evalAt(dec2(x, p), [2, 4]), [enc2(p), enc2({ ...p, geoRunGain: 0.3, geoHeadingPull: 0.3, slopeSpeedSdK: 0 })], quick ? 120 : 400);
+const r2 = await stage('stage2', [2, 4], (x) => dec2(x, p), [enc2(p), enc2({ ...p, geoRunGain: 0.3, geoHeadingPull: 0.3, slopeSpeedSdK: 0 })], quick ? 120 : 400, GENS2, 200000);
 p = dec2(r2.x, p);
 console.log('stage 2 done', r2.f.toFixed(3), JSON.stringify(p));
 
@@ -135,6 +172,18 @@ console.log(`flat fresh loss ${flatMean.toFixed(2)} ± ${flatSe.toFixed(2)} (bat
 // ---- Report all inclines on fresh seeds (π/9 and π/4 are development conditions)
 const k = enc1(p).length + enc2(p).length;
 const report: Record<string, unknown> = {};
+// Recovery test: the true parameters' own losses on the same batches are the noise floor.
+const truthFloor: Record<string, number> = {};
+if (truth) {
+  const tb: number[] = [];
+  for (let b = 0; b < BATCHES; b++) tb.push(compareE1(await pool.e1Sample(truth, runOpts(0, 1000, SEED + 5000 + b)), data[0]).loss);
+  truthFloor.flatFresh = tb.reduce((a, v) => a + v, 0) / BATCHES;
+  for (let i = 0; i < 5; i++) {
+    const sim = await pool.e1Sample(truth, runOpts(i, 300, SEED + 1000 + i));
+    truthFloor[`incline${i + 1}`] = compareE1(sim, data[i], scalarSE(sim)).loss;
+  }
+  console.log('truth (noise floor):', JSON.stringify(truthFloor));
+}
 for (let i = 0; i < 5; i++) {
   const sim = await pool.e1Sample(p, runOpts(i, 300, SEED + 1000 + i));
   const c = compareE1(sim, data[i], scalarSE(sim));
@@ -152,6 +201,8 @@ writeJson(OUT, {
   dt: DT,
   antsPerEval: ANTS,
   k,
+  optimizer: OPT,
+  ...(RECOVER ? { recovery: { truth: RECOVER, rep: REP, antsPerIncline: 69, truthFloor } } : {}),
   fitLoss: { stage1: r1.f, stage2: r2.f, evals: [r1.evals, r2.evals] },
   flatFresh: { batches: flatBatches, mean: flatMean, se: flatSe, k1, penalised: flatMean + 2 * k1, antsPerBatch: 1000 },
   seconds: (Date.now() - t0) / 1000,
