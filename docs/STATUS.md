@@ -4,26 +4,35 @@ _Last updated: 2026-10-08 (session 3: step 5, E1 walking revisit — now the sta
 
 ## ▶ RESUME HERE
 
-**State in one paragraph.** Milestone M1 (*Lasius niger* as the single
-reference species). The TypeScript simulation core compiles, runs and is
-tested (`npm test`, fast tier: 28 pass + 2 expected-fail, ~7 s;
-`npm run test:full` adds the slow validation tests, run in CI). Model–data
-comparisons now use the combined-SE criteria (step 1, done). Under them, E1
-(exploratory walking) fits the median speed, stopping and long-lag heading
-correlation but **not** the slow-speed tail, turn-increment shape, drift
-near the release point or straightness, even on flat ground; steep slopes are
-far off. E2 (drinking and trail laying) matches most means but the
-between-ant **spread** of drinking time is twice the data's — a new,
-discriminating observation for the mechanism comparison. For E6 (food
-sharing in the nest), the observation pipeline and the reference baseline
-are done (step 2): the authors' TEC model, ported and refitted through the
-scan observer, matches every colony-level target except T50; our own
-encounter-based model has not been run against E6 yet (step 4). The E6 page
-(`#e6`) animates one simulated colony.
-Session-1 work is committed on branch `browser-sim-m1` (a7b5269); ask the
-user before committing further. `side-projects/` is the user's own scratch
-area: it is excluded locally via `.git/info/exclude` and is outside the
-tsconfig/vitest scope — leave it alone.
+**State (2026-10-09).** Milestone M1 (*Lasius niger* as the single
+reference species). TypeScript simulation core, tested (`npm test` fast
+tier ~45 s, `npm run test:full` adds the slow tier, run in CI); pages open
+on precomputed results; work is committed on `browser-sim-m1` and merged to
+`main` (GitHub Pages) when the user asks.
+- **E1 (walking): fine-scale fitting is paused by decision (2026-10-09).**
+  The fitting procedure is validated (acceptance test passed; joint fitting
+  recovers predictions at all five inclines on synthetic data, staged does
+  not, so joint is adopted). The walkers still miss fine-scale turning
+  (z 10–20), but **E2 is insensitive to the walker** (five walkers, max
+  |Δz| 0.8), so that structure does not matter for M1's purpose. Today's
+  diagnostics: every walker, including the Khuong reference walker, turns
+  25–40 % too little at fine time scales (observer/stride-sway question);
+  T's speed–turning coupling has the wrong scale dependence; the 34–35 fit
+  statistics carry ~5–8 independent dimensions. Running: signature
+  reachability sweep (step 2) and the rerun of the joint 69-ant recovery
+  cell. Parked: renewed A0 vs T comparison, model-recovery pilot
+  (`selectE1.ts` draft).
+- **E2 (drinking, trail laying): the main M1 gap is search around food**
+  (step 3c): time between drops is half the data's, drinking at the second
+  drop too long (z ≈ 10), trail laying overall too low (z ≈ −3).
+- **E6 / colony (step 4):** bounded provisional colony (Bles nest,
+  contacts, conserved food sharing, `#colony` page); calibration and the
+  E6 test come next, with the E6 walker-sensitivity probe.
+- **Judging:** a candidate missing a statistic the data estimate is
+  unjudgeable (2026-10-09 fix; no earlier ranking was affected).
+- Commits: plain messages, no co-author lines; ask before committing.
+  `side-projects/` is the user's own scratch area (excluded locally via
+  `.git/info/exclude`, outside tsconfig/vitest) — leave it alone.
 
 **Session 2 research (background agents, all done):** notes on (a) Bles et al. 2022
 one-caste/TEC model specification, (b) the exact Mailleux stopping and
@@ -179,7 +188,7 @@ step: repo Settings → Pages → Source = "GitHub Actions".
      trophallaxis, 69–93 % after other contacts. Table 2b's n values
      look copied from Table 1 — use its proportions with caution.
    - Then test once on E6.
-5. **E1 structure revisit** (in progress, session 3). Done so far:
+5. **E1 structure revisit** (session 3; **fine-scale fitting paused 2026-10-09**, see the Decisions log: E2 is insensitive to the walker; remaining E1 work is the diagnostics of the reduced plan). Done so far:
    - **5.0 Reproduction ✓.** `scripts/diagE1.ts` (code in
      `src/sim/analysis/walkDiagnostics.ts`) reproduces every [C] number of
      the research note from the TS pipeline (speed-binned persistence and
@@ -1993,3 +2002,161 @@ See [`CLAUDE.md`](../CLAUDE.md).
     effort moves to E2 search around food (step 3c) and the step-4 colony
     calibration (with the E6 walker probe). The renewed A0 vs T comparison
     and the model-recovery pilot stay parked (`selectE1.ts` draft kept).
+- **2026-10-09** **Step 2 design — signature table with reachability**
+  (logged before running):
+  - **Signatures** (mechanism tier), same code on data and simulations
+    (tracking observer on): reset at stops, ⟨cos⟩ in/out of stops by
+    duration (`stopCosFine` 0.13–0.25, 0.25–0.41, 0.41–0.81, 0.81–1.61 s;
+    the < 0.13 s bin is reported but not used, since it mostly measures
+    pipeline geometry); speed dip at big turns (`turnSpeed.dip`, plus
+    shoulders and asymmetry); within-ant speed–turning slope (arc speed,
+    with and without stop-adjacent segments); between-ant slope
+    (`antTurn.slope`).
+  - **Reachability:** per model (A0, T), 300 parameter sets drawn
+    uniformly in the fit's bounded coordinates (the ranges `fitE1.ts`
+    uses, moved unchanged to `scripts/e1Specs.ts`), 150 simulated ants
+    each at 0° and 60°. Reported per signature: the reachable range (5–95 %
+    and min–max) against the data value ± 2 SE, overall and among
+    "plausible" sets (median moving speed and stopped fraction within ±30 %
+    of the data at that incline). A model whose reachable set never
+    contains the data value (within 2 SE) is **falsified for that
+    signature**, whatever a ranking says; random sampling can miss narrow
+    regions, so "reachable" is reported as found, "unreachable" as not
+    found in 300 draws plus the reasoning from the mechanism.
+  - **Fitted values:** the same signatures for the fitted A0 and T
+    (2000 ants), for the table's second column.
+  - **Independent signatures for T** (named now, before any further T
+    fit): the speed–heading lead–lag (does speed drop before, at, or after
+    the heading change), the sampling-scale curves of step 3, and the
+    Bonavita held-out test.
+- **2026-10-09** **Step 3 design — sampling-scale sweep** (logged before
+  running; diagnostic, no fits). Tracks prepared as for the fits (25 Hz
+  resampling, trimmed at 10/200 mm) but with moving-average windows of
+  1, 3 or 5 samples, then subsampled at τ = 0.04, 0.08, 0.16, 0.32 s.
+  At each (τ, window), per-ant sums of apparent quantities on consecutive
+  steps: stopped-step fraction (step speed < 2 mm/s), median and 10th
+  percentile step speed of moving steps (pooled histogram), median |turn|
+  and P(|turn| > 0.5 rad) between consecutive moving steps, ⟨cos⟩ between
+  them, and the speed–turn coupling (mean |turn| in the slowest vs fastest
+  third of each ant's moving steps, as a log ratio). Data, fitted A0, T
+  (1000 ants) and the Khuong reference walker (1000 ants, which has real
+  segments), at all five inclines, tracking observer on; cluster-bootstrap
+  SEs over ants. Read: curves against τ. A model that matches the data at
+  the fit scale (τ 0.04, window 3) by compensation should depart at other
+  scales; the shape of the curves is a new discriminating pattern (an
+  independent signature for T, as named above).
+- **2026-10-09** **Step 4 design — covariance and normality of the fit
+  statistics** (report only; the loss is not changed mid-comparison).
+  Per incline, the scalar and diagnostic fit statistics of `compareE1`
+  (not the two KS rows) on the Khuong data: 1000 cluster-bootstrap
+  resamples over ants → correlation matrix (pairs |r| ≥ 0.7; mean |r|
+  within vs between families), effective number of independent statistics
+  (participation ratio of the correlation eigenvalues; number of
+  components for 90 % of the variance), normality of each statistic's
+  bootstrap distribution (skewness, excess kurtosis; flagged |skew| > 0.5
+  or |excess kurtosis| > 1). Misfit of the fitted A0 and T (2000 ants,
+  200-resample simulation covariance): Mahalanobis d² with Σ_data + Σ_sim,
+  Ledoit–Wolf shrinkage of the correlation towards the identity, beside
+  the diagonal Σz² and the family-averaged loss. Reads: does family
+  averaging under- or over-count independent evidence, and which rows are
+  far from normal.
+- **2026-10-09** **Step 4 result — covariance and normality** (`covE1.ts`,
+  1000 data resamples, fitted A0 and T with 2000 ants; report only):
+  - **Effective number of independent statistics: 5.3–8.0** (participation
+    ratio) of 34–35 per incline; 10–12 components carry 90 % of the
+    variance. 26–62 pairs per incline have |r| ≥ 0.7, many across families
+    (e.g. speed.q10 with hc.1, r 0.92 at 0°; turnBig/turnMed in the middle
+    speed bins with speed quantiles and short-lag heading correlation).
+  - Per family: speed 1.3–1.5 effective of 3 rows, heading correlation
+    1.2–1.7 of 5, turnBig 2.4–3.4 of 5, turnMed 2.1–3.1 of 5, **radial
+    3.4–5.7 of 8**. So family averaging under-counts radial drift (several
+    dimensions counted once) and over-counts the speed/persistence/turning
+    dimension (one dimension appears in the speed, headingCorr, turnBig and
+    turnMed families).
+  - **Normality:** bootstrap distributions are close to normal; mild
+    exceptions (turnMed.0 at 20°, skew 1.1, excess kurtosis 3.5; speed.q10
+    at 20°; outer radial bins on steep slopes). KS rows not covered.
+  - **Misfit:** Mahalanobis d² (Σ_data + Σ_sim, shrunk) is 2–10× the
+    diagonal Σz²: the misfit lies along directions the data constrain
+    tightly. **T is lower than A0 at every incline under d²** (0° 3027 vs
+    5528; 20° 2627 vs 4381; 30° 2937 vs 4487; 45° 6160 vs 10540; 60° 6075
+    vs 11608), while the diagonal Σz² and the family loss favour A0 at
+    30–60°. Tentative: with 69 ants per incline the smallest eigenvalues
+    are poorly estimated (shrinkage chose λ ≈ 0.01), and d² leans on them.
+    It does show that the slope ranking of A0 vs T depends on how
+    correlated statistics are weighted.
+- **2026-10-09** **Step 3 result — sampling-scale sweep** (`scaleE1.ts`,
+  1000 simulated ants per model, all five inclines; τ 0.04–0.32 s ×
+  window 1/3/5; curves saved locally):
+  - **Every walker turns too little at fine scales, including the Khuong
+    reference walker built from real segments.** Median |turn| between
+    consecutive steps at the fit window (3) is 25–40 % below the data at
+    τ ≤ 0.16 s at every incline (z −4 to −21); the gap closes by 0.32 s.
+    With no smoothing (window 1) the data's fine-scale turning is
+    noise-dominated and much larger than the models' with their observer
+    (60°, τ 0.04: data 1.21 rad, A0 0.76, T 0.86, Khuong walker 1.17).
+    Reading: the tracks have fine-scale wiggle that no walker has, and the
+    observer model (white noise per frame, SDs from the slow-sample
+    estimator) does not supply it; candidates are frame-correlated
+    tracking error and real body sway with the stride. This bears directly
+    on the fitted fine-scale turning statistics (turnMed, turnBig, speed
+    q10): the walkers may be bending their turning to imitate it. Item 5's
+    observer check (SDs ×0.5 / ×2) and a correlated-noise variant come
+    first if E1 work resumes.
+  - **Speed–turning coupling has the wrong scale dependence in T.** The
+    data's coupling (log ratio of |turn| in the slowest vs fastest third
+    of steps) declines slowly with τ and stays large at 0.32 s (0.63 at 0°,
+    0.77 at 30°, 0.89 at 60°). T's collapses (0.46, 0.22, 0.03), A0's less
+    so (0.79, 0.50, 0.14), the Khuong walker's most (0.33, 0.00, 0.04).
+    Over all 12 scales T's coupling misfit is worse than A0's at every
+    incline (Σz² 1385 vs 654 at 0°; 5031 vs 3023 at 60°). So the data's
+    coupling is not only a short dip at turns (T's mechanism acts on the
+    0.2 s scale) but persists over seconds: slow stretches are tortuous
+    stretches. That points to a slower state-level coupling (e.g. search
+    vs travel phases) rather than turn-linked slowing. This is an
+    independent signature for T (named before it was computed) and T
+    fails it.
+  - **Stopped fraction across scales:** T follows the data closely at every
+    incline (60°: data 0.046 → 0.091, T 0.046 → 0.109); A0 overshoots on
+    slopes at coarse scales (0.225 at 60°, τ 0.32). Speed q10 at fine
+    scales is too high for both (the missing slow tail, known).
+  - **Mishap (2026-10-09):** clearing leftover workers of the stopped
+    sweep with `pkill -f poolWorker` also killed the workers of the joint
+    69-ant cell, 7.5 h in (final restart, generation 130; starts scored
+    146.5 and 25.1 on the selection batch). The fit is deterministic, so
+    it was rerun from the start and gives the same result. Gotcha added to
+    CLAUDE.md.
+  - **Step 2 amendment** (before any result was read beyond the count):
+    the first run was stopped after 3 h (bootstrap SEs for every sampled
+    set; now values only for sampled sets, SEs for data and fits). Of 300
+    uniform A0 draws at 0°, only 4 were plausible, so the plausible column
+    would be empty. Now 150 uniform draws (reachable "at any parameters")
+    plus 150 local draws around the fitted point (logit coordinates + N(0,
+    0.7²)) that fill the plausible region; the verdict uses the union.
+- **2026-10-09** **Item 4 result — censoring audit** (`censorE1.ts`;
+  simulated tracks now record how they ended, `Track.end` = exit | timeout;
+  report only).
+  - **Data:** all 345 Khuong tracks (69 per incline) end with an exit and
+    none is unusable (longest 577 s). The published set contains only
+    exiting ants; whether non-leaving ants were excluded is to be checked in
+    the paper (a selection rule we would have to apply to simulations too).
+  - **Models (1000 ants per incline):** exit fraction by the statistic
+    falls with slope: at 60°, walk 96.2 % (z −4.0), A0 95.8 % (−4.4), T
+    84.8 % (−11.3); the 600 s time limit is hit by 0 (walk), 53 (A0) and 71
+    (T) ants, against none in the data.
+  - **Speed-burst defect (walk and T):** the rest of the missing exits are
+    ants that left in one jump: the last prepared point is at 182–192 mm
+    and the next beyond 200 mm, a 10–20 mm move in one 0.04 s frame. Over
+    0.2 s windows the data never exceed 141 mm/s (60°: max 84, q99 46), but
+    T reaches 750 mm/s at 60° (q99 117, q99.9 229) and ~1 % of windows
+    exceed 120 mm/s at every incline (walk similar). Cause: the
+    within-ant log-normal OU speed with SD 0.36–0.38 on flat ground,
+    multiplied on slopes by exp(slopeSpeedSdK·θ) to ≈ 1.0 at 60°. The
+    fitted speed statistics stop at q90, so the upper tail was never
+    constrained. A0 (SD 0.13–0.29) has no bursts (60° max 105 mm/s).
+  - **Reading:** a purpose-tier defect (bursts shorten search and raise
+    encounter rates), not fine-scale structure. For the purpose patterns:
+    add the exit fraction and an upper speed-tail statistic (q99 of 0.2 s
+    speed); the speed process needs a bounded (gait-limited) form rather
+    than an unbounded log-normal whose SD grows with slope. Fits are not
+    changed now.

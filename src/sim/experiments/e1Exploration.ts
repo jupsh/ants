@@ -65,6 +65,7 @@ export function runE1(p: WalkParams, o: E1Options): Track[] {
     let nextSample = sampleDt;
     const slope = surface.slopeAt();
     const per = basicPercept(o.dt, slope.incline, slope.downhill, 26);
+    let end: 'exit' | 'timeout' = 'timeout';
     while (time < maxTime) {
       walkStep(p, s, per, 1, pi, move);
       time += o.dt;
@@ -74,7 +75,10 @@ export function runE1(p: WalkParams, o: E1Options): Track[] {
         ys.push(y);
         nextSample += sampleDt;
       }
-      if (x * x + y * y > 205 * 205) break;
+      if (x * x + y * y > 205 * 205) {
+        end = 'exit';
+        break;
+      }
     }
     if (o.tracking) {
       const obs = RNG.stream(o.seed, a, OBSERVER_KEY);
@@ -83,7 +87,7 @@ export function runE1(p: WalkParams, o: E1Options): Track[] {
         ys[i] += obs.normal(0, o.tracking.sy);
       }
     }
-    tracks.push({ id: `sim-${a}`, t: new Float64Array(t), x: new Float64Array(xs), y: new Float64Array(ys) });
+    tracks.push({ id: `sim-${a}`, t: new Float64Array(t), x: new Float64Array(xs), y: new Float64Array(ys), end });
   }
   return tracks;
 }

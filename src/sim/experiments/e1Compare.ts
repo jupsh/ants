@@ -238,7 +238,7 @@ export function statsFor(tracks: Track[]): WalkStats {
 }
 
 /** Values of SCALARS then DIAG_SCALARS for a sample (optionally a resample of its ants). */
-function statValues(sample: E1Sample, idx?: number[]): number[] {
+export function statValues(sample: E1Sample, idx?: number[]): number[] {
   const g = aggregate(sample.acc, idx);
   const diags = (idx ? idx.map((i) => sample.acc[i]) : sample.acc).map((a) => (a ? a.diag : null));
   const dv = new Map(diagValues(diags, []).map((v) => [v.id, v.value]));

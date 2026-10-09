@@ -154,13 +154,13 @@ function values(ants: Ant[], idx?: number[]): number[] {
 }
 
 /** Values and cluster-bootstrap SEs (over ants) of the turn and stop-rate checks of a set of raw tracks. */
-export function turnCheckSample(tracks: Track[]) {
+export function turnCheckSample(tracks: Track[], reps = 200) {
   const ants = tracks
     .map((t) => prepareTrack(t, KHUONG_PREP))
     .filter((t): t is Track => t !== null)
     .map(antStats)
     .filter((a): a is Ant => a !== null);
-  return { v: values(ants), se: bootstrapSE(ants.length, (idx) => values(ants, idx), 200, 11) };
+  return { v: values(ants), se: bootstrapSE(ants.length, (idx) => values(ants, idx), reps, 11) };
 }
 
 /** Row ids, in TURN_LABELS order. */

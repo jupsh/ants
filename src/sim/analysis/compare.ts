@@ -189,12 +189,7 @@ export function blockEstimate(blocks: number[][]): BlockEstimate {
  * Non-finite replicate values are ignored.
  */
 export function bootstrapSE(n: number, stat: (idx: number[]) => number[], reps = 200, seed = 1): number[] {
-  const rng = RNG.stream(seed, n);
-  const draws: number[][] = [];
-  for (let r = 0; r < reps; r++) {
-    const idx = Array.from({ length: n }, () => rng.int(n));
-    draws.push(stat(idx));
-  }
+  const draws = bootstrapDraws(n, stat, reps, seed);
   const k = draws[0]?.length ?? 0;
   return Array.from({ length: k }, (_, c) => {
     const v = draws.map((d) => d[c]).filter(Number.isFinite);
@@ -202,6 +197,17 @@ export function bootstrapSE(n: number, stat: (idx: number[]) => number[], reps =
     const m = v.reduce((s, x) => s + x, 0) / v.length;
     return Math.sqrt(v.reduce((s, x) => s + (x - m) ** 2, 0) / (v.length - 1));
   });
+}
+
+/** The bootstrap replicates behind `bootstrapSE` (same resamples for the same n, reps and seed). */
+export function bootstrapDraws(n: number, stat: (idx: number[]) => number[], reps = 200, seed = 1): number[][] {
+  const rng = RNG.stream(seed, n);
+  const draws: number[][] = [];
+  for (let r = 0; r < reps; r++) {
+    const idx = Array.from({ length: n }, () => rng.int(n));
+    draws.push(stat(idx));
+  }
+  return draws;
 }
 
 /** Ordinary least-squares slope and intercept of y on x. */
