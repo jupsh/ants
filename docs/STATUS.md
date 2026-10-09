@@ -1660,3 +1660,32 @@ See [`CLAUDE.md`](../CLAUDE.md).
   with max-age=600, so for 10 min after a deploy a browser could reuse the
   previous build's files, whose hash no longer matched, and the page
   simulated live (seen on E2/E6 after the step-4 deploy).
+- **2026-10-08** Polish diagnostic rerun to completion (tolX 0.005 from the
+  acceptance result, 400 generations): **did not converge** (σ wandered
+  0.08–0.20, never shrank; ran to the cap). Final mean: fresh-batch loss
+  **3.37 ± 0.33** (acceptance result 2.34, truth 1.12); meanFreePath drifted
+  62 → 96 mm (truth 39.5) with predictions nearly unchanged. Reading: along
+  the turning-split ridge (meanFreePath / jitter / speedTau) the loss
+  changes less than the 640-ant evaluation noise, so step-size adaptation
+  cannot shrink and the final mean is one draw of a random walk along the
+  ridge. A looser stop rule was not the cause. Per the pre-registered rule
+  this goes back to the user (criterion or statistics/noise); the four
+  cells still wait.
+- **2026-10-08** User decision (after the polish diagnostic), logged before
+  implementation — **acceptance by prediction recovery, with averaging:**
+  - **Estimate:** each CMA-ES run's estimate becomes the average (in the
+    transformed parameters) of the distribution means over its last 50
+    generations (all of them if fewer), a standard noise-handling step that
+    damps the random walk along flat directions. Selection among runs on
+    the selection batch is unchanged (selection data only).
+  - **Acceptance rule (replaces "within 2 SE of the truth's loss"):** on
+    the large flat reference, stage 1 from the usual warm start must recover
+    *predictions* at 0°: `recoverE1.ts` excess over the truth ≤ 0.25 per
+    family on average and no family > 1 (fresh 2000-ant simulations, data-
+    SE units at the 69-ant scale). Parameters are reported; those on the
+    turning-split ridge (meanFreePath, jitter, jitterTime, turnRateTime,
+    speedTau) are reported as **not identified from flat data** when they
+    differ while predictions agree.
+  - Run once under this rule (full procedure: 2 starts + 1 IPOP restart,
+    averaging on), then the four staged/joint cells as designed, judged by
+    prediction recovery at all five inclines.

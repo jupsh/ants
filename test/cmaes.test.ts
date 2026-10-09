@@ -34,6 +34,21 @@ describe('CMA-ES', () => {
     expect(f(scaled.mean)).toBeLessThan(1);
   });
 
+  it('averaging the last generation means reduces the error on a noisy objective', async () => {
+    // Sphere with strong evaluation noise (SD 2): the final mean keeps wandering; the average damps it.
+    let k = 0;
+    const f = (x: number[], g: number) => x.reduce((s, v) => s + (v - 1) ** 2, 0) + RNG.stream(77, g, k++).normal(0, 2);
+    const err = (x: number[]) => Math.sqrt(x.reduce((s, v) => s + (v - 1) ** 2, 0));
+    let last = 0;
+    let avg = 0;
+    for (let seed = 1; seed <= 8; seed++) {
+      const r = await cmaes(f, new Array(8).fill(-2), { sigma: 1, maxGenerations: 300, seed, averageLast: 50 });
+      last += err(r.mean);
+      avg += err(r.meanAvg);
+    }
+    expect(avg).toBeLessThan(last);
+  });
+
   it('averages over noise redrawn every generation: the final mean lands near the optimum', async () => {
     // Noise SD 0.5 on a sphere with minimum 0 at x = 1 (n = 8); fresh noise per generation and candidate.
     let k = 0;
