@@ -1,3 +1,4 @@
+import { hypot } from '../core/math';
 import { bootstrapSE, olsFit } from './compare';
 import type { Track } from './trajectory';
 
@@ -138,6 +139,12 @@ const wrap = (a: number) => {
   return a - Math.PI;
 };
 
+/** Index of the first [lo, hi) bin containing v, or −1 (as `bins.findIndex`, without a closure per sample). */
+function binOf(bins: [number, number][], v: number): number {
+  for (let b = 0; b < bins.length; b++) if (v >= bins[b][0] && v < bins[b][1]) return b;
+  return -1;
+}
+
 function addMoments(m: number[], x: number): void {
   const x2 = x * x;
   m[0]++;
@@ -186,14 +193,17 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS, full = true): D
   const sp = new Float64Array(n);
   for (let i = 0; i < n; i++) {
     const j = Math.min(i + k, n - 1);
-    sp[i] = Math.hypot(x[j] - x[i], y[j] - y[i]) / o.lag;
+    sp[i] = hypot(x[j] - x[i], y[j] - y[i]) / o.lag;
   }
 
   // Log-speed decomposition (moving samples with a full window).
-  const moving: number[] = [];
-  for (let i = 0; i + k < n; i++) if (sp[i] >= o.stopSpeed) moving.push(sp[i]);
+  let nm = 0;
+  for (let i = 0; i + k < n; i++) if (sp[i] >= o.stopSpeed) nm++;
+  const moving = new Float64Array(nm);
+  nm = 0;
+  for (let i = 0; i + k < n; i++) if (sp[i] >= o.stopSpeed) moving[nm++] = sp[i];
   if (moving.length > 10) {
-    const lm = Math.log(quantile(Float64Array.from(moving).sort(), 0.5));
+    const lm = Math.log(quantile(moving.slice().sort(), 0.5));
     d.logMedian = lm;
     for (const v of moving) d.logResidSq += (Math.log(v) - lm) ** 2;
     d.logResidN = moving.length;
@@ -204,9 +214,9 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS, full = true): D
     for (let i = 0; i + w < n; i++) {
       const dx = x[i + w] - x[i];
       const dy = y[i + w] - y[i];
-      const len = Math.hypot(dx, dy);
+      const len = hypot(dx, dy);
       if (len / (w * o.dt) < o.stopSpeed) continue;
-      const b = DISP_BINS.findIndex(([lo, hi]) => len >= lo && len < hi);
+      const b = binOf(DISP_BINS, len);
       if (b < 0) continue;
       const h = Math.atan2(dy, dx);
       d.align[b][0] -= Math.cos(2 * h);
@@ -223,7 +233,7 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS, full = true): D
   let acc = 0;
   for (let i = 1; i < n; i++) {
     if (sp[i] < o.stopSpeed) continue;
-    const seg = Math.hypot(x[i] - x[i - 1], y[i] - y[i - 1]);
+    const seg = hypot(x[i] - x[i - 1], y[i] - y[i - 1]);
     acc += seg;
     while (acc >= o.arcStep) {
       const f = seg > 0 ? 1 - (acc - o.arcStep) / seg : 1;
@@ -251,7 +261,7 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS, full = true): D
     acc3[2]++;
   }
   for (let j = 0; j < H.length - o.longLag; j += 2) {
-    const b = SPEED_BINS.findIndex(([lo, hi]) => pv[j] >= lo && pv[j] < hi);
+    const b = binOf(SPEED_BINS, pv[j]);
     if (b < 0) continue;
     d.binN[b]++;
     d.cosShort[b] += Math.cos(H[j + o.shortLag] - H[j]);
@@ -274,9 +284,9 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS, full = true): D
     const by = y[a] - y[a - k];
     const ax = x[b + 2 * k] - x[b + k];
     const ay = y[b + 2 * k] - y[b + k];
-    if (Math.hypot(bx, by) >= minDisp && Math.hypot(ax, ay) >= minDisp) {
+    if (hypot(bx, by) >= minDisp && hypot(ax, ay) >= minDisp) {
       const dur = (b - a + 1) * o.dt;
-      const sb = STOP_BINS.findIndex(([lo, hi]) => dur >= lo && dur < hi);
+      const sb = binOf(STOP_BINS, dur);
       d.stopCos[sb] += Math.cos(Math.atan2(ay, ax) - Math.atan2(by, bx));
       d.stopN[sb]++;
     }
@@ -286,7 +296,7 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS, full = true): D
   // Radial velocity (moving samples) and returns inside `returnRadius`.
   let out = false;
   if (full) for (let i = 0; i + k < n; i++) {
-    const r = Math.hypot(x[i], y[i]);
+    const r = hypot(x[i], y[i]);
     if (r > o.returnRadius) out = true;
     if (out) {
       d.afterOut++;
@@ -294,7 +304,7 @@ export function diagTrack(tr: Track, o: DiagOptions = DIAG_OPTS, full = true): D
     }
     if (r < 1 || sp[i] < o.stopSpeed) continue;
     const vr = ((x[i + k] - x[i]) * x[i] + (y[i + k] - y[i]) * y[i]) / r / o.lag;
-    const b = RADIAL_BINS.findIndex(([lo, hi]) => r >= lo && r < hi);
+    const b = binOf(RADIAL_BINS, r);
     if (b >= 0) {
       d.radSum[b] += vr;
       d.radN[b]++;
@@ -347,7 +357,7 @@ export function noiseTrack(tr: Track, slowSpeed = 3, lag = 0.2): NoiseTrack {
   const back = Math.floor(k / 2);
   for (let i = 3; i < n - 3; i++) {
     if (i - back < 0 || i - back + k >= n) continue;
-    const v = Math.hypot(xs[i - back + k] - xs[i - back], ys[i - back + k] - ys[i - back]) / lag;
+    const v = hypot(xs[i - back + k] - xs[i - back], ys[i - back + k] - ys[i - back]) / lag;
     if (v >= slowSpeed) continue;
     s.n++;
     s.d1x += (x[i + 1] - x[i]) ** 2;

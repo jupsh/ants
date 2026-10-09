@@ -59,12 +59,19 @@ const BIN = 0.05;
 const NBIN = 6000; // 0–300 mm/s; faster samples go in the last bin
 
 function accFor(t: TrackStats, diag: DiagTrack): Acc {
-  const counts = new Map<number, number>();
-  for (const v of t.speeds) {
-    const b = Math.min(NBIN - 1, Math.floor(v / BIN));
-    counts.set(b, (counts.get(b) ?? 0) + 1);
+  // Occupied bins in increasing order, and their counts.
+  const all = new Uint16Array(t.speeds.length);
+  for (let i = 0; i < all.length; i++) all[i] = Math.min(NBIN - 1, Math.floor(t.speeds[i] / BIN));
+  all.sort();
+  const bins: number[] = [];
+  const cnt: number[] = [];
+  for (let i = 0; i < all.length; i++) {
+    if (i && all[i] === all[i - 1]) cnt[cnt.length - 1]++;
+    else {
+      bins.push(all[i]);
+      cnt.push(1);
+    }
   }
-  const bins = [...counts.keys()].sort((a, b) => a - b);
   const turn = [0, 0, 0, 0, 0];
   for (const x of t.turnIncrements) {
     const x2 = x * x;
@@ -76,7 +83,7 @@ function accFor(t: TrackStats, diag: DiagTrack): Acc {
   }
   return {
     speedIdx: Uint16Array.from(bins),
-    speedCnt: Float64Array.from(bins, (b) => counts.get(b)!),
+    speedCnt: Float64Array.from(cnt),
     speedN: t.speeds.length,
     stopped: t.stopped,
     samples: t.samples,
@@ -98,7 +105,7 @@ function accFor(t: TrackStats, diag: DiagTrack): Acc {
 /** Per-ant summary of one raw track (prepared as the Khuong data were), or null if too short. */
 export function summarizeTrack(t: Track): Acc | null {
   const prep = prepareTrack(t, KHUONG_PREP);
-  const ts = prep ? trackStats(prep) : null;
+  const ts = prep ? trackStats(prep, undefined, false) : null;
   const d = prep ? diagTrack(prep, undefined, false) : null;
   return ts && d ? accFor(ts, d) : null;
 }

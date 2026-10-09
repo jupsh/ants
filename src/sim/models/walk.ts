@@ -1,5 +1,5 @@
 import { RNG } from '../core/rng';
-import { TAU } from '../core/math';
+import { hypot, TAU } from '../core/math';
 import type { SurfacePercept } from '../perception/types';
 
 /**
@@ -185,6 +185,44 @@ function walkStreams(base: number): WalkStreams {
   return { speed: st(1), distClock: st(2), timeClock: st(3), angle: st(4), jitter: st(5), pause: st(6), reset: st(7) };
 }
 
+/**
+ * Single-entry memos of per-step factors that are usually constant over a
+ * run (slope terms at a fixed incline, the OU decay at a fixed step): the
+ * same expression on the same inputs, so values are bit-identical to
+ * computing them every step. Module-level, hence per worker; correctness
+ * never depends on hits.
+ */
+class ExpMemo {
+  private k = NaN;
+  private x = NaN;
+  private v = NaN;
+  /** Math.exp(k · x). */
+  at(k: number, x: number): number {
+    if (k !== this.k || x !== this.x) {
+      this.k = k;
+      this.x = x;
+      this.v = Math.exp(k * x);
+    }
+    return this.v;
+  }
+}
+const pauseSlope = new ExpMemo();
+const sdSlope = new ExpMemo();
+const jitterSlope = new ExpMemo();
+let ouT = NaN;
+let ouTau = NaN;
+let ouA = NaN;
+let ouS = NaN;
+/** OU decay over t and its innovation factor: a = e^{−t/τ}, √(1 − a²). */
+function ouDecay(t: number, tau: number): void {
+  if (t !== ouT || tau !== ouTau) {
+    ouT = t;
+    ouTau = tau;
+    ouA = Math.exp(-t / tau);
+    ouS = Math.sqrt(1 - ouA * ouA);
+  }
+}
+
 /** Receives each straight sub-segment walked (in-surface displacement and length). */
 export type MoveSink = (dx: number, dy: number, len: number) => void;
 
@@ -219,7 +257,7 @@ export function walkStep(p: WalkParams, s: WalkState, per: SurfacePercept, speed
   // continuous time, so a pause can start and end anywhere inside a step.
   // The onset uses a unit-rate exposure clock, which stays exact if the rate
   // changes between steps. Time-based turning goes on while paused.
-  const rate = p.pauseRate > 0 ? p.pauseRate * Math.exp(p.slopePauseK * per.incline) : 0;
+  const rate = p.pauseRate > 0 ? p.pauseRate * pauseSlope.at(p.slopePauseK, per.incline) : 0;
   let left = per.dt;
   let total = 0;
   while (left > 1e-12) {
@@ -248,7 +286,7 @@ export function walkStep(p: WalkParams, s: WalkState, per: SurfacePercept, speed
       if (p.stopTurnG < 1) resetAtStop(p, s, pi, mod);
     }
   }
-  s.heading = ((s.heading % TAU) + TAU) % TAU;
+  s.heading = normHeading(s.heading);
   return total;
 }
 
@@ -262,10 +300,10 @@ export function walkStep(p: WalkParams, s: WalkState, per: SurfacePercept, speed
  */
 function walkFor(p: WalkParams, s: WalkState, per: SurfacePercept, speedScale: number, pi: { x: number; y: number }, move: MoveSink, t: number, mod?: MotorMod): number {
   // Within-individual speed fluctuation: exact OU update (the process runs while walking).
-  const sdW = p.speedSdWithin * Math.exp(p.slopeSpeedSdK * per.incline);
+  const sdW = p.speedSdWithin * sdSlope.at(p.slopeSpeedSdK, per.incline);
   if (p.speedTau > 0) {
-    const a = Math.exp(-t / p.speedTau);
-    s.ou = s.ou * a + sdW * Math.sqrt(1 - a * a) * s.r.speed.gauss();
+    ouDecay(t, p.speedTau);
+    s.ou = s.ou * ouA + sdW * ouS * s.r.speed.gauss();
   }
   const slopeF = Math.max(0.05, 1 - p.slopeSpeedK * s.slopeK * per.incline);
   const v = p.speed * s.indiv * Math.exp(s.ou - (sdW * sdW) / 2) * slopeF * speedScale * (mod?.speedScale ?? 1);
@@ -274,7 +312,7 @@ function walkFor(p: WalkParams, s: WalkState, per: SurfacePercept, speedScale: n
     const err = angleDiff(mod.goal, s.heading);
     s.heading += err * (1 - Math.exp(-mod.goalGain * t));
   }
-  const jitterD = p.jitter * Math.exp(p.slopeJitterK * per.incline);
+  const jitterD = p.jitter * jitterSlope.at(p.slopeJitterK, per.incline);
   const tau = p.turnDipTau;
   let left = t;
   let total = 0;
@@ -357,7 +395,7 @@ export function geoSteer(p: WalkParams, heading: number, per: SurfacePercept, se
 
 /** Weight of the exploration homing bias at the current PI position (0 when off). */
 function homeWeight(p: WalkParams, pi: { x: number; y: number }, mod?: MotorMod): number {
-  const r = Math.hypot(pi.x, pi.y);
+  const r = hypot(pi.x, pi.y);
   return r > 1e-6 && !mod?.noHomeBias ? Math.exp(-r / p.homeRange) : 0;
 }
 
@@ -398,6 +436,19 @@ function turnInPlace(p: WalkParams, s: WalkState, per: SurfacePercept, pi: { x: 
   }
   decay(t - now);
   if (p.jitterTime > 0) s.heading += Math.sqrt(p.jitterTime * t) * s.r.jitter.gauss();
+}
+
+/**
+ * ((h % τ) + τ) % τ, bit for bit, without the two fmod calls in the usual
+ * case 0 ≤ h < τ: there h % τ = h, and x = h + τ lies in [τ, 2τ], where
+ * fmod(x, τ) = x − τ exactly (Sterbenz) unless x rounds to 2τ.
+ */
+function normHeading(h: number): number {
+  if (h >= 0 && h < TAU) {
+    const x = h + TAU;
+    if (x < 2 * TAU) return x - TAU;
+  }
+  return ((h % TAU) + TAU) % TAU;
 }
 
 function angleDiff(a: number, b: number): number {

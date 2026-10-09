@@ -1,3 +1,4 @@
+import { hypot } from '../core/math';
 /**
  * Trajectory statistics. The same functions are applied to recorded ant
  * tracks and to simulated ones, so model–data comparisons are like for like.
@@ -64,9 +65,9 @@ export function prepareTrack(tr: Track, o: TrackPrepOptions): Track | null {
   const ox = sx[0];
   const oy = sy[0];
   let start = 0;
-  while (start < m && Math.hypot(sx[start] - ox, sy[start] - oy) < o.startRadius) start++;
+  while (start < m && hypot(sx[start] - ox, sy[start] - oy) < o.startRadius) start++;
   let end = start;
-  while (end < m && Math.hypot(sx[end] - ox, sy[end] - oy) <= o.endRadius) end++;
+  while (end < m && hypot(sx[end] - ox, sy[end] - oy) <= o.endRadius) end++;
   if (end - start < 4) return null;
   return {
     id: tr.id,
@@ -182,7 +183,12 @@ export interface TrackStats {
   alignN: number;
 }
 
-export function trackStats(tr: Track, o: WalkStatsOptions = DEFAULT_WALK_OPTS): TrackStats | null {
+/**
+ * `full = false` skips the parts that no fit uses (heading correlation by
+ * time lag, mean squared displacement), leaving them at zero; everything
+ * else is identical.
+ */
+export function trackStats(tr: Track, o: WalkStatsOptions = DEFAULT_WALK_OPTS, full = true): TrackStats | null {
   const lags = LAGS.filter((l) => l <= o.maxLag);
   const n = tr.t.length;
   if (n < 3) return null;
@@ -214,11 +220,11 @@ export function trackStats(tr: Track, o: WalkStatsOptions = DEFAULT_WALK_OPTS): 
   const sp = new Float64Array(m);
   const mv = new Uint8Array(m);
   const cum = new Float64Array(n); // cumulative path length
-  for (let i = 1; i < n; i++) cum[i] = cum[i - 1] + Math.hypot(tr.x[i] - tr.x[i - 1], tr.y[i] - tr.y[i - 1]);
+  for (let i = 1; i < n; i++) cum[i] = cum[i - 1] + hypot(tr.x[i] - tr.x[i - 1], tr.y[i] - tr.y[i - 1]);
   for (let i = 0; i < m; i++) {
     const dx = tr.x[i + k] - tr.x[i];
     const dy = tr.y[i + k] - tr.y[i];
-    const v = Math.hypot(dx, dy) / (k * dt);
+    const v = hypot(dx, dy) / (k * dt);
     sp[i] = v;
     hd[i] = Math.atan2(dy, dx);
     mv[i] = v >= o.stopSpeed ? 1 : 0;
@@ -226,11 +232,12 @@ export function trackStats(tr: Track, o: WalkStatsOptions = DEFAULT_WALK_OPTS): 
     if (mv[i]) ts.speeds.push(v);
     else ts.stopped++;
     // radial velocity
-    const r = Math.hypot(tr.x[i], tr.y[i]);
+    const r = hypot(tr.x[i], tr.y[i]);
     if (r > 1) {
       const vr = (dx * tr.x[i] + dy * tr.y[i]) / r / (k * dt);
-      const b = RADIAL_BINS.findIndex((e) => r < e);
-      if (b >= 0) {
+      let b = 0;
+      while (b < RADIAL_BINS.length && !(r < RADIAL_BINS[b])) b++;
+      if (b < RADIAL_BINS.length) {
         ts.radSum[b] += vr;
         ts.radN[b]++;
       }
@@ -247,7 +254,7 @@ export function trackStats(tr: Track, o: WalkStatsOptions = DEFAULT_WALK_OPTS): 
       ts.alignN++;
     }
   if (tn > 10) ts.trackSpeed = tsum / tn;
-  lags.forEach((l, li) => {
+  if (full) lags.forEach((l, li) => {
     const s = Math.round(l / dt);
     for (let i = 0; i + s < m; i += Math.max(1, Math.floor(k / 2)))
       if (mv[i] && mv[i + s]) {
@@ -268,7 +275,7 @@ export function trackStats(tr: Track, o: WalkStatsOptions = DEFAULT_WALK_OPTS): 
       ts.pcN[li]++;
     }
   });
-  MSD_LAGS.forEach((l, li) => {
+  if (full) MSD_LAGS.forEach((l, li) => {
     const s = Math.round(l / dt);
     for (let i = 0; i + s < n; i += Math.max(1, Math.floor(s / 4))) {
       ts.msdSum[li] += (tr.x[i + s] - tr.x[i]) ** 2 + (tr.y[i + s] - tr.y[i]) ** 2;
@@ -279,11 +286,11 @@ export function trackStats(tr: Track, o: WalkStatsOptions = DEFAULT_WALK_OPTS): 
   let a = 0;
   for (let b = 0; b < n; b++) {
     if (cum[b] - cum[a] >= 50) {
-      ts.straightness.push(Math.hypot(tr.x[b] - tr.x[a], tr.y[b] - tr.y[a]) / (cum[b] - cum[a]));
+      ts.straightness.push(hypot(tr.x[b] - tr.x[a], tr.y[b] - tr.y[a]) / (cum[b] - cum[a]));
       a = b;
     }
   }
-  const rEnd = Math.hypot(tr.x[n - 1], tr.y[n - 1]);
+  const rEnd = hypot(tr.x[n - 1], tr.y[n - 1]);
   if (rEnd >= o.exitRadius * 0.97) ts.exitTime = tr.t[n - 1] - tr.t[0];
   return ts;
 }

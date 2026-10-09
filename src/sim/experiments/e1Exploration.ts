@@ -83,7 +83,7 @@ export function runE1(p: WalkParams, o: E1Options): Track[] {
         ys[i] += obs.normal(0, o.tracking.sy);
       }
     }
-    tracks.push({ id: `sim-${a}`, t: Float64Array.from(t), x: Float64Array.from(xs), y: Float64Array.from(ys) });
+    tracks.push({ id: `sim-${a}`, t: new Float64Array(t), x: new Float64Array(xs), y: new Float64Array(ys) });
   }
   return tracks;
 }
