@@ -306,7 +306,8 @@ if (STRATEGY === 'staged') {
     for (const [k] of S1) p = { ...p, [k]: prior.params[k] };
   }
   const r1 = prior ? { x: enc1(p), f: (prior.selectionLoss ?? prior.fitLoss).stage1 as number, evals: 0 } : await stage('stage1', [0], (x) => dec1(x, p), START ? [enc1(p)] : [enc1(p), enc1({ ...p, ...second })], quick ? 150 : 500, GENS1, 100000);
-  p = dec1(r1.x, p);
+  // A reused stage 1 keeps its stored parameters exactly (decode(encode(p)) can move them by an ulp).
+  if (!prior) p = dec1(r1.x, p);
   console.log('stage 1 done', r1.f.toFixed(3), JSON.stringify(p));
   const r2 = STAGES < 2 ? null : await stage('stage2', [2, 4], (x) => dec2(x, p), START ? [enc2(p)] : [enc2(p), enc2({ ...p, ...second2 })], quick ? 120 : 400, GENS2, 200000);
   if (r2) {

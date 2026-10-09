@@ -1689,3 +1689,72 @@ See [`CLAUDE.md`](../CLAUDE.md).
   - Run once under this rule (full procedure: 2 starts + 1 IPOP restart,
     averaging on), then the four staged/joint cells as designed, judged by
     prediction recovery at all five inclines.
+- **2026-10-08** E1 evaluation profile (user asked to profile and to
+  consider Rust), logged before acting. One evaluation (640 ants, flat) is
+  ≈ 6.5 s of one core with the machine loaded: **~43 % per-track summary
+  statistics** (`diagTrack`, `trackStats`, `accFor`, `prepareTrack`),
+  **~38 % the walker** (`walkFor`, `runE1`, `homeWeight`, RNG), ~4 % GC;
+  the comparison on the main process is < 1 %. The profile is flat (no line
+  > 4 %): cost is spread over transcendental calls, small allocations
+  (per-sample `push`, `findIndex` closures, a `Map` per ant) and closures.
+  All 16 cores are busy during fits, so only faster code helps.
+  **Plan:** speed up that path in TypeScript **bit-identically** — exact
+  equality of `e1Summary` outputs (all inclines, several seeds and
+  parameter sets), Khuong reference statistics and the E2/colony runs that
+  share the walker, against snapshots taken from the current code before
+  any change. Arithmetic order and every `Math.*` call stay as they are, so
+  fits and the running acceptance test are unaffected. Rust (native or
+  WASM) is assessed for the user and not started: it cannot be
+  bit-identical with the TypeScript (different transcendental functions),
+  and the walker is shared by E1, E2 and the colony.
+- **2026-10-08** E1 speed-up done (bit-identical): all 76 snapshots
+  (`e1Summary` and raw tracks for the T, walk and A0 fits at all inclines,
+  Khuong per-track summaries and references, comparisons, E2 scouts, a
+  colony run) are identical before and after. Changes: the E1 summary skips
+  the `trackStats` parts no fit uses (time-lag heading correlation, MSD;
+  `full = false`, as `diagTrack` already did); speed binning without a
+  `Map`; bin lookups without per-sample closures; `hypot` in
+  `core/math.ts`, an exact copy of V8's two-argument `Math.hypot` (~3×
+  faster; checked on 200 000 pairs in `test/math.test.ts`) on the E1 path;
+  the walker's per-step slope factors and OU decay memoised; heading
+  normalisation without the two `fmod` calls in the usual case (exact).
+  **Result:** a full 640-ant evaluation is **13 % faster at 0° and 10 % at
+  45°** (alternating runs against the previous code, same load). That is the
+  ceiling without changing numerics: what remains is mostly the
+  transcendental calls of the walker itself (~16 per 0.02 s step: OU, clocks,
+  steering, heading, path integration) and of the statistics.
+  **Rust assessment (for the user, not started):** native Rust with the
+  system maths library could plausibly be ~3× faster, but not bit-identical
+  to the TypeScript (different `exp`/`cos`/`atan2`), so it would be a second
+  implementation of a walker that is still changing (A0 vs T) and is shared
+  with E2 and the colony. Porting V8's fdlibm functions too would keep it
+  bit-identical, testable against the same snapshots, and usable as WASM in
+  the browser, but then only the non-maths overhead shrinks: perhaps
+  ~1.5–2×. Estimates, not measured; Rust is not installed here.
+- **2026-10-08** **Acceptance test passed** (pre-registered prediction
+  rule; stage 1, warm start, large flat reference, 2 starts + 1 IPOP
+  restart, averaging on). Runs scored 16.6 (start 0), 4.3 (start 1) and
+  1.51 (restart, kept) on the selection batch; each stopped by tolX after
+  98–116 generations. Prediction recovery at 0° (`recoverE1.ts`, fresh
+  2000-ant simulations): **mean excess 0.10 per family, worst turnMed 0.48
+  → recovered** (rule: ≤ 0.25, none > 1). Fresh-batch loss against the
+  69-scaled reference 2.32 ± 0.24 vs the truth's 1.12: the old "within
+  2 SE" rule would still fail, consistently with ≈ 0.1 excess summed over
+  ~12 families. Slope inclines fail as expected (stage 1 does not fit slope
+  parameters; not part of this test).
+  - **Not identified from flat data** (predictions agree, parameters
+    differ): meanFreePath ×1.61, jitter ×2.98, jitterTime ×0.56, speedTau
+    ×0.19 (the turning-split ridge), and also stopTurnG ×1.69 and
+    speedSdBetween ×1.29 (not on the pre-listed ridge; reported). speed,
+    speedSdWithin, g, turnRateTime, turnDip, pause and homing parameters
+    within ×0.67–1.42.
+  - Note for the cells: only the IPOP restart reached the good basin;
+    both plain starts stopped early at poorer points, so the restart is
+    load-bearing.
+  - **Next:** the four cells as designed, in order staged n2000 (stage 1
+    reused via `--stage1From` from this file), joint n2000, staged n69, joint
+    n69, each followed by `recoverE1.ts` at all five inclines.
+  - Started 2026-10-08. Fix first (caught 3 min into the first cell, which
+    was restarted): `--stage1From` decoded the encoded stored parameters,
+    which moved them by an ulp, so the reuse was not exactly equal to a
+    rerun as documented. It now keeps the stored parameters as they are.
