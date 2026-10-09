@@ -1758,3 +1758,49 @@ See [`CLAUDE.md`](../CLAUDE.md).
     was restarted): `--stage1From` decoded the encoded stored parameters,
     which moved them by an ulp, so the reuse was not exactly equal to a
     rerun as documented. It now keeps the stored parameters as they are.
+- **2026-10-09** **Staged vs joint, three of four cells done** (T truth,
+  rep 0; prediction excess per family, data-SE² units; recovered ≤ 0.25
+  mean and none > 1):
+
+  | cell | 0° | 20° (dev) | 30° | 45° (dev) | 60° |
+  |---|---|---|---|---|---|
+  | staged, 2000 ants | 0.10 ✓ | 0.78 ✗ (turnMed 6.0) | 2.16 ✗ (turnMed 18) | 5.27 ✗ (turnMed 43) | 10.9 ✗ (turnMed 89) |
+  | **joint, 2000 ants** | **0.06 ✓** | **0.06 ✓** | **−0.02 ✓** | **0.11 ✓** | **0.13 ✓** (worst turnMed 0.96) |
+  | staged, 69 ants | 0.50 ~ (stopTurn 2.5) | 0.95 ✗ | 1.26 ✗ | 1.92 ✗ | 1.66 ✗ |
+  | joint, 69 ants | running | | | | |
+
+  - **Decision (pre-registered rule): joint is adopted.** Staged fails on
+    the large reference at every slope; joint recovers predictions at all
+    five inclines, including 20° and 45°, which were never fitted.
+  - **Why staged fails:** stage 1 fixes the flat-ground parameters at an
+    arbitrary point on the turning-split ridge (here jitter per mm ×3.0,
+    jitterTime ×0.56, meanFreePath ×1.6, speedTau ×0.19). On flat ground
+    per-distance and per-time turning are interchangeable at the typical
+    speed, but ants walk slower on slopes, so the split sets the turning
+    per mm there. Stage 2 cannot move it, and the error grows with slope
+    (turn-median family). The joint fit uses the slopes to place the split:
+    meanFreePath ×1.06, jitter ×0.75, jitterTime ×1.27, speedTau ×1.17.
+  - **Joint, parameters that differ while predictions agree**
+    (identifiability ambiguity, not failure): homeRunBias ×0.08,
+    stopHomePull ×0.20, homeHeadingPull ×2.30, turnDipTau ×2.24, geoRunGain
+    ×2.76, geoHeadingPull ×1.54. The homing terms trade off against each
+    other; none of these should be read biologically from a fit.
+  - Runs: joint 2000 took 8.5 h (starts 340 and 314 generations, restart
+    148; selection-batch scores 27.6, 3.7, 1.9: again only the restart
+    reached the good basin). Staged 2000 stage 2: 1.5 h; staged 69: 3 h.
+  - **Procedure flaw found (does not change the decision):** in stage 2
+    of staged 2000, start 1 stopped after one generation. Its probe put
+    every initial SD at the 0.02 floor (a very poor, steep start, loss
+    ≈ 7 000), and σ·max SD = 0.022 was already below tolX 0.03. The floor
+    should not be below tolX. Staged's failure does not depend on it:
+    stage 2 cannot change the flat parameters, and the restart from start 0
+    reached the same loss (100.5 vs 100.3). Left unchanged for the
+    remaining reps so they match rep 0. Proposed for the renewed
+    comparison (to pre-register with it): tolX checked only after the
+    first 10 generations.
+  - **Queued (as designed, run after joint 69 finishes):** joint on A0
+    (large reference, `data/fits/e1-A0.json` as the truth), then T joint at
+    69 ants reps 1 and 2 (refit spread). Then the renewed A0 vs T
+    comparison, pre-registered anew before its fits.
+  - Caveat to carry: on real data a joint fit lets slope misfit pull the
+    flat parameters; report its flat loss next to the staged fit's.
