@@ -58,6 +58,14 @@ export interface ForagerParams {
   /** Mean duration of area-restricted search after an unsatisfying drop (s), and its tortuosity (run-length factor). */
   arsMean: number;
   arsRunScale: number;
+  /**
+   * Who searches after leaving an exhausted drop unsatisfied (step 3c,
+   * STATUS 2026-10-09). 0 (unset): ants that decided to lay go home at once
+   * (the adopted model). 1: they search too, then lay on the way home; one
+   * mean. 2: as 1, with mean arsMeanLay for laying ants.
+   */
+  searchMode?: number;
+  arsMeanLay?: number;
   /** Homing: steering gain towards the home vector (1/s) and run-length factor while homing. */
   homeGain: number;
   homeRunScale: number;
@@ -168,7 +176,7 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
             // Some unsatisfied ants still lay trail (Mailleux et al. 2009: trail layers and
             // non-layers drank the same volume at a 0.7 µL drop).
             if (!m.laying && !m.traits.neverLays && rng.chance(p.unsatisfiedLayProb)) m.laying = true;
-            m.ars = rng.exp(p.arsMean);
+            m.ars = rng.exp(p.searchMode === 2 && m.laying ? (p.arsMeanLay ?? p.arsMean) : p.arsMean);
             setMode(m, 'search');
           }
         }
@@ -181,7 +189,7 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
       // Unsatisfied: tortuous search around the last food site, then go home.
       // Ants that decided to recruit head home straight away.
       m.ars -= per.dt;
-      if (m.ars <= 0 || m.laying) setMode(m, 'return');
+      if (m.ars <= 0 || (m.laying && !p.searchMode)) setMode(m, 'return');
       let goal: number | undefined;
       if (m.site) {
         const sx = m.site.x - m.pi.x;

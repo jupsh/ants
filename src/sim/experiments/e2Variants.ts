@@ -12,8 +12,8 @@ import type { E2Setup } from './e2Targets';
 /** A free parameter: where it lives and how it is transformed for the optimiser. */
 export interface FreeParam {
   key: string;
-  /** 'log' for positive values, 'logit' for (0, 1), or a bounded interval. */
-  tf: 'log' | 'logit' | { lo: number; hi: number };
+  /** 'log' for positive values, 'logit' for (0, 1), or a bounded interval (linear, or log-scaled with `log`). */
+  tf: 'log' | 'logit' | { lo: number; hi: number; log?: boolean };
 }
 
 export interface E2Model {
@@ -39,6 +39,37 @@ const SHARED: FreeParam[] = [
 ];
 
 const withForager = (m: E2Model, f: Partial<LasiusParams['forager']>): E2Model => ({ ...m, P: { ...m.P, forager: { ...m.P.forager, ...f } } });
+const withPhys = (m: E2Model, f: Partial<LasiusParams['phys']>): E2Model => ({ ...m, P: { ...m.P, phys: { ...m.P.phys, ...f } } });
+
+/**
+ * Step 3c (search around food), frozen pre-registration 2026-10-09: M_a
+ * structure, bounded parameters; S = who searches after an exhausted drop,
+ * I = intake form. Frozen bounds.
+ */
+const B3C: FreeParam[] = [
+  { key: 'forager.desiredFed', tf: { lo: 0.1, hi: 3, log: true } },
+  { key: 'forager.desiredHungry', tf: { lo: 0.1, hi: 5, log: true } },
+  { key: 'forager.desiredSd', tf: { lo: 0.01, hi: 2, log: true } },
+  { key: 'forager.stopHazard', tf: { lo: 1e-4, hi: 1, log: true } },
+  { key: 'forager.unsatisfiedLayProb', tf: { lo: 0, hi: 1 } },
+  { key: 'setup.accessible', tf: { lo: 0.2, hi: 1 } },
+  { key: 'phys.intakeSd', tf: { lo: 0, hi: 1 } },
+  { key: 'setup.volumeSd', tf: { lo: 0, hi: 0.5 } },
+  { key: 'phys.intakeRate', tf: { lo: 0.002, hi: 0.03, log: true } },
+  { key: 'forager.arsMean', tf: { lo: 1, hi: 1000, log: true } },
+];
+const LAY_MEAN: FreeParam = { key: 'forager.arsMeanLay', tf: { lo: 1, hi: 1000, log: true } };
+const V0: FreeParam = { key: 'phys.boutFastUl', tf: { lo: 0, hi: 0.5 } };
+const fix3c = (searchMode: number, fast: boolean) => (m: E2Model) =>
+  withPhys(withForager(m, { stopPerVolume: 0, satiationOnTime: 0, neverLayFraction: 0.12, searchMode }), fast ? { boutFastRate: 0.05 } : { boutFastUl: 0 });
+
+export const E2_VARIANTS_3C: E2Variant[] = [
+  { id: 'S0I0', label: 'S0I0 (adopted structure)', description: 'Laying ants go home at once after an exhausted drop; constant intake rate.', fix: fix3c(0, false), free: B3C },
+  { id: 'S1I0', label: 'S1I0', description: 'Every unsatisfied ant leaving an exhausted drop searches (layers too); one mean.', fix: fix3c(1, false), free: B3C },
+  { id: 'S2I0', label: 'S2I0', description: 'As S1, separate search means for laying and non-laying ants.', fix: fix3c(2, false), free: [...B3C, LAY_MEAN] },
+  { id: 'S1I1', label: 'S1I1', description: 'S1 plus a fast initial uptake of v0 µL per bout at 0.05 µL/s.', fix: fix3c(1, true), free: [...B3C, V0] },
+  { id: 'S2I1', label: 'S2I1', description: 'S2 plus the fast initial uptake.', fix: fix3c(2, true), free: [...B3C, LAY_MEAN, V0] },
+];
 
 export const E2_VARIANTS: E2Variant[] = [
   {
@@ -78,7 +109,7 @@ export const E2_VARIANTS: E2Variant[] = [
   },
 ];
 
-function get(m: E2Model, key: string): number {
+export function get(m: E2Model, key: string): number {
   const [a, b] = key.split('.');
   return (a === 'setup' ? m.setup : (m.P as unknown as Record<string, Record<string, number>>)[a])[b as never] as number;
 }
@@ -96,13 +127,27 @@ const sig = (x: number) => 1 / (1 + Math.exp(-x));
 function toX(v: number, tf: FreeParam['tf']): number {
   if (tf === 'log') return Math.log(v);
   if (tf === 'logit') return logit(Math.min(0.999, Math.max(0.001, v)));
-  return logit(Math.min(0.999, Math.max(0.001, (v - tf.lo) / (tf.hi - tf.lo))));
+  const u = tf.log ? Math.log(v / tf.lo) / Math.log(tf.hi / tf.lo) : (v - tf.lo) / (tf.hi - tf.lo);
+  return logit(Math.min(0.999, Math.max(0.001, u)));
 }
 
 function fromX(x: number, tf: FreeParam['tf']): number {
   if (tf === 'log') return Math.exp(x);
   if (tf === 'logit') return sig(x);
-  return tf.lo + (tf.hi - tf.lo) * sig(x);
+  return tf.log ? tf.lo * (tf.hi / tf.lo) ** sig(x) : tf.lo + (tf.hi - tf.lo) * sig(x);
+}
+
+/** A free parameter within 1 % of a bound (bounded transforms only). */
+export function atBound(v: E2Variant, m: E2Model): string[] {
+  return v.free
+    .filter((f) => typeof f.tf === 'object')
+    .filter((f) => {
+      const tf = f.tf as { lo: number; hi: number; log?: boolean };
+      const x = get(m, f.key);
+      const u = tf.log ? Math.log(x / tf.lo) / Math.log(tf.hi / tf.lo) : (x - tf.lo) / (tf.hi - tf.lo);
+      return u < 0.01 || u > 0.99;
+    })
+    .map((f) => f.key);
 }
 
 export const encode = (v: E2Variant, m: E2Model): number[] => v.free.map((f) => toX(get(m, f.key), f.tf));

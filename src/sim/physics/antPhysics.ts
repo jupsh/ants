@@ -14,6 +14,13 @@ export interface PhysParams {
   intakeRate: number;
   /** SD of log individual intake rate (mean-preserving log-normal multiplier). */
   intakeSd: number;
+  /**
+   * Fast initial uptake (step 3c candidate I1, STATUS 2026-10-09): the first
+   * boutFastUl µL of each drinking bout are taken in at boutFastRate (µL/s),
+   * then the ant's own rate. Unset or 0: constant rate (the adopted model).
+   */
+  boutFastUl?: number;
+  boutFastRate?: number;
   /** Resting metabolic rate (mg sucrose-equivalent per hour per mg^0.75) at 25 °C, and the factor while walking. */
   metabolic: number;
   activeFactor: number;
@@ -50,6 +57,7 @@ export function applyForagerAction(w: World, a: Agent, act: ForagerAction, per: 
   b.stepLen = 0;
   const walked = act.stand ? 0 : walkAnt(w, a, per, walkP, phys, act.motor, motor);
   if (act.drinkFrom >= 0) drink(w, b, act.drinkFrom, phys, dt);
+  else b.boutUl = 0;
   metabolise(w, b, phys, walked > 0, dt);
   if (act.enterNest) a.inactive = true;
 }
@@ -131,8 +139,17 @@ function drink(w: World, b: Body, foodId: number, phys: PhysParams, dt: number):
   // Intake scales inversely with viscosity relative to 0.6 M (sucrose viscosity rises ~exponentially with concentration).
   const visc = Math.exp(1.05 * (f.molar - 0.6));
   const temp = arrhenius(w.tempC, 22, 0.3);
-  const ul = Math.min(phys.intakeRate * b.intakeFactor * dt * temp / visc, f.accessibleUl(), b.morph.cropCapacity - b.cropUl);
+  let want = phys.intakeRate * b.intakeFactor * dt * temp / visc;
+  const fast = phys.boutFastUl ?? 0;
+  if (fast > 0 && b.boutUl < fast) {
+    // Fast phase up to boutFastUl, then the ant's own rate for the rest of the step.
+    const fastRate = (phys.boutFastRate ?? 0.05) * temp / visc;
+    const tFast = Math.min(dt, (fast - b.boutUl) / fastRate);
+    want = fastRate * tFast + phys.intakeRate * b.intakeFactor * (dt - tFast) * temp / visc;
+  }
+  const ul = Math.min(want, f.accessibleUl(), b.morph.cropCapacity - b.cropUl);
   if (ul <= 0) return;
+  b.boutUl += ul;
   const s = ul * f.sugarPerUl();
   const wa = ul * f.waterPerUl();
   f.volumeUl -= ul;
