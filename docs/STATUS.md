@@ -2373,3 +2373,74 @@ See [`CLAUDE.md`](../CLAUDE.md).
     manipulation); Josens et al. 2006 and Falibene et al. 2009 (direct
     pump-activity measurements, *Camponotus*; bear on I1); Greenwald et al.
     2018 (crop load vs foraging frequency, *Camponotus*; colony step).
+- **2026-10-09** **Step 3c follow-up diagnostics** (adopted model, 600
+  scouts, `diagE2Search.ts` extended; run before the I1 fits use compute):
+  - **Per-drop volume–time regressions:** drop 1 slope 0.0057 µL/s,
+    intercept 0.136 µL, rs 0.38; drop 2 slope 0.0057, intercept 0.120,
+    rs 0.53. Mailleux: no difference between the drops in slope or
+    intercept (F-tests NS), pooled 0.006·t + 0.15, rs 0.22 / 0.31. **The
+    model already gives equal slopes and intercepts near 0.12–0.14 µL at
+    both drops** through volume-estimate noise and between-ant rates, so
+    I1 has nothing left to explain in the drinking regressions; its only
+    remaining route is shortening drop-2 bouts, which the drop-2 leaving
+    decision competes for. The frozen comparison still fits I1, and any
+    I1 win is to be read in that light. New observation: the model's
+    per-drop rs are higher than the data's (0.38 / 0.53 vs 0.22 / 0.31):
+    the data's volume–time relation is noisier than the model's (e.g. more
+    noise in the time or volume estimates). Not fitted; noted.
+  - **Who never reaches drop 2 — correction of the 86 %:** 600 scouts →
+    548 drank at drop 1 (52 never found it within 900 s) → 518 also drank
+    at drop 2. Among scouts that drank at drop 1 (the experimenters'
+    denominator), **94.5 % found both**, against > 95 % in the data, not
+    86 % (that figure used all launched scouts). `selectE2.ts` already
+    uses the right denominator. Of the 30 that missed drop 2: 26 walked past
+    it on the 5 mm bridge without touching it and got home, 4 were still out
+    at 900 s; 7 had been satiated at drop 1, 11 were laying.
+  - **I1's fast rate (0.05 µL/s) has no source:** chosen by hand, about 5×
+    the sustained rate. Any I1 result depends partly on it. If an I1
+    candidate is selected, its result is reported with that caveat and
+    with a sensitivity check at other fast rates (e.g. 0.02 and 0.1 µL/s;
+    reported, not re-selected). Josens et al. 2006 and Falibene et al.
+    2009 (direct pump measurements, *Camponotus*) may give a prior for the
+    ratio of initial to sustained rate; to be read before interpreting I1.
+- **2026-10-09** **Step 3c addition: trail-laying group rows (development,
+  reported only; logged before any step-3c result is seen — the S0I0 fit
+  had started, but these rows are never fitted and do not enter the frozen
+  selection or adequacy).** All five candidates share the laying decision
+  (`lasiusForager.ts` drink case: a satiated departure always lays unless
+  a never-layer; an unsatisfied departure from an exhausted drop lays with
+  `unsatisfiedLayProb`), so none of them tests it, and group membership is
+  then mostly a product of satiation (56 % of the model's TL1 satiated at
+  drop 1). Mailleux 2009 has group data that bear on it directly:
+  - drop 1, TL1 vs nTL1: volume 0.49 ± 0.26 vs 0.46 ± 0.24 µL (NS), time
+    52 ± 13 vs 50 ± 11 s (NS);
+  - drop 2, TL1 / TL2 / nTL2: time 20 ± 13 / 25 ± 10 / 20 ± 12 s; volume
+    0.20 ± 0.14 / 0.33 ± 0.20 / 0.31 ± 0.24 µL (TL1 lower, superscripts
+    b vs c); every ant that reached drop 2 drank.
+  The fitted rows `two.betweenTL1` and `two.betweenNTL1` are conditional
+  on group, so if the model's groups are composed differently, S2's
+  separate search mean for layers can absorb the difference and win for
+  the wrong reason. `selectE2.ts` (and `diagE2Search.ts` for the adopted
+  model) now report, per candidate: these rows with z = difference /
+  √(SD_data²/n_data + SD_sim²/n_sim), and the satiated fraction per
+  group. Reading: if every candidate fails them, the next structural
+  question is "satiation decides laying", not the search or intake form.
+  **Adopted model** (`diagE2Search.ts`, 518 scouts that drank at both
+  drops; z as above; 10 rows, so one |z| > 2 is expected by chance):
+  - drop 1: TL1 0.37 ± 0.23 µL, 44 ± 20 s (z −2.2, −2.6); nTL1 0.46 µL,
+    54 s (z −0.1, 1.9). **The model's layers drink less at drop 1 than its
+    non-layers (0.37 vs 0.46 µL, 44 vs 54 s); the data show no difference
+    (0.49 vs 0.46, 52 vs 50).** This is the satiation route: ants with a low
+    desired volume are satiated early, leave sooner and lay.
+  - drop 2 time: TL1 39, TL2 35, nTL2 43 s (z 6.2, 4.2, 5.5): too long in
+    every group, which is the fitted `two.t2` misfit the step-3c fits
+    address; not a group signal by itself.
+  - drop 2 volume: TL1 0.33, TL2 0.33, nTL2 0.38 µL (z 4.0, −0.1, 0.9).
+    **The data's TL1 drink less at drop 2 (0.20 vs 0.33 / 0.31); the
+    model's do not**, although 56 % of them are satiated (they leave at
+    about `stopHazard`, not faster).
+  - satiated at drop 1: TL1 56 %, TL2 29 %, nTL2 15 %.
+  Reading for now: two group contrasts go the wrong way (drop-1 TL1 vs
+  nTL1, drop-2 TL1 volume). Whether a fitted candidate fixes them is
+  read in `selectE2.ts`; if none does, the laying decision is the next
+  structural question.

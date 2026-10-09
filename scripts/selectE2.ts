@@ -12,7 +12,8 @@
  *   - Adequacy, separately: no fit row with combined |z| > 3, at most two
  *     with 2 < |z| ≤ 3, and ≥ 90 % of scouts finding both drops. Group
  *     fractions and the development rows (2009 rest, TL1/TL2/nTL2 split,
- *     2003 six pipettes) are reported, never used for the choice.
+ *     2003 six pipettes) are reported, never used for the choice; so are
+ *     the trail-laying group rows (scripts/e2Groups.ts, STATUS 2026-10-09).
  *   - A candidate that cannot estimate a fit row is unjudgeable.
  *
  * Usage: npx vite-node scripts/selectE2.ts [--fits S0I0,S1I0,S2I0,S1I1,S2I1] [--prefix data/fits/e2-3c-]
@@ -21,6 +22,7 @@ import { olsFit, spearman } from '../src/sim/analysis/compare';
 import { e2Compare, e2Loss, simulateE2Async, E2_CONDITIONS, E2_TARGETS } from '../src/sim/experiments/e2Targets';
 import { SIX_TARGETS, sixPipetteCondition } from '../src/sim/experiments/e2SixPipettes';
 import type { ScoutResult } from '../src/sim/experiments/e2Mailleux';
+import { groupRows } from './e2Groups';
 import { modelOf } from './e2Synthetic';
 import { arg, readJson } from './lib';
 import { SimPool } from './pool';
@@ -91,6 +93,7 @@ for (const id of IDS) {
     return `slope ${f.slope.toFixed(4)}, intercept ${f.intercept.toFixed(3)}, rs ${spearman(t, v).toFixed(2)}`;
   };
   console.log(`  per-drop volume–time regressions (development): drop 1 ${reg(0)}; drop 2 ${reg(1)}  [data: equal slopes and intercepts, rs 0.22 / 0.31; pooled 0.006, 0.15]`);
+  console.log(`  trail-laying groups (development, reported only):\n${groupRows(both).map((l) => `    ${l}`).join('\n')}`);
   for (const days of [4]) {
     const six = e2Compare(await simulateE2Async(P, N, setup, 0.1, SEED + 70_000_000, 5, run, [sixPipetteCondition(days)]), SIX_TARGETS);
     console.log(`  2003 six pipettes, ${days} d (development check, not independent): ${six.map((r) => `${r.target.id} ${r.mean.z.toFixed(1)}`).join(', ')}`);
