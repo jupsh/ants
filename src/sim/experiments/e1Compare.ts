@@ -272,6 +272,14 @@ export interface E1Comparison {
   /** Σ over families of the mean z² in that family (a family counts once). */
   loss: number;
   rows: (Comparison & { family: string })[];
+  /**
+   * Ids of rows the reference can estimate but the simulation cannot (z not
+   * finite). `loss` charges them a fixed 100, fine as a fitting fallback
+   * (fitE1 ranks such candidates last anyway) but not for judging: a
+   * candidate with missing rows is unjudgeable there and cannot win or pass
+   * (STATUS 2026-10-09).
+   */
+  missing: string[];
 }
 
 /**
@@ -293,7 +301,9 @@ export function compareE1(sim: E1Sample, ref: E1Reference, simSE?: number[]): E1
     const z = simSE ? combinedZ(sv[i], seSim, ref.values[i], ref.se[i]) : fitZ(sv[i], ref.values[i], ref.se[i]);
     rows.push({ ...c, data: ref.values[i], sim: sv[i], seData: ref.se[i], seSim, z });
   });
+  const noRef = new Set<string>();
   const ks = (id: string, label: string, family: string, a: number[], b: number[]) => {
+    if (!b.length) noRef.add(id);
     const r = ksTest(a, b, ref.nEff ? (b.length * ref.nEff) / ref.sample.acc.filter((x) => x !== null).length : undefined);
     // Signed by the direction of the median difference, for readability.
     const sign = Math.sign(quantile(a, 0.5) - quantile(b, 0.5)) || 1;
@@ -305,5 +315,5 @@ export function compareE1(sim: E1Sample, ref: E1Reference, simSE?: number[]): E1
   for (const r of rows) fam.set(r.family, [...(fam.get(r.family) ?? []), Number.isFinite(r.z) ? r.z * r.z : 100]);
   let loss = 0;
   for (const zs of fam.values()) loss += zs.reduce((s, v) => s + v, 0) / zs.length;
-  return { loss, rows };
+  return { loss, rows, missing: rows.filter((r) => !Number.isFinite(r.z) && !noRef.has(r.id)).map((r) => r.id) };
 }

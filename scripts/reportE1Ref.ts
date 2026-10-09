@@ -16,7 +16,7 @@
  *   --segments  segment pools (default khuong-segments.json; -alt.json is the
  *               pre-registered alternative slope threshold, STATUS 2026-10-08)
  */
-import { combinedZ, verdict } from '../src/sim/analysis/compare';
+import { combinedZ, judgedSumZ2, verdict } from '../src/sim/analysis/compare';
 import { KHUONG_PREP, prepareTrack, type Track } from '../src/sim/analysis/trajectory';
 import { diagSample, type DiagSample } from '../src/sim/analysis/walkDiagnostics';
 import { compareE1, referenceFor, sampleFor, scalarSE } from '../src/sim/experiments/e1Compare';
@@ -54,7 +54,15 @@ const ref = (name: string, frame: SectorFrame, compat: boolean, flatOnly = false
 });
 models.push(ref('khuong', 'xy', true), ref('khuong*', 'xy', false), ref('bonavita', 'start', true, true), ref('bonavita*', 'start', false, true));
 
-const ss = (zs: number[]) => zs.filter(Number.isFinite).reduce((a, z) => a + z * z, 0);
+// Missing statistics (STATUS 2026-10-09): eligible = estimable from the data; a model missing one is marked, not given a smaller sum.
+const ss = (rows: { z: number; eligible: boolean }[]) => {
+  const j = judgedSumZ2(rows);
+  return `${j.sum.toFixed(0)}${j.missing ? `!${j.missing}` : ''}`;
+};
+const eligible = (data: DiagSample, id: string) => {
+  const i = data.values.findIndex((v) => v.id === id);
+  return Number.isFinite(data.values[i].value) && data.se[i] > 0;
+};
 const prep = (tr: Track[]) => tr.map((t) => prepareTrack(t, KHUONG_PREP));
 const zOf = (sim: DiagSample, data: DiagSample, id: string) => {
   const i = data.values.findIndex((v) => v.id === id);
@@ -62,7 +70,7 @@ const zOf = (sim: DiagSample, data: DiagSample, id: string) => {
 };
 
 console.log(`${ANTS} simulated ants per model and incline; z = combined (SE_data ⊕ SE_sim); segments ${SEGMENTS}.`);
-console.log('columns: loss = E1 fit objective (fit-z, 15 families); Σz² and off/marg over all compareE1 rows; primary = Σz² of the by-speed checks (cos5, cos50, kurtosis); turning = Σz² of all turning checks');
+console.log('columns: loss = E1 fit objective (fit-z, 15 families); Σz² and off/marg over all compareE1 rows; primary = Σz² of the by-speed checks (cos5, cos50, kurtosis); turning = Σz² of all turning checks; "!n" = n statistics the data estimate but the model cannot: unjudgeable, the sum covers the rest only');
 for (let k = 1; k <= 5; k++) {
   if (ONLY && k !== ONLY) continue;
   const raw = loadKhuong(k);
@@ -81,7 +89,7 @@ for (let k = 1; k <= 5; k++) {
     const sim = diagSample(tracks, prep(tracks));
     const worst = [...c.rows].sort((a, b) => Math.abs(b.z) - Math.abs(a.z)).slice(0, 3).map((r) => `${r.label} ${r.z.toFixed(1)}`).join('; ');
     if (SHOW) for (const r of c.rows.filter((r) => new RegExp(SHOW).test(r.label))) console.log(`      ${m.name.padEnd(10)} ${r.label}: data ${r.data.toPrecision(3)}, sim ${r.sim.toPrecision(3)}, z ${r.z.toFixed(1)}`);
-    console.log(`  ${m.name.padEnd(10)}${c.loss.toFixed(1).padStart(8)}${ss(zs).toFixed(0).padStart(9)}${String(off).padStart(5)}${String(marg).padStart(6)}${ss(PRIMARY.map((id) => zOf(sim, data, id))).toFixed(0).padStart(9)}${ss(TURNING.map((id) => zOf(sim, data, id))).toFixed(0).padStart(9)}   ${worst}`);
+    console.log(`  ${m.name.padEnd(10)}${c.loss.toFixed(1).padStart(8)}${ss(c.rows.map((r) => ({ z: r.z, eligible: Number.isFinite(r.z) || c.missing.includes(r.id) }))).padStart(9)}${String(off).padStart(5)}${String(marg).padStart(6)}${ss(PRIMARY.map((id) => ({ z: zOf(sim, data, id), eligible: eligible(data, id) }))).padStart(9)}${ss(TURNING.map((id) => ({ z: zOf(sim, data, id), eligible: eligible(data, id) }))).padStart(9)}   ${worst}`);
   }
 }
 pool.close();
