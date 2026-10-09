@@ -186,12 +186,13 @@ function values(ants: Ant[], idx?: number[]): number[] {
 /**
  * Values, cluster-bootstrap SEs (over ants) and stop counts per duration bin
  * of the stop and speed–turning checks. `clean`: leave out 10 mm segments
- * within 0.4 s of a stop in the speed–turning slopes.
+ * within 0.4 s of a stop in the speed–turning slopes. `reps` = 0 skips the
+ * SEs (values only).
  */
-export function stopCheckSample(tracks: Track[], clean = false) {
+export function stopCheckSample(tracks: Track[], clean = false, reps = 200) {
   const ants = tracks.map((t) => prepareTrack(t, KHUONG_PREP)).filter((t): t is Track => t !== null).map((t) => antStats(t, clean));
   const counts = DUR.map((_, k) => ants.reduce((t, a) => t + a.stopN[k], 0));
-  return { v: values(ants), se: bootstrapSE(ants.length, (idx) => values(ants, idx), 200, 7), counts };
+  return { v: values(ants), se: bootstrapSE(ants.length, (idx) => values(ants, idx), reps, 7), counts };
 }
 
 /** Row ids, in STOP_LABELS order. */

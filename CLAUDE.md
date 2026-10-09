@@ -109,6 +109,10 @@ when a step starts or finishes, and log decisions there before acting on them.
 - Never `pkill -f`/`pgrep -f` a pattern that appears in your own command (it
   kills the tool shell). Use `ps -eo pid,args | grep '[f]itE2'` then
   `kill -9 <pid>` (vite-node ignores SIGTERM).
+- **Pool workers of every running script share the name `poolWorker`:** never
+  kill by that name (or any shared pattern). It killed a 7.5 h fit that was
+  running beside a diagnostic (2026-10-09). Kill only by the pids under the
+  one script you mean to stop.
 - Don't run two fits writing the same log/JSON; a non-monotone "best loss" in
   a Nelder–Mead log means two processes are running.
 - Vite dev serves `.gz` with `Content-Encoding: gzip`; loaders check gzip magic

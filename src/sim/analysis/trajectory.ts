@@ -9,6 +9,12 @@ export interface Track {
   t: Float64Array;
   x: Float64Array;
   y: Float64Array;
+  /**
+   * How a simulated track ended: left the arena or hit the time limit
+   * (censoring audit, STATUS 2026-10-09). Undefined for recorded tracks
+   * (every Khuong track ends with an exit).
+   */
+  end?: 'exit' | 'timeout';
 }
 
 export interface TrackPrepOptions {
