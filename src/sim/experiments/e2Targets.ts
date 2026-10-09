@@ -60,11 +60,11 @@ export const E2_TARGETS: Target[] = [
   m('two.t1', 'Two drops: drinking time at drop 1', 'fit', 51, 12, 63, 's', 'mailleux2009'),
   pr('two.tl1', 'Two drops: laying trail after drop 1', 'fit', 0.38, 63, 'mailleux2009'),
   pr('two.trail', 'Two drops: laying trail overall', 'development', 0.84, 63, 'mailleux2009'),
-  m('two.ul2', 'Two drops: intake at drop 2', 'development', 0.28, 0.2, 63, 'µL', 'mailleux2009'),
-  m('two.t2', 'Two drops: drinking time at drop 2', 'development', 23, 11, 63, 's', 'mailleux2009'),
+  m('two.ul2', 'Two drops: intake at drop 2', 'fit', 0.28, 0.2, 63, 'µL', 'mailleux2009'),
+  m('two.t2', 'Two drops: drinking time at drop 2', 'fit', 23, 11, 63, 's', 'mailleux2009'),
   m('two.ulTot', 'Two drops: total intake', 'development', 0.75, 0.3, 63, 'µL', 'mailleux2009'),
-  m('two.betweenTL1', 'Two drops: time between drops, trail layers', 'development', 58, 33, 24, 's', 'mailleux2009'),
-  m('two.betweenNTL1', 'Two drops: time between drops, non-layers', 'development', 134, 87, 39, 's', 'mailleux2009'),
+  m('two.betweenTL1', 'Two drops: time between drops, trail layers', 'fit', 58, 33, 24, 's', 'mailleux2009'),
+  m('two.betweenNTL1', 'Two drops: time between drops, non-layers', 'fit', 134, 87, 39, 's', 'mailleux2009'),
   m('two.total', 'Two drops: total time on the apparatus', 'development', 178, 83, 63, 's', 'mailleux2009'),
   // Volume–time relation pooled over both drops (2009, N = 126): identifies the
   // between-ant intake-rate SD and the volume measurement error (docs/STATUS.md,
@@ -163,9 +163,9 @@ export function simulateE2(P: LasiusParams, n: number, setup: E2Setup, dt = 0.1,
  * Fitting objective: Σ z² over targets with the given role, z using SE_data
  * only (so the optimiser cannot gain by making the simulation noisier).
  */
-export function e2Loss(sim: E2Sim, role: Role): number {
+export function e2Loss(sim: E2Sim, role: Role, targets: Target[] = E2_TARGETS): number {
   let l = 0;
-  for (const t of E2_TARGETS) if (t.role === role) l += Number.isFinite(sim[t.id]?.mean) ? fitZ(sim[t.id].mean, t.value, t.se) ** 2 : 100;
+  for (const t of targets) if (t.role === role) l += Number.isFinite(sim[t.id]?.mean) ? fitZ(sim[t.id].mean, t.value, t.se) ** 2 : 100;
   return l;
 }
 

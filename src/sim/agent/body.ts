@@ -43,6 +43,8 @@ export class Body {
   mouthFlow = 0;
   /** Individual intake-rate multiplier (pharyngeal pumping differs between workers; Mailleux et al. 2009). */
   intakeFactor = 1;
+  /** Volume taken in during the current drinking bout (µL; 0 when not drinking). */
+  boutUl = 0;
 
   constructor(id: number, seed: number, morph: Morphology, reserveFrac: number, reserveMax: number) {
     this.id = id;
