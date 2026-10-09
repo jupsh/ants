@@ -447,9 +447,13 @@ Claude Code loads automatically.
     with distance.
   - Each ant has its own RNG stream.
 - **Fit** (`data/fits/e1-walk.json`):
-  - Fitted mean free path 10.1 mm and g = 0.60. These match Khuong et
-    al.'s own segmentation estimates (10 mm, 0.6), which is an independent
-    consistency check.
+  - Fitted mean free path 10.1 mm and g = 0.60, close to Khuong et al.'s
+    segmentation estimates (10 mm, 0.6). **Withdrawn (2026-10-09) as a
+    consistency check:** segment statistics are apparent quantities that
+    depend on the segmentation threshold (the published code gives ≈ 17 000
+    segments where the paper reports 24 456) and on sampling (Rosser et
+    al.); T fits λ 39 mm; and recovery shows the turning split is not
+    identified from flat ground.
   - **Withdrawn (session 2):** "flat and 20° are within data
     uncertainty" held only under the old hand-set tolerances. Under the
     combined-SE criteria (`scripts/reportE1.ts`, 300 ants):
@@ -1804,3 +1808,188 @@ See [`CLAUDE.md`](../CLAUDE.md).
     comparison, pre-registered anew before its fits.
   - Caveat to carry: on real data a joint fit lets slope misfit pull the
     flat parameters; report its flat loss next to the staged fit's.
+- **2026-10-09** User review (after Wilson & Collins 2019, "Ten simple
+  rules for the computational modeling of behavioral data"): five checks
+  adopted, logged before acting. Priorities 1 and 2 first.
+  1. **Judging loophole.** `judgeE1.ts` and `reportE1Ref.ts` drop
+     non-finite z before summing, so a candidate can lower its score by
+     making a statistic inestimable; `compareE1` (fresh-batch losses,
+     `recoverE1.ts`) instead charges a fixed z² of 100, which is below the
+     real misfit of poor candidates (the same flaw the fitting objective
+     already fixes). **Fix:** eligible statistics are defined by the
+     reference (finite value, SE > 0); a candidate missing any eligible
+     statistic is **unjudgeable** there: it is reported as such and
+     cannot win or pass that comparison (counts as failed), never a
+     smaller sum. The fitting objective is unchanged. Previous judgements
+     (A0 vs B, A0 vs T, reference walkers) are re-run to see whether any
+     candidate had missing statistics; the user has not established that
+     rankings were affected, and neither have we.
+  2. **Model recovery** (Wilson & Collins rule 6): synthetic data from A0
+     and from T (`data/fits/e1-A0.json`, `e1-T.json`, i.e. the current
+     real-data fits as representative settings), 69 ants per incline (the
+     real size), **both models fitted to each data set** with the adopted
+     procedure (joint CMA-ES, as in the recovery cells), then the actual
+     selection rule of the renewed comparison applied. Outcomes per data
+     set: correct, wrong, or inconclusive. Pilot: reps 0 and 1 per truth,
+     so 8 fits, of which T-on-T reps 0–1 are already running or queued (6
+     new joint fits, ~8 h each on this laptop). The fits do not depend on
+     the rule; the rule is drafted and agreed with the user **before**
+     any pilot data set is judged, and the renewed real-data comparison
+     uses exactly that rule. The fitting procedure stays as in the
+     recovery cells (including the tolX-floor quirk) so those runs can be
+     reused; the tolX proposal above is withdrawn.
+  3. **Calibrate the whole acceptance rule** (no |z| > 3, at most two
+     with 2 < |z| ≤ 3): its false-failure rate for a correct model, from
+     many synthetic data sets (69 ants, current observer and statistic
+     set) scored against large simulations of the same model. Simulation
+     and scoring only, no refits. After 1 and 2.
+  4. **Censoring audit.** The exit-time statistic uses only tracks that
+     reach the final radius; others drop out silently. Report the exit
+     fraction and the unusable-track fraction next to the conditional
+     exit-time distribution (report only, not added to the fit loss
+     mid-comparison), for data and models. Before Bonavita, keep explicit
+     wall-exit vs timeout information per track.
+  5. **Assumptions self-recovery cannot test:** before interpreting a
+     close real-data ranking, its sensitivity to tracking noise (observer
+     SDs ×0.5 and ×2) and to leaving out one recording session/colony at
+     a time. Judging-level first (fits unchanged); refits only if a
+     ranking flips. Any flip goes into the conclusion as uncertainty.
+  - **Item 1 implemented** (2026-10-09): `compareE1` now lists `missing`
+    rows (estimable from the reference, not from the simulation; the fit
+    loss is unchanged); `judgedSumZ2` in `compare.ts`; `judgeE1.ts` and
+    `reportE1Ref.ts` mark a model with missing statistics as unjudgeable
+    (it cannot win an incline); `recoverE1.ts` fails a family the fit
+    cannot estimate (was charged a fixed 100); `fitE1.ts` records missing
+    rows per fresh batch. Tests in `test/compare.test.ts`.
+    **Re-run of the reference-walker report** (`reportE1Ref.ts --fits
+    walk,A0,T`, same seeds; all numbers identical to the earlier report):
+    the Khuong walker (both versions) cannot estimate one statistic at 0°
+    and 20°, in the all-rows Σz² and the turning sum; its sums there were
+    understated. No conclusion changes (ours were already lower there).
+    By-speed (primary) sums had no missing statistics.
+  - The check statistics of `diagE1Turns.ts` / `diagE1Stops.ts` moved
+    unchanged into `src/sim/analysis/e1TurnChecks.ts` /
+    `e1StopChecks.ts` (row ids added; script outputs identical, diffed),
+    so a selection rule can use them in code. The earlier T vs A0 check
+    total was summed by hand from their printed tables; which rows and how
+    "—" entries were handled is not recorded, so it is re-checked
+    (judging-level, same seeds).
+  - **DRAFT for the user — selection rule for the renewed A0 vs T
+    comparison and the model-recovery pilot** (`scripts/selectE1.ts`; not
+    yet run on any pilot data set or on the real data):
+    - (a) objective: the fit loss (15 families, fit-z) on 5 fresh batches
+      of 1000 ants at each fit incline (0°, 30°, 60°; joint fitting uses
+      all three), the same seeds for both models, per batch summed over the
+      inclines. Met if the paired difference T − A0 plus the heuristic
+      penalty 2Δk (Δk = 23 − 18 = 5) is below −2 SE of the paired
+      difference.
+    - (b) never-fitted checks: Σ combined z² over an explicit row list, 2000
+      simulated ants per model and incline, same seeds, all five
+      inclines; met if T is lower at ≥ 4 of 5. Rows (37 per incline before
+      eligibility): by-speed ⟨cos⟩ at 5 and 50 mm and kurtosis (15), speed
+      around big turns: dip, shoulders, asymmetry (3), stop-episode rates
+      by duration (6), ⟨cos⟩ in/out of stops by fine duration (7), homeward
+      out-heading at stops, all and > 0.13 s (2), within-ant speed–turning
+      slope, arc and displacement speed, with and without stop-adjacent
+      segments (4). Same groups as the earlier pre-registration, now as
+      fixed ids.
+    - Outcome: T preferred if (a) and (b); A0 kept if neither;
+      **inconclusive** if one. Missing statistics as in item 1.
+    - Model-recovery pilot reading (4 data sets: reps 0, 1 from each
+      truth): any **wrong** selection (T preferred on A0 data, or A0 kept
+      on T data) means the rule cannot be trusted as it stands, and it goes
+      back to the user before the real comparison. Inconclusive outcomes
+      on a model's own data mean limited power, reported as such. Margins
+      ((a) in SE, (b) win counts) are reported for every data set. Four
+      data sets give no error rate; extending the pilot is a user decision.
+    - The real-data comparison then uses exactly this rule, followed by
+      item 5's sensitivity checks (observer SDs ×0.5 / ×2, leave one
+      session out; judging-level) and item 4's exit and unusable-track
+      fractions.
+- **2026-10-09** **User decision — change of E1 strategy** (review after
+  Grimm & Railsback, Rosser et al., Palminteri et al., Wood 2010, Hansen
+  et al.; logged before acting). Methods stay; the question changes. E1
+  had become an exhaustive fit of a model that is wrong at fine scales
+  (z 10–20), and the queued work compared two models the checks already
+  falsify (A0: no reset at stops, no speed dip, within-ant slope −0.3 to
+  −1.5 vs −2 to −3.6).
+  - **Queue held:** the joint 69-ant cell finishes (completes the
+    staged-vs-joint table); the 9 queued joint fits (model-recovery pilot,
+    A0 large-reference check, T reps 1–2) are stopped. The draft
+    selection rule (`selectE1.ts`) and the pilot wait for step 6.
+  - **Order:** (1) downstream sensitivity probe now (`reportE2.ts --walk`
+    with e1-walk, e1-A0, e1-A0-loss11, e1-B-loss11, e1-T; judging only;
+    one-sided: no movement → the E1 stopping condition is essentially
+    met, movement → which E1 outputs matter); (2) signature table with
+    reachability (parameter sweeps) for A0 and T, and independent
+    signatures for T named before its next fit (speed–heading lead–lag,
+    sampling-scale curves, Bonavita); (3) sampling-scale sweep (resampling
+    0.04/0.08/0.16/0.32 s × smoothing 1/3/5; data, A0, T, Khuong walker);
+    (4) covariance/normality report of the statistic vector (cluster
+    bootstrap ≥ 1 000, shrinkage; effective number of statistics;
+    Mahalanobis misfit beside the loss; report only); (5) rank-change
+    noise measurement (Hansen et al.) on one diagnostic CMA-ES run; (6)
+    then decide whether a renewed A0 vs T comparison is still needed, and
+    in what form (signature-first, focused recovery: A0-truth data sets
+    first).
+  - **E1 patterns in two tiers (proposal to settle with step 1):** purpose
+    patterns, accepted categorically with tolerances set by what moves
+    E2/E6 (exit time, radial drift and homing, speed level and between-ant
+    spread, stopped fraction, their slope dependence); mechanism
+    signatures, used to choose structure, not required to reach |z| ≤ 2
+    (reset at stops, speed dip at turns, within-ant coupling). The frozen
+    Bonavita held-out criterion stays as it is; the M1 go/no-go for
+    walking rests on the purpose patterns.
+  - Noted for interpretation: T vs A0 is not nested (T drops slopeJitterK);
+    T's motivating signatures are development data for T; fitted
+    `stopCos.0` (stops < 0.4 s) mostly measures pipeline geometry (most
+    episodes < 0.13 s, 3-point speed dips at reversals). Next
+    pre-registration: split stop statistics at 0.13 s or require ≥ 4
+    frames. Weighting by family averaging is an implicit choice (turning
+    families likely one dimension counted ~5×); keeping SE_sim out of the
+    objective is right for plain Σz² only.
+- **2026-10-09** **Step 1 result — E2 is insensitive to the walker.**
+  `reportE2.ts --walk` with five walkers (e1-walk adopted, A0, A0-loss11,
+  B-loss11, T; E2 parameters as adopted, no refit; `--seed` option added).
+  At the default 150 scouts the seed-to-seed spread for one walker is up
+  to ±0.7 z, as large as the differences between walkers, so the probe
+  was repeated with 600 scouts (same seeds for all walkers):
+  - **max |Δz| across walkers ≤ 0.8 on every target** (largest: time
+    between drops for trail layers, −4.4 adopted → −3.7 T, sim 28 → 33 s
+    vs data 58 s; total time on the apparatus, 1.4 → 2.1). **One verdict
+    change:** total time, 1.9 (B) → 2.1 (T), crossing |z| = 2 by 0.1.
+    Everything else is within 0.5 z.
+  - The large E2 misfits are the same under every walker: drinking time
+    at drop 2 (z 10.3–10.8), time between drops (−4.4 / −4.8), trail
+    laying overall (−3.1), trail laying after 4 days (−3.3). They are not
+    E1 walking problems; the limiting submodel is search and behaviour
+    around food (step 3c), as the review suggested.
+  - **Stopping condition** (pre-registered: |Δz| < 1 on every target and
+    no verdict change): the |Δz| part is met; the verdict part fails by
+    one threshold crossing of 0.1 z on a development target. In
+    substance, E1 fine-scale structure does not move E2. One-sided as
+    planned: the probe cannot show the walker is right, only that these
+    differences don't matter for E2. E6 (step 4 calibration) is still to
+    be probed.
+  - **Item 1 re-check complete:** `judgeE1.ts` A0-loss11 vs B-loss11
+    (loss11 checks) and A0 vs T (by-speed): no candidate has a missing
+    statistic, fresh flat batches included; all numbers and win counts as
+    recorded (B 5/5, T 1/5). In the `diagE1Turns`/`diagE1Stops` tables
+    behind the hand-summed T vs A0 total, every "—" z is on a row the data
+    cannot estimate (long-stop bins with < 10 stops), left out for both
+    models alike. **No earlier ranking was affected by the loophole.**
+- **2026-10-09** **User decision after step 1.**
+  - **Stopping condition, as recorded:** *not met as pre-registered* (one
+    verdict change, total time on the apparatus 1.9 → 2.1, a 0.1 z
+    threshold crossing on a development target, within simulation noise;
+    every |Δz| < 1). The rule is not reinterpreted after the fact. Stopping
+    fine-scale E1 fitting is a strategy decision taken on the substance
+    (E2 does not depend on the walker's fine structure) and is reported as
+    such, not as the stopping condition having been met.
+  - **Reduced plan:** (2) signature table with reachability for A0 and T;
+    (3) sampling-scale sweep (decides whether turn kinematics matter at
+    all); (4) covariance/normality report (cheap, report only). Step 5
+    (CMA-ES rank-change noise) only if E1 fitting resumes. Then the main
+    effort moves to E2 search around food (step 3c) and the step-4 colony
+    calibration (with the E6 walker probe). The renewed A0 vs T comparison
+    and the model-recovery pilot stay parked (`selectE1.ts` draft kept).

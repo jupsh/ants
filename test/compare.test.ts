@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { blockEstimate, combinedZ, ksTest, normalCdf, normalQuantile, pToZ } from '../src/sim/analysis/compare';
+import { blockEstimate, combinedZ, judgedSumZ2, ksTest, normalCdf, normalQuantile, pToZ } from '../src/sim/analysis/compare';
 import { RNG } from '../src/sim/core/rng';
 import { compareE1, referenceFor, sampleFor, scalarSE } from '../src/sim/experiments/e1Compare';
 import { runE1 } from '../src/sim/experiments/e1Exploration';
@@ -76,5 +76,28 @@ describe('E1 comparison is calibrated (model vs itself)', () => {
     // ~140 correlated z-scores: allow generous sampling slack around 5 %.
     expect(over2).toBeLessThan(0.12);
     expect(over3).toBeLessThan(0.03);
+  });
+});
+
+describe('judging with missing statistics (STATUS 2026-10-09)', () => {
+  it('a missing eligible statistic is counted, not dropped from the sum', () => {
+    const j = judgedSumZ2([
+      { z: 2, eligible: true },
+      { z: NaN, eligible: true },
+      { z: NaN, eligible: false },
+      { z: 5, eligible: false },
+    ]);
+    expect(j).toEqual({ sum: 4, missing: 1 });
+  });
+
+  it('compareE1 lists rows the reference estimates but the simulation cannot', () => {
+    const p = walkParams(undefined);
+    const ref = referenceFor(runE1(p, { incline: 0, ants: 30, seed: 5, dt: 0.02 }), 20);
+    const good = compareE1(sampleFor(runE1(p, { incline: 0, ants: 30, seed: 6, dt: 0.02 })), ref);
+    expect(good.missing).toEqual([]);
+    // No usable track: every statistic is missing, so the candidate is unjudgeable.
+    const empty = compareE1({ acc: [null, null] }, ref);
+    expect(empty.missing.length).toBe(empty.rows.length);
+    expect(empty.missing.length).toBeGreaterThan(20);
   });
 });

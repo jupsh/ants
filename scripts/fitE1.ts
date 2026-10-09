@@ -93,8 +93,10 @@ const STAGES = numArg('--stages', 2);
  * stage 1 is skipped. The run is deterministic, so this equals rerunning it.
  */
 const STAGE1_FROM = arg('--stage1From', '');
+/** Model recovery (STATUS 2026-10-09): data from another model's truth file get a `-truth<name>` suffix. */
+const TRUTH_NAME = RECOVER.replace(/.*\//, '').replace(/\.json$/, '').replace(/^e1-/, '');
 const OUT = RECOVER
-  ? `data/fits/recover/e1-${VARIANT}-${STRATEGY}-n${REC_N}-rep${REP}${START ? '-from-' + START.replace(/.*\//, '').replace(/\.json$/, '') : ''}${STAGES < 2 ? '-stage1' : ''}${quick ? '-quick' : ''}.json`
+  ? `data/fits/recover/e1-${VARIANT}-${STRATEGY}-n${REC_N}-rep${REP}${TRUTH_NAME !== VARIANT ? '-truth' + TRUTH_NAME : ''}${START ? '-from-' + START.replace(/.*\//, '').replace(/\.json$/, '') : ''}${STAGES < 2 ? '-stage1' : ''}${quick ? '-quick' : ''}.json`
   : `data/fits/e1-${VARIANT}${STRATEGY === 'joint' ? '-joint' : ''}${OPT === 'nm' ? '-nm' : ''}${quick ? '-quick' : ''}.json`;
 
 const pool = await SimPool.create();
@@ -332,7 +334,13 @@ if (STRATEGY === 'staged') {
 // variant, so variants can be compared batch by batch (paired differences).
 const BATCHES = 5;
 const flatBatches: number[] = [];
-for (let b = 0; b < BATCHES; b++) flatBatches.push(compareE1(await pool.e1Sample(p, runOpts(0, 1000, SEED + 5000 + b)), data[0]).loss);
+/** Rows the reference estimates but this fit cannot, per batch (judging treats any as unjudgeable; STATUS 2026-10-09). */
+const flatMissing: number[] = [];
+for (let b = 0; b < BATCHES; b++) {
+  const c = compareE1(await pool.e1Sample(p, runOpts(0, 1000, SEED + 5000 + b)), data[0]);
+  flatBatches.push(c.loss);
+  flatMissing.push(c.missing.length);
+}
 const flatMean = flatBatches.reduce((a, v) => a + v, 0) / BATCHES;
 const flatSe = Math.sqrt(flatBatches.reduce((a, v) => a + (v - flatMean) ** 2, 0) / (BATCHES - 1) / BATCHES);
 const k1 = enc1(p).length;
@@ -378,7 +386,7 @@ writeJson(OUT, {
   // Losses on the batch that chose among optimiser runs: selection data, not
   // an estimate of fit quality (use flatFresh and report, on other seeds).
   selectionLoss: fitLoss,
-  flatFresh: { batches: flatBatches, mean: flatMean, se: flatSe, k1, penalised: flatMean + 2 * k1, antsPerBatch: 1000 },
+  flatFresh: { batches: flatBatches, missing: flatMissing, mean: flatMean, se: flatSe, k1, penalised: flatMean + 2 * k1, antsPerBatch: 1000 },
   seconds: (Date.now() - t0) / 1000,
   params: p,
   report,

@@ -257,3 +257,20 @@ export function meanSd(values: number[]): { mean: number; sd: number; n: number 
   const sd = n > 1 ? Math.sqrt(v.reduce((a, b) => a + (b - mean) ** 2, 0) / (n - 1)) : NaN;
   return { mean, sd, n };
 }
+
+/**
+ * Σz² for judging: statistics the reference cannot estimate are left out
+ * (the same for every candidate); a candidate whose z is not finite on an
+ * eligible statistic is counted in `missing` and is unjudgeable there, never
+ * given a smaller sum (STATUS 2026-10-09).
+ */
+export function judgedSumZ2(rows: { z: number; eligible: boolean }[]): { sum: number; missing: number } {
+  let sum = 0;
+  let missing = 0;
+  for (const r of rows) {
+    if (!r.eligible) continue;
+    if (Number.isFinite(r.z)) sum += r.z * r.z;
+    else missing++;
+  }
+  return { sum, missing };
+}

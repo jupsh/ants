@@ -28,7 +28,8 @@ when a step starts or finishes, and log decisions there before acting on them.
     [--fit f]` (step-5 structure diagnostics, data vs model),
     `diagE1Stops.ts [--fits A0=f,B=g] [--clean]` (stop reorientation, within- vs
     between-ant speed–turning), `reportE1Ref.ts [--fits walk,A0,T]`
-    (our walkers vs the Khuong/Bonavita reference walkers), `scanE1.ts` (loss on a 2-parameter grid), `reportE2.ts` (~9 s),
+    (our walkers vs the Khuong/Bonavita reference walkers), `scanE1.ts` (loss on a 2-parameter grid), `selectE1.ts --a f --b g`
+    (draft A0 vs T selection rule, real or recovery data; parked), `reportE2.ts [--walk f] [--seed s]` (~9 s),
     `reportE6.ts [--fit]` (~4 s), `compareE2.ts`, `identifyE2.ts --variant X`.
   - Profiling: `node --cpu-prof node_modules/.bin/vite-node <script>` and sum
     self time per function from the `.cpuprofile`.
@@ -65,6 +66,10 @@ when a step starts or finishes, and log decisions there before acting on them.
   / derived / estimated). Fit files are applied with `applyFit`, so records
   show the value actually used. `data/fits/e2-drinking.json` is the adopted E2
   fit; `e2-<variant>.json` are step-3 candidates.
+- **Missing statistics when judging:** eligible = estimable from the reference
+  data; a candidate missing one is unjudgeable and cannot win or pass
+  (`compareE1(...).missing`, `judgedSumZ2`), never given a smaller sum. The
+  fit objective ranks such candidates last separately (fitE1 `DEGENERATE`).
 - Reference models of other authors live in `src/sim/reference/` (Bles et
   al. TEC for E6; Khuong/Bonavita sectored walkers for E1, built from
   `data/reference/khuong-segments.json`); they are baselines, not part of our

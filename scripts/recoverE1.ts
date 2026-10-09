@@ -39,9 +39,14 @@ const SIM_SEED = 32000;
 
 const pool = await SimPool.create();
 const opts = (k: number, seed: number) => ({ incline: INCLINES[k - 1], ants: ANTS, seed: seed + k, dt: 0.02, tracking: khuongTracking(k) });
+/**
+ * Mean z² per family. A family with a statistic the reference estimates but
+ * the simulation cannot is unjudgeable: +∞, so it fails (STATUS 2026-10-09;
+ * it used to be charged a fixed 100 per row, below the misfit of poor fits).
+ */
 const families = (c: E1Comparison) => {
   const m = new Map<string, number[]>();
-  for (const r of c.rows) m.set(r.family, [...(m.get(r.family) ?? []), Number.isFinite(r.z) ? r.z * r.z : 100]);
+  for (const r of c.rows) m.set(r.family, [...(m.get(r.family) ?? []), c.missing.includes(r.id) ? Infinity : Number.isFinite(r.z) ? r.z * r.z : 100]);
   return new Map([...m].map(([f, zs]) => [f, zs.reduce((a, v) => a + v, 0) / zs.length]));
 };
 
@@ -81,7 +86,7 @@ for (const file of FILES) {
     const top = ex
       .filter(([, v]) => v > 1)
       .sort((a, b) => b[1] - a[1])
-      .map(([f, v]) => `${f} ${v.toFixed(1)}`)
+      .map(([f, v]) => `${f} ${Number.isFinite(v) ? v.toFixed(1) : 'unjudgeable (missing statistic)'}`)
       .join(', ');
     console.log(`    incline ${k} (${ROLE[k - 1]}): mean ${mean.toFixed(2)}, worst ${worst[0]} ${worst[1].toFixed(2)} → ${verdict}${top ? `   [> 1: ${top}]` : ''}`);
   }
