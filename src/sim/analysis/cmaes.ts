@@ -30,6 +30,8 @@ export interface CmaOptions {
   /** Stop when σ times the largest axis of the distribution falls below this. */
   tolX?: number;
   seed?: number;
+  /** Also return the average of the distribution means over the last this many generations (noise handling). */
+  averageLast?: number;
   log?: (g: CmaGeneration) => void;
 }
 
@@ -43,8 +45,10 @@ export interface CmaGeneration {
 }
 
 export interface CmaResult {
-  /** Final distribution mean (the estimate). */
+  /** Final distribution mean. */
   mean: number[];
+  /** Average of the means over the last `averageLast` generations (the final mean if not requested). */
+  meanAvg: number[];
   sigma: number;
   /** Best point seen and its (noisy) value: for diagnostics only. */
   best: { x: number[]; f: number };
@@ -79,6 +83,7 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
   let best = { x: m.slice(), f: Infinity };
   let evals = 0;
   let g = 0;
+  const recent: number[][] = [];
   for (; g < o.maxGenerations; g++) {
     // Sample: y = B·D·z, x = m + σ·y.
     const ys: number[][] = [];
@@ -97,6 +102,10 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
     const yw = new Array(n).fill(0);
     for (let i = 0; i < mu; i++) for (let j = 0; j < n; j++) yw[j] += w[i] * ys[order[i]][j];
     m = m.map((mi, j) => mi + sigma * yw[j]);
+    if (o.averageLast) {
+      recent.push(m.slice());
+      if (recent.length > o.averageLast) recent.shift();
+    }
     // Step-size path: C^{-1/2}·yw = B·D^{-1}·Bᵀ·yw.
     const bty = matTVec(B, yw);
     const cInvHalfYw = matVec(B, bty.map((v, i) => v / D[i]));
@@ -126,7 +135,8 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
       break;
     }
   }
-  return { mean: m, sigma, best, generations: g, evals };
+  const meanAvg = recent.length ? m.map((_, j) => recent.reduce((s, r) => s + r[j], 0) / recent.length) : m.slice();
+  return { mean: m, meanAvg, sigma, best, generations: g, evals };
 }
 
 function identity(n: number): number[][] {

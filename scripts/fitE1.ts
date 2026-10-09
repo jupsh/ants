@@ -36,6 +36,9 @@
  * plus `--restarts` IPOP restarts, keeping the best on a common batch.
  * That batch is selection data: the fitted model is judged only on batches
  * with other seeds (flatFresh, report), never on it.
+ * Each run's estimate is the average of its last `--averageLast` (50)
+ * generation means (the final mean wanders along flat, noisy directions);
+ * acceptance is by prediction recovery (scripts/recoverE1.ts).
  * `--optimizer nm` is the earlier multi-start Nelder–Mead on fixed seeds.
  * Diagnostics: `--start f` (start from fit f only), `--stages 1`.
  *
@@ -168,6 +171,7 @@ async function evalAt(par: WalkParams, idx: number[], seedBase = SEED, ants = AN
  */
 const RESTARTS = numArg('--restarts', 1);
 const TOLX = numArg('--tolX', 0.03);
+const AVERAGE_LAST = numArg('--averageLast', 50);
 async function stage(name: string, idx: number[], dec: (x: number[]) => WalkParams, starts: number[][], nmEvals: number, gens: number, offset: number) {
   if (OPT === 'nm') return search(name, (x) => evalAt(dec(x), idx), starts, nmEvals);
   let evals = 0;
@@ -200,12 +204,14 @@ async function stage(name: string, idx: number[], dec: (x: number[]) => WalkPara
       maxGenerations: gens,
       tolX: TOLX,
       seed: SEED + off,
+      averageLast: AVERAGE_LAST,
       log: (g) => g.generation % 10 === 0 && console.log(`${label} gen ${g.generation} evals ${g.evals} best ${g.fs[0].toFixed(2)} median ${g.fs[g.fs.length >> 1].toFixed(2)} σ ${g.sigma.toFixed(3)}`),
     });
     evals += r.evals;
-    const f = await score(r.mean);
+    // The estimate: the average of the last AVERAGE_LAST generation means (2026-10-08, user decision).
+    const f = await score(r.meanAvg);
     console.log(`${label}: λ ${lambda ?? 'default'}, ${r.generations} generations, ${r.evals} evaluations, final σ ${r.sigma.toFixed(3)}; common-batch loss ${f.toFixed(3)}`);
-    return { x: r.mean, f };
+    return { x: r.meanAvg, f };
   };
   const runs: { x: number[]; f: number }[] = [];
   for (const [k, x0] of starts.entries()) runs.push(await one(`${name} start ${k}`, x0, undefined, offset + 10000 * k));

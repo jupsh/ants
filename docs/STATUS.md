@@ -1671,3 +1671,21 @@ See [`CLAUDE.md`](../CLAUDE.md).
   ridge. A looser stop rule was not the cause. Per the pre-registered rule
   this goes back to the user (criterion or statistics/noise); the four
   cells still wait.
+- **2026-10-08** User decision (after the polish diagnostic), logged before
+  implementation — **acceptance by prediction recovery, with averaging:**
+  - **Estimate:** each CMA-ES run's estimate becomes the average (in the
+    transformed parameters) of the distribution means over its last 50
+    generations (all of them if fewer), a standard noise-handling step that
+    damps the random walk along flat directions. Selection among runs on
+    the selection batch is unchanged (selection data only).
+  - **Acceptance rule (replaces "within 2 SE of the truth's loss"):** on
+    the large flat reference, stage 1 from the usual warm start must recover
+    *predictions* at 0°: `recoverE1.ts` excess over the truth ≤ 0.25 per
+    family on average and no family > 1 (fresh 2000-ant simulations, data-
+    SE units at the 69-ant scale). Parameters are reported; those on the
+    turning-split ridge (meanFreePath, jitter, jitterTime, turnRateTime,
+    speedTau) are reported as **not identified from flat data** when they
+    differ while predictions agree.
+  - Run once under this rule (full procedure: 2 starts + 1 IPOP restart,
+    averaging on), then the four staged/joint cells as designed, judged by
+    prediction recovery at all five inclines.
