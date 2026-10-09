@@ -2160,3 +2160,216 @@ See [`CLAUDE.md`](../CLAUDE.md).
     speed); the speed process needs a bounded (gait-limited) form rather
     than an unbounded log-normal whose SD grows with slope. Fits are not
     changed now.
+- **2026-10-09** **Step 3c proposal — search around food (E2), for the
+  user** (nothing built yet). From the 2009 Table 2: drop 2 is on the bridge
+  9 cm from drop 1 (a few seconds of walking), yet the time between drops
+  is 58 ± 33 s for ants that laid trail after drop 1 (TL1), 141 ± 89 s
+  (TL2) and 114 ± 83 s (nTL2). The model sends trail layers home at once
+  (sim 26–33 s) and gives non-layers an exponential search with mean 80 s
+  (sim 65–70 s in total). Drinking at drop 2 is 23 ± 11 s for 0.28 µL; the
+  model drinks at a constant per-ant rate (sim 38 s, 0.34 µL), while the
+  published regression, volume = 0.006·t + 0.15 µL (both drops pooled), has
+  a large intercept, i.e. fast initial uptake. _(Overstated: the intercept
+  is consistent with fast initial uptake but does not show it; see the
+  2026-10-09 correction below.)_
+  - **Diagnostics first (no model change):** (i) split the model's
+    between-drop time into travel and search, by the paper's groups (TL1,
+    TL2, nTL2; the report currently splits layers vs non-layers after
+    drop 1); (ii) the model's volume–time regression intercept against
+    0.15 µL.
+  - **Candidates (bounded, pre-registered before any fit):** search — S0
+    as now; S1 every ant leaving an exhausted drop searches, layers
+    included, one search-duration distribution; S2 as S1 with separate
+    durations for layers and non-layers. Intake — I0 constant rate; I1 an
+    initial fast phase plus the rate (one extra parameter). Compared with
+    the E2 rule used for M_a–M_d (fit Σz² + 2k, development Σz², spread
+    checks).
+  - **Evidence roles (user decision):** the 2009 two-drop data are
+    development data now; fitting search and intake to them needs a role
+    change (2009 between-drop and drop-2 times → fit), keeping the 2003
+    six-pipette data (pipettes visited; 19.4 ± 18.9 s between visits,
+    n = 55) as the development check.
+  - The walker's speed bursts are left alone here: E2 does not depend on
+    the walker (A0, which has no bursts, gives the same E2 results).
+- **2026-10-09** **User decision on step 3c roles.** The 2009 two-drop
+  times named above (time between drops by group; drinking time and volume
+  at drop 2) move to **fit** data, with candidates and scoring frozen
+  before any fit. The 2003 six-pipette data stay a **development check**:
+  they were already compared with models, so they are not an independent
+  validation and will not be reported as one. Diagnostics run first; they
+  may change which mechanisms are worth fitting.
+- **2026-10-09** **Step 3c diagnostics** (`scripts/diagE2Search.ts`, 600
+  scouts, adopted E2 model; 86 % found both drops vs > 95 % in the data):
+  - **(i) Time between drops, split by activity** (model mean = searching
+    + heading home):
+
+    | group | model | search + home | data |
+    |---|---|---|---|
+    | TL1 (laid before drop 2) | 25 ± 29 s | 7 + 18 | 58 ± 33 |
+    | TL2 (started after drop 2) | 60 ± 74 s | 41 + 19 | 141 ± 89 |
+    | nTL2 (never laid) | 77 ± 71 s | 59 + 18 | 114 ± 83 |
+
+    Heading home from drop 1 to drop 2 takes ~18 s in the model, so the
+    data imply roughly 40 s of searching for TL1 and ~95–120 s for the
+    others; the model's layers barely search (a laying ant ends its search
+    at once) and its non-layers search about half as long. 56 % of the
+    model's TL1 were satiated at drop 1, while in the data TL1 and non-TL1
+    drank the same volume.
+  - **(ii) Intake form:** the model's pooled volume–time regression is
+    0.0058·t + 0.124 µL against the published 0.006·t + 0.15, so the pooled
+    line does not separate intake forms (between-ant rate differences and
+    volume-estimate noise give the model its intercept). The per-drop ratio
+    does: in the data volume per second is higher at drop 2 than at drop 1
+    (0.28/23 = 0.012 vs 0.47/51 = 0.009 µL/s, ≈ 2 SE apart), in the model it
+    is the same (0.0087 vs 0.0084). A per-bout fast initial uptake (I1)
+    would produce that, so I1 **stays a candidate**. _(Corrected below: this
+    ratio is not evidence that drop 2 is drunk faster; Mailleux found equal
+    slopes and intercepts at the two drops.)_ Model ants drink 39 ±
+    21 s and 0.34 µL at drop 2 and never exhaust it (0 %), against 23 ± 11 s
+    and 0.28 µL, so the leaving decision at drop 2 is the other candidate
+    explanation (they may combine).
+  - **Consequences for the candidates:** S0 (current) cannot produce
+    searching trail layers; S1 (one search duration for every unsatisfied
+    ant) cannot by itself make TL1 search much shorter than TL2 (58 vs
+    141 s), but stays as the parsimonious baseline; S2 (separate durations
+    for layers and non-layers) is the minimal structure that can. For drop
+    2: I1 (fast initial uptake per bout) and a leaving-rule candidate.
+- **2026-10-09** **Step 3c pre-registration — DRAFT for user approval**
+  (frozen once approved, before any fit):
+  - **Fit targets:** the current E2 fit rows plus the moved 2009 rows,
+    `two.betweenTL1` (58 ± 33 s, n 24), `two.betweenNTL1` (134 ± 87 s, n 39),
+    `two.t2` (23 ± 11 s), `two.ul2` (0.28 ± 0.20 µL). Development (reported,
+    never fitted): `two.trail`, `two.ulTot`, `two.total`, the three-group
+    split of the between-drop time (TL1/TL2/nTL2), and the 2003 six-pipette
+    rows (a development check, not an independent validation).
+  - **Candidates** (all on the adopted M_a structure, every M_a free
+    parameter refitted, plus the search mean(s), currently fixed at 80 s):
+    - S0I0: as now (laying ants go home at once), refitted on the new target
+      set, so the baseline is judged on equal terms;
+    - S1I0: every ant leaving an exhausted drop unsatisfied searches,
+      layers included (they keep laying on the way home); one exponential
+      search duration (k as S0);
+    - S2I0: as S1, separate search means for layers and non-layers (+1);
+    - S1I1 / S2I1: as S1 / S2 plus a fast initial uptake in each drinking
+      bout: the first v0 µL at a fixed fast rate of 0.05 µL/s, then the
+      ant's own rate (+1, v0).
+  - **Optimiser** (lessons from E1): CMA-ES with fresh seeds per
+    generation, bounded parameters, two starts plus one IPOP restart,
+    estimate = average of the last 50 generation means, selection on a
+    common batch (selection data only), 150 scouts per evaluation as before.
+  - **Judging:** fit Σz² on 5 fresh batches of 300 scouts per condition
+    (the same seeds for every candidate) + 2k. A more complex candidate is
+    preferred over a simpler nested one only if its paired difference
+    after the penalty is below −2 SE. Development Σz², the spread checks
+    and the 2003 check are reported beside it, not used for the choice.
+    A candidate that cannot estimate a fit row is unjudgeable (the E2
+    loss's fixed 100 per missing row is a fitting fallback only).
+  - **Recovery before adoption:** the chosen candidate is fitted to
+    synthetic data from itself at the real sample sizes (one replicate);
+    its predictions must be recovered (same excess rule as E1, per row)
+    before it replaces the adopted E2 model.
+- **2026-10-09** **Step 3c pre-registration — FROZEN** (user approval with
+  amendments; supersedes the draft above; nothing fitted yet).
+  - **Status of the diagnostics:** motivation, not proof. The ~40 s of
+    searching inferred for TL1 assumes the model's walking time is right;
+    group differences also reflect satiation and selection into groups;
+    volume/time ratios do not uniquely identify an initial burst. All five
+    candidates are fitted.
+  - **Fit targets:** the 11 current E2 fit rows plus `two.betweenTL1`,
+    `two.betweenNTL1`, `two.t2`, `two.ul2`. **Development, reported only:**
+    `two.trail`, `two.ulTot`, `two.total`; the TL1/TL2/nTL2 split (labelled
+    accurately: TL1 is the fitted `two.betweenTL1` row, TL2 and nTL2
+    subdivide the fitted non-layer aggregate, so the split is not an
+    independent check); the 2003 six-pipette rows (a development check,
+    not an independent validation).
+  - **Search eligibility:** an ant searches when it leaves an **exhausted**
+    drop **without having reached its desired volume** (unsatisfied).
+    Satiated ants (leaving hazard or full crop) never search. S0: laying
+    ants among them go home at once (as now). S1/S2: laying ants search
+    too and lay on the way home afterwards. Search duration exponential;
+    S1 one mean, S2 separate means for laying and non-laying ants.
+  - **Candidates and free parameters** (M_a structure; every candidate
+    frees desiredFed, desiredHungry, desiredSd, stopHazard,
+    unsatisfiedLayProb, accessible, intakeSd, volumeSd, **intakeRate**
+    (newly free in all five, so I1 is not handicapped) and the search
+    mean(s)): S0I0 (k 10), S1I0 (10), S2I0 (11), S1I1 (11), S2I1 (12). I1:
+    the first v0 µL of each drinking bout at 0.05 µL/s, then the ant's own
+    rate.
+  - **Bounds** (bounded encoding as in E1, a fit at a bound is reported):
+    desiredFed 0.1–3 µL, desiredHungry 0.1–5 µL (log); desiredSd 0.01–2,
+    stopHazard 1e-4–1 /s, intakeRate 0.002–0.03 µL/s, search means 1–1000
+    s (log); unsatisfiedLayProb 0–1, accessible 0.2–1, intakeSd 0–1,
+    volumeSd 0–0.5, v0 0–0.5 µL (linear).
+  - **Optimiser and budget:** CMA-ES, initial per-coordinate SDs from the
+    curvature probe (as E1), fresh seeds each generation, λ default; two
+    starts (the adopted values with search mean 80 s and v0 0.1; and
+    search mean(s) 150 s, v0 0.2) plus one IPOP restart; at most 300
+    generations per run, tolX 0.03; estimate = mean of the last 50
+    generation means; 150 scouts per condition per evaluation; runs
+    compared on one common selection batch (450 scouts per condition;
+    selection data only).
+  - **Judging:** fit Σz² on 5 fresh batches of 300 scouts per condition
+    (same seeds for every candidate) + 2k. The ± is **simulation noise
+    only**, not sampling of the real ants; "2 SE" is a numerical stability
+    requirement and +2k a heuristic penalty, not statistical confirmation
+    of a mechanism.
+  - **Selection rule (all pairs):** rank by penalised loss P̄ = mean
+    batch loss + 2k. The candidate with the lowest P̄ is the provisional
+    winner. If some candidate with fewer parameters is within 2 paired SE
+    of it (P difference not below −2 SE), the simplest such candidate is
+    chosen instead (parsimony); among equal k, the one with the lower P̄
+    if separated by > 2 SE, otherwise **unresolved** (S0I0 vs S1I0;
+    S2I0 vs S1I1): both are reported and the choice goes to the user. No
+    other tie-breaks.
+  - **Adequacy, separately from winning:** for every candidate, report the
+    fraction of scouts that find both drops (data > 95 %; the fitted
+    second-drop rows condition on it) and the TL1/TL2/nTL2 group fractions
+    (data 38/46/16 %). A candidate is **adequate** if no fit row has
+    combined |z| > 3, at most two have 2 < |z| ≤ 3, and at least 90 % find
+    both drops. Outcomes: "best and adequate", or "**best candidate, still
+    inadequate**". A candidate that improves conditional times while
+    lowering the found-both fraction is flagged.
+  - **Recovery (a local numerical check, one replicate):** synthetic data
+    are whole simulated scouts from the selected candidate's fitted
+    parameters, through the same protocol (paired drops, drop-2 timing,
+    volume-estimate noise, observation rules), at the real sample sizes
+    per condition; refitted with the same procedure. Score: fresh 2000
+    scouts per condition from the recovered and the true parameters,
+    against a 2000-scout truth reference with SEs scaled to the real n;
+    per fit row, excess z² over the truth's own. Recovered if the mean
+    excess ≤ 0.25 and no row > 1; failed if the mean > 1 or any row > 4;
+    approximate otherwise. One replicate shows only that the procedure
+    can recover this one data set, not reliable recovery across data
+    sets. **Adoption** requires best + adequate (or the user's decision
+    if inadequate) and recovery; recovery alone never triggers adoption.
+- **2026-10-09** **Correction: intake at drop 2 (step-3c motivation).**
+  Rereading Mailleux et al. 2009 §3.1.2 shows that the volume–time
+  regressions at the two drops **do not differ in slope (F(1,122) = 0.01)
+  or in intercept (F(1,122) = 0.26)**, and the authors conclude that intake
+  rates were similar. Our diagnostics (ii) said that "volume per second is
+  higher at drop 2 (≈ 2 SE)". That is a ratio of means, and it follows from
+  the common line itself: 0.006·23 + 0.15 = 0.29 µL and 0.006·51 + 0.15 =
+  0.46 µL, so shorter bouts have a higher µL/s whenever the intercept is
+  positive. It is not a separate signal, and it must not be presented as a
+  finding that drop 2 is drunk faster.
+  - A within-bout fast phase (I1) remains a **hypothesis**. It is one
+    possible source of the shared intercept. The other is attenuation by
+    noise in the time and volume estimates (per-drop rs only 0.22/0.31),
+    which is how the model already gets its 0.124 µL intercept. The
+    published data do not distinguish the two.
+  - **The frozen pre-registration is unchanged.** I1 was always to be fitted
+    and judged on equal terms, and its result is reported as "fits better
+    or not", never as confirmation of the motivation. The z ≈ 10 drop-2 gap
+    is a **duration** gap (model 39 s and 0.34 µL against 23 s and 0.28 µL).
+    The leaving decision at drop 2 explains it at least as directly as the
+    intake form.
+  - Extra check for the step-3c report (development, not fitted): the
+    per-drop volume–time regressions of each candidate (slope, intercept,
+    rs), compared with the data's equal-slope/equal-intercept result.
+  - Reading policy: a paper is recorded as adding evidence only for the
+    **specific measurement** it adds beyond what we already use. Leads
+    beyond Mailleux 2009 (hypotheses, none used as *Lasius* parameters):
+    Le Breton & Fourcassié 2004 (search-path geometry and its experimental
+    manipulation); Josens et al. 2006 and Falibene et al. 2009 (direct
+    pump-activity measurements, *Camponotus*; bear on I1); Greenwald et al.
+    2018 (crop load vs foraging frequency, *Camponotus*; colony step).
