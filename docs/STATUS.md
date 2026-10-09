@@ -1660,3 +1660,14 @@ See [`CLAUDE.md`](../CLAUDE.md).
   with max-age=600, so for 10 min after a deploy a browser could reuse the
   previous build's files, whose hash no longer matched, and the page
   simulated live (seen on E2/E6 after the step-4 deploy).
+- **2026-10-08** Polish diagnostic rerun to completion (tolX 0.005 from the
+  acceptance result, 400 generations): **did not converge** (σ wandered
+  0.08–0.20, never shrank; ran to the cap). Final mean: fresh-batch loss
+  **3.37 ± 0.33** (acceptance result 2.34, truth 1.12); meanFreePath drifted
+  62 → 96 mm (truth 39.5) with predictions nearly unchanged. Reading: along
+  the turning-split ridge (meanFreePath / jitter / speedTau) the loss
+  changes less than the 640-ant evaluation noise, so step-size adaptation
+  cannot shrink and the final mean is one draw of a random walk along the
+  ridge. A looser stop rule was not the cause. Per the pre-registered rule
+  this goes back to the user (criterion or statistics/noise); the four
+  cells still wait.
