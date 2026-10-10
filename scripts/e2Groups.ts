@@ -2,9 +2,12 @@
  * Trail-laying group rows for the 2009 two-drop experiment (development,
  * reported only; STATUS 2026-10-09 "trail-laying group rows"). Mailleux
  * et al. 2009 Tables 1–2 and text: drop-1 volume and time for TL1 vs nTL1,
- * drop-2 time and volume for TL1 / TL2 / nTL2. z = difference /
- * √(SD_data²/n_data + SD_sim²/n_sim). Also the satiated-at-drop-1 fraction
- * per group (model only; no data).
+ * drop-2 time and volume for TL1 / TL2 / nTL2. Levels: z = difference /
+ * √(SD_data²/n_data + SD_sim²/n_sim); they include any overall level misfit
+ * (e.g. drop-2 time). Contrasts, which is what the paper tests: model
+ * (TL1 − nTL1) against data (TL1 − nTL1), z with both SEs (data nTL1 at
+ * drop 2 pooled from TL2 and nTL2). Also the satiated-at-drop-1 fraction
+ * per group (model only; no data; "satiated" = the leaving hazard fired).
  */
 import type { ScoutResult } from '../src/sim/experiments/e2Mailleux';
 
@@ -47,6 +50,31 @@ export function groupRows(both: ScoutResult[]): string[] {
     const [m, sd] = msd(xs);
     const z = (m - dm) / Math.sqrt(dsd ** 2 / dn + sd ** 2 / xs.length);
     out.push(`${label} ${g}: model ${m.toFixed(dp(label))} ± ${sd.toFixed(dp(label))} (n ${xs.length}) [data ${dm} ± ${dsd}, n ${dn}] z ${z.toFixed(1)}`);
+  }
+  // Contrasts TL1 − nTL1 (user review 2026-10-09).
+  const dataGroup = (label: string, g: string) => ROWS.find((r) => r[0] === label && r[1] === g)!;
+  const pooledData = (label: string): [number, number, number] => {
+    const nt = dataGroup(label, 'nTL1');
+    if (nt) return [nt[3], nt[4], nt[5]];
+    const [a, b] = [dataGroup(label, 'TL2'), dataGroup(label, 'nTL2')];
+    const n = a[5] + b[5];
+    const m = (a[5] * a[3] + b[5] * b[3]) / n;
+    const ss = (a[5] - 1) * a[4] ** 2 + (b[5] - 1) * b[4] ** 2 + a[5] * (a[3] - m) ** 2 + b[5] * (b[3] - m) ** 2;
+    return [m, Math.sqrt(ss / (n - 1)), n];
+  };
+  for (const label of ['drop-1 time (s)', 'drop-1 volume (µL)', 'drop-2 time (s)', 'drop-2 volume (µL)']) {
+    const tl = dataGroup(label, 'TL1');
+    const [nm, nsd, nn] = pooledData(label);
+    const pick = tl[2];
+    const a = both.filter(GROUPS.TL1).map(pick);
+    const b = both.filter(GROUPS.nTL1).map(pick);
+    if (a.length < 2 || b.length < 2) continue;
+    const [am, asd] = msd(a);
+    const [bm, bsd] = msd(b);
+    const dm = tl[3] - nm;
+    const se = Math.sqrt(tl[4] ** 2 / tl[5] + nsd ** 2 / nn + asd ** 2 / a.length + bsd ** 2 / b.length);
+    const d = dp(label) + 1;
+    out.push(`CONTRAST ${label} TL1 − nTL1: model ${(am - bm).toFixed(d)} [data ${dm.toFixed(d)}] z ${((am - bm - dm) / se).toFixed(1)}`);
   }
   out.push(`satiated at drop 1 (model only): ${['TL1', 'TL2', 'nTL2'].map((g) => {
     const xs = both.filter(GROUPS[g]);

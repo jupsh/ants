@@ -36,6 +36,7 @@ export interface ScoutResult {
   returnTime: number;
   /** From stopping at drop 1 to starting at drop 2 (s); NaN if no second drop drunk. */
   betweenTime: number;
+  /** From entering the area to the end of the run (s). Not the 2009 "Total" (drinking + between + drinking; see e2Targets two.total). */
   total: number;
   satisfiedAt1: boolean;
   reachedNest: boolean;
@@ -48,6 +49,8 @@ export interface ScoutResult {
   exploitTime: number;
   /** Gaster contact on the first 2.5 cm of the bridge from the area (2003 trail criterion). */
   laidFirst25: boolean;
+  /** End of the last drink → first crossing of the mid-bridge on the way back (s; Mailleux 2000/2006 giving-up time); NaN if never crossed. */
+  givingUpTime: number;
 }
 
 export interface ScoutOptions {
@@ -111,7 +114,7 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   if (o.drops) for (const d of o.drops) w.addFood((id) => new SugarDroplet(id, d.x, d.y, d.ul, d.molar, o.pipetteAccessible));
   else w.addFood((id) => new SugarDroplet(id, feeder1[0], feeder1[1], o.drop1.ul, o.drop1.molar, o.pipetteAccessible));
 
-  const res: ScoutResult = { findTime: NaN, drinks: [], laidTrail: false, laidSection1: false, laidSection2: false, intensity: NaN, returnTime: NaN, betweenTime: NaN, total: NaN, satisfiedAt1: false, reachedNest: false, dropsVisited: 0, totalUl: NaN, totalTrueUl: 0, exploitTime: NaN, laidFirst25: false };
+  const res: ScoutResult = { findTime: NaN, drinks: [], laidTrail: false, laidSection1: false, laidSection2: false, intensity: NaN, returnTime: NaN, betweenTime: NaN, total: NaN, satisfiedAt1: false, reachedNest: false, dropsVisited: 0, totalUl: NaN, totalTrueUl: 0, exploitTime: NaN, laidFirst25: false, givingUpTime: NaN };
   const visited = new Set<number>();
   let firstContact = NaN;
   let lastExit = NaN;
@@ -124,6 +127,7 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   let returnGaster = 0;
   let returnSteps = 0;
   let drop2Added = false;
+  let givingUpPending = false;
   const maxTime = o.maxTime ?? 1800;
   while (w.time < maxTime && !agent.inactive && body.alive) {
     const per = perceive(w, body, dt);
@@ -157,10 +161,16 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
       const est = currentDrinkUl + (o.volumeSd ? obsRng.normal(0, o.volumeSd) : 0);
       res.drinks.push({ ul: Math.max(0, est), trueUl: currentDrinkUl, time: w.time - drinkStart });
       lastDrinkEnd = w.time;
+      res.givingUpTime = NaN;
+      givingUpPending = true;
       if (res.drinks.length === 1) {
         firstDrinkEnd = w.time;
         res.satisfiedAt1 = mind.satisfied;
       }
+    }
+    if (givingUpPending && body.x < AREA_X / 2) {
+      res.givingUpTime = w.time - lastDrinkEnd;
+      givingUpPending = false;
     }
     if (mind.mode === 'return') {
       returnSteps++;

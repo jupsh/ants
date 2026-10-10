@@ -12,8 +12,10 @@ import type { Interoception, SurfacePercept } from '../perception/types';
  * volume approaches it (response-threshold function). An ant that leaves
  * because it is satiated lays a recruitment trail on the way home (unless it
  * is one of the ~10–14 % that never lay); an ant that leaves because the food
- * ran out searches nearby for more and goes home without laying trail, but
- * starts laying as soon as further food brings it to its desired volume.
+ * ran out before it reached its desired volume searches nearby for more and
+ * goes home without laying trail, but starts laying as soon as further food
+ * brings it to its desired volume. An ant that has reached its desired volume
+ * when the food runs out counts as satiated.
  * The desired volume grows with the ant's hunger (Mailleux et al. 1999:
  * drinking times 65 → 88 → 93 s after 1 → 4 → 8 days of starvation).
  */
@@ -171,6 +173,12 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
       if (!available) {
         if (m.modeTime > p.emptyPatience || !per.food) {
           m.site = { x: m.pi.x, y: m.pi.y };
+          if (!m.satisfied && m.ingested >= m.desired) {
+            // Reached its desired volume just as the drop ran out: a satiated departure
+            // (the documented rule; STATUS 2026-10-09 review, item 6).
+            m.satisfied = true;
+            m.laying = !m.traits.neverLays;
+          }
           if (m.satisfied) setMode(m, 'return');
           else {
             // Some unsatisfied ants still lay trail (Mailleux et al. 2009: trail layers and

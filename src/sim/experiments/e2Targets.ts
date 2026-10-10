@@ -65,7 +65,7 @@ export const E2_TARGETS: Target[] = [
   m('two.ulTot', 'Two drops: total intake', 'development', 0.75, 0.3, 63, 'µL', 'mailleux2009'),
   m('two.betweenTL1', 'Two drops: time between drops, trail layers', 'fit', 58, 33, 24, 's', 'mailleux2009'),
   m('two.betweenNTL1', 'Two drops: time between drops, non-layers', 'fit', 134, 87, 39, 's', 'mailleux2009'),
-  m('two.total', 'Two drops: total time on the apparatus', 'development', 178, 83, 63, 's', 'mailleux2009'),
+  m('two.total', 'Two drops: total time (drink 1 + between + drink 2)', 'development', 178, 83, 63, 's', 'mailleux2009'),
   // Volume–time relation pooled over both drops (2009, N = 126): identifies the
   // between-ant intake-rate SD and the volume measurement error (docs/STATUS.md,
   // step-3 pre-registration). SEs from large-sample formulas: slope
@@ -93,16 +93,18 @@ export const E2_CONDITIONS: Condition[] = [
     metrics: (rs) => {
       const both = rs.filter((r) => r.drinks.length >= 2);
       return {
-        'two.ul1': rs.map((r) => r.drinks[0].ul),
-        'two.t1': rs.map((r) => r.drinks[0].time),
-        'two.tl1': ind(rs, (r) => r.laidSection1),
+        // Drop-1 rows over the scouts that found both drops, as in the data (Mailleux 2009: n = 63).
+        'two.ul1': both.map((r) => r.drinks[0].ul),
+        'two.t1': both.map((r) => r.drinks[0].time),
+        'two.tl1': ind(both, (r) => r.laidSection1),
         'two.trail': ind(both, (r) => r.laidTrail),
         'two.ul2': both.map((r) => r.drinks[1].ul),
         'two.t2': both.map((r) => r.drinks[1].time),
         'two.ulTot': both.map((r) => r.drinks[0].ul + r.drinks[1].ul),
         'two.betweenTL1': both.filter((r) => r.laidSection1).map((r) => r.betweenTime),
         'two.betweenNTL1': both.filter((r) => !r.laidSection1).map((r) => r.betweenTime),
-        'two.total': both.map((r) => r.total),
+        // 2009 Table 2 "Total" = drinking at drop 1 + between drops + drinking at drop 2 (not time in the area).
+        'two.total': both.map((r) => r.drinks[0].time + r.betweenTime + r.drinks[1].time),
         'two.foundBoth': ind(rs, (r) => r.drinks.length >= 2),
         ...volumeTime(both),
       };
