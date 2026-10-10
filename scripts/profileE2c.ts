@@ -4,10 +4,14 @@
  * candidate beside the recovery check). At each grid value the parameter is
  * pinned and every other free parameter is re-fitted (short CMA-ES warm-
  * started at the fit, the same seed sequence at every grid value), then
- * scored on one common batch. Loss is Σz² ≈ −2 log L, so the values within
- * 3.84 of the minimum form an approximate 95 % profile interval; a profile
- * within 3.84 of the minimum at both ends of the grid is reported as "not
- * identified", not read as an estimate. Writes nothing.
+ * scored on SCORE_BATCHES common batches (the mean is the profile loss).
+ * Loss is Σz² ≈ −2 log L, so the values within 3.84 of the minimum form an
+ * approximate 95 % profile interval; a profile within 3.84 of the minimum at
+ * both ends of the grid is reported as "not identified", not read as an
+ * estimate. Monte Carlo resolution (review 2026-10-09): each Δ against the
+ * minimum carries a paired SE from the batch-to-batch spread of the
+ * difference, and a Δ within 2 SE of 3.84 is flagged "borderline" rather
+ * than decided by noise. Writes nothing.
  *
  * Usage: npx vite-node scripts/profileE2c.ts --fit data/fits/e2-3c-<id>.json --param setup.volumeSd|phys.intakeSd [--grid 0,0.1,…] [--gens 60]
  */
@@ -28,6 +32,7 @@ const DT = 0.1;
 // Seeds 3.5e9–3.9e9: disjoint from the fits (< 3.1e9), selection (4.0e9) and synthetic data (4.1e9).
 const SEED = 3_500_000_000;
 const SCORE_SEED = 3_900_000_000;
+const SCORE_BATCHES = 3;
 const variant = E2_VARIANTS_3C.find((v) => v.id === fit.variant);
 if (!variant || !variant.free.some((f) => f.key === KEY)) throw new Error(`--fit must be a step-3c fit and --param one of its free parameters`);
 const reduced = { ...variant, free: variant.free.filter((f) => f.key !== KEY) };
@@ -44,8 +49,12 @@ const lossOf = async (m: E2Model, seed: number, n = N) => {
 };
 
 console.log(`${variant.label}: profile of ${KEY} (fitted ${get(best, KEY).toPrecision(3)}); ${reduced.free.length} parameters re-fitted per grid value, ${GENS} generations`);
-const atFit = await lossOf(best, SCORE_SEED, 3 * N);
-const rows: { v: number; loss: number }[] = [];
+/** Loss on each common scoring batch (the same batches for every grid value). */
+const scores = async (m: E2Model) => Promise.all(Array.from({ length: SCORE_BATCHES }, (_, b) => lossOf(m, SCORE_SEED + 10_000_000 * b, 3 * N)));
+const avg = (xs: number[]) => xs.reduce((a, v) => a + v, 0) / xs.length;
+const fitScores = await scores(best);
+const atFit = avg(fitScores);
+const rows: { v: number; loss: number; batches: number[] }[] = [];
 for (const v of GRID) {
   const pinned = set(best, KEY, v);
   const r = await cmaes((x, g) => lossOf(decode(reduced, pinned, x), SEED + 1_000_000 * (g + 1)), encode(reduced, pinned), {
@@ -55,13 +64,27 @@ for (const v of GRID) {
     seed: SEED,
     averageLast: 20,
   });
-  const loss = await lossOf(decode(reduced, pinned, r.meanAvg), SCORE_SEED, 3 * N);
-  rows.push({ v, loss });
+  const batches = await scores(decode(reduced, pinned, r.meanAvg));
+  const loss = avg(batches);
+  rows.push({ v, loss, batches });
   console.log(`  ${KEY} = ${v}: loss ${loss.toFixed(2)} (window ${r.avgWindow}, max |drift| ${Math.max(...r.meanDrift.map(Math.abs)).toFixed(2)})`);
 }
-const min = Math.min(atFit, ...rows.map((r) => r.loss));
-console.log(`at the fit: ${atFit.toFixed(2)}`);
-for (const r of rows) console.log(`  ${String(r.v).padStart(5)}  Δloss ${(r.loss - min).toFixed(2)}${r.loss - min <= 3.84 ? '  (within 3.84)' : ''}`);
+const all = [{ v: NaN, loss: atFit, batches: fitScores }, ...rows];
+const ref = all.reduce((a, b) => (b.loss < a.loss ? b : a));
+const min = ref.loss;
+/** Paired SE of (loss − minimum) from the batch-to-batch spread of the difference. */
+const seDelta = (r: { batches: number[] }) => {
+  const d = r.batches.map((v, b) => v - ref.batches[b]);
+  const m = avg(d);
+  return d.length > 1 ? Math.sqrt(d.reduce((a, v) => a + (v - m) ** 2, 0) / (d.length - 1) / d.length) : NaN;
+};
+console.log(`at the fit: ${atFit.toFixed(2)} (batches ${fitScores.map((v) => v.toFixed(1)).join(', ')})`);
+for (const r of rows) {
+  const d = r.loss - min;
+  const se = seDelta(r);
+  const tag = Math.abs(d - 3.84) <= 2 * se ? '  BORDERLINE (within 2 SE of 3.84)' : d <= 3.84 ? '  (within 3.84)' : '';
+  console.log(`  ${String(r.v).padStart(5)}  Δloss ${d.toFixed(2)} ± ${Number.isFinite(se) ? se.toFixed(2) : '—'}${tag}`);
+}
 const inside = rows.filter((r) => r.loss - min <= 3.84);
 const flat = rows.length > 1 && rows[0].loss - min <= 3.84 && rows[rows.length - 1].loss - min <= 3.84;
 console.log(flat ? `→ NOT IDENTIFIED on [${GRID[0]}, ${GRID[GRID.length - 1]}]` : inside.length ? `→ approx. 95 % profile interval [${inside[0].v}, ${inside[inside.length - 1].v}] (grid resolution)` : '→ every grid value worse than the fit by > 3.84');

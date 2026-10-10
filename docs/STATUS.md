@@ -583,6 +583,24 @@ Claude Code loads automatically.
   - The *P. barbatus* tunnel width is now correctly labelled as derived
     from *P. badius*.
 - **E1:** steep-slope gap.
+  - **Data orientation and tilt (review 2026-10-09):** "+y is uphill" in the
+    Khuong data is still an assumption (the simulation puts downhill at −y).
+    The adopted fit has no polar (downhill-specific) term, so today it
+    affects only the downhill-exit reading and any future polar candidate.
+    Separately, the data's alignment axis is tilted 10–20° from the image y
+    axis at 20–45°, but `alignY` is measured against image y for the data and
+    against the exact slope axis for the simulation: the fitted alignment
+    target is biased low by ≈ cos 2·tilt (0.77–0.94). To settle before E1
+    resumes and before the Bonavita held-out test (orientation from the
+    paper's figures or the authors' code; tilt-corrected `alignY`, or a
+    pre-registered tilt term).
+- **E2 observation model:** volume estimates are clipped at 0
+  (`Math.max(0, est)`), an unsourced assumption that raises short-bout
+  volumes and the per-drop intercepts and creates ties at 0 in the per-drop
+  rs (now fit rows). Whether the experimenters reported negative gaster
+  differences is unknown.
+- **E6:** our contacts end when food stops flowing; the observer sees
+  mandible contact (step-4 note).
 - **E2:** drinking-time spread (all variants); 4-day trail fraction (the
   never-layer ceiling, z −3.3); between-drop timing; second-drop drinking
   time (38 vs 23 s).
@@ -2798,3 +2816,32 @@ See [`CLAUDE.md`](../CLAUDE.md).
     selected, the 0.02 µL/s (≈ 2×) sensitivity run is the more plausible
     end, and I1 is reported as a stand-in for a declining rate, not as a
     measured burst.
+- **2026-10-09** **Code review, remaining items (no simulated value
+  changes; the queued step-3c fits are unaffected).**
+  - **Provenance labels** (`lasiusM1.ts`; resolved parameter set checked
+    byte-identical before and after): `arsMean`, `homeGain`, `loadSlowdown`
+    were labelled "fitted (E2)" but no E2 fit ever freed them (checked every
+    `data/fits/e2-*.json` free list) → estimated, with notes (`homeGain` and
+    `loadSlowdown` cited return times, which are not an E2 target);
+    `intakeRate` → derived (0.47 µL / 51 s). Walk parameters: all 18 in
+    `e1-walk.json` were free (stages 1–2 of the fit at a7b5269), but the
+    terms added later (`jitterTime`, `turnRateTime`, `turnDip`, …) take
+    `DEFAULT_WALK` values and were labelled fitted → estimated. The E1
+    provenance said "validated by withheld π/9, π/4"; those are development
+    data → corrected.
+  - **Tests** (`test/e2.test.ts`, `test/e1.test.ts`; 61 pass): the recorded
+    intake equals the volume that left the drops even with crop absorption
+    on (the check that would have caught the drain); an ant past its
+    desired volume at an exhausted drop leaves satiated and lays, one below
+    it searches. The two E1 `it.fails` known-gap tests (which also passed on
+    a crash) now assert the gap explicitly, so a crash or a closed gap fails
+    them.
+  - **Giving-up time** (`selectE2.ts`, development): reported for all scouts
+    and for non-layers (Pl is described as the rate of unsatisfied ants; the
+    2000 paper does not say which scouts its n = 35 covers).
+  - **Profile resolution** (`profileE2c.ts`, before any profile is run):
+    each grid value is scored on 3 common batches (mean = profile loss);
+    each Δ carries a paired SE, and a Δ within 2 SE of 3.84 is reported
+    "borderline", not decided by Monte Carlo noise.
+  - Backlog additions (Open problems): E1 data orientation and the tilt bias
+    of `alignY`; the E2 clip-at-zero observer; E6 contact vs flow.

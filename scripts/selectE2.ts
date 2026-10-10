@@ -103,11 +103,16 @@ for (const id of IDS) {
   const means = f.searchMode === 2 ? `arsMean ${f.arsMean.toFixed(0)} s, arsMeanLay ${f.arsMeanLay.toFixed(0)} s` : `arsMean ${f.arsMean.toFixed(0)} s${f.searchMode === 1 ? ' (layers too)' : ' (non-layers only)'}`;
   const single = Array.from({ length: N }, (_, i) => ({ seed: SEED + 80_000_000 + i, drop1: { ul: 0.3, molar: 0.6 }, pipetteAccessible: setup.accessible, volumeSd: setup.volumeSd, starvationDays: 4, dt: 0.1, maxTime: 900 }));
   const gu = ((await run(P, single)) as ScoutResult[]).filter((r) => r.drinks.length);
-  const gt = gu.map((r) => r.givingUpTime).filter(Number.isFinite);
-  const gm = gt.reduce((a, v) => a + v, 0) / Math.max(1, gt.length);
-  const gsd = Math.sqrt(gt.reduce((a, v) => a + (v - gm) ** 2, 0) / Math.max(1, gt.length - 1));
-  const gmed = [...gt].sort((a, b) => a - b)[gt.length >> 1];
-  console.log(`  search time (development): fitted ${means} [Pl: 85 ± 14 s]; giving-up time at one 0.3 µL drop, 4 d: ${gm.toFixed(0)} ± ${gsd.toFixed(0)} s, median ${gmed?.toFixed(0)} (${gt.length} of ${gu.length} crossed mid-bridge; ${((100 * gu.filter((r) => r.laidTrail).length) / Math.max(1, gu.length)).toFixed(0)} % laid) [2000: 85 ± 14 s, exponential, n 35; 2006 4 d: 86 ± 68 s, n 23, 17 % laid]`);
+  // Giving-up time for all scouts that drank and, like for like with Pl (the leaving rate of
+  // *unsatisfied* ants), for the non-layers only (review 2026-10-09; which scouts the 2000 n = 35 covers is not stated).
+  const giveUp = (rs: ScoutResult[]) => {
+    const gt = rs.map((r) => r.givingUpTime).filter(Number.isFinite);
+    const gm = gt.reduce((a, v) => a + v, 0) / Math.max(1, gt.length);
+    const gsd = Math.sqrt(gt.reduce((a, v) => a + (v - gm) ** 2, 0) / Math.max(1, gt.length - 1));
+    const gmed = [...gt].sort((a, b) => a - b)[gt.length >> 1];
+    return `${gm.toFixed(0)} ± ${gsd.toFixed(0)} s, median ${gmed?.toFixed(0)} (${gt.length} of ${rs.length} crossed mid-bridge)`;
+  };
+  console.log(`  search time (development): fitted ${means} [Pl: 85 ± 14 s]; giving-up time at one 0.3 µL drop, 4 d: all scouts ${giveUp(gu)}, ${((100 * gu.filter((r) => r.laidTrail).length) / Math.max(1, gu.length)).toFixed(0)} % laid; non-layers ${giveUp(gu.filter((r) => !r.laidTrail))} [2000: 85 ± 14 s, exponential, n 35; 2006 4 d: 86 ± 68 s, n 23, 17 % laid]`);
   for (const days of [4]) {
     const six = e2Compare(await simulateE2Async(P, N, setup, 0.1, SEED + 70_000_000, 5, run, [sixPipetteCondition(days)]), SIX_TARGETS);
     console.log(`  2003 six pipettes, ${days} d (development check, not independent): ${six.map((r) => `${r.target.id} ${r.mean.z.toFixed(1)}`).join(', ')}`);
