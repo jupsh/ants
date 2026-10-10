@@ -494,3 +494,25 @@ Earlier entries: the archive. Newest last.
   **write** time, so the pilot file will record the 3cc9be1 sources.
   Fixed for future runs: provenance is taken at launch. **From now on:
   no syncing of `src/` to the box while a run is going.**
+
+**2026-10-10 night — pilot, start 0 finished: σ diverged, parameters at bounds (diagnostic reading; no loss is reported as fit quality, condition 1).**
+- Seen (`logs/pilot-main.log`, after the cut-off was frozen): start 0 ran
+  60 generations; CMA-ES σ grew from 0.97 to 285. The averaged mean drifted
+  (encoded units) −64 nestSpeedFactor, +71 returnRate, +99 shareRate, −276
+  shareEnd, +17 receiveReserve, −37 reserveSd, +1.5 density. Start 1 has
+  begun.
+- Reading: the bounded transform is logistic, so far from 0 a parameter
+  sits at its bound and the loss is flat; CMA-ES then random-walks with
+  growing σ. Start 0 pinned **nestSpeedFactor at its lower bound (0.02),
+  returnRate at its upper bound (1 /s), shareRate at its upper bound,
+  shareEnd at its lower bound (1/1200 /s), reserveSd at its lower bound**.
+  That is the pattern of the void first fits (returnRate max, shareEnd
+  min), and the "extreme values" input to Plan 4 (encounter redesign).
+  Caveats: start 0 only; with σ ≈ 285 the averaged mean is unreliable
+  beyond "at a bound".
+- **Fitting-method issue** (relevant to the recovery test, Plan 3): on
+  the logistic plateau σ diverges, and "mean of the last 30 generation
+  means" becomes meaningless. Candidates, to decide after the pilot: σ cap
+  or restart on divergence, bounds handled by reflection or penalty
+  instead of saturation, and a convergence flag in the fit file.
+- No action until the pilot finishes (start 1 and the IPOP restart).
