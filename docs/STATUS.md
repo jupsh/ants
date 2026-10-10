@@ -3048,3 +3048,78 @@ See [`CLAUDE.md`](../CLAUDE.md).
     longer refits (`--grid 0.05,0.1,0.136,0.2,0.3 --gens 200`); if the
     refit at 0.136 is also ≈ +10, the profile procedure is at fault. σ_r
     profile: interval [0, 0.2] (fitted 0.122), as designed.
+- **2026-10-09** **Step-3c results for S1I1 (box), adequacy, and step 3d
+  pre-registration (user approved the design; frozen here before any code
+  or fit).**
+  - **Adequacy (fixed `selectE2.ts`): no candidate is adequate.** Two fit
+    rows fail in all five: `d4.trail` (data 0.94, n 141; z −3.5 … −3.7) and
+    `two.ul2` (0.28 µL; z +3.3 … +4.6). S1I1 also has `two.t2` 2.9 and
+    `two.vtRs2` 2.2, the rest |z| ≤ 2. `d4.trail` is unreachable by design:
+    `neverLayFraction` is fixed at 0.12 in every step-3c candidate, which
+    caps laying at 88 %. The drop-2 excess comes from trail layers (data
+    TL1 0.20 µL at drop 2, S1I1 0.40, z 6.9). Group contrasts (S1I1):
+    drop-1 time TL1 − nTL1 z −4.4, drop-2 volume z +3.3. Development, 2003
+    six pipettes: S1I1 visits far too many (z +14).
+  - **Recovery (S1I1, one replicate): APPROXIMATE**: mean excess 0.97,
+    worst `two.t2` 3.71, `two.vtRs2` 3.67. The intake parameters trade
+    off: recovered `intakeRate` ×1.98, `intakeSd` ×2.5, `volumeSd` ×1.85,
+    `stopHazard` ×0.45; accessibility and `unsatisfiedLayProb` recovered.
+  - **Profiles:** σ_r (`intakeSd`, fitted 0.122): interval [0, 0.2].
+    σ_m with 60-generation refits was not usable (every value ≥ 10 above
+    the fit). The diagnostic with 200 generations and the fitted value on
+    the grid: refit at 0.136 → 55.0 (fit 57.8; Δ 5.6 ± 5.8), 0.2 → 49.5
+    (best), 0.05 → +50, 0.1 → +23.5, 0.3 → +10 ± 10. So the 60-generation
+    refits had not converged, the fit is not at the σ_m optimum, and
+    σ_m ≈ 0.2 sits inside the independent 0.1–0.3 bracket. Use ≥ 200
+    generations for profiles from now on.
+  - **I1 fast-rate sensitivity** (reported, not re-selected; selection-batch
+    loss, fit 71.5 at 0.05 µL/s): 0.013 → 76.5, 0.02 → 123.7 (a different
+    basin: `intakeSd` 0.82, `volumeSd` 0.035; likely an optimiser failure),
+    0.1 → 60.3. **I1 as fitted is far from the measured intake:** a fast
+    phase of 0.33 µL, then a sustained 0.0036 µL/s, about a third of the
+    measured *L. niger* rate (≈ 0.010 µL/s, 2006). At 0.013 µL/s the fit
+    has 0.42 µL fast, then 0.0034 µL/s (≈ 4× deceleration; *Camponotus*:
+    1.2–1.7×). To be checked against the 2000 ingested volumes (below).
+  - **Step 3d: the laying decision (frozen).**
+    - *Why:* (1) `d4.trail` 0.94 is impossible with `neverLayFraction`
+      fixed at 0.12. (2) The model's layers are the ants satiated early
+      (they drink less, for less time, at drop 1); the data's TL1 and nTL1
+      drink the same at drop 1 (0.49 vs 0.46 µL, 52 vs 50 s), while TL1
+      drink less at drop 2 (0.20 vs 0.33 / 0.31 µL). (3) Laying at one
+      drop depends steeply on its size (2000, 4 d: 14 / 17 / 70 / 91 % at
+      0.3 / 0.7 / 1 / 3 µL); a constant `unsatisfiedLayProb` cannot make
+      that step.
+    - *Candidates* (all with the step-3c fixed settings and I1, fast rate
+      0.05 µL/s, `boutFastUl` free; `neverLayFraction` free in [0, 0.3]
+      in every candidate):
+      - **L0:** the current rule: a scout leaving an exhausted drop before
+        its desired volume lays with constant probability
+        `unsatisfiedLayProb`.
+      - **L1:** that probability is graded by how close the scout came to
+        its desired volume: P = 1 / (1 + e^(−κ (r − ρ))), r = ingested ÷
+        desired, κ ∈ [1, 50] (log scale), ρ ∈ [0, 1.5]; it replaces
+        `unsatisfiedLayProb` (one more parameter than L0). Satiated
+        departures lay unless never-layers, as before.
+      - crossed with **S1** (layers and non-layers search alike) and **S2**
+        (layers have their own search mean `arsMeanLay`): **L0S1, L1S1,
+        L0S2, L1S2** (k 12, 13, 13, 14). S2 is included because the 2000
+        data (development) give layers a giving-up time of ≈ 28 s vs
+        ≈ 128 s for non-layers, and S1I1 vs S2I1 was within 2 SE.
+    - *Fitting:* `fitE2c.ts` unchanged in procedure (two starts from the
+      same base, one IPOP restart, ≤ 300 generations, the same fit seeds);
+      L1's starts at κ 10, ρ 0.7. Output `data/fits/e2-3d-<id>.json`.
+    - *Judging:* the frozen step-3c rule and adequacy test on the same fit
+      rows, among the four step-3d candidates, with the step-3c selection
+      seeds (so step-3c and step-3d losses are on common random numbers;
+      S1I1 and S2I1 are listed beside them for comparison, not selectable).
+      Development, reported only, never fitted: the 2009 group contrasts;
+      the 2000 single-drop series at 0.3 / 0.7 / 1 / 3 µL, 4 d (trail %,
+      giving-up time of layers and non-layers, ingested volume
+      0.2 / 0.5 / 0.7 / 0.9 µL); the 2003 six pipettes; the 2006 0.3 µL
+      laying (17 %).
+    - *Reading:* if L1 passes the group contrasts and the 2000 trail series
+      without being fitted to them, that supports a graded laying decision.
+      If no candidate does, the next hypothesis is laying as a per-ant trait
+      (independent of the volume ingested), before step 4.
+    - Then the selected candidate's recovery and profiles as in step 3c
+      (profiles with 200 generations).

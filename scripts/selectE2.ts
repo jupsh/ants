@@ -114,6 +114,31 @@ for (const id of IDS) {
     return `${gm.toFixed(0)} ± ${gsd.toFixed(0)} s, median ${gmed?.toFixed(0)} (${gt.length} of ${rs.length} crossed mid-bridge)`;
   };
   console.log(`  search time (development): fitted ${means} [2003 model parameter Pl = 1/85 s]; giving-up time at one 0.3 µL drop, 4 d: all scouts ${giveUp(gu)}, ${((100 * gu.filter((r) => r.laidTrail).length) / Math.max(1, gu.length)).toFixed(0)} % laid; non-layers ${giveUp(gu.filter((r) => !r.laidTrail))} [Mailleux 2000, 0.3 µL, 4 d: all 113 ± 129 s (n 26), non-layers 128 ± 135 s (n 22), layers 28 ± 12 s (n 4), 14 % laid; 2006 4 d: 86 ± 68 s, n 23, 17 % laid; Pl = 1/85 s is the 2003 model parameter]`);
+  // Mailleux 2000 single-drop series, 4 d (development; STATUS 2026-10-09 step 3d): trail %, giving-up time
+  // of layers and non-layers, and the volume estimate (the model's observed volume, as the data's).
+  const S2000: [number, number, number, string, string, string][] = [
+    // drop µL, trail fraction, n, giving-up layers, non-layers, ingested µL
+    [0.3, 0.14, 42, '28 ± 12 (4)', '128 ± 135 (22)', '0.2 ± 0.1'],
+    [0.7, 0.17, 29, '24 ± 13 (3)', '63 ± 35 (12)', '0.5 ± 0.2'],
+    [1, 0.7, 60, '31 ± 34 (27)', '74 ± 94 (12)', '0.7 ± 0.3'],
+    [3, 0.91, 112, '27 ± 30 (89)', '38 ± 20 (6)', '0.9 ± 0.4'],
+  ];
+  const msd = (xs: number[], d: number) => {
+    const m = xs.reduce((a, v) => a + v, 0) / Math.max(1, xs.length);
+    return `${m.toFixed(d)} ± ${Math.sqrt(xs.reduce((a, v) => a + (v - m) ** 2, 0) / Math.max(1, xs.length - 1)).toFixed(d)}`;
+  };
+  console.log('  Mailleux 2000 single drop, 4 d (development, reported only): model [data]');
+  for (const [k, [ul, tr, n, guL, guN, vol]] of S2000.entries()) {
+    const opts = Array.from({ length: N }, (_, i) => ({ seed: SEED + 90_000_000 + 100_000 * k + i, drop1: { ul, molar: 0.6 }, pipetteAccessible: setup.accessible, volumeSd: setup.volumeSd, starvationDays: 4, dt: 0.1, maxTime: 900 }));
+    const rs = ((await run(P, opts)) as ScoutResult[]).filter((r) => r.drinks.length);
+    const p = rs.filter((r) => r.laidTrail).length / Math.max(1, rs.length);
+    const gt = (xs: ScoutResult[]) => xs.map((r) => r.givingUpTime).filter(Number.isFinite);
+    console.log(
+      `    ${String(ul).padEnd(3)} µL: trail ${(100 * p).toFixed(0)} % [${(100 * tr).toFixed(0)} %, n ${n}] z ${((p - tr) / Math.sqrt((tr * (1 - tr)) / n)).toFixed(1)}; ` +
+        `giving-up layers ${msd(gt(rs.filter((r) => r.laidTrail)), 0)} s [${guL}], non-layers ${msd(gt(rs.filter((r) => !r.laidTrail)), 0)} s [${guN}]; ` +
+        `volume ${msd(rs.map((r) => r.drinks.reduce((a, d) => a + d.ul, 0)), 2)} µL [${vol}]`,
+    );
+  }
   for (const days of [4]) {
     const six = e2Compare(await simulateE2Async(P, N, setup, 0.1, SEED + 70_000_000, 5, run, [sixPipetteCondition(days)]), SIX_TARGETS);
     console.log(`  2003 six pipettes, ${days} d (development check, not independent): ${six.map((r) => `${r.target.id} ${r.mean.z.toFixed(1)}`).join(', ')}`);

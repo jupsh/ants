@@ -71,6 +71,31 @@ export const E2_VARIANTS_3C: E2Variant[] = [
   { id: 'S2I1', label: 'S2I1', description: 'S2 plus the fast initial uptake.', fix: fix3c(2, true), free: [...B3C, LAY_MEAN, V0] },
 ];
 
+/**
+ * Step 3d (the laying decision), frozen pre-registration 2026-10-09: the
+ * step-3c settings with I1, the never-laying fraction free, and the laying
+ * rule of unsatisfied ants leaving an exhausted drop: constant (L0) or
+ * graded by ingested ÷ desired volume (L1), crossed with search modes S1/S2.
+ */
+const NEVER: FreeParam = { key: 'forager.neverLayFraction', tf: { lo: 0, hi: 0.3 } };
+const GRADED: FreeParam[] = [
+  { key: 'forager.layKappa', tf: { lo: 1, hi: 50, log: true } },
+  { key: 'forager.layRatio50', tf: { lo: 0, hi: 1.5 } },
+];
+const B3D_L0 = [...B3C, V0, NEVER];
+const B3D_L1 = [...B3C.filter((f) => f.key !== 'forager.unsatisfiedLayProb'), V0, NEVER, ...GRADED];
+const fix3d = (searchMode: number, layRule: number) => (m: E2Model) => withForager(fix3c(searchMode, true)(m), { layRule });
+
+export const E2_VARIANTS_3D: E2Variant[] = [
+  { id: 'L0S1', label: 'L0S1', description: 'S1I1 with the never-laying fraction free; constant laying probability after an exhausted drop.', fix: fix3d(1, 0), free: B3D_L0 },
+  { id: 'L1S1', label: 'L1S1', description: 'As L0S1, laying after an exhausted drop graded by ingested ÷ desired volume.', fix: fix3d(1, 1), free: B3D_L1 },
+  { id: 'L0S2', label: 'L0S2', description: 'As L0S1, with a separate search mean for laying ants.', fix: fix3d(2, 0), free: [...B3D_L0, LAY_MEAN] },
+  { id: 'L1S2', label: 'L1S2', description: 'As L1S1, with a separate search mean for laying ants.', fix: fix3d(2, 1), free: [...B3D_L1, LAY_MEAN] },
+];
+
+/** Step-3c and step-3d candidates by id. */
+export const variant3 = (id: string): E2Variant | undefined => [...E2_VARIANTS_3C, ...E2_VARIANTS_3D].find((v) => v.id === id);
+
 export const E2_VARIANTS: E2Variant[] = [
   {
     id: 'Ma',

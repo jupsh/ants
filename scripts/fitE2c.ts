@@ -1,6 +1,7 @@
 /**
- * Step 3c fits (search around food), frozen pre-registration in
- * docs/STATUS.md (2026-10-09): one candidate of E2_VARIANTS_3C, fitted to
+ * Step 3c fits (search around food) and step 3d fits (the laying decision),
+ * frozen pre-registrations in docs/STATUS.md (2026-10-09): one candidate of
+ * E2_VARIANTS_3C or E2_VARIANTS_3D, fitted to
  * the E2 "fit" rows (now including the 2009 between-drop and drop-2 rows).
  *
  * Optimiser (as E1): CMA-ES with per-coordinate initial SDs from a curvature
@@ -15,13 +16,13 @@
  * I1 is selected): --fastRate r pins the fast-uptake rate at r instead of
  * 0.05 µL/s and refits the rest.
  *
- * Usage: npx vite-node scripts/fitE2c.ts --variant S0I0|S1I0|S2I0|S1I1|S2I1 [--recover truthFit.json --rep r] [--fastRate r]
- * Writes data/fits/e2-3c-<variant>.json (recovery: data/fits/recover/e2-3c-<variant>-rep<r>.json;
- * sensitivity: data/fits/e2-3c-<variant>-fast<r>.json).
+ * Usage: npx vite-node scripts/fitE2c.ts --variant S0I0|S1I0|S2I0|S1I1|S2I1|L0S1|L1S1|L0S2|L1S2 [--recover truthFit.json --rep r] [--fastRate r]
+ * Writes data/fits/e2-<stage>-<variant>.json, stage 3c or 3d (recovery: data/fits/recover/e2-<stage>-<variant>-rep<r>.json;
+ * sensitivity: data/fits/e2-<stage>-<variant>-fast<r>.json).
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
 import { e2Loss, simulateE2Async, E2_TARGETS, type E2Sim } from '../src/sim/experiments/e2Targets';
-import { atBound, decode, encode, freeValues, E2_VARIANTS_3C, type E2Model } from '../src/sim/experiments/e2Variants';
+import { atBound, decode, encode, freeValues, variant3, E2_VARIANTS_3C, E2_VARIANTS_3D, type E2Model } from '../src/sim/experiments/e2Variants';
 import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
 import { arg, numArg, readJson, writeJson } from './lib';
 import { SimPool } from './pool';
@@ -34,18 +35,19 @@ const AVERAGE_LAST = 50;
 const RESTARTS = 1;
 const SEED = 30_000_000;
 const DEGENERATE = 1e7;
-const variant = E2_VARIANTS_3C.find((v) => v.id === arg('--variant', ''));
-if (!variant) throw new Error(`--variant ${E2_VARIANTS_3C.map((v) => v.id).join('|')} required`);
+const variant = variant3(arg('--variant', ''));
+if (!variant) throw new Error(`--variant ${[...E2_VARIANTS_3C, ...E2_VARIANTS_3D].map((v) => v.id).join('|')} required`);
+const STAGE = E2_VARIANTS_3D.includes(variant) ? '3d' : '3c';
 const RECOVER = arg('--recover', '');
 const REP = numArg('--rep', 0);
 const FAST_RATE = numArg('--fastRate', 0);
 if (FAST_RATE && !variant.free.some((f) => f.key === 'phys.boutFastUl')) throw new Error('--fastRate needs an I1 variant');
 if (FAST_RATE && RECOVER) throw new Error('--fastRate and --recover are separate runs');
-const OUT = RECOVER ? `data/fits/recover/e2-3c-${variant.id}-rep${REP}.json` : `data/fits/e2-3c-${variant.id}${FAST_RATE ? `-fast${FAST_RATE}` : ''}.json`;
+const OUT = RECOVER ? `data/fits/recover/e2-${STAGE}-${variant.id}-rep${REP}.json` : `data/fits/e2-${STAGE}-${variant.id}${FAST_RATE ? `-fast${FAST_RATE}` : ''}.json`;
 
 const prev = readJson<any>('data/fits/e2-drinking.json');
 const base: E2Model = {
-  P: { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER, ...prev.forager, arsMeanLay: 80 }, phys: { ...LASIUS_PHYS, intakeSd: prev.phys.intakeSd, boutFastUl: 0.1, boutFastRate: 0.05 }, morph: LASIUS_MORPH },
+  P: { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER, ...prev.forager, arsMeanLay: 80, layKappa: 10, layRatio50: 0.7 }, phys: { ...LASIUS_PHYS, intakeSd: prev.phys.intakeSd, boutFastUl: 0.1, boutFastRate: 0.05 }, morph: LASIUS_MORPH },
   setup: { accessible: prev.pipetteAccessible, volumeSd: prev.observer.volumeSd },
 };
 const start1 = variant.fix(base);
@@ -118,7 +120,7 @@ console.log(Object.entries(freeValues(variant, m)).map(([key, v]) => `${key} = $
 const bound = atBound(variant, m);
 if (bound.length) console.log(`at a bound: ${bound.join(', ')}`);
 writeJson(OUT, {
-  experiment: 'E2 step 3c: search around food (Mailleux et al. 1999, 2009)',
+  experiment: STAGE === '3d' ? 'E2 step 3d: the laying decision (Mailleux et al. 1999, 2009)' : 'E2 step 3c: search around food (Mailleux et al. 1999, 2009)',
   variant: variant.id,
   label: variant.label,
   description: variant.description,

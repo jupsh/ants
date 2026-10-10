@@ -17,7 +17,7 @@
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
 import { e2Loss, simulateE2Async, E2_TARGETS } from '../src/sim/experiments/e2Targets';
-import { encode, decode, get, set, E2_VARIANTS_3C, type E2Model } from '../src/sim/experiments/e2Variants';
+import { encode, decode, get, set, variant3, type E2Model } from '../src/sim/experiments/e2Variants';
 import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
 import { arg, numArg, readJson } from './lib';
 import { SimPool } from './pool';
@@ -26,14 +26,14 @@ const fit = readJson<any>(arg('--fit', ''));
 const KEY = arg('--param', 'setup.volumeSd');
 const DEFAULT_GRID: Record<string, string> = { 'setup.volumeSd': '0,0.1,0.2,0.3,0.4,0.5', 'phys.intakeSd': '0,0.2,0.4,0.6,0.8,1' };
 const GRID = arg('--grid', DEFAULT_GRID[KEY] ?? '').split(',').map(Number);
-const GENS = numArg('--gens', 60);
+const GENS = numArg('--gens', 200);
 const N = 150;
 const DT = 0.1;
 // Seeds 3.5e9–3.9e9: disjoint from the fits (< 3.1e9), selection (4.0e9) and synthetic data (4.1e9).
 const SEED = 3_500_000_000;
 const SCORE_SEED = 3_900_000_000;
 const SCORE_BATCHES = 3;
-const variant = E2_VARIANTS_3C.find((v) => v.id === fit.variant);
+const variant = variant3(fit.variant);
 if (!variant || !variant.free.some((f) => f.key === KEY)) throw new Error(`--fit must be a step-3c fit and --param one of its free parameters`);
 const reduced = { ...variant, free: variant.free.filter((f) => f.key !== KEY) };
 const best: E2Model = {

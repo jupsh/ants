@@ -52,6 +52,15 @@ export interface ForagerParams {
   neverLayFraction: number;
   /** Probability of laying trail after leaving an exhausted source before reaching the desired volume. */
   unsatisfiedLayProb: number;
+  /**
+   * Laying decision of an unsatisfied ant leaving an exhausted drop (step 3d,
+   * STATUS 2026-10-09). 0 (unset): constant `unsatisfiedLayProb`. 1: graded
+   * by how close it came to its desired volume, P = 1 / (1 + e^(−layKappa ·
+   * (ingested / desired − layRatio50))).
+   */
+  layRule?: number;
+  layKappa?: number;
+  layRatio50?: number;
   /** Gaster-contact fraction while laying: population mean and SD (between individuals). */
   layIntensity: number;
   layIntensitySd: number;
@@ -182,7 +191,8 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
           else {
             // Some unsatisfied ants still lay trail (Mailleux et al. 2009: trail layers and
             // non-layers drank the same volume at a 0.7 µL drop).
-            if (!m.laying && !m.traits.neverLays && rng.chance(p.unsatisfiedLayProb)) m.laying = true;
+            const pLay = p.layRule === 1 ? 1 / (1 + Math.exp(-(p.layKappa ?? 10) * (m.ingested / m.desired - (p.layRatio50 ?? 0.7)))) : p.unsatisfiedLayProb;
+            if (!m.laying && !m.traits.neverLays && rng.chance(pLay)) m.laying = true;
             m.ars = rng.exp(p.searchMode === 2 && m.laying ? (p.arsMeanLay ?? p.arsMean) : p.arsMean);
             setMode(m, 'search');
           }
