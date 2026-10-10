@@ -15,12 +15,12 @@
  *
  * Usage: npx vite-node scripts/diagE2Search.ts [--n 600]
  */
-import { olsFit, spearman } from '../src/sim/analysis/compare';
-import { mailleuxApparatus } from '../src/sim/world/apparatus';
-import { runScoutWorld, type ScoutResult } from '../src/sim/experiments/e2Mailleux';
-import { LASIUS_PARAMS, MAILLEUX_SETUP } from '../src/sim/species/lasiusM1';
-import { groupRows } from './e2Groups';
-import { numArg } from './lib';
+import { olsFit, spearman } from '../../src/sim/analysis/compare';
+import { mailleuxApparatus } from '../../src/sim/world/apparatus';
+import { runScoutWorld, type ScoutResult } from '../../src/sim/experiments/e2Mailleux';
+import { LASIUS_PARAMS, MAILLEUX_SETUP } from '../../src/sim/species/lasiusM1';
+import { groupRows } from '../e2Groups';
+import { numArg } from '../lib';
 
 const N = numArg('--n', 600);
 type Row = { r: ScoutResult; search: number; home: number; other: number; satisfied1: boolean; laidBefore2: boolean; minX: number; lastMode: string };

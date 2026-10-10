@@ -4,8 +4,8 @@
  */
 import fs from 'node:fs';
 import zlib from 'node:zlib';
-import { parseKhuongCsv } from '../src/sim/analysis/khuongData';
-import { excessKurtosis, KHUONG_PREP, prepareTrack, summarize, walkStats, type Track } from '../src/sim/analysis/trajectory';
+import { parseKhuongCsv } from '../../src/sim/analysis/khuongData';
+import { excessKurtosis, KHUONG_PREP, prepareTrack, summarize, walkStats, type Track } from '../../src/sim/analysis/trajectory';
 
 const which = process.argv[2] ? [Number(process.argv[2])] : [1, 2, 3, 4, 5];
 const f = (v: number, d = 2) => (Number.isFinite(v) ? v.toFixed(d) : 'nan');

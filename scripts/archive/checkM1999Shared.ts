@@ -12,11 +12,11 @@
  *
  * Usage: npx vite-node scripts/checkM1999Shared.ts
  */
-import { blockEstimate, meanSd } from '../src/sim/analysis/compare';
-import type { ColonyParams } from '../src/sim/experiments/colonyBles';
-import { M1999_DAYS, M1999_TARGETS, type M1999Day, type M1999Recruiter } from '../src/sim/experiments/colonyMailleux1999';
-import { LASIUS_NEST, LASIUS_PARAMS, MAILLEUX_SETUP } from '../src/sim/species/lasiusM1';
-import { SimPool } from './pool';
+import { blockEstimate, meanSd } from '../../src/sim/analysis/compare';
+import type { ColonyParams } from '../../src/sim/experiments/colonyBles';
+import { M1999_DAYS, M1999_TARGETS, type M1999Day, type M1999Recruiter } from '../../src/sim/experiments/colonyMailleux1999';
+import { LASIUS_NEST, LASIUS_PARAMS, MAILLEUX_SETUP } from '../../src/sim/species/lasiusM1';
+import { SimPool } from '../pool';
 
 const N = 240;
 const PER_NEST = 8;

@@ -22,14 +22,14 @@
  *
  * Usage: npx vite-node scripts/judgeE1.ts --fits A0,B [--ants 2000] [--checks byspeed|loss11]
  */
-import { combinedZ, judgedSumZ2 } from '../src/sim/analysis/compare';
-import { KHUONG_PREP, prepareTrack } from '../src/sim/analysis/trajectory';
-import { compareE1, referenceFor } from '../src/sim/experiments/e1Compare';
-import { diagSample, type DiagSample } from '../src/sim/analysis/walkDiagnostics';
-import { walkParams } from '../src/sim/models/walk';
-import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { arg, INCLINES, loadKhuong, numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import { combinedZ, judgedSumZ2 } from '../../src/sim/analysis/compare';
+import { KHUONG_PREP, prepareTrack } from '../../src/sim/analysis/trajectory';
+import { compareE1, referenceFor } from '../../src/sim/experiments/e1Compare';
+import { diagSample, type DiagSample } from '../../src/sim/analysis/walkDiagnostics';
+import { walkParams } from '../../src/sim/models/walk';
+import { khuongTracking } from '../../src/sim/species/lasiusM1';
+import { arg, INCLINES, loadKhuong, numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const NAMES = arg('--fits', 'A0,B').split(',');
 const ANTS = numArg('--ants', 2000);

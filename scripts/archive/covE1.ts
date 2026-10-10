@@ -10,13 +10,13 @@
  *
  * Usage: npx vite-node scripts/covE1.ts [--reps 1000] [--simAnts 2000] [--simReps 200] [--fits A0,T] [--inclines 1,2,3,4,5]
  */
-import { bootstrapDraws } from '../src/sim/analysis/compare';
-import { eigenDecomposition } from '../src/sim/analysis/cmaes';
-import { compareE1, DIAG_SCALARS, SCALARS, sampleFor, statValues, type E1Sample } from '../src/sim/experiments/e1Compare';
-import { walkParams } from '../src/sim/models/walk';
-import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { arg, INCLINES, loadKhuong, numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import { bootstrapDraws } from '../../src/sim/analysis/compare';
+import { eigenDecomposition } from '../../src/sim/analysis/cmaes';
+import { compareE1, DIAG_SCALARS, SCALARS, sampleFor, statValues, type E1Sample } from '../../src/sim/experiments/e1Compare';
+import { walkParams } from '../../src/sim/models/walk';
+import { khuongTracking } from '../../src/sim/species/lasiusM1';
+import { arg, INCLINES, loadKhuong, numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const REPS = numArg('--reps', 1000);
 const SIM_ANTS = numArg('--simAnts', 2000);

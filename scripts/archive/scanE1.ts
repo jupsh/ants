@@ -6,11 +6,11 @@
  * Usage: npx vite-node scripts/scanE1.ts --fit data/fits/e1-B.json --incline 1
  *          --x turnRateTime=0.3,1,2,4 --y meanFreePath=10,15,20 [--ants 160]
  */
-import { compareE1, referenceFor } from '../src/sim/experiments/e1Compare';
-import { walkParams, type WalkParams } from '../src/sim/models/walk';
-import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { arg, INCLINES, loadKhuong, numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import { compareE1, referenceFor } from '../../src/sim/experiments/e1Compare';
+import { walkParams, type WalkParams } from '../../src/sim/models/walk';
+import { khuongTracking } from '../../src/sim/species/lasiusM1';
+import { arg, INCLINES, loadKhuong, numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const p0 = walkParams(readJson<any>(arg('--fit', 'data/fits/e1-walk.json')).params);
 const k = numArg('--incline', 1);

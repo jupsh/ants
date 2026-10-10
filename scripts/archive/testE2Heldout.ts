@@ -5,11 +5,11 @@
  *
  * Usage: npx vite-node scripts/testE2Heldout.ts --fits Ma,Md
  */
-import { e2Compare, e2Table, simulateE2Async } from '../src/sim/experiments/e2Targets';
-import { SIX_PRIMARY, SIX_TARGETS, sixPipetteCondition } from '../src/sim/experiments/e2SixPipettes';
-import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
-import { arg, readJson } from './lib';
-import { SimPool } from './pool';
+import { e2Compare, e2Table, simulateE2Async } from '../../src/sim/experiments/e2Targets';
+import { SIX_PRIMARY, SIX_TARGETS, sixPipetteCondition } from '../../src/sim/experiments/e2SixPipettes';
+import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../../src/sim/species/lasiusM1';
+import { arg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const pool = await SimPool.create();
 const summary: string[] = [];

@@ -23,16 +23,16 @@
  *   set (same truth file, rep and size), which is then regenerated exactly
  *   as fitE1.ts made it.
  */
-import { combinedZ, judgedSumZ2 } from '../src/sim/analysis/compare';
-import { STOP_IDS, stopCheckSample } from '../src/sim/analysis/e1StopChecks';
-import { TURN_IDS, turnCheckSample } from '../src/sim/analysis/e1TurnChecks';
-import { KHUONG_PREP, prepareTrack, type Track } from '../src/sim/analysis/trajectory';
-import { diagSample } from '../src/sim/analysis/walkDiagnostics';
-import { compareE1, referenceFor, scaleReference, type E1Reference } from '../src/sim/experiments/e1Compare';
-import { walkParams } from '../src/sim/models/walk';
-import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { arg, INCLINES, loadKhuong, numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import { combinedZ, judgedSumZ2 } from '../../src/sim/analysis/compare';
+import { STOP_IDS, stopCheckSample } from '../../src/sim/analysis/e1StopChecks';
+import { TURN_IDS, turnCheckSample } from '../../src/sim/analysis/e1TurnChecks';
+import { KHUONG_PREP, prepareTrack, type Track } from '../../src/sim/analysis/trajectory';
+import { diagSample } from '../../src/sim/analysis/walkDiagnostics';
+import { compareE1, referenceFor, scaleReference, type E1Reference } from '../../src/sim/experiments/e1Compare';
+import { walkParams } from '../../src/sim/models/walk';
+import { khuongTracking } from '../../src/sim/species/lasiusM1';
+import { arg, INCLINES, loadKhuong, numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const FA = arg('--a', 'data/fits/e1-A0.json');
 const FB = arg('--b', 'data/fits/e1-T.json');

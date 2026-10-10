@@ -11,11 +11,11 @@
  * Usage: npx vite-node scripts/compareE2.ts [--blocks 10]
  */
 import fs from 'node:fs';
-import { e2Compare, e2Table, simulateE2Async } from '../src/sim/experiments/e2Targets';
-import { E2_VARIANTS } from '../src/sim/experiments/e2Variants';
-import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
-import { numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import { e2Compare, e2Table, simulateE2Async } from '../../src/sim/experiments/e2Targets';
+import { E2_VARIANTS } from '../../src/sim/experiments/e2Variants';
+import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../../src/sim/species/lasiusM1';
+import { numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const BLOCKS = numArg('--blocks', 10);
 const CHECKS = ['d1.drink', 'd4.drink', 'd8.drink'];
