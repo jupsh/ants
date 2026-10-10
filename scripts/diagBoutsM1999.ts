@@ -33,7 +33,9 @@ const n = Math.max(1, Math.round((pt.density * (nest.x1 - nest.x0) * (nest.y1 - 
 type Rec = { dur: number; cause: string; recruiter: boolean };
 const CAUSES = ['donor depleted', 'receiver satiated', 'stalled', 'random / other'];
 
-for (const day of M1999_DAYS) {
+// --days 4,8: a subset of days (to run days in parallel processes).
+const DAYS = arg('--days', '') ? M1999_DAYS.filter((d) => arg('--days', '').split(',').map(Number).includes(d)) : M1999_DAYS;
+for (const day of DAYS) {
   const recs: Rec[] = [];
   for (let k = 0; k < N; k++) {
     const seed = RNG.stream(31999, day, k).int(2 ** 31);

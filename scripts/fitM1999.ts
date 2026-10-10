@@ -46,8 +46,9 @@ const PER_NEST = numArg('--perNest', 4);
 const DT = numArg('--dt', 0.1);
 const TAG = arg('--tag', '');
 const OUT = `data/fits/colony-m1999-${LAYER}${PER_NEST ? '-shared' : ''}${TAG ? `-${TAG}` : ''}.json`;
-// A tagged run takes its own seeds: a leading key 0x9170 ('pilot') after the purpose.
-const sf = (p: Parameters<typeof seedFor>[1], ...k: number[]) => (TAG ? seedFor(STUDY, p, 0x9170, ...k) : seedFor(STUDY, p, ...k));
+// A tagged run takes its own seeds: a leading key after the purpose, 0x9170 for 'pilot' (as run), else a hash of the tag.
+const TAG_KEY = TAG === 'pilot' ? 0x9170 : [...TAG].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0, 0x9171);
+const sf = (p: Parameters<typeof seedFor>[1], ...k: number[]) => (TAG ? seedFor(STUDY, p, TAG_KEY, ...k) : seedFor(STUDY, p, ...k));
 
 const P0: ColonyParams = { ...(LAYER === 'main' ? LASIUS_PARAMS : LASIUS_PARAMS_E2_ALT), nest: LASIUS_NEST };
 const ACCESSIBLE = (LAYER === 'main' ? MAILLEUX_SETUP : MAILLEUX_SETUP_E2_ALT).accessible;
@@ -154,7 +155,7 @@ writeJson(OUT, {
   runs: runs.map((r) => r.f),
   // Per run: start, generations actually run, final σ, drift over the averaging window, estimate (STATUS 2026-10-10).
   runDetails: runs,
-  seeds: { scheme: `seedFor(1999, purpose, ${TAG ? '0x9170, ' : ''}...keys): fit (run, generation), cmaes (run), probe (run), select`, study: STUDY },
+  seeds: { scheme: `seedFor(1999, purpose, ${TAG ? `0x${TAG_KEY.toString(16)}, ` : ''}...keys): fit (run, generation), cmaes (run), probe (run), select`, study: STUDY },
   noBoutBound: M1999_NO_BOUT_MAX,
   provenance: PROVENANCE,
   k: FREE.length,

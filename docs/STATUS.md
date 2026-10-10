@@ -730,3 +730,27 @@ Extraction in `docs/research/buffin2011.md`.
   optimum is the 7-parameter model's). Its condition-4 result and the gate
   results above describe the old model only. **A new pilot with shareEnd
   fixed runs after the Mod-BCH bound fix.**
+
+**2026-10-10 night — Mod-BCH and the 6-parameter set-up implemented; new pilot pre-registered.**
+- **CMA-ES:** Mod-BCH box constraints (option `bounds`), `tolUpSigma`
+  divergence stop, `stopReason` per run; tests on Sakamoto & Akimoto's
+  bounded sphere and exponential cases (optimum on the boundary;
+  objective never sees an infeasible point). Unchanged without bounds
+  (existing tests pass).
+- **shareEnd = 0.0195 /s per ant** in `lasiusM1.ts` (derived, Buffin 2011;
+  pair rate 0.039; sensitivity 0.015 / 0.024). This also changes the E6
+  colony default (provisional 1/60 before).
+- `fitM1999.ts --bch --fix shareEnd`: box coordinates [0, 4] per free
+  parameter (log-linear where log-scaled), Mod-BCH, tolUpSigma 20; per run
+  the stop reason, convergence flag and γ; `fixed` recorded. Tagged runs
+  now draw seeds with a tag-specific key (0x9170 kept for 'pilot').
+- **Bout diagnostic, 1 d (pilot-1 point, 200 recruiters):** 97 % of the
+  recruiter's bouts > 3 s end by **donor depletion**; durations > 3 s mean
+  37 s, **SD/mean 0.52** (exponential ≈ 1; Buffin ≈ 1); ≈ 1 bout per
+  recruiter. This confirms the user's arithmetic: the conflict with Buffin
+  is in the shape (depletion-ended bouts). Days 4 and 8 still running.
+- **New pilot, pre-registered (pilot conditions 1–6 apply unchanged):**
+  `fitM1999.ts --layer main --dt 0.025 --warmup 900 --bch --fix shareEnd
+  --tag pilot2 --gens 60`, k = 6. Launched before days 4 and 8 of the bout
+  diagnostic finish (user: use the idle box). If the bout evidence leads
+  to a model change under Plan 4, pilot2 is void and rerun.
