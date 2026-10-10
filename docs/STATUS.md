@@ -4447,3 +4447,12 @@ listing opened). Checks on the running gate: only whether outputs exist.
   a gap tolerance), disclosed as an observation-model amendment if
   adopted; then re-gate. Warm-up: rerun with larger n, or judge only rows
   that pass the dt gate. Identifiability: replicate Jacobian.
+- **dt 0.05 vs 0.025 (finished 20:06): not equivalent either.** Distance
+  still fails (start 1: Δ −22 to −25 SE_data, down from −37 to −65 at
+  dt 0.1; start 2: −2.9 to +2.0). Contacts and contactsBefore fail at start 2
+  (+0.8 to +1.3) and at start 1, 4 d (+0.4 / +0.55). trophTotal passes
+  throughout; timeInNest passes at start 2, and at start 1 its CIs are
+  centred near 0 but too wide. The distance gap shrinks with dt but does
+  not close, which fits the observer reading (path summed per step) better
+  than a lagging simulation. A smaller dt would not fix it, so the next
+  step is the observer change, not dt 0.0125. Box idle.
