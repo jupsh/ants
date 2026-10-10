@@ -816,3 +816,9 @@ Extraction in `docs/research/buffin2011.md`.
   at the pilot-1 point (5 dishes, old model, development only):** ML rate
   0.035 /s (z −0.8), slope 0.047, SD/mean 0.56 (z −3.9) → fails on shape,
   as the bout diagnostic predicted.
+- **Onward flow checked (pilot-1 point, 40 recruiters per day, `--follow
+  600`):** nestmates the recruiter fed start 35 / 57 / 56 onward bouts
+  (1 / 4 / 8 d) against 42 / 46 / 46 recruiter bouts; 83–95 % of them
+  after the recruiter's exit; all non-recruiter bouts 70 / 128 / 142. **The
+  "8–14 %" was the observation window**, not a lack of onward flow. To be
+  rerun at pilot2's optimum with the bout diagnostic.

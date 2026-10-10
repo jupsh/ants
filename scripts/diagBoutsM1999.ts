@@ -11,7 +11,7 @@
  * maximum-likelihood exponential rate 1/(mean − 3). Recruiter bouts and
  * all bouts separately. Independent design; the fit's dt and warm-up.
  *
- * Usage: npx vite-node scripts/diagBoutsM1999.ts --fit f [--n 100]
+ * Usage: npx vite-node scripts/diagBoutsM1999.ts --fit f [--n 100] [--days 4,8] [--follow 600]
  */
 import { RNG } from '../src/sim/core/rng';
 import { ColonySim, type ShareBout } from '../src/sim/experiments/colonyBles';
@@ -22,6 +22,8 @@ import { m1999Points } from './m1999Points';
 
 const FIT = arg('--fit', '');
 const N = numArg('--n', 100);
+// --follow s: keep counting bouts for s seconds after the recruiter leaves (onward flow; STATUS 2026-10-10 night).
+const FOLLOW = numArg('--follow', 0);
 const fit = readJson<any>(FIT);
 const pt = m1999Points(FIT)[0];
 const P = pt.P;
@@ -30,7 +32,7 @@ const warmup = fit.warmup ?? 300;
 const { app } = blesApparatus();
 const nest = app.regions.find((r) => r.kind === 'nest')!;
 const n = Math.max(1, Math.round((pt.density * (nest.x1 - nest.x0) * (nest.y1 - nest.y0)) / 100));
-type Rec = { dur: number; cause: string; recruiter: boolean };
+type Rec = { dur: number; cause: string; recruiter: boolean; onward: boolean; after: boolean };
 const CAUSES = ['donor depleted', 'receiver satiated', 'stalled', 'random / other'];
 
 // --days 4,8: a subset of days (to run days in parallel processes).
@@ -41,14 +43,17 @@ for (const day of DAYS) {
     const seed = RNG.stream(31999, day, k).int(2 ** 31);
     const o = { seed, starvationDays: day, density: pt.density, pipetteAccessible: pt.accessible, dt, warmup };
     const load = recruiterLoad(P, o);
-    const sim = new ColonySim(P, { seed, ants: n, dt, minutes: (warmup + 1200) / 60 + 0.01, foodMinute: Infinity, starvationDays: day, recruiter: { enterAt: warmup, ...load } });
+    const sim = new ColonySim(P, { seed, ants: n, dt, minutes: (warmup + 1200 + FOLLOW) / 60 + 0.01, foodMinute: Infinity, starvationDays: day, recruiter: { enterAt: warmup, ...load } });
     let prev = new Map<string, ShareBout>();
     let inStay = false;
+    let exitT = NaN;
+    const fedByRecruiter = new Set<number>();
     const onStep = (w: any, info: any) => {
       const t = info.t - warmup;
       const a = w.ants[n];
       if (a && t >= 0) inStay = true;
-      if (inStay && (!a || info.outside[n] || t >= 1200)) return true;
+      if (inStay && Number.isNaN(exitT) && (!a || info.outside[n] || t >= 1200)) exitT = t;
+      if (!Number.isNaN(exitT) && t >= exitT + FOLLOW) return true;
       if (inStay)
         for (const [key, b] of prev)
           if (!sim.open.has(key) || sim.open.get(key) !== b) {
@@ -60,12 +65,18 @@ for (const day of DAYS) {
             if (d.cropUl <= P.nest.giveFrac * d.morph.cropCapacity) cause = 'donor depleted';
             else if (r.cropUl >= r.morph.cropCapacity * r.morph.cropFullFrac || r.reserve / r.reserveMax >= P.nest.receiveReserve) cause = 'receiver satiated';
             else if (md.mode === 'give' && md.stay?.bout?.partner === b.receiver && mr.mode === 'receive' && mr.stay?.bout?.partner === b.donor) cause = 'stalled';
-            recs.push({ dur: b.end - b.start, cause, recruiter: b.donor === n || b.receiver === n });
+            if (b.donor === n) fedByRecruiter.add(b.receiver);
+            recs.push({ dur: b.end - b.start, cause, recruiter: b.donor === n || b.receiver === n, onward: b.donor !== n && fedByRecruiter.has(b.donor), after: !Number.isNaN(exitT) });
           }
       prev = new Map(sim.open);
       return false;
     };
     while (sim.stepIndex < sim.steps) if (sim.step(onStep)) break;
+  }
+  if (FOLLOW) {
+    const rb = recs.filter((x) => x.recruiter).length;
+    const on = recs.filter((x) => x.onward);
+    console.log(`${day} d, onward flow (follow ${FOLLOW} s after exit): ${on.length} bouts by nestmates the recruiter fed (${on.filter((x) => x.after).length} after its exit), vs ${rb} recruiter bouts; all non-recruiter bouts ${recs.filter((x) => !x.recruiter).length}`);
   }
   for (const [label, sel] of [['recruiter bouts', (x: Rec) => x.recruiter], ['all bouts', (_: Rec) => true]] as const) {
     const all = recs.filter(sel);
