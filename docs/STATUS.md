@@ -3757,3 +3757,33 @@ See [`CLAUDE.md`](../CLAUDE.md).
     likelihoods need a particle filter, Bonavita untouched. It cannot by
     itself separate observer from behaviour (it learns both from the
     tracks).
+- **2026-10-10** **E1 side task result: stride sway vs correlated tracking
+  error** (`scripts/strideE1.ts`, as pre-registered; walker `e1-walk` with
+  its observer, 600 ants per incline, seeds 5.1e6 + 1e4·k).
+  - **Reading: MIXED; stride sway (a) not supported.** No excess peak
+    rises with speed: wherever the data exceed the walker above 3 Hz, the
+    excess sits at the band edge (10.9–12.5 Hz) in every speed bin and
+    incline. (b) partly: at 0–30° and ≤ 45 mm/s the data's lateral power
+    above ≈ 8 Hz exceeds the walker's (ratio 1.1–1.7) and is flat
+    (white-like, not frame-correlated); converted to a white SD, ≈ 0.07–
+    0.14 mm on top of the walker's observer, independent of speed. At
+    45–60°, and in the fastest bins, there is no excess at any frequency.
+    (c) not met.
+  - **Unplanned, large:** at 1.5–7 Hz (periods 0.15–0.65 s) the walker has
+    **2–20× more lateral power than the data** in every bin, growing with
+    speed and incline (60°, 45–70 mm/s: ratio 0.04–0.10). Real paths are
+    smoother at the sub-second scale than the walker's; the walker's
+    lateral wander is at the wrong scale. This fits the earlier suspicion
+    that the walkers bend their turning parameters to imitate fine-scale
+    statistics.
+  - **Not evaluable:** no window qualified as stopped (chord < 2 mm/s and
+    every 0.2 s step < 2 mm/s over 1.28 s), so the stopped-window check
+    has no result. **Limit:** at 25 Hz, stride frequencies above 12.5 Hz
+    cannot be resolved; a sway above it would alias into the band edge, so
+    the flat excess there does not exclude it.
+  - **Implication (not acted on):** the fine-scale turning gap is not a
+    stride peak and is only partly lateral jitter. Remaining candidates
+    for the turning gap: the missing slow tail (headings of slow steps are
+    noise-dominated; the walkers lack slow steps), and the walker's excess
+    mid-frequency wander. A cheap next check would be the scale sweep
+    split by speed (does the turning gap persist within speed bins?).
