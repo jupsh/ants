@@ -37,6 +37,9 @@ export interface E6Response {
   cumData: number[];
   cumDataColonies: number[][];
   cumSim: number[];
+  /** 5th and 95th percentiles of single simulated colonies (absent in older precomputed files). */
+  cumSimLo?: number[];
+  cumSimHi?: number[];
   frames: E6Frame[];
   /** Start times (s) of every true contact in the recorded colony, and of every observed event. */
   trueStarts: number[];
@@ -66,11 +69,24 @@ export function computeE6(r: E6Request): E6Response {
   const cumData = cumDataColonies[0].map((_, m) => cumDataColonies.reduce((s, c) => s + c[m], 0) / 5);
   const cumSim = new Array<number>(61).fill(0);
   const nCurve = Math.min(r.colonies, 100);
+  const curves: number[][] = [];
   for (let c = 0; c < nCurve; c++) {
     const run = runBles(P, RNG.stream(r.seed + 1, c));
     const evs = scansToEvents(observeContacts(run.contacts, { colony: 1, phase: RNG.stream(r.seed + 1, c, 1).range(0, 60) }));
-    cumulative(evs.map((e) => e.start)).forEach((v, m) => (cumSim[m] += v / nCurve));
+    const cum = cumulative(evs.map((e) => e.start));
+    cum.forEach((v, m) => (cumSim[m] += v / nCurve));
+    curves.push(cum);
   }
+  // Central 90 % of single simulated colonies, minute by minute.
+  const quantile = (q: number) =>
+    cumSim.map((_, m) => {
+      const v = curves.map((c) => c[m]).sort((a, b) => a - b);
+      const p = q * (v.length - 1);
+      const i = Math.floor(p);
+      return v[i] + (v[Math.min(v.length - 1, i + 1)] - v[i]) * (p - i);
+    });
+  const cumSimLo = quantile(0.05);
+  const cumSimHi = quantile(0.95);
   // One colony recorded for animation.
   const frames: E6Frame[] = [];
   const rec = runBles(P, RNG.stream(r.seed + 2, 0), (v) => {
@@ -85,7 +101,7 @@ export function computeE6(r: E6Request): E6Response {
   });
   const scanPhase = RNG.stream(r.seed + 2, 0, 1).range(0, 60);
   const observed = scansToEvents(observeContacts(rec.contacts, { colony: 1, phase: scanPhase })).map((e) => ({ minute: e.start, donor: e.donor, receiver: e.receiver }));
-  const res: E6Response = { rows, cumData, cumDataColonies, cumSim, frames, trueStarts: rec.contacts.map((c) => c.start), observed, scanPhase, ms: performance.now() - t0 };
+  const res: E6Response = { rows, cumData, cumDataColonies, cumSim, cumSimLo, cumSimHi, frames, trueStarts: rec.contacts.map((c) => c.start), observed, scanPhase, ms: performance.now() - t0 };
   return res;
 }
 
