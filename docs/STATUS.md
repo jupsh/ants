@@ -398,7 +398,15 @@ Claude Code loads automatically.
     57 %, volumes, pipettes visited, exploitation times, n = 88 — their
     own model's predictions are printed alongside, ours never run);
     Portha et al. 2004 (returners, 1 M sucrose, brood vs no brood).
-    Mailleux et al. 2000 volume series: paywalled, not obtained.
+    Mailleux et al. 2000 volume series: ~~paywalled, not obtained~~
+    **read in full on 2026-10-09 (user supplied the PDF; requested by
+    Claude for the Pl question without flagging that it was listed here as
+    a held-out candidate). It is now development.** Seen: per-volume trail
+    fractions, giving-up times by trail group, visits, velocities, volumes
+    (Decisions log 2026-10-09). No model had been compared with it before
+    reading. Remaining fresh E2 candidates: Beckers et al. 1993, Detrain &
+    Prieur 2014, Portha et al. 2004; Mailleux et al. 2005 (successive trips)
+    is held unread pending the user's decision.
   - **2006 single-drop data** (Mailleux et al. 2006, J Exp Biol): the
     research agent compared the 0.3 µL trail fractions (37/17/12 %) with
     the *published* M_b rule. They are therefore **development** for M_b
@@ -2879,3 +2887,72 @@ See [`CLAUDE.md`](../CLAUDE.md).
   (all scouts and non-layers) with Pl = 1/85 s in `selectE2.ts`. After the
   step-3c judging the next step is the laying-decision question (step 3d if
   every candidate fails the group contrasts), else step 4.
+- **2026-10-09** **Papers supplied by the user (read 2026-10-09; PDFs are
+  local only, not committed).** Reading policy: what each adds.
+  - **Mailleux et al. 2000** (Anim Behav 59:1061; now development, see the
+    contamination log). Conditions: 4 days starved, 0.6 M (settles the
+    "1 M" doubt), 22 °C, bridge 20 cm × 0.5 cm plus a 5 cm drawbridge; the
+    drop was renewed as the scout climbed the stick. Giving-up time = end of
+    drinking → seen at mid-bridge homebound. Table 1 (all scouts) and
+    Table 3 (by trail group):
+
+    | drop | trail % (n) | giving-up all (n) | layers (n) | non-layers (n) | ingested µL |
+    |---|---|---|---|---|---|
+    | 0.3 µL | 14 % (42) | 113 ± 129 (26) | 28 ± 12 (4) | 128 ± 135 (22) | 0.2 ± 0.1 |
+    | 0.7 µL | 17 % (29) | 56 ± 35 (15) | 24 ± 13 (3) | 63 ± 35 (12) | 0.5 ± 0.2 |
+    | 1 µL | 70 % (60) | 42 ± 56 (39) | 31 ± 34 (27) | 74 ± 94 (12) | 0.7 ± 0.3 |
+    | 3 µL | 91 % (112) | 28 ± 29 (95) | 27 ± 30 (89) | 38 ± 20 (6) | 0.9 ± 0.4 |
+
+    - **Pl = 1/85 s is not printed here.** The 2003 paper attributes it to
+      "the 2000 data" (n = 35); no subset in Tables 1–3 gives 85 s with
+      n = 35. The like-for-like targets for `selectE2.ts`'s giving-up check
+      at 0.3 µL are 113 ± 129 (all), 128 ± 135 (non-layers, roughly
+      exponential: SD ≈ mean), 28 ± 12 (layers).
+    - **Walking speed on the bridge: 1.5–2.1 cm/s** out and back at every
+      drop size, not correlated with the volume ingested (also 2006: 1.6–2.1
+      cm/s at 1 / 4 / 8 d). **The model homebound over the same 2.5 cm at
+      mid-bridge (3 µL, 4 d, 200 scouts): 3.4 ± 2.0 cm/s** (4.3 ± 3.1 with
+      `loadSlowdown` 0): about twice the data. The walker (E1, 26 °C,
+      canvas, `speed` 55 mm/s) is used unchanged in E2 (22 °C, bridge).
+      The between-drop and search times of step 3c depend on it.
+    - `loadSlowdown` = 1 is contradicted (no speed–load relation); the
+      model shows none either way (rs −0.09 / −0.03), so it only slows
+      laden ants on average.
+    - **Trail fraction at a single 0.7 µL drop: 17 % (5/29), against 38 %
+      (24/63) after the first 0.7 µL drop in 2009** (z ≈ 2.3; 2000 counts
+      any mark on the whole bridge, 2009 TL1 the first section, so the 2000
+      criterion is the more inclusive one). The `q` parameter exists to fit
+      the 38 %. At 0.3 µL: 14 % (2000), 17 % (2006, 4 d).
+    - Measured drinkable share: ingested/offered ≈ 0.67–0.71 at 0.3–1 µL
+      (includes satiated departures), consistent with the fitted
+      accessible fraction ≈ 0.79.
+    - **Volume method (independent bracket for σ_m, inferred):** the width
+      of the gaster is assumed equal to its height; width:height was
+      1.02 ± 0.10 (empty) and 1.01 ± 0.12 (filled), n = 40. Gaster volumes
+      ≈ 1.1 µL before and ≈ 2.0 µL after drinking (Fig. 2b). If the shape
+      error is independent before and after, σ_m ≈ √((0.10·1.1)² +
+      (0.12·2.0)²) ≈ 0.27 µL; if fixed per ant, ≈ 0.1·0.9 ≈ 0.09 µL; plus
+      unreported length/height error. So σ_m ≈ 0.1–0.3 µL: the fitted
+      0.21 is plausible; values well above 0.3 are not.
+    - 3 µL, 4 d: 89 ± 24 s, 0.9 ± 0.4 µL (n 95), nearly identical to the
+      1999 row (88 ± 24, n 135) and the 2006 row (91 ± 24): likely
+      overlapping data; never treat them as independent.
+  - **Intake-rate time course** (*Camponotus mus*; another genus, larger
+    ants): Falibene et al. 2009 (J Insect Physiol 55:518) pump frequency
+    initial → final 4.64 → 3.52 /s (10 %, non-starved), 5.86 → 4.30
+    (10 %, starved), 4.65 → 3.08 and 7.1 → 4.26 (40 %); volume per
+    contraction independent of starvation and of 10 vs 40 %, so intake rate
+    follows frequency; most of the fall in the first ≈ 10 s. Josens et al.
+    2006 (52:1234, Fig. 4): initial/final ≈ 1.2 (10 %), 1.5 (30 %), 1.55
+    (50 %). **Initial/sustained ≈ 1.2–1.7, concentrated in ≈ 10 s**; the
+    extra volume over a constant rate is then ≲ 0.03–0.05 µL per bout.
+    I1's 0.05 µL/s (≈ 5×) is outside this; a measured-scale I1 has fast
+    rate ≈ 0.012–0.016 µL/s and v0 ≲ 0.05 µL. If I1 is selected, add a
+    sensitivity run at 0.013 µL/s (≈ 1.4×) beside 0.02 and 0.1.
+  - **Starvation and intake rate:** *C. mus* drinks ≈ 1.5× faster when
+    starved (Falibene & Josens 2008, J Comp Physiol A 194:491) and ≈ 2×
+    after 15 days' deprivation vs satiation (Josens & Roces 2000, J Insect
+    Physiol 46:1103, abstract via the user). **Not so in *L. niger***: the
+    2006 3 µL data give volume/time 0.72/70, 0.90/91, 0.98/94 → 0.0103,
+    0.0099, 0.0104 µL/s at 1 / 4 / 8 d (ratio of means). The model's
+    hunger-independent intake rate stands for *Lasius*.
