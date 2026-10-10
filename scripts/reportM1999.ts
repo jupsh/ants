@@ -51,7 +51,7 @@ const t0 = Date.now();
 const sim = Object.fromEntries(
   await Promise.all(
     M1999_DAYS.map(async (day) => {
-      const o = { seed: SEED, starvationDays: day, density: fit.density1999, pipetteAccessible: accessible, warmup: fit.warmup, followNestmates: true };
+      const o = { seed: SEED, starvationDays: day, density: fit.density1999, pipetteAccessible: accessible, warmup: fit.warmup, dt: fit.dt ?? 0.1, followNestmates: true };
       return [day, perNest ? await pool.m1999Shared(P, o, N, perNest) : await pool.m1999(P, o, N)] as const;
     }),
   ),

@@ -638,3 +638,34 @@ Extraction in `docs/research/buffin2011.md`.
   hazard, so `shareEnd` ≤ 0.039. Provenance: derived (Buffin 2011, Table
   2). Sensitivity at 0.037 / 0.041. Until the calibration exists, 0.039 /s
   is the interim value (an upper bound).
+
+**2026-10-10 night — pilot finished; condition 4 met; gate at the pilot point.**
+- **Pilot (22:26, 4040 s, 2205 evaluations):** starts 0 and 1 diverged
+  (σ 285 / 16). The IPOP restart converged (σ 0.21, drift ≤ 0.17 encoded).
+  Point: nestSpeedFactor 0.044, returnRate 0.85 /s, shareRate 0.0123
+  µL/s, shareEnd 1/1200 (at bound), receiveReserve 0.933, reserveSd 0.124,
+  density 0.495 /cm². **Caveat:** the restart started from start 1's end,
+  where shareEnd sat at −41.9 encoded (on the logistic plateau); with a
+  starting SD of 0.3 it could not return. So "shareEnd at bound" is
+  inherited from start 1's drift. The direction (low shareEnd) is
+  consistent across both starts; that the bound itself is needed is not
+  shown. File copied back (`data/fits/colony-m1999-main-shared-pilot.json`,
+  log `logs/pilot-main.log`). No loss reported as fit quality.
+- **Condition 4** (`scripts/checkPilotM1999.ts`, pilot seed namespace,
+  n 240 per day, shared design, dt 0.025, warm-up 900): 1-d no-bout
+  14.2 % (limit 21.8 %), 4 d 4.6 %, 8 d 3.3 %; no row beyond |fitZ| 5 →
+  **usable as gate point.** `reportM1999.ts` now passes the fit's dt (it
+  re-ran every fit at dt 0.1, a bug for non-default dt).
+- **dt 0.1 vs 0.025 at the pilot point (n 1600): not shown equivalent, but
+  no row shifts by more than 0.30 SE_data.** Shifts with CIs excluding 0:
+  contacts 1 d / 8 d −0.27, trophTotal 8 d −0.19, contactsBefore 1 d
+  −0.16. Failures are CIs slightly wider than ±0.5 (timeInNest 4 d / 8 d,
+  distance, contacts 4 d, contactsBefore 4 d). At the start points the
+  shifts were 1–4 SE.
+- **Warm-up 300 vs 900: a real effect at 1 d** (timeInNest +0.45, CI
+  0.25–0.64; distance +0.65, CI 0.24–1.11); other rows within ±0.31. So
+  warm-up 900 (the pilot's) stays; 300 is out.
+- **Launched (pre-registered branches, plus one check by the user's
+  0.025-vs-0.0125 argument applied to warm-up):** dt 0.05 vs 0.025;
+  decomposition dt 0.1 vs 0.025 (the gate failed on timeInNest and
+  contacts); warm-up 900 vs 1800.
