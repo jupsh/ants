@@ -307,6 +307,10 @@ non-optimum disclosed):
   - **Colony pilot fit:** its generation-0 loss at the start points was
     seen while the profile cut-off was still open (disclosed in the
     archive, 2026-10-10 night); judged uninformative.
+  - **Buffin et al. 2011 and Mailleux et al. 2011:** abstract-level findings
+    were relayed in the assistant's literature replies on 2026-10-10.
+    These qualitative findings are development, not untouched test results;
+    quantitative full-text results have not been read (Decisions log below).
 
 ### Criteria (how "reproduced" is judged)
 - **Means:**
@@ -545,17 +549,33 @@ Earlier entries: the archive. Newest last.
   7 directions undecided. The same runs serve as the global sensitivity
   analysis and as a cheap recovery test for any number of synthetic
   targets. Cost ≈ one fit (≈ 1000 draws).
-- **Two in-nest *L. niger* data papers (only title pages read; roles to be
-  set by the user before any results are read):**
+- **Two in-nest *L. niger* data papers (abstract-level findings already
+  exposed; roles to be set by the user before further results are read):**
   - Buffin, Mailleux, Detrain & Deneubourg 2011, Insect. Soc. 58:177–183,
     "Trophallaxis in *Lasius niger*: a variable frequency and constant
     duration for three food types". Listed in `lasius-niger.md` as an
-    evidence gap (trophallaxis durations); nothing seen.
+    evidence gap (trophallaxis durations). **Exposure in the assistant's
+    earlier reply:** the abstract says food type changed exchange frequency
+    but not duration, and the per-time stopping probability was constant.
+    No numerical duration distribution or transfer rates were read; those
+    remain an evidence gap.
   - Mailleux, Buffin, Detrain & Deneubourg 2011, Insect. Soc.
     58:559–567, "Recruitment in starved nests: the role of direct and
     indirect interactions between scouts and nestmates in *L. niger*".
     **Prior exposure (now registered):** a second-hand summary (Bles
     thesis) in `mailleux-rules.md` §7: ≈ 30 % of fed nestmates lay
     pheromone at 4 and 8 d, not at 1 d; nest exits rise with starvation
-    independently of direct contacts. Statistics on those findings count
-    as contaminated in any test.
+    independently of direct contacts. The assistant's earlier reply also
+    relayed the original abstract's qualitative claim that prior antennal
+    or trophallactic contact did not affect nest exits and that a chemical
+    signal was implicated. Statistics on those findings count as
+    contaminated in any test; further full-text results remain unread.
+- **User (2026-10-10 night): roles of both 2011 papers undecided**; they
+  stay unread beyond the title pages.
+- **Pilot start 1 finished (22:18):** σ again grew instead of shrinking
+  (peak ≈ 37, final 16; start 0: 285). Drift (encoded): **shareEnd −38
+  (pinned at its lower bound again)**; the others moved little (−1.2
+  nestSpeedFactor, +2.9 returnRate, −0.7 shareRate, +0.35 receiveReserve,
+  −1.7 reserveSd, −1.8 density). Not converged. The IPOP restart (λ 18)
+  started from the better run. No loss is reported as fit quality
+  (condition 1).
