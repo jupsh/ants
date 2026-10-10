@@ -69,6 +69,11 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   identifiability); stage order to E6, the E2 reopening rule and the
   flat-direction rule pre-registered before any gate output was seen
   (Decisions log, last entry; amendments 1–5 there await the user).
+  **Gate failed at the start points** (dt; warm-up not shown); the
+  start points are too far from the data for an SE_data gate. **Pilot fit
+  approved with conditions** (Decisions log, last entry): contact observer
+  first, handshake-lag test, then a pilot at dt 0.025, then gate and
+  identifiability at the pilot optimum.
 - **Judging:** a candidate missing a statistic the data estimate is
   unjudgeable (2026-10-09 fix; no earlier ranking was affected).
 - Commits: plain messages, no co-author lines; ask before committing.
@@ -4538,3 +4543,39 @@ listing opened). Checks on the running gate: only whether outputs exist.
   reduced budget, main layer). Then gate and identifiability at the pilot
   optimum, whose dt verdict sets the dt of the real refits. The start-point
   results stay on record as above.
+
+**2026-10-10 night — pilot fit: APPROVED with conditions (Claude, delegated by the user; replaces "gate at both start points").**
+- Why: the gate's bound is ±0.5 SE_data, which only means something
+  where the simulated spread is near the data's. At the start points
+  recruiters walk ~100× the data's distance and 68–84 % have no bout, so
+  equivalence can't be shown there and identifiability is measured where
+  the fit will never be. The pre-registered safety net stays: gate and
+  identifiability are repeated at each optimum (stage 4).
+- Conditions:
+  1. **The pilot is a tool, not a result.** It is never judged, adopted,
+     used in the ranking check or added to the E6 ensemble. Its seeds are
+     namespaced apart from the judging seeds. Its loss and rows are not
+     reported as fit quality.
+  2. **Reference settings:** dt 0.025 and warm-up 900 s (the conservative
+     level of both gate knobs), k = 7, debiased objective, shared design
+     with 4 recruiters per nest, main layer (L0S1c), reduced budget.
+  3. **Contact observer decided first.** Before launch, the `contactGap`
+     diagnostic is read and the contact definition fixed (gap 0, or an
+     adopted gap disclosed as an observation-model amendment), so the
+     pilot fits the observation model the refits will use.
+  4. **Usable as a gate point** only if the 1-d no-bout fraction is
+     ≤ 2 × `M1999_NO_BOUT_MAX` and no row has |fitZ| > 5. If the pilot
+     can't get that close, the gate is not rerun. That counts as a stage-3
+     "not adequate" signal: report the failing rows, and Claude logs the
+     model change before acting.
+  5. **The timeInNest dt effect is tested regardless** (+1.01 / +0.39 SE
+     at 4 d, CIs exclude 0; a systematic shift, not a wide CI). Hypothesis:
+     one-step lags in the offer / solicit / share handshake. If confirmed,
+     it is fixed before the pilot-point gate, because a dt-dependent bout
+     latency is a model error and shouldn't be absorbed by dt 0.025.
+  6. **dt for the refits** comes from the gate at the pilot optimum (dt 0.1
+     vs 0.025, then 0.05 vs 0.025 if 0.1 fails), under the same rules.
+     Warm-up and identifiability (replicate Jacobian for the noise floor)
+     are run at the same point.
+- The start-point gate results (both runs) stay on record. Start 2
+  identifiability is allowed to finish and is logged without being used.
