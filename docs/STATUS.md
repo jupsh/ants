@@ -2647,3 +2647,73 @@ See [`CLAUDE.md`](../CLAUDE.md).
     flagged for E6. (c) A literature check for crop-emptying rates
     (proventriculus passage; *Camponotus* and *Lasius* data) before E6.
     Every E2 parameter will shift, so this precedes the step-3c refits.
+- **2026-10-09** **Step 3c pre-registration amendments (user decisions;
+  logged before acting; they supersede the frozen text where they differ,
+  and the fits restart from scratch after them).**
+  1. **Crop and intake.** (a) The experimenter's volume = volume removed
+     from the drop + observer noise (a gaster ellipsoid cannot see
+     crop→midgut transfer). (b) The satiation signal `m.ingested`
+     integrates the flow at the mouthparts, not the net crop change, so it
+     is right whatever absorption rule is adopted. (c) One absorption rule
+     everywhere (no nest/outside switch, which would create a jump at the
+     entrance): absorption = metabolic need + an explicit `cropAbsorption`
+     rate (estimated parameter, default 0, flagged in E6's provenance; it
+     replaces the hard-coded `room × 0.001 /s`), its value from a
+     literature search on crop emptying before the E6 calibration. (d)
+     Expected: the model's 4 → 8 d drinking-time rise vanishes
+     (`hungerScale` 0.3 saturates the desired volume by day 4); the data's
+     rise, 88 → 93 s, is ≈ 1.6 SE (√(24²/135 + 23²/92) ≈ 3.2 s). No
+     parameter is added for it; a miss is reported.
+  2. **Volume–time rows.** Fit rows: the per-drop Spearman rs (drop 1
+     0.22, drop 2 0.31, n 63 each) replace the pooled `two.vtRs`, compared
+     on the Fisher-z scale (atanh rs, SE √(1.06/(n − 3)) = 0.133). The
+     pooled slope `two.vtSlope` and pooled rs become development rows
+     (≈ 60 % of the slope's variance comes from the step between the drop
+     means, which are fitted already; the paper gives no per-drop slopes).
+     Fit rows: 15 → 15 (− vtSlope − vtRs + rs1 + rs2). Consequence: nothing
+     directly targets the intake-rate SD σ_r, and two rs with SE ≈ 0.12
+     identify σ_m and σ_r only weakly together, so the selected candidate's
+     report adds profiles of σ_m (`volumeSd`) and σ_r (`intakeSd`) beside
+     the recovery check; a flat profile is reported as "not identified",
+     not read as an estimate.
+  3. **E6 observer.** A contact is recorded at a scan if it continues more
+     than 5 s after the scan instant (the only reading an instantaneous
+     scan can apply); the old reading (in progress, > 5 s in total) is kept
+     as a reported sensitivity. At the next E6 test both TEC numbers are
+     rerun: the published TEC-exp through the observer (82 events) and the
+     tier-2 refit `e6-tec.json`. **Note for step 4:** our model's contacts
+     end when food stops flowing, but the observer sees mandible contact;
+     the two need not coincide.
+  4. **CMA-ES averaging.** `meanAvg` averages the last min(50, ⌊generations
+     run / 2⌋) generation means, and the drift of the mean over that window
+     is reported. (Unchanged for runs of ≥ 100 generations.)
+  5. **Recorded:** the stopped S0I0 run was partly seen (losses 77–190 at
+     generation ≈ 90 were looked at). No candidate comparison was made, so
+     the selection is not compromised.
+  6. **The adopted E2 fit predates the fixes:** `e2-drinking.json` and the
+     M_a numbers in this file were produced under the old satiation rule,
+     the old drop-1 denominators, the crop drain and the pooled rs row.
+     They stay as the step-3c start point; pages run live until
+     `npm run precompute` is rerun.
+  **Implemented (all six; tests pass):**
+  1. `PhysParams.cropAbsorption` (`lasiusM1.ts`: estimated 0 /s, flagged
+     for E6); `metabolise` absorbs need + cropAbsorption × room. `mouthFlow`
+     is now reset at the start of every forager step (`applyForagerAction`;
+     in E2 it had been cumulative, unused), and both the satiation signal
+     (`lasiusForager.ts`) and the E2 observer (`e2Mailleux.ts`) integrate it;
+     `Mind.lastCropUl` removed.
+  2. `two.vtRs1`, `two.vtRs2` fit rows (Fisher z); `two.vtSlope`,
+     `two.vtRs` development; `e2Synthetic.ts` SEs to match. Fit rows: d1/d4/d8
+     drink + trail, two.ul1, t1, tl1, ul2, t2, betweenTL1, betweenNTL1,
+     vtRs1, vtRs2 (15). Profile script `scripts/profileE2c.ts` (pinned value,
+     other parameters re-fitted, common batch, Δloss 3.84; "NOT IDENTIFIED"
+     when flat across the grid); seeds 3.5e9–3.9e9.
+  3. `observeContacts` rule 'after' (default) / 'total' (sensitivity);
+     tests updated. E6 numbers not rerun (next E6 test).
+  4. `cmaes` window min(averageLast, ⌊g/2⌋), returns `meanDrift` and
+     `avgWindow`; `fitE2c.ts` logs them.
+  **Adopted model under the amended code** (start point only; not a
+  candidate comparison): drinking 67 / 78 / 82 s at 1 / 4 / 8 d (data 65 /
+  88 / 93): the 4 → 8 d rise is now 4 s (data 5 s), and the 4 and 8 d
+  levels fall (they had leaned on the drain); per-drop rs (Fisher z) 0.40 /
+  0.80 vs 0.22 / 0.32. The step-3c fits restart from scratch on this code.
