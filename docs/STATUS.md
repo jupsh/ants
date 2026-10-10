@@ -4503,3 +4503,38 @@ listing opened). Checks on the running gate: only whether outputs exist.
   0.025), `logs/gate2-warmup.log` (300 vs 900 s), `logs/gate2-ident.log`
   (identifiability, n 960 per day, so the noise floor halves). The same
   pre-registered pass rules apply. Results not yet seen.
+
+**2026-10-10 night — re-gate results (code 157cd66): dt and warm-up still not shown equivalent; reading and next steps.**
+- **dt 0.1 vs 0.025:** trophTotal passes everywhere.
+  - *Distance* is no longer systematic: 5 of 6 CIs include 0 (start 1, 4 d:
+    +19, CI [2.5, 37]). But the CIs are ±3 to ±13 SE_data wide, because
+    at the start points recruiters walk hundreds of cm (data 5–9 ± 5–8).
+    Equivalence within ±0.5 SE_data cannot be shown at such points.
+  - *Contacts / contactsBefore* are still larger at dt 0.1 (start 2:
+    +2.9 and +4.2 SE at 1 and 4 d). Hypothesis (observer): at fine dt,
+    brief geometric losses of antennal overlap split episodes into pieces
+    < 1 s. Diagnostic running: the same dt comparison with episodes of
+    one nestmate merged across gaps ≤ 0.3 / 0.5 s (new option
+    `contactGap`, default 0, unchanged behaviour; `--contactGap`;
+    `logs/diag-dt-gap{0.3,0.5}.log`).
+  - *timeInNest at 4 d*: +1.01 (start 1) and +0.39 (start 2) SE, both CIs
+    exclude 0. This is a real dynamic dt effect. Candidate: one-step
+    signal lags in the bout handshake (offer / solicit / sharing sensed a
+    step later), so bout latencies scale with dt. Not yet tested.
+- **Warm-up 300 vs 900:** no row has a systematic shift beyond ±0.5
+  (largest with a CI excluding 0: start 1, contacts 8 d, −0.32). Failures
+  are wide CIs (distance, contacts at start 2). Reading: no evidence that
+  warm-up matters; formally not shown.
+- **Identifiability start 1 (n 960):** noise floor 59.7, up from 35. The
+  walked-path distance is very variable at start 1, so 6 of 7 directions
+  fall below the floor. returnRate is pinned (s 586). Start 2 still
+  running.
+- **Structural problem:** both start points are far from the data
+  (1-d recruiters without a bout 68–84 % vs the 11 % bound; distances
+  ~100× the data). A gate in SE_data units, and identifiability, are
+  judged where the simulated spread is irrelevant to the fit. Proposal
+  (Claude; it changes the pre-registered "gate at both start points"):
+  a **pilot fit** at dt 0.025 (the reference level, so no dt question;
+  reduced budget, main layer). Then gate and identifiability at the pilot
+  optimum, whose dt verdict sets the dt of the real refits. The start-point
+  results stay on record as above.

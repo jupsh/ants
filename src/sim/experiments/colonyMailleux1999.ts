@@ -73,6 +73,8 @@ export interface M1999Options {
   followNestmates?: boolean;
   /** Minimum duration (s) of an observed contact (default M1999_CONTACT_MIN; sensitivity runs only). */
   contactMin?: number;
+  /** Contact episodes with the same nestmate separated by at most this many seconds are merged (default 0; diagnostics). */
+  contactGap?: number;
   dt?: number;
 }
 
@@ -136,7 +138,7 @@ function colonyOptions(o: M1999Options, seed: number, n: number, enterAt: number
  * the observation and summarise the recruiter as the paper defines its
  * measures.
  */
-function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean, contactMin = M1999_CONTACT_MIN): M1999Recruiter {
+function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean, contactMin = M1999_CONTACT_MIN, contactGap = 0): M1999Recruiter {
   const r = n;
   let exitAt = NaN;
   // End of the step at which the observation ended (absolute time, as bout ends): bouts are clipped to it, so a
@@ -181,6 +183,17 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
     return t >= exitAt + FOLLOW;
   };
   while (sim.stepIndex < sim.steps) if (sim.step(onStep)) break;
+  // Optional gap tolerance: a nestmate's episodes separated by ≤ contactGap s count as one.
+  if (contactGap > 0) {
+    episodes.sort((p, q) => p.id - q.id || p.start - q.start);
+    for (let i = episodes.length - 1; i > 0; i--) {
+      const [a, b] = [episodes[i - 1], episodes[i]];
+      if (a.id === b.id && b.start - a.end <= contactGap + 1e-9) {
+        a.end = Math.max(a.end, b.end);
+        episodes.splice(i, 1);
+      }
+    }
+  }
   const observed = episodes.filter((e) => e.end - e.start >= contactMin - 1e-9).sort((p, q) => p.start - q.start || p.id - q.id);
   const bouts = sim
     .result()
@@ -221,7 +234,7 @@ export function runRecruiter1999(P: ColonyParams, o: M1999Options): M1999Recruit
   const n = nestmates(o.density);
   const enterAt = o.warmup ?? 600;
   const sim = new ColonySim(P, { ...colonyOptions(o, o.seed, n, enterAt), recruiter: { enterAt, ...load } });
-  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin);
+  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap);
 }
 
 /** Recruiters [first, first + count) for one starvation day; recruiter k uses the stream (seed, day, k). */
@@ -249,7 +262,7 @@ export function runNest1999(P: ColonyParams, o: M1999Options, nest: number, perN
     const sim = warm.clone(k + 1);
     sim.recruiter = { enterAt, ...load };
     sim.recruiterSeed = seed;
-    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin);
+    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap);
   });
 }
 
