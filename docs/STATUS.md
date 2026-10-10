@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-08 (session 3: step 5, E1 walking revisit — now the staged-vs-joint fitting comparison on synthetic data; see Decisions log). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-09 (session 3: step-3c fits running under the amended pre-registration; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
@@ -22,12 +22,34 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   reachability sweep (step 2) and the rerun of the joint 69-ant recovery
   cell. Parked: renewed A0 vs T comparison, model-recovery pilot
   (`selectE1.ts` draft).
-- **E2 (drinking, trail laying): the main M1 gap is search around food**
-  (step 3c): time between drops is half the data's, drinking at the second
-  drop too long (z ≈ 10), trail laying overall too low (z ≈ −3).
+- **E2 (drinking, trail laying): step-3c fits RUNNING** (five candidates
+  S0I0, S1I0, S2I0, S1I1, S2I1 in sequence, `fitE2c.ts`, code at 097de2c +
+  label-only changes after; logs in the previous session's scratchpad
+  `…/e61c24f5-…/scratchpad/e2c-<id>.log`; ~a day in total). Amended
+  pre-registration (2026-10-09): intake measured at the mouthparts, crop
+  absorption 0 (old hard-coded drain removed), per-drop rs as fit rows,
+  satiated departure when the desired volume is reached as a drop runs out,
+  drop-1 rows over scouts that found both drops. Frozen and ready for when
+  they finish: `selectE2.ts` (rule + adequacy + group contrasts + giving-up
+  time), recovery (`fitE2c.ts --recover`, then `recoverE2c.ts`), σ_m / σ_r
+  profiles (`profileE2c.ts`), and if I1 wins the fast-rate sensitivity at
+  0.02 / 0.1 µL/s (literature: rates decline gradually, so read 0.02 as the
+  plausible end). **Open question after judging:** the laying decision
+  (drop-1 time contrast TL1 − nTL1 z −3.2; nTL2 31 % vs 16 %; 36 % laying at
+  a 0.3 µL drop vs 17 %): none of the five candidates changes it, and the
+  group-split fit rows can tilt which search mode wins, so read the
+  selection with that caveat; if all fail the group contrasts, a
+  pre-registered laying-decision family (step 3d) comes before step 4.
+  The 2009 Mailleux model cannot be ported as a baseline (its times are
+  unspecified and its theory column is not reproducible from the stated
+  rules); the Pl = 1/85 s comparison stands in for it.
 - **E6 / colony (step 4):** bounded provisional colony (Bles nest,
   contacts, conserved food sharing, `#colony` page); calibration and the
-  E6 test come next, with the E6 walker-sensitivity probe.
+  E6 test come next, with the E6 walker-sensitivity probe. Before it: the
+  observer now records contacts continuing > 5 s after a scan (rerun the
+  TEC-through-observer numbers and `e6-tec.json`), and decide
+  `cropAbsorption` (0, or ≈ 0.03–0.05 /h of crop contents as an upper bound
+  from Howard & Tschinkel 1981).
 - **Judging:** a candidate missing a statistic the data estimate is
   unjudgeable (2026-10-09 fix; no earlier ranking was affected).
 - Commits: plain messages, no co-author lines; ask before committing.
