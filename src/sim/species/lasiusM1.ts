@@ -195,7 +195,8 @@ export const LASIUS_NEST_DEF = {
   activeToRest: estimated(1 / 180, '1/s', `${PROVISIONAL} Walking → resting.`),
   giveFrac: estimated(0.1, '', `${PROVISIONAL} Crop fill above which an ant offers food.`),
   receiveReserve: estimated(0.8, '', `${PROVISIONAL} Reserve fraction below which an ant accepts food.`),
-  shareEnd: estimated(1 / 60, '1/s', `${PROVISIONAL} Ending hazard of a sharing bout.`),
+  // Per ant: each partner draws it, and either ending ends the bout, so the pair's rate is 2 × shareEnd (STATUS 2026-10-10 night).
+  shareEnd: derived(0.0195, '1/s', 'buffin2011', 'Per-ant ending hazard of a sharing bout: half the pair ending rate 0.039 /s observed for 1 M sucrose, fed donor → starved receiver, 4-d starved colonies (Buffin et al. 2011, Table 2; durations exponential). Exact 95 % ≈ 0.030–0.048 /s for the pair (66 bouts); sensitivity 0.015 / 0.024 per ant. Hunger-state dependence (fed→fed 0.034, starved→starved 0.058) not modelled; 1-d and 8-d receivers are an extrapolation.'),
   stallTime: estimated(3, 's', `${PROVISIONAL} A bout ends after this long without flow.`),
   shareRate: estimated(2 / 120, 'µL/s', `${PROVISIONAL} Crop capacity per 120 s (Bles et al. TEC: 1 unit = 1 s of transfer, mean load 120 units).`),
   leaveRate: estimated(1 / 300, '1/s', `${PROVISIONAL} Rate at which a hungry ant with an empty crop leaves to forage.`),
