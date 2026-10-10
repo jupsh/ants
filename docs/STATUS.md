@@ -4498,3 +4498,8 @@ listing opened). Checks on the running gate: only whether outputs exist.
   to remove a resolution artefact, without looking at the data's distances
   or any fit. Contacts keep their definition. If they still fail the
   re-gate, their detection (sampled once per step) is examined next.
+- **Re-gate launched** (code 157cd66, file checksums box = local), in
+  parallel with SIM_WORKERS 80 each: `logs/gate2-dt.log` (dt 0.1 vs
+  0.025), `logs/gate2-warmup.log` (300 vs 900 s), `logs/gate2-ident.log`
+  (identifiability, n 960 per day, so the noise floor halves). The same
+  pre-registered pass rules apply. Results not yet seen.

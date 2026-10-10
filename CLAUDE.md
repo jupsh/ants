@@ -128,7 +128,7 @@ when a step starts or finishes, and log decisions there before acting on them.
   `/sys/fs/cgroup/cpu.max`), and cap Rolldown's per-process threads or
   hundreds of workers exceed the task limit: `RAYON_NUM_THREADS=2
   ROLLDOWN_WORKER_THREADS=2 ROLLDOWN_MAX_BLOCKING_THREADS=4
-  UV_THREADPOOL_SIZE=2`. Node via `. /opt/nvm/nvm.sh`; install the local
+  UV_THREADPOOL_SIZE=2`. Node via `. /opt/nvm/nvm.sh` **then `nvm use`** (sourcing alone leaves `npx` off PATH in non-interactive ssh; check `which npx` before `nohup`, or the run dies with exit 127); install the local
   Node version and check run hashes before fitting.
 - **Blind checks while a frozen reading is pending:** status checks leak
   results (a log's last line, a fit's loss, a file listing with sizes). When
