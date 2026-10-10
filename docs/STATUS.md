@@ -4306,3 +4306,15 @@ compute is spent; each extra free parameter must be identifiable from the
    a sensitivity analysis before E6, not a 1999 fit parameter.
 7. **Commit** the work so far now (the user delegated the decision), then
    each step; **the box is kept** for the gated diagnostics and refits.
+- **Implemented (decisions 1–4):** `NestParams.giveUpTime` (120 s,
+  estimated) with `Stay.sinceGive`; liveness test (a nest where nobody
+  accepts: the recruiter leaves with its load after giveUpTime, within 20
+  min) replaces the known failure. `M1999_CONTACT_MIN` = 1 s observer
+  (contact episodes with one nestmate; both contact rows and Table 2b),
+  `contactMin` option for sensitivity runs; test. Debiased
+  `m1999FitLoss(sim, targets, perNest)` (block variance from nests), test
+  (noisy samples centred on the targets: raw ≈ 13, debiased ≈ 0);
+  `fitM1999.ts` default `--perNest` 4. `convergeM1999.ts` rewritten as the
+  equivalence test (paired seeds, joint bootstrap, ±0.5 SE_data, n 1600);
+  `m1999Points` uses a fit's recorded `params`. Tests pass; E2 unchanged
+  (no E2 code touched since the hash check).

@@ -38,7 +38,8 @@ const RESTARTS = 1;
 const WARMUP = 300;
 // Random streams: namespaced by purpose and run (seedFor; STATUS 2026-10-10), not offsets from one seed.
 const STUDY = 1999;
-const PER_NEST = numArg('--perNest', 0);
+// Shared warm-ups, 4 recruiters per nest by default (STATUS 2026-10-10); --perNest 0 = independent design.
+const PER_NEST = numArg('--perNest', 4);
 const OUT = `data/fits/colony-m1999-${LAYER}${PER_NEST ? '-shared' : ''}.json`;
 
 const P0: ColonyParams = { ...(LAYER === 'main' ? LASIUS_PARAMS : LASIUS_PARAMS_E2_ALT), nest: LASIUS_NEST };
@@ -64,7 +65,7 @@ const simulate = async (m: Model, seed: number, n = N): Promise<Record<M1999Day,
   const per = await Promise.all(M1999_DAYS.map(run));
   return Object.fromEntries(M1999_DAYS.map((d, i) => [d, per[i]])) as Record<M1999Day, M1999Recruiter[]>;
 };
-const evalAt = async (m: Model, seed: number, n = N) => m1999FitLoss(await simulate(m, seed, n));
+const evalAt = async (m: Model, seed: number, n = N) => m1999FitLoss(await simulate(m, seed, n), M1999_TARGETS, PER_NEST);
 
 let evals = 0;
 const score = (x: number[]) => evalAt(decode(x), seedFor(STUDY, 'select'), 3 * N);

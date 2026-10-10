@@ -32,7 +32,8 @@ import type { ContactPercept, Interoception, SurfacePercept } from '../perceptio
  *   - Return to a known source (STATUS 2026-10-09, Mailleux 1999
  *     calibration): an ant that fed at a source on its last trip
  *     (`m.trip.ingested` > 0, reset when a trip starts) leaves again at hazard
- *     `returnRate` once its crop is below `giveFrac`.
+ *     `returnRate` once its crop is below `giveFrac`, or with its load once
+ *     it has passed no food for `giveUpTime` (STATUS 2026-10-10).
  *   - Nest fidelity: a worker outside the nest that is not on a foraging
  *     trip heads back to the entrance (gain `leaveGain`) and does not rest.
  */
@@ -58,6 +59,8 @@ export interface NestParams {
   leaveGain: number;
   /** Hazard (1/s) of leaving for a known source once unloaded (ants that fed on their last trip). */
   returnRate: number;
+  /** Seconds without passing food after which a carrying ant that fed on its last trip may leave with its load. */
+  giveUpTime: number;
   /** Factor on walking speed inside the nest (applied by the runner; the policy does not read it). */
   nestSpeedFactor: number;
   /** SD of log of each nestmate's reserve-deficit factor (between-ant variation; applied by the runner at set-up). */
@@ -132,9 +135,13 @@ const hasFoodToGive = (io: Interoception, p: NestParams) => io.cropUl > p.giveFr
 /** Accepts food: the one predicate behind both soliciting (the signal) and receiving. */
 const acceptsFood = (io: Interoception, p: NestParams) => io.reserve < p.receiveReserve && !io.cropFull;
 
-/** An unloaded ant that fed on its last trip leaves for the source at hazard `returnRate`. */
+/**
+ * An ant that fed on its last trip leaves for the source at hazard
+ * `returnRate` once unloaded, or still carrying once it has passed no food
+ * for `giveUpTime` (nobody takes its load; STATUS 2026-10-10).
+ */
 function returning(m: Mind, p: NestParams, carrying: boolean, dt: number, rng: RNG): boolean {
-  if (carrying || !(m.trip.ingested > 0) || !rng.hazard(p.returnRate, dt)) return false;
+  if ((carrying && m.stay.sinceGive < p.giveUpTime) || !(m.trip.ingested > 0) || !rng.hazard(p.returnRate, dt)) return false;
   toLeave(m);
   return true;
 }
@@ -153,6 +160,7 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
   const carrying = hasFoodToGive(io, p);
   const hungry = acceptsFood(io, p);
   const stay = m.stay;
+  stay.sinceGive = io.mouthFlow < 0 ? 0 : stay.sinceGive + per.dt;
   // After a bout the two ants part: each former partner becomes eligible again once antennal contact with it is lost.
   if (stay.parted.length) stay.parted = stay.parted.filter((j) => per.contacts.some((x) => x.id === j));
 

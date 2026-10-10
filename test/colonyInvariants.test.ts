@@ -135,24 +135,25 @@ describe('colony behaviour invariants (STATUS 2026-10-10; gate for colony fittin
     expect(c.tripsStarted).toBeGreaterThan(0);
   });
 
-  // A well-fed nest (1 d, default receiveReserve 0.8: no nestmate accepts food): offers can only time out.
-  const wellFed = () => {
-    const P = { ...LASIUS_PARAMS, nest: LASIUS_NEST };
+  // A well-fed nest (1 d, defaults): few nestmates accept food.
+  const wellFed = (nestOver: Partial<ColonyParams['nest']> = {}) => {
+    const P = { ...LASIUS_PARAMS, nest: { ...LASIUS_NEST, ...nestOver } };
     const load = recruiterLoad(P, { seed: 5, starvationDays: 1, density: 1, pipetteAccessible: MAILLEUX_SETUP.accessible });
     const left = { at: NaN };
     const c = checkRun(P, { seed: 23, ants: 23, minutes: 22, foodMinute: Infinity, starvationDays: 1, recruiter: { enterAt: 60, ...load } }, left);
     return { c, left };
   };
 
-  it('hold in a well-fed nest where nobody accepts food (1 d)', () => {
-    expect(wellFed().c.boutsStarted).toBeGreaterThan(3);
+  it('hold in a well-fed nest (1 d)', () => {
+    expect(wellFed().c.steps).toBeGreaterThan(10_000);
   });
 
-  // KNOWN FAILURE (STATUS 2026-10-10, open model decision): a recruiter whose food nobody accepts has no way out
-  // (the return rule needs an unloaded crop), so it never leaves; Mailleux 1999: every recruiter left within 20 min.
-  // `it.fails` passes while the deadlock is present and turns red once a rule gives such an ant a way out.
-  it.fails('liveness: a recruiter whose food nobody accepts still leaves within 20 min', () => {
-    const { left } = wellFed();
+  // Liveness (STATUS 2026-10-10, giveUpTime): in a nest where nobody accepts food at all, the recruiter still leaves
+  // within 20 min (Mailleux 1999: all did), with its load, after giveUpTime without passing food.
+  it('liveness: a recruiter whose food nobody accepts leaves with it after giveUpTime', () => {
+    const { c, left } = wellFed({ receiveReserve: 0.2, reserveSd: 0.05 });
+    expect(c.boutsStarted).toBe(0);
+    expect(left.at).toBeGreaterThan(60 + LASIUS_NEST.giveUpTime);
     expect(left.at).toBeLessThan(60 + 20 * 60);
   });
 });

@@ -27,7 +27,8 @@ export function m1999Points(fitFile: string): M1999Point[] {
   return [
     {
       label: `optimum of ${fitFile}`,
-      P: { ...(alt ? LASIUS_PARAMS_E2_ALT : LASIUS_PARAMS), nest: { ...LASIUS_NEST, ...fit.nest } },
+      // The fit's recorded parameter set (STATUS 2026-10-10); older files: current defaults plus their nest parameters.
+      P: fit.params ?? { ...(alt ? LASIUS_PARAMS_E2_ALT : LASIUS_PARAMS), nest: { ...LASIUS_NEST, ...fit.nest } },
       density: fit.density1999,
       accessible: (alt ? MAILLEUX_SETUP_E2_ALT : MAILLEUX_SETUP).accessible,
     },

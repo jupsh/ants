@@ -111,7 +111,7 @@ describe('nest worker: bouts (STATUS 2026-10-10)', () => {
     const { m } = giver(0);
     m.stay.parted = [7];
     enterNest(m);
-    expect(m.stay).toEqual({ bout: null, parted: [] });
+    expect(m.stay).toEqual({ bout: null, parted: [], sinceGive: 0 });
     expect(m.mode).toBe('active');
   });
 });

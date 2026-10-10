@@ -71,6 +71,8 @@ export interface M1999Options {
   warmup?: number;
   /** Follow contacted nestmates for 5 min after the recruiter leaves (Table 2b; default false). */
   followNestmates?: boolean;
+  /** Minimum duration (s) of an observed contact (default M1999_CONTACT_MIN; sensitivity runs only). */
+  contactMin?: number;
   dt?: number;
 }
 
@@ -80,9 +82,10 @@ export interface M1999Recruiter {
   left: boolean;
   /** Path length inside the nest (cm). */
   distance: number;
+  /** Observed contacts: episodes of antennal contact with a nestmate lasting ≥ M1999_CONTACT_MIN. */
   contacts: number;
   trophTotal: number;
-  /** Contact onsets before the longest bout, the main partner's own onset excluded; NaN without trophallaxis. */
+  /** Observed contacts (≥ M1999_CONTACT_MIN) that began before the longest bout, the main partner's own excluded; NaN without trophallaxis. */
   contactsBefore: number;
   cropAtEntry: number;
   cropAtExit: number;
@@ -93,6 +96,16 @@ export interface M1999Recruiter {
 
 const OBSERVE = 20 * 60;
 const FOLLOW = 5 * 60;
+
+/**
+ * Observed contact (STATUS 2026-10-10, pre-registered observation model,
+ * with disclosure): an episode of continuous antennal contact between the
+ * recruiter and one nestmate lasting at least this long (s). Geometric
+ * antennal-range overlaps last a median 0.1–0.2 s (nestmates brushing
+ * past); the paper scored contacts on video. Used for both contact rows and
+ * Table 2b's contacted nestmates; sensitivity 0.5 and 2 s.
+ */
+export const M1999_CONTACT_MIN = 1;
 
 /** Crop load of an E2 scout that drank at the 1999 drop and reached the nest (first qualifying seed). */
 export function recruiterLoad(P: ColonyParams, o: M1999Options): { cropUl: number; cropSugar: number; cropWater: number; ingested: number } {
@@ -123,7 +136,7 @@ function colonyOptions(o: M1999Options, seed: number, n: number, enterAt: number
  * the observation and summarise the recruiter as the paper defines its
  * measures.
  */
-function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean): M1999Recruiter {
+function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean, contactMin = M1999_CONTACT_MIN): M1999Recruiter {
   const r = n;
   let exitAt = NaN;
   // End of the step at which the observation ended (absolute time, as bout ends): bouts are clipped to it, so a
@@ -132,21 +145,18 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
   let dist = 0;
   let px = NaN;
   let py = NaN;
-  let prev = new Set<number>();
-  const onsets: { t: number; id: number }[] = [];
-  const firstContact = new Map<number, number>();
+  // Contact episodes with each nestmate during the stay (open ones by start time), then those lasting ≥ contactMin.
+  const open = new Map<number, number>();
+  const episodes: { id: number; start: number; end: number }[] = [];
+  // Nestmates' exits from the nest (for Table 2b), relative to the recruiter's entry.
+  const exits = new Map<number, number[]>();
   const wasOut = new Array<boolean>(n).fill(false);
-  const leftAfterContact = new Set<number>();
   let cropAtExit = NaN;
   const onStep = (w: World, info: ColonyStepInfo): boolean => {
     const a = w.ants[r];
     const t = info.t - enterAt;
-    // Table 2b: a contacted nestmate leaving the nest within 5 min of its first contact with the recruiter.
     for (let j = 0; j < n; j++) {
-      if (info.outside[j] && !wasOut[j]) {
-        const t0 = firstContact.get(j);
-        if (t0 !== undefined && t - t0 <= FOLLOW) leftAfterContact.add(j);
-      }
+      if (info.outside[j] && !wasOut[j] && t >= 0) exits.set(j, [...(exits.get(j) ?? []), t]);
       wasOut[j] = info.outside[j];
     }
     if (!a) return false;
@@ -155,23 +165,26 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
         exitAt = Math.min(t, OBSERVE);
         stopAt = info.t + sim.dt;
         cropAtExit = a.body.cropUl;
+        for (const [id, start] of open) episodes.push({ id, start, end: exitAt });
+        open.clear();
         if (!followNestmates) return true;
       } else {
         if (!Number.isNaN(px)) dist += Math.hypot(a.body.x - px, a.body.y - py);
         px = a.body.x;
         py = a.body.y;
         const now = new Set((info.per[r]?.contacts ?? []).map((c) => c.id));
-        for (const id of now)
-          if (!prev.has(id)) {
-            onsets.push({ t, id });
-            if (!firstContact.has(id)) firstContact.set(id, t);
+        for (const id of now) if (!open.has(id)) open.set(id, t);
+        for (const [id, start] of [...open])
+          if (!now.has(id)) {
+            episodes.push({ id, start, end: t });
+            open.delete(id);
           }
-        prev = now;
       }
     }
     return t >= exitAt + FOLLOW;
   };
   while (sim.stepIndex < sim.steps) if (sim.step(onStep)) break;
+  const observed = episodes.filter((e) => e.end - e.start >= contactMin - 1e-9).sort((p, q) => p.start - q.start || p.id - q.id);
   const bouts = sim
     .result()
     .bouts.filter((b) => b.donor === r || b.receiver === r)
@@ -184,21 +197,25 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
   if (bouts.length) {
     const main = bouts.reduce((p, q) => (q.end - q.start > p.end - p.start ? q : p));
     const partner = main.donor === r ? main.receiver : main.donor;
-    const before = onsets.filter((c) => c.t < main.start + 1e-9);
+    const before = observed.filter((c) => c.start < main.start + 1e-9);
     const partnerOnset = before.filter((c) => c.id === partner).pop();
     contactsBefore = before.length - (partnerOnset ? 1 : 0);
   }
   const partners = new Set(bouts.map((b) => (b.donor === r ? b.receiver : b.donor)));
   const troph = { n: 0, left: 0 };
   const other = { n: 0, left: 0 };
-  if (followNestmates)
-    for (const id of firstContact.keys()) {
+  if (followNestmates) {
+    // Table 2b: a contacted nestmate leaving the nest within 5 min of its first observed contact with the recruiter.
+    const first = new Map<number, number>();
+    for (const e of observed) if (!first.has(e.id)) first.set(e.id, e.start);
+    for (const [id, t0] of first) {
       const g = partners.has(id) ? troph : other;
       g.n++;
-      if (leftAfterContact.has(id)) g.left++;
+      if ((exits.get(id) ?? []).some((x) => x >= t0 && x - t0 <= FOLLOW)) g.left++;
     }
+  }
   const left = exitAt < OBSERVE;
-  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: onsets.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other };
+  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: observed.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other };
 }
 
 /** One recruiter in its own freshly warmed nest (independent design). */
@@ -207,7 +224,7 @@ export function runRecruiter1999(P: ColonyParams, o: M1999Options): M1999Recruit
   const n = nestmates(o.density);
   const enterAt = o.warmup ?? 600;
   const sim = new ColonySim(P, { ...colonyOptions(o, o.seed, n, enterAt), recruiter: { enterAt, ...load } });
-  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates);
+  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin);
 }
 
 /** Recruiters [first, first + count) for one starvation day; recruiter k uses the stream (seed, day, k). */
@@ -235,7 +252,7 @@ export function runNest1999(P: ColonyParams, o: M1999Options, nest: number, perN
     const sim = warm.clone(k + 1);
     sim.recruiter = { enterAt, ...load };
     sim.recruiterSeed = seed;
-    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates);
+    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin);
   });
 }
 
@@ -291,17 +308,27 @@ export function m1999NoBoutPenalty(sim: Record<M1999Day, M1999Recruiter[]>): num
 /** Penalty per fit row the simulation cannot estimate (as fitE2c's DEGENERATE: ranks such points below all that estimate every row). */
 export const M1999_DEGENERATE = 1e7;
 
-/** Σ fitZ² over the fit rows (SE_data only; the fit objective), plus M1999_DEGENERATE per inestimable row and the no-bout penalty. */
-export function m1999FitLoss(sim: Record<M1999Day, M1999Recruiter[]>, targets: M1999Target[] = M1999_TARGETS): number {
+/**
+ * The fit objective (STATUS 2026-10-10, debiased): Σ over the fit rows of
+ * [(m − μ)² − Var(m)] / SE_data², i.e. fitZ² minus the sampling variance of
+ * the simulated mean, so the objective's expectation is the squared bias
+ * alone and noisier designs or parameter regions are not penalised (or
+ * favoured) for their noise. Var(m) from blocks of `perNest` recruiters (a
+ * nest in the shared design; 0 = independent recruiters). Plus
+ * M1999_DEGENERATE per inestimable row and the no-bout penalty.
+ */
+export function m1999FitLoss(sim: Record<M1999Day, M1999Recruiter[]>, targets: M1999Target[] = M1999_TARGETS, perNest = 0): number {
   let l = 0;
   for (const t of targets) {
-    const v = sim[t.day].map((x) => x[t.stat]).filter(Number.isFinite);
-    if (!v.length) {
+    const v = sim[t.day].map((x) => x[t.stat]);
+    const k = Math.max(1, perNest);
+    const est = blockEstimate(Array.from({ length: Math.ceil(v.length / k) }, (_, b) => v.slice(b * k, (b + 1) * k)));
+    if (!Number.isFinite(est.mean)) {
       l += M1999_DEGENERATE;
       continue;
     }
-    const m = v.reduce((a, b) => a + b, 0) / v.length;
-    l += fitZ(m, t.mean, t.sd / Math.sqrt(t.n)) ** 2;
+    const seData = t.sd / Math.sqrt(t.n);
+    l += fitZ(est.mean, t.mean, seData) ** 2 - (Number.isFinite(est.se) ? (est.se / seData) ** 2 : 0);
   }
   return l + m1999NoBoutPenalty(sim);
 }

@@ -68,6 +68,8 @@ export interface Stay {
    * lost (each is dropped individually; STATUS 2026-10-10).
    */
   parted: number[];
+  /** Seconds since this ant last passed food to a nestmate (or since it entered). */
+  sinceGive: number;
 }
 
 /** Everything an ant knows and intends. Never contains world truth. */
@@ -94,7 +96,7 @@ export function newTrip(): Trip {
 }
 
 export function newStay(): Stay {
-  return { bout: null, parted: [] };
+  return { bout: null, parted: [], sinceGive: 0 };
 }
 
 export function newMind(traits: Traits, walkP: WalkParams, rng: RNG): Mind {
