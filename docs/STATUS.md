@@ -2735,3 +2735,33 @@ See [`CLAUDE.md`](../CLAUDE.md).
   1.02, worst d1.drink 4.8 (FAILED). Sequence after selection: `fitE2c.ts
   --variant <id> --recover data/fits/e2-3c-<id>.json --rep 0`, then this
   script, then the σ_m and σ_r profiles (`profileE2c.ts`).
+- **2026-10-09** **Reference baseline from Mailleux et al. 2009: not
+  buildable as a faithful port (finding; changes the adopted next step).**
+  Re-read of the paper (C R Biol 332:500–506, open access, pp. 502–504):
+  - §2.2 specifies only the stopping rule S(V) = ηΔV/(1 + e^{−η(V − Vc)})
+    (ΔV 0.01 µL/s, η 4.3, Vc 1 µL), that 90 % of ants reaching their
+    threshold lay trail, and that Monte Carlo runs predicted trail fractions
+    and volumes. It says nothing about how between-drop or total times
+    arise. "With Pl = 1/85 s and Pd = 1/20 s their model reproduces the
+    group totals" (entry above, correction 2) was our inference, not the
+    paper's statement.
+  - The theoretical N column of Tables 1–2 does not add up: TL1 190 000,
+    TL2 294 570, nTL2 104 570 sum to 589 140 of 500 000; TL1 is exactly
+    38 % of 500 000 and TL2 − nTL2 = 190 000. The group sizes look
+    imposed from the data, not predicted.
+  - Reconstruction of the stated rules (scratch Monte Carlo, 500 000 runs,
+    full 0.7 µL drinkable, compared with the authors' *theoretical* column
+    only, no data): overall trail 77 % (Vc 1) / 81 % (Vc 0.9) vs their 79 %
+    ✓; total volume 1.08 / 1.03 µL vs 0.85 ± 0.30 ✗; TL1 share 19 / 26 %
+    vs 38 % ✗; TL1 total 0.98 / 0.94 vs 0.80 µL ✗. Their theory column
+    depends on rules the paper does not state (drinkable fraction, travel
+    and search times, group formation).
+  - **Consequence:** a baseline would be our reconstruction with free
+    choices, which defeats its purpose (what a model with only measured
+    parameters achieves). Proposal for the user: drop item (b) of the
+    "three corrections" entry as a reference baseline; keep its useful
+    part, the comparison of each candidate's search with the independent
+    measurement Pl = 1/85 s (already reported by `selectE2.ts`, giving-up
+    time at one 0.3 µL drop). Also noted from the paper: the text reports
+    TL1 vs nTL1 drop-2 volume as "U = 287, p < 0.03, NS" (sic; Table 1
+    letters b vs c say different).
