@@ -6,7 +6,7 @@
  *   --fit   use the observer-consistent refit in data/fits/e6-tec.json
  *   --rule  observer rule: 'after' (default) or 'total' (sensitivity)
  */
-import { e6Compare, e6Table, e6Targets } from '../src/sim/experiments/e6Bles';
+import { e6Compare, e6PerAntCompare, e6PerAntTable, e6Table, e6Targets } from '../src/sim/experiments/e6Bles';
 import type { ObserverRule } from '../src/sim/analysis/trophallaxis';
 import { BLES_TABLE1, type BlesParams } from '../src/sim/reference/blesTEC';
 import { arg, BLES_SCANS, flag, readJson } from './lib';
@@ -25,3 +25,4 @@ const sim = await pool.blesColonies(P, colonies, 6_000_000, rule);
 pool.close();
 console.log(`${variant}${flag('--fit') ? ' (refit)' : ' (published Table 1)'}: ${colonies} colonies through the 60-s scan observer, rule '${rule}' [${((Date.now() - t0) / 1000).toFixed(0)} s]`);
 console.log(e6Table(e6Compare(sim, targets)));
+console.log(e6PerAntTable(e6PerAntCompare(sim)));

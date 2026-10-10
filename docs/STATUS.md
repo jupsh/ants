@@ -35,19 +35,20 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   distinguishing prediction (persistent propensity vs no feeding effect).
   Scripts that rebuild step-3 fits use the legacy layer (`E2_LEGACY_*`).
 - **E6 / colony (step 4): started 2026-10-09.** Done: the t-based E6
-  rule (z through t with df 4; Welch–Satterthwaite reported; F-test spread)
-  and the TEC rerun through the 'after' observer (`e6-tec.json` rewritten;
-  refit and published TEC both pass every mean, T50 z −1.5 / −1.7). Nest
-  assumptions pre-registered (user decisions 2026-10-09): unchanged walker
-  primary (× 0.93 and × 0.289 sensitivity), crop absorption 0 primary
-  (0.05 /h of crop contents sensitivity; re-parameterisation still to
-  code), L0S1c main / L0S1 alternative, ≥ 200 colonies. **Power warning:**
-  the rejected one-caste model also passes the colony means (NF→F z −2.2
-  only) → add the per-ant distributions as KS targets before judging.
-  Next: those KS targets; calibrate the colony on Mailleux 1999 in-nest
-  recruiters (non-E6); then the E6 test (development benchmark). In
-  parallel: freeze the E2 external-validation protocol on Mailleux 2005
-  (held unread).
+  rule (df 4; Welch–Satterthwaite reported; F-test spread); the TEC rerun
+  through the 'after' observer (`e6-tec.json` rewritten); per-ant
+  distributions as a Monte Carlo KS test (`e6PerAntCompare`; rejects all
+  one-caste models and TEC delta, which the colony means could not). E6
+  ran at **22 °C** (25 °C had been assumed; corrected). Pre-registered
+  (user decisions 2026-10-09): walking × 0.781 temperature only (sensitivity
+  × 1, × 0.289), crop absorption 0 (sensitivity 0.05 /h first-order), L0S1c
+  main / L0S1 alternative, N 53, ≥ 200 colonies, per-ant verdict = omnibus
+  Σ D. **Next:** design the colony calibration on Mailleux 1999 in-nest
+  recruiters (non-E6; needs user approval), put `runColony` into the pool
+  (27 s per colony single-core) and profile it; then rent the box for the
+  calibration; then the E6 test (development benchmark). In parallel:
+  freeze the E2 external-validation protocol on Mailleux 2005 (held
+  unread).
 - **Judging:** a candidate missing a statistic the data estimate is
   unjudgeable (2026-10-09 fix; no earlier ranking was affected).
 - Commits: plain messages, no co-author lines; ask before committing.
@@ -3466,3 +3467,67 @@ See [`CLAUDE.md`](../CLAUDE.md).
     events given / received by foragers and non-foragers; step 2 note)
     should become pre-registered KS targets before our colony model is
     judged on E6.
+- **2026-10-09** **Correction: E6 was run at 22 ± 3 °C, not 25 °C.** The
+  paper reports 22 ± 3 °C, 60 ± 5 % RH (recorded 2026-10-07 in
+  `data/bles2022/README.md` and `docs/research/lasius-niger.md`); the
+  2026-10-08 colony plan marked it "not reported" and assumed 25 °C, and
+  the nest pre-registration above repeated it. `runColony` now defaults to
+  22 °C (metabolism and intake temperature terms; no E6 output of our model
+  had been judged). **The walking scenarios need revisiting:** temperature
+  only is × 0.76 (Q10 2, 26 → 22 °C), not × 0.93; and E2 (Mailleux, also
+  22 ± 3 °C) and E6 now share the temperature, so the × 0.289 bridge factor
+  differs from E6 only in surface, task and method. Awaiting the user's
+  choice of primary.
+- **2026-10-09** **E6 per-ant distributions: method and reference results
+  (proposal; the judging rule awaits the user's approval before our colony
+  model is run against E6).**
+  - **Data:** Bles et al. Fig. 3B–E histograms from the authors' script
+    (61 foragers, 206 non-foragers, 5 colonies pooled): events given /
+    received per forager and per non-forager (`E6_PER_ANT_HIST`; sums
+    checked against the pair counts in `test/e6.test.ts`).
+  - **Test (`e6PerAntCompare`):** KS distance of the pooled data histogram
+    from the model's pooled per-ant distribution; null distribution by
+    Monte Carlo: draw 5 simulated colonies, pool their ants (forager counts
+    vary as in the data), score against the pooled remaining colonies;
+    p = (k + 1)/(reps + 1), reps 10 000 (z resolution ≥ 3.9), z = two-sided
+    normal equivalent (as `pToZ` for KS rows). Handles tied integer counts,
+    ants clustered in colonies and variable group sizes, which the
+    asymptotic KS p does not. Omnibus Σ D (the authors' D_total) on the
+    same draws. Null check (synthetic Poisson colonies with a colony
+    effect, 2000 trials): 5.15 % rejected at p ≤ 0.05.
+  - **Reference models (400 colonies, rule 'after'; Σ D omnibus z, worst
+    group):** one-caste exp ≥ 3.9 (forager receive ≥ 3.9), unif ≥ 3.9,
+    delta ≥ 3.9; TEC delta 3.2 (non-forager receive 3.4; the authors'
+    Table S2 also rejects delta on the non-forager distributions); TEC
+    unif 1.8; TEC published (exp) 2.1 (fewer events through the observer;
+    forager give 1.9); TEC refit 0.7 (fitted to E6; not a test). The
+    per-ant distributions reject what the colony means could not (one
+    caste: means all |z| ≤ 2.2).
+  - **Proposed rule:** the omnibus Σ D z is the per-ant verdict (one test,
+    so no multiplicity across four correlated rows); the four group rows
+    are reported for diagnosis with the usual cut-offs. Our colony model
+    runs with N = 53 ants per colony (the data imply 267 / 5 = 53.4;
+    `bles-tec-spec.md` ambiguity 1) and ≥ 200 colonies.
+- **2026-10-09** **User decisions: amendments to the E6 pre-registration
+  (after the 22 °C correction and the per-ant proposal; still before any
+  output of our colony model is judged against E6; logged before acting).
+  They supersede items 2 and 5 of the nest pre-registration where they
+  differ.**
+  1. **Walking (primary): temperature only.** Implemented as
+     `E6_CONTEXT.walkSpeedFactor` = arrhenius(22 °C, 26 °C, 0.47 eV) =
+     **× 0.781** (the mean activation energy of ant running speed across
+     22 species, Hurlbert et al. 2008, already used by the draft species
+     files; the question offered × 0.76 from Q10 2, a 3 % difference, noted
+     in the provenance). Sensitivity: × 1 and × 0.289 (E2 bridge factor).
+  2. **Per-ant verdict:** the omnibus Σ D z (`e6PerAntCompare`, 10 000
+     Monte Carlo draws); the four group rows reported for diagnosis.
+     "Reading" (item 5) applies to it like a primary row.
+  3. **Colony size:** 53 ants (`runColony` and the colony page default).
+  **Implemented:** `runColony` options `walkSpeedFactor` (default the E6
+  primary) and `ants` (default 53), temperature default 22 °C;
+  `cropAbsorption` re-parameterised as first-order (× crop sugar, limited
+  by the reserve room; 0 by default, so E2 and the primary are unchanged;
+  sensitivity 1.39e-5 /s = 0.05 /h). The E6 pre-registration is now
+  complete for colony means (t rule, df 4), spreads (F test, indicative),
+  per-ant distributions (omnibus) and the four assumptions; the E6 test
+  itself waits for the Mailleux 1999 calibration.

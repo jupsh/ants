@@ -2,6 +2,7 @@ import e1fit from '../../../data/fits/e1-walk.json';
 import e2fit from '../../../data/fits/e2-drinking.json';
 import e2main from '../../../data/fits/e2-3d-L0S1c.json';
 import e2alt from '../../../data/fits/e2-3d-L0S1.json';
+import { arrhenius } from '../core/math';
 import { applyFit, derived, estimated, fitted, measured, resolve } from '../core/param';
 import { walkParams, type WalkParams } from '../models/walk';
 
@@ -84,7 +85,7 @@ const LASIUS_PHYS_BASE = {
   intakeSd: estimated(0, 'log units', 'Between-worker SD of log intake rate; intake rate is an individual trait (Mailleux et al. 2009). Set by the step-3 fits.'),
   metabolic: derived(1.2e-3, 'mg/h/mg^0.75', 'gillooly2001', 'Resting ant metabolism ≈1 µL O2 h⁻¹ mg⁻¹ converted to sucrose equivalents.'),
   activeFactor: estimated(3, '×', 'Walking raises metabolic rate several-fold.'),
-  cropAbsorption: estimated(0, '1/s', 'Crop → reserve transfer beyond the metabolic need, per s, times the reserve room (mg). Unsourced: set to 0 (STATUS 2026-10-09 amendment; replaces a hard-coded 0.001 /s); value to come from the literature on crop emptying before the E6 calibration, on which it bears (forager crop available for sharing).'),
+  cropAbsorption: estimated(0, '1/s', 'Crop → reserve transfer beyond the metabolic need: first-order, fraction of the crop sugar per s, limited by the reserve room. No Lasius or Camponotus rate found; 0 is the pre-registered E6 primary (STATUS 2026-10-09). Sensitivity scenario 0.05 /h (1.39e-5 /s; Howard & Tschinkel 1981, isolated Solenopsis workers: a scenario, not a Lasius bound).'),
   permeability: estimated(20, 'µg cm⁻² h⁻¹ mmHg⁻¹', 'Mid-range cuticular permeability of mesic ants (≈5–60).'),
   surfaceArea: estimated(16, 'mm²', 'Body surface of a ~2 mg worker (≈10·m^(2/3)).'),
   depositPerMm: estimated(1, 'units/mm', 'Normalisation of trail units: one gaster-contact millimetre deposits 1 unit.'),
@@ -151,6 +152,18 @@ export const E2_CONTEXT_DEF = {
   walkSpeedFactor: derived(0.289, '×', ['mailleux2000', 'mailleux2006'], 'Homebound walking speed at mid-bridge 1.6 ± 0.6 cm/s (3 µL drop, 4 d, 22 °C; 2000 n 93, 2006 n 122, overlapping data). Assumed to apply in the foraging area as on the bridge. Calibrated 2026-10-09 (1000 scouts): 1.60 ± 0.74 cm/s at f = 0.289 (f = 1: 4.77 ± 2.47). For scale: the E1 data (Khuong, 26 °C, canvas) have a median moving speed of 43 mm/s, the Mailleux bridge scouts 16 mm/s; temperature (Q10 ≈ 2) explains ≈ 1.3× of that 2.7×.', { ...MAILLEUX, transform: 'bisection: model homebound mid-bridge speed (same statistic) = 1.6 cm/s' }),
 };
 export const E2_CONTEXT = resolve(E2_CONTEXT_DEF);
+
+/**
+ * E6 context (Bles et al. 2022 nest and foraging area, 22 ± 3 °C): the
+ * pre-registered primary walking scenario is temperature only (user
+ * decision 2026-10-09). Sensitivity scenarios: × 1 (walker unchanged) and
+ * × E2_CONTEXT.walkSpeedFactor (bridge scouts; same temperature, other
+ * surface and task).
+ */
+export const E6_CONTEXT_DEF = {
+  walkSpeedFactor: derived(arrhenius(22, 26, 0.47), '×', ['hurlbert2008', 'bles2022', 'khuongTrajectories'], 'Temperature only: the E1 walker was fitted at 26 °C (Khuong et al.), E6 ran at 22 ± 3 °C. Arrhenius with the mean activation energy of ant running speed across 22 species, 0.47 eV (Hurlbert et al. 2008; no L. niger value); Q10 2 would give 0.76. Surface (glass-covered plaster nest vs canvas) and task differences are not corrected.', { conditions: '22 ± 3 °C, 60 ± 5 % RH, 50-worker queenless sub-colonies', transform: 'arrhenius(22 °C, 26 °C, 0.47 eV)' }),
+};
+export const E6_CONTEXT = resolve(E6_CONTEXT_DEF);
 
 /**
  * Khuong et al. 2013 tracking error (E1 observer model A, step 5): white

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { meanSd } from '../src/sim/analysis/compare';
 import { observeContacts, scansToEvents } from '../src/sim/analysis/trophallaxis';
 import { RNG } from '../src/sim/core/rng';
-import { dataMetrics } from '../src/sim/experiments/e6Bles';
+import { dataMetrics, E6_PER_ANT_HIST, e6PerAntCompare, ksDistanceHist, type E6Metrics } from '../src/sim/experiments/e6Bles';
 import { BLES_TABLE1, runBles } from '../src/sim/reference/blesTEC';
 import { BLES_SCANS } from '../scripts/lib';
 
@@ -77,5 +77,49 @@ describe('E6 reference model: Bles et al. 2022 implementation (tier 1)', () => {
     };
     // The dead branch roughly halves the separation hazard for F donors.
     expect(dur(false)).toBeLessThan(0.8 * dur(true));
+  });
+});
+
+describe('E6 per-ant distributions', () => {
+  const sum = (h: number[]) => h.reduce((a, b) => a + b, 0);
+  const events = (h: number[]) => h.reduce((a, c, k) => a + c * k, 0);
+
+  it('data histograms match the paper\'s group sizes and pair counts', () => {
+    const H = E6_PER_ANT_HIST;
+    expect([sum(H.fGive), sum(H.fRecv), sum(H.nfGive), sum(H.nfRecv)]).toEqual([61, 61, 206, 206]);
+    // Donations by foragers 301 (= FF + FNF), by non-foragers 194; receptions add to the same 495.
+    expect([events(H.fGive), events(H.nfGive)]).toEqual([301, 194]);
+    expect(events(H.fRecv) + events(H.nfRecv)).toBe(495);
+  });
+
+  it('KS distance on integer histograms', () => {
+    expect(ksDistanceHist([1, 1], [1, 1])).toBe(0);
+    expect(ksDistanceHist([2], [0, 2])).toBe(1);
+    expect(ksDistanceHist([1, 1], [2, 0])).toBeCloseTo(0.5, 12);
+  });
+
+  it('Monte Carlo test has the nominal false-positive rate when the data come from the model', () => {
+    // Synthetic colonies: 53 ants, a variable number of foragers, Poisson counts with a colony effect.
+    const colony = (rng: RNG): E6Metrics => {
+      const nf = 8 + rng.int(9);
+      const scale = rng.lognormal(1, 0.3);
+      const draw = (n: number, mean: number) => Array.from({ length: n }, () => rng.poisson(mean * scale));
+      return { events: 0, t50: 0, participants: 0, giniParticipants: 0, bothRoles: 0, efficiency: 0, perAnt: { fGive: draw(nf, 5), fRecv: draw(nf, 1.4), nfGive: draw(53 - nf, 0.9), nfRecv: draw(53 - nf, 2) } };
+    };
+    let reject = 0;
+    const trials = 300;
+    for (let t = 0; t < trials; t++) {
+      const rng = RNG.stream(55, t);
+      const cols = Array.from({ length: 105 }, () => colony(rng));
+      const pooled = { fGive: [] as number[], fRecv: [] as number[], nfGive: [] as number[], nfRecv: [] as number[] };
+      for (const c of cols.slice(0, 5)) for (const g of Object.keys(pooled) as (keyof typeof pooled)[]) pooled[g].push(...c.perAnt![g]);
+      const hist = (v: number[]) => Array.from({ length: Math.max(...v) + 1 }, (_, k) => v.filter((x) => x === k).length);
+      const data = { fGive: hist(pooled.fGive), fRecv: hist(pooled.fRecv), nfGive: hist(pooled.nfGive), nfRecv: hist(pooled.nfRecv) };
+      const rows = e6PerAntCompare(cols.slice(5), 400, t, data);
+      if (rows[4].p <= 0.05) reject++;
+    }
+    // Nominal 5 %; binomial SE ≈ 1.3 % over 300 trials.
+    expect(reject / trials).toBeGreaterThan(0.015);
+    expect(reject / trials).toBeLessThan(0.095);
   });
 });

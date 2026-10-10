@@ -25,8 +25,9 @@ export interface PhysParams {
   metabolic: number;
   activeFactor: number;
   /**
-   * Crop → reserve transfer beyond the metabolic need (1/s, × reserve room in
-   * mg). One rule everywhere, in and out of the nest. Unset: 0.
+   * Crop → reserve transfer beyond the metabolic need: first-order emptying,
+   * fraction of the crop's sugar per s, limited by the reserve room. One rule
+   * everywhere, in and out of the nest. Unset: 0.
    */
   cropAbsorption?: number;
   /** Cuticular water permeability (µg cm⁻² h⁻¹ mmHg⁻¹) and body surface area (mm²). */
@@ -186,9 +187,9 @@ export function metabolise(w: World, b: Body, phys: PhysParams, active: boolean,
   }
   const rate = (phys.metabolic * c.massTemp * (active ? phys.activeFactor : 1)) / 3600; // mg/s
   let need = rate * dt;
-  // Absorb crop sugar into the reserve when the reserve is not full.
+  // Crop → reserve: the metabolic need, plus first-order emptying of the crop (cropAbsorption × crop contents) up to the reserve room.
   const room = Math.max(0, b.reserveMax - b.reserve);
-  const absorb = Math.min(b.cropSugar, need + room * (phys.cropAbsorption ?? 0) * dt);
+  const absorb = Math.min(b.cropSugar, need + Math.min(room, b.cropSugar * (phys.cropAbsorption ?? 0) * dt));
   if (absorb > 0) {
     const frac = absorb / b.cropSugar;
     const wa = b.cropWater * frac;
