@@ -3306,3 +3306,48 @@ See [`CLAUDE.md`](../CLAUDE.md).
   best 14.82, median 27.92" (one noisy per-generation fit batch). It does
   not contain either check; the threshold above had been written before it
   was seen. CLAUDE.md now has a gotcha on blind status checks.
+- **2026-10-09** **Cohort diagnostic L0S1c: result (box, e6f8eb5; judged
+  with `selectE2.ts` on the selection seeds).**
+  - **Frozen reading: MIXED.**
+    - Drop 2 passes, with drop 1 intact: `two.ul2` z 1.2, `two.t2` 1.5;
+      `two.ul1` 0.2, `two.t1` −1.5, `two.tl1` 1.4.
+    - Check 2 **moves**: whole-bout intake at 3 µL, 4 d **0.88 ± 0.41 µL**
+      (threshold ≥ 0.79; data 0.9 ± 0.4); fast phase `boutFastUl` **0.007
+      µL** (from 0.28; threshold ≤ 0.14), sustained `intakeRate` 0.0097
+      µL/s (measured *L. niger* ≈ 0.010). The I1 fast phase disappears once
+      the 2009 cohort has its own desired volume.
+    - Check 1 **does not move**: 2000 trail % at 0.7 µL 38 % (from 42 %;
+      threshold ≤ 30 %; the change, 4 points, is below 2 simulation SE).
+  - Fitted 2009 scale **0.739** (log −0.30; inside the cross-study range
+    [0, 0.38] for means but near its upper end). ΔP̄ vs L0S1: 54.2 vs 84.4
+    (one extra parameter). All fit rows |z| ≤ 2 (no marginal rows); it is a
+    diagnostic, not a candidate, so this is not adequacy for adoption.
+  - **Against it (reported, not in the frozen reading):** the within-2009
+    contrasts get worse: drop-1 time TL1 − nTL1 z −4.2, drop-1 volume
+    −2.1, drop-2 time **+3.2** (L0S1 1.0), drop-2 volume **+3.8** (2.7);
+    satiated at drop 1: TL1 78 %, nTL2 39 %. The 2000 laying series
+    flattens: 30 / 38 / 55 / 91 % vs 14 / 17 / 70 / 91 (0.3 µL z 3.0, 1 µL
+    −2.5; L0S1 0.7 / −0.5). Giving-up times far too long (0.3 µL all
+    171 ± 157 s vs 113 ± 129; 0.7 µL non-layers 209 vs 63 ± 35, n 12;
+    `arsMean` 185 s). σ_m (`volumeSd`) 0.34, above the 0.1–0.3 bracket;
+    `desiredSd` 0.048 (almost no between-ant variation in desired volume).
+  - **For it (reported, not in the frozen reading):** 2003 six pipettes
+    improve (exploit z −7.8 → 0.5, visits 12.1 → 8.2, ul 3.3 → 1.6).
+  - **Fit quality:** the restart (λ 22) reached a much lower selection
+    loss than the two starts (23.5 vs 40.8 / 41.4) but did not converge
+    (final σ 0.50, drift up to 0.35 encoded units): the surface is
+    multimodal here, and the fitted values are less settled than usual.
+  - **L0S1 follow-ups (diagnostics):** recovery APPROXIMATE (mean excess
+    0.82, worst `two.tl1` 3.81; `unsatisfiedLayProb` ×0.40, `intakeRate`
+    ×1.45, `arsMean` ×0.68). Profiles (200 generations; the run printed
+    the old "95 %" label, read as Δ ≤ 3.84 regions): σ_m and σ_r both at
+    0.2 on the grid, every other grid value Δ > 3.84 or borderline.
+- **2026-10-09** **E1 joint 69-ant recovery cell: result** (box copy at
+  aa57a54; its log is identical to the local run's for all 63 lines the
+  local run has written; every CMA-ES run went ≥ 185 generations, so the
+  averaging-window change does not apply and the local run should end
+  identical). Prediction excess per incline: 1 (fit) mean 0.59, worst
+  turnSd 4.63 → **FAILED**; 2 (dev) 0.33, turnSd 2.47 → approximate; 3
+  (fit) 0.20 → recovered; 4 (dev) 0.22 → approximate; 5 (fit) 0.40,
+  turnBig 1.64 → approximate. Parameters off most: `stopHomePull` ×2.95,
+  `homeRunBias` ×0.34, `homeHeadingPull` ×1.99, `jitter` ×0.43.
