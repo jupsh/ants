@@ -1,9 +1,35 @@
 /** Node-only helpers shared by scripts and tests (never imported by the browser bundle). */
+import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import zlib from 'node:zlib';
 import { parseKhuongCsv } from '../src/sim/analysis/khuongData';
+import { RNG } from '../src/sim/core/rng';
 import type { Track } from '../src/sim/analysis/trajectory';
 import { buildPools, type SectorFrame, type SectorPools } from '../src/sim/reference/sectoredWalker';
+import { simHash } from './simHash';
+
+/**
+ * Seeds by namespace (STATUS 2026-10-10): every batch of random streams a
+ * script draws is keyed by (study, purpose, ...keys), so fitting, selection,
+ * judging and diagnostics never share streams. Hand-picked offsets did: the
+ * 1999 judging seed 7.9e9 was fit generation 90's (7e9 + 90 × 1e7).
+ */
+export const SEED_PURPOSE = { fit: 1, cmaes: 2, probe: 3, select: 4, judge: 5, converge: 6, ident: 7, recover: 8 } as const;
+export function seedFor(study: number, purpose: keyof typeof SEED_PURPOSE, ...keys: number[]): number {
+  return RNG.stream(study, 0x5eed, SEED_PURPOSE[purpose], ...keys).int(2 ** 32);
+}
+
+/** What a result file needs to be reproduced and not reinterpreted under changed code: code hash, commit, command. */
+export function provenance(): { simHash: string; commit: string; dirty: boolean; node: string; argv: string[]; date: string } {
+  const git = (c: string) => {
+    try {
+      return execSync(`git ${c}`, { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+    } catch {
+      return '';
+    }
+  };
+  return { simHash: simHash(), commit: git('rev-parse HEAD') || 'unknown', dirty: git('status --porcelain --untracked-files=no') !== '', node: process.version, argv: process.argv.slice(2), date: new Date().toISOString() };
+}
 
 /** Value of `--name <value>` on the command line, or the default. */
 export function arg(name: string, fallback: string): string {

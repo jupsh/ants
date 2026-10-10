@@ -14,23 +14,47 @@ import { SpatialHash } from '../world/spatialHash';
 export const HEAD_OFFSET = 0.4;
 export const MOUTH_GAP = 0.3;
 
-export function headPoint(b: Body): [number, number] {
+/** Update b.headX/headY (cached per position and heading; the same arithmetic as uncached). */
+function head(b: Body): void {
+  if (b.x === b.headKeyX && b.y === b.headKeyY && b.heading === b.headKeyH) return;
   const r = HEAD_OFFSET * b.morph.len;
-  return [b.x + Math.cos(b.heading) * r, b.y + Math.sin(b.heading) * r];
+  b.headX = b.x + Math.cos(b.heading) * r;
+  b.headY = b.y + Math.sin(b.heading) * r;
+  b.headKeyX = b.x;
+  b.headKeyY = b.y;
+  b.headKeyH = b.heading;
+}
+
+export function headPoint(b: Body): [number, number] {
+  head(b);
+  return [b.headX, b.headY];
+}
+
+/**
+ * Upper bound on the centre distance at which antennal contact is possible:
+ * each case of `antennalContact` puts the centres within the larger reach
+ * plus both head offsets (with a margin for rounding).
+ */
+export function antennalBound(a: Body, b: Body): number {
+  return Math.max(a.morph.antennaReach, b.morph.antennaReach) + HEAD_OFFSET * (a.morph.len + b.morph.len) + 1e-6;
 }
 
 export function antennalContact(a: Body, b: Body): boolean {
-  const [ax, ay] = headPoint(a);
-  const [bx, by] = headPoint(b);
+  head(a);
+  head(b);
+  const ax = a.headX;
+  const ay = a.headY;
+  const bx = b.headX;
+  const by = b.headY;
   const ra = a.morph.antennaReach;
   const rb = b.morph.antennaReach;
   return Math.hypot(ax - bx, ay - by) <= Math.max(ra, rb) || Math.hypot(ax - b.x, ay - b.y) <= ra || Math.hypot(bx - a.x, by - a.y) <= rb;
 }
 
 export function mouthContact(a: Body, b: Body): boolean {
-  const [ax, ay] = headPoint(a);
-  const [bx, by] = headPoint(b);
-  return Math.hypot(ax - bx, ay - by) <= MOUTH_GAP * Math.min(a.morph.len, b.morph.len) && Math.cos(a.heading - b.heading) < -0.5;
+  head(a);
+  head(b);
+  return Math.hypot(a.headX - b.headX, a.headY - b.headY) <= MOUTH_GAP * Math.min(a.morph.len, b.morph.len) && Math.cos(a.heading - b.heading) < -0.5;
 }
 
 /**

@@ -51,31 +51,31 @@ describe('E2 decision rules', () => {
     const rng = new RNG(1);
     const m = newMind({ desiredVolumeFactor: 1, neverLays: false, layIntensity: 0.13 }, P.walk, rng);
     setMode(m, 'drink');
-    m.foodId = 1;
-    m.desired = 0.8;
-    m.ingested = ingested;
+    m.trip.foodId = 1;
+    m.trip.desired = 0.8;
+    m.trip.ingested = ingested;
     m.modeTime = 10;
     const per = { ...basicPercept(0.1, 0, 0, 22), food: { id: 1, kind: 'sugar' as const, molar: 0.6, available: false } };
-    lasiusForager(per, { reserve: 0.7, cropUl: ingested, cropCapacity: 2, water: 1, bodyMass: 2, mouthFlow: 0 }, m, p, rng);
+    lasiusForager(per, { reserve: 0.7, cropUl: ingested, cropCapacity: 2, water: 1, bodyMass: 2, mouthFlow: 0, cropFull: false }, m, p, rng);
     return m;
   };
   it('an ant that reached its desired volume as the drop ran out leaves satiated and lays trail', () => {
     const m = atEmptyDrop(0.85);
-    expect(m.satisfied).toBe(true);
-    expect(m.laying).toBe(true);
+    expect(m.trip.satisfied).toBe(true);
+    expect(m.trip.laying).toBe(true);
     expect(m.mode).toBe('return');
   });
   it('graded laying rule (L1): an unsatisfied ant lays if it came close to its desired volume, not if far below', () => {
     const graded = { layRule: 1, layKappa: 50, layRatio50: 0.7, unsatisfiedLayProb: 0.5, searchMode: 1 };
     const near = atEmptyDrop(0.75, graded); // ratio 0.94
-    expect(near.satisfied).toBe(false);
-    expect(near.laying).toBe(true);
+    expect(near.trip.satisfied).toBe(false);
+    expect(near.trip.laying).toBe(true);
     expect(near.mode).toBe('search');
-    expect(atEmptyDrop(0.2, graded).laying).toBe(false); // ratio 0.25
+    expect(atEmptyDrop(0.2, graded).trip.laying).toBe(false); // ratio 0.25
   });
   it('an ant below its desired volume at an exhausted drop leaves unsatisfied and searches', () => {
     const m = atEmptyDrop(0.5);
-    expect(m.satisfied).toBe(false);
+    expect(m.trip.satisfied).toBe(false);
     expect(m.mode).toBe('search');
   });
 });

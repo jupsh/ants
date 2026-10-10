@@ -1,5 +1,5 @@
 import type { Body } from '../agent/body';
-import { antennalContact, mouthContact } from '../physics/contacts';
+import { antennalBound, antennalContact, mouthContact } from '../physics/contacts';
 import type { World } from '../world/world';
 import type { ContactPercept, FoodContact, Interoception, SurfacePercept } from './types';
 
@@ -66,10 +66,11 @@ export function perceive(w: World, b: Body, dt: number): SurfacePercept {
     if (o.body === b || !o.body.alive) continue;
     const ox = o.body.x - b.x;
     const oy = o.body.y - b.y;
+    // Cheap bound first: no antennal contact beyond the larger reach plus both head offsets.
+    const bound = antennalBound(b, o.body);
+    if (ox * ox + oy * oy > bound * bound || !antennalContact(b, o.body)) continue;
     const d = Math.hypot(ox, oy);
-    // Cheap bound first: no antennal contact beyond reach plus both head offsets.
-    if (d > reach + o.body.morph.antennaReach + b.morph.len + o.body.morph.len || !antennalContact(b, o.body)) continue;
-    contacts.push({ id: o.body.id, bearing: wrap(Math.atan2(oy, ox) - b.heading), dist: d, layingTrail: o.body.gasterDown, carrying: o.body.cropUl > 0.2 * o.body.morph.cropCapacity, mouthContact: mouthContact(b, o.body) });
+    contacts.push({ id: o.body.id, bearing: wrap(Math.atan2(oy, ox) - b.heading), dist: d, layingTrail: o.body.gasterDown, offering: o.body.offering, soliciting: o.body.soliciting, mouthContact: mouthContact(b, o.body), sharing: o.body.sharingWith >= 0, sharingWithMe: o.body.sharingWith === b.id });
   }
   return {
     dt,
@@ -89,7 +90,7 @@ export function perceive(w: World, b: Body, dt: number): SurfacePercept {
 }
 
 export function interocept(b: Body): Interoception {
-  return { reserve: b.reserve / b.reserveMax, cropUl: b.cropUl, cropCapacity: b.morph.cropCapacity, water: b.water / b.waterMax, bodyMass: b.morph.mass, mouthFlow: b.mouthFlow };
+  return { reserve: b.reserve / b.reserveMax, cropUl: b.cropUl, cropCapacity: b.morph.cropCapacity, water: b.water / b.waterMax, bodyMass: b.morph.mass, mouthFlow: b.mouthFlow, cropFull: b.cropUl >= b.morph.cropCapacity * b.morph.cropFullFrac };
 }
 
 function wrap(a: number): number {

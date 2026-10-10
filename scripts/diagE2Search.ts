@@ -47,7 +47,7 @@ for (let i = 0; i < N; i++) {
         if (mode === 'search') search += 0.1;
         else if (mode === 'return') home += 0.1;
         else other += 0.1;
-        if (a.mind.laying) laidBefore2 = true;
+        if (a.mind.trip.laying) laidBefore2 = true;
         minX = Math.min(minX, a.body.x);
       }
       lastMode = mode;

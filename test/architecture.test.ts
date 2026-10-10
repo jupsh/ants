@@ -25,3 +25,25 @@ describe('perception boundary', () => {
     });
   }
 });
+
+/**
+ * One definition per behavioural concept (STATUS 2026-10-10: the deadlock
+ * came from "has food to give" defined in the policy and again, as a
+ * constant, in perception). Perception reports body states and signals; it
+ * never imports behaviour or species parameters. Policies take crop
+ * thresholds from parameters or interoception, never numeric literals.
+ */
+describe('no behavioural thresholds outside their one definition', () => {
+  for (const f of files('src/sim/perception')) {
+    it(`${f} imports no behaviour or species parameters`, () => {
+      const imports = [...fs.readFileSync(f, 'utf8').matchAll(/from\s+'([^']+)'/g)].map((m) => m[1]);
+      expect(imports.filter((i) => /\/(behavior|species|mind)\//.test(`/${i.replace(/^\.\.?\//, '')}`))).toEqual([]);
+    });
+  }
+  for (const f of files('src/sim/behavior')) {
+    it(`${f} has no numeric crop thresholds`, () => {
+      const src = fs.readFileSync(f, 'utf8');
+      expect(src.match(/\d\s*\*\s*io\.crop(Capacity|Ul)|io\.crop(Capacity|Ul)\s*\*\s*\d/g) ?? []).toEqual([]);
+    });
+  }
+});

@@ -19,7 +19,7 @@ export interface LasiusParams {
   walk: WalkParams;
   forager: ForagerParams;
   phys: PhysParams;
-  morph: { len: number; mass: number; cropCapacity: number; antennaReach: number; reserveDays: number };
+  morph: { len: number; mass: number; cropCapacity: number; antennaReach: number; cropFullFrac: number; reserveDays: number };
 }
 
 export interface ScoutResult {
@@ -101,7 +101,7 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   const w = new World(app, entrance, o.seed, 22, 50);
   const m = P.morph;
   const reserveMax = (P.phys.metabolic * Math.pow(m.mass, 0.75) * 24 * m.reserveDays) / 1; // mg at ~resting rate
-  const body = new Body(1, o.seed, { len: m.len, mass: m.mass, cropCapacity: m.cropCapacity, antennaReach: m.antennaReach }, Math.max(0.02, 1 - o.starvationDays / m.reserveDays), reserveMax);
+  const body = new Body(1, o.seed, { len: m.len, mass: m.mass, cropCapacity: m.cropCapacity, antennaReach: m.antennaReach, cropFullFrac: m.cropFullFrac }, Math.max(0.02, 1 - o.starvationDays / m.reserveDays), reserveMax);
   w.ledger.move('sugar', 'external', 'reserve', body.reserve);
   w.ledger.move('water', 'external', 'reserve', body.water);
   // The papers observe scouts from the moment they reach the foraging area,
@@ -128,8 +128,8 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   w.ants.push(agent);
   startTrip(mind, forager, interocept(body), body.rng);
   const walked = start - entrance[0];
-  mind.pi.x = Math.cos(mind.piBias) * walked;
-  mind.pi.y = Math.sin(mind.piBias) * walked;
+  mind.pi.x = Math.cos(mind.trip.piBias) * walked;
+  mind.pi.y = Math.sin(mind.trip.piBias) * walked;
   if (o.drops) for (const d of o.drops) w.addFood((id) => new SugarDroplet(id, d.x, d.y, d.ul, d.molar, o.pipetteAccessible));
   else w.addFood((id) => new SugarDroplet(id, feeder1[0], feeder1[1], o.drop1.ul, o.drop1.molar, o.pipetteAccessible));
 
@@ -166,7 +166,7 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
     if (mind.mode === 'drink' && prevMode !== 'drink') {
       drinkStart = w.time;
       currentDrinkUl = 0;
-      visited.add(mind.foodId);
+      visited.add(mind.trip.foodId);
       if (Number.isNaN(firstContact)) firstContact = w.time;
       if (Number.isNaN(res.findTime)) res.findTime = w.time - (Number.isNaN(tArea) ? 0 : tArea);
       if (res.drinks.length === 1) res.betweenTime = w.time - firstDrinkEnd;
@@ -186,7 +186,7 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
       givingUpPending = true;
       if (res.drinks.length === 1) {
         firstDrinkEnd = w.time;
-        res.satisfiedAt1 = mind.satisfied;
+        res.satisfiedAt1 = mind.trip.satisfied;
       }
     }
     if (givingUpPending && body.x < AREA_X / 2) {

@@ -14,6 +14,8 @@ import os from 'node:os';
 import path from 'node:path';
 import type { Track } from '../src/sim/analysis/trajectory';
 import type { ObserverRule } from '../src/sim/analysis/trophallaxis';
+import type { ColonyParams } from '../src/sim/experiments/colonyBles';
+import type { M1999Options, M1999Recruiter } from '../src/sim/experiments/colonyMailleux1999';
 import type { E1Sample } from '../src/sim/experiments/e1Compare';
 import type { E1Options } from '../src/sim/experiments/e1Exploration';
 import type { ScoutOptions, ScoutResult, LasiusParams } from '../src/sim/experiments/e2Mailleux';
@@ -144,6 +146,21 @@ export class SimPool {
     const parts: TaskArgs<'blesColonies'>[] = [];
     for (let c = 0; c < count; c += size) parts.push([P, seed, c, Math.min(size, count - c), rule]);
     return (await this.map('blesColonies', parts)).flat();
+  }
+
+  /** Mailleux 1999 recruiters 0 … count − 1 of one starvation day, one per task (run lengths vary); results in recruiter order. */
+  async m1999(P: ColonyParams, o: M1999Options, count: number): Promise<M1999Recruiter[]> {
+    const parts: TaskArgs<'m1999'>[] = [];
+    for (let k = 0; k < count; k++) parts.push([P, o, k, 1]);
+    return (await this.map('m1999', parts)).flat();
+  }
+
+  /** Mailleux 1999 in the shared-warm-up design: `count` recruiters as count / perNest nests, one nest per task; results in nest order. */
+  async m1999Shared(P: ColonyParams, o: M1999Options, count: number, perNest: number): Promise<M1999Recruiter[]> {
+    if (count % perNest) throw new Error(`m1999Shared: ${count} recruiters is not a multiple of ${perNest} per nest`);
+    const parts: TaskArgs<'m1999Nests'>[] = [];
+    for (let j = 0; j < count / perNest; j++) parts.push([P, o, j, 1, perNest]);
+    return (await this.map('m1999Nests', parts)).flat();
   }
 
   close(): void {

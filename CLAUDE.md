@@ -123,6 +123,13 @@ when a step starts or finishes, and log decisions there before acting on them.
   bytes before decompressing.
 - Animation clocks must persist across frames (advance by real dt × speed).
 - The STATUS page imports `docs/STATUS.md?raw`; keep it plain Markdown.
+- **Rented containers (vast.ai):** `nproc`/`os.availableParallelism()` and
+  free memory show the whole host, so always set `SIM_WORKERS` (check
+  `/sys/fs/cgroup/cpu.max`), and cap Rolldown's per-process threads or
+  hundreds of workers exceed the task limit: `RAYON_NUM_THREADS=2
+  ROLLDOWN_WORKER_THREADS=2 ROLLDOWN_MAX_BLOCKING_THREADS=4
+  UV_THREADPOOL_SIZE=2`. Node via `. /opt/nvm/nvm.sh`; install the local
+  Node version and check run hashes before fitting.
 - **Blind checks while a frozen reading is pending:** status checks leak
   results (a log's last line, a fit's loss, a file listing with sizes). When
   a pre-registration is still being written or amended, check only that
