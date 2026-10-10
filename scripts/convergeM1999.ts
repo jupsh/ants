@@ -28,7 +28,7 @@ const N = numArg('--n', 1600);
 const VARY = arg('--vary', 'dt');
 if (VARY !== 'dt' && VARY !== 'warmup') throw new Error('--vary dt|warmup');
 // The value in use first, the reference second.
-const LEVELS = VARY === 'dt' ? [0.1, 0.025] : [300, 900];
+const LEVELS = arg('--levels') ? arg('--levels')!.split(',').map(Number) : VARY === 'dt' ? [0.1, 0.025] : [300, 900];
 const TOL = 0.5;
 const B = 2000;
 const POINTS = m1999Points(arg('--fit', ''));

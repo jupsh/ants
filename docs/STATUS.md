@@ -4417,3 +4417,33 @@ listing opened). Checks on the running gate: only whether outputs exist.
   5. *Navigation parameters* estimated from the literature and frozen in
      this log before E6 (they move E6's T50, already inspected); run-hash
      check covers E2 as well as the 1999 rows.
+
+**2026-10-10 night — gate results (seen after the pre-registration commit 8e63568): FAILED.**
+- **dt 0.1 vs 0.025: not equivalent.** trophTotal passes at both start
+  points. distance fails hugely (start 1: Δ −65/−41/−37 SE_data; dt 0.025
+  walks ~100 cm more at 1 d). contacts / contactsBefore +0.5 to +5 SE (more
+  ≥ 1 s episodes at dt 0.1). timeInNest +0.3 to +1.3 SE.
+  Reading (not yet tested): distance is summed per sim step, and contact
+  episodes have no gap tolerance, so both observers depend on resolution
+  (per-step jitter counted as path; contact flicker splits episodes at
+  fine dt). timeInNest shows real dt dependence in the dynamics as well.
+  The paper does not say how distance or contacts were scored (×2 video).
+- **Warm-up 300 vs 900: inconclusive, not shown different.** Most Δ near 0
+  with CIs wider than ±0.5 (distance CIs up to ±10 SE: simulated distance
+  SD ≫ data SD at the start points). 3 of 30 CIs exclude 0, as expected
+  by chance at 90 %.
+- **Identifiability: inconclusive** under the flat-direction rule. Noise
+  floor 35 / 27; 5 of 7 (start 1) and 4 of 7 (start 2) directions lie
+  below it, and all are combinations with no single loading ≥ 0.8. Per the
+  rule: no refit on it. The floor (two independent seed batches) is
+  conservative: a replicate Jacobian on a second seed batch would measure
+  the actual finite-difference noise.
+- Start points are degenerate at 1 d (no-bout 68–84 % vs bound 11 %).
+- **Launched (pre-registered fail branch):** dt 0.05 vs 0.025
+  (`convergeM1999.ts --vary dt --levels 0.05,0.025`, new `--levels`
+  flag, `logs/gate-dt05.log`, SIM_WORKERS 200).
+- **Next (Claude, delegated):** test the observer reading (distance from
+  positions resampled at a fixed observer interval; contact episodes with
+  a gap tolerance), disclosed as an observation-model amendment if
+  adopted; then re-gate. Warm-up: rerun with larger n, or judge only rows
+  that pass the dt gate. Identifiability: replicate Jacobian.
