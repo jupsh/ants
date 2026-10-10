@@ -275,7 +275,7 @@ function renderTable(card: HTMLElement, rows: E6Row[]): void {
   const note = document.createElement('p');
   note.className = 'note';
   note.textContent =
-    'Mean: z = (simulated − data) / √(SE_data² + SE_sim²), SE_data = SD/√5. Spread: z of log(SD_sim / SD_data) between colonies; with 5 colonies it is weak. Forager-based rows come from the paper (forager identities are not in the raw data). |z| ≤ 2 consistent; ≤ 3 marginal.';
+    'Mean: t = (simulated − data) / √(SE_data² + SE_sim²), SE_data = SD/√5; SE_data rests on 5 colonies, so z is the normal equivalent of t with 4 degrees of freedom. Spread: variance-ratio F test between colonies, as a normal-equivalent z; with 5 colonies it is weak. Forager-based rows come from the paper (forager identities are not in the raw data). |z| ≤ 2 consistent; ≤ 3 marginal.';
   card.append(h, note);
   const t = document.createElement('table');
   t.className = 'params';

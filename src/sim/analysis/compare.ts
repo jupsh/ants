@@ -27,6 +27,11 @@ export interface Comparison {
   seData: number;
   seSim: number;
   z: number;
+  /** Small-sample rows (E6): the raw combined t and its df, z being their normal equivalent; the Welch–Satterthwaite version beside it. */
+  t?: number;
+  df?: number;
+  zWelch?: number;
+  dfWelch?: number;
 }
 
 export type Verdict = 'ok' | 'marginal' | 'off';
@@ -96,6 +101,106 @@ export function normalQuantile(p: number): number {
 /** Two-sided p-value expressed as an equivalent |z| (capped at 8). */
 export function pToZ(p: number): number {
   return Math.min(8, normalQuantile(1 - Math.max(p, 1e-15) / 2));
+}
+
+/** log Γ(x), x > 0 (Lanczos, g = 7; relative error ~1e-15). */
+function logGamma(x: number): number {
+  const c = [0.9999999999998099, 676.5203681218851, -1259.1392167224028, 771.3234287776531, -176.6150291621406, 12.507343278686905, -0.13857109526572012, 9.984369578019572e-6, 1.5056327351493116e-7];
+  if (x < 0.5) return Math.log(Math.PI / Math.sin(Math.PI * x)) - logGamma(1 - x);
+  x -= 1;
+  let s = c[0];
+  for (let i = 1; i < 9; i++) s += c[i] / (x + i);
+  const t = x + 7.5;
+  return 0.5 * Math.log(2 * Math.PI) + (x + 0.5) * Math.log(t) - t + Math.log(s);
+}
+
+/** Continued fraction of the incomplete beta (modified Lentz). */
+function betaCf(x: number, a: number, b: number): number {
+  const tiny = 1e-300;
+  let c = 1;
+  let d = 1 - ((a + b) * x) / (a + 1);
+  d = 1 / (Math.abs(d) < tiny ? tiny : d);
+  let h = d;
+  for (let m = 1; m <= 500; m++) {
+    for (const num of [(m * (b - m) * x) / ((a + 2 * m - 1) * (a + 2 * m)), (-(a + m) * (a + b + m) * x) / ((a + 2 * m) * (a + 2 * m + 1))]) {
+      d = 1 + num * d;
+      d = 1 / (Math.abs(d) < tiny ? tiny : d);
+      c = 1 + num / c;
+      if (Math.abs(c) < tiny) c = tiny;
+      h *= d * c;
+    }
+    if (Math.abs(d * c - 1) < 1e-15) break;
+  }
+  return h;
+}
+
+/** Regularized incomplete beta I_x(a, b). */
+export function betaInc(x: number, a: number, b: number): number {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  const front = Math.exp(logGamma(a + b) - logGamma(a) - logGamma(b) + a * Math.log(x) + b * Math.log(1 - x));
+  return x < (a + 1) / (a + b + 2) ? (front * betaCf(x, a, b)) / a : 1 - (front * betaCf(1 - x, b, a)) / b;
+}
+
+/** Normal-equivalent z of a statistic with lower tail `lo` and upper tail `hi` (lo + hi = 1; the smaller one is used, for accuracy). */
+function tailsToZ(lo: number, hi: number): number {
+  return lo < hi ? normalQuantile(lo) : -normalQuantile(hi);
+}
+
+/** Upper tail P(T > t), Student's t with `df` (> 0, need not be an integer). */
+export function tUpper(t: number, df: number): number {
+  const half = 0.5 * betaInc(df / (df + t * t), df / 2, 0.5);
+  return t >= 0 ? half : 1 - half;
+}
+
+/**
+ * Normal-equivalent z of a t statistic: Φ⁻¹(F_df(t)), so that the usual
+ * cut-offs (|z| 2, 3) keep their tail probabilities when the standard error
+ * is itself estimated from few units (E6: 5 colonies, STATUS 2026-10-09).
+ */
+export function tToZ(t: number, df: number): number {
+  if (!Number.isFinite(t) || !(df > 0)) return NaN;
+  if (!Number.isFinite(df)) return t;
+  const hi = tUpper(t, df);
+  return tailsToZ(1 - hi, hi);
+}
+
+/** Welch–Satterthwaite degrees of freedom of √(se1² + se2²), each SE with its own df. */
+export function welchDf(se1: number, df1: number, se2: number, df2: number): number {
+  const a = se1 * se1;
+  const b = se2 * se2;
+  return (a + b) ** 2 / ((a * a) / df1 + (b * b) / df2);
+}
+
+/**
+ * Judging z for a mean when SE_data comes from few units (`dfData`) and
+ * SE_sim from `dfSim` replicates (seed blocks − 1): the combined t mapped
+ * through Student's t. Primary `z` uses the fixed df = min(dfData, dfSim),
+ * conservative and close to exact once SE_sim ≪ SE_data; `zWelch` uses the
+ * Welch–Satterthwaite df, which is estimated from the same few units and
+ * anticonservative in the tails (STATUS 2026-10-09: 0.54 % beyond 3 at 5
+ * colonies, nominal 0.27 %).
+ */
+export function smallSampleZ(sim: number, seSim: number, dfSim: number, data: number, seData: number, dfData: number): { z: number; t: number; df: number; zWelch: number; dfWelch: number } {
+  const t = combinedZ(sim, seSim, data, seData);
+  const df = Math.min(dfData, dfSim);
+  const dfWelch = welchDf(seData, dfData, seSim, dfSim);
+  return { z: tToZ(t, df), t, df, zWelch: tToZ(t, dfWelch), dfWelch };
+}
+
+/**
+ * Spread check by the variance-ratio F test: s²_sim / s²_data ~
+ * F(nSim − 1, nData − 1) under equal variances (normal values assumed),
+ * as a normal-equivalent z (positive when the simulated SD is larger).
+ */
+export function varianceRatioZ(sdSim: number, nSim: number, sdData: number, nData: number): number {
+  const d1 = nSim - 1;
+  const d2 = nData - 1;
+  const f = (sdSim * sdSim) / (sdData * sdData);
+  if (!Number.isFinite(f) || !(d1 > 0) || !(d2 > 0)) return NaN;
+  const x = (d1 * f) / (d1 * f + d2);
+  const lo = betaInc(x, d1 / 2, d2 / 2);
+  return tailsToZ(lo, betaInc(1 - x, d2 / 2, d1 / 2));
 }
 
 export interface KSResult {

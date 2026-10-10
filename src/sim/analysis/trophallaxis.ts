@@ -51,7 +51,7 @@ export interface ObserverOptions {
    * 'total' — in progress at the scan and longer than minContact in total
    * (the earlier reading, kept as a sensitivity; STATUS 2026-10-09).
    */
-  rule?: 'after' | 'total';
+  rule?: ObserverRule;
   /**
    * Time of the first scan after food introduction (s, in [0, period)). The
    * real phase is unknown, so callers draw it uniformly per colony.
@@ -70,6 +70,9 @@ export interface ObserverOptions {
  * > `minContact` s in total, rule 'total'). Returns scan records in the
  * same form as the data, so `scansToEvents` and `colonyStats` apply as-is.
  */
+/** 'after': contact continues > minContact s after the scan (default); 'total': lasts > minContact s in all (sensitivity). */
+export type ObserverRule = 'after' | 'total';
+
 export function observeContacts(contacts: ContactInterval[], o: ObserverOptions): Scan[] {
   const period = o.period ?? 60;
   const minContact = o.minContact ?? 5;

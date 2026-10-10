@@ -1,5 +1,5 @@
-import { blockEstimate, combinedZ, logSdZ, meanSd, type Comparison } from '../analysis/compare';
-import { colonyStats, observeContacts, parseScans, scansToEvents, type ContactInterval, type TrophEvent } from '../analysis/trophallaxis';
+import { blockEstimate, meanSd, smallSampleZ, varianceRatioZ, type Comparison } from '../analysis/compare';
+import { colonyStats, observeContacts, parseScans, scansToEvents, type ContactInterval, type ObserverRule, type TrophEvent } from '../analysis/trophallaxis';
 import { RNG } from '../core/rng';
 
 /**
@@ -8,7 +8,11 @@ import { RNG } from '../core/rng';
  * observer and the same statistics code as the data (docs/STATUS.md,
  * Evidence policy § Criteria: simulate ≥ 50 colonies, compare the mean with
  * SE = SD_data/√5 combined with SE_sim, and the between-colony SD
- * separately).
+ * separately). SE_data rests on 5 colonies, so z is the normal equivalent
+ * of a t with 4 df (Welch–Satterthwaite reported beside it; STATUS
+ * 2026-10-09, step 4). Simulate ≥ 200 colonies so SE_sim stays small.
+ * Development benchmark, not untouched: the TEC comparisons have informed
+ * the spatial model's expectations.
  */
 
 export const FOOD_MINUTE = 30;
@@ -101,15 +105,15 @@ export function e6Targets(csv: string): E6Target[] {
 /**
  * Simulate `colonies` independent colonies (one RNG stream each), observe
  * each with a scan phase drawn uniformly over one period, and return
- * per-colony metrics.
+ * per-colony metrics (observer rule 'after' unless given).
  */
-export function simulateColonies(run: (rng: RNG) => ColonyRun, colonies: number, seed: number, first = 0): E6Metrics[] {
+export function simulateColonies(run: (rng: RNG) => ColonyRun, colonies: number, seed: number, first = 0, rule?: ObserverRule): E6Metrics[] {
   return Array.from({ length: colonies }, (_, i) => {
     const c = first + i;
     const rng = RNG.stream(seed, c);
     const r = run(rng);
     const phase = RNG.stream(seed, c, 1).range(0, 60);
-    const events = scansToEvents(observeContacts(r.contacts, { colony: 1, phase }));
+    const events = scansToEvents(observeContacts(r.contacts, { colony: 1, phase, rule }));
     return metricsFromEvents(events, 1, r.forager);
   });
 }
@@ -123,9 +127,12 @@ export interface E6Row {
 }
 
 /**
- * Judge simulated colonies: mean with SE_data = SD/√5 combined with SE_sim
- * (from 10 blocks of colonies), and the between-colony SD separately
- * (log-SD z with n = 5: weak, indicative only).
+ * Judge simulated colonies. Mean: t = Δ / √(SE_data² + SE_sim²), SE_data =
+ * SD/√5 (4 df), SE_sim from 10 blocks of colonies (9 df), reported as the
+ * normal-equivalent z through Student's t with df = min(4, 9) = 4 (and with
+ * the Welch–Satterthwaite df as `zWelch`).
+ * Spread: variance-ratio F test, also as a normal-equivalent z (normal
+ * colony values assumed; with 5 colonies indicative only).
  */
 export function e6Compare(sim: E6Metrics[], targets: E6Target[], blocks = 10): E6Row[] {
   return targets.map((t) => {
@@ -133,12 +140,13 @@ export function e6Compare(sim: E6Metrics[], targets: E6Target[], blocks = 10): E
     const per = Math.ceil(v.length / blocks);
     const est = blockEstimate(Array.from({ length: blocks }, (_, b) => v.slice(b * per, (b + 1) * per)));
     const seData = t.sd / Math.sqrt(t.n);
+    const s = smallSampleZ(est.mean, est.se, est.blocks - 1, t.mean, seData, t.n - 1);
     return {
       target: t,
       simMean: est.mean,
       simSd: est.sd,
-      mean: { id: t.id, label: t.label, kind: 'mean', data: t.mean, sim: est.mean, seData, seSim: est.se, z: combinedZ(est.mean, est.se, t.mean, seData) },
-      spread: { id: `${t.id}.sd`, label: `${t.label} (SD between colonies)`, kind: 'spread', data: t.sd, sim: est.sd, seData: NaN, seSim: NaN, z: logSdZ(est.sd, est.n, t.sd, t.n) },
+      mean: { id: t.id, label: t.label, kind: 'mean', data: t.mean, sim: est.mean, seData, seSim: est.se, ...s },
+      spread: { id: `${t.id}.sd`, label: `${t.label} (SD between colonies)`, kind: 'spread', data: t.sd, sim: est.sd, seData: NaN, seSim: NaN, z: varianceRatioZ(est.sd, est.n, t.sd, t.n) },
     };
   });
 }
@@ -146,6 +154,6 @@ export function e6Compare(sim: E6Metrics[], targets: E6Target[], blocks = 10): E
 export function e6Table(rows: E6Row[]): string {
   const f = (v: number) => (Math.abs(v) < 1 ? v.toFixed(3) : v.toFixed(1));
   return rows
-    .map((r) => `${r.target.family.padEnd(8)} z=${r.mean.z.toFixed(1).padStart(5)}  zSD=${r.spread.z.toFixed(1).padStart(5)}  ${r.target.label}: data ${f(r.target.mean)}±${f(r.target.sd)} (${r.target.source}), sim ${f(r.simMean)}±${f(r.simSd)}`)
+    .map((r) => `${r.target.family.padEnd(8)} z=${r.mean.z.toFixed(1).padStart(5)} (t=${r.mean.t!.toFixed(1).padStart(5)}, zWS=${r.mean.zWelch!.toFixed(1).padStart(5)} df ${r.mean.dfWelch!.toFixed(1).padStart(4)})  zSD=${r.spread.z.toFixed(1).padStart(5)}  ${r.target.label}: data ${f(r.target.mean)}±${f(r.target.sd)} (${r.target.source}), sim ${f(r.simMean)}±${f(r.simSd)}`)
     .join('\n');
 }

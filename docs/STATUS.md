@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-09 (session 3: step-3c fits running under the amended pre-registration; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-09 (session 3: step 4 started — E6 decision rule, TEC rerun, nest assumptions pre-registered; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
@@ -34,15 +34,20 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   in the Decisions log (2026-10-09). No further laying family without a
   distinguishing prediction (persistent propensity vs no feeding effect).
   Scripts that rebuild step-3 fits use the legacy layer (`E2_LEGACY_*`).
-- **E6 / colony (step 4):** bounded provisional colony (Bles nest,
-  contacts, conserved food sharing, `#colony` page); calibration and the
-  E6 test come next, with the E6 walker-sensitivity probe. E6 outcomes are
-  a development benchmark (review). Before judging: the t-based decision
-  rule (5 colonies, ≈ 4 df); rerun the TEC-through-observer numbers and
-  `e6-tec.json` (observer rule 'after'); crop absorption as a sensitivity
-  scenario (0 – 0.05 /h; the source is *Solenopsis*); the walking
-  assumption for the nest pre-registered (the E2 factor confounds
-  temperature and context).
+- **E6 / colony (step 4): started 2026-10-09.** Done: the t-based E6
+  rule (z through t with df 4; Welch–Satterthwaite reported; F-test spread)
+  and the TEC rerun through the 'after' observer (`e6-tec.json` rewritten;
+  refit and published TEC both pass every mean, T50 z −1.5 / −1.7). Nest
+  assumptions pre-registered (user decisions 2026-10-09): unchanged walker
+  primary (× 0.93 and × 0.289 sensitivity), crop absorption 0 primary
+  (0.05 /h of crop contents sensitivity; re-parameterisation still to
+  code), L0S1c main / L0S1 alternative, ≥ 200 colonies. **Power warning:**
+  the rejected one-caste model also passes the colony means (NF→F z −2.2
+  only) → add the per-ant distributions as KS targets before judging.
+  Next: those KS targets; calibrate the colony on Mailleux 1999 in-nest
+  recruiters (non-E6); then the E6 test (development benchmark). In
+  parallel: freeze the E2 external-validation protocol on Mailleux 2005
+  (held unread).
 - **Judging:** a candidate missing a statistic the data estimate is
   unjudgeable (2026-10-09 fix; no earlier ranking was affected).
 - Commits: plain messages, no co-author lines; ask before committing.
@@ -649,6 +654,11 @@ See [`CLAUDE.md`](../CLAUDE.md).
   validated aggregation for very large colonies (see `docs/DESIGN.md`).
 
 ## Decisions log
+- **2026-10-09** Docs only, nothing under `src/` touched while the step-3c
+  fits run: drafted [`DATA.md`](DATA.md) (data cards) and [`API.md`](API.md)
+  (public API proposal, awaiting review). Found that `SIX_TARGETS` still
+  carries `role: 'heldout'` although step 3b made the 2003 data development;
+  to correct after the fits.
 - **2026-10-07** Browser, TypeScript, three.js. The simulation core is
   pure, deterministic and runs in a Web Worker. Language performance is not
   the bottleneck; hot kernels can move to WASM if profiling demands it.
@@ -3376,3 +3386,83 @@ See [`CLAUDE.md`](../CLAUDE.md).
     `MAILLEUX_SETUP` (with the 2009 scale), and exports L0S1 as the
     alternative. New structural parameters get provenance (searchMode,
     layRule and the fast-uptake terms).
+- **2026-10-09** **Step 4 started: E6 decision rule and TEC rerun
+  (implements review item 5 and step-3c amendment 3; logged before
+  acting).**
+  - **Means.** E6 rows report a normal-equivalent z: the combined
+    t = Δ / √(SE_data² + SE_sim²) is mapped through Student's t with
+    Welch–Satterthwaite df, ν = (a + b)² / (a²/4 + b²/(R − 1)), a =
+    SE_data², b = SE_sim² (R = 10 seed blocks), then z = Φ⁻¹(F_ν(t)).
+    The cut-offs 2 and 3 then keep their usual meaning (≈ 4.6 % / 0.27 %
+    under a correct model). The raw t and ν are reported beside z.
+  - **Spread.** The log-SD normal approximation is replaced by the
+    variance-ratio F test, s²_sim / s²_data ~ F(n_sim − 1, 4) under equal
+    variances (normal colony values assumed; with 5 colonies nothing
+    sharper is available), mapped to z the same way (sign: sim SD larger
+    is positive). Indicative only, as before.
+  - **Fitting is unchanged:** `fitE6TEC.ts` keeps Σ fitZ² (SE_data only;
+    the t mapping is monotone per row and would only reweight rows by ν).
+  - **Rerun:** published TEC-exp and the tier-2 refit through the
+    observer, rule 'after' (default) and 'total' (sensitivity);
+    `fitE6TEC.ts` refits under 'after' and writes `e6-tec.json` with the
+    observer rule recorded. The TEC numbers are a reference fitted to E6,
+    not a test of our model.
+  - **Null calibration (before any E6 result was looked at):** 5 data and
+    200 simulated colonies (10 blocks) from one normal, 100 000 replicates.
+    Welch–Satterthwaite: 4.8 % beyond |z| 2, 0.54 % beyond 3 (nominal 4.55 /
+    0.27; uncorrected ≈ 4 % beyond 3): its df is estimated from the same 5
+    colonies and rises exactly when SE_data comes out small. Fixed df =
+    min(4, R − 1) = 4: 4.1 % / 0.15 % (50 colonies: 3.2 % / 0.04 %; tends to
+    exact as SE_sim → 0). Spread F test: 4.6 % beyond 2.
+- **2026-10-09** **User decisions: E6 rule and nest assumptions
+  (pre-registration for the E6 test; frozen before any output of our
+  colony model is judged against E6; logged before acting).**
+  1. **Decision rule (primary):** normal-equivalent z through t with fixed
+     df = min(n_data − 1, R − 1) = 4; the Welch–Satterthwaite z is reported
+     beside it. Our colony model is run with ≥ 200 colonies (SE_sim small,
+     so df 4 is close to exact). |z| ≤ 2 consistent, ≤ 3 marginal. Spread:
+     the F-test z, indicative only.
+  2. **Walking in the nest:** primary = the adopted E1 walker unchanged
+     (fitted at 26 °C on canvas; E6 at 25 °C). Sensitivity: temperature
+     only, × 0.93 (Q10 2, 26 → 25 °C); the E2 bridge factor × 0.289
+     (confounds temperature, surface, task and method; not transferred by
+     default).
+  3. **Crop absorption:** primary 0 (absorption = metabolic need only).
+     Sensitivity: first-order, 0.05 of the crop's sugar per hour (Howard &
+     Tschinkel 1981, *Solenopsis*, isolated workers: a scenario, not a
+     *Lasius* bound), limited by the reserve room (no overfilling). The
+     `cropAbsorption` term is re-parameterised from "× reserve room" to
+     "× crop contents" for this; at 0 nothing changes (E2 unaffected).
+  4. **E2 layer:** L0S1c (baseline desired volumes) main, L0S1 alternative
+     (decided 2026-10-09).
+  5. **Reading:** the primary scenario gives the result. A row whose
+     verdict (ok / marginal / off) changes across the four sensitivity
+     runs (two walking, one absorption, the L0S1 layer) is reported as
+     "sensitive to <assumption>", not as a pass. E6 is a development
+     benchmark (review item 5); calibration of the colony uses non-E6 data
+     (Mailleux 1999 in-nest recruiters) first.
+  **Implemented:** `smallSampleZ`, `tToZ`, `welchDf`, `varianceRatioZ`,
+  `betaInc` (`compare.ts`; tested against t/F tables and the null rates);
+  `e6Compare` reports z (df 4), t, zWS and its df, and the F-test spread z;
+  `--rule after|total` in `reportE6.ts`; `observerRule` recorded in
+  `e6-tec.json`. Crop-absorption re-parameterisation not yet done (needed
+  only for the sensitivity run).
+- **2026-10-09** **E6 TEC baseline rerun under the corrected observer and
+  rule (400 colonies; `logs/reportE6-rerun.log`, `logs/fitE6TEC-after.log`).**
+  - **Refit** (`e6-tec.json` rewritten, rule 'after'): θF 1/7.4, θW 1/19.9,
+    ϒF 1/8.8, ϒW 1/21.8 (old 'total'-era refit 1/7.8, 1/21.7, 1/8.1, 1/21.8;
+    published 1/9, 1/23, 1/9, 1/27), fit loss 0.41 (old 0.29). Fresh
+    colonies: every mean |z| ≤ 1.5; **T50 29.9 vs 32.8 min, t −1.9 → z −1.5**
+    (was reported z −2.1 under the normal rule). Spread: both-roles share
+    zSD −2.0, efficiency −1.8 (simulated colonies too alike).
+  - **Published TEC-exp:** events 80.5 (t −2.0 → z −1.6), T50 29.3 (t −2.3
+    → z −1.7), NF→NF 24.7 (z −1.6); nothing beyond |z| 2.
+  - **Rule 'total' (sensitivity):** small shifts only (published events
+    82.9, refit 99.9; no verdict changes).
+  - **Power (one-caste model, rejected by the authors):** every colony
+    mean |z| ≤ 1.7 except NF→F (t −3.3 → z −2.2, marginal); F→F spread
+    zSD −5.6 is the only clear rejection. Colony-level means with 5
+    colonies barely discriminate. The per-ant distributions (267 ants,
+    events given / received by foragers and non-foragers; step 2 note)
+    should become pre-registered KS targets before our colony model is
+    judged on E6.
