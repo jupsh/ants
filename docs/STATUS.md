@@ -4456,3 +4456,24 @@ listing opened). Checks on the running gate: only whether outputs exist.
   not close, which fits the observer reading (path summed per step) better
   than a lagging simulation. A smaller dt would not fix it, so the next
   step is the observer change, not dt 0.0125. Box idle.
+
+**2026-10-10 night — the dt failure is a physics bug, not the observer (decision before the fix).**
+- Diagnostic (`scripts/_diagDist.ts`, 12 recruiters, 1 d, start points,
+  development only): in mode `active` the recruiter's speed is 31 vs
+  39 mm/s (start 1) and 8.2 vs 9.7 mm/s (start 2) at dt 0.1 vs 0.025.
+  Resampling positions at 1 s barely narrows the gap (3571 vs 3855 cm
+  summed), so the planned observer change is **dropped**: it would have
+  hidden a model error.
+- Cause: in `walkAnt` (antPhysics), a move segment that meets the edge of
+  the surface is walked only up to the edge; the ant turns, but the rest
+  of the segment is lost, while the motor counts it as walked. The loss
+  per wall contact is up to one segment, which scales with dt. It happens
+  constantly in the 56 × 41 mm nest.
+- **Fix (Claude, delegated):** after turning along the edge, the ant walks
+  the remaining length along the new heading, in the same step (with a
+  bounded number of turns). This breaks E2 bit-identity, because scouts
+  meet bridge edges. Check: E2 report under both layers, before vs after,
+  in combined-SE units. If every row moves by ≤ 1 combined SE, the fix is
+  adopted with the E2 fits unchanged (and disclosed); otherwise it is
+  back to the user before any colony work. The dt gate then reruns at
+  0.1 vs 0.025.
