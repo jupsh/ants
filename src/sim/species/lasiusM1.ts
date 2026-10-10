@@ -8,11 +8,18 @@ import { walkParams, type WalkParams } from '../models/walk';
  * Values marked `fitted` are produced by scripts under scripts/ and stored in
  * data/fits/; the starting values here are used only before a fit exists.
  */
-const KHUONG = { conditions: '26 °C, 50 % RH, isolated workers on a 0.5 × 0.5 m canvas, 5 inclines', n: '345 trajectories (69 per incline), 3 colonies', fit: 'E1 (scripts/fitE1.ts): pattern-oriented fit of trajectory statistics on inclines 0, π/6, π/3', validatedBy: 'E1 withheld inclines π/9, π/4' };
+const KHUONG = { conditions: '26 °C, 50 % RH, isolated workers on a 0.5 × 0.5 m canvas, 5 inclines', n: '345 trajectories (69 per incline), 3 colonies', fit: 'E1 (scripts/fitE1.ts): pattern-oriented fit of trajectory statistics on inclines 0, π/6, π/3', validatedBy: 'none yet: inclines π/9 and π/4 were not fitted but have been inspected (development, STATUS contamination log)' };
 
 const walk = walkParams(e1fit.params as Partial<WalkParams>);
+// Only the parameters stored in the fit were free in it; the others (added later) keep their DEFAULT_WALK values.
+const walkFitted = new Set(Object.keys(e1fit.params));
 export const LASIUS_WALK_DEF = Object.fromEntries(
-  Object.entries(walk).map(([k, v]) => [k, fitted(v, '', 'khuongTrajectories', 'Fitted walking-model parameter; see src/sim/models/walk.ts for definition and units.', KHUONG)]),
+  Object.entries(walk).map(([k, v]) => [
+    k,
+    walkFitted.has(k)
+      ? fitted(v, '', 'khuongTrajectories', 'Fitted walking-model parameter; see src/sim/models/walk.ts for definition and units.', KHUONG)
+      : estimated(v, '', 'Not in the adopted E1 fit (data/fits/e1-walk.json): DEFAULT_WALK value (a term added after that fit; 0 or 1 switches it off). See src/sim/models/walk.ts.'),
+  ]),
 ) as { [K in keyof WalkParams]: ReturnType<typeof fitted<number>> };
 
 const MAILLEUX = { conditions: '22 ± 3 °C, colonies of 1000–2000 workers, 0.6 M sucrose, nest–bridge–6 × 6 cm area' };
@@ -50,19 +57,20 @@ const LASIUS_FORAGER_BASE = {
   layIntensity: measured(0.13, 'fraction of time', ['mailleux1999', 'mailleux2009'], 'Gaster-contact fraction on the return trip: 0.11–0.14 (1999), 0.16 ± 0.07 then 0.11 ± 0.08 (2009).', { ...MAILLEUX, uncertainty: { sd: 0.02, kind: 'between studies' } }),
   layIntensitySd: measured(0.08, 'fraction of time', ['mailleux1999', 'mailleux2009'], 'Between-individual SD of gaster-contact fraction (0.07–0.12).', MAILLEUX),
   gasterBout: estimated(0.25, 's', 'Mean duration of one gaster contact (marks are brief dabs).'),
-  arsMean: fitted(80, 's', 'mailleux2009', 'Mean area-restricted search time of unsatisfied ants around the first drop (between-drop time 134 s vs 58 s for satisfied ants).', { ...MAILLEUX, fit: 'E2' }),
+  arsMean: estimated(80, 's', 'Mean area-restricted search time of unsatisfied ants around the first drop. Set by hand from the 2009 between-drop times (134 s vs 58 s); not free in any adopted fit (free in the step-3c candidates). Independent measurement: giving-up rate Pl = 1/85 s (Mailleux et al. 2003).', 'mailleux2009', MAILLEUX),
   arsRunScale: estimated(0.4, '', 'Searching ants turn more (shorter runs) than exploring ones.'),
-  homeGain: fitted(1.0, '1/s', 'mailleux1999', 'Steering gain towards the home vector; constrained by return times (110–156 s).', { ...MAILLEUX, fit: 'E2' }),
+  homeGain: estimated(1.0, '1/s', 'Steering gain towards the home vector. Not fitted: no E2 target uses the 1999 return times (110–156 s).', 'mailleux1999', MAILLEUX),
   homeRunScale: estimated(3, '', 'Homing ants walk straighter than exploring ones.'),
   compassBias: estimated(0.08, 'rad', 'Per-trip compass bias for an ant using path integration in the lab (no strong visual cues).'),
-  loadSlowdown: fitted(1.0, '', 'mailleux1999', 'Return times rise with starvation (110 → 137 → 156 s) as ingested volume rises (≈0.65 → 0.9 µL).', { ...MAILLEUX, fit: 'E2 return times' }),
+  loadSlowdown: estimated(1.0, '', 'Speed loss of laden ants. Motivated by return times rising with starvation (110 → 137 → 156 s) as intake rises (≈0.65 → 0.9 µL), but not fitted: return times are not an E2 target.', 'mailleux1999', MAILLEUX),
 };
 
 const LASIUS_PHYS_BASE = {
-  intakeRate: fitted(0.0095, 'µL/s', ['mailleux2009'], '0.47 µL ingested in 51 s at a 0.7 µL drop of 0.6 M sucrose; Mailleux et al. model uses 0.01 µL/s.', { ...MAILLEUX, transform: 'volume ÷ drinking time' }),
+  intakeRate: derived(0.0095, 'µL/s', ['mailleux2009'], '0.47 µL ingested in 51 s at a 0.7 µL drop of 0.6 M sucrose; Mailleux et al. model uses 0.01 µL/s.', { ...MAILLEUX, transform: 'volume ÷ drinking time' }),
   intakeSd: estimated(0, 'log units', 'Between-worker SD of log intake rate; intake rate is an individual trait (Mailleux et al. 2009). Set by the step-3 fits.'),
   metabolic: derived(1.2e-3, 'mg/h/mg^0.75', 'gillooly2001', 'Resting ant metabolism ≈1 µL O2 h⁻¹ mg⁻¹ converted to sucrose equivalents.'),
   activeFactor: estimated(3, '×', 'Walking raises metabolic rate several-fold.'),
+  cropAbsorption: estimated(0, '1/s', 'Crop → reserve transfer beyond the metabolic need, per s, times the reserve room (mg). Unsourced: set to 0 (STATUS 2026-10-09 amendment; replaces a hard-coded 0.001 /s); value to come from the literature on crop emptying before the E6 calibration, on which it bears (forager crop available for sharing).'),
   permeability: estimated(20, 'µg cm⁻² h⁻¹ mmHg⁻¹', 'Mid-range cuticular permeability of mesic ants (≈5–60).'),
   surfaceArea: estimated(16, 'mm²', 'Body surface of a ~2 mg worker (≈10·m^(2/3)).'),
   depositPerMm: estimated(1, 'units/mm', 'Normalisation of trail units: one gaster-contact millimetre deposits 1 unit.'),
@@ -90,6 +98,19 @@ export const LASIUS_PARAMS = { walk: LASIUS_WALK, forager: LASIUS_FORAGER, phys:
 export const MAILLEUX_PIPETTE_ACCESSIBLE: number = E2FIT.pipetteAccessible ?? 0.75;
 /** Mailleux apparatus and observer settings fitted with the E2 model (volume-estimate SD in µL). */
 export const MAILLEUX_SETUP = { accessible: MAILLEUX_PIPETTE_ACCESSIBLE, volumeSd: E2FIT.observer?.volumeSd ?? 0 };
+
+/**
+ * E2 context factor on the walker's speed in the Mailleux apparatus (22 °C,
+ * bridge and 6 × 6 cm area; STATUS 2026-10-09 amendment): the E1 walker was
+ * fitted at 26 °C on a canvas and walks ≈ 2× faster than scouts on the
+ * bridge. Derived, not fitted to any E2 target: set by scripts/calibrateE2Speed.ts
+ * so the model's homebound mid-bridge speed (mean over ants of 2.5 cm ÷ time)
+ * equals the measured 1.6 cm/s. Temperature and context are not separated.
+ */
+export const E2_CONTEXT_DEF = {
+  walkSpeedFactor: derived(0.289, '×', ['mailleux2000', 'mailleux2006'], 'Homebound walking speed at mid-bridge 1.6 ± 0.6 cm/s (3 µL drop, 4 d, 22 °C; 2000 n 93, 2006 n 122, overlapping data). Assumed to apply in the foraging area as on the bridge. Calibrated 2026-10-09 (1000 scouts): 1.60 ± 0.74 cm/s at f = 0.289 (f = 1: 4.77 ± 2.47). For scale: the E1 data (Khuong, 26 °C, canvas) have a median moving speed of 43 mm/s, the Mailleux bridge scouts 16 mm/s; temperature (Q10 ≈ 2) explains ≈ 1.3× of that 2.7×.', { ...MAILLEUX, transform: 'bisection: model homebound mid-bridge speed (same statistic) = 1.6 cm/s' }),
+};
+export const E2_CONTEXT = resolve(E2_CONTEXT_DEF);
 
 /**
  * Khuong et al. 2013 tracking error (E1 observer model A, step 5): white

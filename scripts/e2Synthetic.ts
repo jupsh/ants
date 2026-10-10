@@ -5,7 +5,8 @@
  * volume-estimate noise, only scouts that drank are observed), at the real
  * sample sizes per condition; each target is recomputed from them with the
  * data's own summary (mean ± SD/√n, binomial proportion, regression slope
- * and Spearman r with the same SE formulas).
+ * and Spearman r with the same SE formulas). Seeds from 4.1e9, out of the
+ * fits' reach (< 3.1e9; STATUS 2026-10-09, seed collisions).
  */
 import { binomialSE } from '../src/sim/analysis/compare';
 import type { LasiusParams, ScoutResult } from '../src/sim/experiments/e2Mailleux';
@@ -23,7 +24,7 @@ export function modelOf(fit: any): { P: LasiusParams; setup: { accessible: numbe
   };
 }
 
-export async function syntheticTargets(fit: any, rep: number, run: ScoutRunner, n: Record<string, number> = DATA_N, seed0 = 50_000_000): Promise<Target[]> {
+export async function syntheticTargets(fit: any, rep: number, run: ScoutRunner, n: Record<string, number> = DATA_N, seed0 = 4_100_000_000): Promise<Target[]> {
   const { P, setup } = modelOf(fit);
   const values: Record<string, number[]> = {};
   for (const [i, c] of E2_CONDITIONS.entries()) {
@@ -35,6 +36,7 @@ export async function syntheticTargets(fit: any, rep: number, run: ScoutRunner, 
   const vtN = 2 * (values['two.ul2']?.length ?? 0);
   return E2_TARGETS.map((t): Target => {
     const xs = values[t.id] ?? [];
+    if (t.id === 'two.vtRs1' || t.id === 'two.vtRs2') return { ...t, value: xs[0], se: Math.sqrt(1.06 / (vtN / 2 - 3)), n: vtN / 2 };
     if (t.id === 'two.vtSlope' || t.id === 'two.vtRs') {
       const r = values['two.vtRs'][0];
       const v = xs[0];

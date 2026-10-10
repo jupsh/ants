@@ -89,7 +89,7 @@ const one = async (label: string, x0: number[], lambda: number | undefined, off:
   });
   evals += r.evals;
   const f = await score(r.meanAvg);
-  console.log(`${label}: λ ${lambda ?? 'default'}, ${r.generations} generations, ${r.evals} evaluations, final σ ${r.sigma.toFixed(3)}; selection-batch loss ${f.toFixed(3)}`);
+  console.log(`${label}: λ ${lambda ?? 'default'}, ${r.generations} generations, ${r.evals} evaluations, final σ ${r.sigma.toFixed(3)}; mean averaged over the last ${r.avgWindow} generations, drift across them (encoded units) ${r.meanDrift.map((v) => v.toFixed(2)).join(' ')}; selection-batch loss ${f.toFixed(3)}`);
   return { x: r.meanAvg, f };
 };
 

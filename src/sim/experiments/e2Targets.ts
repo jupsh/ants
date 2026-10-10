@@ -65,13 +65,18 @@ export const E2_TARGETS: Target[] = [
   m('two.ulTot', 'Two drops: total intake', 'development', 0.75, 0.3, 63, 'µL', 'mailleux2009'),
   m('two.betweenTL1', 'Two drops: time between drops, trail layers', 'fit', 58, 33, 24, 's', 'mailleux2009'),
   m('two.betweenNTL1', 'Two drops: time between drops, non-layers', 'fit', 134, 87, 39, 's', 'mailleux2009'),
-  m('two.total', 'Two drops: total time on the apparatus', 'development', 178, 83, 63, 's', 'mailleux2009'),
+  m('two.total', 'Two drops: total time (drink 1 + between + drink 2)', 'development', 178, 83, 63, 's', 'mailleux2009'),
   // Volume–time relation pooled over both drops (2009, N = 126): identifies the
   // between-ant intake-rate SD and the volume measurement error (docs/STATUS.md,
   // step-3 pre-registration). SEs from large-sample formulas: slope
   // b·√((1 − r²)/(r²(N − 2))), correlation (1 − r²)/√(N − 3).
-  { id: 'two.vtSlope', label: 'Two drops: volume vs drinking time, regression slope', role: 'fit', value: 0.006, se: 0.006 * Math.sqrt((1 - 0.46 ** 2) / (0.46 ** 2 * 124)), n: 126, unit: 'µL/s', source: 'mailleux2009' },
-  { id: 'two.vtRs', label: 'Two drops: volume vs drinking time, Spearman r', role: 'fit', value: 0.46, se: (1 - 0.46 ** 2) / Math.sqrt(123), n: 126, unit: 'r', source: 'mailleux2009' },
+  // Step-3c amendment (STATUS 2026-10-09): the pooled slope and rs mostly measure the step between the
+  // drop means (fitted already), so they are development rows; the per-drop rs are the fit rows,
+  // compared on the Fisher-z scale (atanh rs, SE √(1.06/(n − 3)) for Spearman).
+  { id: 'two.vtSlope', label: 'Two drops: volume vs drinking time, regression slope (pooled)', role: 'development', value: 0.006, se: 0.006 * Math.sqrt((1 - 0.46 ** 2) / (0.46 ** 2 * 124)), n: 126, unit: 'µL/s', source: 'mailleux2009' },
+  { id: 'two.vtRs', label: 'Two drops: volume vs drinking time, Spearman r (pooled)', role: 'development', value: 0.46, se: (1 - 0.46 ** 2) / Math.sqrt(123), n: 126, unit: 'r', source: 'mailleux2009' },
+  { id: 'two.vtRs1', label: 'Two drops: volume vs drinking time at drop 1, Spearman r (Fisher z)', role: 'fit', value: Math.atanh(0.22), se: Math.sqrt(1.06 / 60), n: 63, unit: 'atanh r', source: 'mailleux2009' },
+  { id: 'two.vtRs2', label: 'Two drops: volume vs drinking time at drop 2, Spearman r (Fisher z)', role: 'fit', value: Math.atanh(0.31), se: Math.sqrt(1.06 / 60), n: 63, unit: 'atanh r', source: 'mailleux2009' },
 ];
 
 const single = (days: number): Condition => ({
@@ -93,16 +98,18 @@ export const E2_CONDITIONS: Condition[] = [
     metrics: (rs) => {
       const both = rs.filter((r) => r.drinks.length >= 2);
       return {
-        'two.ul1': rs.map((r) => r.drinks[0].ul),
-        'two.t1': rs.map((r) => r.drinks[0].time),
-        'two.tl1': ind(rs, (r) => r.laidSection1),
+        // Drop-1 rows over the scouts that found both drops, as in the data (Mailleux 2009: n = 63).
+        'two.ul1': both.map((r) => r.drinks[0].ul),
+        'two.t1': both.map((r) => r.drinks[0].time),
+        'two.tl1': ind(both, (r) => r.laidSection1),
         'two.trail': ind(both, (r) => r.laidTrail),
         'two.ul2': both.map((r) => r.drinks[1].ul),
         'two.t2': both.map((r) => r.drinks[1].time),
         'two.ulTot': both.map((r) => r.drinks[0].ul + r.drinks[1].ul),
         'two.betweenTL1': both.filter((r) => r.laidSection1).map((r) => r.betweenTime),
         'two.betweenNTL1': both.filter((r) => !r.laidSection1).map((r) => r.betweenTime),
-        'two.total': both.map((r) => r.total),
+        // 2009 Table 2 "Total" = drinking at drop 1 + between drops + drinking at drop 2 (not time in the area).
+        'two.total': both.map((r) => r.drinks[0].time + r.betweenTime + r.drinks[1].time),
         'two.foundBoth': ind(rs, (r) => r.drinks.length >= 2),
         ...volumeTime(both),
       };
@@ -113,8 +120,9 @@ export const E2_CONDITIONS: Condition[] = [
 function volumeTime(both: ScoutResult[]): Record<string, number[]> {
   const t = both.flatMap((r) => [r.drinks[0].time, r.drinks[1].time]);
   const v = both.flatMap((r) => [r.drinks[0].ul, r.drinks[1].ul]);
-  if (t.length < 10) return { 'two.vtSlope': [NaN], 'two.vtRs': [NaN] };
-  return { 'two.vtSlope': [olsFit(t, v).slope], 'two.vtRs': [spearman(t, v)] };
+  if (t.length < 10) return { 'two.vtSlope': [NaN], 'two.vtRs': [NaN], 'two.vtRs1': [NaN], 'two.vtRs2': [NaN] };
+  const perDrop = (j: number) => Math.atanh(spearman(both.map((r) => r.drinks[j].time), both.map((r) => r.drinks[j].ul)));
+  return { 'two.vtSlope': [olsFit(t, v).slope], 'two.vtRs': [spearman(t, v)], 'two.vtRs1': [perDrop(0)], 'two.vtRs2': [perDrop(1)] };
 }
 
 export type E2Sim = Record<string, BlockEstimate>;
@@ -193,7 +201,7 @@ export function e2Compare(sim: E2Sim, targets: Target[] = E2_TARGETS): E2Row[] {
 
 /** Plain-text table of `e2Compare` rows (scripts and logs). */
 export function e2Table(rows: E2Row[]): string {
-  const f = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)}%` : unit === 'µL/s' ? v.toFixed(4) : v.toFixed(unit === 'µL' || unit === 'r' || unit === 'n' ? 2 : 0));
+  const f = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)}%` : unit === 'µL/s' ? v.toFixed(4) : v.toFixed(unit === 'µL' || unit === 'r' || unit === 'atanh r' || unit === 'n' ? 2 : 0));
   return rows
     .map(({ target: t, sim, mean, spread }) => {
       const sd = (x: number | undefined) => (t.sd !== undefined && x !== undefined ? `±${f(x, t.unit)}` : '');

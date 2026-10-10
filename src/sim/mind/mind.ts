@@ -39,9 +39,8 @@ export interface Mind {
   site: { x: number; y: number } | null;
   /** Remaining area-restricted search time (s). */
   ars: number;
-  /** Food currently being drunk, and crop volume when last checked (to sense intake). */
+  /** Food currently being drunk. */
   foodId: number;
-  lastCropUl: number;
   /** Gaster tip currently lowered for marking. */
   gasterDown: boolean;
   /** Nestmate currently shared with (trophallaxis), or −1, and seconds since food last flowed. */
@@ -67,7 +66,6 @@ export function newMind(traits: Traits, walkP: WalkParams, rng: RNG): Mind {
     site: null,
     ars: 0,
     foodId: -1,
-    lastCropUl: 0,
     gasterDown: false,
     partner: -1,
     shareStall: 0,

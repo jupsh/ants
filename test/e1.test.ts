@@ -25,20 +25,20 @@ describe('E1 numerics', () => {
   });
 });
 
-function validate(k: number): void {
+function rowsFor(k: number) {
   const sim = sampleFor(runE1(params, { incline: INCLINES[k - 1], ants: 300, seed: 777 + k, dt: 0.02, tracking: khuongTracking(k) }));
-  const { rows } = compareE1(sim, data(k), scalarSE(sim));
-  // Combined-SE criteria (docs/STATUS.md): no statistic may be clearly off
-  // (|z| > 3), and with ~24 statistics at most a couple may be marginal.
-  for (const r of rows) expect(verdict(r.z), `${r.label}: z = ${r.z.toFixed(2)}`).not.toBe('off');
-  expect(rows.filter((r) => verdict(r.z) !== 'ok').length).toBeLessThanOrEqual(2);
+  return compareE1(sim, data(k), scalarSE(sim)).rows;
 }
 
 describe('E1 agreement with Khuong et al. 2013 (development inclines, combined-SE criteria)', () => {
   // Known gaps (docs/STATUS.md): under the combined-SE criteria the current fit
   // misses the slow tail of moving speeds, short-scale heading correlation and
   // drift near the release point even at 20°; on steep slopes the speed
-  // distribution and turning are not captured. Remove `.fails` when these pass.
-  it.fails('incline 2 (20°) is consistent with the data [known gap]', () => validate(2));
-  it.fails('incline 4 (45°) is consistent with the data [known gap]', () => validate(4));
+  // distribution and turning are not captured. "Consistent" means no
+  // statistic off (|z| > 3) and at most two marginal. These tests assert that
+  // the gap is still there, so a crash fails them (unlike it.fails) and a
+  // closed gap fails them too: then replace them with consistency tests.
+  const consistent = (rows: ReturnType<typeof rowsFor>) => rows.every((r) => verdict(r.z) !== 'off') && rows.filter((r) => verdict(r.z) !== 'ok').length <= 2;
+  it('incline 2 (20°): known gap still present', () => expect(consistent(rowsFor(2))).toBe(false));
+  it('incline 4 (45°): known gap still present', () => expect(consistent(rowsFor(4))).toBe(false));
 });
