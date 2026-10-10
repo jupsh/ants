@@ -324,6 +324,12 @@ export function renderE6(root: HTMLElement): () => void {
       drawTimeline(timeline, res, playT, hoverT, col);
     }
     // Walls over everything (ants walking through the doorway pass under the wall line), then labels.
+    // The route opens into both: leave its mouths out of the wall lines (clip, not paint, so ants in it stay visible).
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(0, 0, canvas.width, canvas.height);
+    ctx.rect(X(ROUTE.x) - 3 * dpr, Y(ROUTE.y) + dpr, ROUTE.w * s + 6 * dpr, ROUTE.h * s - 2 * dpr);
+    ctx.clip('evenodd');
     ctx.lineWidth = 1.5 * dpr;
     ctx.strokeStyle = col('--axis');
     ctx.beginPath();
@@ -334,8 +340,7 @@ export function renderE6(root: HTMLElement): () => void {
     ctx.beginPath();
     ctx.rect(...box(NEST));
     ctx.stroke();
-    ctx.fillStyle = col('--surface-1');
-    ctx.fillRect(X(ROUTE.x) - 2 * dpr, Y(ROUTE.y) + dpr, ROUTE.w * s + 4 * dpr, ROUTE.h * s - 2 * dpr);
+    ctx.restore();
     ctx.strokeStyle = col('--axis');
     ctx.lineWidth = 1.5 * dpr;
     ctx.beginPath();
