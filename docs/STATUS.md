@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-10 evening (session 3: step 4 — E6 rule and pre-registration done; Mailleux 1999 calibration: first fits invalid (deadlock bug); refits stopped unjudged after a review found a bout-ending bug; fixes in, refit pending; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-10 late evening (session 3: stage order, E2 reopening rule and flat-direction rule pre-registered while the gate runs; step 4 — E6 rule and pre-registration done; Mailleux 1999 calibration: first fits invalid (deadlock bug); refits stopped unjudged after a review found a bout-ending bug; fixes in, refit pending; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
@@ -65,6 +65,10 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   Then the E6 test — a **development benchmark, not validation**: E6 data
   were inspected while building the rule; independent colony validation
   remains outstanding. Mailleux 2005: see the E2 item above.
+  **Now (late evening):** gate running on the box (dt, warm-up,
+  identifiability); stage order to E6, the E2 reopening rule and the
+  flat-direction rule pre-registered before any gate output was seen
+  (Decisions log, last entry; amendments 1–5 there await the user).
 - **Judging:** a candidate missing a statistic the data estimate is
   unjudgeable (2026-10-09 fix; no earlier ranking was affected).
 - Commits: plain messages, no co-author lines; ask before committing.
@@ -4340,3 +4344,76 @@ compute is spent; each extra free parameter must be identifiable from the
   equivalence dt 0.1 vs 0.025 (`logs/gate-dt.log`), warm-up 300 vs 900
   (`logs/gate-warmup.log`), identifiability at the start points
   (`logs/gate-ident.log`), all at the start points, current code.
+
+**2026-10-10 late evening — pre-registration while the gate runs (user plan; written before any gate output was seen).**
+Nothing from the gate runs has been looked at (no log, output or file
+listing opened). Checks on the running gate: only whether outputs exist.
+- **Stage order (user, pre-registered):**
+  1. **Gate** (running): dt 0.1 vs 0.025, warm-up 300 vs 900 s,
+     identifiability at both start points. Pass → refit. Fail → change the
+     failing setting (e.g. dt 0.05) and rerun that comparison at the new
+     setting before refitting.
+  2. **Refits:** both E2 layers (L0S1c main, L0S1 alt), k = 7, shared
+     warm-ups with 4 recruiters per nest, debiased objective, larger
+     budget per evaluation.
+  3. **Judging:** fresh seeds no fit has used. Adequate: no row |z| > 3, at
+     most 2 rows in (2, 3], at most `M1999_NO_BOUT_MAX` (≈ 11 %) of
+     recruiters per day without a bout. Sensitivities at the optimum:
+     contact threshold 0.5 / 2 s, `giveUpTime` 60 / 300 s. A verdict that
+     flips under the contact threshold is a real result (the threshold was
+     chosen after seeing simulated durations). Not adequate → report the
+     failing rows and why; Claude decides the model change (logged with its
+     distinguishing observation before acting, reported to the user); E6
+     does not run.
+  4. **Fit protection (gates E6):** ranking check (each layer's
+     candidates re-run in the independent design, ≥ 1000 fresh recruiters
+     per day; the optimum ranks first or within bootstrap SE of first);
+     convergence gate and identifiability repeated at the optimum.
+  5. **E6 preparation:** pre-register the E6 ensemble (parameter sets
+     fitting 1999 comparably, both layers, with the E2 reopening rule);
+     directed navigation to a known source as its own logged model
+     addition (own test and invariants; run-hash check that the 1999 rows
+     do not change); `leaveCropFrac` 0.05 sensitivity reported with the E6
+     run.
+  6. **E6 run:** development benchmark, not validation.
+  7. **After or alongside E6, sized by what E6 shows:** full-range 1-D
+     scans at the optimum (profiles where flat or stepped; parameters E6
+     is insensitive to get a scan only); 5 synthetic recovery fits at the
+     real n; the E2 backlog (≥ 3 recovery replicates, bigger-budget refit
+     from the profile's better point) only if the reopening rule triggers.
+  - Box: kept through gate, refits and step 4; everything copied back;
+    keeping it for E6 decided from the ensemble's estimated cost.
+- **E2 reopening rule (user, pre-registered):** E2 reopens only if an E6
+  statistic changes between L0S1 and L0S1c, or depends on a failure both
+  layers share (giving-up times, drinking-time spread). Otherwise E2 is
+  closed for M1, as E1 is.
+- **Directed navigation** is logged as a model addition with its own test,
+  not part of the E6 run.
+- **Decided by Claude (delegated): flat directions at the gate.**
+  `identM1999` singular value s per encoded unit. A direction is flat if
+  s < 1 or s is below the noise floor. Loading ≥ 0.8 on one parameter →
+  fix that parameter at its provisional value (`reserveSd` 0.5) and report
+  ×0.5 / ×2 at the optimum; a combination → reparameterise (e.g. density ×
+  nest speed) and fix the flat combination. Noise floor too high to tell →
+  raise n and rerun before deciding; no refit on an inconclusive check.
+- **Proposed amendments (Claude; pending the user):**
+  1. *Reopening thresholds* (paired seeds): the E6 verdict differs between
+     layers, a primary row's |z| changes band (≤ 2, 2–3, > 3), or moves by
+     > 1 combined SE. Shared-failure tests: E6 rerun at the main optimum
+     with the E2 profile point that beats the adopted fit (intakeSd 0.4,
+     loss 20.7 vs 26.5) as drinking layer, same thresholds; giving-up
+     matters only if E6 foragers give up at the food (count them). 1999
+     adequacy differing between layers also reopens E2. "Closed" = closed
+     as provisional, the known non-optimum disclosed, not adopted.
+  2. *Ensemble definition:* the step-4 ranking-check points within
+     bootstrap SE of the best, both layers, plus any sensitivity refits
+     (3). Backstop: if a post-E6 scan finds a comparably fitting region
+     outside the ensemble on a parameter E6 is sensitive to, E6 is rerun on
+     the widened ensemble and both are reported.
+  3. *Flipping sensitivities* (contact threshold, giveUpTime): refit at the
+     flipping setting; that optimum joins the E6 ensemble.
+  4. *Ranking-check scope:* the 10 best distinct points per layer plus the
+     selected optimum.
+  5. *Navigation parameters* estimated from the literature and frozen in
+     this log before E6 (they move E6's T50, already inspected); run-hash
+     check covers E2 as well as the 1999 rows.
