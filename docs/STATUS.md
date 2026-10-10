@@ -442,3 +442,40 @@ Earlier entries: the archive. Newest last.
   redesign (Plan 4) is the next suspect, since it replaces the meeting
   dynamics. A larger decomposition (n ≈ 1600, on the box after the
   pilot) runs only if the pilot-point gate fails on these rows.
+
+**2026-10-10 night — user review of the late-signal result: wording, two additions, one caution (logged before acting).**
+- **Stronger wording (replaces "not confirmed" above):** the handshake
+  lag is **ruled out as the main cause** of the timeInNest dt shift. The
+  parts it would lengthen were measured precisely (start 1: unanswered
+  invitations +0.50 ± 0.27 s, dry starts +0.40 ± 0.19) and explain at most
+  ≈ 0.5 s of a ≈ 5 s shift. Nothing is read into the n 80 whole-stay or
+  resting differences: start 2's −8.1 ± 4.3 s points the opposite way from
+  the n 1600 gate (+0.39 SE), and start 1's resting +10.4 ± 4.9 s is as
+  likely noise.
+- **Code check (user):** every random switch in the nest policy uses the
+  exact per-step probability 1 − e^(−rate·dt) (`rng.hazard`), so
+  step-scaled probabilities are ruled out. What remains dt-dependent is
+  contact geometry checked once per step: detection, a former partner
+  becoming eligible again only once contact is lost, and partner choice
+  each step. That is the meeting dynamics the redesign would replace.
+- **Addition 1 — is 0.025 itself converged?** If dt 0.1 and 0.05 both
+  fail at the pilot point, run **0.025 vs 0.0125** on the failing rows
+  (contacts, timeInNest), same equivalence rule, before any refit. If that
+  fails too, a smaller step does not fix it: back to finding the cause
+  (decomposition, redesign) before any refit.
+- **Addition 2 — decomposition, pre-registered now, run at the pilot
+  point** (n 1600 per day per level, paired seeds, same levels as the
+  gate; per-row paired mean differences with SE). Parts of the stay:
+  (a) **stay** = timeInNest; (b) **unload** = entry → first step with
+  crop ≤ `giveFrac` × capacity, censored at the stay; (c) **after
+  unload** = stay − unload; (d) **bout time** = time in give or receive
+  mode; (e) **give-wait** = give mode without flow; (f) **rest** = time in
+  rest mode; (g) **contacts ≥ 1 s** (the fit row). It is run whenever the
+  gate at the pilot point fails on contacts or timeInNest. It only
+  locates the shift, and does not decide anything by itself.
+- **Caution on the redesign (Plan 4):** its case is narrower. The
+  late-signal argument is gone. What remains is the ≥ 1 s contact rule
+  (chosen after seeing simulated durations) and whether the pilot needs
+  extreme parameter values. If the dt effect disappears after a redesign,
+  it is logged as **removed, not explained**, unless the decomposition
+  first locates it in the meeting dynamics.
