@@ -4579,3 +4579,31 @@ listing opened). Checks on the running gate: only whether outputs exist.
      are run at the same point.
 - The start-point gate results (both runs) stay on record. Start 2
   identifiability is allowed to finish and is logged without being used.
+- **User decision (2026-10-10 night): pilot fit approved**, replacing the
+  pre-registered "gate at both start points"; box time is fine.
+- **Contact-gap diagnostic: hypothesis rejected.** Merging a nestmate's
+  episodes across gaps ≤ 0.3 / 0.5 s *increases* the dt difference
+  (start 1, contacts at 4 d: +1.09 → +1.38 → +1.61 SE; contactsBefore
+  likewise). Flicker splitting is not the cause. Contacts and timeInNest
+  are both higher at dt 0.1 (4 d), which fits one dynamic cause: slower
+  bout starts give longer stays, and so more contacts (candidate: the
+  one-step handshake lags). The contact observer stays as pre-registered
+  (no gap merging); `contactGap` stays as a diagnostic option only.
+- **Identifiability start 2 (n 960):** noise floor 14.5; 5 of 7 directions
+  above it; the two below are a shareEnd–reserveSd–shareRate combination
+  and one dominated by receiveReserve (loading 0.81, with reserveSd −0.44).
+  Not acted on: the flat-direction rule is applied at the pilot optimum.
+- **Pilot fit, pre-registered (Claude, approved by the user):**
+  `fitM1999.ts --layer main --dt 0.025 --tag pilot --gens 60` (new flags
+  `--dt`, `--tag`; tagged runs draw seeds with an extra leading key 0x9170,
+  disjoint from the refits'), with the defaults otherwise: shared warm-ups,
+  4 recruiters per nest, 80 recruiters per day per evaluation, warm-up
+  300 s, debiased objective, both start points plus one IPOP restart, all
+  7 parameters free. Output `data/fits/colony-m1999-main-shared-pilot.json`.
+  Purpose: a point near the data, not an estimate. **It is not judged
+  against the data and not used for E6.** At its optimum: (1) dt gate at
+  0.1 and 0.05 vs 0.025 (the coarsest passing dt sets the refits' dt;
+  none passing → refits at 0.025); (2) warm-up gate 300 vs 900; (3)
+  identifiability (n 960), with the flat-direction rule deciding the free
+  set of the refits. The real refits (both layers, larger budget) follow
+  as pre-registered.
