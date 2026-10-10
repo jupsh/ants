@@ -3301,3 +3301,8 @@ See [`CLAUDE.md`](../CLAUDE.md).
   check, not a criterion by itself. Smaller moves in the right direction
   are reported as "right direction, below threshold" and count towards
   "mixed", not "support".
+  **Disclosure:** while confirming at 22:22 that the L0S1c judging had not
+  started, the last line of its fit log was printed: "restart 1 gen 230,
+  best 14.82, median 27.92" (one noisy per-generation fit batch). It does
+  not contain either check; the threshold above had been written before it
+  was seen. CLAUDE.md now has a gotcha on blind status checks.

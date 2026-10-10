@@ -119,3 +119,9 @@ when a step starts or finishes, and log decisions there before acting on them.
   bytes before decompressing.
 - Animation clocks must persist across frames (advance by real dt × speed).
 - The STATUS page imports `docs/STATUS.md?raw`; keep it plain Markdown.
+- **Blind checks while a frozen reading is pending:** status checks leak
+  results (a log's last line, a fit's loss, a file listing with sizes). When
+  a pre-registration is still being written or amended, check only that
+  outputs don't exist yet (e.g. `ls logs | grep -c judgeC`), never `tail` a
+  log or open a fit file. If something is seen anyway, say exactly what in
+  the reply and in the STATUS entry.
