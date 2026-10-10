@@ -15,7 +15,7 @@
  * Checks: between-recruiter SDs (log-SD z). Development (reported only):
  * Table 2b, and "all recruiters leave within 20 min". Writes nothing.
  *
- * Usage: npx vite-node scripts/reportM1999.ts --fit data/fits/colony-m1999-main.json [--n 240]
+ * Usage: npx vite-node scripts/reportM1999.ts --fit data/fits/colony-m1999-<layer>-shared.json [--n 240] [--allow-code-change]
  */
 import { binomialSE, logSdZ, verdict } from '../src/sim/analysis/compare';
 import type { ColonyParams } from '../src/sim/experiments/colonyBles';

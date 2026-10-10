@@ -1,0 +1,68 @@
+{
+  "experiment": "Colony calibration: Mailleux et al. 1999 first recruiter in the nest (Table 2a, 1 / 4 / 8 d)",
+  "layer": "L0S1c (e2-3d-L0S1c.json)",
+  "fittedOn": [
+    "timeInNest.d1",
+    "timeInNest.d4",
+    "timeInNest.d8",
+    "distance.d1",
+    "distance.d4",
+    "distance.d8",
+    "contacts.d1",
+    "contacts.d4",
+    "contacts.d8",
+    "trophTotal.d1",
+    "trophTotal.d4",
+    "trophTotal.d8",
+    "contactsBefore.d1",
+    "contactsBefore.d4",
+    "contactsBefore.d8"
+  ],
+  "recruitersPerDay": 80,
+  "warmup": 300,
+  "optimizer": {
+    "method": "CMA-ES",
+    "starts": 2,
+    "restarts": 1,
+    "maxGenerations": 120,
+    "tolX": 0.03,
+    "averageLast": 30
+  },
+  "evals": 4359,
+  "seconds": 4629.17,
+  "selectionLoss": 11012.724050418885,
+  "runs": [
+    12609.720685503155,
+    11227.092148520176,
+    11012.724050418885
+  ],
+  "k": 6,
+  "free": {
+    "nest.nestSpeedFactor": 0.06654701795179271,
+    "nest.returnRate": 0.9719680807253921,
+    "nest.shareRate": 0.09593125328429845,
+    "nest.shareEnd": 0.000857476235938828,
+    "nest.receiveReserve": 0.9999923458483089,
+    "density": 0.5578879553924666
+  },
+  "atBound": [
+    "nest.returnRate",
+    "nest.shareEnd",
+    "nest.receiveReserve"
+  ],
+  "nest": {
+    "restToActive": 0.008333333333333333,
+    "activeToRest": 0.005555555555555556,
+    "giveFrac": 0.1,
+    "receiveReserve": 0.9999923458483089,
+    "shareEnd": 0.000857476235938828,
+    "stallTime": 3,
+    "shareRate": 0.09593125328429845,
+    "leaveRate": 0.0033333333333333335,
+    "forageDriveSd": 1,
+    "leaveGain": 1.5,
+    "returnRate": 0.9719680807253921,
+    "nestSpeedFactor": 0.06654701795179271
+  },
+  "density1999": 0.5578879553924666
+}
