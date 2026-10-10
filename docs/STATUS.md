@@ -669,3 +669,64 @@ Extraction in `docs/research/buffin2011.md`.
   0.025-vs-0.0125 argument applied to warm-up):** dt 0.05 vs 0.025;
   decomposition dt 0.1 vs 0.025 (the gate failed on timeInNest and
   contacts); warm-up 900 vs 1800.
+
+**2026-10-10 night — follow-up runs at the pilot point (7-parameter model; a record only, see below).**
+- dt 0.05 vs 0.025: not shown equivalent; no systematic shift beyond 0.43
+  SE (distance 1 d, CI includes 0); failures are wide CIs (distance).
+- Decomposition dt 0.1 vs 0.025 (n 1600): stay −1.7 / −0.9 / −2.2 s
+  (± 1.3); the shift sits in **after unload** (−1.5 / −0.75 / −1.85 ± 0.5
+  s); contacts ≥ 1 s −0.25 / −0.09 / −0.17 (± 0.08); give-wait −0.04 s;
+  bout time and rest within 2 SE. So leaving after unloading starts
+  sooner at dt 0.1 (returnRate 0.85 /s here).
+- Warm-up 900 vs 1800: distance 1 d +0.40 (CI 0.03–0.77), contacts 8 d
+  +0.23 (CI 0.03–0.45); not shown equivalent. 900 s is not settled for
+  distance at this point (slow nest walkers, nestSpeedFactor 0.044).
+
+**2026-10-10 night — user review of the Buffin proposal: four changes and three smaller points (adopted; logged before acting).**
+1. **Pair ending rate = 2 × shareEnd** (verified: `lasiusNestWorker.ts`
+   line 178, each partner draws `rng.hazard(p.shareEnd, dt)`; the other
+   then sees `partnerOut`). Matching Buffin's 0.039 /s needs **shareEnd =
+   0.0195 /s per ant** (kept per ant, symmetric; it extends to
+   per-partner hunger dependence). The pilot's 1/1200 per ant is a pair
+   rate of 1/600: **≈ 23× below Buffin, not 45×** (correction).
+2. **Uncertainty:** with 66 exponential bouts, SE(p) ≈ p/√n ≈ 0.0048,
+   exact 95 % ≈ 0.030–0.048 (Buffin's 0.037–0.041 likely comes from
+   regressing log survival, treating curve points as independent and
+   pooling 16 replicates). Sensitivity: pair rate 0.030 and 0.048
+   (shareEnd 0.015 / 0.024). Context differences (1 M vs 0.6 M sucrose,
+   ad-lib donors, dish vs nest) are probably larger and are disclosed.
+3. **Bout diagnostic at the pilot optimum (pre-registered here, under pilot
+   condition 1; not judged, not compared with the 1999 rows):** for the
+   recruiter's bouts and for all bouts, durations of bouts > 3 s, the
+   ending cause of each bout (donor depleted, receiver satiated, stall,
+   random hazard, other), and SD/mean of the durations. Arithmetic
+   (user): at shareRate 0.0123 µL/s and receiveReserve 0.93, a near-full
+   recruiter needs ≈ 130 s to give 1.6 µL, and at a pair rate of 1/600 /s
+   only ≈ 1 bout in 5 ends at random within that time. So most bouts may
+   end by depletion, satiation or stall, with bunched (not exponential)
+   durations. Total trophallaxis 56–66 s is about two Buffin-length bouts.
+   If confirmed, the conflict with Buffin is in the **shape** of the
+   duration distribution, which points at shareRate and the volume and
+   hunger rules, not at bout initiation. **Plan 4 is decided on this
+   evidence**, not on where shareEnd stopped.
+4. **shareEnd is set directly** (pair rate = Buffin's), not tuned in a
+   dish (dish-tuning would depend on the still-free shareRate; Buffin's
+   exponential shape itself says duration-dependent endings are rare
+   there). **The dish becomes a check at each optimum:** a 3 s-threshold
+   observer estimates p as Buffin did (log-survival slope) and by maximum
+   likelihood; pass if consistent with 0.039 and SD ≈ mean. If other
+   endings are common at the fitted shareRate, Buffin's fed→starved
+   durations become a **fit row in the joint fit** instead.
+   "First receiver only" matters only if donors can feed several
+   receivers at once (they cannot now).
+- **Hunger state:** Buffin's rate depends on it; we use one constant. Fine
+  for fed→starved at 4 d; the 1-d and 8-d receivers of 1999 are an
+  extrapolation (disclosed). Buffin's fed→fed 0.034 vs starved→starved
+  0.058 suggests a moderate effect.
+- **k = 7 → 6:** the frozen profile cut becomes 3.84 × max(1, L_min / 9)
+  (15 rows − 6 parameters); free set: nestSpeedFactor, returnRate,
+  shareRate, receiveReserve, reserveSd, density.
+- **The pilot cannot be the gate point for the 6-parameter model** (its
+  optimum is the 7-parameter model's). Its condition-4 result and the gate
+  results above describe the old model only. **A new pilot with shareEnd
+  fixed runs after the Mod-BCH bound fix.**
