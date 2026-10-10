@@ -5,6 +5,7 @@ import { newMind } from '../mind/mind';
 import type { WalkParams } from '../models/walk';
 import { interocept, perceive } from '../perception/perceive';
 import { applyForagerAction, type PhysParams } from '../physics/antPhysics';
+import { E2_CONTEXT } from '../species/lasiusM1';
 import { mailleuxApparatus } from '../world/apparatus';
 import { SugarDroplet } from '../world/food';
 import { World, type Agent } from '../world/world';
@@ -51,6 +52,12 @@ export interface ScoutResult {
   laidFirst25: boolean;
   /** End of the last drink → first crossing of the mid-bridge on the way back (s; Mailleux 2000/2006 giving-up time); NaN if never crossed. */
   givingUpTime: number;
+  /**
+   * Homebound walking speed over the 2.5 cm at mid-bridge (mm/s; Mailleux
+   * 2000/2006 "velocity in"): 25 mm ÷ the time from crossing x = 72.5 to
+   * crossing x = 47.5 mm in return mode, first passage; NaN if none.
+   */
+  homeSpeedMidBridge: number;
 }
 
 export interface ScoutOptions {
@@ -66,6 +73,8 @@ export interface ScoutOptions {
   drops?: { x: number; y: number; ul: number; molar: number }[];
   /** Fraction of a micropipette drop that can be imbibed. */
   pipetteAccessible: number;
+  /** Factor on the walker's speed in this apparatus (default: the derived E2 context factor). */
+  walkSpeedFactor?: number;
   starvationDays: number;
   /** SD (µL) of the experimenter's gaster-ellipsoid volume estimate (observation noise). */
   volumeSd?: number;
@@ -75,6 +84,9 @@ export interface ScoutOptions {
 
 /** x (mm) where the bridge meets the foraging area in the Mailleux apparatus. */
 const AREA_X = 120;
+/** The 2.5 cm section at mid-bridge where the papers measured walking velocity (mm). */
+const MID_LO = AREA_X / 2 - 12.5;
+const MID_HI = AREA_X / 2 + 12.5;
 
 export function runScout(P: LasiusParams, o: ScoutOptions): ScoutResult {
   return runScoutWorld(P, o).result;
@@ -103,7 +115,10 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   body.intakeFactor = Math.exp(physRng.normal(0, P.phys.intakeSd) - (P.phys.intakeSd * P.phys.intakeSd) / 2);
   // The experimenter's volume estimates, from another independent stream.
   const obsRng = RNG.stream(o.seed, 0x0b5e);
-  const mind = newMind(drawTraits(P.forager, body.rng), P.walk, body.rng);
+  // The E1 walker in the E2 context (22 °C, bridge): speed scaled by the derived context factor.
+  const f = o.walkSpeedFactor ?? E2_CONTEXT.walkSpeedFactor;
+  const walkP = f === 1 ? P.walk : { ...P.walk, speed: P.walk.speed * f };
+  const mind = newMind(drawTraits(P.forager, body.rng), walkP, body.rng);
   mind.walk.heading = 0;
   const agent: Agent = { body, mind, inactive: false };
   w.ants.push(agent);
@@ -114,7 +129,7 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   if (o.drops) for (const d of o.drops) w.addFood((id) => new SugarDroplet(id, d.x, d.y, d.ul, d.molar, o.pipetteAccessible));
   else w.addFood((id) => new SugarDroplet(id, feeder1[0], feeder1[1], o.drop1.ul, o.drop1.molar, o.pipetteAccessible));
 
-  const res: ScoutResult = { findTime: NaN, drinks: [], laidTrail: false, laidSection1: false, laidSection2: false, intensity: NaN, returnTime: NaN, betweenTime: NaN, total: NaN, satisfiedAt1: false, reachedNest: false, dropsVisited: 0, totalUl: NaN, totalTrueUl: 0, exploitTime: NaN, laidFirst25: false, givingUpTime: NaN };
+  const res: ScoutResult = { findTime: NaN, drinks: [], laidTrail: false, laidSection1: false, laidSection2: false, intensity: NaN, returnTime: NaN, betweenTime: NaN, total: NaN, satisfiedAt1: false, reachedNest: false, dropsVisited: 0, totalUl: NaN, totalTrueUl: 0, exploitTime: NaN, laidFirst25: false, givingUpTime: NaN, homeSpeedMidBridge: NaN };
   const visited = new Set<number>();
   let firstContact = NaN;
   let lastExit = NaN;
@@ -128,13 +143,15 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   let returnSteps = 0;
   let drop2Added = false;
   let givingUpPending = false;
+  let midIn = NaN;
+  let prevX = body.x;
   const maxTime = o.maxTime ?? 1800;
   while (w.time < maxTime && !agent.inactive && body.alive) {
     const per = perceive(w, body, dt);
     const io = interocept(body);
     const prevMode = mind.mode;
     const act = lasiusForager(per, io, mind, P.forager, body.rng);
-    applyForagerAction(w, agent, act, per, P.walk, P.phys, dt);
+    applyForagerAction(w, agent, act, per, walkP, P.phys, dt);
     w.time += dt;
     if (onStep) onStep(w);
     // --- Observations (experimenter's view).
@@ -172,6 +189,11 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
       res.givingUpTime = w.time - lastDrinkEnd;
       givingUpPending = false;
     }
+    if (mind.mode === 'return' && Number.isNaN(res.homeSpeedMidBridge)) {
+      if (prevX >= MID_HI && body.x < MID_HI) midIn = w.time;
+      if (!Number.isNaN(midIn) && prevX >= MID_LO && body.x < MID_LO) res.homeSpeedMidBridge = (MID_HI - MID_LO) / (w.time - midIn);
+    } else if (mind.mode !== 'return') midIn = NaN;
+    prevX = body.x;
     if (mind.mode === 'return') {
       returnSteps++;
       if (body.gasterDown) {

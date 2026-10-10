@@ -100,6 +100,19 @@ export const MAILLEUX_PIPETTE_ACCESSIBLE: number = E2FIT.pipetteAccessible ?? 0.
 export const MAILLEUX_SETUP = { accessible: MAILLEUX_PIPETTE_ACCESSIBLE, volumeSd: E2FIT.observer?.volumeSd ?? 0 };
 
 /**
+ * E2 context factor on the walker's speed in the Mailleux apparatus (22 °C,
+ * bridge and 6 × 6 cm area; STATUS 2026-10-09 amendment): the E1 walker was
+ * fitted at 26 °C on a canvas and walks ≈ 2× faster than scouts on the
+ * bridge. Derived, not fitted to any E2 target: set by scripts/calibrateE2Speed.ts
+ * so the model's homebound mid-bridge speed (mean over ants of 2.5 cm ÷ time)
+ * equals the measured 1.6 cm/s. Temperature and context are not separated.
+ */
+export const E2_CONTEXT_DEF = {
+  walkSpeedFactor: derived(0.289, '×', ['mailleux2000', 'mailleux2006'], 'Homebound walking speed at mid-bridge 1.6 ± 0.6 cm/s (3 µL drop, 4 d, 22 °C; 2000 n 93, 2006 n 122, overlapping data). Assumed to apply in the foraging area as on the bridge. Calibrated 2026-10-09 (1000 scouts): 1.60 ± 0.74 cm/s at f = 0.289 (f = 1: 4.77 ± 2.47). For scale: the E1 data (Khuong, 26 °C, canvas) have a median moving speed of 43 mm/s, the Mailleux bridge scouts 16 mm/s; temperature (Q10 ≈ 2) explains ≈ 1.3× of that 2.7×.', { ...MAILLEUX, transform: 'bisection: model homebound mid-bridge speed (same statistic) = 1.6 cm/s' }),
+};
+export const E2_CONTEXT = resolve(E2_CONTEXT_DEF);
+
+/**
  * Khuong et al. 2013 tracking error (E1 observer model A, step 5): white
  * Gaussian position error per 25 Hz sample, per incline (0, π/9, π/6, π/4,
  * π/3), along x and along the slope axis y. Derived with scripts/diagE1.ts:

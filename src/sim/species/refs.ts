@@ -29,7 +29,13 @@ export const REFS: Record<string, Ref> = {
   },
   mailleux2000: {
     short: 'Mailleux, Deneubourg & Detrain 2000',
-    full: 'Mailleux AC, Deneubourg JL, Detrain C (2000) How do ants assess food volume? Anim Behav 59:1061–1069.',
+    full: 'Mailleux AC, Deneubourg JL, Detrain C (2000) How do ants assess food volume? Anim Behav 59:1061–1069. Drops of 0.3–6 µL, 4 d starved, 0.6 M, 22 °C; walking velocity over 2.5 cm at mid-bridge.',
+    url: 'https://doi.org/10.1006/anbe.2000.1396',
+  },
+  mailleux2006: {
+    short: 'Mailleux, Detrain & Deneubourg 2006',
+    full: 'Mailleux AC, Detrain C, Deneubourg JL (2006) Starvation drives a threshold triggering communication. J Exp Biol 209:4224–4229. 3 and 0.3 µL drops after 1, 4, 8 d of starvation; its 3 µL data overlap the 1999 data.',
+    url: 'https://doi.org/10.1242/jeb.02461',
   },
   mailleux1999: {
     short: 'Mailleux et al. 1999',

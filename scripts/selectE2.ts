@@ -112,7 +112,7 @@ for (const id of IDS) {
     const gmed = [...gt].sort((a, b) => a - b)[gt.length >> 1];
     return `${gm.toFixed(0)} ± ${gsd.toFixed(0)} s, median ${gmed?.toFixed(0)} (${gt.length} of ${rs.length} crossed mid-bridge)`;
   };
-  console.log(`  search time (development): fitted ${means} [Pl: 85 ± 14 s]; giving-up time at one 0.3 µL drop, 4 d: all scouts ${giveUp(gu)}, ${((100 * gu.filter((r) => r.laidTrail).length) / Math.max(1, gu.length)).toFixed(0)} % laid; non-layers ${giveUp(gu.filter((r) => !r.laidTrail))} [2000: 85 ± 14 s, exponential, n 35; 2006 4 d: 86 ± 68 s, n 23, 17 % laid]`);
+  console.log(`  search time (development): fitted ${means} [2003 model parameter Pl = 1/85 s]; giving-up time at one 0.3 µL drop, 4 d: all scouts ${giveUp(gu)}, ${((100 * gu.filter((r) => r.laidTrail).length) / Math.max(1, gu.length)).toFixed(0)} % laid; non-layers ${giveUp(gu.filter((r) => !r.laidTrail))} [Mailleux 2000, 0.3 µL, 4 d: all 113 ± 129 s (n 26), non-layers 128 ± 135 s (n 22), layers 28 ± 12 s (n 4), 14 % laid; 2006 4 d: 86 ± 68 s, n 23, 17 % laid; Pl = 1/85 s is the 2003 model parameter]`);
   for (const days of [4]) {
     const six = e2Compare(await simulateE2Async(P, N, setup, 0.1, SEED + 70_000_000, 5, run, [sixPipetteCondition(days)]), SIX_TARGETS);
     console.log(`  2003 six pipettes, ${days} d (development check, not independent): ${six.map((r) => `${r.target.id} ${r.mean.z.toFixed(1)}`).join(', ')}`);

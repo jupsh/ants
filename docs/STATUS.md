@@ -2999,3 +2999,26 @@ See [`CLAUDE.md`](../CLAUDE.md).
     25 °C in another apparatus; the same question).
   - All five step-3c fits restart from scratch after this; every other
     frozen rule is unchanged.
+- **2026-10-09** **Walking-speed amendment implemented.**
+  - `E2_CONTEXT.walkSpeedFactor` (`lasiusM1.ts`, derived) = **0.289**,
+    applied by default in every `runScoutWorld` run (`ScoutOptions.
+    walkSpeedFactor` overrides). `scripts/calibrateE2Speed.ts` (1000 scouts,
+    3 µL, 4 d, `loadSlowdown` 0, seeds 4.28e9): f = 1 gives 4.77 ± 2.47
+    cm/s; f = 0.289 gives **1.60 ± 0.74 cm/s** (data 1.6 ± 0.6). Reported,
+    not used: 1.57 / 1.57 / 1.58 cm/s at 0.3 / 0.7 / 1 µL (2000: 1.9 / 1.9 /
+    1.5). New observation `ScoutResult.homeSpeedMidBridge` (25 mm ÷ the
+    time across 47.5–72.5 mm, first homebound passage).
+  - **The factor is larger than the "≈ 2×" estimated earlier** (that came
+    from 200 scouts with load slowdown on). It reflects a real difference
+    between the two data sets, not a walker artefact: the Khuong ants
+    (26 °C, canvas) have a median moving speed of 43 mm/s, which the walker
+    reproduces (41.8), while the Mailleux scouts on the bridge walk at
+    16 mm/s. Temperature (Q10 ≈ 2) explains ≈ 1.3× of that 2.7×. The rest
+    (surface, foragers vs isolated ants, the papers' video method) is not
+    separated; recorded for the E6 speed question.
+  - `loadSlowdown` 0 in every step-3c candidate (`fix3c`); `mailleux2006`
+    reference added; `selectE2.ts` giving-up check labelled with the 2000
+    0.3 µL values (Pl = 1/85 s shown as the 2003 model parameter).
+  - The adopted fit (`e2-drinking.json`, f = 1 era) now runs with the
+    factor in pages and reports: its numbers in this file predate it.
+  - Tests pass (61). Step-3c fits restart from scratch on this commit.

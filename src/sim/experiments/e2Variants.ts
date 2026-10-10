@@ -61,7 +61,7 @@ const B3C: FreeParam[] = [
 const LAY_MEAN: FreeParam = { key: 'forager.arsMeanLay', tf: { lo: 1, hi: 1000, log: true } };
 const V0: FreeParam = { key: 'phys.boutFastUl', tf: { lo: 0, hi: 0.5 } };
 const fix3c = (searchMode: number, fast: boolean) => (m: E2Model) =>
-  withPhys(withForager(m, { stopPerVolume: 0, satiationOnTime: 0, neverLayFraction: 0.12, searchMode }), fast ? { boutFastRate: 0.05 } : { boutFastUl: 0 });
+  withPhys(withForager(m, { stopPerVolume: 0, satiationOnTime: 0, neverLayFraction: 0.12, searchMode, loadSlowdown: 0 }), fast ? { boutFastRate: 0.05 } : { boutFastUl: 0 });
 
 export const E2_VARIANTS_3C: E2Variant[] = [
   { id: 'S0I0', label: 'S0I0 (adopted structure)', description: 'Laying ants go home at once after an exhausted drop; constant intake rate.', fix: fix3c(0, false), free: B3C },
