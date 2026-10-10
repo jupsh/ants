@@ -22,34 +22,30 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   reachability sweep (step 2) and the rerun of the joint 69-ant recovery
   cell. Parked: renewed A0 vs T comparison, model-recovery pilot
   (`selectE1.ts` draft).
-- **E2 (drinking, trail laying): step-3c fits RUNNING** (five candidates
-  S0I0, S1I0, S2I0, S1I1, S2I1 in sequence, `fitE2c.ts`, code at 097de2c +
-  label-only changes after; logs in the previous session's scratchpad
-  `…/e61c24f5-…/scratchpad/e2c-<id>.log`; ~a day in total). Amended
-  pre-registration (2026-10-09): intake measured at the mouthparts, crop
-  absorption 0 (old hard-coded drain removed), per-drop rs as fit rows,
-  satiated departure when the desired volume is reached as a drop runs out,
-  drop-1 rows over scouts that found both drops. Frozen and ready for when
-  they finish: `selectE2.ts` (rule + adequacy + group contrasts + giving-up
-  time), recovery (`fitE2c.ts --recover`, then `recoverE2c.ts`), σ_m / σ_r
-  profiles (`profileE2c.ts`), and if I1 wins the fast-rate sensitivity at
-  0.02 / 0.1 µL/s (literature: rates decline gradually, so read 0.02 as the
-  plausible end). **Open question after judging:** the laying decision
-  (drop-1 time contrast TL1 − nTL1 z −3.2; nTL2 31 % vs 16 %; 36 % laying at
-  a 0.3 µL drop vs 17 %): none of the five candidates changes it, and the
-  group-split fit rows can tilt which search mode wins, so read the
-  selection with that caveat; if all fail the group contrasts, a
-  pre-registered laying-decision family (step 3d) comes before step 4.
-  The 2009 Mailleux model cannot be ported as a baseline (its times are
-  unspecified and its theory column is not reproducible from the stated
-  rules); the Pl = 1/85 s comparison stands in for it.
+- **E2 (drinking, trail laying): step 3d RUNNING** on a rented box
+  (vast.ai, 92 threads; scripts in the session scratchpad `vast/`):
+  four laying-decision candidates L0S1, L1S1, L0S2, L1S2 (`fitE2c.ts`,
+  e42e4be), then the frozen selection, recovery and profiles run
+  unattended; fits copied back to `data/fits/e2-3d-*.json`. **Step 3c
+  done** (Decisions log, 2026-10-09): S1I1 selected, no candidate
+  adequate (`d4.trail` capped by the fixed never-laying fraction;
+  drop-2 intake of trail layers too high); recovery approximate; I1's
+  fast/slow intake split not identified. **After step 3d** (review,
+  2026-10-09): an adequate candidate is adopted only provisionally, with
+  its spread and development failures listed and an external E2
+  validation frozen before adoption (candidate: Mailleux 2005, held
+  unread); intake judged on whole bouts; profiles are diagnostics, not
+  95 % intervals; no further laying family without a distinguishing
+  prediction (persistent propensity vs no feeding effect).
 - **E6 / colony (step 4):** bounded provisional colony (Bles nest,
   contacts, conserved food sharing, `#colony` page); calibration and the
-  E6 test come next, with the E6 walker-sensitivity probe. Before it: the
-  observer now records contacts continuing > 5 s after a scan (rerun the
-  TEC-through-observer numbers and `e6-tec.json`), and decide
-  `cropAbsorption` (0, or ≈ 0.03–0.05 /h of crop contents as an upper bound
-  from Howard & Tschinkel 1981).
+  E6 test come next, with the E6 walker-sensitivity probe. E6 outcomes are
+  a development benchmark (review). Before judging: the t-based decision
+  rule (5 colonies, ≈ 4 df); rerun the TEC-through-observer numbers and
+  `e6-tec.json` (observer rule 'after'); crop absorption as a sensitivity
+  scenario (0 – 0.05 /h; the source is *Solenopsis*); the walking
+  assumption for the nest pre-registered (the E2 factor confounds
+  temperature and context).
 - **Judging:** a candidate missing a statistic the data estimate is
   unjudgeable (2026-10-09 fix; no earlier ranking was affected).
 - Commits: plain messages, no co-author lines; ask before committing.
@@ -423,8 +419,11 @@ Claude Code loads automatically.
     Detrain & Prieur 2014, Portha et al. 2004.
 - **E6 (Bles et al. 2022):**
   - The raw data have been *summarised descriptively* (`scripts/analyzeBles.ts`)
-    but **no model has been run against them**. E6 remains **held-out** for
-    our encounter-based model.
+    but **no model has been run against them**. ~~E6 remains **held-out** for
+    our encounter-based model.~~ **Relabelled a development benchmark
+    (review, 2026-10-09):** the TEC comparisons and the observed early-event
+    delay have informed spatial-model expectations, so the E6 outcomes are
+    not untouched, although the encounter model has not been run on them.
   - In-nest parameters must be calibrated on other data (Mailleux 1999).
   - The TEC baseline is fitted to E6 by its authors; it serves only as a
     reference.
@@ -443,7 +442,9 @@ Claude Code loads automatically.
 - **Colony-level outcomes (E6, n = 5 colonies):**
   - Simulate ≥ 50 colonies.
   - Test the mean with SE = SD_data/√5 combined with SE_sim, and check the
-    between-colony SD separately.
+    between-colony SD separately. _(Review 2026-10-09: that z is t-like with
+    ≈ 4 df, not normal; convert to a normal-equivalent z through t with
+    Welch–Satterthwaite df before applying the 2 / 3 cut-offs.)_
   - Primary metrics: event count, T50, participants, Gini, number of
     foragers, share of food given by non-foragers.
   - The network metrics (efficiency, betweenness, closeness, clustering)
@@ -3123,3 +3124,63 @@ See [`CLAUDE.md`](../CLAUDE.md).
       (independent of the volume ingested), before step 4.
     - Then the selected candidate's recovery and profiles as in step 3c
       (profiles with 200 generations).
+- **2026-10-09** **External review (relayed by the user): decisions.**
+  Checked against the code before logging: the E6 z uses SE_data =
+  SD/√5 (`e6Bles.ts:135`); the profile script printed "approx. 95 %
+  profile interval"; `trajectory.ts:300` counts a track as an exit when
+  its last point is within 3 % of the exit radius, whatever its `end`.
+  1. **Adequate ≠ validated.** The adequacy gate (`selectE2.ts`) covers
+     the fitted means and finding both drops only; it ignores the spread
+     (SD) checks and the development failures, and recovery tests the
+     fitting procedure, not the mechanism. An adequate step-3d candidate
+     is adopted **provisionally**, with its limits listed (every spread
+     z and development row it fails) and an external E2 validation, to be
+     frozen before adoption, still outstanding. Candidate data for it:
+     Mailleux 2005 (laying over successive trips; held unread).
+  2. **Intake rate: compare like with like.** ≈ 0.010 µL/s is whole-bout
+     volume ÷ time at a 3 µL drop; 0.0036 µL/s is I1's sustained phase
+     only. The like-for-like check is the model's whole bout under the
+     same conditions (the 2000 single-drop series, 3 µL, 4 d: 0.9 ± 0.4 µL,
+     and `d4.drink`), already in `selectE2.ts`. The fast/slow split is not
+     identified (S1I1 recovery: `intakeRate` ×1.98, `boutFastUl` ×0.65);
+     report I1 as "decelerating intake, decomposition not identified".
+     Passing the volume check constrains the split, it does not prove it.
+  3. **No automatic step 3e.** "Laying independent of the volume ingested"
+     predicts a constant laying fraction across drop sizes, which the 2000
+     series (14 / 17 / 70 / 91 %) already contradicts. A further laying
+     family needs a distinguishing prediction first: "persistent individual
+     propensity" (an ant-level random effect, with feeding still acting)
+     vs "feeding has no effect". Data that separate them: the same ants
+     over successive trips (Mailleux 2005, held unread).
+  4. **Profiles are sensitivity diagnostics.** The loss is a diagonal Σz²
+     over correlated summaries, not a calibrated −2 log L, so Δ 3.84 is a
+     reference line, not a 95 % interval; more generations and the paired
+     SEs fix numerical problems only. `profileE2c.ts` output relabelled.
+     The earlier "interval [0, 0.2]" for σ_r and "[0.2, 0.2]" for σ_m read
+     as "Δ ≤ 3.84 region", diagnostic. Calibrated intervals would need a
+     parametric bootstrap of the whole fit (not planned now). The selection
+     rule's + 2k penalty is likewise heuristic (as its doc says).
+  5. **E6 decision rule:** with 5 colonies, SE_data is estimated with 4
+     degrees of freedom, so z = Δ / √(SE_data² + SE_sim²) is t-like, not
+     normal: under a correct model ≈ 4 % of |z| exceed 3 and ≈ 12 % exceed
+     2 (t₄), whatever the number of simulated colonies (review null
+     simulation: 4.1 % beyond 3). Before E6 is judged: convert to a
+     normal-equivalent z through the t distribution with Welch–
+     Satterthwaite degrees of freedom (≈ 4 when SE_sim is small), and
+     report spread checks likewise. **Evidence label:** the E6 outcomes are
+     a **development benchmark**, not untouched: the TEC comparisons and the
+     observed early-event delay have informed spatial-model expectations
+     (contamination log).
+  6. **Freeze absorption and walking before judging E6.** Crop absorption
+     0 – 0.05 /h is a sensitivity scenario, not a *Lasius* upper bound
+     (Howard & Tschinkel 1981 measured isolated *Solenopsis* workers). The
+     E2 speed factor confounds temperature and context (surface, scouts,
+     method), so it does not transfer to the nest by a temperature
+     adjustment alone; the E6 walking assumption (and its scenarios) is
+     pre-registered before the E6 test.
+  - **E1 (backlog; limits walker-validation claims, no restart of
+    fine-scale fitting):** colony variation is not in the main bootstrap
+    (ants resampled, not colonies); the covariance shrinkage depends on the
+    number of bootstrap draws; a timed-out track ending near the boundary
+    counts as an exit (`trajectory.ts:300`; should require `end === 'exit'`
+    where known).

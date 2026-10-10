@@ -5,10 +5,11 @@
  * pinned and every other free parameter is re-fitted (short CMA-ES warm-
  * started at the fit, the same seed sequence at every grid value), then
  * scored on SCORE_BATCHES common batches (the mean is the profile loss).
- * Loss is Σz² ≈ −2 log L, so the values within 3.84 of the minimum form an
- * approximate 95 % profile interval; a profile within 3.84 of the minimum at
- * both ends of the grid is reported as "not identified", not read as an
- * estimate. Monte Carlo resolution (review 2026-10-09): each Δ against the
+ * A sensitivity diagnostic, not a confidence interval (review 2026-10-09):
+ * the loss is a diagonal Σz² over correlated summaries, not a calibrated
+ * −2 log L, so Δ = 3.84 is a reference line only and the region below it is
+ * not a 95 % interval (calibrating it needs a parametric bootstrap). A
+ * profile below 3.84 at both ends of the grid is reported as flat. Monte Carlo resolution (review 2026-10-09): each Δ against the
  * minimum carries a paired SE from the batch-to-batch spread of the
  * difference, and a Δ within 2 SE of 3.84 is flagged "borderline" rather
  * than decided by noise. Writes nothing.
@@ -87,5 +88,5 @@ for (const r of rows) {
 }
 const inside = rows.filter((r) => r.loss - min <= 3.84);
 const flat = rows.length > 1 && rows[0].loss - min <= 3.84 && rows[rows.length - 1].loss - min <= 3.84;
-console.log(flat ? `→ NOT IDENTIFIED on [${GRID[0]}, ${GRID[GRID.length - 1]}]` : inside.length ? `→ approx. 95 % profile interval [${inside[0].v}, ${inside[inside.length - 1].v}] (grid resolution)` : '→ every grid value worse than the fit by > 3.84');
+console.log(flat ? `→ FLAT (Δ ≤ 3.84 at both ends of [${GRID[0]}, ${GRID[GRID.length - 1]}]; diagnostic)` : inside.length ? `→ Δ ≤ 3.84 region (diagnostic, not a 95 % interval) [${inside[0].v}, ${inside[inside.length - 1].v}] (grid resolution)` : '→ every grid value worse than the fit by > 3.84');
 pool.close();
