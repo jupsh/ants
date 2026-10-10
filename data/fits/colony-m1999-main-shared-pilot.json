@@ -1,0 +1,364 @@
+{
+  "experiment": "Colony calibration: Mailleux et al. 1999 first recruiter in the nest (Table 2a, 1 / 4 / 8 d)",
+  "layer": "L0S1c (e2-3d-L0S1c.json)",
+  "fittedOn": [
+    "timeInNest.d1",
+    "timeInNest.d4",
+    "timeInNest.d8",
+    "distance.d1",
+    "distance.d4",
+    "distance.d8",
+    "contacts.d1",
+    "contacts.d4",
+    "contacts.d8",
+    "trophTotal.d1",
+    "trophTotal.d4",
+    "trophTotal.d8",
+    "contactsBefore.d1",
+    "contactsBefore.d4",
+    "contactsBefore.d8"
+  ],
+  "recruitersPerDay": 80,
+  "design": {
+    "sharedWarmup": true,
+    "recruitersPerNest": 4
+  },
+  "warmup": 900,
+  "dt": 0.025,
+  "tag": "pilot",
+  "optimizer": {
+    "method": "CMA-ES",
+    "starts": 2,
+    "restarts": 1,
+    "maxGenerations": 60,
+    "tolX": 0.03,
+    "averageLast": 30
+  },
+  "evals": 2205,
+  "seconds": 4040.269,
+  "selectionLoss": 90.7188394110745,
+  "runs": [
+    437.233330916097,
+    109.9769861933538,
+    90.7188394110745
+  ],
+  "runDetails": [
+    {
+      "label": "start 0",
+      "run": 0,
+      "x0": [
+        6.906754778648553,
+        -0.3124179460640039,
+        0.1683423097038173,
+        -0.1269388403365934,
+        1.0986122886681102,
+        0.5073981852696751,
+        -0.25656382080437834
+      ],
+      "initialSds": [
+        0.02,
+        0.02,
+        0.3,
+        0.3,
+        0.02,
+        0.02,
+        0.02
+      ],
+      "lambda": null,
+      "generations": 60,
+      "evals": 540,
+      "finalSigma": 285.3104944510666,
+      "avgWindow": 30,
+      "meanDrift": [
+        -63.81389813256065,
+        71.49831631446365,
+        98.7162169222481,
+        -275.9693359103221,
+        17.046218919952285,
+        -36.68772082833945,
+        1.4653836029999914
+      ],
+      "x": [
+        -29.29360842331998,
+        35.801304008869664,
+        82.99779066551099,
+        -167.09527706747377,
+        11.063402762011227,
+        -13.943054724296212,
+        -1.6519887973141036
+      ],
+      "f": 437.233330916097,
+      "estimate": {
+        "nest.nestSpeedFactor": 0.020000000000014836,
+        "nest.returnRate": 0.9999999999999986,
+        "nest.shareRate": 0.1,
+        "nest.shareEnd": 0.0008333333333333334,
+        "nest.receiveReserve": 0.9999874596860707,
+        "nest.reserveSd": 0.05000016235776455,
+        "density": 0.41680570314347887
+      }
+    },
+    {
+      "label": "start 1",
+      "run": 1,
+      "x0": [
+        0.35814744992084535,
+        0.08119520026169466,
+        0.1683423097038173,
+        0.3090938480118419,
+        1.0986122886681102,
+        0.5073981852696751,
+        0.8391686086453111
+      ],
+      "initialSds": [
+        0.02,
+        0.02,
+        0.02,
+        0.3,
+        0.02,
+        0.02,
+        0.02
+      ],
+      "lambda": null,
+      "generations": 60,
+      "evals": 540,
+      "finalSigma": 16.14899307205806,
+      "avgWindow": 30,
+      "meanDrift": [
+        -1.2415744785497917,
+        2.8900009187120586,
+        -0.7196648833129278,
+        -37.88966820640867,
+        0.3501143471712389,
+        -1.7219972735499043,
+        -1.8022094822362762
+      ],
+      "x": [
+        -1.317593927343284,
+        3.902579940665872,
+        0.04356421959684071,
+        -41.914148884246075,
+        2.8900822583315713,
+        -1.4538217521702006,
+        -1.4373415587433123
+      ],
+      "f": 109.9769861933538,
+      "estimate": {
+        "nest.nestSpeedFactor": 0.04569666825358766,
+        "nest.returnRate": 0.8690852872559339,
+        "nest.shareRate": 0.01475759703744314,
+        "nest.shareEnd": 0.0008333333333333334,
+        "nest.receiveReserve": 0.9578831874413192,
+        "nest.reserveSd": 0.10055941585848022,
+        "density": 0.4601312359525398
+      }
+    },
+    {
+      "label": "restart 1",
+      "run": 2,
+      "x0": [
+        -1.317593927343284,
+        3.902579940665872,
+        0.04356421959684071,
+        -41.914148884246075,
+        2.8900822583315713,
+        -1.4538217521702006,
+        -1.4373415587433123
+      ],
+      "initialSds": [
+        0.3,
+        0.3,
+        0.11070484165879896,
+        0.3,
+        0.3,
+        0.3,
+        0.12240910464047959
+      ],
+      "lambda": 18,
+      "generations": 60,
+      "evals": 1080,
+      "finalSigma": 0.21166877498604167,
+      "avgWindow": 30,
+      "meanDrift": [
+        0.1294552840303056,
+        -0.08626368633922299,
+        0.019014489028003026,
+        0.1746512129955775,
+        0.02823561639954164,
+        0.1725144877451057,
+        -0.058848627673321996
+      ],
+      "x": [
+        -1.3900186187382466,
+        3.766289172983492,
+        -0.14069843459687864,
+        -41.94166236064861,
+        2.3907724563709656,
+        -1.123644965439626,
+        -1.2949989605004133
+      ],
+      "f": 90.7188394110745,
+      "estimate": {
+        "nest.nestSpeedFactor": 0.0436327658254327,
+        "nest.returnRate": 0.8518552596390988,
+        "nest.shareRate": 0.012326869076695304,
+        "nest.shareEnd": 0.0008333333333333334,
+        "nest.receiveReserve": 0.9328967562620334,
+        "nest.reserveSd": 0.12359835297224729,
+        "density": 0.49510385870165696
+      }
+    }
+  ],
+  "seeds": {
+    "scheme": "seedFor(1999, purpose, 0x9170, ...keys): fit (run, generation), cmaes (run), probe (run), select",
+    "study": 1999
+  },
+  "noBoutBound": 0.10883035576078481,
+  "provenance": {
+    "simHash": "7c8d2adc5858cc45",
+    "commit": "18b78667e14a6fc528815ef87342fa2f0a7dd6d6",
+    "dirty": true,
+    "node": "v24.20.0",
+    "argv": [
+      "--layer",
+      "main",
+      "--dt",
+      "0.025",
+      "--warmup",
+      "900",
+      "--tag",
+      "pilot",
+      "--gens",
+      "60"
+    ],
+    "date": "2026-10-10T22:26:50.516Z"
+  },
+  "k": 7,
+  "free": {
+    "nest.nestSpeedFactor": 0.0436327658254327,
+    "nest.returnRate": 0.8518552596390988,
+    "nest.shareRate": 0.012326869076695304,
+    "nest.shareEnd": 0.0008333333333333334,
+    "nest.receiveReserve": 0.9328967562620334,
+    "nest.reserveSd": 0.12359835297224729,
+    "density": 0.49510385870165696
+  },
+  "atBound": [
+    "nest.shareEnd"
+  ],
+  "nest": {
+    "restToActive": 0.008333333333333333,
+    "activeToRest": 0.005555555555555556,
+    "giveFrac": 0.1,
+    "receiveReserve": 0.9328967562620334,
+    "shareEnd": 0.0008333333333333334,
+    "stallTime": 3,
+    "shareRate": 0.012326869076695304,
+    "leaveRate": 0.0033333333333333335,
+    "leaveCropFrac": 0.05,
+    "forageDriveSd": 1,
+    "leaveGain": 1.5,
+    "returnRate": 0.8518552596390988,
+    "giveUpTime": 120,
+    "reserveSd": 0.12359835297224729,
+    "nestSpeedFactor": 0.0436327658254327
+  },
+  "density1999": 0.49510385870165696,
+  "params": {
+    "walk": {
+      "speed": 55.41107606391765,
+      "speedSdBetween": 0.2811567723111964,
+      "speedSdWithin": 0.3587457208467387,
+      "speedTau": 1.2434674811191244,
+      "meanFreePath": 10.079370624664397,
+      "g": 0.6037790001800335,
+      "jitter": 0.0014251144941529975,
+      "jitterTime": 0,
+      "turnRateTime": 0,
+      "turnDip": 0,
+      "turnDipTau": 0.25,
+      "stopTurnG": 1,
+      "stopHomePull": 0,
+      "pauseRate": 0.052917957368167186,
+      "pauseMean": 0.700448109160251,
+      "slopeSpeedK": 0.40753600717295324,
+      "slopePauseK": 1.0852347821015746,
+      "slopeJitterK": 0.9288189507766671,
+      "slopeSpeedSdK": 0.9464482809941557,
+      "geoRunGain": 0.03294786488082038,
+      "geoHeadingPull": 0.10184865039410958,
+      "geoTorque": 0,
+      "geoPolar": 0,
+      "slopeSpeedKSd": 0,
+      "homeRunBias": 0.5670750863131675,
+      "homeHeadingPull": 0.1272881357687236,
+      "homeRange": 76.51631881258147
+    },
+    "forager": {
+      "desiredFed": 0.9027526449702385,
+      "desiredHungry": 1.28658806559568,
+      "hungerScale": 0.3,
+      "desiredSd": 0.047716933971332615,
+      "stopHazard": 0.1617035092104739,
+      "stopEta": 4.3,
+      "stopPerVolume": 0,
+      "satiationOnTime": 0,
+      "nominalIntake": 0.0095,
+      "emptyPatience": 3,
+      "neverLayFraction": 0.07694308366293515,
+      "unsatisfiedLayProb": 0.2825686301412362,
+      "layIntensity": 0.13,
+      "layIntensitySd": 0.08,
+      "gasterBout": 0.25,
+      "arsMean": 184.81599119863068,
+      "arsRunScale": 0.4,
+      "homeGain": 1,
+      "homeRunScale": 3,
+      "compassBias": 0.08,
+      "searchMode": 1,
+      "arsMeanLay": 80,
+      "layRule": 0,
+      "layKappa": 10,
+      "layRatio50": 0.7,
+      "loadSlowdown": 0
+    },
+    "phys": {
+      "intakeRate": 0.009661243120898107,
+      "intakeSd": 0.07640894285550197,
+      "metabolic": 0.0012,
+      "activeFactor": 3,
+      "cropAbsorption": 0,
+      "permeability": 20,
+      "surfaceArea": 16,
+      "depositPerMm": 1,
+      "compassNoise": 0.0005,
+      "boutFastUl": 0.006984175416892337,
+      "boutFastRate": 0.05
+    },
+    "morph": {
+      "len": 4.1,
+      "mass": 2,
+      "cropCapacity": 2,
+      "antennaReach": 2.6,
+      "cropFullFrac": 0.98,
+      "reserveDays": 14
+    },
+    "nest": {
+      "restToActive": 0.008333333333333333,
+      "activeToRest": 0.005555555555555556,
+      "giveFrac": 0.1,
+      "receiveReserve": 0.9328967562620334,
+      "shareEnd": 0.0008333333333333334,
+      "stallTime": 3,
+      "shareRate": 0.012326869076695304,
+      "leaveRate": 0.0033333333333333335,
+      "leaveCropFrac": 0.05,
+      "forageDriveSd": 1,
+      "leaveGain": 1.5,
+      "returnRate": 0.8518552596390988,
+      "giveUpTime": 120,
+      "reserveSd": 0.12359835297224729,
+      "nestSpeedFactor": 0.0436327658254327
+    }
+  }
+}
