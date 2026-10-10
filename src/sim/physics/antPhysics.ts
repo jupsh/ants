@@ -84,47 +84,59 @@ export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkPara
     per,
     1,
     m.pi,
-    (dx, dy, len) => {
+    (dx0, dy0, len0) => {
       // Walk the segment in ≤ 0.5 mm pieces, up to the edge of the surface:
       // checking only the end point let long steps jump the 4 mm wall
-      // between the Bles nest and its foraging area, or cut corners.
-      const x0 = b.x;
-      const y0 = b.y;
-      const pieces = Math.max(1, Math.ceil(len / 0.5));
-      let done = 0;
-      while (done < pieces && w.apparatus.inside(x0 + (dx * (done + 1)) / pieces, y0 + (dy * (done + 1)) / pieces)) done++;
-      const f = done / pieces;
-      const walked = len * f;
-      if (walked > 0) {
-        if (b.gasterDown && w.trail) {
-          // Deposit along the walked part in ≤ 1 mm pieces.
-          const n = Math.max(1, Math.ceil(walked));
-          for (let i = 0; i < n; i++) {
-            const g = ((i + 0.5) / n) * f;
-            w.trail.deposit(x0 + dx * g, y0 + dy * g, phys.depositPerMm, walked / n);
+      // between the Bles nest and its foraging area, or cut corners. At an
+      // edge the ant turns along it and walks the rest of the segment on the
+      // new heading (STATUS 2026-10-10 night: dropping the rest made the
+      // speed near walls depend on dt).
+      let dx = dx0;
+      let dy = dy0;
+      let len = len0;
+      for (let turns = 0; len > 1e-12 && turns <= 8; turns++) {
+        const x0 = b.x;
+        const y0 = b.y;
+        const pieces = Math.max(1, Math.ceil(len / 0.5));
+        let done = 0;
+        while (done < pieces && w.apparatus.inside(x0 + (dx * (done + 1)) / pieces, y0 + (dy * (done + 1)) / pieces)) done++;
+        const f = done / pieces;
+        const walked = len * f;
+        if (walked > 0) {
+          if (b.gasterDown && w.trail) {
+            // Deposit along the walked part in ≤ 1 mm pieces.
+            const n = Math.max(1, Math.ceil(walked));
+            for (let i = 0; i < n; i++) {
+              const g = ((i + 0.5) / n) * f;
+              w.trail.deposit(x0 + dx * g, y0 + dy * g, phys.depositPerMm, walked / n);
+            }
           }
+          b.x = x0 + dx * f;
+          b.y = y0 + dy * f;
+          b.heading = Math.atan2(dy, dx);
+          b.stepLen += walked;
+          b.gait += walked / (b.morph.len * 0.8);
+          // Path integration: true self-motion read through a biased, noisy compass.
+          const he = b.heading + m.trip.piBias + Math.sqrt(phys.compassNoise * walked) * b.rng.gauss();
+          m.pi.x += Math.cos(he) * walked * m.trip.piGain;
+          m.pi.y += Math.sin(he) * walked * m.trip.piGain;
         }
-        b.x = x0 + dx * f;
-        b.y = y0 + dy * f;
-        b.heading = Math.atan2(dy, dx);
-        b.stepLen += walked;
-        b.gait += walked / (b.morph.len * 0.8);
-        // Path integration: true self-motion read through a biased, noisy compass.
-        const he = b.heading + m.trip.piBias + Math.sqrt(phys.compassNoise * walked) * b.rng.gauss();
-        m.pi.x += Math.cos(he) * walked * m.trip.piGain;
-        m.pi.y += Math.sin(he) * walked * m.trip.piGain;
-      }
-      if (done < pieces) {
+        if (done === pieces) return;
         // Edge of the surface: the ant turns along it (smallest turn whose next 0.5 mm stays on the surface).
-        for (let k = 1; k <= 12; k++)
+        len -= walked;
+        let turned = false;
+        for (let k = 1; k <= 12 && !turned; k++)
           for (const sgn of [1, -1]) {
             const h = m.walk.heading + sgn * k * 0.26;
             if (w.apparatus.inside(b.x + Math.cos(h) * 0.5, b.y + Math.sin(h) * 0.5)) {
               m.walk.heading = h;
-              return;
+              turned = true;
+              break;
             }
           }
-        m.walk.heading += Math.PI;
+        if (!turned) m.walk.heading += Math.PI;
+        dx = Math.cos(m.walk.heading) * len;
+        dy = Math.sin(m.walk.heading) * len;
       }
     },
     mod,

@@ -143,8 +143,6 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
   // followed run measures the stay exactly as a run that stops there (the fit runs).
   let stopAt = NaN;
   let dist = 0;
-  let px = NaN;
-  let py = NaN;
   // Contact episodes with each nestmate during the stay (open ones by start time), then those lasting ≥ contactMin.
   const open = new Map<number, number>();
   const episodes: { id: number; start: number; end: number }[] = [];
@@ -169,9 +167,8 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
         open.clear();
         if (!followNestmates) return true;
       } else {
-        if (!Number.isNaN(px)) dist += Math.hypot(a.body.x - px, a.body.y - py);
-        px = a.body.x;
-        py = a.body.y;
+        // Distance: the path walked this step (STATUS 2026-10-10 night; summed step chords depended on dt).
+        if (t > 0) dist += a.body.stepLen;
         const now = new Set((info.per[r]?.contacts ?? []).map((c) => c.id));
         for (const id of now) if (!open.has(id)) open.set(id, t);
         for (const [id, start] of [...open])

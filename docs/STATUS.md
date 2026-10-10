@@ -4458,7 +4458,7 @@ listing opened). Checks on the running gate: only whether outputs exist.
   step is the observer change, not dt 0.0125. Box idle.
 
 **2026-10-10 night — the dt failure is a physics bug, not the observer (decision before the fix).**
-- Diagnostic (`scripts/_diagDist.ts`, 12 recruiters, 1 d, start points,
+- Diagnostic (`scripts/diagDtRecruiter.ts`, 12 recruiters, 1 d, start points,
   development only): in mode `active` the recruiter's speed is 31 vs
   39 mm/s (start 1) and 8.2 vs 9.7 mm/s (start 2) at dt 0.1 vs 0.025.
   Resampling positions at 1 s barely narrows the gap (3571 vs 3855 cm
@@ -4477,3 +4477,24 @@ listing opened). Checks on the running gate: only whether outputs exist.
   adopted with the E2 fits unchanged (and disclosed); otherwise it is
   back to the user before any colony work. The dt gate then reruns at
   0.1 vs 0.025.
+- **Wall fix done; E2 check passed (adopted, disclosed).** E2 report
+  (600 scouts, same seeds, before vs after the fix) shifts every row by
+  ≤ 0.51 combined SE (main: largest `two.betweenNTL1` −0.51, `two.total`
+  −0.43; alt: ≤ 0.32). E2 fits are unchanged, and E2 is no longer
+  bit-identical with the run hashes before 2026-10-10 night. New flags:
+  `reportE2.ts --alt --out f.json`.
+- **Remaining dt dependence located (diagnostics `scripts/diagDtSolo.ts`,
+  `diagDtWalk.ts`, development only):** the walk model alone is exact in dt
+  (log speed ratio dt 0.1/0.025: 0.0003 ± 0.0023, 200 walkers, no walls).
+  A lone ant in the nest after the fix still shows −4.3 % ± 0.3 % in
+  per-step chord length (−1.0 % at dt 0.05) but +0.3 % ± 0.3 % in walked
+  path (Σ `stepLen`). The rest is the observer: a step that bends along a
+  wall has a shorter chord than its path, and chords shorten with longer
+  steps.
+- **Observation-model amendment (Claude, delegated; before the re-gate):**
+  1999 **distance = path walked during the stay** (Σ `body.stepLen`), which
+  does not depend on dt. Disclosure: the paper traced paths from ×2 video,
+  method unstated; the walked path is the dt-free analogue. It was chosen
+  to remove a resolution artefact, without looking at the data's distances
+  or any fit. Contacts keep their definition. If they still fail the
+  re-gate, their detection (sampled once per step) is examined next.

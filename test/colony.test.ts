@@ -69,6 +69,26 @@ describe('cues along the surface and walls', () => {
     expect(b.x).toBeLessThanOrEqual(56);
     expect(app.regionAt(b.x, b.y)?.kind).toBe('nest');
   });
+
+  it('at a wall the ant walks the rest of the step along it (STATUS 2026-10-10 night)', () => {
+    const { app, entrance } = blesApparatus();
+    const w = new World(app, entrance, 1, 25, 50);
+    const P = LASIUS_PARAMS;
+    const b = new Body(0, 1, morph, 0.5, 1);
+    b.x = 55;
+    b.y = 30;
+    const mind = newMind({ desiredVolumeFactor: 1, neverLays: true, layIntensity: 0 }, P.walk, b.rng);
+    mind.walk.heading = 0;
+    const a = { body: b, mind, inactive: false };
+    walkAnt(w, a, basicPercept(0.1, 0, 0, 25), P.walk, P.phys, {}, (_p, _s, _per, _k, _pi, move) => {
+      move(8, 0, 8);
+      return 8;
+    });
+    // The whole 8 mm is walked (it used to stop at the wall, so the speed near walls depended on dt).
+    expect(b.stepLen).toBeCloseTo(8, 9);
+    expect(app.regionAt(b.x, b.y)?.kind).toBe('nest');
+    expect(Math.hypot(b.x - 55, b.y - 30)).toBeGreaterThan(3);
+  });
 });
 
 describe('contact geometry', () => {
