@@ -604,9 +604,21 @@ Claude Code loads automatically.
 ## Open problems and backlog
 - **E2 identifiability:** desired volume, stop hazard, starvation→reserve
   mapping, accessible fraction and q overlap. See next step 3.
+- **Cost of colony calibrations (Mailleux 1999, 2026-10-10):** every
+  recruiter run simulates the whole nest (all nestmates perceive and move
+  every 0.1 s; contacts are pairwise, so cost grows with the square of the
+  density) for a 300-s warm-up plus up to 1200 s, and a fit is ≈ 5000
+  evaluations × 240 recruiters. Near the optimum a recruiter stays
+  ≈ 100 s, so ≈ 75 % of each run is the unmeasured warm-up. **Before the
+  next colony recalibration:** warm each nest once and start several
+  recruiters from copies of it (needs the save/restore item below; the
+  copies must keep per-ant streams so results stay reproducible and the
+  recruiters' independence is stated). Expected ≈ 3–4× near the optimum.
+  Other levers: a larger dt only after a convergence test; a surrogate
+  model to cut evaluations.
 - **Not yet done from the original M1 plan:**
   - State save/restore with a reproducibility test (only determinism is
-    tested).
+    tested). Also needed for shared warm-ups (item above).
   - A grid-spacing convergence test for the pheromone field.
   - The trail *response* model (no trail following is implemented yet).
   - Repellent-channel sensing (needed for the Pharaoh ant draft; the old
@@ -660,11 +672,6 @@ See [`CLAUDE.md`](../CLAUDE.md).
   validated aggregation for very large colonies (see `docs/DESIGN.md`).
 
 ## Decisions log
-- **2026-10-09** Docs only, nothing under `src/` touched while the step-3c
-  fits run: drafted [`DATA.md`](DATA.md) (data cards) and [`API.md`](API.md)
-  (public API proposal, awaiting review). Found that `SIX_TARGETS` still
-  carries `role: 'heldout'` although step 3b made the 2003 data development;
-  to correct after the fits.
 - **2026-10-07** Browser, TypeScript, three.js. The simulation core is
   pure, deterministic and runs in a Web Worker. Language performance is not
   the bottleneck; hot kernels can move to WASM if profiling demands it.
@@ -3663,3 +3670,90 @@ See [`CLAUDE.md`](../CLAUDE.md).
   remaining cost is genuine near contacts, not the scan over far ants.
   Worth revisiting only for much larger colonies. Fit cost stays as
   logged (≈ 9–27 core-min per evaluation).
+- **2026-10-10** **Mailleux 1999 calibrations started on a rented box**
+  (vast.ai container, AMD EPYC 9754, 256 of 512 threads sold, CPU quota
+  ≈ 246, 366 GB; Node 22.22.1 as locally; code at b8d5e7a via git
+  bundle). Bit-identity checked first: the colony and dense-recruiter run
+  hashes equal the local ones (395164ef…, ab0f46e5…), fast tests pass
+  (71; the local-only Khuong test is not in the bundle). Both layers
+  side by side, `SIM_WORKERS=121` each (logs `logs/fitM1999-main.log`,
+  `-alt.log` on the box; the container is not persistent, so fits and
+  logs are copied back before it is destroyed).
+  - **Container gotcha:** `nproc` reports 512 and each vite-node process
+    started ≈ 630 Rolldown threads, so 244 processes exceeded the
+    container's task limit (pids.max 62 720) and Rolldown panicked
+    (EAGAIN). Fixed with `RAYON_NUM_THREADS=2 ROLLDOWN_WORKER_THREADS=2
+    ROLLDOWN_MAX_BLOCKING_THREADS=4 UV_THREADPOOL_SIZE=2` (14 threads per
+    process). The simulation is single-threaded per process, so results
+    are unaffected.
+- **2026-10-10** **Shared warm-ups for the 1999 recruiter runs: design
+  (user go-ahead; logged before acting; the box fits keep the logged
+  independent design and are not touched).**
+  - **Mechanics:** `runColony` becomes a steppable object (`ColonySim`)
+    with `clone(key)`: a type-preserving deep copy (geometry and path
+    fields shared, being immutable) in which every RNG is replaced by
+    `rng.fork(key)` (a new stream derived from its state and the key), so
+    copies do not replay the same nestmate futures. Shared-warm-up mode:
+    warm nest j (seed from (seed, day, j)) for 300 s, then K = 8 copies,
+    each with its own recruiter (load and recruiter streams keyed by
+    (j, k)), entering at the same step as in the independent design.
+    With 80 recruiters per day, the 10 SE blocks of `m1999Compare` are
+    exactly the 10 nests.
+  - **Why it is valid:** each copy's recruiter sees a nest drawn from the
+    same warm-up process and nestmate dynamics with fresh randomness, so
+    every recruiter statistic has the same distribution as in the
+    independent design; recruiters of one nest share its configuration at
+    entry (correlated), which the per-nest blocks account for. Losses are
+    equal in expectation, not run for run: a profile or recovery in the
+    shared design compares only with references evaluated in the shared
+    design.
+  - **Checks, fixed before results:** (1) `runColony` refactor
+    bit-identical (colony and dense-recruiter hashes 395164ef…,
+    ab0f46e5…); (2) `clone` without re-keying continues bit-identically
+    to the original; (3) design equivalence: at the two fit start points,
+    3 days × 240 recruiters per design, z of the difference of means per
+    fit row (SE from recruiters, independent design; from nests, shared
+    design); pass = Σz² over the 30 rows < 50.9 (χ²₃₀, p 0.01) and no
+    |z| > 3.5. The two designs' means are compared with each other, never
+    with the 1999 data. (4) Speed per recruiter, both designs.
+- **2026-10-10** **E1 side task (user approved; pre-registered before any
+  computation): stride sway vs correlated tracking error.** Correction
+  first: the "measure tracking noise from stopped ants" check proposed on
+  2026-10-09 had already been done (step 5.A: white per-frame noise,
+  deconvolved, applied to every walker; "noise does not explain the
+  gaps"). What is open (sampling-scale sweep, 2026-10-09): every walker,
+  the Khuong reference walker included, turns 25–40 % too little at
+  τ ≤ 0.16 s; white per-frame noise does not supply the wiggle; candidates
+  are frame-correlated tracking error and real body sway with the stride.
+  - **Analysis (`scripts/strideE1.ts`, data only; Khuong inclines 1–5,
+    fit and development data; Bonavita untouched; writes nothing):** raw
+    25 Hz positions (no smoothing). Windows of 32 samples (1.28 s), one
+    per non-overlapping stretch, classed by chord speed (first-to-last
+    displacement ÷ duration): stopped (< 2 mm/s over the window, every
+    0.2 s step < 2 mm/s) and moving bins 10–20, 20–30, 30–45, 45–70 mm/s
+    (moving windows: every 0.2 s step speed > 5 mm/s). Lateral
+    displacement = signed distance from the chord line, linear trend
+    removed, Hann taper, periodogram; averaged per bin and incline (power
+    in mm²/Hz, 0.78–12.5 Hz). The same on the adopted walker (`e1-walk`)
+    with its tracking observer, 600 ants per incline, as the
+    no-sway / white-noise reference. Excess = data ÷ walker power per
+    frequency.
+  - **Reading:** (a) **stride sway** if the excess lateral power above
+    3 Hz has a peak whose frequency rises with the speed bin in at least
+    three of the four moving bins at a majority of inclines, and stopped
+    windows show no such peak; implied stride length = bin speed ÷ peak
+    frequency is reported (not a criterion). (b) **correlated tracking
+    error** if the excess above 3 Hz is broad and its shape (peak or
+    centroid frequency) does not move with speed. (c) **neither** if the
+    data's lateral power above 3 Hz is within ±20 % of the walker's in
+    every moving bin; then the fine-scale gap is not lateral jitter.
+    Mixed patterns are reported as such. Consequences, not acted on here:
+    (a) → a kinematic sway term in the observer or fine-scale turning
+    judged only at τ ≥ 0.32 s; (b) → the correlated-noise observer variant
+    already planned.
+  - **Backlog:** the black-box (mixture-density network) diagnostic, with
+    the changes discussed: colony-level split, compared against walkers
+    plus the observer, one-step statistics uninformative, walker
+    likelihoods need a particle filter, Bonavita untouched. It cannot by
+    itself separate observer from behaviour (it learns both from the
+    tracks).
