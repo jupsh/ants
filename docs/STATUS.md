@@ -4675,3 +4675,10 @@ with changes. Now in force:
   started.** It covers contacts and contactsBefore as well as timeInNest
   (the gap diagnostic rejected flicker splitting at both start points, so
   one cause, late bout signals lengthening stays, may drive both).
+- **Late-signal test started** (local; `scripts/diagDtHandshake.ts`,
+  80 paired recruiters per start point at 4 d, `logs/diag-handshake-d4.log`).
+  It breaks the stay at dt 0.1 vs 0.025 into time active, giving with
+  flow, giving while waiting (invitation unanswered), receiving, resting,
+  leaving; it also counts bout starts, starts without any flow, and
+  contact episodes ≥ 1 s. Expected under the hypothesis: more waiting time
+  and dry starts at dt 0.1, plus a longer stay and more contacts.
