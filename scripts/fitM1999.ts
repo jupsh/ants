@@ -14,8 +14,11 @@
  * generation means; runs compared on one common selection batch (judge
  * separately on fresh seeds).
  *
- * Usage: npx vite-node scripts/fitM1999.ts --layer main|alt [--gens 120] [--n 80]
- * Writes data/fits/colony-m1999-<layer>.json.
+ * --perNest K: shared warm-ups (STATUS 2026-10-10), K recruiters per warmed
+ * nest; default 0 = the independent design logged for the first fits.
+ *
+ * Usage: npx vite-node scripts/fitM1999.ts --layer main|alt [--gens 120] [--n 80] [--perNest 8]
+ * Writes data/fits/colony-m1999-<layer>.json (with --perNest: colony-m1999-<layer>-shared.json).
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
 import type { ColonyParams } from '../src/sim/experiments/colonyBles';
@@ -34,7 +37,8 @@ const AVERAGE_LAST = 30;
 const RESTARTS = 1;
 const WARMUP = 300;
 const SEED = 7_000_000_000;
-const OUT = `data/fits/colony-m1999-${LAYER}.json`;
+const PER_NEST = numArg('--perNest', 0);
+const OUT = `data/fits/colony-m1999-${LAYER}${PER_NEST ? '-shared' : ''}.json`;
 
 const P0: ColonyParams = { ...(LAYER === 'main' ? LASIUS_PARAMS : LASIUS_PARAMS_E2_ALT), nest: LASIUS_NEST };
 const ACCESSIBLE = (LAYER === 'main' ? MAILLEUX_SETUP : MAILLEUX_SETUP_E2_ALT).accessible;
@@ -68,7 +72,11 @@ const start2: Model = { P: { ...P0, nest: { ...P0.nest, nestSpeedFactor: 0.2, re
 
 const pool = await SimPool.create();
 const simulate = async (m: Model, seed: number, n = N): Promise<Record<M1999Day, M1999Recruiter[]>> => {
-  const per = await Promise.all(M1999_DAYS.map((day) => pool.m1999(m.P, { seed, starvationDays: day, density: m.density, pipetteAccessible: ACCESSIBLE, warmup: WARMUP }, n)));
+  const run = (day: M1999Day) => {
+    const o = { seed, starvationDays: day, density: m.density, pipetteAccessible: ACCESSIBLE, warmup: WARMUP };
+    return PER_NEST ? pool.m1999Shared(m.P, o, n, PER_NEST) : pool.m1999(m.P, o, n);
+  };
+  const per = await Promise.all(M1999_DAYS.map(run));
   return Object.fromEntries(M1999_DAYS.map((d, i) => [d, per[i]])) as Record<M1999Day, M1999Recruiter[]>;
 };
 const evalAt = async (m: Model, seed: number, n = N) => m1999FitLoss(await simulate(m, seed, n));
@@ -127,6 +135,7 @@ writeJson(OUT, {
   layer: LAYER === 'main' ? 'L0S1c (e2-3d-L0S1c.json)' : 'L0S1 (e2-3d-L0S1.json)',
   fittedOn: M1999_TARGETS.map((t) => t.id),
   recruitersPerDay: N,
+  design: PER_NEST ? { sharedWarmup: true, recruitersPerNest: PER_NEST } : { sharedWarmup: false },
   warmup: WARMUP,
   optimizer: { method: 'CMA-ES', starts: 2, restarts: RESTARTS, maxGenerations: GENS, tolX: TOLX, averageLast: AVERAGE_LAST },
   evals,

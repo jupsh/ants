@@ -155,6 +155,14 @@ export class SimPool {
     return (await this.map('m1999', parts)).flat();
   }
 
+  /** Mailleux 1999 in the shared-warm-up design: `count` recruiters as count / perNest nests, one nest per task; results in nest order. */
+  async m1999Shared(P: ColonyParams, o: M1999Options, count: number, perNest: number): Promise<M1999Recruiter[]> {
+    if (count % perNest) throw new Error(`m1999Shared: ${count} recruiters is not a multiple of ${perNest} per nest`);
+    const parts: TaskArgs<'m1999Nests'>[] = [];
+    for (let j = 0; j < count / perNest; j++) parts.push([P, o, j, 1, perNest]);
+    return (await this.map('m1999Nests', parts)).flat();
+  }
+
   close(): void {
     for (const w of this.workers) w.kill('SIGKILL');
   }

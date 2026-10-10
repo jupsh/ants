@@ -4,7 +4,7 @@ import { summarizeTrack, type Acc } from '../experiments/e1Compare';
 import { runE1, type E1Options } from '../experiments/e1Exploration';
 import { runScout, type LasiusParams, type ScoutOptions, type ScoutResult } from '../experiments/e2Mailleux';
 import type { ColonyParams } from '../experiments/colonyBles';
-import { runRecruiters1999, type M1999Options, type M1999Recruiter } from '../experiments/colonyMailleux1999';
+import { runNests1999, runRecruiters1999, type M1999Options, type M1999Recruiter } from '../experiments/colonyMailleux1999';
 import { simulateColonies, type E6Metrics } from '../experiments/e6Bles';
 import type { WalkParams } from '../models/walk';
 import { runBles, type BlesParams } from '../reference/blesTEC';
@@ -31,6 +31,8 @@ export const TASKS = {
   blesColonies: (P: BlesParams, seed: number, first: number, count: number, rule?: ObserverRule): E6Metrics[] => simulateColonies((rng) => runBles(P, rng), count, seed, first, rule),
   /** Mailleux 1999: recruiters [first, first + count) of one starvation day, observed and summarised. */
   m1999: (P: ColonyParams, o: M1999Options, first: number, count: number): M1999Recruiter[] => runRecruiters1999(P, o, first, count),
+  /** Mailleux 1999, shared warm-ups: nests [first, first + count), perNest recruiters each, in nest then recruiter order. */
+  m1999Nests: (P: ColonyParams, o: M1999Options, first: number, count: number, perNest: number): M1999Recruiter[] => runNests1999(P, o, first, count, perNest),
 };
 
 export type TaskName = keyof typeof TASKS;

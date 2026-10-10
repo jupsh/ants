@@ -672,6 +672,11 @@ See [`CLAUDE.md`](../CLAUDE.md).
   validated aggregation for very large colonies (see `docs/DESIGN.md`).
 
 ## Decisions log
+- **2026-10-09** Docs only, nothing under `src/` touched while the step-3c
+  fits run: drafted [`DATA.md`](DATA.md) (data cards) and [`API.md`](API.md)
+  (public API proposal, awaiting review). Found that `SIX_TARGETS` still
+  carries `role: 'heldout'` although step 3b made the 2003 data development;
+  to correct after the fits.
 - **2026-10-07** Browser, TypeScript, three.js. The simulation core is
   pure, deterministic and runs in a Web Worker. Language performance is not
   the bottleneck; hot kernels can move to WASM if profiling demands it.
@@ -3787,3 +3792,35 @@ See [`CLAUDE.md`](../CLAUDE.md).
     noise-dominated; the walkers lack slow steps), and the walker's excess
     mid-frequency wander. A cheap next check would be the scale sweep
     split by speed (does the turning gap persist within speed bins?).
+- **2026-10-10** **Shared warm-ups: implemented; design-equivalence check
+  passed (with a disclosed amendment); speed-up smaller than expected at
+  the start points.**
+  - **Implemented:** `ColonySim` (steppable `runColony`; `clone(key)` via
+    `core/clone.ts` `deepClone`, `RNG.fork`), `runNest1999` /
+    `runNests1999` (warm once, K copies, recruiter streams keyed by
+    (nest, k)), pool task `m1999Nests`, `fitM1999.ts --perNest K` (default
+    0: the logged independent design; output `-shared.json`). Checks 1–2
+    passed: both run hashes unchanged (395164ef…, ab0f46e5…);
+    `test/colonyClone.test.ts` (unkeyed clone continues bit-identically,
+    the original is untouched, keyed clones reproducible and distinct).
+  - **Check 3, design equivalence** (`scripts/checkM1999Shared.ts`,
+    `logs/checkM1999Shared.log`): 4 of 30 rows were NaN in both designs
+    (`trophTotal.d1`, `contactsBefore.d1` at both start points: at 1 d
+    the nestmates' reserve, 0.93, exceeds `receiveReserve` 0.8, so no
+    nestmate accepts food and no recruiter has any trophallaxis), so the
+    script printed FAIL on 0/0. **Amendment after seeing the results**
+    (handling of rows degenerate in both designs only): rows with no value
+    in either design are excluded; rows with the same constant in both are
+    exact agreement (z 0). Result: `contactsBefore.d1` excluded at both
+    points, `trophTotal.d1` z 0 at both (all zeros), so 28 rows scored:
+    Σz² 31.6 (χ²₂₈ 1 % point 48.3; the 26 non-degenerate rows alone, χ²₂₆
+    45.6), max |z| 2.56 (contacts, 4 d, start 2) → **PASS**; it also
+    passes the original 30-row threshold (50.9).
+  - **Check 4, speed:** 1.07× (start 1) and 1.25× (start 2) wall. At the
+    start points recruiters stay up to the 20-min cap, so the 300-s
+    warm-up is a small share; the gain is (warm-up + stay) / stay per
+    recruiter and reaches ≈ 3–4× only where stays are ≈ 100 s (near the
+    1999 data), not measured here.
+  - **Disclosure:** at the provisional start values, no trophallaxis at
+    1 d (above). This is a mechanical consequence of `receiveReserve`
+    0.8, which the fit frees ([0.2, 1]); no fit result was seen.

@@ -2,18 +2,20 @@ import { Body } from '../agent/body';
 import type { ContactInterval } from '../analysis/trophallaxis';
 import { lasiusForager, drawTraits, startTrip, type ForagerAction, type ForagerParams } from '../behavior/lasiusForager';
 import { drawNestTraits, lasiusNestWorker, type NestAction, type NestParams } from '../behavior/lasiusNestWorker';
+import { deepClone } from '../core/clone';
 import { RNG } from '../core/rng';
 import { newMind, setMode } from '../mind/mind';
-import { walkStep } from '../models/walk';
+import { walkStep, type WalkParams } from '../models/walk';
 import { interocept, perceive } from '../perception/perceive';
 import type { SurfacePercept } from '../perception/types';
 import { applyForagerAction, metabolise, walkAnt, type MotorFn } from '../physics/antPhysics';
 import { alignFaceToFace, detectContacts, mouthContact } from '../physics/contacts';
 import { shareCrop } from '../physics/trophallaxis';
 import { E6_CONTEXT } from '../species/lasiusM1';
-import { blesApparatus } from '../world/apparatus';
+import { Apparatus, blesApparatus } from '../world/apparatus';
 import { SugarDroplet } from '../world/food';
 import { PathField } from '../world/pathField';
+import { PlaneSurface } from '../world/surface';
 import { World, type Agent } from '../world/world';
 import type { LasiusParams } from './e2Mailleux';
 
@@ -123,101 +125,158 @@ export interface ColonyResult {
 }
 
 export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World, info: ColonyStepInfo) => boolean | void): ColonyResult {
-  const n = o.ants ?? 53;
-  const f = o.walkSpeedFactor ?? E6_CONTEXT.walkSpeedFactor;
-  const walkP = f === 1 ? P.walk : { ...P.walk, speed: P.walk.speed * f };
-  // Inside the nest the walker is further scaled by the calibrated nest factor (STATUS 2026-10-09).
-  const nf = P.nest.nestSpeedFactor ?? 1;
-  const walkNestP = nf === 1 ? walkP : { ...walkP, speed: walkP.speed * nf };
-  const walkFor = (p: SurfacePercept) => (p.inNest ? walkNestP : walkP);
-  const dt = o.dt ?? 0.1;
-  const T = (o.minutes ?? 90) * 60;
-  const foodTime = (o.foodMinute ?? 30) * 60;
-  const motor = o.motor ?? walkStep;
-  const frameEvery = o.frameEvery ?? 0;
-  const { app, entrance, feeder } = blesApparatus();
-  const w = new World(app, entrance, o.seed, o.tempC ?? 22, 50);
-  // Cues along the surface (provisional): nest odour over the whole foraging area, and the way out inside the nest.
-  w.nestOdour = new PathField(app, (r) => r.kind === 'nest');
-  w.exitCue = new PathField(app, (r) => r.kind !== 'nest');
-  w.nestCueRadius = 150;
-  const foragerP: ForagerParams = { ...P.forager, exploreGiveUp: o.exploreGiveUp ?? 300 };
-  const m = P.morph;
-  const reserveMax = P.phys.metabolic * Math.pow(m.mass, 0.75) * 24 * m.reserveDays;
-  const nestRegion = app.regions.find((r) => r.kind === 'nest')!;
-  const outside: boolean[] = [];
-  const reserveFrac = Math.max(0.02, 1 - (o.starvationDays ?? 4) / m.reserveDays);
-  const addAnt = (i: number, x: number, y: number, heading: number, rest: boolean): Agent => {
-    const body = new Body(i, o.seed, { len: m.len, mass: m.mass, cropCapacity: m.cropCapacity, antennaReach: m.antennaReach }, reserveFrac, reserveMax);
+  const sim = new ColonySim(P, o);
+  while (sim.stepIndex < sim.steps) if (sim.step(onStep)) break;
+  return sim.result();
+}
+
+/** Classes whose instances never change during a run and are shared between copies. */
+const IMMUTABLE = (x: object) => x instanceof Apparatus || x instanceof PathField || x instanceof PlaneSurface;
+
+/**
+ * A colony run as a steppable object (`runColony` steps it to the end).
+ * `clone(key)` copies the whole state; with a key, every random stream of
+ * the copy is forked, so copies keyed differently continue independently
+ * from the same state (shared warm-ups, STATUS 2026-10-10). Fields hold all
+ * mutable state; no stored closure refers to it, so copies are complete.
+ */
+export class ColonySim {
+  readonly n: number;
+  readonly dt: number;
+  readonly steps: number;
+  readonly foodTime: number;
+  stepIndex = 0;
+  readonly w: World;
+  readonly outside: boolean[] = [];
+  readonly forager: boolean[] = [];
+  readonly feedRun: number[] = [];
+  readonly bouts: ShareBout[] = [];
+  readonly open = new Map<string, ShareBout>();
+  readonly frames: ColonyFrame[] = [];
+  recruiter: RecruiterEntry | undefined;
+  /** Seed for the recruiter's own streams (default the colony seed). */
+  recruiterSeed: number;
+  recruiterIn = false;
+  private foodAdded = false;
+  private nextFrame = 0;
+  private readonly walkP: WalkParams;
+  private readonly walkNestP: WalkParams;
+  private readonly foragerP: ForagerParams;
+  private readonly motor: MotorFn;
+  private readonly reserveMax: number;
+  private readonly reserveFrac: number;
+  private readonly entrance: [number, number];
+  private readonly feeder: [number, number];
+
+  constructor(
+    readonly P: ColonyParams,
+    readonly o: ColonyOptions,
+  ) {
+    this.n = o.ants ?? 53;
+    const f = o.walkSpeedFactor ?? E6_CONTEXT.walkSpeedFactor;
+    this.walkP = f === 1 ? P.walk : { ...P.walk, speed: P.walk.speed * f };
+    // Inside the nest the walker is further scaled by the calibrated nest factor (STATUS 2026-10-09).
+    const nf = P.nest.nestSpeedFactor ?? 1;
+    this.walkNestP = nf === 1 ? this.walkP : { ...this.walkP, speed: this.walkP.speed * nf };
+    this.dt = o.dt ?? 0.1;
+    this.steps = Math.round(((o.minutes ?? 90) * 60) / this.dt);
+    this.foodTime = (o.foodMinute ?? 30) * 60;
+    this.motor = o.motor ?? walkStep;
+    const { app, entrance, feeder } = blesApparatus();
+    this.entrance = entrance;
+    this.feeder = feeder;
+    const w = new World(app, entrance, o.seed, o.tempC ?? 22, 50);
+    // Cues along the surface (provisional): nest odour over the whole foraging area, and the way out inside the nest.
+    w.nestOdour = new PathField(app, (r) => r.kind === 'nest');
+    w.exitCue = new PathField(app, (r) => r.kind !== 'nest');
+    w.nestCueRadius = 150;
+    this.w = w;
+    this.foragerP = { ...P.forager, exploreGiveUp: o.exploreGiveUp ?? 300 };
+    const m = P.morph;
+    this.reserveMax = P.phys.metabolic * Math.pow(m.mass, 0.75) * 24 * m.reserveDays;
+    this.reserveFrac = Math.max(0.02, 1 - (o.starvationDays ?? 4) / m.reserveDays);
+    const nestRegion = app.regions.find((r) => r.kind === 'nest')!;
+    for (let i = 0; i < this.n; i++) {
+      // Start positions, headings and the initial rest/active state from their own streams.
+      const place = RNG.stream(o.seed, 0x9e57, i);
+      const x = place.range(nestRegion.x0 + 2, nestRegion.x1 - 2);
+      const y = place.range(nestRegion.y0 + 2, nestRegion.y1 - 2);
+      const heading = place.range(-Math.PI, Math.PI);
+      this.addAnt(i, x, y, heading, place.chance(0.5), o.seed);
+    }
+    this.recruiter = o.recruiter;
+    this.recruiterSeed = o.seed;
+  }
+
+  private addAnt(i: number, x: number, y: number, heading: number, rest: boolean, seed: number): Agent {
+    const { P, w } = this;
+    const m = P.morph;
+    const body = new Body(i, seed, { len: m.len, mass: m.mass, cropCapacity: m.cropCapacity, antennaReach: m.antennaReach }, this.reserveFrac, this.reserveMax);
     w.ledger.move('sugar', 'external', 'reserve', body.reserve);
     w.ledger.move('water', 'external', 'reserve', body.water);
     body.x = x;
     body.y = y;
     body.heading = heading;
-    const physRng = RNG.stream(o.seed, 0x1a7a, i);
+    const physRng = RNG.stream(seed, 0x1a7a, i);
     body.intakeFactor = Math.exp(physRng.normal(0, P.phys.intakeSd) - (P.phys.intakeSd * P.phys.intakeSd) / 2);
-    const traits = { ...drawTraits(P.forager, body.rng), ...drawNestTraits(P.nest, RNG.stream(o.seed, 0x7e57, i)) };
-    const mind = newMind(traits, walkP, body.rng);
+    const traits = { ...drawTraits(P.forager, body.rng), ...drawNestTraits(P.nest, RNG.stream(seed, 0x7e57, i)) };
+    const mind = newMind(traits, this.walkP, body.rng);
     mind.walk.heading = body.heading;
     // In the nest the ant knows where it is relative to the entrance (path-integration origin).
-    mind.pi.x = body.x - entrance[0];
-    mind.pi.y = body.y - entrance[1];
+    mind.pi.x = body.x - this.entrance[0];
+    mind.pi.y = body.y - this.entrance[1];
     setMode(mind, rest ? 'rest' : 'active');
     const agent: Agent = { body, mind, inactive: false };
     w.ants.push(agent);
-    outside.push(false);
-    forager.push(false);
-    feedRun.push(0);
+    this.outside.push(false);
+    this.forager.push(false);
+    this.feedRun.push(0);
     return agent;
-  };
-  const forager: boolean[] = [];
-  const feedRun: number[] = [];
-  for (let i = 0; i < n; i++) {
-    // Start positions, headings and the initial rest/active state from their own streams.
-    const place = RNG.stream(o.seed, 0x9e57, i);
-    const x = place.range(nestRegion.x0 + 2, nestRegion.x1 - 2);
-    const y = place.range(nestRegion.y0 + 2, nestRegion.y1 - 2);
-    const heading = place.range(-Math.PI, Math.PI);
-    addAnt(i, x, y, heading, place.chance(0.5));
   }
-  const rec = o.recruiter;
-  let recruiterIn = false;
 
-  const bouts: ShareBout[] = [];
-  const open = new Map<string, ShareBout>();
-  const frames: ColonyFrame[] = [];
-  let foodAdded = false;
-  let nextFrame = 0;
-  const steps = Math.round(T / dt);
+  private walkFor(p: SurfacePercept): WalkParams {
+    return p.inNest ? this.walkNestP : this.walkP;
+  }
 
-  for (let step = 0; step < steps; step++) {
-    const t = step * dt;
+  /** A copy of the whole state; with `key`, its random streams are forked (independent continuation). */
+  clone(key?: number): ColonySim {
+    return deepClone(this, { share: IMMUTABLE, rekey: key });
+  }
+
+  /** Advance one time step; returns true if `onStep` asked to stop. */
+  step(onStep?: (w: World, info: ColonyStepInfo) => boolean | void): boolean {
+    const { P, w, dt, outside, forager, feedRun, bouts, open } = this;
+    const app = w.apparatus;
+    const t = this.stepIndex * dt;
+    this.stepIndex++;
     w.time = t;
-    if (!foodAdded && t >= foodTime) {
-      w.addFood((id) => new SugarDroplet(id, feeder[0], feeder[1], o.foodUl ?? 3000, o.molar ?? 1, 1));
-      foodAdded = true;
+    if (!this.foodAdded && t >= this.foodTime) {
+      w.addFood((id) => new SugarDroplet(id, this.feeder[0], this.feeder[1], this.o.foodUl ?? 3000, this.o.molar ?? 1, 1));
+      this.foodAdded = true;
     }
-    if (rec && !recruiterIn && t >= rec.enterAt - 1e-9) {
+    const rec = this.recruiter;
+    if (rec && !this.recruiterIn && t >= rec.enterAt - 1e-9) {
       // The recruiter steps into the nest from the passage, heading inwards, carrying its load.
-      const a = addAnt(n, entrance[0] - 1, entrance[1], Math.PI, false);
+      const a = this.addAnt(this.n, this.entrance[0] - 1, this.entrance[1], Math.PI, false, this.recruiterSeed);
       a.body.cropUl = rec.cropUl;
       a.body.cropSugar = rec.cropSugar;
       a.body.cropWater = rec.cropWater;
       w.ledger.move('sugar', 'external', 'crop', rec.cropSugar);
       w.ledger.move('water', 'external', 'crop', rec.cropWater);
       a.mind.ingested = rec.ingested;
-      recruiterIn = true;
+      this.recruiterIn = true;
     }
-    if (frameEvery > 0 && t >= nextFrame - 1e-9) {
-      frames.push(frame(w, t, app.bounds));
-      nextFrame += frameEvery;
+    const frameEvery = this.o.frameEvery ?? 0;
+    if (frameEvery > 0 && t >= this.nextFrame - 1e-9) {
+      this.frames.push(frame(w, t, app.bounds));
+      this.nextFrame += frameEvery;
     }
     // Perceive (same state for all), then decide.
     const per: (SurfacePercept | null)[] = w.ants.map((a) => (a.body.alive ? perceive(w, a.body, dt) : null));
     const acts: (NestAction | ForagerAction | null)[] = w.ants.map((a, i) => {
       const p = per[i];
       if (!p) return null;
-      return outside[i] ? lasiusForager(p, interocept(a.body), a.mind, foragerP, a.body.rng) : lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
+      return outside[i] ? lasiusForager(p, interocept(a.body), a.mind, this.foragerP, a.body.rng) : lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
     });
     // Move (and, outside, drink and metabolise as in E2). Mouth flow is re-sensed from here on.
     for (const a of w.ants) a.body.mouthFlow = 0;
@@ -227,7 +286,7 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World,
       if (!act) return;
       if (outside[i]) {
         const before = a.body.cropUl;
-        applyForagerAction(w, a, act as ForagerAction, per[i]!, walkFor(per[i]!), P.phys, dt, motor);
+        applyForagerAction(w, a, act as ForagerAction, per[i]!, this.walkFor(per[i]!), P.phys, dt, this.motor);
         // Forager status: ≥ 5 consecutive seconds of feeding at the source.
         feedRun[i] = a.mind.mode === 'drink' && a.body.cropUl > before ? feedRun[i] + dt : 0;
         if (feedRun[i] >= 5 - 1e-9) forager[i] = true;
@@ -236,7 +295,7 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World,
       const na = act as NestAction;
       a.body.gasterDown = false;
       a.body.stepLen = 0;
-      if (!na.stand) walked[i] = walkAnt(w, a, per[i]!, walkFor(per[i]!), P.phys, na.motor, motor);
+      if (!na.stand) walked[i] = walkAnt(w, a, per[i]!, this.walkFor(per[i]!), P.phys, na.motor, this.motor);
     });
     // Food sharing between ants that both agreed, in donor-index order.
     w.ants.forEach((a, i) => {
@@ -282,18 +341,23 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World,
       metabolise(w, a.body, P.phys, walked[i] > 0, dt);
       if ((act as NestAction).leaveNest) {
         outside[i] = true;
-        startTrip(a.mind, foragerP, interocept(a.body), a.body.rng);
+        startTrip(a.mind, this.foragerP, interocept(a.body), a.body.rng);
         // startTrip zeroes the path integrator: the ant is at the entrance.
-        a.mind.pi.x = a.body.x - entrance[0];
-        a.mind.pi.y = a.body.y - entrance[1];
+        a.mind.pi.x = a.body.x - this.entrance[0];
+        a.mind.pi.y = a.body.y - this.entrance[1];
       }
     });
-    if (onStep?.(w, { t, per, outside })) break;
+    return !!onStep?.(w, { t, per, outside });
   }
-  for (const bout of open.values()) bouts.push(bout);
-  bouts.sort((p, q) => p.start - q.start || p.donor - q.donor || p.receiver - q.receiver);
-  const contacts = bouts.filter((b) => b.end > foodTime).map((b) => ({ donor: b.donor, receiver: b.receiver, start: b.start - foodTime, end: b.end - foodTime }));
-  return { world: w, bouts, contacts, forager, frames, foodTime };
+
+  /** Bouts so far (open ones closed at their last step), and the E6 observer's contact list; does not change the state. */
+  result(): ColonyResult {
+    const bouts = [...this.bouts, ...this.open.values()].map((b) => ({ ...b }));
+    bouts.sort((p, q) => p.start - q.start || p.donor - q.donor || p.receiver - q.receiver);
+    const ft = this.foodTime;
+    const contacts = bouts.filter((b) => b.end > ft).map((b) => ({ donor: b.donor, receiver: b.receiver, start: b.start - ft, end: b.end - ft }));
+    return { world: this.w, bouts, contacts, forager: this.forager, frames: this.frames, foodTime: ft };
+  }
 }
 
 function frame(w: World, t: number, bounds: { x0: number; y0: number; x1: number; y1: number }): ColonyFrame {

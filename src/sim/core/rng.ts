@@ -115,6 +115,15 @@ export class RNG {
     return this.next() * Math.PI * 2;
   }
 
+  /**
+   * A new, independent stream derived from this one's current state and
+   * `key` (this stream is not advanced). Used when a simulation is copied,
+   * so that copies keyed differently do not replay the same draws.
+   */
+  fork(key: number): RNG {
+    return RNG.stream(this.s, key, this.spare === null ? 0 : 1);
+  }
+
   getState(): number {
     return this.s;
   }

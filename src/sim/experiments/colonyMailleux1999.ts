@@ -1,7 +1,8 @@
 import { blockEstimate, combinedZ, fitZ, type Comparison } from '../analysis/compare';
 import { RNG } from '../core/rng';
 import { blesApparatus } from '../world/apparatus';
-import { runColony, type ColonyParams } from './colonyBles';
+import type { World } from '../world/world';
+import { ColonySim, type ColonyOptions, type ColonyParams, type ColonyStepInfo } from './colonyBles';
 import { runScoutWorld } from './e2Mailleux';
 
 /**
@@ -104,13 +105,24 @@ export function recruiterLoad(P: ColonyParams, o: M1999Options): { cropUl: numbe
 }
 
 /** One recruiter (Mailleux 1999), observed as the paper defines its measures. */
-export function runRecruiter1999(P: ColonyParams, o: M1999Options): M1999Recruiter {
-  const load = recruiterLoad(P, o);
+/** Nestmates in the stand-in chamber at a density (per cm²). */
+function nestmates(density: number): number {
   const { app } = blesApparatus();
   const nest = app.regions.find((r) => r.kind === 'nest')!;
-  const areaCm2 = ((nest.x1 - nest.x0) * (nest.y1 - nest.y0)) / 100;
-  const n = Math.max(1, Math.round(o.density * areaCm2));
-  const enterAt = o.warmup ?? 600;
+  return Math.max(1, Math.round((density * (nest.x1 - nest.x0) * (nest.y1 - nest.y0)) / 100));
+}
+
+/** Colony options for a 1999 run (no food; long enough for the observation window). */
+function colonyOptions(o: M1999Options, seed: number, n: number, enterAt: number): ColonyOptions {
+  return { seed, ants: n, dt: o.dt, minutes: (enterAt + OBSERVE + (o.followNestmates ? FOLLOW : 0)) / 60 + 0.01, foodMinute: Infinity, starvationDays: o.starvationDays };
+}
+
+/**
+ * Step `sim` (whose recruiter, ant `n`, enters at `enterAt`) to the end of
+ * the observation and summarise the recruiter as the paper defines its
+ * measures.
+ */
+function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean): M1999Recruiter {
   const r = n;
   let exitAt = NaN;
   let dist = 0;
@@ -122,43 +134,43 @@ export function runRecruiter1999(P: ColonyParams, o: M1999Options): M1999Recruit
   const wasOut = new Array<boolean>(n).fill(false);
   const leftAfterContact = new Set<number>();
   let cropAtExit = NaN;
-  const res = runColony(
-    P,
-    { seed: o.seed, ants: n, dt: o.dt, minutes: (enterAt + OBSERVE + (o.followNestmates ? FOLLOW : 0)) / 60 + 0.01, foodMinute: Infinity, starvationDays: o.starvationDays, recruiter: { enterAt, ...load } },
-    (w, info) => {
-      const a = w.ants[r];
-      const t = info.t - enterAt;
-      // Table 2b: a contacted nestmate leaving the nest within 5 min of its first contact with the recruiter.
-      for (let j = 0; j < n; j++) {
-        if (info.outside[j] && !wasOut[j]) {
-          const t0 = firstContact.get(j);
-          if (t0 !== undefined && t - t0 <= FOLLOW) leftAfterContact.add(j);
-        }
-        wasOut[j] = info.outside[j];
+  const onStep = (w: World, info: ColonyStepInfo): boolean => {
+    const a = w.ants[r];
+    const t = info.t - enterAt;
+    // Table 2b: a contacted nestmate leaving the nest within 5 min of its first contact with the recruiter.
+    for (let j = 0; j < n; j++) {
+      if (info.outside[j] && !wasOut[j]) {
+        const t0 = firstContact.get(j);
+        if (t0 !== undefined && t - t0 <= FOLLOW) leftAfterContact.add(j);
       }
-      if (!a) return false;
-      if (Number.isNaN(exitAt)) {
-        if (info.outside[r] || t >= OBSERVE) {
-          exitAt = Math.min(t, OBSERVE);
-          cropAtExit = a.body.cropUl;
-          if (!o.followNestmates) return true;
-        } else {
-          if (!Number.isNaN(px)) dist += Math.hypot(a.body.x - px, a.body.y - py);
-          px = a.body.x;
-          py = a.body.y;
-          const now = new Set((info.per[r]?.contacts ?? []).map((c) => c.id));
-          for (const id of now)
-            if (!prev.has(id)) {
-              onsets.push({ t, id });
-              if (!firstContact.has(id)) firstContact.set(id, t);
-            }
-          prev = now;
-        }
+      wasOut[j] = info.outside[j];
+    }
+    if (!a) return false;
+    if (Number.isNaN(exitAt)) {
+      if (info.outside[r] || t >= OBSERVE) {
+        exitAt = Math.min(t, OBSERVE);
+        cropAtExit = a.body.cropUl;
+        if (!followNestmates) return true;
+      } else {
+        if (!Number.isNaN(px)) dist += Math.hypot(a.body.x - px, a.body.y - py);
+        px = a.body.x;
+        py = a.body.y;
+        const now = new Set((info.per[r]?.contacts ?? []).map((c) => c.id));
+        for (const id of now)
+          if (!prev.has(id)) {
+            onsets.push({ t, id });
+            if (!firstContact.has(id)) firstContact.set(id, t);
+          }
+        prev = now;
       }
-      return t >= exitAt + FOLLOW;
-    },
-  );
-  const bouts = res.bouts.filter((b) => b.donor === r || b.receiver === r).map((b) => ({ ...b, start: b.start - enterAt, end: b.end - enterAt }));
+    }
+    return t >= exitAt + FOLLOW;
+  };
+  while (sim.stepIndex < sim.steps) if (sim.step(onStep)) break;
+  const bouts = sim
+    .result()
+    .bouts.filter((b) => b.donor === r || b.receiver === r)
+    .map((b) => ({ ...b, start: b.start - enterAt, end: b.end - enterAt }));
   const trophTotal = bouts.reduce((s, b) => s + (b.end - b.start), 0);
   let contactsBefore = NaN;
   if (bouts.length) {
@@ -171,19 +183,57 @@ export function runRecruiter1999(P: ColonyParams, o: M1999Options): M1999Recruit
   const partners = new Set(bouts.map((b) => (b.donor === r ? b.receiver : b.donor)));
   const troph = { n: 0, left: 0 };
   const other = { n: 0, left: 0 };
-  if (o.followNestmates)
+  if (followNestmates)
     for (const id of firstContact.keys()) {
       const g = partners.has(id) ? troph : other;
       g.n++;
       if (leftAfterContact.has(id)) g.left++;
     }
   const left = exitAt < OBSERVE;
-  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: onsets.length, trophTotal, contactsBefore, cropAtEntry: load.cropUl, cropAtExit, troph, other };
+  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: onsets.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other };
+}
+
+/** One recruiter in its own freshly warmed nest (independent design). */
+export function runRecruiter1999(P: ColonyParams, o: M1999Options): M1999Recruiter {
+  const load = recruiterLoad(P, o);
+  const n = nestmates(o.density);
+  const enterAt = o.warmup ?? 600;
+  const sim = new ColonySim(P, { ...colonyOptions(o, o.seed, n, enterAt), recruiter: { enterAt, ...load } });
+  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates);
 }
 
 /** Recruiters [first, first + count) for one starvation day; recruiter k uses the stream (seed, day, k). */
 export function runRecruiters1999(P: ColonyParams, o: Omit<M1999Options, 'seed'> & { seed: number }, first: number, count: number): M1999Recruiter[] {
   return Array.from({ length: count }, (_, i) => runRecruiter1999(P, { ...o, seed: RNG.stream(o.seed, o.starvationDays, first + i).int(2 ** 31) }));
+}
+
+/**
+ * Shared-warm-up design (STATUS 2026-10-10): nest `nest` of one starvation
+ * day is warmed once, then `perNest` copies each receive their own
+ * recruiter (load and recruiter streams keyed by (nest, k)); every copy's
+ * random streams are forked by k, so the copies continue independently
+ * from the same warmed state. Recruiters are returned in k order; nests are
+ * the units for standard errors.
+ */
+export function runNest1999(P: ColonyParams, o: M1999Options, nest: number, perNest: number): M1999Recruiter[] {
+  const n = nestmates(o.density);
+  const enterAt = o.warmup ?? 600;
+  const warm = new ColonySim(P, colonyOptions(o, RNG.stream(o.seed, o.starvationDays, 0x2e57, nest).int(2 ** 31), n, enterAt));
+  // Stop just before the step at which the recruiter enters (as in the independent design).
+  while (warm.stepIndex * warm.dt < enterAt - 1e-9) warm.step();
+  return Array.from({ length: perNest }, (_, k) => {
+    const seed = RNG.stream(o.seed, o.starvationDays, 0x2e57, nest, k + 1).int(2 ** 31);
+    const load = recruiterLoad(P, { ...o, seed });
+    const sim = warm.clone(k + 1);
+    sim.recruiter = { enterAt, ...load };
+    sim.recruiterSeed = seed;
+    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates);
+  });
+}
+
+/** Nests [first, first + count) of one starvation day in the shared design, recruiters in nest then k order. */
+export function runNests1999(P: ColonyParams, o: M1999Options, first: number, count: number, perNest: number): M1999Recruiter[] {
+  return Array.from({ length: count }, (_, i) => runNest1999(P, o, first + i, perNest)).flat();
 }
 
 export interface M1999Row {
