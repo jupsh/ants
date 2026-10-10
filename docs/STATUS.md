@@ -754,3 +754,25 @@ Extraction in `docs/research/buffin2011.md`.
   --tag pilot2 --gens 60`, k = 6. Launched before days 4 and 8 of the bout
   diagnostic finish (user: use the idle box). If the bout evidence leads
   to a model change under Plan 4, pilot2 is void and rerun.
+
+**2026-10-10 night — bout diagnostic complete (pilot-1 point, 200 recruiters per day); Plan 4 decided on it (Claude, as the user asked).**
+- Recruiter bouts > 3 s: 1 d mean 37 s, SD/mean 0.52; 4 d 52 s, 0.40; 8 d
+  51 s, 0.47. **Ending causes: donor depleted 97 / 97 / 92 %**, receiver
+  satiated 0 %, stalled 0 %, random or other 3 / 3 / 8 %. ≈ 1.0–1.05
+  recruiter bouts per recruiter. All bouts in the nest show the same
+  pattern. (Box copies of days 4 and 8 were launched before the local run
+  finished; redundant, same seeds.)
+- **Reading:** bouts start readily (one per recruiter, no stalls,
+  give-wait ≈ 0) and end when the recruiter's crop empties, so durations
+  are bunched rather than exponential. The conflict with Buffin is in the
+  duration *shape*, produced by depletion-ended bouts at a low pair ending
+  rate. Nothing here implicates bout initiation or encounter dynamics.
+- **Plan 4 decision: no encounter redesign now.** With shareEnd fixed at
+  Buffin's rate (pilot2), most bouts should end at random (pair mean ≈
+  26 s) before the crop empties. Unloading then needs more bouts, so the
+  fit must reach the 1999 totals through shareRate and re-initiation. Two
+  checks decide whether the volume and hunger rules need a change:
+  pilot2's fit (rows, bounds) and the Buffin-dish check at its optimum
+  (log-survival slope and ML rate consistent with 0.039, SD/mean ≈ 1).
+  The ≥ 1 s contact rule remains a separate, observer-level reason for a
+  stop-and-antennate addition; it is not decided here.
