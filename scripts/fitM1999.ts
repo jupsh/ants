@@ -18,7 +18,7 @@
  * --perNest K: shared warm-ups (STATUS 2026-10-10), K recruiters per warmed
  * nest; default 0 = the independent design logged for the first fits.
  *
- * Usage: npx vite-node scripts/fitM1999.ts --layer main|alt [--gens 120] [--n 80] [--perNest 8] [--dt 0.1] [--tag pilot]
+ * Usage: npx vite-node scripts/fitM1999.ts --layer main|alt [--gens 120] [--n 80] [--perNest 8] [--dt 0.1] [--warmup 300] [--tag pilot]
  * Writes data/fits/colony-m1999-<layer>.json (with --perNest: colony-m1999-<layer>-shared.json).
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
@@ -35,7 +35,8 @@ const GENS = numArg('--gens', 120);
 const TOLX = 0.03;
 const AVERAGE_LAST = 30;
 const RESTARTS = 1;
-const WARMUP = 300;
+// --warmup: seconds before the recruiter enters (default 300; the pilot uses 900, STATUS 2026-10-10 night, condition 2).
+const WARMUP = numArg('--warmup', 300);
 // Random streams: namespaced by purpose and run (seedFor; STATUS 2026-10-10), not offsets from one seed.
 const STUDY = 1999;
 // Shared warm-ups, 4 recruiters per nest by default (STATUS 2026-10-10); --perNest 0 = independent design.

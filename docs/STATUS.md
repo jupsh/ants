@@ -4682,3 +4682,13 @@ with changes. Now in force:
   leaving; it also counts bout starts, starts without any flow, and
   contact episodes ≥ 1 s. Expected under the hypothesis: more waiting time
   and dry starts at dt 0.1, plus a longer stay and more contacts.
+
+**2026-10-10 night — deviation: the pilot violates condition 2 (warm-up).**
+The user's approval entry (conditions 1–6, above) requires warm-up 900 s.
+The pilot was launched at 300 s (the fit's default), and Claude's own
+pilot pre-registration, appended below the user's entry without reading
+it, also said 300 s. Found while preparing the STATUS cleanup. Action:
+`fitM1999.ts --warmup` added. The running pilot is to be stopped and
+relaunched with `--warmup 900`. Killing it on the box was blocked by the
+session's permission check, so this waits for the user. The 300-s run
+must not be used as the gate point.
