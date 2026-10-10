@@ -609,3 +609,32 @@ Earlier entries: the archive. Newest last.
   near the optimum and roughly multiplicative far from it; under
   multiplicative noise, population-size adaptation can miss the true
   optimum, while re-evaluation does not (Uchida et al.).
+
+**2026-10-10 night — Buffin et al. 2011 read (parameter source); what we take; proposal.**
+Extraction in `docs/research/buffin2011.md`.
+- **Seen:** set-up (4-d starved; 20 workers fed 2 h on 1 M sucrose,
+  protein or melezitose, plus 20 starved, in a 5 cm dish, 30 min);
+  trophallaxis = mandible contact with the donor's labrum > 3 s, first
+  receiver only. **Durations are exponential** (a constant stopping hazard,
+  independent of elapsed time and food type, dependent on hunger state).
+  Sucrose fed→starved: 29 ± 28 s, hazard 0.039 /s (0.037–0.041), n 66;
+  fed→fed 0.034; starved→starved 0.058. Frequencies (food- and
+  state-dependent, constant initiation rate) recorded as seen, not used.
+  Table 1's printed confidence bounds are inconsistent (paper error);
+  Table 2 is used.
+- **Structure taken:** bouts end at a constant hazard. This is our
+  `shareEnd` structure, so bout ending needs **no redesign**.
+- **Conflict with the pilot:** both pilot runs pinned `shareEnd` at
+  1/1200 s ≈ 0.0008 /s, ≈ 45× below Buffin's observed hazard. The 1999 fit
+  buys bouts that independent data do not show. This points Plan 4 at bout
+  **initiation and encounter dynamics**, not at bout ending.
+- **Proposal (Claude; for the user):** `shareEnd` leaves the free set
+  (k = 6 for the refits). It is set from a small **Buffin-dish
+  calibration**: the nest chamber with 40 workers (≈ 2 /cm², as the dish),
+  20 with full crops of 1 M sucrose and 20 starved, 4-d reserves, 30 min,
+  a trophallaxis observer as Buffin (mandible contact > 3 s, first
+  receiver), and `shareEnd` chosen so the observed fed→starved ending
+  hazard is 0.039 /s. The model's other bout endings add to the observed
+  hazard, so `shareEnd` ≤ 0.039. Provenance: derived (Buffin 2011, Table
+  2). Sensitivity at 0.037 / 0.041. Until the calibration exists, 0.039 /s
+  is the interim value (an upper bound).

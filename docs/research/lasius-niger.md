@@ -161,7 +161,8 @@ counts 0.41 ± 0.03; participants with both donor and receiver roles
 
 ## Open evidence gaps (search priorities)
 - Exact distribution of desired volumes (Mailleux 2000 full text).
-- Trophallaxis durations and transfer rates in *L. niger* (Buffin et al.
+- Trophallaxis transfer rates in *L. niger* (durations: Buffin et al. 2011,
+  read 2026-10-10, `buffin2011.md`; Buffin et al.
   2011/2012; Mailleux et al.); Greenwald et al. 2018 data are for *Camponotus*.
 - Water-loss rates and desiccation tolerance of *L. niger* workers.
 - Recruitment time course to a single feeder under controlled conditions.
