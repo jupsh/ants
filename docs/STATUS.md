@@ -776,3 +776,43 @@ Extraction in `docs/research/buffin2011.md`.
   (log-survival slope and ML rate consistent with 0.039, SD/mean ≈ 1).
   The ≥ 1 s contact rule remains a separate, observer-level reason for a
   stop-and-antennate addition; it is not decided here.
+
+**2026-10-10 night — user review of the bout diagnostic: corrections (logged before acting).**
+- **Correction 1 (wording above):** the diagnostic confirms the
+  *conclusion* (depletion ends most bouts, bunched durations), but the
+  user's arithmetic's **premise was wrong**: recruiters do not arrive near
+  full (1.6 µL over ≈ 130 s). Mean bouts of 37 s (1 d) and 52 s (4 / 8 d) at
+  0.0123 µL/s mean ≈ 0.45–0.65 µL given per recruiter.
+- **Correction 2 (Plan 4):** "no encounter redesign now" is replaced by
+  **deferred to pilot2's evidence**. At a pair ending rate of 0.039 /s
+  (mean 26 s), ≈ 75–85 % of recruiter bouts should end at random before
+  depletion, so a recruiter needs ≈ 2 bouts (consistent with 56–66 s of
+  total trophallaxis). The fit then rests on bout *initiation*: finding a
+  second partner, the part-after-a-bout rule. That is what Plan 4 is about.
+  Inputs at pilot2's optimum: (a) whether it still needs extreme values;
+  (b) the bout diagnostic rerun there; (c) the dish check.
+- **Other extreme values at the pilot-1 point (to watch in pilot2):**
+  returnRate 0.85 /s (top of [1/1200, 1]; recruiter leaves ≈ 1 s after
+  unloading, the phase where the dt shift sat); nestSpeedFactor 0.044
+  (near its floor 0.02; in-nest walking ≈ 1.5–2.4 mm/s depending on the
+  baseline speed taken); receiveReserve 0.93 (almost every nestmate
+  counts as hungry). A published in-nest walking speed (parallel track b)
+  could fix nestSpeedFactor as Buffin fixed shareEnd.
+- **Onward food flow (user):** "all bouts" was only ≈ 8–14 % above the
+  recruiter's own bouts. **Likely partly an artefact:** the diagnostic
+  counts only bouts that end during the recruiter's stay, and receivers
+  would pass food on mostly afterwards. Check before the structure is
+  frozen: `diagBoutsM1999.ts --follow s` keeps counting for s seconds after
+  the recruiter leaves and reports onward bouts (donor = a nestmate that
+  received from the recruiter).
+- **Dish check, pre-registered pass rule** (`scripts/checkDishBuffin.ts`,
+  run at each optimum, 200 dishes): |z| ≤ 2 for the ML ending rate vs 0.039
+  (SE 0.039/√66 ⊕ the simulation's bootstrap SE over dishes), and |z| ≤ 2
+  for SD/mean vs 28/29 (data SE from a parametric bootstrap of 66
+  shifted-exponential durations ⊕ the simulation's SE). Buffin's
+  log-survival slope is reported beside it. Disclosed: donors' reserves
+  kept at the 4-d level (2 h of feeding may have refilled them); 46
+  workers in the nest chamber (≈ 2.0 /cm², as the dish). **Mechanics run
+  at the pilot-1 point (5 dishes, old model, development only):** ML rate
+  0.035 /s (z −0.8), slope 0.047, SD/mean 0.56 (z −3.9) → fails on shape,
+  as the bout diagnostic predicted.
