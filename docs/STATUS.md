@@ -4318,3 +4318,25 @@ compute is spent; each extra free parameter must be identifiable from the
   equivalence test (paired seeds, joint bootstrap, ±0.5 SE_data, n 1600);
   `m1999Points` uses a fit's recorded `params`. Tests pass; E2 unchanged
   (no E2 code touched since the hash check).
+
+**2026-10-10 evening — E2 box results (L0S1c), and the gate runs launched.**
+- **E2 L0S1c recovery (1 replicate, frozen thresholds): FAILED** — mean
+  excess z² 1.18, worst d1.drink 7.09 (failed: mean > 1 or a row > 4);
+  `boutFastUl` recovered ×9.1, `desiredSd` and `intakeSd` ×0.5.
+  `data/fits/recover/e2-3d-L0S1c-rep0.json`, logs `logs/box-e2/`.
+- **E2 L0S1c profiles (12 parameters re-fitted per grid value):**
+  `desiredScale2009` — 1.0 (no cohort effect) is far worse (Δloss 119 ±
+  15), minimum region at 0.8 (fitted 0.739); `volumeSd` 0.3–0.4 (fitted
+  0.344); `intakeSd` — a re-fit at 0.4 reached loss 20.7, below the
+  adopted fit's 26.5 (fitted 0.076): **the adopted fit was not at its
+  optimum.** Reading: L0S1c stays provisional; the fitting procedure is
+  not reliable at this budget (recovery fails, profiles beat the fit).
+  Decision (delegated): no E2 refit now — the colony uses E2 only for the
+  recruiter's load, and main vs alt layer brackets that; before E2 is
+  called adopted: ≥ 3 recovery replicates and a refit with a larger budget
+  (more generations and scouts per evaluation), started from the profile's
+  better point. Same lesson for the colony: its fits get the larger budget.
+- **Gate runs launched 19:42 UTC** (box code hash 161894db… = local):
+  equivalence dt 0.1 vs 0.025 (`logs/gate-dt.log`), warm-up 300 vs 900
+  (`logs/gate-warmup.log`), identifiability at the start points
+  (`logs/gate-ident.log`), all at the start points, current code.
