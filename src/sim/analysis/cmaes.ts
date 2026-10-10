@@ -37,6 +37,22 @@ export interface CmaOptions {
    */
   averageLast?: number;
   log?: (g: CmaGeneration) => void;
+  /**
+   * Box constraints in x (STATUS 2026-10-10 night): Mod-BCH (Sakamoto &
+   * Akimoto 2017, Trans. Jpn. Soc. Evol. Comput. 8(2):23–35, improving
+   * Hansen et al. 2009). An infeasible candidate is evaluated at its
+   * nearest feasible point plus the penalty (1/n) Σ γᵢ (xᵢ − x_feasᵢ)²; γ is
+   * adapted from the normalised IQR of recent objective values (trimmed
+   * median), raised while the mean is outside the box and lowered
+   * uniformly when it dwarfs that IQR. The objective is only ever called
+   * with feasible points; the returned means are projected onto the box.
+   */
+  bounds?: { lo: number[]; hi: number[] };
+  /**
+   * Stop when σ times the largest axis exceeds this (divergence, e.g. on a
+   * flat region); `stopReason` 'tolUpSigma'.
+   */
+  tolUpSigma?: number;
 }
 
 export interface CmaGeneration {
@@ -62,6 +78,10 @@ export interface CmaResult {
   best: { x: number[]; f: number };
   generations: number;
   evals: number;
+  /** Why the run stopped: 'tolX' (converged), 'maxGenerations', or 'tolUpSigma' (diverged). */
+  stopReason: 'tolX' | 'maxGenerations' | 'tolUpSigma';
+  /** With `bounds`: the final penalty coefficients. */
+  gamma?: number[];
 }
 
 export async function cmaes(f: (x: number[], generation: number) => number | Promise<number>, x0: number[], o: CmaOptions): Promise<CmaResult> {
@@ -92,6 +112,16 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
   let evals = 0;
   let g = 0;
   const recent: number[][] = [];
+  let stopReason: CmaResult['stopReason'] = 'maxGenerations';
+  // Mod-BCH state (bounds only).
+  const bnd = o.bounds;
+  const clip = (x: number[]) => (bnd ? x.map((v, i) => Math.min(bnd.hi[i], Math.max(bnd.lo[i], v))) : x);
+  const gamma = new Array(n).fill(0);
+  let gammaSet = false;
+  const dfHist: number[] = [];
+  const histLen = 20 + Math.floor((3 * n) / lambda);
+  const dGamma = Math.min(1, muEff / (10 * n));
+  const dTh = 3 * Math.max(1, Math.sqrt(n) / muEff);
   for (; g < o.maxGenerations; g++) {
     // Sample: y = B·D·z, x = m + σ·y.
     const ys: number[][] = [];
@@ -102,10 +132,41 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
       ys.push(y);
       xs.push(m.map((mi, i) => mi + sigma * y[i]));
     }
-    const fs = await Promise.all(xs.map((x) => f(x, g)));
+    const feas = xs.map(clip);
+    const fRaw = await Promise.all(feas.map((x) => f(x, g)));
     evals += lambda;
+    let fs = fRaw;
+    if (bnd) {
+      // STEP 1: normalised IQR of the objective values, history of length 20 + ⌊3n/λ⌋ (newest first).
+      const trC = C.reduce((a, r, i) => a + r[i], 0);
+      dfHist.unshift(iqr(fRaw) / ((sigma * sigma * trC) / n));
+      if (dfHist.length > histLen) dfHist.pop();
+      const dfit = trimmedMedian(dfHist);
+      const mOut = m.some((v, i) => v < bnd.lo[i] || v > bnd.hi[i]);
+      // STEP 2: set the coefficients when the mean first leaves the box (or at the second iteration).
+      if (mOut && (!gammaSet || g === 1)) {
+        gamma.fill(2 * dfit);
+        gammaSet = true;
+      }
+      if (gammaSet) {
+        // STEP 3a: raise γᵢ for coordinates where the mean is infeasible.
+        const mf = clip(m);
+        for (let i = 0; i < n; i++) {
+          if (m[i] >= bnd.lo[i] && m[i] <= bnd.hi[i]) continue;
+          const dm = Math.abs(m[i] - mf[i]) / (sigma * Math.sqrt(C[i][i]));
+          gamma[i] *= Math.exp((dGamma / 2) * Math.tanh(Math.max(0, dm - dTh) / 3));
+        }
+        // STEP 3b (Mod-BCH): lower all γ uniformly when their mean exceeds 3 × the trimmed median.
+        const gMean = gamma.reduce((a, v) => a + v, 0) / n;
+        if (gMean > 0) {
+          const k = Math.min((3 * dfit) / gMean, 1);
+          for (let i = 0; i < n; i++) gamma[i] *= k;
+        }
+      }
+      fs = fRaw.map((v, k) => v + xs[k].reduce((a, x, i) => a + gamma[i] * (x - feas[k][i]) ** 2, 0) / n);
+    }
     const order = fs.map((_, k) => k).sort((a, b) => fs[a] - fs[b]);
-    if (fs[order[0]] < best.f) best = { x: xs[order[0]].slice(), f: fs[order[0]] };
+    if (fRaw[order[0]] < best.f) best = { x: feas[order[0]].slice(), f: fRaw[order[0]] };
     // Recombination.
     const yw = new Array(n).fill(0);
     for (let i = 0; i < mu; i++) for (let j = 0; j < n; j++) yw[j] += w[i] * ys[order[i]][j];
@@ -140,13 +201,49 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
     o.log?.({ generation: g, evals, sigma, fs: order.map((k) => fs[k]), mean: m.slice() });
     if (o.tolX !== undefined && sigma * Math.max(...D) < o.tolX) {
       g++;
+      stopReason = 'tolX';
+      break;
+    }
+    if (o.tolUpSigma !== undefined && sigma * Math.max(...D) > o.tolUpSigma) {
+      g++;
+      stopReason = 'tolUpSigma';
       break;
     }
   }
   const win = recent.slice(recent.length - Math.max(1, Math.min(recent.length, Math.floor(g / 2))));
   const meanAvg = recent.length ? m.map((_, j) => win.reduce((s, r) => s + r[j], 0) / win.length) : m.slice();
   const meanDrift = recent.length ? m.map((_, j) => win[win.length - 1][j] - win[0][j]) : m.map(() => 0);
-  return { mean: m, meanAvg, meanDrift, avgWindow: recent.length ? win.length : 0, sigma, best, generations: g, evals };
+  return { mean: clip(m), meanAvg: clip(meanAvg), meanDrift, avgWindow: recent.length ? win.length : 0, sigma, best, generations: g, evals, stopReason, ...(bnd ? { gamma: gamma.slice() } : {}) };
+}
+
+function median(v: number[]): number {
+  const a = v.slice().sort((x, y) => x - y);
+  const h = a.length >> 1;
+  return a.length % 2 ? a[h] : (a[h - 1] + a[h]) / 2;
+}
+
+/** Interquartile range (linear interpolation between order statistics). */
+function iqr(v: number[]): number {
+  const a = v.slice().sort((x, y) => x - y);
+  const q = (p: number) => {
+    const r = p * (a.length - 1);
+    const lo = Math.floor(r);
+    return a[lo] + (a[Math.min(lo + 1, a.length - 1)] - a[lo]) * (r - lo);
+  };
+  return q(0.75) - q(0.25);
+}
+
+/**
+ * Mod-BCH trimmed median of a history (newest first): over the whole history
+ * when it holds ≤ 3 values, else over the longest recent stretch whose logs
+ * all lie within ln 5 of the log of the median of the newest three.
+ */
+export function trimmedMedian(h: number[]): number {
+  if (h.length <= 3) return median(h);
+  const med3 = median(h.slice(0, 3));
+  let K = 0;
+  while (K < h.length && Math.abs(Math.log(h[K]) - Math.log(med3)) < Math.log(5)) K++;
+  return median(h.slice(0, Math.max(1, K)));
 }
 
 function identity(n: number): number[][] {
