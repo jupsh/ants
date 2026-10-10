@@ -43,10 +43,14 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   (user decisions 2026-10-09): walking × 0.781 temperature only (sensitivity
   × 1, × 0.289), crop absorption 0 (sensitivity 0.05 /h first-order), L0S1c
   main / L0S1 alternative, N 53, ≥ 200 colonies, per-ant verdict = omnibus
-  Σ D. **Next:** design the colony calibration on Mailleux 1999 in-nest
-  recruiters (non-E6; needs user approval), put `runColony` into the pool
-  (27 s per colony single-core) and profile it; then rent the box for the
-  calibration; then the E6 test (development benchmark). In parallel:
+  Σ D. **Mailleux 1999 calibration protocol approved** (Decisions log,
+  last entries): k = 6 (`nestSpeedFactor` in the nest, a new return-to-
+  source hazard `returnRate`, `shareRate`, `shareEnd`, `receiveReserve`,
+  1999-only density), 15 fit rows (Table 2a × 1/4/8 d), Table 2b
+  development. **Next:** implement the return rule, the nest speed factor
+  and the 1999 recruiter run (+ observer), a pool task, profile; log the
+  fit's implementation details; then rent the box for the two
+  calibrations (L0S1c, L0S1); then the E6 test (development benchmark). In parallel:
   freeze the E2 external-validation protocol on Mailleux 2005 (held
   unread).
 - **Judging:** a candidate missing a statistic the data estimate is
@@ -3531,3 +3535,69 @@ See [`CLAUDE.md`](../CLAUDE.md).
   complete for colony means (t rule, df 4), spreads (F test, indicative),
   per-ant distributions (omnibus) and the four assumptions; the E6 test
   itself waits for the Mailleux 1999 calibration.
+- **2026-10-09** **Colony calibration on Mailleux 1999 (in-nest recruiter):
+  DRAFT protocol, not frozen; awaiting the user's decisions. No model has
+  been run against Table 2a/2b.**
+  - **Data and roles.** Mailleux et al. 1999 (Actes Coll. Insectes Soc.
+    12:73–79; `mailleux-rules.md` §4), 22 ± 3 °C, colonies of 1000–2000
+    workers in plaster Janet nests (geometry and density not reported),
+    first recruiter after a 3 µL drop of 0.6 M sucrose, filmed 20 min in
+    the nest. **Fit:** Table 2a at 1 / 4 / 8 d (time in nest, distance,
+    contacts, total trophallaxis, contacts before the main trophallaxis;
+    mean ± SD, n 23–28): 15 means. SDs are checks. **Development
+    (reported only):** Table 2b (a contacted nestmate leaves within 5 min;
+    its n look copied from Table 1) and "all recruiters leave within
+    20 min". Not available: the definition of "distance" (path traced
+    from ×2 video? the 1999 text is not in `literature/`), so the distance
+    row carries an observation caveat.
+  - **Structural gaps found by reading the code (before any run):**
+    (G1) a returned forager leaves again only when hungry with a crop
+    < 5 % full, at `leaveRate` ≈ 1/300 s, so time in nest would be ≫ the
+    80–113 s observed; (G2) the walker moves at ≈ 33 mm/s (E1 median
+    43 mm/s × 0.781), while the recruiters cover 5–9 cm in the 14–56 s of
+    their stay not spent in trophallaxis (≈ 1.6–4 mm/s averaged over it):
+    ≈ 10× slower; (G3) no contact-triggered leaving (Table 2b), and an ant
+    that received food cannot leave (its crop is not empty).
+  - **Proposed structure (minimal additions, each needed by a fit row):**
+    (a) *Return to a known source:* an ant that fed at a source on this
+    trip leaves the nest at hazard `returnRate` once its crop falls below
+    `giveFrac` (1 parameter; G1). (b) *In-nest walking:* `nestSpeedFactor`
+    on the walker's speed inside the nest only (1 parameter; G2); the
+    foraging area keeps the pre-registered × 0.781. (G3 is not addressed:
+    Table 2b stays development.)
+  - **Free parameters (k = 6):** `nestSpeedFactor`, `returnRate`,
+    `shareRate`, `shareEnd`, `receiveReserve`, and a 1999-only nuisance,
+    nestmate density in the chamber (not transferred: E6 density follows
+    from its geometry and N 53). Fixed (estimated, reported as is):
+    `giveFrac`, `stallTime`, `restToActive`, `activeToRest`, `leaveRate`,
+    `forageDriveSd`. The recruiter's crop on entry comes from the E2 layer
+    (3 µL, 0.6 M, the starvation day; L0S1c main, L0S1 alternative: two
+    calibrations).
+  - **Simulation.** Bles nest chamber (56 × 41 mm) as the stand-in
+    chamber, nestmates at the fitted density with reserves for the
+    starvation day; the recruiter enters from the passage with its E2 crop
+    and is followed up to 20 min. Observed as the paper defines: time
+    entry → exit; path length in the nest; contacts = onsets of antennal
+    contact with a nestmate (trophallactic partners included); total
+    trophallaxis = sum of the recruiter's bouts; contacts before main =
+    contact onsets before the longest bout starts.
+  - **Fitting and judging** (as E2): CMA-ES on Σ fitZ² (SE_data = SD/√n),
+    common random numbers, two starts; judging with combinedZ on fresh
+    seeds (|z| ≤ 2 / 3); recovery check of the fitting procedure;
+    profiles of the nuisance density and `nestSpeedFactor`. **Adequate**
+    = every fit row |z| ≤ 3 and at most 2 of 15 in (2, 3]. Not adequate →
+    reported, and E6 still runs with the result labelled accordingly.
+  - **E6 consequence (amends the walking pre-registration for movement in
+    the nest only, if approved):** primary = calibrated `nestSpeedFactor`
+    in the nest and × 0.781 outside; sensitivity = × 0.781 everywhere.
+  - **Cost:** a 20-min recruiter run with ≈ 50 nestmates ≈ 6 s single-core
+    (from the 27 s / 91-min colony); 100 recruiters × 3 days per
+    evaluation ≈ 0.5 core-h, a CMA-ES fit ≈ 300–600 core-h before
+    profiling.
+  - **User decisions (2026-10-09): the draft above is approved as
+    written** (nest speed factor calibrated on 1999, × 0.781 everywhere
+    as the E6 sensitivity; the return rule, 1 parameter; density a free
+    1999-only nuisance; Table 2b development). It is frozen except for
+    implementation details (seeds, batch sizes, CMA-ES settings, bounds),
+    which are logged before any fit is run. The E6 walking pre-registration
+    is amended accordingly for movement inside the nest.
