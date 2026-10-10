@@ -3290,3 +3290,14 @@ See [`CLAUDE.md`](../CLAUDE.md).
   they cannot register a desired-volume difference between cohorts, and
   the "point" scenario carries little weight for drop 2. Only the
   giving-up and trail pairs can register one.
+  **Movement threshold (added before results; the half-gap cut is
+  arbitrary, fixed now so it cannot be chosen after seeing the numbers):**
+  a check "moves" only if it closes at least half its gap and the change
+  exceeds twice its simulation SE (selectE2: 300 scouts per drop size, so
+  ≈ 0.026 for the trail fraction, ≈ 0.017 µL for the 3 µL volume). 2000
+  trail % at 0.7 µL: ≤ ≈ 30 % (from 42 %, target 17 %). Whole-bout intake
+  at 3 µL: ≥ ≈ 0.79 µL (from 0.67, target 0.9). Fast-phase size
+  (`boutFastUl`): ≤ ≈ 0.14 µL (from 0.28), reported beside the intake
+  check, not a criterion by itself. Smaller moves in the right direction
+  are reported as "right direction, below threshold" and count towards
+  "mixed", not "support".
