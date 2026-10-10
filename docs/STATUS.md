@@ -2225,7 +2225,10 @@ See [`CLAUDE.md`](../CLAUDE.md).
     would produce that, so I1 **stays a candidate**. _(Corrected below: this
     ratio is not evidence that drop 2 is drunk faster; Mailleux found equal
     slopes and intercepts at the two drops.)_ Model ants drink 39 ±
-    21 s and 0.34 µL at drop 2 and never exhaust it (0 %), against 23 ± 11 s
+    21 s and 0.34 µL at drop 2 and never exhaust it (0 %) _(wrong: the test
+    compared recorded intake with the drop, and the crop drains while the ant
+    drinks; the droplets show 36 % exhaust drop 2; see the 2026-10-09
+    review entry below)_, against 23 ± 11 s
     and 0.28 µL, so the leaving decision at drop 2 is the other candidate
     explanation (they may combine).
   - **Consequences for the candidates:** S0 (current) cannot produce
@@ -2355,7 +2358,11 @@ See [`CLAUDE.md`](../CLAUDE.md).
   - A within-bout fast phase (I1) remains a **hypothesis**. It is one
     possible source of the shared intercept. The other is attenuation by
     noise in the time and volume estimates (per-drop rs only 0.22/0.31),
-    which is how the model already gets its 0.124 µL intercept. The
+    which is how the model already gets its 0.124 µL intercept _(wrong
+    source: drinking time has no observer noise and noise in y does not
+    bias OLS; the model's intercept comes from clipping estimates at zero
+    (drop 2, true intercept 0.05 µL) and the exhaustion ceiling plus early
+    leavers (drop 1); review entry below)_. The
     published data do not distinguish the two.
   - **The frozen pre-registration is unchanged.** I1 was always to be fitted
     and judged on equal terms, and its result is reported as "fits better
@@ -2381,7 +2388,11 @@ See [`CLAUDE.md`](../CLAUDE.md).
     intercept (F-tests NS), pooled 0.006·t + 0.15, rs 0.22 / 0.31. **The
     model already gives equal slopes and intercepts near 0.12–0.14 µL at
     both drops** through volume-estimate noise and between-ant rates, so
-    I1 has nothing left to explain in the drinking regressions; its only
+    I1 has nothing left to explain in the drinking regressions _(wrong on
+    both counts: with 2607 scouts the model's per-drop regressions differ
+    (slope z 7.3, intercept z −8.4), though at n = 63 the test would detect
+    it only 15 % / 5 % of the time; and the intercepts come from clipping
+    and the exhaustion ceiling; review entry below)_; its only
     remaining route is shortening drop-2 bouts, which the drop-2 leaving
     decision competes for. The frozen comparison still fits I1, and any
     I1 win is to be read in that light. New observation: the model's
@@ -2428,7 +2439,8 @@ See [`CLAUDE.md`](../CLAUDE.md).
   **Adopted model** (`diagE2Search.ts`, 518 scouts that drank at both
   drops; z as above; 10 rows, so one |z| > 2 is expected by chance):
   - drop 1: TL1 0.37 ± 0.23 µL, 44 ± 20 s (z −2.2, −2.6); nTL1 0.46 µL,
-    54 s (z −0.1, 1.9). **The model's layers drink less at drop 1 than its
+    54 s (z −0.1, 1.9). _(Level z's; as contrasts TL1 − nTL1 the drop-1 time is clearly off,
+    z −3.2, the volume is not, z −1.7; review entry below.)_ **The model's layers drink less at drop 1 than its
     non-layers (0.37 vs 0.46 µL, 44 vs 54 s); the data show no difference
     (0.49 vs 0.46, 52 vs 50).** This is the satiation route: ants with a low
     desired volume are satiated early, leave sooner and lay.
@@ -2438,9 +2450,200 @@ See [`CLAUDE.md`](../CLAUDE.md).
   - drop 2 volume: TL1 0.33, TL2 0.33, nTL2 0.38 µL (z 4.0, −0.1, 0.9).
     **The data's TL1 drink less at drop 2 (0.20 vs 0.33 / 0.31); the
     model's do not**, although 56 % of them are satiated (they leave at
-    about `stopHazard`, not faster).
+    about `stopHazard`, not faster) _(wrong: model "satiated" means the
+    hazard fired before the drop ran out; those ants left drop 1 at 0.29 µL
+    and 35 s, far below their desired volume, and leave drop 2 well below
+    `stopHazard`. These are level z's; the paper reports contrasts; review
+    entry below)_.
   - satiated at drop 1: TL1 56 %, TL2 29 %, nTL2 15 %.
   Reading for now: two group contrasts go the wrong way (drop-1 TL1 vs
   nTL1, drop-2 TL1 volume). Whether a fitted candidate fixes them is
   read in `selectE2.ts`; if none does, the laying decision is the next
   structural question.
+- **2026-10-09** **Step 3c: three corrections from user review (logged
+  before acting; none touches the fit rows, the fit seeds or the frozen
+  rule, so the running fits continue).**
+  1. **`two.total` measured a different interval from the data.** The
+     2009 Table 2 "Total" is drinking at drop 1 + time between drops +
+     drinking at drop 2 (it adds up: 51 + 105 + 23 ≈ 178, 52 + 58 + 20 =
+     130, 46 + 114 + 20 = 180); `res.total` runs from entering the area to
+     the end of the run (search for drop 1 and the trip home included).
+     Development row only, but every earlier report of `two.total`
+     compared mismatched quantities. Fix: the row becomes
+     `drinks[0].time + betweenTime + drinks[1].time`; `res.total` keeps
+     its meaning, documented.
+  2. **An independent measurement covers the search time.** Mailleux 2003
+     uses Pl = 1/85 s⁻¹, the rate at which unsatisfied ants leave the area,
+     measured as the giving-up time after a single 0.3 µL drop in the 2000
+     data (exponential, n = 35, so 85 ± 14 s), not from the two-drop
+     experiment; with it (and Pd = 1/20 s) their 2009 Monte Carlo model
+     reproduces the group totals (TL1 120 ± 39 vs 130, TL2 219 vs 212,
+     nTL2 186 vs 180). Step 3c frees `arsMean` over 1–1000 s and its
+     provenance says it was fitted to the two-drop times. **Decision:**
+     (a) now: `selectE2.ts` reports each candidate's fitted search mean(s)
+     against 85 ± 14 s, and, like for like, the model's giving-up time at
+     a single 0.3 µL drop, 4 days starved (end of drinking → crossing the
+     mid-bridge on the way back, scouts that drank), against 85 ± 14 s
+     (2000) and 86 ± 68 s, n 23 (2006, 4 d; may overlap the 2000 data).
+     Development, reported only; a fitted search mean far from it (say 30
+     or 300 s) conflicts with a direct measurement and the candidate's
+     search cannot then be called a mechanism. Geometry caveat: our bridge
+     is 12 cm (2009), the 2006 one 20 cm; mid-bridge is 6 vs 10 cm from
+     the area, ≈ 2–3 s of walking. (b) The authors' 2009 rule set as a
+     reference baseline in `src/sim/reference/` (as Bles TEC for E6 and
+     the Khuong walkers for E1): **adopted as the next step after the
+     step-3c judging**, before step 4; it does not affect the fits. It
+     reaches the group totals with measured parameters, so it is the
+     comparison that says what our fitted search adds; it needs §2.2 of
+     the 2009 paper re-read for how between-drop times arise.
+  3. **Judging and synthetic seeds collided with fit seeds.** Start 0 of
+     `fitE2c.ts` uses seed bases 30M + 10M·(g + 1): generation 5 = 90M
+     (`selectE2.ts` batch 0) and generation 10 = 140M (its pooled adequacy
+     run); in recovery, generation 1 = 50M, the synthetic-data base, with
+     conditions shifted by one. Practical bias ≈ 0 (early generations;
+     the estimate averages the last 50), but the pre-registration says
+     "fresh batches". Fix: `selectE2.ts` seeds from 4.0e9, synthetic data
+     from 4.1e9; fit seeds stay below 3.1e9 (300 generations), and
+     scout seeds are hashed as 32-bit integers (< 2³² ≈ 4.29e9), so the
+     ranges are disjoint.
+- **2026-10-09** **User review of the step-3c analysis (scratch runs of the
+  adopted model, 400–600 scouts each) — corrections and decisions.** Items
+  1, 4 and 5 correct readings written above (marked inline); 2, 3 and 6
+  bear on what the step-3c fits estimate. Verified here: the code for 2
+  and 6; the contrasts of 5 (reproduced exactly with `e2Groups.ts`); a
+  3000-scout regression check (`scripts/regE2Drops.ts`). The numbers of
+  1, 3 and 4 are the reviewer's runs, not re-run here.
+  1. **Drop 2 runs dry for 36 % of scouts, not 0 %** (drop 1: 69 %; TL1
+     33 %, TL2 27 %, nTL2 43 %). `diagE2Search.ts`'s test (recorded
+     intake ≥ 98 % of the accessible volume) cannot be met because of 2.
+     Drop-2 bout length is partly capped by the drop, not only by the
+     leaving rule, and a scout that empties drop 2 unsatisfied starts a
+     second search.
+  2. **The crop drains while the ant drinks.** `metabolise`
+     (`antPhysics.ts`) moves crop contents into the reserve at
+     `room × 0.001 /s` plus the metabolic need; the rate is hard-coded
+     with no provenance. Recorded intake (`trueUl`) and the satiation
+     signal (`m.ingested`) are ≈ 90 % of what left the drop; drop-1
+     recorded intake bunches at 0.48–0.51 µL and longer drinkers record
+     less. Confounds the fitted pipette accessibility (0.785), its "well
+     identified" profile, and the 2003 "data exceed our accessible volume"
+     argument.
+  3. **The pooled volume–time targets mostly measure the gap between the
+     drop means.** Data pooled rs 0.46 vs 0.22 / 0.31 within drops. Model
+     at σ_m 0.21 (adopted): per-drop 0.28 / 0.53, pooled 0.45; at σ_m
+     0.35: 0.20 / 0.33 (matching the data), pooled 0.29, which collapses
+     only because the model's drop-2 bouts are too long. So `two.vtRs`
+     pushed σ_m down to compensate for the drop-2 misfit (consistent with
+     the σ_m profile having no upper bound), and in step 3c `vtSlope` and
+     `vtRs` largely repeat `ul1`, `t1`, `ul2`, `t2`: double counting.
+  4. **The model's intercept does not come from attenuation.** Drinking
+     time has no observer noise and noise in y does not bias OLS. Drop 2:
+     true intercept 0.05 µL; 0.13 µL in the estimates comes mainly from
+     clipping noisy estimates at zero (`Math.max(0, est)`, `e2Mailleux.ts`;
+     itself an unsourced observation assumption). Drop 1: the exhaustion
+     ceiling plus early leavers. Added here: with 2607 scouts the model's
+     per-drop regressions **differ** (drop 1 0.0044·t + 0.204, drop 2
+     0.0064·t + 0.096; slope difference z 7.3, intercept z −8.4; the
+     600-scout "equal" reading was sampling noise), though at the data's
+     n = 63 an ANCOVA would detect the slope difference in 15 % and the
+     intercept difference in 5 % of samples, so the paper's NS tests do not
+     reject it. "I1 has nothing left to explain" is withdrawn.
+  5. **The group rows tested levels, not the paper's contrasts.** Model
+     (TL1 − nTL1) vs data (TL1 − nTL1), both SEs: drop-1 time −9.5 vs
+     +2.0 s, z −3.2 (clearly off); drop-1 volume z −1.7 (not significant;
+     it was bolded above); drop-2 volume z 2.2 (marginal); drop-2 time z
+     1.1. Level z's (e.g. TL1 drop-2 volume z 4.0) include the known
+     drop-2 level misfit. Model "satiated" = the hazard fired before the
+     drop ran out: those ants left drop 1 at 0.29 µL and 35 s on average,
+     far below their desired volume, so at drop 2 they leave well below
+     `stopHazard`; the drop-1 time contrast follows by construction.
+     Group fractions: model 35 / 33 / 31 % vs data 38 / 46 / 16 %.
+     `e2Groups.ts` now prints the contrasts (labelled CONTRAST) beside the
+     levels.
+  6. **The code does not match its documented rule or the frozen
+     pre-registration.** `m.satisfied` is set only when the hazard fires;
+     an ant past its desired volume that then empties the drop is treated
+     as unsatisfied (searches; lays only with probability q). The doc
+     comment (`lasiusForager.ts` header) and the frozen eligibility rule
+     say "without having reached its desired volume". Size: 9 % of
+     unsatisfied exits (10 of 363 at drop 1, 33 of 121 at drop 2); 21 of
+     162 model nTL2. **Decision (user left it to me): fix the code to
+     match the documented, pre-registered rule** (an ant leaving an
+     exhausted drop with ingested ≥ desired counts as satisfied) and
+     restart the fits; the frozen text was the intent, and an ant that has
+     reached its desired volume is satiated by the model's own definition.
+     **Status:** stopping the running fit loop was blocked by the
+     permission classifier, so the code is not yet changed (the loop would
+     otherwise fit later candidates under a different rule than S0I0);
+     waiting for the user to stop the loop or allow it.
+  **Before the fits restart, two decisions for the user** (items 2, 3;
+  both change the model or the fit rows, so they amend the frozen
+  pre-registration):
+  - Item 2: the observer should record what left the drop (a gaster
+    ellipsoid sees crop + midgut, so crop→midgut transfer barely changes
+    it), and crop absorption during a foraging trip should have a sourced
+    rate or be limited to the metabolic need; then accessibility is
+    re-estimated within the fits as now.
+  - Item 3: replace the pooled `two.vtSlope` / `two.vtRs` fit rows with the
+    per-drop rs (0.22 and 0.31, n 63 each; SE (1 − r²)/√60), which carry
+    the within-drop information without repeating the drop means.
+  **First results of the three corrections (adopted model; `reportE2.ts`,
+  `selectE2.ts --prefix data/fits/e2- --fits drinking`):** corrected
+  `two.total` 141 ± 73 s vs 178 ± 83 s (z −3.5; development). Giving-up time
+  at one 0.3 µL drop, 4 d: 67 ± 77 s, median 42 s (274 of 275 crossed
+  mid-bridge) vs 85 ± 14 s (2000) and 86 ± 68 s (2006, n 23): consistent
+  (z ≈ −1.2), with the fitted `arsMean` 80 s; but **36 % of these scouts laid
+  trail vs 17 % in 2006 (4 d, n 23; z ≈ 2.4)**: `unsatisfiedLayProb`,
+  identified from the 2009 38 % TL1, over-predicts laying at a 0.3 µL drop,
+  another sign that the laying decision is the open question.
+- **2026-10-09** **Review follow-up.** The user stopped the step-3c fit loop
+  (S0I0 at start 0, generation 110; no fit file written). Done since:
+  - **Item 6 fixed:** `lasiusForager.ts` drink case: an ant whose ingested
+    volume has reached its desired volume when the drop runs out is a
+    satiated departure (`satisfied`, lays unless a never-layer), as the
+    doc comment (reworded) and the frozen eligibility rule say. Tests pass.
+    The adopted E2 fit was made under the old rule; it is a start point
+    for the step-3c fits, which refit every behavioural parameter.
+  - **Second-pass review items (user):**
+    1. **Crop drain magnitude** (1999 3 µL drop): recorded ÷ removed while
+       drinking 0.975 / 0.90 / 0.81 at 1 / 4 / 8 d; crop at the nest ÷
+       removed 0.95 / 0.85 / 0.71; drinking 66 / 86 / 96 s. Desired volume
+       barely moves between 4 and 8 d (`hungerScale` 0.3 saturates it:
+       0.80 vs 0.81 µL), so the model's 86 → 96 s rise comes almost
+       entirely from the drain, and `desiredFed` / `desiredHungry` partly
+       measure it. In the colony, foragers lose up to ≈ 30 % of what they
+       drank before they can share it: every E6 donation statistic depends
+       on this unsourced constant. Decision pending (user); see below.
+    2. **Drop-1 rows used a different denominator — fixed.** `two.ul1`,
+       `two.t1`, `two.tl1` averaged every scout that drank at drop 1; the
+       data (0.47 µL, 51 s, 38 %) are from the 63 that found both drops.
+       Now computed over scouts that found both (`e2Targets.ts`). Fit
+       rows: a correction of a mismatch, applied before any step-3c fit
+       has finished.
+    3. **E6 scan observer counts contacts the protocol would not**
+       (`observeContacts`: in progress at the scan and > 5 s in total; an
+       observer starting at the scan instant needs > 5 s *after* it, so a
+       contact ending 1 s after the scan is counted and event counts are
+       inflated). The TEC baseline went through the same observer, so the
+       models stay comparable with each other, not exactly with the data.
+       The protocol text ("a pair is recorded if mandible-to-mandible
+       contact lasts > 5 s") does not say which; the forward-looking
+       reading is the one an instantaneous scan can apply. Proposed: switch
+       to it, keep the old reading as a reported sensitivity, refit E6 when
+       the E6 test next runs.
+    4. **Small (backlog):** CMA-ES `meanAvg` over the last 50 generation
+       means pulls a run that stops on tolX early, or is still drifting,
+       towards earlier positions (proposed: average over the last
+       min(50, half the generations run), and report the drift of the mean
+       over that window); the walker counts the full planned distance when
+       a wall truncates a step; mulberry32 has 2³² states, so scout
+       streams can partly overlap within a batch. The last two negligible.
+  - **Crop drain: recommendation for the user's decision.** (a) The
+    experimenter's volume estimate records what left the drop (the gaster
+    ellipsoid sees crop + midgut, so crop→midgut transfer barely changes
+    it). (b) Until a rate is sourced, absorption from the crop during a
+    foraging trip is limited to the metabolic need (≈ 0 over minutes); the
+    `room × 0.001 /s` term applies only in the nest, still unsourced and
+    flagged for E6. (c) A literature check for crop-emptying rates
+    (proventriculus passage; *Camponotus* and *Lasius* data) before E6.
+    Every E2 parameter will shift, so this precedes the step-3c refits.
