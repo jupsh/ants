@@ -2956,3 +2956,46 @@ See [`CLAUDE.md`](../CLAUDE.md).
     2006 3 µL data give volume/time 0.72/70, 0.90/91, 0.98/94 → 0.0103,
     0.0099, 0.0104 µL/s at 1 / 4 / 8 d (ratio of means). The model's
     hunger-independent intake rate stands for *Lasius*.
+- **2026-10-09** **Step 3c amendment: walking speed in E2 (user decision;
+  logged before acting).** The E2 loop was stopped (only its pids; S0I0 at
+  generation 250, losses ≈ 150–200 seen, no candidate comparison; the E1
+  joint-69 cell and signature sweep keep running).
+  - **Why:** E2 uses the E1 walker unchanged (fitted at 26 °C on a canvas,
+    `speed` median 55 mm/s; `walk.ts` has no temperature dependence). Its
+    homebound mid-bridge speed is ≈ 2× the measured 1.5–2.1 cm/s (2000,
+    2006). Turning is per distance, so search and between-drop times
+    scale ≈ 1/speed, and the step-3c search parameters would absorb the
+    error. The earlier "E2 is insensitive to the walker" probe never varied
+    speed (all five walkers were fitted to the same Khuong speeds).
+  - **Correction:** one multiplicative **E2 context factor** on the
+    walker's `speed`, applied in every Mailleux-apparatus run (bridge and
+    area; all E2 conditions, the 2003 six-pipette check and the giving-up
+    run). Provenance: derived from the measured bridge speeds. It is not
+    split into temperature (26 → 22 °C, Q10 ≈ 2 explains ≈ 25 %) and
+    context (surface, scouts vs isolated ants): E2 cannot identify the
+    split. **Assumption, stated:** speed in the 6 × 6 cm area scales as on
+    the bridge (only bridge speed is measured).
+  - **Calibration (derived, not fitted to any E2 target):** f is set so
+    that the model's statistic equals the paper's, computed the same way:
+    mean over ants of 2.5 cm ÷ each ant's homebound time over the 2.5 cm at
+    mid-bridge (model: first crossing of x = 72.5 mm to first crossing of
+    x = 47.5 mm in return mode), target **1.6 cm/s** (Mailleux 2000
+    Table 1, 3 µL, 4 d, n 93; 2006, 4 d: 1.6 ± 0.6, n 122, overlapping
+    data). Model: the adopted E2 parameters with `loadSlowdown` 0, 3 µL
+    drop, 4 d, 1000 scouts, bisection on f to ± 0.01 cm/s. Reported beside
+    it, not used: the model's SD (data 0.6) and the speed at the other drop
+    sizes (2000: 1.5–1.9 cm/s). Outbound speed cannot be calibrated (E2
+    scouts start at the area end of the bridge).
+  - **`loadSlowdown` = 0** in all step-3c candidates: measured, no speed–
+    load relation (2000: no correlation of velocity with volume ingested).
+    Its original motivation (1999 return times 110 → 156 s with
+    starvation) then needs another explanation; return times are not
+    targets, so this is a note in the parameter only.
+  - **Giving-up check** (`selectE2.ts`, development): compared with the
+    2000 0.3 µL values, 113 ± 129 s (all scouts, n 26), 128 ± 135 s
+    (non-layers, n 22), 28 ± 12 s (layers, n 4); Pl = 1/85 s is reported
+    as the 2003 model parameter only.
+  - **Backlog before E6:** temperature dependence of walking (E6 runs at
+    25 °C in another apparatus; the same question).
+  - All five step-3c fits restart from scratch after this; every other
+    frozen rule is unchanged.
