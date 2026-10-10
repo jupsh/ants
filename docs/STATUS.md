@@ -4692,3 +4692,8 @@ it, also said 300 s. Found while preparing the STATUS cleanup. Action:
 relaunched with `--warmup 900`. Killing it on the box was blocked by the
 session's permission check, so this waits for the user. The 300-s run
 must not be used as the gate point.
+- **Resolved:** the user stopped the 300-s pilot. It is void (log kept on
+  the box as `logs/pilot-main-warmup300-void.log`, never read beyond the
+  generation-0 line disclosed above; it wrote no fit file). **Relaunched**
+  with `--warmup 900` (all conditions 1–6 now met; code checksum box =
+  local; SIM_WORKERS 230; `logs/pilot-main.log`).
