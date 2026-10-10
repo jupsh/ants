@@ -22,21 +22,18 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   reachability sweep (step 2) and the rerun of the joint 69-ant recovery
   cell. Parked: renewed A0 vs T comparison, model-recovery pilot
   (`selectE1.ts` draft).
-- **E2 (drinking, trail laying): step 3d RUNNING** on a rented box
-  (vast.ai, 92 threads; scripts in the session scratchpad `vast/`):
-  four laying-decision candidates L0S1, L1S1, L0S2, L1S2 (`fitE2c.ts`,
-  e42e4be), then the frozen selection, recovery and profiles run
-  unattended; fits copied back to `data/fits/e2-3d-*.json`. **Step 3c
-  done** (Decisions log, 2026-10-09): S1I1 selected, no candidate
-  adequate (`d4.trail` capped by the fixed never-laying fraction;
-  drop-2 intake of trail layers too high); recovery approximate; I1's
-  fast/slow intake split not identified. **After step 3d** (review,
-  2026-10-09): an adequate candidate is adopted only provisionally, with
-  its spread and development failures listed and an external E2
-  validation frozen before adoption (candidate: Mailleux 2005, held
-  unread); intake judged on whole bouts; profiles are diagnostics, not
-  95 % intervals; no further laying family without a distinguishing
-  prediction (persistent propensity vs no feeding effect).
+- **E2 (drinking, trail laying): provisional model adopted for colony
+  development** (user decision 2026-10-09): **L0S1c** (`e2-3d-L0S1c.json`;
+  baseline desired volumes, its 2009 cohort scale 0.739 only when
+  reproducing 2009), alternative **L0S1** (`e2-3d-L0S1.json`); step-4
+  results are reported under both. Not validated: L0S1c was a diagnostic,
+  its restart did not converge, the within-2009 contrasts fail (z up to
+  ±4), the 2000 laying-vs-drop-size series is flattened, giving-up times
+  are too long; external E2 validation (Mailleux 2005, held unread) still
+  to be frozen and run. Steps 3c / 3d and the between-study re-judging are
+  in the Decisions log (2026-10-09). No further laying family without a
+  distinguishing prediction (persistent propensity vs no feeding effect).
+  Scripts that rebuild step-3 fits use the legacy layer (`E2_LEGACY_*`).
 - **E6 / colony (step 4):** bounded provisional colony (Bles nest,
   contacts, conserved food sharing, `#colony` page); calibration and the
   E6 test come next, with the E6 walker-sensitivity probe. E6 outcomes are
@@ -3351,3 +3348,31 @@ See [`CLAUDE.md`](../CLAUDE.md).
   (fit) 0.20 → recovered; 4 (dev) 0.22 → approximate; 5 (fit) 0.40,
   turnBig 1.64 → approximate. Parameters off most: `stopHomePull` ×2.95,
   `homeRunBias` ×0.34, `homeHeadingPull` ×1.99, `jitter` ×0.43.
+- **2026-10-09** **User decision: provisional E2 model for colony
+  development (logged before acting).**
+  - **Main model: L0S1c** (`data/fits/e2-3d-L0S1c.json`) with **baseline
+    desired volumes**: the 2009 cohort scale (0.739) applies only to the
+    2009 two-drop condition when reproducing that experiment; every other
+    context, the colony included, uses the fitted desired volumes (scale 1).
+  - **Alternative (sensitivity) model: fitted L0S1** (`e2-3d-L0S1.json`).
+    Step-4 results are reported under both.
+  - **Provisional, not validated** (review item 1): L0S1c was a diagnostic,
+    not a pre-registered candidate; its restart did not converge; no
+    external E2 validation has been run (candidate: Mailleux 2005, held
+    unread; to be frozen before any claim beyond "provisional").
+  - **E2's remaining failures stay documented** (L0S1c unless noted):
+    within-2009 contrasts (drop-1 time TL1 − nTL1 z −4.2, drop-1 volume
+    −2.1, drop-2 time +3.2, drop-2 volume +3.8); the 2000 laying series
+    flattened (30 / 38 / 55 / 91 % vs 14 / 17 / 70 / 91); giving-up times
+    too long (0.7 µL non-layers 209 vs 63 s); σ_m 0.34 above the 0.1–0.3
+    bracket; almost no between-ant variation in desired volume (`desiredSd`
+    0.048); six-pipette visits z 8.2; drinking-time spread and the other
+    spread checks not part of adequacy; L0S1 alternative: drop-2 intake
+    and time z 4.7 / 4.4, 3 µL whole-bout intake 0.67 vs 0.9 µL.
+  - **Implementation:** `lasiusM1.ts` keeps the parameters used so far
+    (defaults + `e2-drinking.json`) as an exported legacy layer, which
+    every script that rebuilds step-3 or older fits uses (so they stay
+    reproducible), applies L0S1c on top for `LASIUS_PARAMS` and
+    `MAILLEUX_SETUP` (with the 2009 scale), and exports L0S1 as the
+    alternative. New structural parameters get provenance (searchMode,
+    layRule and the fast-uptake terms).

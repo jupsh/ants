@@ -23,7 +23,7 @@
 import { cmaes } from '../src/sim/analysis/cmaes';
 import { e2Loss, simulateE2Async, E2_TARGETS, type E2Sim } from '../src/sim/experiments/e2Targets';
 import { atBound, decode, encode, freeValues, variant3, E2_DIAGNOSTICS_3D, E2_VARIANTS_3C, E2_VARIANTS_3D, type E2Model } from '../src/sim/experiments/e2Variants';
-import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
+import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
 import { arg, numArg, readJson, writeJson } from './lib';
 import { SimPool } from './pool';
 
@@ -47,7 +47,7 @@ const OUT = RECOVER ? `data/fits/recover/e2-${STAGE}-${variant.id}-rep${REP}.jso
 
 const prev = readJson<any>('data/fits/e2-drinking.json');
 const base: E2Model = {
-  P: { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER, ...prev.forager, arsMeanLay: 80, layKappa: 10, layRatio50: 0.7 }, phys: { ...LASIUS_PHYS, intakeSd: prev.phys.intakeSd, boutFastUl: 0.1, boutFastRate: 0.05 }, morph: LASIUS_MORPH },
+  P: { walk: LASIUS_WALK, forager: { ...E2_LEGACY_FORAGER, ...prev.forager, arsMeanLay: 80, layKappa: 10, layRatio50: 0.7 }, phys: { ...E2_LEGACY_PHYS, intakeSd: prev.phys.intakeSd, boutFastUl: 0.1, boutFastRate: 0.05 }, morph: LASIUS_MORPH },
   setup: { accessible: prev.pipetteAccessible, volumeSd: prev.observer.volumeSd },
 };
 const start1 = variant.fix(base);

@@ -1,5 +1,7 @@
 import e1fit from '../../../data/fits/e1-walk.json';
 import e2fit from '../../../data/fits/e2-drinking.json';
+import e2main from '../../../data/fits/e2-3d-L0S1c.json';
+import e2alt from '../../../data/fits/e2-3d-L0S1.json';
 import { applyFit, derived, estimated, fitted, measured, resolve } from '../core/param';
 import { walkParams, type WalkParams } from '../models/walk';
 
@@ -25,9 +27,15 @@ export const LASIUS_WALK_DEF = Object.fromEntries(
 const MAILLEUX = { conditions: '22 ± 3 °C, colonies of 1000–2000 workers, 0.6 M sucrose, nest–bridge–6 × 6 cm area' };
 
 /**
- * The adopted E2 fit (data/fits/e2-drinking.json). Variant fits written by
- * scripts/fitE2.ts list their free parameters as "group.key"; older fits
- * list only the fitted forager values.
+ * E2 fits. `data/fits/e2-drinking.json` (step 3a, variant Ma) was the adopted
+ * fit until 2026-10-09; it stays applied as the legacy layer, the base of
+ * every step-3 fit (scripts rebuild those fits on `E2_LEGACY_*` so they stay
+ * reproducible). On top of it, the provisional E2 model for colony
+ * development (user decision, STATUS 2026-10-09): L0S1c with baseline
+ * desired volumes (its 2009 cohort scale applies only in the 2009 two-drop
+ * condition, via `MAILLEUX_SETUP`); fitted L0S1 is the alternative
+ * (sensitivity) model. Variant fits list their free parameters as
+ * "group.key"; older fits list only the fitted forager values.
  */
 interface E2Fit {
   variant?: string;
@@ -36,6 +44,7 @@ interface E2Fit {
   phys?: Record<string, number>;
   pipetteAccessible?: number;
   observer?: { volumeSd?: number };
+  desiredScale2009?: number;
 }
 const E2FIT = e2fit as E2Fit;
 const e2Free = (group: string) => (E2FIT.free ? Object.keys(E2FIT.free).filter((k) => k.startsWith(`${group}.`)).map((k) => k.slice(group.length + 1)) : undefined);
@@ -62,6 +71,11 @@ const LASIUS_FORAGER_BASE = {
   homeGain: estimated(1.0, '1/s', 'Steering gain towards the home vector. Not fitted: no E2 target uses the 1999 return times (110–156 s).', 'mailleux1999', MAILLEUX),
   homeRunScale: estimated(3, '', 'Homing ants walk straighter than exploring ones.'),
   compassBias: estimated(0.08, 'rad', 'Per-trip compass bias for an ant using path integration in the lab (no strong visual cues).'),
+  searchMode: estimated(0, '', 'Who searches after leaving an exhausted drop unsatisfied: 0 = layers go home at once, 1 = layers search too, 2 = with their own mean arsMeanLay. Structure chosen by the step-3c comparison (STATUS 2026-10-09).'),
+  arsMeanLay: estimated(80, 's', 'Search mean of laying ants under searchMode 2 (unused otherwise).'),
+  layRule: estimated(0, '', 'Laying decision of an unsatisfied ant leaving an exhausted drop: 0 = constant unsatisfiedLayProb, 1 = graded by ingested ÷ desired (step 3d; not supported).'),
+  layKappa: estimated(10, '', 'Steepness of the graded laying rule (layRule 1 only).'),
+  layRatio50: estimated(0.7, '', 'Ingested ÷ desired at which half lay under the graded rule (layRule 1 only).'),
   loadSlowdown: estimated(1.0, '', 'Speed loss of laden ants. Motivated by return times rising with starvation (110 → 137 → 156 s) as intake rises (≈0.65 → 0.9 µL), but not fitted: return times are not an E2 target.', 'mailleux1999', MAILLEUX),
 };
 
@@ -75,10 +89,22 @@ const LASIUS_PHYS_BASE = {
   surfaceArea: estimated(16, 'mm²', 'Body surface of a ~2 mg worker (≈10·m^(2/3)).'),
   depositPerMm: estimated(1, 'units/mm', 'Normalisation of trail units: one gaster-contact millimetre deposits 1 unit.'),
   compassNoise: estimated(0.0005, 'rad²/mm', 'Small random PI heading error per mm walked.'),
+  boutFastUl: estimated(0, 'µL', 'Volume of each drinking bout taken in at boutFastRate before the sustained rate (I1, step 3c); 0 = constant intake. In L0S1c it is fitted to ≈ 0.'),
+  boutFastRate: estimated(0.05, 'µL/s', 'Fast initial uptake rate of I1: set by hand, about 5× the sustained rate (Camponotus pump data suggest 1.2–1.7×; STATUS 2026-10-09).'),
 };
 
-export const LASIUS_FORAGER_DEF = applyFit(LASIUS_FORAGER_BASE, E2FIT.forager, { fit: E2_FIT_LABEL, free: e2Free('forager') });
-export const LASIUS_PHYS_DEF = applyFit(LASIUS_PHYS_BASE, E2FIT.phys, { fit: E2_FIT_LABEL, free: e2Free('phys') });
+const E2_LEGACY_FORAGER_DEF = applyFit(LASIUS_FORAGER_BASE, E2FIT.forager, { fit: E2_FIT_LABEL, free: e2Free('forager') });
+const E2_LEGACY_PHYS_DEF = applyFit(LASIUS_PHYS_BASE, E2FIT.phys, { fit: E2_FIT_LABEL, free: e2Free('phys') });
+/** The forager and physiology parameters before the 2026-10-09 adoption: the base under every step-3 fit. */
+export const E2_LEGACY_FORAGER = resolve(E2_LEGACY_FORAGER_DEF);
+export const E2_LEGACY_PHYS = resolve(E2_LEGACY_PHYS_DEF);
+
+const E2MAIN = e2main as E2Fit;
+const E2ALT = e2alt as E2Fit;
+const freeOf = (f: E2Fit, group: string) => Object.keys(f.free ?? {}).filter((k) => k.startsWith(`${group}.`)).map((k) => k.slice(group.length + 1));
+const MAIN_LABEL = 'E2 provisional main model L0S1c (step-3d cohort diagnostic, baseline desired volumes; user decision 2026-10-09), data/fits/e2-3d-L0S1c.json';
+export const LASIUS_FORAGER_DEF = applyFit(E2_LEGACY_FORAGER_DEF, E2MAIN.forager, { fit: MAIN_LABEL, free: freeOf(E2MAIN, 'forager') });
+export const LASIUS_PHYS_DEF = applyFit(E2_LEGACY_PHYS_DEF, E2MAIN.phys, { fit: MAIN_LABEL, free: freeOf(E2MAIN, 'phys') });
 
 export const LASIUS_MORPH_DEF = {
   len: measured(4.1, 'mm', 'khuong2016', '4.1 ± 0.14 mm.', { uncertainty: { sd: 0.14, kind: 'between workers' } }),
@@ -95,9 +121,23 @@ export const LASIUS_MORPH = resolve(LASIUS_MORPH_DEF);
 
 /** Complete M1 parameter set (fitted values from data/fits already applied to the definitions). */
 export const LASIUS_PARAMS = { walk: LASIUS_WALK, forager: LASIUS_FORAGER, phys: LASIUS_PHYS, morph: LASIUS_MORPH };
-export const MAILLEUX_PIPETTE_ACCESSIBLE: number = E2FIT.pipetteAccessible ?? 0.75;
-/** Mailleux apparatus and observer settings fitted with the E2 model (volume-estimate SD in µL). */
-export const MAILLEUX_SETUP = { accessible: MAILLEUX_PIPETTE_ACCESSIBLE, volumeSd: E2FIT.observer?.volumeSd ?? 0 };
+export const MAILLEUX_PIPETTE_ACCESSIBLE: number = E2MAIN.pipetteAccessible ?? 0.75;
+/**
+ * Mailleux apparatus and observer settings fitted with the main E2 model
+ * (volume-estimate SD in µL), and the 2009 cohort's desired-volume scale,
+ * used only when reproducing the 2009 two-drop experiment.
+ */
+export const MAILLEUX_SETUP = { accessible: MAILLEUX_PIPETTE_ACCESSIBLE, volumeSd: E2MAIN.observer?.volumeSd ?? 0, desiredScale2009: E2MAIN.desiredScale2009 ?? 1 };
+
+/** Alternative (sensitivity) E2 model: fitted L0S1 (STATUS 2026-10-09), on the same legacy base. */
+const ALT_LABEL = 'E2 alternative model L0S1 (step 3d), data/fits/e2-3d-L0S1.json';
+export const LASIUS_PARAMS_E2_ALT = {
+  walk: LASIUS_WALK,
+  forager: resolve(applyFit(E2_LEGACY_FORAGER_DEF, E2ALT.forager, { fit: ALT_LABEL, free: freeOf(E2ALT, 'forager') })),
+  phys: resolve(applyFit(E2_LEGACY_PHYS_DEF, E2ALT.phys, { fit: ALT_LABEL, free: freeOf(E2ALT, 'phys') })),
+  morph: LASIUS_MORPH,
+};
+export const MAILLEUX_SETUP_E2_ALT = { accessible: E2ALT.pipetteAccessible ?? 0.75, volumeSd: E2ALT.observer?.volumeSd ?? 0 };
 
 /**
  * E2 context factor on the walker's speed in the Mailleux apparatus (22 °C,

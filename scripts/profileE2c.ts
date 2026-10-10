@@ -19,7 +19,7 @@
 import { cmaes } from '../src/sim/analysis/cmaes';
 import { e2Loss, simulateE2Async, E2_TARGETS } from '../src/sim/experiments/e2Targets';
 import { encode, decode, get, set, variant3, type E2Model } from '../src/sim/experiments/e2Variants';
-import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
+import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
 import { arg, numArg, readJson } from './lib';
 import { SimPool } from './pool';
 
@@ -38,7 +38,7 @@ const variant = variant3(fit.variant);
 if (!variant || !variant.free.some((f) => f.key === KEY)) throw new Error(`--fit must be a step-3c fit and --param one of its free parameters`);
 const reduced = { ...variant, free: variant.free.filter((f) => f.key !== KEY) };
 const best: E2Model = {
-  P: { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER, ...fit.forager }, phys: { ...LASIUS_PHYS, ...fit.phys }, morph: LASIUS_MORPH },
+  P: { walk: LASIUS_WALK, forager: { ...E2_LEGACY_FORAGER, ...fit.forager }, phys: { ...E2_LEGACY_PHYS, ...fit.phys }, morph: LASIUS_MORPH },
   setup: { accessible: fit.pipetteAccessible, volumeSd: fit.observer.volumeSd },
 };
 const fitRows = E2_TARGETS.filter((t) => t.role === 'fit');

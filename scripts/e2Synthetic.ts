@@ -11,7 +11,7 @@
 import { binomialSE } from '../src/sim/analysis/compare';
 import type { LasiusParams, ScoutResult } from '../src/sim/experiments/e2Mailleux';
 import { E2_CONDITIONS, E2_TARGETS, type ScoutRunner, type Target } from '../src/sim/experiments/e2Targets';
-import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
+import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
 
 /** Scouts per condition in the data (largest n among its targets; two drops: 63 found both of > 95 %, so 66 tested). */
 const DATA_N: Record<string, number> = { d1: 67, d4: 141, d8: 97, two: 66 };
@@ -19,7 +19,7 @@ const DATA_N: Record<string, number> = { d1: 67, d4: 141, d8: 97, two: 66 };
 /** The model of a step-3c fit file. */
 export function modelOf(fit: any): { P: LasiusParams; setup: { accessible: number; volumeSd: number; desiredScale2009?: number } } {
   return {
-    P: { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER, ...fit.forager }, phys: { ...LASIUS_PHYS, ...fit.phys }, morph: LASIUS_MORPH },
+    P: { walk: LASIUS_WALK, forager: { ...E2_LEGACY_FORAGER, ...fit.forager }, phys: { ...E2_LEGACY_PHYS, ...fit.phys }, morph: LASIUS_MORPH },
     setup: { accessible: fit.pipetteAccessible, volumeSd: fit.observer.volumeSd, ...(fit.desiredScale2009 !== undefined ? { desiredScale2009: fit.desiredScale2009 } : {}) },
   };
 }

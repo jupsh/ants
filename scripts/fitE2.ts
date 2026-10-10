@@ -17,7 +17,7 @@ import fs from 'node:fs';
 import { nelderMead } from '../src/sim/analysis/optimize';
 import { e2Compare, e2Loss, e2Table, simulateE2Async, E2_TARGETS } from '../src/sim/experiments/e2Targets';
 import { decode, encode, freeValues, E2_VARIANTS, type E2Model } from '../src/sim/experiments/e2Variants';
-import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
+import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
 import { arg, readJson } from './lib';
 import { SimPool } from './pool';
 
@@ -30,7 +30,7 @@ if (!variant) throw new Error(`unknown variant; use one of ${E2_VARIANTS.map((v)
 // Starting points: the session-1 M_a fit for the M_a family; published values for M_b.
 const prev = readJson<any>('data/fits/e2-drinking.json');
 const base: E2Model = {
-  P: { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER, ...prev.forager }, phys: { ...LASIUS_PHYS, intakeSd: 0.2 }, morph: LASIUS_MORPH },
+  P: { walk: LASIUS_WALK, forager: { ...E2_LEGACY_FORAGER, ...prev.forager }, phys: { ...E2_LEGACY_PHYS, intakeSd: 0.2 }, morph: LASIUS_MORPH },
   setup: { accessible: prev.pipetteAccessible ?? 0.75, volumeSd: 0.2 },
 };
 const start = variant.id === 'Mb' ? { ...base, P: { ...base.P, forager: { ...base.P.forager, desiredFed: 0.57, desiredHungry: 0.88, stopEta: 4.3 } } } : base;
