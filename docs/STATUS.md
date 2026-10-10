@@ -422,3 +422,23 @@ Earlier entries: the archive. Newest last.
   type-check and run). Provenance strings and comments that named them
   were updated (`lasiusM1.ts`, `e1TurnChecks.ts`), as were CLAUDE.md and
   README.
+
+**2026-10-10 night — late-signal test: not confirmed** (`diagDtHandshake.ts`,
+80 paired recruiters per start point, 4 d; `logs/diag-handshake-d4.log`).
+- What the handshake lag would lengthen barely moves at dt 0.1 vs 0.025:
+  waiting in unanswered invitations +0.50 ± 0.27 s (start 1) / −0.01 ±
+  0.23 s (start 2); dry bout starts +0.40 ± 0.19 / +0.03 ± 0.18; giving
+  with flow −0.34 ± 1.05 / +0.05 ± 0.21 s. At most ≈ 0.5 s of a ≈ 5 s
+  (1 SE_data) timeInNest shift. Contacts ≥ 1 s: +0.24 ± 0.31 /
+  −0.29 ± 0.99.
+- Resting (+10.4 ± 4.9 / −3.5 ± 2.2 s) and the whole stay (+7.9 ± 11.7 /
+  −8.1 ± 4.3 s) differ in sign between start points: no resolved effect.
+  At n 80 the test cannot resolve a 2–5 s stay shift.
+- **Reading:** pilot condition 5 is not triggered (no confirmed cause, so
+  there is nothing to fix before the pilot-point gate). The timeInNest and
+  contacts dt dependence remains **unexplained**. The gate at the pilot
+  optimum measures it where it matters. If dt 0.1 fails there, the refits
+  run at the coarsest passing dt (0.025 at worst), and the encounter
+  redesign (Plan 4) is the next suspect, since it replaces the meeting
+  dynamics. A larger decomposition (n ≈ 1600, on the box after the
+  pilot) runs only if the pilot-point gate fails on these rows.
