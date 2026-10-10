@@ -359,12 +359,16 @@ export function renderColony(root: HTMLElement): () => void {
     ctx.fill('evenodd');
     ctx.strokeStyle = col('--axis');
     ctx.lineWidth = 1.5 * dpr;
+    // The passage opens into both: leave its mouths out of the wall lines (clip, not paint, so ants in it stay visible).
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(0, 0, canvas.width, canvas.height);
+    ctx.rect(X(PASSAGE.x0) - 3 * dpr, Y(PASSAGE.y0) + dpr, (PASSAGE.x1 - PASSAGE.x0) * s + 6 * dpr, (PASSAGE.y1 - PASSAGE.y0) * s - 2 * dpr);
+    ctx.clip('evenodd');
     ctx.beginPath();
     for (const r of [NEST, AREA]) ctx.rect(...rect(r));
     ctx.stroke();
-    // The passage joins the two: erase the wall where it meets them.
-    ctx.fillStyle = col('--surface-1');
-    ctx.fillRect(X(PASSAGE.x0) - dpr, Y(PASSAGE.y0) + dpr, (PASSAGE.x1 - PASSAGE.x0) * s + 2 * dpr, (PASSAGE.y1 - PASSAGE.y0) * s - 2 * dpr);
+    ctx.restore();
     ctx.beginPath();
     ctx.moveTo(X(PASSAGE.x0), Y(PASSAGE.y0));
     ctx.lineTo(X(PASSAGE.x1), Y(PASSAGE.y0));
