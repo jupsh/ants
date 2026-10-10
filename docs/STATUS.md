@@ -22,34 +22,27 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   reachability sweep (step 2) and the rerun of the joint 69-ant recovery
   cell. Parked: renewed A0 vs T comparison, model-recovery pilot
   (`selectE1.ts` draft).
-- **E2 (drinking, trail laying): step-3c fits RUNNING** (five candidates
-  S0I0, S1I0, S2I0, S1I1, S2I1 in sequence, `fitE2c.ts`, code at 097de2c +
-  label-only changes after; logs in the previous session's scratchpad
-  `…/e61c24f5-…/scratchpad/e2c-<id>.log`; ~a day in total). Amended
-  pre-registration (2026-10-09): intake measured at the mouthparts, crop
-  absorption 0 (old hard-coded drain removed), per-drop rs as fit rows,
-  satiated departure when the desired volume is reached as a drop runs out,
-  drop-1 rows over scouts that found both drops. Frozen and ready for when
-  they finish: `selectE2.ts` (rule + adequacy + group contrasts + giving-up
-  time), recovery (`fitE2c.ts --recover`, then `recoverE2c.ts`), σ_m / σ_r
-  profiles (`profileE2c.ts`), and if I1 wins the fast-rate sensitivity at
-  0.02 / 0.1 µL/s (literature: rates decline gradually, so read 0.02 as the
-  plausible end). **Open question after judging:** the laying decision
-  (drop-1 time contrast TL1 − nTL1 z −3.2; nTL2 31 % vs 16 %; 36 % laying at
-  a 0.3 µL drop vs 17 %): none of the five candidates changes it, and the
-  group-split fit rows can tilt which search mode wins, so read the
-  selection with that caveat; if all fail the group contrasts, a
-  pre-registered laying-decision family (step 3d) comes before step 4.
-  The 2009 Mailleux model cannot be ported as a baseline (its times are
-  unspecified and its theory column is not reproducible from the stated
-  rules); the Pl = 1/85 s comparison stands in for it.
+- **E2 (drinking, trail laying): provisional model adopted for colony
+  development** (user decision 2026-10-09): **L0S1c** (`e2-3d-L0S1c.json`;
+  baseline desired volumes, its 2009 cohort scale 0.739 only when
+  reproducing 2009), alternative **L0S1** (`e2-3d-L0S1.json`); step-4
+  results are reported under both. Not validated: L0S1c was a diagnostic,
+  its restart did not converge, the within-2009 contrasts fail (z up to
+  ±4), the 2000 laying-vs-drop-size series is flattened, giving-up times
+  are too long; external E2 validation (Mailleux 2005, held unread) still
+  to be frozen and run. Steps 3c / 3d and the between-study re-judging are
+  in the Decisions log (2026-10-09). No further laying family without a
+  distinguishing prediction (persistent propensity vs no feeding effect).
+  Scripts that rebuild step-3 fits use the legacy layer (`E2_LEGACY_*`).
 - **E6 / colony (step 4):** bounded provisional colony (Bles nest,
   contacts, conserved food sharing, `#colony` page); calibration and the
-  E6 test come next, with the E6 walker-sensitivity probe. Before it: the
-  observer now records contacts continuing > 5 s after a scan (rerun the
-  TEC-through-observer numbers and `e6-tec.json`), and decide
-  `cropAbsorption` (0, or ≈ 0.03–0.05 /h of crop contents as an upper bound
-  from Howard & Tschinkel 1981).
+  E6 test come next, with the E6 walker-sensitivity probe. E6 outcomes are
+  a development benchmark (review). Before judging: the t-based decision
+  rule (5 colonies, ≈ 4 df); rerun the TEC-through-observer numbers and
+  `e6-tec.json` (observer rule 'after'); crop absorption as a sensitivity
+  scenario (0 – 0.05 /h; the source is *Solenopsis*); the walking
+  assumption for the nest pre-registered (the E2 factor confounds
+  temperature and context).
 - **Judging:** a candidate missing a statistic the data estimate is
   unjudgeable (2026-10-09 fix; no earlier ranking was affected).
 - Commits: plain messages, no co-author lines; ask before committing.
@@ -423,8 +416,11 @@ Claude Code loads automatically.
     Detrain & Prieur 2014, Portha et al. 2004.
 - **E6 (Bles et al. 2022):**
   - The raw data have been *summarised descriptively* (`scripts/analyzeBles.ts`)
-    but **no model has been run against them**. E6 remains **held-out** for
-    our encounter-based model.
+    but **no model has been run against them**. ~~E6 remains **held-out** for
+    our encounter-based model.~~ **Relabelled a development benchmark
+    (review, 2026-10-09):** the TEC comparisons and the observed early-event
+    delay have informed spatial-model expectations, so the E6 outcomes are
+    not untouched, although the encounter model has not been run on them.
   - In-nest parameters must be calibrated on other data (Mailleux 1999).
   - The TEC baseline is fitted to E6 by its authors; it serves only as a
     reference.
@@ -443,7 +439,9 @@ Claude Code loads automatically.
 - **Colony-level outcomes (E6, n = 5 colonies):**
   - Simulate ≥ 50 colonies.
   - Test the mean with SE = SD_data/√5 combined with SE_sim, and check the
-    between-colony SD separately.
+    between-colony SD separately. _(Review 2026-10-09: that z is t-like with
+    ≈ 4 df, not normal; convert to a normal-equivalent z through t with
+    Welch–Satterthwaite df before applying the 2 / 3 cut-offs.)_
   - Primary metrics: event count, T50, participants, Gini, number of
     foragers, share of food given by non-foragers.
   - The network metrics (efficiency, betweenness, closeness, clustering)
@@ -3022,3 +3020,359 @@ See [`CLAUDE.md`](../CLAUDE.md).
   - The adopted fit (`e2-drinking.json`, f = 1 era) now runs with the
     factor in pages and reports: its numbers in this file predate it.
   - Tests pass (61). Step-3c fits restart from scratch on this commit.
+- **2026-10-09** **Step-3c fits finished (rented box) and selection run; adequacy bug; profile diagnostic.**
+  - Fits run on a rented 92-thread EPYC 9654 VM (vast.ai) at 28aaf5e,
+    all five concurrently (18 workers each, ≈ 30 min). Bit-identity
+    checked: the box's S0I0 log equals the local run's first 49 lines. The
+    local loop was stopped (its own pids only).
+  - `selectE2.ts` (frozen rule): **S1I1 selected** (P̄ 82.7; S2I1 92.9,
+    Δ 10.2 ± 5.6 paired SE, more complex; S1I0 163.0, S2I0 179.7, S0I0
+    217.7). Follow-ups for S1I1 launched automatically: recovery fit,
+    σ_m / σ_r profiles, fast-rate refits at 0.013 / 0.02 / 0.1 µL/s
+    (`fitE2c.ts --fastRate`, aa57a54). The recovery fit's own progress log
+    was lost (launcher bug, two-step job); its JSON and scoring are
+    unaffected.
+  - **Bug (judging only):** the adequacy step simulated its pooled 1500
+    scouts as one block, so SE_sim and every combined z were NaN and every
+    candidate read "15 rows |z| > 3, not adequate". Fix: 5 blocks of 300
+    (the same scouts and seeds); the selection rule and its numbers are
+    untouched. Rerun with the fix before reading adequacy.
+  - **σ_m profile not usable as run:** every grid value (0–0.5, refits of
+    60 generations warm-started at the fit) is ≥ 10 worse than the fit
+    itself (57.8), including 0.1 and 0.2 around the fitted 0.136; the
+    curve's minimum is ≈ 0.3 at Δ 10. That points to refits that do not
+    reach the fit, not to a sharp optimum. Diagnostic (not a change to the
+    frozen profile): the same profile with the fitted value on the grid and
+    longer refits (`--grid 0.05,0.1,0.136,0.2,0.3 --gens 200`); if the
+    refit at 0.136 is also ≈ +10, the profile procedure is at fault. σ_r
+    profile: interval [0, 0.2] (fitted 0.122), as designed.
+- **2026-10-09** **Step-3c results for S1I1 (box), adequacy, and step 3d
+  pre-registration (user approved the design; frozen here before any code
+  or fit).**
+  - **Adequacy (fixed `selectE2.ts`): no candidate is adequate.** Two fit
+    rows fail in all five: `d4.trail` (data 0.94, n 141; z −3.5 … −3.7) and
+    `two.ul2` (0.28 µL; z +3.3 … +4.6). S1I1 also has `two.t2` 2.9 and
+    `two.vtRs2` 2.2, the rest |z| ≤ 2. `d4.trail` is unreachable by design:
+    `neverLayFraction` is fixed at 0.12 in every step-3c candidate, which
+    caps laying at 88 %. The drop-2 excess comes from trail layers (data
+    TL1 0.20 µL at drop 2, S1I1 0.40, z 6.9). Group contrasts (S1I1):
+    drop-1 time TL1 − nTL1 z −4.4, drop-2 volume z +3.3. Development, 2003
+    six pipettes: S1I1 visits far too many (z +14).
+  - **Recovery (S1I1, one replicate): APPROXIMATE**: mean excess 0.97,
+    worst `two.t2` 3.71, `two.vtRs2` 3.67. The intake parameters trade
+    off: recovered `intakeRate` ×1.98, `intakeSd` ×2.5, `volumeSd` ×1.85,
+    `stopHazard` ×0.45; accessibility and `unsatisfiedLayProb` recovered.
+  - **Profiles:** σ_r (`intakeSd`, fitted 0.122): interval [0, 0.2].
+    σ_m with 60-generation refits was not usable (every value ≥ 10 above
+    the fit). The diagnostic with 200 generations and the fitted value on
+    the grid: refit at 0.136 → 55.0 (fit 57.8; Δ 5.6 ± 5.8), 0.2 → 49.5
+    (best), 0.05 → +50, 0.1 → +23.5, 0.3 → +10 ± 10. So the 60-generation
+    refits had not converged, the fit is not at the σ_m optimum, and
+    σ_m ≈ 0.2 sits inside the independent 0.1–0.3 bracket. Use ≥ 200
+    generations for profiles from now on.
+  - **I1 fast-rate sensitivity** (reported, not re-selected; selection-batch
+    loss, fit 71.5 at 0.05 µL/s): 0.013 → 76.5, 0.02 → 123.7 (a different
+    basin: `intakeSd` 0.82, `volumeSd` 0.035; likely an optimiser failure),
+    0.1 → 60.3. **I1 as fitted is far from the measured intake:** a fast
+    phase of 0.33 µL, then a sustained 0.0036 µL/s, about a third of the
+    measured *L. niger* rate (≈ 0.010 µL/s, 2006). At 0.013 µL/s the fit
+    has 0.42 µL fast, then 0.0034 µL/s (≈ 4× deceleration; *Camponotus*:
+    1.2–1.7×). To be checked against the 2000 ingested volumes (below).
+  - **Step 3d: the laying decision (frozen).**
+    - *Why:* (1) `d4.trail` 0.94 is impossible with `neverLayFraction`
+      fixed at 0.12. (2) The model's layers are the ants satiated early
+      (they drink less, for less time, at drop 1); the data's TL1 and nTL1
+      drink the same at drop 1 (0.49 vs 0.46 µL, 52 vs 50 s), while TL1
+      drink less at drop 2 (0.20 vs 0.33 / 0.31 µL). (3) Laying at one
+      drop depends steeply on its size (2000, 4 d: 14 / 17 / 70 / 91 % at
+      0.3 / 0.7 / 1 / 3 µL); a constant `unsatisfiedLayProb` cannot make
+      that step.
+    - *Candidates* (all with the step-3c fixed settings and I1, fast rate
+      0.05 µL/s, `boutFastUl` free; `neverLayFraction` free in [0, 0.3]
+      in every candidate):
+      - **L0:** the current rule: a scout leaving an exhausted drop before
+        its desired volume lays with constant probability
+        `unsatisfiedLayProb`.
+      - **L1:** that probability is graded by how close the scout came to
+        its desired volume: P = 1 / (1 + e^(−κ (r − ρ))), r = ingested ÷
+        desired, κ ∈ [1, 50] (log scale), ρ ∈ [0, 1.5]; it replaces
+        `unsatisfiedLayProb` (one more parameter than L0). Satiated
+        departures lay unless never-layers, as before.
+      - crossed with **S1** (layers and non-layers search alike) and **S2**
+        (layers have their own search mean `arsMeanLay`): **L0S1, L1S1,
+        L0S2, L1S2** (k 12, 13, 13, 14). S2 is included because the 2000
+        data (development) give layers a giving-up time of ≈ 28 s vs
+        ≈ 128 s for non-layers, and S1I1 vs S2I1 was within 2 SE.
+    - *Fitting:* `fitE2c.ts` unchanged in procedure (two starts from the
+      same base, one IPOP restart, ≤ 300 generations, the same fit seeds);
+      L1's starts at κ 10, ρ 0.7. Output `data/fits/e2-3d-<id>.json`.
+    - *Judging:* the frozen step-3c rule and adequacy test on the same fit
+      rows, among the four step-3d candidates, with the step-3c selection
+      seeds (so step-3c and step-3d losses are on common random numbers;
+      S1I1 and S2I1 are listed beside them for comparison, not selectable).
+      Development, reported only, never fitted: the 2009 group contrasts;
+      the 2000 single-drop series at 0.3 / 0.7 / 1 / 3 µL, 4 d (trail %,
+      giving-up time of layers and non-layers, ingested volume
+      0.2 / 0.5 / 0.7 / 0.9 µL); the 2003 six pipettes; the 2006 0.3 µL
+      laying (17 %).
+    - *Reading:* if L1 passes the group contrasts and the 2000 trail series
+      without being fitted to them, that supports a graded laying decision.
+      If no candidate does, the next hypothesis is laying as a per-ant trait
+      (independent of the volume ingested), before step 4.
+    - Then the selected candidate's recovery and profiles as in step 3c
+      (profiles with 200 generations).
+- **2026-10-09** **External review (relayed by the user): decisions.**
+  Checked against the code before logging: the E6 z uses SE_data =
+  SD/√5 (`e6Bles.ts:135`); the profile script printed "approx. 95 %
+  profile interval"; `trajectory.ts:300` counts a track as an exit when
+  its last point is within 3 % of the exit radius, whatever its `end`.
+  1. **Adequate ≠ validated.** The adequacy gate (`selectE2.ts`) covers
+     the fitted means and finding both drops only; it ignores the spread
+     (SD) checks and the development failures, and recovery tests the
+     fitting procedure, not the mechanism. An adequate step-3d candidate
+     is adopted **provisionally**, with its limits listed (every spread
+     z and development row it fails) and an external E2 validation, to be
+     frozen before adoption, still outstanding. Candidate data for it:
+     Mailleux 2005 (laying over successive trips; held unread).
+  2. **Intake rate: compare like with like.** ≈ 0.010 µL/s is whole-bout
+     volume ÷ time at a 3 µL drop; 0.0036 µL/s is I1's sustained phase
+     only. The like-for-like check is the model's whole bout under the
+     same conditions (the 2000 single-drop series, 3 µL, 4 d: 0.9 ± 0.4 µL,
+     and `d4.drink`), already in `selectE2.ts`. The fast/slow split is not
+     identified (S1I1 recovery: `intakeRate` ×1.98, `boutFastUl` ×0.65);
+     report I1 as "decelerating intake, decomposition not identified".
+     Passing the volume check constrains the split, it does not prove it.
+  3. **No automatic step 3e.** "Laying independent of the volume ingested"
+     predicts a constant laying fraction across drop sizes, which the 2000
+     series (14 / 17 / 70 / 91 %) already contradicts. A further laying
+     family needs a distinguishing prediction first: "persistent individual
+     propensity" (an ant-level random effect, with feeding still acting)
+     vs "feeding has no effect". Data that separate them: the same ants
+     over successive trips (Mailleux 2005, held unread).
+  4. **Profiles are sensitivity diagnostics.** The loss is a diagonal Σz²
+     over correlated summaries, not a calibrated −2 log L, so Δ 3.84 is a
+     reference line, not a 95 % interval; more generations and the paired
+     SEs fix numerical problems only. `profileE2c.ts` output relabelled.
+     The earlier "interval [0, 0.2]" for σ_r and "[0.2, 0.2]" for σ_m read
+     as "Δ ≤ 3.84 region", diagnostic. Calibrated intervals would need a
+     parametric bootstrap of the whole fit (not planned now). The selection
+     rule's + 2k penalty is likewise heuristic (as its doc says).
+  5. **E6 decision rule:** with 5 colonies, SE_data is estimated with 4
+     degrees of freedom, so z = Δ / √(SE_data² + SE_sim²) is t-like, not
+     normal: under a correct model ≈ 4 % of |z| exceed 3 and ≈ 12 % exceed
+     2 (t₄), whatever the number of simulated colonies (review null
+     simulation: 4.1 % beyond 3). Before E6 is judged: convert to a
+     normal-equivalent z through the t distribution with Welch–
+     Satterthwaite degrees of freedom (≈ 4 when SE_sim is small), and
+     report spread checks likewise. **Evidence label:** the E6 outcomes are
+     a **development benchmark**, not untouched: the TEC comparisons and the
+     observed early-event delay have informed spatial-model expectations
+     (contamination log).
+  6. **Freeze absorption and walking before judging E6.** Crop absorption
+     0 – 0.05 /h is a sensitivity scenario, not a *Lasius* upper bound
+     (Howard & Tschinkel 1981 measured isolated *Solenopsis* workers). The
+     E2 speed factor confounds temperature and context (surface, scouts,
+     method), so it does not transfer to the nest by a temperature
+     adjustment alone; the E6 walking assumption (and its scenarios) is
+     pre-registered before the E6 test.
+  - **E1 (backlog; limits walker-validation claims, no restart of
+    fine-scale fitting):** colony variation is not in the main bootstrap
+    (ants resampled, not colonies); the covariance shrinkage depends on the
+    number of bootstrap draws; a timed-out track ending near the boundary
+    counts as an exit (`trajectory.ts:300`; should require `end === 'exit'`
+    where known).
+- **2026-10-09** **Step 3d result (box, e42e4be; selection on the step-3c
+  seeds).**
+  - **Selected L0S1** (P̄ 84.4; L1S2 112.0, L1S1 116.7, L0S2 121.0; none
+    within 2 paired SE). Fitted never-laying fraction 0.075 (all four:
+    0.04–0.08), which brings `d4.trail` to z −1.6. L0S1 is no better than
+    step-3c S1I1 overall (82.7 on the same seeds): `two.t2` got worse
+    (4.4 vs 2.9).
+  - **Not adequate (no candidate):** `two.ul2` z 4.3–4.7 and `two.t2`
+    4.4–6.2 in all four. Drop-2 intake and drinking time are too high in
+    all nine step-3c/3d candidates. The ingested-volume signal is
+    cumulative over the trip (`startTrip` resets it), so this is not a
+    reset bug: the fitted desired volumes (≈ 1.0–1.1 µL at 4 d) exceed the
+    2009 two-drop total (0.75 µL).
+  - **L1 (graded laying) not supported:** worse loss, and the group
+    contrasts are not fixed (drop-1 time TL1 − nTL1 z −5.4 L1S1, −2.7
+    L1S2, −4.5 L0S1; drop-2 volume 2.0–2.7). Fitted ρ ≈ 0.58–0.70, κ 11–17.
+    At 0.3 µL L1 lays far too rarely (3–4 % vs 14 %, z ≈ −2), L0 18–30 %.
+  - **Development checks** (L0S1): 2000 single drop, trail % 18 / 42 / 67
+    / 91 vs 14 / 17 / 70 / 91 (0.7 µL z 3.5; this is the 2000-vs-2009
+    17 % vs 38 % between-study discrepancy). **Whole-bout intake at 3 µL,
+    4 d: 0.67 ± 0.31 µL vs 0.9 ± 0.4 (n 95; z ≈ −5)** in all four (0.67–
+    0.73) with drinking times that fit (`d4.drink` z 0.1): the whole-bout
+    rate is ≈ 0.0075 vs 0.010 µL/s. The like-for-like intake check (review
+    item 2) fails. Giving-up layers at 0.3 µL: 171 ± 165 s vs 28 ± 12
+    (n 4) under S1. Six pipettes: visits still z 8–12.
+  - **Omission in the step-3d pre-registration:** the user's instruction
+    that the 2000-vs-2009 discrepancy (17 % vs 38 % at 0.7 µL) is
+    between-study variation, to be treated as extra variance in step 3d,
+    was not included. Not acted on yet; the judging above uses SE_data ⊕
+    SE_sim only.
+  - Running (unattended): L0S1 recovery and profiles (diagnostics).
+- **2026-10-09** **Between-study variance: pre-registration (frozen; user
+  approved with four changes from review, all included).**
+  - **Lead finding, independent of any study effect:** within 2009, layers
+    and non-layers drink the same at drop 1 but layers drink less at drop 2
+    (L0S1: drop-1 time contrast z −4.5, drop-2 volume contrast z +2.7). No
+    between-study variance touches comparisons within one study.
+  - **τ is not estimable.** Independent cross-study pairs of the same
+    quantity (3 µL pairs excluded as overlapping): trail % at 0.7 µL, 2000
+    vs 2009 (logit diff 1.08, SE 0.56) and at 0.3 µL, 4 d, 2000 vs 2006
+    (0.23, SE 0.71); volume at 0.7 µL (2000 vs 2009) and 0.3 µL (2000 vs
+    2006), giving-up at 0.3 µL (2000 vs 2006): log diffs 0.06 / 0.05 / 0.27,
+    each below its SE. Estimates (per study, method of moments): logit
+    0.32 (0.65 from the 0.7 µL pair alone), log 0; Q-profile 95 % ranges
+    [0, 3.45] and [0, 0.38]. **Overlap check (change 3):** 2000 used six
+    colonies of 1000–2000 workers in 20 × 20 cm four-section nests at 4 d
+    only; 2006 used three colonies of 1000–1300 in 15 × 5 cm three-section
+    nests at 1 / 4 / 8 d in random order: different colony sets, so the
+    0.3 µL pair is kept (evidence, not proof). If it overlaps, the point
+    estimate becomes the generous one (logit ≈ 0.65).
+  - **Re-judging (`selectE2.ts`, all nine candidates, no refits):** τ added
+    to each row's variance (logit scale for proportions, log scale for
+    means, delta method at the data value; Fisher-z rows none). Reference
+    scenarios none / point (logit 0.32, log 0) / generous (logit 0.67, log
+    0.15). **For every row with |z| > 2: the smallest τ at which it passes
+    (|z| ≤ 3 and ≤ 2; change 2)**, plus the same for the 2000 single-drop
+    trail series. Reading: a row **fails robustly** if it fails under
+    generous, **passes robustly** if it passes under none, otherwise
+    "depends on τ".
+  - **Limits (change 4):** a study effect is shared by all rows of a
+    study, so per-row slack is an upper bound (change 1). The candidates
+    were fitted without τ; τ-weighted fits could land elsewhere. **This
+    re-judging cannot make a candidate adequate or change the selection**;
+    it only shows which failures depend on the between-study assumption.
+    A pass under the generous scenario is not adoption.
+  - **Cohort diagnostic (change 1; a diagnostic, not a candidate):**
+    `L0S1c` = L0S1 plus a desired-volume scale for the 2009 two-drop
+    cohort (`setup.desiredScale2009`, log-bounded [0.3, 3]), fitted with
+    the same `fitE2c.ts` procedure. Rationale: most ants empty drop 1, so a
+    lower desired volume barely changes drop-1 intake but cuts drop-2
+    intake; its side effects are checkable (more ants satiated at drop 1,
+    shorter drop-1 times, a higher drop-1 trail fraction). Smoke test at
+    scale 0.7: `two.ul2` 0.38 → 0.31 µL, `two.t2` 27.5 → 14.8 s, `two.tl1`
+    0.32 → 0.44. **Reading:** cohort effect supported if `two.ul2` and
+    `two.t2` reach |z| ≤ 2 while `two.ul1`, `two.t1`, `two.tl1` stay
+    |z| ≤ 2; if drop-2 passes only by pushing drop-1 rows out, it is not a
+    cohort effect; if drop-2 still fails, the failure is structural. Report
+    the fitted scale, the satiated fraction at drop 1, ΔP̄ vs L0S1 on the
+    selection seeds (1 extra parameter, penalty 2), and the group contrasts
+    (a cohort scale is not expected to fix them).
+- **2026-10-09** **Addition to the frozen L0S1c reading (user/review;
+  logged before any L0S1c output was looked at).** Two reported
+  development checks, not fitted, that the cohort hypothesis predicts
+  (the scale touches only the 2009 condition, so the other studies keep
+  the original desired volume):
+  1. **2000 single drop, trail % at 0.7 µL** (L0S1 42 % vs 17 %, z 3.5):
+     should fall towards 17 % while `two.tl1` stays near 38 % (a 2009
+     cohort that wants less explains both its higher laying fraction and
+     its smaller drop-2 intake).
+  2. **Whole-bout intake at 3 µL, 4 d** (L0S1 0.67 vs 0.9 µL) **and the
+     fitted fast-phase size** (`boutFastUl`; L0S1 0.28 µL): if satiation
+     now shortens drop-2 bouts, the fast phase should shrink and the 3 µL
+     intake rise towards 0.9.
+  **Reading:** drop 2 passes and both checks move the right way → the
+  cohort explanation gains support the fit could not produce by itself;
+  drop 2 passes but neither check moves → the extra parameter is absorbing
+  misfit (stated as such); mixed → reported as mixed.
+  **Wording corrections to the re-judging report:** a τ-dependent pass is
+  not evidence; the robust results are the within-2009 contrasts. Drop 2
+  for L0S1 "would need 7–11 % between-study variation in means, which the
+  cross-study pairs neither show nor exclude". The two volume pairs behind
+  the log-scale point estimate of 0 (0.3 and 0.7 µL) are at drops the ants
+  empty, so their intake is capped by the drop, not the desired volume:
+  they cannot register a desired-volume difference between cohorts, and
+  the "point" scenario carries little weight for drop 2. Only the
+  giving-up and trail pairs can register one.
+  **Movement threshold (added before results; the half-gap cut is
+  arbitrary, fixed now so it cannot be chosen after seeing the numbers):**
+  a check "moves" only if it closes at least half its gap and the change
+  exceeds twice its simulation SE (selectE2: 300 scouts per drop size, so
+  ≈ 0.026 for the trail fraction, ≈ 0.017 µL for the 3 µL volume). 2000
+  trail % at 0.7 µL: ≤ ≈ 30 % (from 42 %, target 17 %). Whole-bout intake
+  at 3 µL: ≥ ≈ 0.79 µL (from 0.67, target 0.9). Fast-phase size
+  (`boutFastUl`): ≤ ≈ 0.14 µL (from 0.28), reported beside the intake
+  check, not a criterion by itself. Smaller moves in the right direction
+  are reported as "right direction, below threshold" and count towards
+  "mixed", not "support".
+  **Disclosure:** while confirming at 22:22 that the L0S1c judging had not
+  started, the last line of its fit log was printed: "restart 1 gen 230,
+  best 14.82, median 27.92" (one noisy per-generation fit batch). It does
+  not contain either check; the threshold above had been written before it
+  was seen. CLAUDE.md now has a gotcha on blind status checks.
+- **2026-10-09** **Cohort diagnostic L0S1c: result (box, e6f8eb5; judged
+  with `selectE2.ts` on the selection seeds).**
+  - **Frozen reading: MIXED.**
+    - Drop 2 passes, with drop 1 intact: `two.ul2` z 1.2, `two.t2` 1.5;
+      `two.ul1` 0.2, `two.t1` −1.5, `two.tl1` 1.4.
+    - Check 2 **moves**: whole-bout intake at 3 µL, 4 d **0.88 ± 0.41 µL**
+      (threshold ≥ 0.79; data 0.9 ± 0.4); fast phase `boutFastUl` **0.007
+      µL** (from 0.28; threshold ≤ 0.14), sustained `intakeRate` 0.0097
+      µL/s (measured *L. niger* ≈ 0.010). The I1 fast phase disappears once
+      the 2009 cohort has its own desired volume.
+    - Check 1 **does not move**: 2000 trail % at 0.7 µL 38 % (from 42 %;
+      threshold ≤ 30 %; the change, 4 points, is below 2 simulation SE).
+  - Fitted 2009 scale **0.739** (log −0.30; inside the cross-study range
+    [0, 0.38] for means but near its upper end). ΔP̄ vs L0S1: 54.2 vs 84.4
+    (one extra parameter). All fit rows |z| ≤ 2 (no marginal rows); it is a
+    diagnostic, not a candidate, so this is not adequacy for adoption.
+  - **Against it (reported, not in the frozen reading):** the within-2009
+    contrasts get worse: drop-1 time TL1 − nTL1 z −4.2, drop-1 volume
+    −2.1, drop-2 time **+3.2** (L0S1 1.0), drop-2 volume **+3.8** (2.7);
+    satiated at drop 1: TL1 78 %, nTL2 39 %. The 2000 laying series
+    flattens: 30 / 38 / 55 / 91 % vs 14 / 17 / 70 / 91 (0.3 µL z 3.0, 1 µL
+    −2.5; L0S1 0.7 / −0.5). Giving-up times far too long (0.3 µL all
+    171 ± 157 s vs 113 ± 129; 0.7 µL non-layers 209 vs 63 ± 35, n 12;
+    `arsMean` 185 s). σ_m (`volumeSd`) 0.34, above the 0.1–0.3 bracket;
+    `desiredSd` 0.048 (almost no between-ant variation in desired volume).
+  - **For it (reported, not in the frozen reading):** 2003 six pipettes
+    improve (exploit z −7.8 → 0.5, visits 12.1 → 8.2, ul 3.3 → 1.6).
+  - **Fit quality:** the restart (λ 22) reached a much lower selection
+    loss than the two starts (23.5 vs 40.8 / 41.4) but did not converge
+    (final σ 0.50, drift up to 0.35 encoded units): the surface is
+    multimodal here, and the fitted values are less settled than usual.
+  - **L0S1 follow-ups (diagnostics):** recovery APPROXIMATE (mean excess
+    0.82, worst `two.tl1` 3.81; `unsatisfiedLayProb` ×0.40, `intakeRate`
+    ×1.45, `arsMean` ×0.68). Profiles (200 generations; the run printed
+    the old "95 %" label, read as Δ ≤ 3.84 regions): σ_m and σ_r both at
+    0.2 on the grid, every other grid value Δ > 3.84 or borderline.
+- **2026-10-09** **E1 joint 69-ant recovery cell: result** (box copy at
+  aa57a54; its log is identical to the local run's for all 63 lines the
+  local run has written; every CMA-ES run went ≥ 185 generations, so the
+  averaging-window change does not apply and the local run should end
+  identical). Prediction excess per incline: 1 (fit) mean 0.59, worst
+  turnSd 4.63 → **FAILED**; 2 (dev) 0.33, turnSd 2.47 → approximate; 3
+  (fit) 0.20 → recovered; 4 (dev) 0.22 → approximate; 5 (fit) 0.40,
+  turnBig 1.64 → approximate. Parameters off most: `stopHomePull` ×2.95,
+  `homeRunBias` ×0.34, `homeHeadingPull` ×1.99, `jitter` ×0.43.
+- **2026-10-09** **User decision: provisional E2 model for colony
+  development (logged before acting).**
+  - **Main model: L0S1c** (`data/fits/e2-3d-L0S1c.json`) with **baseline
+    desired volumes**: the 2009 cohort scale (0.739) applies only to the
+    2009 two-drop condition when reproducing that experiment; every other
+    context, the colony included, uses the fitted desired volumes (scale 1).
+  - **Alternative (sensitivity) model: fitted L0S1** (`e2-3d-L0S1.json`).
+    Step-4 results are reported under both.
+  - **Provisional, not validated** (review item 1): L0S1c was a diagnostic,
+    not a pre-registered candidate; its restart did not converge; no
+    external E2 validation has been run (candidate: Mailleux 2005, held
+    unread; to be frozen before any claim beyond "provisional").
+  - **E2's remaining failures stay documented** (L0S1c unless noted):
+    within-2009 contrasts (drop-1 time TL1 − nTL1 z −4.2, drop-1 volume
+    −2.1, drop-2 time +3.2, drop-2 volume +3.8); the 2000 laying series
+    flattened (30 / 38 / 55 / 91 % vs 14 / 17 / 70 / 91); giving-up times
+    too long (0.7 µL non-layers 209 vs 63 s); σ_m 0.34 above the 0.1–0.3
+    bracket; almost no between-ant variation in desired volume (`desiredSd`
+    0.048); six-pipette visits z 8.2; drinking-time spread and the other
+    spread checks not part of adequacy; L0S1 alternative: drop-2 intake
+    and time z 4.7 / 4.4, 3 µL whole-bout intake 0.67 vs 0.9 µL.
+  - **Implementation:** `lasiusM1.ts` keeps the parameters used so far
+    (defaults + `e2-drinking.json`) as an exported legacy layer, which
+    every script that rebuilds step-3 or older fits uses (so they stay
+    reproducible), applies L0S1c on top for `LASIUS_PARAMS` and
+    `MAILLEUX_SETUP` (with the 2009 scale), and exports L0S1 as the
+    alternative. New structural parameters get provenance (searchMode,
+    layRule and the fast-uptake terms).

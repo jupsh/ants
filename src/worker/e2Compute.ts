@@ -51,7 +51,7 @@ export function computeE2Trips(seed: number, showCondition: string): E2Trip[] {
     let last = -1;
     const { world } = runScoutWorld(
       LASIUS_PARAMS,
-      { seed: seed + 777 + k, drop1: { ul: two ? 0.7 : 3, molar: 0.6 }, drop2: two ? { ul: 0.7, molar: 0.6 } : undefined, pipetteAccessible: MAILLEUX_PIPETTE_ACCESSIBLE, starvationDays: two ? 4 : Number(showCondition.slice(1)), dt: 0.05, maxTime: 600 },
+      { seed: seed + 777 + k, drop1: { ul: two ? 0.7 : 3, molar: 0.6 }, drop2: two ? { ul: 0.7, molar: 0.6 } : undefined, pipetteAccessible: MAILLEUX_PIPETTE_ACCESSIBLE, desiredScale: two ? MAILLEUX_SETUP.desiredScale2009 : undefined, starvationDays: two ? 4 : Number(showCondition.slice(1)), dt: 0.05, maxTime: 600 },
       (w) => {
         if (w.time - last < 0.2) return;
         last = w.time;

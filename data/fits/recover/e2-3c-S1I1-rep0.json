@@ -1,0 +1,102 @@
+{
+  "experiment": "E2 step 3c: search around food (Mailleux et al. 1999, 2009)",
+  "variant": "S1I1",
+  "label": "S1I1",
+  "description": "S1 plus a fast initial uptake of v0 µL per bout at 0.05 µL/s.",
+  "fittedOn": [
+    "d1.drink",
+    "d1.trail",
+    "d4.drink",
+    "d4.trail",
+    "d8.drink",
+    "d8.trail",
+    "two.ul1",
+    "two.t1",
+    "two.tl1",
+    "two.ul2",
+    "two.t2",
+    "two.betweenTL1",
+    "two.betweenNTL1",
+    "two.vtRs1",
+    "two.vtRs2"
+  ],
+  "dt": 0.1,
+  "scoutsPerCondition": 150,
+  "optimizer": {
+    "method": "CMA-ES",
+    "starts": 2,
+    "restarts": 1,
+    "maxGenerations": 300,
+    "tolX": 0.03,
+    "averageLast": 50
+  },
+  "evals": 12807,
+  "seconds": 2197.81,
+  "selectionLoss": 17.00027549343806,
+  "runs": [
+    18.173690789128823,
+    19.632983130430194,
+    17.00027549343806
+  ],
+  "k": 11,
+  "free": {
+    "forager.desiredFed": 0.7572919428167249,
+    "forager.desiredHungry": 1.0071079732316315,
+    "forager.desiredSd": 0.08731450227963784,
+    "forager.stopHazard": 0.07078998131298712,
+    "forager.unsatisfiedLayProb": 0.2537053232532305,
+    "setup.accessible": 0.7433017956541639,
+    "phys.intakeSd": 0.3088227778856866,
+    "setup.volumeSd": 0.25217829432896316,
+    "phys.intakeRate": 0.007147290015098584,
+    "forager.arsMean": 106.78051273024647,
+    "phys.boutFastUl": 0.21402954341795716
+  },
+  "atBound": [],
+  "forager": {
+    "desiredFed": 0.7572919428167249,
+    "desiredHungry": 1.0071079732316315,
+    "hungerScale": 0.3,
+    "desiredSd": 0.08731450227963784,
+    "stopHazard": 0.07078998131298712,
+    "stopEta": 4.3,
+    "stopPerVolume": 0,
+    "satiationOnTime": 0,
+    "nominalIntake": 0.0095,
+    "emptyPatience": 3,
+    "neverLayFraction": 0.12,
+    "unsatisfiedLayProb": 0.2537053232532305,
+    "layIntensity": 0.13,
+    "layIntensitySd": 0.08,
+    "gasterBout": 0.25,
+    "arsMean": 106.78051273024647,
+    "arsRunScale": 0.4,
+    "homeGain": 1,
+    "homeRunScale": 3,
+    "compassBias": 0.08,
+    "loadSlowdown": 0,
+    "arsMeanLay": 80,
+    "searchMode": 1
+  },
+  "phys": {
+    "intakeRate": 0.007147290015098584,
+    "intakeSd": 0.3088227778856866,
+    "metabolic": 0.0012,
+    "activeFactor": 3,
+    "cropAbsorption": 0,
+    "permeability": 20,
+    "surfaceArea": 16,
+    "depositPerMm": 1,
+    "compassNoise": 0.0005,
+    "boutFastUl": 0.21402954341795716,
+    "boutFastRate": 0.05
+  },
+  "pipetteAccessible": 0.7433017956541639,
+  "observer": {
+    "volumeSd": 0.25217829432896316
+  },
+  "recovery": {
+    "truth": "data/fits/e2-3c-S1I1.json",
+    "rep": 0
+  }
+}

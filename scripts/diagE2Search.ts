@@ -37,7 +37,7 @@ for (let i = 0; i < N; i++) {
   let minX = Infinity;
   const { result: r, world } = runScoutWorld(
     LASIUS_PARAMS,
-    { seed: 8_000_000 + i, drop1: { ul: 0.7, molar: 0.6 }, drop2: { ul: 0.7, molar: 0.6 }, pipetteAccessible: MAILLEUX_SETUP.accessible, volumeSd: MAILLEUX_SETUP.volumeSd, starvationDays: 4, dt: 0.1, maxTime: 900 },
+    { seed: 8_000_000 + i, drop1: { ul: 0.7, molar: 0.6 }, drop2: { ul: 0.7, molar: 0.6 }, pipetteAccessible: MAILLEUX_SETUP.accessible, volumeSd: MAILLEUX_SETUP.volumeSd, desiredScale: MAILLEUX_SETUP.desiredScale2009, starvationDays: 4, dt: 0.1, maxTime: 900 },
     (w) => {
       const a = w.ants[0];
       const mode = a.mind.mode;

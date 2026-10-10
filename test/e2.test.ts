@@ -46,8 +46,8 @@ describe('E2 observation', () => {
 
 describe('E2 decision rules', () => {
   // A drop that runs out: the ant is past its patience at an empty drop.
-  const atEmptyDrop = (ingested: number) => {
-    const p = { ...P.forager, stopHazard: 0 }; // isolate the exhaustion branch from the leaving hazard
+  const atEmptyDrop = (ingested: number, extra: Partial<typeof P.forager> = {}) => {
+    const p = { ...P.forager, stopHazard: 0, ...extra }; // isolate the exhaustion branch from the leaving hazard
     const rng = new RNG(1);
     const m = newMind({ desiredVolumeFactor: 1, neverLays: false, layIntensity: 0.13 }, P.walk, rng);
     setMode(m, 'drink');
@@ -64,6 +64,14 @@ describe('E2 decision rules', () => {
     expect(m.satisfied).toBe(true);
     expect(m.laying).toBe(true);
     expect(m.mode).toBe('return');
+  });
+  it('graded laying rule (L1): an unsatisfied ant lays if it came close to its desired volume, not if far below', () => {
+    const graded = { layRule: 1, layKappa: 50, layRatio50: 0.7, unsatisfiedLayProb: 0.5, searchMode: 1 };
+    const near = atEmptyDrop(0.75, graded); // ratio 0.94
+    expect(near.satisfied).toBe(false);
+    expect(near.laying).toBe(true);
+    expect(near.mode).toBe('search');
+    expect(atEmptyDrop(0.2, graded).laying).toBe(false); // ratio 0.25
   });
   it('an ant below its desired volume at an exhausted drop leaves unsatisfied and searches', () => {
     const m = atEmptyDrop(0.5);

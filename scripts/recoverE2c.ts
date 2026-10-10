@@ -23,7 +23,7 @@
  */
 import { binomialSE, fitZ } from '../src/sim/analysis/compare';
 import { simulateE2Async, E2_TARGETS, type E2Sim, type Target } from '../src/sim/experiments/e2Targets';
-import { freeValues, E2_VARIANTS_3C } from '../src/sim/experiments/e2Variants';
+import { freeValues, variant3 } from '../src/sim/experiments/e2Variants';
 import { modelOf } from './e2Synthetic';
 import { arg, numArg, readJson } from './lib';
 import { SimPool } from './pool';
@@ -64,7 +64,7 @@ console.log(`${arg('--fit', '')}: variant ${fit.variant}, truth ${fit.recovery.t
 console.log('  prediction excess over the truth per fit row (z², reference SEs at the real n):');
 for (const r of ex) console.log(`    ${r.id.padEnd(16)} ${Number.isFinite(r.v) ? r.v.toFixed(2).padStart(7) : 'unjudgeable (row not estimable)'}`);
 console.log(`  mean ${mean.toFixed(2)}, worst ${worst.id} ${Number.isFinite(worst.v) ? worst.v.toFixed(2) : '∞'} → ${verdict}  [recovered: mean ≤ 0.25 and no row > 1; failed: mean > 1 or a row > 4]`);
-const variant = E2_VARIANTS_3C.find((v) => v.id === fit.variant)!;
+const variant = variant3(fit.variant)!;
 const a = freeValues(variant, truth);
 const b = freeValues(variant, rec);
 console.log('  free parameters (true → recovered):');

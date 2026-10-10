@@ -13,7 +13,7 @@
 import fs from 'node:fs';
 import { e2Compare, e2Table, simulateE2Async } from '../src/sim/experiments/e2Targets';
 import { E2_VARIANTS } from '../src/sim/experiments/e2Variants';
-import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
+import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
 import { numArg, readJson } from './lib';
 import { SimPool } from './pool';
 
@@ -25,7 +25,7 @@ for (const v of E2_VARIANTS) {
   const file = `data/fits/e2-${v.id}.json`;
   if (!fs.existsSync(file)) continue;
   const fit = readJson<any>(file);
-  const P = { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER, ...fit.forager }, phys: { ...LASIUS_PHYS, ...fit.phys }, morph: LASIUS_MORPH };
+  const P = { walk: LASIUS_WALK, forager: { ...E2_LEGACY_FORAGER, ...fit.forager }, phys: { ...E2_LEGACY_PHYS, ...fit.phys }, morph: LASIUS_MORPH };
   const rows = e2Compare(await simulateE2Async(P, 150, { accessible: fit.pipetteAccessible, volumeSd: fit.observer.volumeSd }, 0.1, 8_000_000, BLOCKS, pool.scouts.bind(pool)));
   const sum = (f: (r: (typeof rows)[0]) => number | undefined) => rows.reduce((s, r) => s + (f(r) ?? 0), 0);
   const fitLoss = sum((r) => (r.target.role === 'fit' ? r.mean.z ** 2 : 0));

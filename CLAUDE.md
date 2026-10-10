@@ -64,8 +64,12 @@ when a step starts or finishes, and log decisions there before acting on them.
   mind and interoception — enforced by `test/architecture.test.ts`.
 - **Parameters** carry provenance (`src/sim/core/param.ts`: measured / fitted
   / derived / estimated). Fit files are applied with `applyFit`, so records
-  show the value actually used. `data/fits/e2-drinking.json` is the adopted E2
-  fit; `e2-<variant>.json` are step-3 candidates.
+  show the value actually used. The provisional E2 model is
+  `data/fits/e2-3d-L0S1c.json` (baseline desired volumes; its 2009 cohort
+  scale only in `MAILLEUX_SETUP`), with `e2-3d-L0S1.json` as the
+  alternative (`LASIUS_PARAMS_E2_ALT`). `e2-drinking.json` is the legacy
+  layer under every step-3 fit: scripts that rebuild those fits use
+  `E2_LEGACY_FORAGER` / `E2_LEGACY_PHYS`, not `LASIUS_FORAGER` / `LASIUS_PHYS`.
 - **Missing statistics when judging:** eligible = estimable from the reference
   data; a candidate missing one is unjudgeable and cannot win or pass
   (`compareE1(...).missing`, `judgedSumZ2`), never given a smaller sum. The
@@ -119,3 +123,9 @@ when a step starts or finishes, and log decisions there before acting on them.
   bytes before decompressing.
 - Animation clocks must persist across frames (advance by real dt × speed).
 - The STATUS page imports `docs/STATUS.md?raw`; keep it plain Markdown.
+- **Blind checks while a frozen reading is pending:** status checks leak
+  results (a log's last line, a fit's loss, a file listing with sizes). When
+  a pre-registration is still being written or amended, check only that
+  outputs don't exist yet (e.g. `ls logs | grep -c judgeC`), never `tail` a
+  log or open a fit file. If something is seen anyway, say exactly what in
+  the reply and in the STATUS entry.

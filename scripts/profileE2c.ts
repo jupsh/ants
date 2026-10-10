@@ -5,10 +5,11 @@
  * pinned and every other free parameter is re-fitted (short CMA-ES warm-
  * started at the fit, the same seed sequence at every grid value), then
  * scored on SCORE_BATCHES common batches (the mean is the profile loss).
- * Loss is Σz² ≈ −2 log L, so the values within 3.84 of the minimum form an
- * approximate 95 % profile interval; a profile within 3.84 of the minimum at
- * both ends of the grid is reported as "not identified", not read as an
- * estimate. Monte Carlo resolution (review 2026-10-09): each Δ against the
+ * A sensitivity diagnostic, not a confidence interval (review 2026-10-09):
+ * the loss is a diagonal Σz² over correlated summaries, not a calibrated
+ * −2 log L, so Δ = 3.84 is a reference line only and the region below it is
+ * not a 95 % interval (calibrating it needs a parametric bootstrap). A
+ * profile below 3.84 at both ends of the grid is reported as flat. Monte Carlo resolution (review 2026-10-09): each Δ against the
  * minimum carries a paired SE from the batch-to-batch spread of the
  * difference, and a Δ within 2 SE of 3.84 is flagged "borderline" rather
  * than decided by noise. Writes nothing.
@@ -17,8 +18,8 @@
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
 import { e2Loss, simulateE2Async, E2_TARGETS } from '../src/sim/experiments/e2Targets';
-import { encode, decode, get, set, E2_VARIANTS_3C, type E2Model } from '../src/sim/experiments/e2Variants';
-import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
+import { encode, decode, get, set, variant3, type E2Model } from '../src/sim/experiments/e2Variants';
+import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
 import { arg, numArg, readJson } from './lib';
 import { SimPool } from './pool';
 
@@ -26,18 +27,18 @@ const fit = readJson<any>(arg('--fit', ''));
 const KEY = arg('--param', 'setup.volumeSd');
 const DEFAULT_GRID: Record<string, string> = { 'setup.volumeSd': '0,0.1,0.2,0.3,0.4,0.5', 'phys.intakeSd': '0,0.2,0.4,0.6,0.8,1' };
 const GRID = arg('--grid', DEFAULT_GRID[KEY] ?? '').split(',').map(Number);
-const GENS = numArg('--gens', 60);
+const GENS = numArg('--gens', 200);
 const N = 150;
 const DT = 0.1;
 // Seeds 3.5e9–3.9e9: disjoint from the fits (< 3.1e9), selection (4.0e9) and synthetic data (4.1e9).
 const SEED = 3_500_000_000;
 const SCORE_SEED = 3_900_000_000;
 const SCORE_BATCHES = 3;
-const variant = E2_VARIANTS_3C.find((v) => v.id === fit.variant);
+const variant = variant3(fit.variant);
 if (!variant || !variant.free.some((f) => f.key === KEY)) throw new Error(`--fit must be a step-3c fit and --param one of its free parameters`);
 const reduced = { ...variant, free: variant.free.filter((f) => f.key !== KEY) };
 const best: E2Model = {
-  P: { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER, ...fit.forager }, phys: { ...LASIUS_PHYS, ...fit.phys }, morph: LASIUS_MORPH },
+  P: { walk: LASIUS_WALK, forager: { ...E2_LEGACY_FORAGER, ...fit.forager }, phys: { ...E2_LEGACY_PHYS, ...fit.phys }, morph: LASIUS_MORPH },
   setup: { accessible: fit.pipetteAccessible, volumeSd: fit.observer.volumeSd },
 };
 const fitRows = E2_TARGETS.filter((t) => t.role === 'fit');
@@ -87,5 +88,5 @@ for (const r of rows) {
 }
 const inside = rows.filter((r) => r.loss - min <= 3.84);
 const flat = rows.length > 1 && rows[0].loss - min <= 3.84 && rows[rows.length - 1].loss - min <= 3.84;
-console.log(flat ? `→ NOT IDENTIFIED on [${GRID[0]}, ${GRID[GRID.length - 1]}]` : inside.length ? `→ approx. 95 % profile interval [${inside[0].v}, ${inside[inside.length - 1].v}] (grid resolution)` : '→ every grid value worse than the fit by > 3.84');
+console.log(flat ? `→ FLAT (Δ ≤ 3.84 at both ends of [${GRID[0]}, ${GRID[GRID.length - 1]}]; diagnostic)` : inside.length ? `→ Δ ≤ 3.84 region (diagnostic, not a 95 % interval) [${inside[0].v}, ${inside[inside.length - 1].v}] (grid resolution)` : '→ every grid value worse than the fit by > 3.84');
 pool.close();

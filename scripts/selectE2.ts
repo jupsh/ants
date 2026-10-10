@@ -60,12 +60,32 @@ for (const id of IDS) {
   const mean = batch.reduce((a, v) => a + v, 0) / BATCHES;
   cands.push({ id, k: fit.k, batch, missing, P: mean + 2 * fit.k });
 
-  // Adequacy and reports on all five batches pooled (1500 scouts per condition).
-  const pooled = await simulateE2Async(P, N * BATCHES, setup, 0.1, SEED + 50_000_000, 1, run);
+  // Adequacy and reports on all five batches pooled (1500 scouts per condition), as BATCHES blocks so
+  // SE_sim (and so the combined z) is estimable; the same scouts as one block of N · BATCHES.
+  const pooled = await simulateE2Async(P, N, setup, 0.1, SEED + 50_000_000, BATCHES, run);
   const rows = e2Compare(pooled);
   const fz = rows.filter((r) => r.target.role === 'fit').map((r) => r.mean.z);
   const off = fz.filter((z) => !Number.isFinite(z) || Math.abs(z) > 3).length;
   const marg = fz.filter((z) => Math.abs(z) > 2 && Math.abs(z) <= 3).length;
+  // Between-study variance (STATUS 2026-10-09; judging only, the frozen adequacy above uses none): a study SD
+  // τ added to each row's variance, on the logit scale for proportions and the log scale for means (τ_abs from
+  // the delta method at the data value). Reference scenarios, and per failing row the smallest τ that passes it.
+  // A real study effect is shared by all rows of a study, so per-row slack is an upper bound.
+  const TAU: [string, number, number][] = [['none', 0, 0], ['point', 0.32, 0], ['generous', 0.67, 0.15]];
+  const tauRows = rows.filter((r) => r.target.unit !== 'atanh r' && Number.isFinite(r.mean.z));
+  const scale = (r: (typeof rows)[number]) => (r.target.unit === '' ? r.target.value * (1 - r.target.value) : Math.abs(r.target.value));
+  const zAt = (r: (typeof rows)[number], tl: number, tm: number) => {
+    const ta = (r.target.unit === '' ? tl : tm) * scale(r);
+    return (r.mean.sim - r.mean.data) / Math.sqrt(r.mean.seData ** 2 + r.mean.seSim ** 2 + ta ** 2);
+  };
+  const tauNeeded = (r: (typeof rows)[number], c: number) => {
+    const v = (r.mean.sim - r.mean.data) ** 2 / (c * c) - r.mean.seData ** 2 - r.mean.seSim ** 2;
+    return v <= 0 ? 0 : Math.sqrt(v) / scale(r);
+  };
+  const cls = (r: (typeof rows)[number]) => (Math.abs(zAt(r, 0.67, 0.15)) > 3 ? 'ROBUST FAIL' : Math.abs(r.mean.z) <= 3 ? 'pass' : 'depends on τ');
+  console.log(`  between-study variance (rows with |z| > 2 at τ 0; z at none / point (logit 0.32, log 0) / generous (logit 0.67, log 0.15); τ needed for |z| ≤ 3 and ≤ 2; scale logit for %, log for means):`);
+  for (const r of tauRows.filter((r) => Math.abs(r.mean.z) > 2))
+    console.log(`    ${(r.target.id + (r.target.role === 'fit' ? '' : '(dev)')).padEnd(18)} ${TAU.map(([, a, b]) => zAt(r, a, b).toFixed(1)).join(' / ').padEnd(16)} τ ≤3: ${tauNeeded(r, 3).toFixed(2)}, ≤2: ${tauNeeded(r, 2).toFixed(2)}  → ${cls(r)}`);
   // The two-drop condition again, scout by scout, for the groups.
   const two = E2_CONDITIONS.find((c) => c.id === 'two')!;
   const rs = ((await run(P, two.options(N * BATCHES, SEED + 60_000_000, setup, 0.1))) as ScoutResult[]).filter((r) => r.drinks.length);
@@ -113,6 +133,31 @@ for (const id of IDS) {
     return `${gm.toFixed(0)} ± ${gsd.toFixed(0)} s, median ${gmed?.toFixed(0)} (${gt.length} of ${rs.length} crossed mid-bridge)`;
   };
   console.log(`  search time (development): fitted ${means} [2003 model parameter Pl = 1/85 s]; giving-up time at one 0.3 µL drop, 4 d: all scouts ${giveUp(gu)}, ${((100 * gu.filter((r) => r.laidTrail).length) / Math.max(1, gu.length)).toFixed(0)} % laid; non-layers ${giveUp(gu.filter((r) => !r.laidTrail))} [Mailleux 2000, 0.3 µL, 4 d: all 113 ± 129 s (n 26), non-layers 128 ± 135 s (n 22), layers 28 ± 12 s (n 4), 14 % laid; 2006 4 d: 86 ± 68 s, n 23, 17 % laid; Pl = 1/85 s is the 2003 model parameter]`);
+  // Mailleux 2000 single-drop series, 4 d (development; STATUS 2026-10-09 step 3d): trail %, giving-up time
+  // of layers and non-layers, and the volume estimate (the model's observed volume, as the data's).
+  const S2000: [number, number, number, string, string, string][] = [
+    // drop µL, trail fraction, n, giving-up layers, non-layers, ingested µL
+    [0.3, 0.14, 42, '28 ± 12 (4)', '128 ± 135 (22)', '0.2 ± 0.1'],
+    [0.7, 0.17, 29, '24 ± 13 (3)', '63 ± 35 (12)', '0.5 ± 0.2'],
+    [1, 0.7, 60, '31 ± 34 (27)', '74 ± 94 (12)', '0.7 ± 0.3'],
+    [3, 0.91, 112, '27 ± 30 (89)', '38 ± 20 (6)', '0.9 ± 0.4'],
+  ];
+  const msd = (xs: number[], d: number) => {
+    const m = xs.reduce((a, v) => a + v, 0) / Math.max(1, xs.length);
+    return `${m.toFixed(d)} ± ${Math.sqrt(xs.reduce((a, v) => a + (v - m) ** 2, 0) / Math.max(1, xs.length - 1)).toFixed(d)}`;
+  };
+  console.log('  Mailleux 2000 single drop, 4 d (development, reported only): model [data]');
+  for (const [k, [ul, tr, n, guL, guN, vol]] of S2000.entries()) {
+    const opts = Array.from({ length: N }, (_, i) => ({ seed: SEED + 90_000_000 + 100_000 * k + i, drop1: { ul, molar: 0.6 }, pipetteAccessible: setup.accessible, volumeSd: setup.volumeSd, starvationDays: 4, dt: 0.1, maxTime: 900 }));
+    const rs = ((await run(P, opts)) as ScoutResult[]).filter((r) => r.drinks.length);
+    const p = rs.filter((r) => r.laidTrail).length / Math.max(1, rs.length);
+    const gt = (xs: ScoutResult[]) => xs.map((r) => r.givingUpTime).filter(Number.isFinite);
+    console.log(
+      `    ${String(ul).padEnd(3)} µL: trail ${(100 * p).toFixed(0)} % [${(100 * tr).toFixed(0)} %, n ${n}] z ${((p - tr) / Math.sqrt((tr * (1 - tr)) / n)).toFixed(1)} (τ logit for |z| ≤ 3: ${(Math.sqrt(Math.max(0, (p - tr) ** 2 / 9 - (tr * (1 - tr)) / n)) / (tr * (1 - tr))).toFixed(2)}); ` +
+        `giving-up layers ${msd(gt(rs.filter((r) => r.laidTrail)), 0)} s [${guL}], non-layers ${msd(gt(rs.filter((r) => !r.laidTrail)), 0)} s [${guN}]; ` +
+        `volume ${msd(rs.map((r) => r.drinks.reduce((a, d) => a + d.ul, 0)), 2)} µL [${vol}]`,
+    );
+  }
   for (const days of [4]) {
     const six = e2Compare(await simulateE2Async(P, N, setup, 0.1, SEED + 70_000_000, 5, run, [sixPipetteCondition(days)]), SIX_TARGETS);
     console.log(`  2003 six pipettes, ${days} d (development check, not independent): ${six.map((r) => `${r.target.id} ${r.mean.z.toFixed(1)}`).join(', ')}`);
