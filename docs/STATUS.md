@@ -4648,3 +4648,30 @@ with changes. Now in force:
   proposal: Δloss ≤ 3.84 (χ²₁, 95 %) in the fit objective's units
   (Σ debiased z², SE_data), evaluated on one common large batch, so
   Monte Carlo noise in Δloss stays well below 1.
+
+**2026-10-10 night — profile cut-off FROZEN (user decision), with a disclosure.**
+- **Disclosure:** while the cut-off was still open, the pilot log was read
+  once, at launch: the generation-0 line (best loss ≈ 312 217, median
+  ≈ 334 663, at the start points), plus later the log's line count (3) and
+  modification time, nothing else. Judged uninformative about the cut-off
+  (a first-generation loss at far start points). No further pilot output
+  was opened before this entry was committed.
+- **Cut-off for the flat-direction profiles (amendment 2), frozen:**
+  Δloss ≤ **3.84 × max(1, L_min / 8)**, where 8 = 15 rows − 7 parameters,
+  and L_min is the χ² part of the loss at the optimum on the common batch.
+  - Δloss and L_min use the **χ² part only**: Σ debiased z² over the 15
+    rows, SE_data. The no-bout penalty is excluded.
+  - **Hard requirement:** a profile point must also meet the no-bout bound
+    (`M1999_NO_BOUT_MAX` per day), as the adequacy rule does.
+  - **Batch:** one common large batch for every profile point and the
+    optimum. Bootstrap the SE of Δloss (over nests / recruiters) on that
+    batch; it must be ≤ 0.5, else the batch is enlarged before profiling.
+  - Reason for the scaling: rows share recruiters within a day (correlated)
+    and k = 7 may fit poorly, so a fixed χ²₁ cut would make the ensemble
+    too narrow when uncertainty is largest. A fixed formula avoids choosing
+    the cut-off after seeing the fit.
+- **Rule from now on:** the pilot log is read only after this commit.
+- **Late-signal test (before the gate at the pilot optimum): not yet
+  started.** It covers contacts and contactsBefore as well as timeInNest
+  (the gap diagnostic rejected flicker splitting at both start points, so
+  one cause, late bout signals lengthening stays, may drive both).
