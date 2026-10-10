@@ -3022,3 +3022,29 @@ See [`CLAUDE.md`](../CLAUDE.md).
   - The adopted fit (`e2-drinking.json`, f = 1 era) now runs with the
     factor in pages and reports: its numbers in this file predate it.
   - Tests pass (61). Step-3c fits restart from scratch on this commit.
+- **2026-10-09** **Step-3c fits finished (rented box) and selection run; adequacy bug; profile diagnostic.**
+  - Fits run on a rented 92-thread EPYC 9654 VM (vast.ai) at 28aaf5e,
+    all five concurrently (18 workers each, ≈ 30 min). Bit-identity
+    checked: the box's S0I0 log equals the local run's first 49 lines. The
+    local loop was stopped (its own pids only).
+  - `selectE2.ts` (frozen rule): **S1I1 selected** (P̄ 82.7; S2I1 92.9,
+    Δ 10.2 ± 5.6 paired SE, more complex; S1I0 163.0, S2I0 179.7, S0I0
+    217.7). Follow-ups for S1I1 launched automatically: recovery fit,
+    σ_m / σ_r profiles, fast-rate refits at 0.013 / 0.02 / 0.1 µL/s
+    (`fitE2c.ts --fastRate`, aa57a54). The recovery fit's own progress log
+    was lost (launcher bug, two-step job); its JSON and scoring are
+    unaffected.
+  - **Bug (judging only):** the adequacy step simulated its pooled 1500
+    scouts as one block, so SE_sim and every combined z were NaN and every
+    candidate read "15 rows |z| > 3, not adequate". Fix: 5 blocks of 300
+    (the same scouts and seeds); the selection rule and its numbers are
+    untouched. Rerun with the fix before reading adequacy.
+  - **σ_m profile not usable as run:** every grid value (0–0.5, refits of
+    60 generations warm-started at the fit) is ≥ 10 worse than the fit
+    itself (57.8), including 0.1 and 0.2 around the fitted 0.136; the
+    curve's minimum is ≈ 0.3 at Δ 10. That points to refits that do not
+    reach the fit, not to a sharp optimum. Diagnostic (not a change to the
+    frozen profile): the same profile with the fitted value on the grid and
+    longer refits (`--grid 0.05,0.1,0.136,0.2,0.3 --gens 200`); if the
+    refit at 0.136 is also ≈ +10, the profile procedure is at fault. σ_r
+    profile: interval [0, 0.2] (fitted 0.122), as designed.

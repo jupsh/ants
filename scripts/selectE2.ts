@@ -60,8 +60,9 @@ for (const id of IDS) {
   const mean = batch.reduce((a, v) => a + v, 0) / BATCHES;
   cands.push({ id, k: fit.k, batch, missing, P: mean + 2 * fit.k });
 
-  // Adequacy and reports on all five batches pooled (1500 scouts per condition).
-  const pooled = await simulateE2Async(P, N * BATCHES, setup, 0.1, SEED + 50_000_000, 1, run);
+  // Adequacy and reports on all five batches pooled (1500 scouts per condition), as BATCHES blocks so
+  // SE_sim (and so the combined z) is estimable; the same scouts as one block of N · BATCHES.
+  const pooled = await simulateE2Async(P, N, setup, 0.1, SEED + 50_000_000, BATCHES, run);
   const rows = e2Compare(pooled);
   const fz = rows.filter((r) => r.target.role === 'fit').map((r) => r.mean.z);
   const off = fz.filter((z) => !Number.isFinite(z) || Math.abs(z) > 3).length;
