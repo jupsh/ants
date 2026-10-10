@@ -1,10 +1,10 @@
 import { Body } from '../agent/body';
 import type { ContactInterval } from '../analysis/trophallaxis';
 import { lasiusForager, drawTraits, startTrip, type ForagerAction, type ForagerParams } from '../behavior/lasiusForager';
-import { drawNestTraits, lasiusNestWorker, type NestAction, type NestParams } from '../behavior/lasiusNestWorker';
+import { drawNestTraits, enterNest, lasiusNestWorker, type NestAction, type NestParams } from '../behavior/lasiusNestWorker';
 import { deepClone } from '../core/clone';
 import { RNG } from '../core/rng';
-import { newMind, setMode } from '../mind/mind';
+import { newMind, newTrip } from '../mind/mind';
 import { walkStep, type WalkParams } from '../models/walk';
 import { interocept, perceive } from '../perception/perceive';
 import type { SurfacePercept } from '../perception/types';
@@ -165,6 +165,7 @@ export class ColonySim {
   private readonly motor: MotorFn;
   private readonly reserveMax: number;
   private readonly reserveFrac: number;
+  private readonly deficit: number;
   private readonly entrance: [number, number];
   private readonly feeder: [number, number];
 
@@ -194,7 +195,8 @@ export class ColonySim {
     this.foragerP = { ...P.forager, exploreGiveUp: o.exploreGiveUp ?? 300 };
     const m = P.morph;
     this.reserveMax = P.phys.metabolic * Math.pow(m.mass, 0.75) * 24 * m.reserveDays;
-    this.reserveFrac = Math.max(0.02, 1 - (o.starvationDays ?? 4) / m.reserveDays);
+    this.deficit = (o.starvationDays ?? 4) / m.reserveDays;
+    this.reserveFrac = Math.max(0.02, 1 - this.deficit);
     const nestRegion = app.regions.find((r) => r.kind === 'nest')!;
     for (let i = 0; i < this.n; i++) {
       // Start positions, headings and the initial rest/active state from their own streams.
@@ -211,7 +213,11 @@ export class ColonySim {
   private addAnt(i: number, x: number, y: number, heading: number, rest: boolean, seed: number): Agent {
     const { P, w } = this;
     const m = P.morph;
-    const body = new Body(i, seed, { len: m.len, mass: m.mass, cropCapacity: m.cropCapacity, antennaReach: m.antennaReach }, this.reserveFrac, this.reserveMax);
+    // Nestmates differ in reserve (STATUS 2026-10-10): deficit × a lognormal factor (mean 1) from their own stream; the
+    // recruiter (index n) keeps the scout's reserve.
+    const sd = P.nest.reserveSd;
+    const frac = i < this.n ? Math.max(0.02, 1 - this.deficit * Math.exp(RNG.stream(seed, 0x5e5e, i).normal(0, sd) - (sd * sd) / 2)) : this.reserveFrac;
+    const body = new Body(i, seed, { len: m.len, mass: m.mass, cropCapacity: m.cropCapacity, antennaReach: m.antennaReach, cropFullFrac: m.cropFullFrac }, frac, this.reserveMax);
     w.ledger.move('sugar', 'external', 'reserve', body.reserve);
     w.ledger.move('water', 'external', 'reserve', body.water);
     body.x = x;
@@ -225,7 +231,7 @@ export class ColonySim {
     // In the nest the ant knows where it is relative to the entrance (path-integration origin).
     mind.pi.x = body.x - this.entrance[0];
     mind.pi.y = body.y - this.entrance[1];
-    setMode(mind, rest ? 'rest' : 'active');
+    enterNest(mind, rest);
     const agent: Agent = { body, mind, inactive: false };
     w.ants.push(agent);
     this.outside.push(false);
@@ -263,7 +269,8 @@ export class ColonySim {
       a.body.cropWater = rec.cropWater;
       w.ledger.move('sugar', 'external', 'crop', rec.cropSugar);
       w.ledger.move('water', 'external', 'crop', rec.cropWater);
-      a.mind.ingested = rec.ingested;
+      // Initial condition: it arrives from a trip on which it fed (its trip record; read by the return rule).
+      a.mind.trip = { ...newTrip(), ingested: rec.ingested };
       this.recruiterIn = true;
     }
     const frameEvery = this.o.frameEvery ?? 0;
@@ -283,6 +290,11 @@ export class ColonySim {
     const walked = new Array<number>(w.ants.length).fill(0);
     w.ants.forEach((a, i) => {
       const act = acts[i];
+      // The offering and sharing signals nestmates sense next step (STATUS 2026-10-10); foragers show neither.
+      const na0 = act && !outside[i] ? (act as NestAction) : null;
+      a.body.offering = !!na0 && na0.offer;
+      a.body.soliciting = !!na0 && na0.solicit;
+      a.body.sharingWith = !na0 ? -1 : na0.give >= 0 ? na0.give : na0.receive;
       if (!act) return;
       if (outside[i]) {
         const before = a.body.cropUl;
@@ -333,18 +345,15 @@ export class ColonySim {
         if ((act as ForagerAction).enterNest) {
           outside[i] = false;
           a.inactive = false;
-          a.mind.partner = -1;
-          setMode(a.mind, 'active');
+          enterNest(a.mind);
         }
         return;
       }
       metabolise(w, a.body, P.phys, walked[i] > 0, dt);
       if ((act as NestAction).leaveNest) {
         outside[i] = true;
-        startTrip(a.mind, this.foragerP, interocept(a.body), a.body.rng);
-        // startTrip zeroes the path integrator: the ant is at the entrance.
-        a.mind.pi.x = a.body.x - this.entrance[0];
-        a.mind.pi.y = a.body.y - this.entrance[1];
+        // The trip starts here, at the entrance: the path integrator from the ant's position relative to it.
+        startTrip(a.mind, this.foragerP, interocept(a.body), a.body.rng, { x: a.body.x - this.entrance[0], y: a.body.y - this.entrance[1] });
       }
     });
     return !!onStep?.(w, { t, per, outside });
@@ -384,7 +393,7 @@ function frame(w: World, t: number, bounds: { x0: number; y0: number; x1: number
     f.heading[i] = a.body.heading;
     f.crop[i] = a.body.cropUl;
     f.mode[i] = a.body.alive ? (MODE_CODE[a.mind.mode] ?? 1) : 255;
-    f.partner[i] = a.mind.mode === 'give' || a.mind.mode === 'receive' ? a.mind.partner : -1;
+    f.partner[i] = a.mind.stay.bout?.partner ?? -1;
   });
   return f;
 }

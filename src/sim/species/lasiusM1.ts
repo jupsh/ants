@@ -112,6 +112,7 @@ export const LASIUS_MORPH_DEF = {
   mass: derived(2.0, 'mg', 'bles2022', 'A 0.1 mg tag was "< 5 % of the average mass of an adult worker" ⇒ ≥ 2 mg (weak constraint).', { uncertainty: { range: [1.2, 2.5] } }),
   cropCapacity: derived(2.0, 'µL', ['mailleux2000', 'bles2022'], '3 and 6 µL drops exceed the crop (Mailleux 2000); workers carry > 1 mg (Bles 2022).', { uncertainty: { range: [1.2, 3] } }),
   antennaReach: estimated(2.6, 'mm', 'Antenna tips ≈ 0.6 body lengths from the body centre.'),
+  cropFullFrac: estimated(0.98, '', 'Crop fill sensed as full: a drinking ant leaves, a nestmate no longer accepts food. Placeholder (was hard-coded in both policies; STATUS 2026-10-10).'),
   reserveDays: estimated(14, 'd', 'Days a fed worker survives without food at 22 °C; maps starvation duration to reserve level.'),
 };
 
@@ -198,9 +199,11 @@ export const LASIUS_NEST_DEF = {
   stallTime: estimated(3, 's', `${PROVISIONAL} A bout ends after this long without flow.`),
   shareRate: estimated(2 / 120, 'µL/s', `${PROVISIONAL} Crop capacity per 120 s (Bles et al. TEC: 1 unit = 1 s of transfer, mean load 120 units).`),
   leaveRate: estimated(1 / 300, '1/s', `${PROVISIONAL} Rate at which a hungry ant with an empty crop leaves to forage.`),
+  leaveCropFrac: estimated(0.05, '', `${PROVISIONAL} Crop fill below which a hungry ant counts as empty and may leave to forage (was hard-coded; STATUS 2026-10-10: largely explains G3, open).`),
   forageDriveSd: estimated(1, '', `${PROVISIONAL} SD of log individual foraging propensity.`),
   leaveGain: estimated(1.5, '1/s', `${PROVISIONAL} Steering gain towards the entrance while leaving, or returning after straying out.`),
   returnRate: estimated(1 / 60, '1/s', `${PROVISIONAL} Hazard of leaving for a known source once unloaded (ants that fed on their last trip); to be calibrated on Mailleux 1999 (time in nest 80–113 s).`),
+  reserveSd: estimated(0.5, '', `${PROVISIONAL} SD of log of each nestmate's reserve-deficit factor (deficit = starvation days / reserveDays × factor, mean 1): between-ant reserve variation (STATUS 2026-10-10: identical reserves made receiveReserve a 4-level switch); to be calibrated on Mailleux 1999.`),
   nestSpeedFactor: estimated(1, '×', `${PROVISIONAL} Factor on walking speed inside the nest, on top of the context factor; to be calibrated on Mailleux 1999 (recruiters cover 5–9 cm in the 14–56 s of their stay outside trophallaxis).`),
 };
 export const LASIUS_NEST = resolve(LASIUS_NEST_DEF);

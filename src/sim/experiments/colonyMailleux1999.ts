@@ -4,6 +4,7 @@ import { blesApparatus } from '../world/apparatus';
 import type { World } from '../world/world';
 import { ColonySim, type ColonyOptions, type ColonyParams, type ColonyStepInfo } from './colonyBles';
 import { runScoutWorld } from './e2Mailleux';
+import { fromX, toX, type FreeParam } from './e2Variants';
 
 /**
  * Mailleux et al. 1999 (Actes Coll. Insectes Soc. 12:73–79; extraction in
@@ -99,7 +100,7 @@ export function recruiterLoad(P: ColonyParams, o: M1999Options): { cropUl: numbe
     const seed = RNG.stream(o.seed, 0x5c0, attempt).int(2 ** 31);
     const { result, world } = runScoutWorld(P, { seed, drop1: { ul: 3, molar: 0.6 }, pipetteAccessible: o.pipetteAccessible, starvationDays: o.starvationDays });
     const a = world.ants[0];
-    if (result.reachedNest && a.mind.ingested > 0) return { cropUl: a.body.cropUl, cropSugar: a.body.cropSugar, cropWater: a.body.cropWater, ingested: a.mind.ingested };
+    if (result.reachedNest && a.mind.trip.ingested > 0) return { cropUl: a.body.cropUl, cropSugar: a.body.cropSugar, cropWater: a.body.cropWater, ingested: a.mind.trip.ingested };
   }
   throw new Error('recruiterLoad: no scout drank and returned in 100 attempts');
 }
@@ -125,6 +126,9 @@ function colonyOptions(o: M1999Options, seed: number, n: number, enterAt: number
 function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean): M1999Recruiter {
   const r = n;
   let exitAt = NaN;
+  // End of the step at which the observation ended (absolute time, as bout ends): bouts are clipped to it, so a
+  // followed run measures the stay exactly as a run that stops there (the fit runs).
+  let stopAt = NaN;
   let dist = 0;
   let px = NaN;
   let py = NaN;
@@ -149,6 +153,7 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
     if (Number.isNaN(exitAt)) {
       if (info.outside[r] || t >= OBSERVE) {
         exitAt = Math.min(t, OBSERVE);
+        stopAt = info.t + sim.dt;
         cropAtExit = a.body.cropUl;
         if (!followNestmates) return true;
       } else {
@@ -170,7 +175,10 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
   const bouts = sim
     .result()
     .bouts.filter((b) => b.donor === r || b.receiver === r)
-    .map((b) => ({ ...b, start: b.start - enterAt, end: b.end - enterAt }));
+    // Only the stay observed (a followed run continues after the exit; fit runs stop at it): bouts that start
+    // before the exit, clipped at the stop (a bout spanning the 20-min censoring would otherwise keep growing).
+    .map((b) => ({ ...b, start: b.start - enterAt, end: Math.min(b.end, stopAt) - enterAt }))
+    .filter((b) => b.start < exitAt);
   const trophTotal = bouts.reduce((s, b) => s + (b.end - b.start), 0);
   let contactsBefore = NaN;
   if (bouts.length) {
@@ -257,10 +265,33 @@ export function m1999Compare(sim: Record<M1999Day, M1999Recruiter[]>, blocks = 1
   });
 }
 
+/**
+ * Recruiters without a main bout (STATUS 2026-10-10, user decision): their
+ * `contactsBefore` is NaN and drops out of that row, so the 15 rows alone
+ * cannot see them. Table 2a's `contactsBefore` n (27/28/28) are at least the
+ * other rows' n, consistent with every observed recruiter having a main
+ * bout; 0 of 26 has the 95 % upper bound 1 − 0.05^(1/26) ≈ 11 %. Adequacy
+ * requires each day's fraction at or below it; the fit adds the excess as a
+ * hinge in binomial-SE units at that bound.
+ */
+export const M1999_NO_BOUT_N = 26;
+export const M1999_NO_BOUT_MAX = 1 - 0.05 ** (1 / M1999_NO_BOUT_N);
+
+/** Fraction of recruiters without any trophallaxis bout (no main bout). */
+export function m1999NoBout(xs: M1999Recruiter[]): number {
+  return xs.length ? xs.filter((x) => !(x.trophTotal > 0)).length / xs.length : NaN;
+}
+
+/** Fit penalty: Σ over days of (max(0, f − bound) / SE(bound))², SE from the bound and n 26. */
+export function m1999NoBoutPenalty(sim: Record<M1999Day, M1999Recruiter[]>): number {
+  const se = Math.sqrt((M1999_NO_BOUT_MAX * (1 - M1999_NO_BOUT_MAX)) / M1999_NO_BOUT_N);
+  return M1999_DAYS.reduce((s, d) => s + (Math.max(0, m1999NoBout(sim[d]) - M1999_NO_BOUT_MAX) / se) ** 2, 0);
+}
+
 /** Penalty per fit row the simulation cannot estimate (as fitE2c's DEGENERATE: ranks such points below all that estimate every row). */
 export const M1999_DEGENERATE = 1e7;
 
-/** Σ fitZ² over the fit rows (SE_data only; the fit objective), plus M1999_DEGENERATE per inestimable row. */
+/** Σ fitZ² over the fit rows (SE_data only; the fit objective), plus M1999_DEGENERATE per inestimable row and the no-bout penalty. */
 export function m1999FitLoss(sim: Record<M1999Day, M1999Recruiter[]>, targets: M1999Target[] = M1999_TARGETS): number {
   let l = 0;
   for (const t of targets) {
@@ -272,5 +303,39 @@ export function m1999FitLoss(sim: Record<M1999Day, M1999Recruiter[]>, targets: M
     const m = v.reduce((a, b) => a + b, 0) / v.length;
     l += fitZ(m, t.mean, t.sd / Math.sqrt(t.n)) ** 2;
   }
-  return l;
+  return l + m1999NoBoutPenalty(sim);
 }
+
+/** A 1999 calibration point: colony parameters and the 1999-only nestmate density. */
+export interface M1999Model {
+  P: ColonyParams;
+  density: number;
+}
+
+type FreeM = FreeParam & { get: (m: M1999Model) => number; set: (m: M1999Model, v: number) => M1999Model };
+const nestKey = (k: keyof ColonyParams['nest']): Pick<FreeM, 'get' | 'set'> => ({
+  get: (m) => m.P.nest[k],
+  set: (m, v) => ({ ...m, P: { ...m.P, nest: { ...m.P.nest, [k]: v } } }),
+});
+
+/** The free parameters of the 1999 calibration and their bounds (STATUS 2026-10-10, implementation details). */
+export const M1999_FREE: FreeM[] = [
+  { key: 'nest.nestSpeedFactor', tf: { lo: 0.02, hi: 1, log: true }, ...nestKey('nestSpeedFactor') },
+  { key: 'nest.returnRate', tf: { lo: 1 / 1200, hi: 1, log: true }, ...nestKey('returnRate') },
+  { key: 'nest.shareRate', tf: { lo: 0.002, hi: 0.1, log: true }, ...nestKey('shareRate') },
+  { key: 'nest.shareEnd', tf: { lo: 1 / 1200, hi: 0.5, log: true }, ...nestKey('shareEnd') },
+  { key: 'nest.receiveReserve', tf: { lo: 0.2, hi: 1 }, ...nestKey('receiveReserve') },
+  // Between-nestmate reserve variation (STATUS 2026-10-10, user decision).
+  { key: 'nest.reserveSd', tf: { lo: 0.05, hi: 2, log: true }, ...nestKey('reserveSd') },
+  { key: 'density', tf: { lo: 0.25, hi: 6, log: true }, get: (m) => m.density, set: (m, v) => ({ ...m, density: v }) },
+];
+export const m1999Encode = (m: M1999Model): number[] => M1999_FREE.map((f) => toX(f.get(m), f.tf));
+export const m1999Decode = (x: number[], P: ColonyParams): M1999Model => M1999_FREE.reduce((m, f, i) => f.set(m, fromX(x[i], f.tf)), { P, density: 1 } as M1999Model);
+export const m1999Values = (m: M1999Model): Record<string, number> => Object.fromEntries(M1999_FREE.map((f) => [f.key, f.get(m)]));
+export const m1999AtBound = (m: M1999Model): string[] =>
+  M1999_FREE.filter((f) => {
+    const tf = f.tf as { lo: number; hi: number; log?: boolean };
+    const v = f.get(m);
+    const u = tf.log ? Math.log(v / tf.lo) / Math.log(tf.hi / tf.lo) : (v - tf.lo) / (tf.hi - tf.lo);
+    return u < 0.01 || u > 0.99;
+  }).map((f) => f.key);

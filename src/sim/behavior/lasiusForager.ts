@@ -1,5 +1,5 @@
 import type { RNG } from '../core/rng';
-import { setMode, type Mind, type Traits } from '../mind/mind';
+import { newTrip, setMode, type Mind, type Traits } from '../mind/mind';
 import type { MotorMod } from '../models/walk';
 import type { Interoception, SurfacePercept } from '../perception/types';
 
@@ -124,18 +124,48 @@ export function desiredVolume(p: ForagerParams, traits: Traits, reserve: number)
   return (p.desiredFed + (p.desiredHungry - p.desiredFed) * h) * traits.desiredVolumeFactor;
 }
 
-/** Start a foraging trip (leaving the nest entrance). */
-export function startTrip(m: Mind, p: ForagerParams, io: Interoception, rng: RNG): void {
-  m.pi.x = 0;
-  m.pi.y = 0;
-  m.piBias = rng.normal(0, p.compassBias);
-  m.piGain = 1;
-  m.ingested = 0;
-  m.satisfied = false;
-  m.laying = false;
-  m.desired = desiredVolume(p, m.traits, io.reserve);
+// Mode entry functions (STATUS 2026-10-10): every forager transition goes through one of these.
+
+/**
+ * Start a foraging trip at the nest entrance: a fresh trip record (nothing
+ * from the last trip carries over; the food site memory does), the path
+ * integrator at `at` relative to the entrance (default the entrance itself),
+ * exploring.
+ */
+export function startTrip(m: Mind, p: ForagerParams, io: Interoception, rng: RNG, at = { x: 0, y: 0 }): void {
+  m.pi.x = at.x;
+  m.pi.y = at.y;
+  const piBias = rng.normal(0, p.compassBias);
+  m.trip = { ...newTrip(), piBias, desired: desiredVolume(p, m.traits, io.reserve) };
   setMode(m, 'explore');
 }
+
+function toDrink(m: Mind, foodId: number): void {
+  m.trip.foodId = foodId;
+  setMode(m, 'drink');
+}
+
+function toSearch(m: Mind, ars: number): void {
+  m.trip.ars = ars;
+  setMode(m, 'search');
+}
+
+function toReturn(m: Mind): void {
+  setMode(m, 'return');
+}
+
+/** Trip over: the ant is in the nest (the runner hands it to the nest policy via `enterNest`). */
+function toInNest(m: Mind): void {
+  setMode(m, 'inNest');
+}
+
+/**
+ * Crop load mass per µL used by the load slowdown (E2's `loadSlowdown` was
+ * fitted with it). Open (STATUS 2026-10-10): the old comment said ~1.13 mg
+ * per µL of 0.6 M sucrose, the code has always used 1.08; the value is kept
+ * so E2 stays as fitted.
+ */
+const LOAD_MG_PER_UL = 1.08;
 
 const NONE: ForagerAction = { motor: {}, stand: false, drinkFrom: -1, gasterDown: false, enterNest: false };
 
@@ -145,16 +175,15 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
   const piDist = Math.hypot(m.pi.x, m.pi.y);
 
   // Food touched while not already drinking: start drinking (scouts and homing ants alike).
-  if (per.food && per.food.available && m.mode !== 'drink' && m.foodId !== per.food.id) {
-    m.foodId = per.food.id;
-    setMode(m, 'drink');
+  if (per.food && per.food.available && m.mode !== 'drink' && m.trip.foodId !== per.food.id) {
+    toDrink(m, per.food.id);
   }
 
   switch (m.mode) {
     case 'explore':
       if (p.exploreGiveUp !== undefined && m.modeTime > p.exploreGiveUp) {
         m.site = null;
-        setMode(m, 'return');
+        toReturn(m);
         return { ...NONE };
       }
       // Outbound scouts explore without the release-point bias seen in isolated ants.
@@ -163,50 +192,49 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
     case 'drink': {
       // Intake sensed at the mouthparts (not the net crop change, which crop absorption would reduce).
       const dV = Math.max(0, io.mouthFlow);
-      m.ingested += p.satiationOnTime ? (dV > 0 ? p.nominalIntake * per.dt : 0) : dV;
-      const available = !!per.food && per.food.available && per.food.id === m.foodId;
+      m.trip.ingested += p.satiationOnTime ? (dV > 0 ? p.nominalIntake * per.dt : 0) : dV;
+      const available = !!per.food && per.food.available && per.food.id === m.trip.foodId;
       // Leaving hazard: response-threshold function of the volume ingested.
-      const threshold = 1 / (1 + Math.exp(-p.stopEta * (m.ingested - m.desired)));
+      const threshold = 1 / (1 + Math.exp(-p.stopEta * (m.trip.ingested - m.trip.desired)));
       const hazard = p.stopPerVolume ? (p.stopEta * threshold * dV) / per.dt : p.stopHazard * threshold;
-      // (In M_d, m.ingested is the time-based signal; actual crop volume still caps intake.)
-      const cropFull = io.cropUl >= io.cropCapacity * 0.98;
+      // (In M_d, m.trip.ingested is the time-based signal; actual crop volume still caps intake.)
+      const cropFull = io.cropFull;
       if (cropFull || rng.hazard(hazard, per.dt)) {
         // Satiated departure.
-        m.satisfied = true;
+        m.trip.satisfied = true;
         m.site = { x: m.pi.x, y: m.pi.y };
-        m.laying = !m.traits.neverLays;
-        setMode(m, 'return');
+        m.trip.laying = !m.traits.neverLays;
+        toReturn(m);
         return { ...NONE };
       }
       if (!available) {
         if (m.modeTime > p.emptyPatience || !per.food) {
           m.site = { x: m.pi.x, y: m.pi.y };
-          if (!m.satisfied && m.ingested >= m.desired) {
+          if (!m.trip.satisfied && m.trip.ingested >= m.trip.desired) {
             // Reached its desired volume just as the drop ran out: a satiated departure
             // (the documented rule; STATUS 2026-10-09 review, item 6).
-            m.satisfied = true;
-            m.laying = !m.traits.neverLays;
+            m.trip.satisfied = true;
+            m.trip.laying = !m.traits.neverLays;
           }
-          if (m.satisfied) setMode(m, 'return');
+          if (m.trip.satisfied) toReturn(m);
           else {
             // Some unsatisfied ants still lay trail (Mailleux et al. 2009: trail layers and
             // non-layers drank the same volume at a 0.7 µL drop).
-            const pLay = p.layRule === 1 ? 1 / (1 + Math.exp(-(p.layKappa ?? 10) * (m.ingested / m.desired - (p.layRatio50 ?? 0.7)))) : p.unsatisfiedLayProb;
-            if (!m.laying && !m.traits.neverLays && rng.chance(pLay)) m.laying = true;
-            m.ars = rng.exp(p.searchMode === 2 && m.laying ? (p.arsMeanLay ?? p.arsMean) : p.arsMean);
-            setMode(m, 'search');
+            const pLay = p.layRule === 1 ? 1 / (1 + Math.exp(-(p.layKappa ?? 10) * (m.trip.ingested / m.trip.desired - (p.layRatio50 ?? 0.7)))) : p.unsatisfiedLayProb;
+            if (!m.trip.laying && !m.traits.neverLays && rng.chance(pLay)) m.trip.laying = true;
+            toSearch(m, rng.exp(p.searchMode === 2 && m.trip.laying ? (p.arsMeanLay ?? p.arsMean) : p.arsMean));
           }
         }
         return { ...NONE, stand: true };
       }
-      return { ...NONE, stand: true, drinkFrom: m.foodId };
+      return { ...NONE, stand: true, drinkFrom: m.trip.foodId };
     }
 
     case 'search': {
       // Unsatisfied: tortuous search around the last food site, then go home.
       // Ants that decided to recruit head home straight away.
-      m.ars -= per.dt;
-      if (m.ars <= 0 || (m.laying && !p.searchMode)) setMode(m, 'return');
+      m.trip.ars -= per.dt;
+      if (m.trip.ars <= 0 || (m.trip.laying && !p.searchMode)) toReturn(m);
       let goal: number | undefined;
       if (m.site) {
         const sx = m.site.x - m.pi.x;
@@ -218,7 +246,7 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
 
     case 'return': {
       if (per.inNest) {
-        setMode(m, 'inNest');
+        toInNest(m);
         return { ...NONE, enterNest: true };
       }
       let goal = homeHeading;
@@ -230,15 +258,15 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
       if (piDist < 5 && !per.nestCue) gain = 0;
       // Gaster contacts: two-state process with mean on-duration gasterBout and duty cycle layIntensity.
       let gaster = false;
-      if (m.laying) {
+      if (m.trip.laying) {
         const on = m.traits.layIntensity;
         const rateOn = on / ((1 - on) * p.gasterBout);
         const rateOff = 1 / p.gasterBout;
-        if (m.gasterDown ? rng.hazard(rateOff, per.dt) : rng.hazard(rateOn, per.dt)) m.gasterDown = !m.gasterDown;
-        gaster = m.gasterDown;
+        if (m.trip.gasterDown ? rng.hazard(rateOff, per.dt) : rng.hazard(rateOn, per.dt)) m.trip.gasterDown = !m.trip.gasterDown;
+        gaster = m.trip.gasterDown;
       }
-      // Laden ants walk more slowly (crop load sensed via interoception; ~1.13 mg per µL of 0.6 M sucrose).
-      const load = io.cropUl * 1.08;
+      // Laden ants walk more slowly (crop load sensed via interoception).
+      const load = io.cropUl * LOAD_MG_PER_UL;
       const speedScale = 1 / (1 + (p.loadSlowdown * load) / io.bodyMass);
       return { ...NONE, motor: { goal, goalGain: gain, runScale: p.homeRunScale, noHomeBias: true, speedScale }, gasterDown: gaster };
     }

@@ -53,9 +53,15 @@ export interface ContactPercept {
   dist: number;
   /** Observable cues on antennation. */
   layingTrail: boolean;
-  carrying: boolean;
+  /** The nestmate is offering food (its offering posture; STATUS 2026-10-10). */
+  offering: boolean;
+  /** The nestmate is soliciting food (STATUS 2026-10-10: donors offer only to soliciting ants). */
+  soliciting: boolean;
   /** Heads touching face to face (the posture of trophallaxis). */
   mouthContact: boolean;
+  /** The nestmate is engaged in food sharing (its trophallactic posture), and whether with me (STATUS 2026-10-10). */
+  sharing: boolean;
+  sharingWithMe: boolean;
 }
 
 /** The ant's sense of its own body state. */
@@ -71,6 +77,8 @@ export interface Interoception {
   bodyMass: number;
   /** Liquid through the mouthparts in the last step (µL; + in, − out). */
   mouthFlow: number;
+  /** Crop sensed as full (stretch; morphology `cropFullFrac`). */
+  cropFull: boolean;
 }
 
 /** A percept with only the self-referential senses (open arena, no objects). */

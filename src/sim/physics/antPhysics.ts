@@ -110,9 +110,9 @@ export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkPara
         b.stepLen += walked;
         b.gait += walked / (b.morph.len * 0.8);
         // Path integration: true self-motion read through a biased, noisy compass.
-        const he = b.heading + m.piBias + Math.sqrt(phys.compassNoise * walked) * b.rng.gauss();
-        m.pi.x += Math.cos(he) * walked * m.piGain;
-        m.pi.y += Math.sin(he) * walked * m.piGain;
+        const he = b.heading + m.trip.piBias + Math.sqrt(phys.compassNoise * walked) * b.rng.gauss();
+        m.pi.x += Math.cos(he) * walked * m.trip.piGain;
+        m.pi.y += Math.sin(he) * walked * m.trip.piGain;
       }
       if (done < pieces) {
         // Edge of the surface: the ant turns along it (smallest turn whose next 0.5 mm stays on the surface).

@@ -51,7 +51,7 @@ Pushes to `main` run the tests and deploy the site to GitHub Pages.
 | Folder | Source | Role |
 |---|---|---|
 | `data/khuong2013/` | Khuong et al. 2013, *PLoS ONE* 8:e76531: walking trajectories on 5 inclines | E1 fit and development |
-| `data/bles2022/` | Bles et al. 2022, *Animals* 12:2963; Zenodo doi:10.5281/zenodo.6396637: trophallaxis scans | E6 (held out for our model) |
+| `data/bles2022/` | Bles et al. 2022, *Animals* 12:2963; Zenodo doi:10.5281/zenodo.6396637: trophallaxis scans | E6 development benchmark (inspected while building the comparison rule; not an independent validation) |
 | `data/bonavita2026/` | Bonavita et al. 2026, *PLoS ONE* 21:e0327957; Zenodo doi:10.5281/zenodo.19203503: red/white-light tracks | E1 held-out test, not yet inspected |
 | `data/reference/` | Khuong et al.'s segmentation applied to the 2013 data | input of the reference walkers |
 | `data/fits/` | our fits (`e1-walk.json`, `e2-drinking.json` adopted; others candidates) | — |

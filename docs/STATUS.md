@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-10 (session 3: step 4 — E6 rule and pre-registration done; Mailleux 1999 calibration implemented, not run; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-10 evening (session 3: step 4 — E6 rule and pre-registration done; Mailleux 1999 calibration: first fits invalid (deadlock bug); refits stopped unjudged after a review found a bout-ending bug; fixes in, refit pending; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
@@ -29,8 +29,10 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   results are reported under both. Not validated: L0S1c was a diagnostic,
   its restart did not converge, the within-2009 contrasts fail (z up to
   ±4), the 2000 laying-vs-drop-size series is flattened, giving-up times
-  are too long; external E2 validation (Mailleux 2005, held unread) still
-  to be frozen and run. Steps 3c / 3d and the between-study re-judging are
+  are too long. Mailleux 2005 is **not untouched** (its abstract's
+  findings shaped the traits and were compared with the model; 2026-10-10
+  evening): at most a limited test of quantitative endpoints not yet seen,
+  exposure disclosed — not a validation of those mechanisms. Steps 3c / 3d and the between-study re-judging are
   in the Decisions log (2026-10-09). No further laying family without a
   distinguishing prediction (persistent propensity vs no feeding effect).
   Scripts that rebuild step-3 fits use the legacy layer (`E2_LEGACY_*`).
@@ -47,13 +49,22 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   last entries): k = 6 (`nestSpeedFactor` in the nest, a new return-to-
   source hazard `returnRate`, `shareRate`, `shareEnd`, `receiveReserve`,
   1999-only density), 15 fit rows (Table 2a × 1/4/8 d), Table 2b
-  development. **Implemented 2026-10-10, not run** (`scripts/fitM1999.ts`;
-  implementation details logged). Cost ≈ 750–2300 core-h per layer as
-  set: **next** a budget decision (fewer generations / recruiters, spatial
-  index), then rent the box for the two calibrations (L0S1c, L0S1); then
-  the E6 test (development benchmark). In parallel:
-  freeze the E2 external-validation protocol on Mailleux 2005 (held
-  unread).
+  development. **State 2026-10-10 evening:** the first two fits
+  (independent design) are **invalid** (giver/perception threshold
+  deadlock; fixed with an offering signal); the **refits** (shared
+  warm-ups) were **stopped unjudged** with the colony diagnostics: an ended
+  bout restarted at once with the same partner (`shareEnd` nearly inert).
+  Fixed since (Decisions log, two review entries): bout ending (partners
+  part until contact is lost), repeat drinking at a feeder, observer
+  clipping at the stop, namespaced seeds, fit-file provenance, a no-bout
+  bound in fit and verdict. E2 L0S1c recovery and profiles still running
+  on the box. Open before refitting: equivalence-based convergence
+  (proposed), shared-design ranking check, global slices / profiles
+  (`receiveReserve` acts as a 4-level switch) and replicate recovery,
+  transfer ensemble; outbound navigation to a known source before E6.
+  Then the E6 test — a **development benchmark, not validation**: E6 data
+  were inspected while building the rule; independent colony validation
+  remains outstanding. Mailleux 2005: see the E2 item above.
 - **Judging:** a candidate missing a statistic the data estimate is
   unjudgeable (2026-10-09 fix; no earlier ranking was affected).
 - Commits: plain messages, no co-author lines; ask before committing.
@@ -3824,3 +3835,474 @@ See [`CLAUDE.md`](../CLAUDE.md).
   - **Disclosure:** at the provisional start values, no trophallaxis at
     1 d (above). This is a mechanical consequence of `receiveReserve`
     0.8, which the fit frees ([0.2, 1]); no fit result was seen.
+- **2026-10-10** **Mailleux 1999 calibrations: judged (frozen rule) —
+  NOT ADEQUATE, both layers; cause found: a deadlock bug, so both fits
+  are invalid.** Fits at b8d5e7a on the box (main ≈ 70 min, alt ≈ 60 min;
+  both ran every start to the 120-generation cap without converging;
+  selection-batch losses ≈ 11 000 / 13 800). Judged with
+  `scripts/reportM1999.ts` on fresh seeds (7.9e9, 240 per day; logs
+  `logs/box-m1999/`).
+  - **Results:** main 11 of 15 rows |z| > 3, alt 12; time in nest 330–460
+    vs 80–113 s, contacts 16–28 vs 3–6, total trophallaxis 19–52 vs
+    56–66 s; parameters at bounds: `returnRate` (max), `shareEnd` (min),
+    `receiveReserve` (≈ 1), and in alt `shareRate` (max) and density
+    (min). Development: 68–79 % of recruiters left within 20 min (data:
+    all); contacted nestmates leaving after trophallaxis 0–1 % (data
+    44–86 %; known gap G3).
+  - **Diagnosis (leavers vs stayers):** every recruiter still in the nest
+    at 20 min holds 0.28–0.38 µL; leavers exit at 0.19–0.20 µL. The
+    giver counts as carrying above `giveFrac` × capacity = 0.2 µL (so it
+    keeps offering and the return rule does not fire), but nestmates
+    perceive it as carrying only above a hard-coded 0.2 × capacity =
+    0.4 µL in `perceive.ts`, so no one accepts: a deadlock for crops in
+    (0.2, 0.4) µL. The fitted values are the optimiser's workaround for
+    it, not estimates. **The inconsistency was noticed while editing
+    `perceive.ts` (2026-10-10) and not raised before the fits: a process
+    error.**
+  - **Consequences:** the E6 colony model has the same deadlock. Both
+    1999 fits are discarded (kept as files for the record). A fix needs a
+    design choice (below), then refits.
+- **2026-10-10** **User decisions: deadlock fix and refits (logged before
+  acting).** (1) **Offering signal:** an ant that decides to give shows an
+  offering state (a body flag set from its action, sensed by nestmates in
+  antennal contact, as `layingTrail` is from `gasterDown`); hungry ants
+  accept from offering ants, and a giver offers only to nestmates that
+  are not offering. The percept's crop-volume `carrying` flag (hard-coded
+  0.4 µL) is no longer used for sharing, so the giver's rule (`giveFrac`)
+  is the only threshold. Changes E6 colony runs too. (2) **Refits** of
+  both layers on the box with shared warm-ups (`--perNest 8`; the
+  equivalence check passed), otherwise the logged implementation details
+  (bounds, starts, seeds, CMA-ES settings) unchanged; output
+  `colony-m1999-<layer>-shared.json`; judged with `reportM1999.ts` on the
+  fresh seeds as before.
+  **Implemented:** `Body.offering`, `NestAction.offer` (shown while in the
+  nest with crop > `giveFrac` × capacity and not leaving; the runner sets
+  the body flag, sensed next step), `ContactPercept.offering` replaces
+  the crop-volume `carrying`; givers pick non-offering nestmates, hungry
+  ants pick offering ones. Regression test (a recruiter holding 0.3 µL
+  unloads and leaves) fails on the old code and passes now; fast tests
+  78 pass. **Refits launched** on the box 17:34 UTC, both layers
+  side by side (`--perNest 8`, `SIM_WORKERS=121` each), code = 18b7866
+  plus the uncommitted fix (tarball sha256 45fbbd53…; to be committed
+  with the results); logs `fitM1999-<layer>-shared.log`.
+- **2026-10-10** **Shared-design load imbalance (box, refits):** about 75 of
+  246 CPUs busy; workers alternate between half running and nearly all
+  waiting at each generation's end. One task is one nest of 8 recruiters
+  run in sequence (≈ 270 large tasks per generation vs ≈ 2000 small ones
+  in the independent design), so the slowest nest sets the pace. Left
+  running (≈ 4.5 h, ≈ $8). **For future shared fits: 2–4 recruiters per
+  nest.**
+- **2026-10-10** **Using the idle box CPUs (user go-ahead; both logged
+  before launch; run at `nice 19` beside the refits; neither touches E6
+  data).**
+  1. **E2 L0S1c follow-ups** (the provisional main E2 model never had
+     them): recovery as frozen for step 3c (`fitE2c.ts --variant L0S1c
+     --recover data/fits/e2-3d-L0S1c.json --rep 0`, then `recoverE2c.ts`;
+     the frozen recovered / approximate / failed thresholds) and profiles
+     (`profileE2c.ts`, 200 generations as for L0S1) of σ_m
+     (`setup.volumeSd`), σ_r (`phys.intakeSd`), and, added for L0S1c,
+     the 2009 cohort scale (`setup.desiredScale2009`, grid 0.5, 0.6, 0.7,
+     0.8, 0.9, 1.0; 1.0 = no cohort effect). Profiles are sensitivity
+     diagnostics (review 2026-10-09): Δ 3.84 is a reference line, not an
+     interval. The offering fix does not touch E2 (one scout, no
+     contacts).
+  2. **Colony time-step convergence** (`scripts/convergeM1999.ts`): the 15
+     Mailleux 1999 fit rows at dt 0.1 (used everywhere), 0.05 and 0.025,
+     at the two fit start points, independent design, 3 days × 240
+     recruiters per dt (fresh seeds 8.5e9; the scout load keeps E2's dt).
+     **Criterion (dt 0.1 vs 0.025):** Σz² over the 30 rows < 50.9 (χ²₃₀,
+     p 0.01) and no |z| > 3.5, rows degenerate in both handled as in the
+     equivalence check → "converged at the resolution of the test". Also
+     reported: each row's difference in units of its SE_data (with its
+     Monte Carlo SE), and dt 0.05 for the trend. Not compared with the
+     1999 data. If it fails, the calibrations at dt 0.1 are flagged until
+     rerun at a converged dt.
+  **Launched 18:50 UTC** (box: `e2-recover`, `e2-prof-{vol,int,scale}`,
+  `converge`, all `nice 19`). **Bug found and fixed on launch:**
+  `profileE2c.ts` rebuilt the fitted model without `desiredScale2009`
+  (L0S1c stores it at the top level of its fit file), so an L0S1c profile
+  started from an undefined cohort scale (the scale profile crashed; the
+  σ_m and σ_r profiles were stopped after ≈ 1 min and relaunched). It now
+  uses `modelOf` (as the recovery does), which is identical for every fit
+  without the cohort scale, so the earlier L0S1 profiles are unaffected.
+  The recovery fit was not affected (`e2Synthetic.modelOf`).
+  `convergeM1999.ts` uses a separate seed block per dt (8.5e9 + 1e7 · k)
+  so the samples are independent, as the z assumes.
+- **2026-10-10** **Review of the colony calibration (user relay): actions,
+  pre-registrations and an audit (logged before any of it runs).**
+  - **Run-hash check of the fixed code** (18b7866 + the offering fix):
+    local and box agree, colony 736d353c…, dense recruiter 9f640de8…
+    (new values, as the fix changes colony runs).
+  - **Audit of hard-coded constants (no change made; model changes wait
+    for the user after the refits are judged):**
+    - `lasiusNestWorker.ts:159`: an ant leaves to forage only with crop
+      < 0.05 × capacity. With crop absorption 0 (pre-registered), an ant
+      that has received food can never leave, so Table 2b's 0–1 % after
+      trophallaxis (G3) is largely this constant, not missing biology.
+      **G3 must not be read as a result until this is settled.**
+    - `lasiusNestWorker.ts:101`: hungry = reserve < `receiveReserve` and
+      crop < 0.98 × capacity. Received food does not raise the reserve, so
+      a receiver accepts until its crop is full: one nestmate can absorb a
+      recruiter's whole load in one bout. This bears on the fit rows
+      (total trophallaxis, contacts before the main trophallaxis) and
+      plausibly on the first fits' `shareEnd` at its bound. The refits
+      are valid under the provisional rules but are read with this in
+      mind.
+    - Unsourced, provisional: contact geometry (`HEAD_OFFSET` 0.4 body
+      lengths, `MOUTH_GAP` 0.3, mouth contact needs headings opposed
+      within 120°), antenna tips at ± 0.6 rad, nest-odour radius 150 mm,
+      colony `exploreGiveUp` 300 s, initial rest/active 50/50, start
+      positions ≥ 2 mm from walls, RH 50 %.
+  - **Pre-registered now (item 3):** the dt test (`convergeM1999.ts`, same
+    criterion) and the warm-up test below are repeated at each refit's
+    optimum (main and alt `-shared` fits), whatever the start-point
+    results, because the start points barely exercise the statistics most
+    likely to depend on dt or warm-up (stays near the 20-min cap; the 1-d
+    trophallaxis rows all zero).
+  - **Warm-up length (item 2):** the 300-s warm-up covers rest/active
+    switching (≈ 72 s), but the share of nestmates out exploring settles
+    on a ≈ 10-min scale (leave ≈ 1/300 s, give up after 300 s outside),
+    which sets the effective density. Test: warm-up 300 vs 900 s (600
+    reported for the trend), same design, points, sample sizes and
+    criterion as the dt test (seeds 8.6e9 + 1e7 · k). Not compared with
+    the 1999 data.
+  - **Identifiability (item 1, a local sensitivity diagnostic):** at the
+    two start points now and at each refit optimum when it lands: the 6
+    free parameters in the fit's encoded coordinates, central differences
+    at ± 0.2 (common seeds), 240 recruiters per day per evaluation;
+    Jacobian of the 15 row means scaled by SE_data; singular values and
+    right singular vectors (parameter combinations). Noise floor: the
+    centre on a second seed batch, δ = (m_A − m_B)/SE_data; a singular
+    value below ≈ ‖δ‖/(2h) is not distinguishable from Monte Carlo noise
+    (conservative: common seeds reduce the difference noise). Reading: a
+    singular value s means one encoded unit along its direction changes
+    Σz² by ≈ s²; s < 1 is "not pinned down by the 15 rows". Rows not
+    estimable at a point are dropped and listed. Watch: density ×
+    `nestSpeedFactor` (contact rate), `returnRate` vs `shareEnd` (stay
+    length).
+  - **Colony recovery fit (item 4), draft protocol, to be finalised after
+    the identifiability check at the optimum** (a near-flat direction would
+    first lead to a reparameterisation, e.g. density × speed):
+    truth = the selected refit's optimum; synthetic 1999 targets at the
+    real n (Table 2a means from 2000 simulated recruiters per day, SDs
+    from the data); `fitM1999.ts` with the same procedure but 2–4
+    recruiters per nest (load balance); scoring as the E2 recovery
+    (excess z² per fit row; recovered / approximate / failed thresholds
+    as frozen for step 3c), plus parameters true vs recovered.
+
+**2026-10-10 evening — review of the colony calibration (6 items, user-relayed); what was done and what is proposed.**
+- **Observer bug (fixed, before judging).** With `followNestmates` (used by
+  `reportM1999.ts` for Table 2b), recruiter bouts were filtered by start
+  before the cutoff but not clipped, so a bout spanning the 20-min
+  censoring kept growing during the 5-min follow-up (changes total
+  trophallaxis and possibly the main bout). Fit runs stop at the cutoff and
+  were not affected. Fix: bouts clipped at the end of the step at which
+  the observation ended (`stopAt`, absolute time, the same expression as a
+  bout's end), so a followed run measures exactly what a fit run measures.
+  Test: follow-up on/off gives identical five fit statistics (plus left,
+  crop at exit) for two censored recruiters in a bout at 20 min; it fails
+  on the old code (624 → 879 s) and passes now. Fit runs bit-identical
+  before/after (40 recruiters, both designs, both start points), so the
+  running refits are unaffected. Deployed to the box (tsc OK) before any
+  judging started.
+- **Docs:** STATUS header/RESUME no longer say "not run"; README lists
+  Bles 2022 as an E6 development benchmark, not held out.
+- **Convergence test (dt, warm-up) — accepted critique.** Passing on
+  Σz² < χ² is a significance test, not equivalence: at 240 recruiters the
+  SE of a row difference is ≈ 0.47 SE_data, so a ~1 SE_data bias can pass;
+  the 5 rows of a day come from the same recruiters, so the χ² reference is
+  not the null distribution. **Proposed amendment (not yet adopted; made
+  before any convergence or warm-up result was seen — only timing lines and
+  "not finished" were checked):** equivalence per row, tolerance ±0.5
+  SE_data; paired seeds across levels (same nest/recruiter streams);
+  percentile bootstrap over recruiter index per day (rows and levels
+  resampled jointly); pass = every row's 90 % CI inside ±0.5
+  (intersection–union, overall 5 % without multiplicity correction);
+  n ≈ 1600 per day per level (expected CI half-width ≈ 0.3 unpaired);
+  levels 0.1 vs 0.025 and 300 vs 900 only. The running χ² versions will be
+  reported as originally specified but not used as the decision.
+- **Shared warm-ups and the optimum — accepted.** E[fitZ²] = bias² +
+  Var(mean)/SE_data²; the variance term is larger with 8 per nest
+  (design effect 1 + 7ρ) and varies with the parameters, so it can move the
+  optimum even though the design means match. Proposed: (a) before any
+  further refit, re-evaluate a shortlist (each layer's 3 run estimates and
+  points along the weakest identifiability directions) in the independent
+  design on large fresh batches (≥ 1000 per day), with the debiased loss
+  Σ[(m − μ)² − SE_sim²]/SE_data² and its bootstrap SE; the ranking must
+  hold; (b) future colony fits use the debiased objective.
+- **Identifiability — accepted, and sharper than stated.** Every
+  nestmate starts at reserve 1 − d/14 (0.929, 0.714, 0.429 for 1/4/8 d)
+  and barely moves in a 25-min run, so `receiveReserve` acts as a 4-level
+  switch (which starvation days have hungry nestmates: thresholds 0.429,
+  0.714, 0.929); the loss is flat with jumps in it, and a ± 0.2 local
+  derivative sees zero or a jump. Proposed: treat it as discrete (profile
+  over the 4 regimes, re-optimising the other 5) and/or give nestmates
+  between-ant reserve variation (a model change — user decision). Broad
+  1-D slices over each parameter's full range at the optimum (common
+  seeds) before any profile; profiles with re-optimisation where a slice is
+  flat or stepped. Recovery: replace the 2000-recruiter-mean draft with
+  replicate synthetic data sets at the real sample sizes (n 23–28 per row,
+  sample means and SDs), a parametric bootstrap of the estimator; cost
+  ≈ one fit each, so the number of replicates is a budget decision.
+- **Transfer to E6 — accepted.** Density can absorb geometry and encounter
+  assumptions; the 1999 chamber is a stand-in. Proposed (to pre-register
+  before the E6 run): an ensemble of parameter sets that fit 1999
+  comparably (debiased loss within a noise threshold of the best, from both
+  layers' runs, the receiveReserve regimes and profile points); E6
+  predictions reported as a range across it; an E6 conclusion is drawn only
+  if it holds across the ensemble.
+
+**2026-10-10 evening — second review (user-relayed, verified against the code); colony jobs stopped; decisions.**
+- **Stopped (user decision):** both refits, the warm-up and identifiability
+  runs (killed by their own process trees; the dt run had finished; E2
+  recovery and profiles left running). Logs copied unread to
+  `logs/box-m1999/stopped-2026-10-10/`; none of their results has been
+  seen. They calibrated a model with the bout bug below, so they are void.
+- **Verified bugs:**
+  1. `startTrip` kept `foodId`, and drinking requires a different food id:
+     an ant could never drink again at the feeder of its previous trip
+     (E6 repeat trips; not the 1999 runs, which have no food). Fix: trip
+     start clears `foodId` (the within-trip guard is kept).
+  2. Judging seed 7.9e9 = generation 90 of fit start 0 (7e9 + 90 × 1e7):
+     80 of the 240 judging recruiters per day reused that generation's
+     streams. Fix: seeds from explicit namespaces (fit, selection,
+     judging, diagnostics) instead of hand-picked offsets.
+  3. A bout that ended (hazard `shareEnd`) restarted at once: the policy
+     fell through to partner choice and picked the same partner, so
+     `shareEnd` hardly ended bouts. **Decision (user):** an ant remembers
+     its last partner and may not share with it again until they have lost
+     antennal contact (no new parameter).
+  4. Mailleux 2005 is **not untouched**: its abstract's findings
+     (individual desired volume constant over trips; 14 % never lay) are in
+     the research notes, motivate the traits in `mind.ts`, and were compared
+     with the model (never-layer ceiling). The external-validation plan is
+     downgraded: at most a limited test of quantitative endpoints not yet
+     seen, with this exposure disclosed; it cannot validate those
+     mechanisms.
+  5. Fit files lacked what is needed to reproduce and judge them
+     (generations, drift, σ, seeds, upstream parameters, code hash), and
+     the report rebuilt the model from current defaults. Fix: the fit file
+     records them; the report uses the recorded parameters and refuses a
+     code-hash mismatch unless told otherwise.
+- **No-bout recruiters (user-relayed, verified):** `contactsBefore` is NaN
+  without a bout and is dropped, so a model in which half the recruiters
+  never share can pass all 15 rows. **Decision (user):** adequacy also
+  requires a no-bout fraction ≤ 11 % per day, and the same bound is a
+  penalty in the fit loss. Basis (an interpretation, logged as such): the
+  `contactsBefore` n (27/28/28) are at least the other rows' n, consistent
+  with every observed recruiter having a main bout; 0 of 26 has a 95 %
+  upper bound of 1 − 0.05^(1/26) ≈ 11 %.
+- **Return to a known source** is undirected exploration, not navigation
+  to the remembered site. **Decision (user):** implement and test it before
+  any E6 run; it does not affect the 1999 fit (observation ends at exit).
+- Order: fix 1–3 and 5, the no-bout rule, the first review's convergence
+  amendment; then re-run the diagnostics and refit.
+- **Implemented (2026-10-10 evening):** `startTrip` clears `foodId`;
+  `Mind.lastPartner` (set when any bout ends, cleared when the two are no
+  longer in antennal contact; partner choice skips it); unit tests
+  (`test/nestWorker.test.ts`, fail on the old code); `seedFor(study,
+  purpose, ...keys)` and `provenance()` in `scripts/lib.ts`; `fitM1999.ts`
+  uses namespaced seeds and records per-run generations, σ, drift,
+  estimates, the full parameter set and provenance; `reportM1999.ts` judges
+  on the judging namespace, uses the recorded parameters and refuses a code
+  hash mismatch (`--allow-code-change`); `convergeM1999.ts` /
+  `identM1999.ts` on namespaced seeds; no-bout bound
+  (`M1999_NO_BOUT_MAX` = 1 − 0.05^(1/26)) in `m1999FitLoss` and the
+  verdict, with a test (half the recruiters without a bout → loss > 100;
+  it was ≈ 0). Behaviour changed, so nothing fitted before is comparable.
+
+**2026-10-10 evening — decision (user): behaviour-state refactor before any colony fit.**
+Common cause of the deadlock, the immediate bout restart and the `foodId`
+carry-over: state with unclear ownership and lifetime (one concept defined
+in two places; a flat `Mind` shared by two policies, resets scattered over
+`startTrip`, the policies and the runner; `mode` an untyped string; ending
+a bout had no defined outcome). Same class still present: `gasterDown`
+never reset; one-sided bout endings (the partner waits out `stallTime`
+while others can pick it); `partner` / `shareStall` / `lastPartner` not
+cleared on leaving the nest; 0.98 and 0.05 × capacity hard-coded in
+behaviour. Plan (no fitting until step 5 passes):
+1. **State grouped by lifetime:** lifelong (traits, walk state, PI, food
+   site memory, log) on `Mind`; `Mind.trip` (per-trip compass bias and
+   gain, ingested, desired, satisfied, laying, search time, food id, gaster
+   state) replaced whole at trip start; `Mind.stay` (current bout, last
+   partner) replaced whole on entering the nest. The trip object survives
+   into the nest as "the last trip" (`returning` reads its `ingested`).
+2. **Typed modes with entry functions:** `Mode` is a union of the forager
+   and nest modes; each transition goes through one function that sets
+   what the mode needs; the runner calls `startTrip` / `enterNest` and no
+   longer edits mind fields.
+3. **Bouts end on both sides:** each ant shows whom it is sharing with
+   (body signal set by the runner from the action, like `offering`);
+   perception reports per contact whether it is sharing, and whether with
+   me. An ant in a bout ends it when its partner no longer shares with it
+   (one step later at most; no food flows meanwhile, since transfer needs
+   both); nobody picks an ant that is sharing with someone else. Ending a
+   bout has a defined outcome: active, no new partner that step, the last
+   partner excluded until contact is lost.
+4. **Invariants checked during colony runs (tests):** partners point at
+   each other (or the bout ends next step); no bout restarts with the same
+   partner while contact persists; trip state is fresh at each trip
+   start; nobody waits in a bout longer than `stallTime` + 1 step without
+   flow; stay state is fresh at each nest entry.
+5. **Gate:** no colony fit until the invariant suite passes. The two
+   constants become one shared definition each: "crop full"
+   (0.98 × capacity, used by drinking and by accepting food) as an
+   interoceptive signal with a morphology parameter, and the leaving
+   threshold (0.05 × capacity) as a nest parameter, both `estimated`
+   with these values (values unchanged; their effect on G3 stays an open
+   question for the user).
+E2 results must stay bit-identical (checked by run hashes); colony
+behaviour changes by design.
+- **Refactor implemented (2026-10-10 evening).**
+  - `Mind`: lifelong `traits`, `walk`, `pi`, `site`, `log`; `trip: Trip`
+    (compass bias/gain, ingested, desired, satisfied, laying, gasterDown,
+    ars, foodId) replaced whole by `startTrip` (which also takes the PI
+    start, so the runner no longer edits it); `stay: Stay` (`bout`:
+    partner, stall, joined; `parted`: former partners still in contact)
+    replaced whole by `enterNest`. `mode: Mode` = `ForagerMode | NestMode`;
+    every transition goes through an entry function (`startTrip`,
+    `toDrink`, `toSearch`, `toReturn`, `toInNest`; `enterNest`,
+    `startBout`, `endBout`, `toActive`, `toRest`, `toLeave`); the nest
+    policy throws on a forager mode (enterNest skipped).
+  - Bouts: `Body.sharingWith` (from the action, like `offering`),
+    perceived as `ContactPercept.sharing` / `sharingWithMe`. Once the
+    partner has joined, its leaving ends the bout on this side at the next
+    step; an invitation not yet answered waits until the stall timeout (a
+    first version ended it after one step, which with one-step signal lags
+    would have kept newly offering ants from ever sharing). Ending → active,
+    no new partner that step. Ants sharing with someone else are not picked.
+    **Exclusion is per former partner** (user-found gap: a single
+    `lastPartner` slot allowed B → C → B without losing contact with B):
+    `stay.parted`, each dropped when contact with it is lost; unit test
+    fails on the single-slot version.
+  - One definition per concept: `Interoception.cropFull` (morphology
+    `cropFullFrac` 0.98, estimated) used by drinking and accepting;
+    `NestParams.leaveCropFrac` 0.05 (estimated; its effect on G3 open);
+    `hasFoodToGive` behind both offering and giving. Architecture tests:
+    perception imports no behaviour/species/mind code; policies contain no
+    numeric crop thresholds. That check found the load-mass constant 1.08
+    mg/µL (comment said ≈ 1.13): kept (E2's `loadSlowdown` was fitted with
+    it), named `LOAD_MG_PER_UL`, **open** for the user.
+  - Invariant suite `test/colonyInvariants.test.ts` (foraging colony with
+    repeat trips and repeat drinks at a feeder; 1999 recruiter): modes match
+    the policy in charge; joined bouts mutual within one step; no restart
+    with any former partner while in contact; stall ≤ stallTime + dt;
+    fresh trip at trip start, fresh stay at entry; food flows only within
+    matching bouts. Mutation check: re-inserting the old bugs (no
+    exclusion, one-sided ending, ending falling through to partner choice,
+    trip not replaced) each makes it fail; "stay not reset on entry" does
+    not (the stay is already clean when an ant walks out; covered by a unit
+    test instead).
+  - Checks: E2 bit-identical (run hash over 450 scouts, both layers, three
+    drop designs: bc03a507… before and after); colony output changed (by
+    design). Tests 94 fast + slow tier (98 at the last full run, before the
+    parted change) pass; tsc OK. The 1999 follow-up test now also sets
+    `leaveRate` 0 (with faster bout endings the recruiter emptied its crop
+    and left through the forage rule) and uses seeds 1, 3.
+  - **Gate:** no colony fit until this suite passes (it does now); the
+    proposed amendments (equivalence convergence, ranking check, slices /
+    profiles, replicate recovery, transfer ensemble) still await the user.
+
+**2026-10-10 evening — well-fed nest deadlock; decisions (user).**
+- **Found (user-relayed, confirmed):** in a 1-day nest at the default
+  `receiveReserve` 0.8 no nestmate accepts food (all start at reserve
+  0.929), so the recruiter's offers only time out; a carrying ant cannot
+  take the return route, so it never leaves. Measured after the
+  per-partner exclusion fix (3 seeds, defaults, warm-up 300 s): 1 d —
+  never left, 0 s trophallaxis, 1370–1570 contact onsets (data 6.1); 4 d —
+  left after 67–222 s, 28–81 s trophallaxis. The data: all recruiters left
+  within 20 min, 57 s trophallaxis at 1 d. In the model only the
+  `receiveReserve` switch could produce that. Added to the invariant suite:
+  a well-fed case (safety invariants; it fails under the single-slot
+  exclusion) and a liveness check "a refused recruiter still leaves within
+  20 min", marked as a known failure (`it.fails`).
+- **Decision 1:** donors offer only to **soliciting** nestmates. Hungry
+  ants not carrying food show a soliciting signal (body flag from the
+  action, sensed like offering); no new parameter.
+- **Decision 2:** fix the cause: **between-ant reserve variation** among
+  nestmates (identical reserves made `receiveReserve` a 4-level switch).
+  Each nestmate's reserve deficit = (starvation days / reserveDays) ×
+  a lognormal factor (mean 1, SD of log `reserveSd`), from its own random
+  stream; the recruiter keeps the E2 scout's reserve. `reserveSd` is a new
+  nest parameter (provisional 0.5) and a 7th free parameter of the 1999
+  calibration (bounds 0.05–2, log). No give-up rule: if a refused recruiter
+  still cannot leave, the liveness test stays a known failure and the
+  question returns to the user.
+- **Implemented:** `NestAction.solicit` / `Body.soliciting` /
+  `ContactPercept.soliciting` (one predicate `acceptsFood` behind
+  soliciting and receiving; donors pick soliciting nestmates only);
+  `NestParams.reserveSd` (provisional 0.5) applied in `ColonySim.addAnt`
+  from stream (seed, 0x5e5e, i), nestmates only; `M1999_FREE` now k = 7.
+  Unit test for soliciting; all fast tests pass (96 + 1 expected
+  failure); E2 run hash unchanged (bc03a507…; the user's own check, 108
+  scouts at HEAD vs the working tree, also bit-identical, 9ea48d2d…).
+- **Result (defaults, warm-up 300 s, 3 seeds; development only, not
+  compared with the data's values):** at 1 d with `reserveSd` 0.5 or 1,
+  2 of 3 recruiters now unload and leave (50–269 s); the third (0.94 µL
+  load) unloads only part (to 0.62 µL at sd 1) and never leaves. 4 d and
+  8 d: all leave (67–203 s). So reserve variation removes the switch but
+  **does not give a refused recruiter a way out**: the liveness test stays
+  a known failure. Open for the user: a give-up / return-with-load rule, or
+  accept that the fit must find nestmate parameters under which loads are
+  always taken. Also noted: contact onsets per stay (72–300) are far above
+  the data's 3–6 at these defaults — a calibration matter (speed, density,
+  observer definition), not judged here.
+
+**2026-10-10 evening — decisions delegated to Claude by the user ("you decide for me; weigh everything first").**
+Weighed: the colony model has been voided three times by behaviour bugs
+found in review, so behaviour and observation must be right before
+compute is spent; each extra free parameter must be identifiable from the
+15 rows; nothing may be tuned against the data's values beyond the fit.
+1. **Refused recruiter: a give-up rule, estimated, not fitted.** An ant
+   that fed on its last trip may take the return route while still
+   carrying once it has passed no food for `giveUpTime` (estimated 120 s:
+   longer than most observed stays, 80–113 s; sensitivity 60 and 300 s at
+   the optimum). Not free: when nestmates take the load (the normal case)
+   the 1999 rows barely inform it. Rejected: return regardless of load
+   (exponential stays have CV ≈ 1; the data's CV is 0.3–0.5, so the
+   unload-then-leave structure is informative); fitted give-up rate (a flat
+   direction). The liveness test must then pass.
+2. **Contacts: an observation model, pre-registered here, with
+   disclosure.** Simulated "contacts" are geometric antennal-range overlaps
+   with a median duration of 0.1–0.2 s (nestmates brushing past); at
+   defaults a recruiter registers 70–150 in ~110 s and touches every
+   nestmate, against 3–6 in the data; merging re-contacts barely changes
+   that. The paper (not available locally; the extraction records no
+   definition) scored contacts on ×2 video. Left as is, the fit would match
+   contacts by shrinking density or nest speed — the compensation the
+   review warned about. **Observed contact** (both contact rows, and Table
+   2b's contacted nestmates) = an episode of continuous antennal contact
+   with one nestmate lasting **≥ 1 s** (clipped at the end of the stay);
+   sensitivity 0.5 and 2 s at the optimum. **Disclosure:** chosen after
+   seeing simulated durations (≥ 1 s gave 1–4 per stay at defaults) and
+   knowing the fit rows' means (fit data); the threshold is a judgement
+   about what a video observer scores, not derived from the paper. A
+   behavioural alternative (ants stop and antennate on meeting) is a model
+   addition for later if the observer proves decisive.
+3. **Fit objective debiased, smaller nests.** Σ[(m − μ)² − Var(m)] / SE_data²
+   with Var(m) from nest blocks (shared design) or recruiters (independent),
+   plus the no-bout penalty; `--perNest` 4 (design effect and load balance).
+   After the fit, the pre-registered ranking check: each layer's run
+   estimates re-evaluated in the independent design on ≥ 1000 fresh
+   recruiters per day; the selected one must rank first or within its
+   bootstrap SE of the first.
+4. **Convergence by equivalence (adopted as proposed):** per row ±0.5
+   SE_data, paired seeds across levels, bootstrap over recruiters (rows and
+   levels jointly), 90 % CIs inside the bounds (intersection–union), 1600
+   recruiters per day per level, dt 0.1 vs 0.025 and warm-up 300 vs 900 s.
+   **Gate:** run at the two start points before refitting; refit only if
+   both pass (else the failing knob is changed first); repeat at each
+   optimum.
+5. **Staging of the rest:** after an adequate fit — 1-D slices over each
+   parameter's full range at the optimum, profiles where a slice is flat or
+   stepped; replicate recovery (5 synthetic data sets at the real n,
+   reduced budget) only if the fit is adequate; the E6 transfer ensemble
+   pre-registered before any E6 run. Identifiability at the start points:
+   rerun on the new model with the convergence runs.
+6. **Constants:** `LOAD_MG_PER_UL` 1.08 is the density of 0.6 M sucrose
+   (≈ 1.077 g/mL; the "1.13" comment was 1 M's): correct for E2, kept;
+   E6's 1 M food would be ~4 % heavier, negligible. `leaveCropFrac` 0.05
+   kept; it governs nestmate departures (G3, Table 2b development) and gets
+   a sensitivity analysis before E6, not a 1999 fit parameter.
+7. **Commit** the work so far now (the user delegated the decision), then
+   each step; **the box is kept** for the gated diagnostics and refits.

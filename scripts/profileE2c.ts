@@ -19,8 +19,8 @@
 import { cmaes } from '../src/sim/analysis/cmaes';
 import { e2Loss, simulateE2Async, E2_TARGETS } from '../src/sim/experiments/e2Targets';
 import { encode, decode, get, set, variant3, type E2Model } from '../src/sim/experiments/e2Variants';
-import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
 import { arg, numArg, readJson } from './lib';
+import { modelOf } from './e2Synthetic';
 import { SimPool } from './pool';
 
 const fit = readJson<any>(arg('--fit', ''));
@@ -37,10 +37,9 @@ const SCORE_BATCHES = 3;
 const variant = variant3(fit.variant);
 if (!variant || !variant.free.some((f) => f.key === KEY)) throw new Error(`--fit must be a step-3c fit and --param one of its free parameters`);
 const reduced = { ...variant, free: variant.free.filter((f) => f.key !== KEY) };
-const best: E2Model = {
-  P: { walk: LASIUS_WALK, forager: { ...E2_LEGACY_FORAGER, ...fit.forager }, phys: { ...E2_LEGACY_PHYS, ...fit.phys }, morph: LASIUS_MORPH },
-  setup: { accessible: fit.pipetteAccessible, volumeSd: fit.observer.volumeSd },
-};
+// The fitted model as the recovery builds it (includes the 2009 cohort scale of L0S1c; STATUS 2026-10-10:
+// it was missing here, which broke any L0S1c profile).
+const best: E2Model = modelOf(fit);
 const fitRows = E2_TARGETS.filter((t) => t.role === 'fit');
 const pool = await SimPool.create();
 const run = pool.scouts.bind(pool);

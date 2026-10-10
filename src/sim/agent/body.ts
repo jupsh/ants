@@ -10,6 +10,8 @@ export interface Morphology {
   mass: number; // mg fresh mass (empty crop)
   cropCapacity: number; // µL
   antennaReach: number; // mm, from body centre to antenna tips
+  /** Crop fill (fraction of capacity) at which the crop is sensed as full (stretch); one definition for every policy. */
+  cropFullFrac: number;
 }
 
 export class Body {
@@ -38,6 +40,12 @@ export class Body {
   waterMax: number;
   /** Whether the gaster tip is currently touching the substrate (trail marking). */
   gasterDown = false;
+  /** Offering food to nestmates (set from the ant's action; sensed by nestmates in antennal contact). */
+  offering = false;
+  /** Soliciting food from nestmates (set from the ant's action; sensed by nestmates in antennal contact). */
+  soliciting = false;
+  /** Nestmate this ant is sharing food with, or −1 (set from the ant's action; sensed by nestmates in antennal contact). */
+  sharingWith = -1;
   /** Path walked this step (for rendering/odometry). */
   stepLen = 0;
   /** Accumulated gait phase (strides). */

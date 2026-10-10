@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { runColony } from '../src/sim/experiments/colonyBles';
-import { M1999_TARGETS, recruiterLoad, runRecruiter1999 } from '../src/sim/experiments/colonyMailleux1999';
+import { M1999_DAYS, M1999_NO_BOUT_MAX, M1999_TARGETS, m1999FitLoss, m1999NoBout, recruiterLoad, runRecruiter1999, type M1999Day, type M1999Recruiter } from '../src/sim/experiments/colonyMailleux1999';
 import { LASIUS_NEST, LASIUS_PARAMS, MAILLEUX_SETUP } from '../src/sim/species/lasiusM1';
 
 const P = { ...LASIUS_PARAMS, nest: LASIUS_NEST };
@@ -49,5 +49,46 @@ describe('Mailleux 1999 recruiter (mechanics)', () => {
     const df = runRecruiter1999(fast, { ...base, seed: 4 }).distance;
     expect(ds).toBeGreaterThan(0);
     expect(ds).toBeLessThan(0.3 * df);
+  });
+
+  it('following nestmates (Table 2b) leaves the five fit statistics unchanged, incl. a bout spanning the 20-min censoring', () => {
+    // The recruiter never leaves, and shares slowly in long bouts down to an almost empty crop with nestmates that
+    // stay hungry; with these seeds it is in a bout at 20 min (the old observer counted such a bout to its end).
+    const P2 = { ...P, nest: { ...LASIUS_NEST, returnRate: 0, leaveRate: 0, shareRate: 0.002, shareEnd: 1 / 1200, receiveReserve: 1, giveFrac: 0.01 } };
+    const stats = ({ timeInNest, left, distance, contacts, trophTotal, contactsBefore, cropAtExit }: ReturnType<typeof runRecruiter1999>) => ({ timeInNest, left, distance, contacts, trophTotal, contactsBefore, cropAtExit });
+    for (const seed of [1, 3]) {
+      const o = { ...base, seed, starvationDays: 8 as const };
+      const fit = runRecruiter1999(P2, o);
+      expect(fit.left).toBe(false);
+      expect(stats(runRecruiter1999(P2, { ...o, followNestmates: true }))).toEqual(stats(fit));
+    }
+  });
+
+  it('half the recruiters without a bout cannot pass on the 15 rows alone (no-bout penalty)', () => {
+    // Every recruiter hits each row's mean exactly, except that half have no bout and the other half twice the trophallaxis.
+    const rec = (day: M1999Day, i: number): M1999Recruiter => {
+      const v = (stat: string) => M1999_TARGETS.find((t) => t.day === day && t.stat === stat)!.mean;
+      const none = i % 2 === 0;
+      return { timeInNest: v('timeInNest'), left: true, distance: v('distance'), contacts: v('contacts'), trophTotal: none ? 0 : 2 * v('trophTotal'), contactsBefore: none ? NaN : v('contactsBefore'), cropAtEntry: 1, cropAtExit: 0.2, troph: { n: 0, left: 0 }, other: { n: 0, left: 0 } };
+    };
+    const sim = Object.fromEntries(M1999_DAYS.map((d) => [d, Array.from({ length: 100 }, (_, i) => rec(d, i))])) as Record<M1999Day, M1999Recruiter[]>;
+    expect(m1999NoBout(sim[1])).toBe(0.5);
+    expect(M1999_NO_BOUT_MAX).toBeCloseTo(0.109, 3);
+    expect(m1999FitLoss(sim)).toBeGreaterThan(100);
+    const all = Object.fromEntries(M1999_DAYS.map((d) => [d, sim[d].map((x) => ({ ...x, trophTotal: M1999_TARGETS.find((t) => t.day === d && t.stat === 'trophTotal')!.mean, contactsBefore: M1999_TARGETS.find((t) => t.day === d && t.stat === 'contactsBefore')!.mean }))])) as Record<M1999Day, M1999Recruiter[]>;
+    expect(m1999FitLoss(all)).toBeCloseTo(0, 9);
+  });
+
+  it('a recruiter holding 0.2–0.4 µL unloads and leaves (the deadlock fixed 2026-10-10)', () => {
+    const full = recruiterLoad(P, { ...base, seed: 5 });
+    const f = 0.3 / full.cropUl;
+    const load = { cropUl: 0.3, cropSugar: full.cropSugar * f, cropWater: full.cropWater * f, ingested: full.ingested };
+    const nest = { ...LASIUS_NEST, receiveReserve: 1, returnRate: 1, shareEnd: 1 / 600 };
+    let leftAt = NaN;
+    runColony({ ...P, nest }, { seed: 6, ants: 40, minutes: 22, foodMinute: Infinity, recruiter: { enterAt: 60, ...load } }, (_w, info) => {
+      if (info.outside[40] && Number.isNaN(leftAt)) leftAt = info.t;
+      return !Number.isNaN(leftAt);
+    });
+    expect(leftAt).toBeLessThan(60 + 20 * 60);
   });
 });

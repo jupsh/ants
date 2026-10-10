@@ -14,7 +14,7 @@ import { walkAnt } from '../src/sim/physics/antPhysics';
 import { basicPercept } from '../src/sim/perception/types';
 
 /** Step 4, bounded version (STATUS 2026-10-08): geometry, contacts, transfer, conservation, determinism. */
-const morph = { len: 4, mass: 2, cropCapacity: 2, antennaReach: 2.6 };
+const morph = { len: 4, mass: 2, cropCapacity: 2, antennaReach: 2.6, cropFullFrac: 0.98 };
 const body = (id: number, x: number, y: number, heading: number) => {
   const b = new Body(id, 1, morph, 0.5, 1);
   b.x = x;
