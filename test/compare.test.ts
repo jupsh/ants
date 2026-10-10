@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { blockEstimate, combinedZ, judgedSumZ2, ksTest, normalCdf, normalQuantile, pToZ } from '../src/sim/analysis/compare';
+import { betaInc, blockEstimate, combinedZ, judgedSumZ2, ksTest, normalCdf, normalQuantile, pToZ, smallSampleZ, tToZ, tUpper, varianceRatioZ, welchDf } from '../src/sim/analysis/compare';
 import { RNG } from '../src/sim/core/rng';
 import { compareE1, referenceFor, sampleFor, scalarSE } from '../src/sim/experiments/e1Compare';
 import { runE1 } from '../src/sim/experiments/e1Exploration';
@@ -13,6 +13,56 @@ describe('comparison statistics', () => {
     expect(normalQuantile(0.001)).toBeCloseTo(-3.090232, 5);
     for (const p of [0.01, 0.2, 0.5, 0.9, 0.999]) expect(normalCdf(normalQuantile(p))).toBeCloseTo(p, 6);
     expect(pToZ(0.05)).toBeCloseTo(1.96, 2);
+  });
+
+  it('t and F distributions match tables', () => {
+    expect(2 * tUpper(2, 4)).toBeCloseTo(0.11612, 5);
+    expect(2 * tUpper(3, 4)).toBeCloseTo(0.03994, 5);
+    expect(tUpper(2.776, 4)).toBeCloseTo(0.025, 4);
+    expect(tUpper(-2.776, 4)).toBeCloseTo(0.975, 4);
+    // F(4, 9) upper 5 % point 3.633.
+    expect(betaInc((4 * 3.633) / (4 * 3.633 + 9), 2, 4.5)).toBeCloseTo(0.95, 4);
+    expect(tToZ(3, 4)).toBeCloseTo(2.0543, 3);
+    expect(tToZ(-2, 4)).toBeCloseTo(-1.5713, 3);
+    expect(tToZ(2, 1e7)).toBeCloseTo(2, 4);
+    expect(Number.isFinite(tToZ(1e4, 4))).toBe(true);
+    expect(welchDf(1, 4, 0, 9)).toBeCloseTo(4, 10);
+    expect(welchDf(1, 4, 1, 9)).toBeCloseTo(4 / (1 / 4 + 1 / 9), 10);
+  });
+
+  it('small-sample z has the nominal tail rates when SE_data comes from 5 units', () => {
+    // Null model: 5 data colonies and 200 simulated colonies (10 blocks) from the same normal.
+    const rng = RNG.stream(77, 1);
+    let raw3 = 0;
+    let z2 = 0;
+    let z3 = 0;
+    let ws2 = 0;
+    let ws3 = 0;
+    let sd2 = 0;
+    const R = 20000;
+    for (let r = 0; r < R; r++) {
+      const d = Array.from({ length: 5 }, () => rng.gauss());
+      const dm = d.reduce((a, b) => a + b, 0) / 5;
+      const dsd = Math.sqrt(d.reduce((a, b) => a + (b - dm) ** 2, 0) / 4);
+      const est = blockEstimate(Array.from({ length: 10 }, () => Array.from({ length: 20 }, () => rng.gauss())));
+      const s = smallSampleZ(est.mean, est.se, est.blocks - 1, dm, dsd / Math.sqrt(5), 4);
+      if (Math.abs(s.t) > 3) raw3++;
+      if (Math.abs(s.z) > 2) z2++;
+      if (Math.abs(s.z) > 3) z3++;
+      if (Math.abs(s.zWelch) > 2) ws2++;
+      if (Math.abs(s.zWelch) > 3) ws3++;
+      if (Math.abs(varianceRatioZ(est.sd, est.n, dsd, 5)) > 2) sd2++;
+    }
+    // Uncorrected z: ≈ 4 % beyond 3 (review). Fixed df 4 (primary): ≈ 4.1 % / 0.15 % beyond 2 / 3
+    // (nominal 4.55 / 0.27). Welch–Satterthwaite: ≈ 4.8 % / 0.55 %: its df is estimated from the
+    // same 5 colonies, so it rises exactly when SE_data comes out small (STATUS 2026-10-09).
+    expect(raw3 / R).toBeGreaterThan(0.03);
+    expect(z2 / R).toBeGreaterThan(0.035);
+    expect(z2 / R).toBeLessThan(0.0455);
+    expect(z3 / R).toBeLessThan(0.0035);
+    expect(ws2 / R).toBeGreaterThan(0.04);
+    expect(ws3 / R).toBeLessThan(0.008);
+    expect(sd2 / R).toBeCloseTo(0.0455, 2);
   });
 
   it('KS p-values match reference values', () => {

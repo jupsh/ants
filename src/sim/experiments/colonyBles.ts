@@ -10,6 +10,7 @@ import type { SurfacePercept } from '../perception/types';
 import { applyForagerAction, metabolise, walkAnt, type MotorFn } from '../physics/antPhysics';
 import { alignFaceToFace, detectContacts, mouthContact } from '../physics/contacts';
 import { shareCrop } from '../physics/trophallaxis';
+import { E6_CONTEXT } from '../species/lasiusM1';
 import { blesApparatus } from '../world/apparatus';
 import { SugarDroplet } from '../world/food';
 import { PathField } from '../world/pathField';
@@ -35,11 +36,15 @@ export interface ColonyParams extends LasiusParams {
 
 export interface ColonyOptions {
   seed: number;
+  /** Workers per colony (default 53: the Bles et al. data imply 267 ants / 5 colonies). */
   ants?: number;
   dt?: number;
   minutes?: number;
   foodMinute?: number;
   starvationDays?: number;
+  /** Factor on the walker's speed (default E6_CONTEXT.walkSpeedFactor, the pre-registered primary; sensitivity 1 and E2_CONTEXT.walkSpeedFactor). */
+  walkSpeedFactor?: number;
+  /** Bles et al. 2022: 22 ± 3 °C (STATUS 2026-10-09; 25 °C was assumed before). */
   tempC?: number;
   foodUl?: number;
   molar?: number;
@@ -95,14 +100,16 @@ export interface ColonyResult {
 }
 
 export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World) => void): ColonyResult {
-  const n = o.ants ?? 50;
+  const n = o.ants ?? 53;
+  const f = o.walkSpeedFactor ?? E6_CONTEXT.walkSpeedFactor;
+  const walkP = f === 1 ? P.walk : { ...P.walk, speed: P.walk.speed * f };
   const dt = o.dt ?? 0.1;
   const T = (o.minutes ?? 90) * 60;
   const foodTime = (o.foodMinute ?? 30) * 60;
   const motor = o.motor ?? walkStep;
   const frameEvery = o.frameEvery ?? 0;
   const { app, entrance, feeder } = blesApparatus();
-  const w = new World(app, entrance, o.seed, o.tempC ?? 25, 50);
+  const w = new World(app, entrance, o.seed, o.tempC ?? 22, 50);
   // Cues along the surface (provisional): nest odour over the whole foraging area, and the way out inside the nest.
   w.nestOdour = new PathField(app, (r) => r.kind === 'nest');
   w.exitCue = new PathField(app, (r) => r.kind !== 'nest');
@@ -124,7 +131,7 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World)
     const physRng = RNG.stream(o.seed, 0x1a7a, i);
     body.intakeFactor = Math.exp(physRng.normal(0, P.phys.intakeSd) - (P.phys.intakeSd * P.phys.intakeSd) / 2);
     const traits = { ...drawTraits(P.forager, body.rng), ...drawNestTraits(P.nest, RNG.stream(o.seed, 0x7e57, i)) };
-    const mind = newMind(traits, P.walk, body.rng);
+    const mind = newMind(traits, walkP, body.rng);
     mind.walk.heading = body.heading;
     // In the nest the ant knows where it is relative to the entrance (path-integration origin).
     mind.pi.x = body.x - entrance[0];
@@ -169,7 +176,7 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World)
       if (!act) return;
       if (outside[i]) {
         const before = a.body.cropUl;
-        applyForagerAction(w, a, act as ForagerAction, per[i]!, P.walk, P.phys, dt, motor);
+        applyForagerAction(w, a, act as ForagerAction, per[i]!, walkP, P.phys, dt, motor);
         // Forager status: ≥ 5 consecutive seconds of feeding at the source.
         feedRun[i] = a.mind.mode === 'drink' && a.body.cropUl > before ? feedRun[i] + dt : 0;
         if (feedRun[i] >= 5 - 1e-9) forager[i] = true;
@@ -178,7 +185,7 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World)
       const na = act as NestAction;
       a.body.gasterDown = false;
       a.body.stepLen = 0;
-      if (!na.stand) walked[i] = walkAnt(w, a, per[i]!, P.walk, P.phys, na.motor, motor);
+      if (!na.stand) walked[i] = walkAnt(w, a, per[i]!, walkP, P.phys, na.motor, motor);
     });
     // Food sharing between ants that both agreed, in donor-index order.
     w.ants.forEach((a, i) => {

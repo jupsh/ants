@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-09 (session 3: step-3c fits running under the amended pre-registration; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-09 (session 3: step 4 started — E6 decision rule, TEC rerun, nest assumptions pre-registered; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
@@ -34,15 +34,25 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   in the Decisions log (2026-10-09). No further laying family without a
   distinguishing prediction (persistent propensity vs no feeding effect).
   Scripts that rebuild step-3 fits use the legacy layer (`E2_LEGACY_*`).
-- **E6 / colony (step 4):** bounded provisional colony (Bles nest,
-  contacts, conserved food sharing, `#colony` page); calibration and the
-  E6 test come next, with the E6 walker-sensitivity probe. E6 outcomes are
-  a development benchmark (review). Before judging: the t-based decision
-  rule (5 colonies, ≈ 4 df); rerun the TEC-through-observer numbers and
-  `e6-tec.json` (observer rule 'after'); crop absorption as a sensitivity
-  scenario (0 – 0.05 /h; the source is *Solenopsis*); the walking
-  assumption for the nest pre-registered (the E2 factor confounds
-  temperature and context).
+- **E6 / colony (step 4): started 2026-10-09.** Done: the t-based E6
+  rule (df 4; Welch–Satterthwaite reported; F-test spread); the TEC rerun
+  through the 'after' observer (`e6-tec.json` rewritten); per-ant
+  distributions as a Monte Carlo KS test (`e6PerAntCompare`; rejects all
+  one-caste models and TEC delta, which the colony means could not). E6
+  ran at **22 °C** (25 °C had been assumed; corrected). Pre-registered
+  (user decisions 2026-10-09): walking × 0.781 temperature only (sensitivity
+  × 1, × 0.289), crop absorption 0 (sensitivity 0.05 /h first-order), L0S1c
+  main / L0S1 alternative, N 53, ≥ 200 colonies, per-ant verdict = omnibus
+  Σ D. **Mailleux 1999 calibration protocol approved** (Decisions log,
+  last entries): k = 6 (`nestSpeedFactor` in the nest, a new return-to-
+  source hazard `returnRate`, `shareRate`, `shareEnd`, `receiveReserve`,
+  1999-only density), 15 fit rows (Table 2a × 1/4/8 d), Table 2b
+  development. **Next:** implement the return rule, the nest speed factor
+  and the 1999 recruiter run (+ observer), a pool task, profile; log the
+  fit's implementation details; then rent the box for the two
+  calibrations (L0S1c, L0S1); then the E6 test (development benchmark). In parallel:
+  freeze the E2 external-validation protocol on Mailleux 2005 (held
+  unread).
 - **Judging:** a candidate missing a statistic the data estimate is
   unjudgeable (2026-10-09 fix; no earlier ranking was affected).
 - Commits: plain messages, no co-author lines; ask before committing.
@@ -649,6 +659,11 @@ See [`CLAUDE.md`](../CLAUDE.md).
   validated aggregation for very large colonies (see `docs/DESIGN.md`).
 
 ## Decisions log
+- **2026-10-09** Docs only, nothing under `src/` touched while the step-3c
+  fits run: drafted [`DATA.md`](DATA.md) (data cards) and [`API.md`](API.md)
+  (public API proposal, awaiting review). Found that `SIX_TARGETS` still
+  carries `role: 'heldout'` although step 3b made the 2003 data development;
+  to correct after the fits.
 - **2026-10-07** Browser, TypeScript, three.js. The simulation core is
   pure, deterministic and runs in a Web Worker. Language performance is not
   the bottleneck; hot kernels can move to WASM if profiling demands it.
@@ -3376,3 +3391,213 @@ See [`CLAUDE.md`](../CLAUDE.md).
     `MAILLEUX_SETUP` (with the 2009 scale), and exports L0S1 as the
     alternative. New structural parameters get provenance (searchMode,
     layRule and the fast-uptake terms).
+- **2026-10-09** **Step 4 started: E6 decision rule and TEC rerun
+  (implements review item 5 and step-3c amendment 3; logged before
+  acting).**
+  - **Means.** E6 rows report a normal-equivalent z: the combined
+    t = Δ / √(SE_data² + SE_sim²) is mapped through Student's t with
+    Welch–Satterthwaite df, ν = (a + b)² / (a²/4 + b²/(R − 1)), a =
+    SE_data², b = SE_sim² (R = 10 seed blocks), then z = Φ⁻¹(F_ν(t)).
+    The cut-offs 2 and 3 then keep their usual meaning (≈ 4.6 % / 0.27 %
+    under a correct model). The raw t and ν are reported beside z.
+  - **Spread.** The log-SD normal approximation is replaced by the
+    variance-ratio F test, s²_sim / s²_data ~ F(n_sim − 1, 4) under equal
+    variances (normal colony values assumed; with 5 colonies nothing
+    sharper is available), mapped to z the same way (sign: sim SD larger
+    is positive). Indicative only, as before.
+  - **Fitting is unchanged:** `fitE6TEC.ts` keeps Σ fitZ² (SE_data only;
+    the t mapping is monotone per row and would only reweight rows by ν).
+  - **Rerun:** published TEC-exp and the tier-2 refit through the
+    observer, rule 'after' (default) and 'total' (sensitivity);
+    `fitE6TEC.ts` refits under 'after' and writes `e6-tec.json` with the
+    observer rule recorded. The TEC numbers are a reference fitted to E6,
+    not a test of our model.
+  - **Null calibration (before any E6 result was looked at):** 5 data and
+    200 simulated colonies (10 blocks) from one normal, 100 000 replicates.
+    Welch–Satterthwaite: 4.8 % beyond |z| 2, 0.54 % beyond 3 (nominal 4.55 /
+    0.27; uncorrected ≈ 4 % beyond 3): its df is estimated from the same 5
+    colonies and rises exactly when SE_data comes out small. Fixed df =
+    min(4, R − 1) = 4: 4.1 % / 0.15 % (50 colonies: 3.2 % / 0.04 %; tends to
+    exact as SE_sim → 0). Spread F test: 4.6 % beyond 2.
+- **2026-10-09** **User decisions: E6 rule and nest assumptions
+  (pre-registration for the E6 test; frozen before any output of our
+  colony model is judged against E6; logged before acting).**
+  1. **Decision rule (primary):** normal-equivalent z through t with fixed
+     df = min(n_data − 1, R − 1) = 4; the Welch–Satterthwaite z is reported
+     beside it. Our colony model is run with ≥ 200 colonies (SE_sim small,
+     so df 4 is close to exact). |z| ≤ 2 consistent, ≤ 3 marginal. Spread:
+     the F-test z, indicative only.
+  2. **Walking in the nest:** primary = the adopted E1 walker unchanged
+     (fitted at 26 °C on canvas; E6 at 25 °C). Sensitivity: temperature
+     only, × 0.93 (Q10 2, 26 → 25 °C); the E2 bridge factor × 0.289
+     (confounds temperature, surface, task and method; not transferred by
+     default).
+  3. **Crop absorption:** primary 0 (absorption = metabolic need only).
+     Sensitivity: first-order, 0.05 of the crop's sugar per hour (Howard &
+     Tschinkel 1981, *Solenopsis*, isolated workers: a scenario, not a
+     *Lasius* bound), limited by the reserve room (no overfilling). The
+     `cropAbsorption` term is re-parameterised from "× reserve room" to
+     "× crop contents" for this; at 0 nothing changes (E2 unaffected).
+  4. **E2 layer:** L0S1c (baseline desired volumes) main, L0S1 alternative
+     (decided 2026-10-09).
+  5. **Reading:** the primary scenario gives the result. A row whose
+     verdict (ok / marginal / off) changes across the four sensitivity
+     runs (two walking, one absorption, the L0S1 layer) is reported as
+     "sensitive to <assumption>", not as a pass. E6 is a development
+     benchmark (review item 5); calibration of the colony uses non-E6 data
+     (Mailleux 1999 in-nest recruiters) first.
+  **Implemented:** `smallSampleZ`, `tToZ`, `welchDf`, `varianceRatioZ`,
+  `betaInc` (`compare.ts`; tested against t/F tables and the null rates);
+  `e6Compare` reports z (df 4), t, zWS and its df, and the F-test spread z;
+  `--rule after|total` in `reportE6.ts`; `observerRule` recorded in
+  `e6-tec.json`. Crop-absorption re-parameterisation not yet done (needed
+  only for the sensitivity run).
+- **2026-10-09** **E6 TEC baseline rerun under the corrected observer and
+  rule (400 colonies; `logs/reportE6-rerun.log`, `logs/fitE6TEC-after.log`).**
+  - **Refit** (`e6-tec.json` rewritten, rule 'after'): θF 1/7.4, θW 1/19.9,
+    ϒF 1/8.8, ϒW 1/21.8 (old 'total'-era refit 1/7.8, 1/21.7, 1/8.1, 1/21.8;
+    published 1/9, 1/23, 1/9, 1/27), fit loss 0.41 (old 0.29). Fresh
+    colonies: every mean |z| ≤ 1.5; **T50 29.9 vs 32.8 min, t −1.9 → z −1.5**
+    (was reported z −2.1 under the normal rule). Spread: both-roles share
+    zSD −2.0, efficiency −1.8 (simulated colonies too alike).
+  - **Published TEC-exp:** events 80.5 (t −2.0 → z −1.6), T50 29.3 (t −2.3
+    → z −1.7), NF→NF 24.7 (z −1.6); nothing beyond |z| 2.
+  - **Rule 'total' (sensitivity):** small shifts only (published events
+    82.9, refit 99.9; no verdict changes).
+  - **Power (one-caste model, rejected by the authors):** every colony
+    mean |z| ≤ 1.7 except NF→F (t −3.3 → z −2.2, marginal); F→F spread
+    zSD −5.6 is the only clear rejection. Colony-level means with 5
+    colonies barely discriminate. The per-ant distributions (267 ants,
+    events given / received by foragers and non-foragers; step 2 note)
+    should become pre-registered KS targets before our colony model is
+    judged on E6.
+- **2026-10-09** **Correction: E6 was run at 22 ± 3 °C, not 25 °C.** The
+  paper reports 22 ± 3 °C, 60 ± 5 % RH (recorded 2026-10-07 in
+  `data/bles2022/README.md` and `docs/research/lasius-niger.md`); the
+  2026-10-08 colony plan marked it "not reported" and assumed 25 °C, and
+  the nest pre-registration above repeated it. `runColony` now defaults to
+  22 °C (metabolism and intake temperature terms; no E6 output of our model
+  had been judged). **The walking scenarios need revisiting:** temperature
+  only is × 0.76 (Q10 2, 26 → 22 °C), not × 0.93; and E2 (Mailleux, also
+  22 ± 3 °C) and E6 now share the temperature, so the × 0.289 bridge factor
+  differs from E6 only in surface, task and method. Awaiting the user's
+  choice of primary.
+- **2026-10-09** **E6 per-ant distributions: method and reference results
+  (proposal; the judging rule awaits the user's approval before our colony
+  model is run against E6).**
+  - **Data:** Bles et al. Fig. 3B–E histograms from the authors' script
+    (61 foragers, 206 non-foragers, 5 colonies pooled): events given /
+    received per forager and per non-forager (`E6_PER_ANT_HIST`; sums
+    checked against the pair counts in `test/e6.test.ts`).
+  - **Test (`e6PerAntCompare`):** KS distance of the pooled data histogram
+    from the model's pooled per-ant distribution; null distribution by
+    Monte Carlo: draw 5 simulated colonies, pool their ants (forager counts
+    vary as in the data), score against the pooled remaining colonies;
+    p = (k + 1)/(reps + 1), reps 10 000 (z resolution ≥ 3.9), z = two-sided
+    normal equivalent (as `pToZ` for KS rows). Handles tied integer counts,
+    ants clustered in colonies and variable group sizes, which the
+    asymptotic KS p does not. Omnibus Σ D (the authors' D_total) on the
+    same draws. Null check (synthetic Poisson colonies with a colony
+    effect, 2000 trials): 5.15 % rejected at p ≤ 0.05.
+  - **Reference models (400 colonies, rule 'after'; Σ D omnibus z, worst
+    group):** one-caste exp ≥ 3.9 (forager receive ≥ 3.9), unif ≥ 3.9,
+    delta ≥ 3.9; TEC delta 3.2 (non-forager receive 3.4; the authors'
+    Table S2 also rejects delta on the non-forager distributions); TEC
+    unif 1.8; TEC published (exp) 2.1 (fewer events through the observer;
+    forager give 1.9); TEC refit 0.7 (fitted to E6; not a test). The
+    per-ant distributions reject what the colony means could not (one
+    caste: means all |z| ≤ 2.2).
+  - **Proposed rule:** the omnibus Σ D z is the per-ant verdict (one test,
+    so no multiplicity across four correlated rows); the four group rows
+    are reported for diagnosis with the usual cut-offs. Our colony model
+    runs with N = 53 ants per colony (the data imply 267 / 5 = 53.4;
+    `bles-tec-spec.md` ambiguity 1) and ≥ 200 colonies.
+- **2026-10-09** **User decisions: amendments to the E6 pre-registration
+  (after the 22 °C correction and the per-ant proposal; still before any
+  output of our colony model is judged against E6; logged before acting).
+  They supersede items 2 and 5 of the nest pre-registration where they
+  differ.**
+  1. **Walking (primary): temperature only.** Implemented as
+     `E6_CONTEXT.walkSpeedFactor` = arrhenius(22 °C, 26 °C, 0.47 eV) =
+     **× 0.781** (the mean activation energy of ant running speed across
+     22 species, Hurlbert et al. 2008, already used by the draft species
+     files; the question offered × 0.76 from Q10 2, a 3 % difference, noted
+     in the provenance). Sensitivity: × 1 and × 0.289 (E2 bridge factor).
+  2. **Per-ant verdict:** the omnibus Σ D z (`e6PerAntCompare`, 10 000
+     Monte Carlo draws); the four group rows reported for diagnosis.
+     "Reading" (item 5) applies to it like a primary row.
+  3. **Colony size:** 53 ants (`runColony` and the colony page default).
+  **Implemented:** `runColony` options `walkSpeedFactor` (default the E6
+  primary) and `ants` (default 53), temperature default 22 °C;
+  `cropAbsorption` re-parameterised as first-order (× crop sugar, limited
+  by the reserve room; 0 by default, so E2 and the primary are unchanged;
+  sensitivity 1.39e-5 /s = 0.05 /h). The E6 pre-registration is now
+  complete for colony means (t rule, df 4), spreads (F test, indicative),
+  per-ant distributions (omnibus) and the four assumptions; the E6 test
+  itself waits for the Mailleux 1999 calibration.
+- **2026-10-09** **Colony calibration on Mailleux 1999 (in-nest recruiter):
+  DRAFT protocol, not frozen; awaiting the user's decisions. No model has
+  been run against Table 2a/2b.**
+  - **Data and roles.** Mailleux et al. 1999 (Actes Coll. Insectes Soc.
+    12:73–79; `mailleux-rules.md` §4), 22 ± 3 °C, colonies of 1000–2000
+    workers in plaster Janet nests (geometry and density not reported),
+    first recruiter after a 3 µL drop of 0.6 M sucrose, filmed 20 min in
+    the nest. **Fit:** Table 2a at 1 / 4 / 8 d (time in nest, distance,
+    contacts, total trophallaxis, contacts before the main trophallaxis;
+    mean ± SD, n 23–28): 15 means. SDs are checks. **Development
+    (reported only):** Table 2b (a contacted nestmate leaves within 5 min;
+    its n look copied from Table 1) and "all recruiters leave within
+    20 min". Not available: the definition of "distance" (path traced
+    from ×2 video? the 1999 text is not in `literature/`), so the distance
+    row carries an observation caveat.
+  - **Structural gaps found by reading the code (before any run):**
+    (G1) a returned forager leaves again only when hungry with a crop
+    < 5 % full, at `leaveRate` ≈ 1/300 s, so time in nest would be ≫ the
+    80–113 s observed; (G2) the walker moves at ≈ 33 mm/s (E1 median
+    43 mm/s × 0.781), while the recruiters cover 5–9 cm in the 14–56 s of
+    their stay not spent in trophallaxis (≈ 1.6–4 mm/s averaged over it):
+    ≈ 10× slower; (G3) no contact-triggered leaving (Table 2b), and an ant
+    that received food cannot leave (its crop is not empty).
+  - **Proposed structure (minimal additions, each needed by a fit row):**
+    (a) *Return to a known source:* an ant that fed at a source on this
+    trip leaves the nest at hazard `returnRate` once its crop falls below
+    `giveFrac` (1 parameter; G1). (b) *In-nest walking:* `nestSpeedFactor`
+    on the walker's speed inside the nest only (1 parameter; G2); the
+    foraging area keeps the pre-registered × 0.781. (G3 is not addressed:
+    Table 2b stays development.)
+  - **Free parameters (k = 6):** `nestSpeedFactor`, `returnRate`,
+    `shareRate`, `shareEnd`, `receiveReserve`, and a 1999-only nuisance,
+    nestmate density in the chamber (not transferred: E6 density follows
+    from its geometry and N 53). Fixed (estimated, reported as is):
+    `giveFrac`, `stallTime`, `restToActive`, `activeToRest`, `leaveRate`,
+    `forageDriveSd`. The recruiter's crop on entry comes from the E2 layer
+    (3 µL, 0.6 M, the starvation day; L0S1c main, L0S1 alternative: two
+    calibrations).
+  - **Simulation.** Bles nest chamber (56 × 41 mm) as the stand-in
+    chamber, nestmates at the fitted density with reserves for the
+    starvation day; the recruiter enters from the passage with its E2 crop
+    and is followed up to 20 min. Observed as the paper defines: time
+    entry → exit; path length in the nest; contacts = onsets of antennal
+    contact with a nestmate (trophallactic partners included); total
+    trophallaxis = sum of the recruiter's bouts; contacts before main =
+    contact onsets before the longest bout starts.
+  - **Fitting and judging** (as E2): CMA-ES on Σ fitZ² (SE_data = SD/√n),
+    common random numbers, two starts; judging with combinedZ on fresh
+    seeds (|z| ≤ 2 / 3); recovery check of the fitting procedure;
+    profiles of the nuisance density and `nestSpeedFactor`. **Adequate**
+    = every fit row |z| ≤ 3 and at most 2 of 15 in (2, 3]. Not adequate →
+    reported, and E6 still runs with the result labelled accordingly.
+  - **E6 consequence (amends the walking pre-registration for movement in
+    the nest only, if approved):** primary = calibrated `nestSpeedFactor`
+    in the nest and × 0.781 outside; sensitivity = × 0.781 everywhere.
+  - **Cost:** a 20-min recruiter run with ≈ 50 nestmates ≈ 6 s single-core
+    (from the 27 s / 91-min colony); 100 recruiters × 3 days per
+    evaluation ≈ 0.5 core-h, a CMA-ES fit ≈ 300–600 core-h before
+    profiling.
+  - **User decisions (2026-10-09): the draft above is approved as
+    written** (nest speed factor calibrated on 1999, × 0.781 everywhere
+    as the E6 sensitivity; the return rule, 1 parameter; density a free
+    1999-only nuisance; Table 2b development). It is frozen except for
+    implementation details (seeds, batch sizes, CMA-ES settings, bounds),
+    which are logged before any fit is run. The E6 walking pre-registration
+    is amended accordingly for movement inside the nest.

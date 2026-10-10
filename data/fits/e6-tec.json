@@ -1,5 +1,6 @@
 {
   "experiment": "E6 reference: Bles et al. 2022 TEC-exp refitted through the 60-s scan observer",
+  "observerRule": "after",
   "fittedOn": [
     "foragers",
     "pair-type event counts FF/FNF/NFF/NFNF (Bles et al. Table S1)"
@@ -11,12 +12,12 @@
     "upsW": 0.037037037037037035
   },
   "params": {
-    "thetaF": 0.1282704729033024,
-    "thetaW": 0.046082386290448175,
-    "upsF": 0.12298530506683991,
-    "upsW": 0.045968341057986514
+    "thetaF": 0.13493835820225544,
+    "thetaW": 0.050151550451133606,
+    "upsF": 0.11347609499885672,
+    "upsW": 0.04581865151218953
   },
-  "loss": 0.2858459843154247,
+  "loss": 0.40984941180164436,
   "coloniesPerEval": 120,
-  "seconds": 258.602
+  "seconds": 61.684
 }

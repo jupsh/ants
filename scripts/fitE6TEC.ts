@@ -46,7 +46,7 @@ console.log(e6Table(e6Compare(await pool.blesColonies(P, 400, 6_200_000), target
 fs.mkdirSync('data/fits', { recursive: true });
 fs.writeFileSync(
   'data/fits/e6-tec.json',
-  JSON.stringify({ experiment: 'E6 reference: Bles et al. 2022 TEC-exp refitted through the 60-s scan observer', fittedOn: ['foragers', 'pair-type event counts FF/FNF/NFF/NFNF (Bles et al. Table S1)'], published: Object.fromEntries(keys.map((k) => [k, base[k]])), params, loss: r.f, coloniesPerEval: COLONIES, seconds: (Date.now() - t0) / 1000 }, null, 2),
+  JSON.stringify({ experiment: 'E6 reference: Bles et al. 2022 TEC-exp refitted through the 60-s scan observer', observerRule: 'after', fittedOn: ['foragers', 'pair-type event counts FF/FNF/NFF/NFNF (Bles et al. Table S1)'], published: Object.fromEntries(keys.map((k) => [k, base[k]])), params, loss: r.f, coloniesPerEval: COLONIES, seconds: (Date.now() - t0) / 1000 }, null, 2),
 );
 console.log('wrote data/fits/e6-tec.json');
 pool.close();

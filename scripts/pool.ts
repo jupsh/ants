@@ -13,6 +13,7 @@ import { fork, type ChildProcess } from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
 import type { Track } from '../src/sim/analysis/trajectory';
+import type { ObserverRule } from '../src/sim/analysis/trophallaxis';
 import type { E1Sample } from '../src/sim/experiments/e1Compare';
 import type { E1Options } from '../src/sim/experiments/e1Exploration';
 import type { ScoutOptions, ScoutResult, LasiusParams } from '../src/sim/experiments/e2Mailleux';
@@ -138,10 +139,10 @@ export class SimPool {
   }
 
   /** E6 Bles-model colonies 0 … count − 1, chunked across the pool; metrics in colony order. */
-  async blesColonies(P: BlesParams, count: number, seed: number): Promise<E6Metrics[]> {
+  async blesColonies(P: BlesParams, count: number, seed: number, rule?: ObserverRule): Promise<E6Metrics[]> {
     const size = Math.max(2, Math.ceil(count / (2 * this.size)));
     const parts: TaskArgs<'blesColonies'>[] = [];
-    for (let c = 0; c < count; c += size) parts.push([P, seed, c, Math.min(size, count - c)]);
+    for (let c = 0; c < count; c += size) parts.push([P, seed, c, Math.min(size, count - c), rule]);
     return (await this.map('blesColonies', parts)).flat();
   }
 

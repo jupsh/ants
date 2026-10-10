@@ -11,6 +11,8 @@ export interface AntStyle {
   color: string;
   /** Gait phase (rad) for alternating tripod leg swing; omit for standing still. */
   gait?: number;
+  /** If set, the crop contents show as a core of this colour inside the gaster, its size growing with the load. */
+  cropColor?: string;
 }
 
 // Segment centres (mm along the body axis, head forward) and half-sizes.
@@ -81,6 +83,12 @@ export function drawAnt(ctx: CanvasRenderingContext2D, x: number, y: number, hea
   ell(PETIOLE.x, PETIOLE.rx, PETIOLE.ry);
   ell(MESO.x, MESO.rx, MESO.ry);
   ell(HEAD.x, HEAD.rx, HEAD.ry);
+  const load = Math.min(1, Math.max(0, st.load));
+  if (st.cropColor && load > 0.01) {
+    const k = 0.8 * Math.sqrt(load);
+    ctx.fillStyle = st.cropColor;
+    ell(GASTER.x - (g - 1) * 0.35, GASTER.rx * g * k, GASTER.ry * g * k);
+  }
   // Swollen gasters show the intersegmental membrane as pale bands.
   if (st.load > 0.3) {
     ctx.strokeStyle = 'rgba(255,255,255,0.35)';

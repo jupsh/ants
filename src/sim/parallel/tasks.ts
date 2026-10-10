@@ -1,4 +1,5 @@
 import type { Track } from '../analysis/trajectory';
+import type { ObserverRule } from '../analysis/trophallaxis';
 import { summarizeTrack, type Acc } from '../experiments/e1Compare';
 import { runE1, type E1Options } from '../experiments/e1Exploration';
 import { runScout, type LasiusParams, type ScoutOptions, type ScoutResult } from '../experiments/e2Mailleux';
@@ -25,7 +26,7 @@ export const TASKS = {
   /** The same, reduced in the worker to per-ant comparison summaries. */
   sectoredSummary: (pools: SectorPools, o: SectoredOptions): (Acc | null)[] => runSectored(pools, o).map(summarizeTrack),
   /** E6: colonies [first, first + count) of the Bles et al. reference model, observed and summarised. */
-  blesColonies: (P: BlesParams, seed: number, first: number, count: number): E6Metrics[] => simulateColonies((rng) => runBles(P, rng), count, seed, first),
+  blesColonies: (P: BlesParams, seed: number, first: number, count: number, rule?: ObserverRule): E6Metrics[] => simulateColonies((rng) => runBles(P, rng), count, seed, first, rule),
 };
 
 export type TaskName = keyof typeof TASKS;
