@@ -22,6 +22,10 @@ import type { ContactPercept, Interoception, SurfacePercept } from '../perceptio
  *     (the partner declined or left), or at the hazard `shareEnd`.
  *   - Hungry ants with a nearly empty crop leave to forage at rate
  *     `leaveRate` × their individual `forageDrive`.
+ *   - Return to a known source (STATUS 2026-10-09, Mailleux 1999
+ *     calibration): an ant that fed at a source on its last trip
+ *     (`m.ingested` > 0, reset when a trip starts) leaves again at hazard
+ *     `returnRate` once its crop is below `giveFrac`.
  *   - Nest fidelity: a worker outside the nest that is not on a foraging
  *     trip heads back to the entrance (gain `leaveGain`) and does not rest.
  */
@@ -43,6 +47,10 @@ export interface NestParams {
   forageDriveSd: number;
   /** Steering gain towards the entrance while leaving, or returning after straying out (1/s). */
   leaveGain: number;
+  /** Hazard (1/s) of leaving for a known source once unloaded (ants that fed on their last trip). */
+  returnRate: number;
+  /** Factor on walking speed inside the nest (applied by the runner; the policy does not read it). */
+  nestSpeedFactor: number;
 }
 
 export interface NestAction {
@@ -67,6 +75,13 @@ export function drawNestTraits(p: NestParams, rng: RNG): { forageDrive: number }
   return {
     forageDrive: Math.exp(rng.normal(0, p.forageDriveSd) - (p.forageDriveSd * p.forageDriveSd) / 2),
   };
+}
+
+/** An unloaded ant that fed on its last trip leaves for the source at hazard `returnRate` (sets mode 'leave'). */
+function returning(m: Mind, p: NestParams, carrying: boolean, dt: number, rng: RNG): boolean {
+  if (carrying || !(m.ingested > 0) || !rng.hazard(p.returnRate, dt)) return false;
+  setMode(m, 'leave');
+  return true;
 }
 
 export function lasiusNestWorker(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, rng: RNG): NestAction {
@@ -121,10 +136,12 @@ export function lasiusNestWorker(per: SurfacePercept, io: Interoception, m: Mind
         },
       };
     case 'rest':
+      if (returning(m, p, carrying, per.dt, rng)) return { ...NONE };
       if (rng.hazard(p.restToActive, per.dt) || !per.inNest) setMode(m, 'active');
       return { ...NONE, stand: true };
     default: {
       setMode(m, 'active');
+      if (per.inNest && returning(m, p, carrying, per.dt, rng)) return { ...NONE };
       // Nest fidelity: a worker that has strayed out of the nest (not on a
       // foraging trip) walks back to the entrance and does not rest outside.
       if (!per.inNest) return { ...NONE, motor: { goal: per.nestCue ? m.walk.heading + per.nestCue.bearing : Math.atan2(-m.pi.y, -m.pi.x), goalGain: p.leaveGain, noHomeBias: true } };

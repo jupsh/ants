@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-09 (session 3: step 4 started — E6 decision rule, TEC rerun, nest assumptions pre-registered; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-10 (session 3: step 4 — E6 rule and pre-registration done; Mailleux 1999 calibration implemented, not run; see RESUME and the Decisions log). Keep this file current: update it whenever a step starts or finishes._
 
 ## ▶ RESUME HERE
 
@@ -47,10 +47,11 @@ on precomputed results; work is committed on `browser-sim-m1` and merged to
   last entries): k = 6 (`nestSpeedFactor` in the nest, a new return-to-
   source hazard `returnRate`, `shareRate`, `shareEnd`, `receiveReserve`,
   1999-only density), 15 fit rows (Table 2a × 1/4/8 d), Table 2b
-  development. **Next:** implement the return rule, the nest speed factor
-  and the 1999 recruiter run (+ observer), a pool task, profile; log the
-  fit's implementation details; then rent the box for the two
-  calibrations (L0S1c, L0S1); then the E6 test (development benchmark). In parallel:
+  development. **Implemented 2026-10-10, not run** (`scripts/fitM1999.ts`;
+  implementation details logged). Cost ≈ 750–2300 core-h per layer as
+  set: **next** a budget decision (fewer generations / recruiters, spatial
+  index), then rent the box for the two calibrations (L0S1c, L0S1); then
+  the E6 test (development benchmark). In parallel:
   freeze the E2 external-validation protocol on Mailleux 2005 (held
   unread).
 - **Judging:** a candidate missing a statistic the data estimate is
@@ -3601,3 +3602,64 @@ See [`CLAUDE.md`](../CLAUDE.md).
     implementation details (seeds, batch sizes, CMA-ES settings, bounds),
     which are logged before any fit is run. The E6 walking pre-registration
     is amended accordingly for movement inside the nest.
+- **2026-10-10** **Mailleux 1999 calibration: implemented (not run).**
+  - **Structure:** `NestParams.returnRate` (return to a known source: an
+    ant with `m.ingested` > 0 from its last trip leaves at this hazard once
+    its crop is below `giveFrac`; checked in rest and active modes) and
+    `NestParams.nestSpeedFactor` (the runner scales the walker for any ant
+    inside the nest). Provisional defaults 1/60 /s and 1 (`lasiusM1.ts`).
+    E6 colony runs change through the return rule (structure change).
+  - **`runColony`:** optional `recruiter` (an extra ant entering from the
+    passage with a crop load and feeding memory; sugar and water enter the
+    ledger), an observer hook `onStep(w, { t, per, outside })` that can
+    stop the run, and per-step nest/outside walking parameters. Ant set-up
+    keeps its stream order (no-recruiter runs unchanged apart from the
+    return rule).
+  - **`colonyMailleux1999.ts`:** Table 2a targets (15 fit rows), Table 2b
+    (development); `recruiterLoad` (the first E2 scout seed that drank at
+    3 µL, 0.6 M and reached the nest; same layer, same starvation day);
+    `runRecruiter1999` with the observer as drafted (contacts = onsets of
+    antennal contact; contacts before main exclude the main partner's own
+    onset; path length in cm; time capped at 1200 s with `left` false);
+    Table 2b counts a contacted nestmate that leaves within 5 min of its
+    first contact (`followNestmates`, judging only). `m1999Compare`
+    (combinedZ, 10 blocks), `m1999FitLoss` (Σ fitZ², + 1e7 per
+    inestimable row). Pool task `m1999` (one recruiter per task; pooled =
+    serial, checked). Tests `test/m1999.test.ts` (mechanics only).
+  - **Speed-up, results unchanged:** head points cached per position and
+    heading; the contact pre-filter is the exact bound (larger reach + both
+    head offsets) instead of reach + reach + both lengths. Bit-identical
+    (hash of a 50-min colony's bouts and positions, and of a dense
+    recruiter run); 1.6–1.8× faster. Remaining cost is genuine contacts.
+  - **Implementation details (logged before any fit):** `scripts/
+    fitM1999.ts --layer main|alt`; warm-up 300 s (rest/active relaxation
+    ≈ 72 s); 80 recruiters per day per evaluation; bounds (log unless
+    noted) `nestSpeedFactor` [0.02, 1], `returnRate` [1/1200, 1] /s,
+    `shareRate` [0.002, 0.1] µL/s, `shareEnd` [1/1200, 0.5] /s,
+    `receiveReserve` [0.2, 1] linear, density [0.25, 6] /cm² (N 6–138);
+    starts: provisional values at density 1, and density 2.3 with
+    `nestSpeedFactor` 0.2, `returnRate` and `shareEnd` 1/30; CMA-ES as
+    fitE2c (curvature probe, two starts + one IPOP restart, ≤ 120
+    generations, tolX 0.03, mean of the last 30 generation means); seeds
+    7.0e9 + offsets (disjoint from all earlier fits); selection batch 3 ×
+    80 per day at seed 7.777e9. Judging on fresh seeds (7.9e9) with
+    `m1999Compare`, Table 2b with `followNestmates`.
+  - **Cost (measured, 11 local workers):** one evaluation (240 recruiters)
+    47 s at start 1, 147 s at start 2 (≈ 9–27 core-min). A full fit
+    (≤ ≈ 5000 evaluations) ≈ 750–2300 core-h per layer; two layers plus
+    recovery and profiles: several thousand core-h. Options before
+    renting: fewer generations or recruiters, a spatial index in
+    perception (est. 1.3–2×), a shared warm-up.
+  - **Disclosure:** a timing run at the provisional start values printed,
+    for one recruiter at 4 d (seed 11), "left false" at densities 1 and 5
+    (time in nest 1200 s) and "left true" at 2.3, with crop at exit. No
+    fit statistic or loss was printed. Bounds and starts above were set
+    from the protocol and code, not from these runs.
+- **2026-10-10** **Spatial index in perception: tried, no gain, reverted.**
+  A per-step neighbour hash (built between perception phases, candidates
+  in ant order, so percepts were bit-identical: same run hashes) did not
+  speed up the colony (7.4 vs 7.2 s, 50-min colony) or a dense 1999 run
+  (34 vs 31.5 s, 115 nestmates): with the exact contact pre-filter the
+  remaining cost is genuine near contacts, not the scan over far ants.
+  Worth revisiting only for much larger colonies. Fit cost stays as
+  logged (≈ 9–27 core-min per evaluation).

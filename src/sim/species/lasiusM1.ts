@@ -200,5 +200,7 @@ export const LASIUS_NEST_DEF = {
   leaveRate: estimated(1 / 300, '1/s', `${PROVISIONAL} Rate at which a hungry ant with an empty crop leaves to forage.`),
   forageDriveSd: estimated(1, '', `${PROVISIONAL} SD of log individual foraging propensity.`),
   leaveGain: estimated(1.5, '1/s', `${PROVISIONAL} Steering gain towards the entrance while leaving, or returning after straying out.`),
+  returnRate: estimated(1 / 60, '1/s', `${PROVISIONAL} Hazard of leaving for a known source once unloaded (ants that fed on their last trip); to be calibrated on Mailleux 1999 (time in nest 80–113 s).`),
+  nestSpeedFactor: estimated(1, '×', `${PROVISIONAL} Factor on walking speed inside the nest, on top of the context factor; to be calibrated on Mailleux 1999 (recruiters cover 5–9 cm in the 14–56 s of their stay outside trophallaxis).`),
 };
 export const LASIUS_NEST = resolve(LASIUS_NEST_DEF);

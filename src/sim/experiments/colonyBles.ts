@@ -54,6 +54,29 @@ export interface ColonyOptions {
   frameEvery?: number;
   /** Motor program (default: the adopted E1 walker). */
   motor?: MotorFn;
+  /**
+   * One extra ant (index `ants`) that enters the nest from the passage at
+   * `enterAt` s carrying a crop load and the memory of having fed
+   * (`ingested` µL): the Mailleux 1999 recruiter. Absent until then.
+   */
+  recruiter?: RecruiterEntry;
+}
+
+export interface RecruiterEntry {
+  enterAt: number;
+  cropUl: number;
+  /** Crop contents (mg). */
+  cropSugar: number;
+  cropWater: number;
+  ingested: number;
+}
+
+/** Per-step view for observers (`runColony`'s `onStep`); return true from `onStep` to stop the run. */
+export interface ColonyStepInfo {
+  t: number;
+  per: readonly (SurfacePercept | null)[];
+  /** Ants under the forager policy (outside the nest, or on their way in). */
+  outside: readonly boolean[];
 }
 
 /** Behaviour codes in frames. */
@@ -99,10 +122,14 @@ export interface ColonyResult {
   foodTime: number;
 }
 
-export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World) => void): ColonyResult {
+export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World, info: ColonyStepInfo) => boolean | void): ColonyResult {
   const n = o.ants ?? 53;
   const f = o.walkSpeedFactor ?? E6_CONTEXT.walkSpeedFactor;
   const walkP = f === 1 ? P.walk : { ...P.walk, speed: P.walk.speed * f };
+  // Inside the nest the walker is further scaled by the calibrated nest factor (STATUS 2026-10-09).
+  const nf = P.nest.nestSpeedFactor ?? 1;
+  const walkNestP = nf === 1 ? walkP : { ...walkP, speed: walkP.speed * nf };
+  const walkFor = (p: SurfacePercept) => (p.inNest ? walkNestP : walkP);
   const dt = o.dt ?? 0.1;
   const T = (o.minutes ?? 90) * 60;
   const foodTime = (o.foodMinute ?? 30) * 60;
@@ -119,15 +146,14 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World)
   const reserveMax = P.phys.metabolic * Math.pow(m.mass, 0.75) * 24 * m.reserveDays;
   const nestRegion = app.regions.find((r) => r.kind === 'nest')!;
   const outside: boolean[] = [];
-  for (let i = 0; i < n; i++) {
-    const body = new Body(i, o.seed, { len: m.len, mass: m.mass, cropCapacity: m.cropCapacity, antennaReach: m.antennaReach }, Math.max(0.02, 1 - (o.starvationDays ?? 4) / m.reserveDays), reserveMax);
+  const reserveFrac = Math.max(0.02, 1 - (o.starvationDays ?? 4) / m.reserveDays);
+  const addAnt = (i: number, x: number, y: number, heading: number, rest: boolean): Agent => {
+    const body = new Body(i, o.seed, { len: m.len, mass: m.mass, cropCapacity: m.cropCapacity, antennaReach: m.antennaReach }, reserveFrac, reserveMax);
     w.ledger.move('sugar', 'external', 'reserve', body.reserve);
     w.ledger.move('water', 'external', 'reserve', body.water);
-    // Start positions, headings and in-nest traits from their own streams.
-    const place = RNG.stream(o.seed, 0x9e57, i);
-    body.x = place.range(nestRegion.x0 + 2, nestRegion.x1 - 2);
-    body.y = place.range(nestRegion.y0 + 2, nestRegion.y1 - 2);
-    body.heading = place.range(-Math.PI, Math.PI);
+    body.x = x;
+    body.y = y;
+    body.heading = heading;
     const physRng = RNG.stream(o.seed, 0x1a7a, i);
     body.intakeFactor = Math.exp(physRng.normal(0, P.phys.intakeSd) - (P.phys.intakeSd * P.phys.intakeSd) / 2);
     const traits = { ...drawTraits(P.forager, body.rng), ...drawNestTraits(P.nest, RNG.stream(o.seed, 0x7e57, i)) };
@@ -136,15 +162,29 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World)
     // In the nest the ant knows where it is relative to the entrance (path-integration origin).
     mind.pi.x = body.x - entrance[0];
     mind.pi.y = body.y - entrance[1];
-    setMode(mind, place.chance(0.5) ? 'rest' : 'active');
-    w.ants.push({ body, mind, inactive: false });
+    setMode(mind, rest ? 'rest' : 'active');
+    const agent: Agent = { body, mind, inactive: false };
+    w.ants.push(agent);
     outside.push(false);
+    forager.push(false);
+    feedRun.push(0);
+    return agent;
+  };
+  const forager: boolean[] = [];
+  const feedRun: number[] = [];
+  for (let i = 0; i < n; i++) {
+    // Start positions, headings and the initial rest/active state from their own streams.
+    const place = RNG.stream(o.seed, 0x9e57, i);
+    const x = place.range(nestRegion.x0 + 2, nestRegion.x1 - 2);
+    const y = place.range(nestRegion.y0 + 2, nestRegion.y1 - 2);
+    const heading = place.range(-Math.PI, Math.PI);
+    addAnt(i, x, y, heading, place.chance(0.5));
   }
+  const rec = o.recruiter;
+  let recruiterIn = false;
 
   const bouts: ShareBout[] = [];
   const open = new Map<string, ShareBout>();
-  const forager = new Array<boolean>(n).fill(false);
-  const feedRun = new Array<number>(n).fill(0);
   const frames: ColonyFrame[] = [];
   let foodAdded = false;
   let nextFrame = 0;
@@ -156,6 +196,17 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World)
     if (!foodAdded && t >= foodTime) {
       w.addFood((id) => new SugarDroplet(id, feeder[0], feeder[1], o.foodUl ?? 3000, o.molar ?? 1, 1));
       foodAdded = true;
+    }
+    if (rec && !recruiterIn && t >= rec.enterAt - 1e-9) {
+      // The recruiter steps into the nest from the passage, heading inwards, carrying its load.
+      const a = addAnt(n, entrance[0] - 1, entrance[1], Math.PI, false);
+      a.body.cropUl = rec.cropUl;
+      a.body.cropSugar = rec.cropSugar;
+      a.body.cropWater = rec.cropWater;
+      w.ledger.move('sugar', 'external', 'crop', rec.cropSugar);
+      w.ledger.move('water', 'external', 'crop', rec.cropWater);
+      a.mind.ingested = rec.ingested;
+      recruiterIn = true;
     }
     if (frameEvery > 0 && t >= nextFrame - 1e-9) {
       frames.push(frame(w, t, app.bounds));
@@ -170,13 +221,13 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World)
     });
     // Move (and, outside, drink and metabolise as in E2). Mouth flow is re-sensed from here on.
     for (const a of w.ants) a.body.mouthFlow = 0;
-    const walked = new Array<number>(n).fill(0);
+    const walked = new Array<number>(w.ants.length).fill(0);
     w.ants.forEach((a, i) => {
       const act = acts[i];
       if (!act) return;
       if (outside[i]) {
         const before = a.body.cropUl;
-        applyForagerAction(w, a, act as ForagerAction, per[i]!, walkP, P.phys, dt, motor);
+        applyForagerAction(w, a, act as ForagerAction, per[i]!, walkFor(per[i]!), P.phys, dt, motor);
         // Forager status: ≥ 5 consecutive seconds of feeding at the source.
         feedRun[i] = a.mind.mode === 'drink' && a.body.cropUl > before ? feedRun[i] + dt : 0;
         if (feedRun[i] >= 5 - 1e-9) forager[i] = true;
@@ -185,7 +236,7 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World)
       const na = act as NestAction;
       a.body.gasterDown = false;
       a.body.stepLen = 0;
-      if (!na.stand) walked[i] = walkAnt(w, a, per[i]!, walkP, P.phys, na.motor, motor);
+      if (!na.stand) walked[i] = walkAnt(w, a, per[i]!, walkFor(per[i]!), P.phys, na.motor, motor);
     });
     // Food sharing between ants that both agreed, in donor-index order.
     w.ants.forEach((a, i) => {
@@ -237,7 +288,7 @@ export function runColony(P: ColonyParams, o: ColonyOptions, onStep?: (w: World)
         a.mind.pi.y = a.body.y - entrance[1];
       }
     });
-    onStep?.(w);
+    if (onStep?.(w, { t, per, outside })) break;
   }
   for (const bout of open.values()) bouts.push(bout);
   bouts.sort((p, q) => p.start - q.start || p.donor - q.donor || p.receiver - q.receiver);

@@ -166,14 +166,16 @@ export function set(m: E2Model, key: string, v: number): E2Model {
 const logit = (p: number) => Math.log(p / (1 - p));
 const sig = (x: number) => 1 / (1 + Math.exp(-x));
 
-function toX(v: number, tf: FreeParam['tf']): number {
+/** Encode a parameter value for the optimiser (log, logit, or a bounded interval through a logit). */
+export function toX(v: number, tf: FreeParam['tf']): number {
   if (tf === 'log') return Math.log(v);
   if (tf === 'logit') return logit(Math.min(0.999, Math.max(0.001, v)));
   const u = tf.log ? Math.log(v / tf.lo) / Math.log(tf.hi / tf.lo) : (v - tf.lo) / (tf.hi - tf.lo);
   return logit(Math.min(0.999, Math.max(0.001, u)));
 }
 
-function fromX(x: number, tf: FreeParam['tf']): number {
+/** Inverse of `toX`. */
+export function fromX(x: number, tf: FreeParam['tf']): number {
   if (tf === 'log') return Math.exp(x);
   if (tf === 'logit') return sig(x);
   return tf.log ? tf.lo * (tf.hi / tf.lo) ** sig(x) : tf.lo + (tf.hi - tf.lo) * sig(x);

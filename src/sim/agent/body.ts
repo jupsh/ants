@@ -21,6 +21,12 @@ export class Body {
   x = 0;
   y = 0;
   heading = 0;
+  /** Head-point cache (physics/contacts.ts), valid while x, y and heading equal the key. */
+  headX = 0;
+  headY = 0;
+  headKeyX = NaN;
+  headKeyY = NaN;
+  headKeyH = NaN;
   /** Crop (social stomach) contents. */
   cropUl = 0;
   cropSugar = 0; // mg
