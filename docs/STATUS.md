@@ -2717,3 +2717,21 @@ See [`CLAUDE.md`](../CLAUDE.md).
   88 / 93): the 4 → 8 d rise is now 4 s (data 5 s), and the 4 and 8 d
   levels fall (they had leaned on the drain); per-drop rs (Fisher z) 0.40 /
   0.80 vs 0.22 / 0.32. The step-3c fits restart from scratch on this code.
+- **2026-10-09** **Step 3c recovery scoring step — FROZEN** (written before
+  any candidate result; implements the frozen "Recovery" text as is):
+  `scripts/recoverE2c.ts --fit data/fits/recover/e2-3c-<id>-rep0.json`.
+  Reference = 2000 scouts per condition from the true parameters (the
+  selected candidate's fit), each fit row summarised as the data are, SEs at
+  the real n (`E2_TARGETS` n: SD/√n, binomial, the per-drop rs' own Fisher-z
+  SE). The true and recovered parameters are each simulated afresh (2000 per
+  condition, common seeds, not the reference's) and scored per fit row with
+  the fit z; excess = z²(recovered) − z²(truth). Recovered: mean excess
+  ≤ 0.25 and no row > 1; failed: mean > 1 or a row > 4 (a row the recovered
+  model cannot estimate is +∞); approximate otherwise. Seeds 4.25e9 / 4.27e9
+  (disjoint from fits < 3.1e9, profiles 3.5–3.9e9, selection 4.0e9,
+  synthetic data 4.1e9, regE2Drops 4.2e9). Smoke test (stand-in truth =
+  the adopted M_a as S0I0, 400 scouts): identical parameters give excess 0
+  on every row (RECOVERED); stopHazard × 1.5 with arsMean halved gives mean
+  1.02, worst d1.drink 4.8 (FAILED). Sequence after selection: `fitE2c.ts
+  --variant <id> --recover data/fits/e2-3c-<id>.json --rep 0`, then this
+  script, then the σ_m and σ_r profiles (`profileE2c.ts`).
