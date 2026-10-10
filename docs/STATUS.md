@@ -304,6 +304,18 @@ non-optimum disclosed):
   - **E6**: development benchmark (see above); the per-ant histograms and
     the TEC reference results have been computed, our colony model has
     not been judged against E6.
+  - **Mailleux, Buffin, Detrain & Deneubourg 2011** (Insect. Soc. 58:559–567,
+    recruitment in starved nests): **held-out** colony test, registered
+    2026-10-10 night (user). Only title page read. Prior exposure: the
+    Bles-thesis summary in `mailleux-rules.md` §7 (≈ 30 % of fed nestmates
+    lay pheromone at 4 and 8 d, not at 1 d; nest exits rise with
+    starvation independently of direct contacts); statistics on those
+    findings do not count. Only its Methods section is read, after the
+    model structure is frozen.
+  - **Buffin, Mailleux, Detrain & Deneubourg 2011** (Insect. Soc.
+    58:177–183, trophallaxis frequency and duration): **parameter and
+    structure source** (user, 2026-10-10 night); read in full, so none of
+    its results can serve as a test.
   - **Colony pilot fit:** its generation-0 loss at the start points was
     seen while the profile cut-off was still open (disclosed in the
     archive, 2026-10-10 night); judged uninformative.
@@ -579,3 +591,21 @@ Earlier entries: the archive. Newest last.
   −1.7 reserveSd, −1.8 density). Not converged. The IPOP restart (λ 18)
   started from the better run. No loss is reported as fit quality
   (condition 1).
+
+**2026-10-10 night — user decisions: roles of the 2011 papers; noise handling (logged before acting).**
+- **Buffin et al. 2011 → parameter and structure source**, read in full
+  now, before the redesign decision (Plan 4). What is taken from it is
+  logged here; its frequencies are recorded as seen.
+- **Mailleux et al. 2011 → held-out colony test** (registered in the
+  contamination log above). Methods only, after the model structure is
+  frozen, to decide which of its measures the model can produce.
+- **Noise handling decided after the recovery test.** First the bound fix
+  (Mod-BCH, divergence restart, convergence flag). Only if recovery shows
+  noise-limited estimates: re-evaluation (more recruiters per evaluation,
+  adaptive as in RA-CMA-ES; Uchida, Nishihara & Shirakawa 2024, GECCO,
+  arXiv:2405.11471, abstract read) by default, population-size
+  adaptation (PSA-CMA-ES, Nishida & Akimoto; abstract supplied by the
+  user) as the alternative. Reason: our loss noise is roughly additive
+  near the optimum and roughly multiplicative far from it; under
+  multiplicative noise, population-size adaptation can miss the true
+  optimum, while re-evaluation does not (Uchida et al.).
