@@ -3184,3 +3184,34 @@ See [`CLAUDE.md`](../CLAUDE.md).
     number of bootstrap draws; a timed-out track ending near the boundary
     counts as an exit (`trajectory.ts:300`; should require `end === 'exit'`
     where known).
+- **2026-10-09** **Step 3d result (box, e42e4be; selection on the step-3c
+  seeds).**
+  - **Selected L0S1** (P̄ 84.4; L1S2 112.0, L1S1 116.7, L0S2 121.0; none
+    within 2 paired SE). Fitted never-laying fraction 0.075 (all four:
+    0.04–0.08), which brings `d4.trail` to z −1.6. L0S1 is no better than
+    step-3c S1I1 overall (82.7 on the same seeds): `two.t2` got worse
+    (4.4 vs 2.9).
+  - **Not adequate (no candidate):** `two.ul2` z 4.3–4.7 and `two.t2`
+    4.4–6.2 in all four. Drop-2 intake and drinking time are too high in
+    all nine step-3c/3d candidates. The ingested-volume signal is
+    cumulative over the trip (`startTrip` resets it), so this is not a
+    reset bug: the fitted desired volumes (≈ 1.0–1.1 µL at 4 d) exceed the
+    2009 two-drop total (0.75 µL).
+  - **L1 (graded laying) not supported:** worse loss, and the group
+    contrasts are not fixed (drop-1 time TL1 − nTL1 z −5.4 L1S1, −2.7
+    L1S2, −4.5 L0S1; drop-2 volume 2.0–2.7). Fitted ρ ≈ 0.58–0.70, κ 11–17.
+    At 0.3 µL L1 lays far too rarely (3–4 % vs 14 %, z ≈ −2), L0 18–30 %.
+  - **Development checks** (L0S1): 2000 single drop, trail % 18 / 42 / 67
+    / 91 vs 14 / 17 / 70 / 91 (0.7 µL z 3.5; this is the 2000-vs-2009
+    17 % vs 38 % between-study discrepancy). **Whole-bout intake at 3 µL,
+    4 d: 0.67 ± 0.31 µL vs 0.9 ± 0.4 (n 95; z ≈ −5)** in all four (0.67–
+    0.73) with drinking times that fit (`d4.drink` z 0.1): the whole-bout
+    rate is ≈ 0.0075 vs 0.010 µL/s. The like-for-like intake check (review
+    item 2) fails. Giving-up layers at 0.3 µL: 171 ± 165 s vs 28 ± 12
+    (n 4) under S1. Six pipettes: visits still z 8–12.
+  - **Omission in the step-3d pre-registration:** the user's instruction
+    that the 2000-vs-2009 discrepancy (17 % vs 38 % at 0.7 µL) is
+    between-study variation, to be treated as extra variance in step 3d,
+    was not included. Not acted on yet; the judging above uses SE_data ⊕
+    SE_sim only.
+  - Running (unattended): L0S1 recovery and profiles (diagnostics).
