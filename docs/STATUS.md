@@ -4607,3 +4607,44 @@ listing opened). Checks on the running gate: only whether outputs exist.
   identifiability (n 960), with the flat-direction rule deciding the free
   set of the refits. The real refits (both layers, larger budget) follow
   as pre-registered.
+- **Pilot launched** (code 7461622, fitM1999.ts checksum box = local;
+  SIM_WORKERS 200; `logs/pilot-main.log`).
+
+**2026-10-10 night — user decisions on amendments 1–5 (proposed in the late-evening pre-registration entry).**
+3 and 5 approved as written (with the additions below); 1, 2 and 4 approved
+with changes. Now in force:
+1. **E2 reopening triggers (paired seeds):** (a) a between-layer
+   difference > 1 combined SE whose CI excludes 0 (the |z| band-change
+   trigger is **dropped**: a threshold artefact); (b) the E6 verdict
+   differs between layers; (c) 1999 adequacy differs between layers.
+   Shared failures: drinking-time spread through the intakeSd 0.4 profile
+   point as drinking layer, same triggers. Giving-up matters only if
+   **> 5 % of E6 food visits end in a give-up**. Disclosure: the E2 fits
+   predate the wall fix (157cd66), which shifted E2 rows by ≤ 0.51
+   combined SE; a later reopening must report this.
+2. **E6 ensemble** = the ranking-check survivors (4) **plus the two ends of
+   a profile along each flat direction found at the optimum** (by the
+   flat-direction rule), each profile cut at a loss threshold fixed in
+   loss units, not "within SE", **set before any E6 run**. Reason:
+   identifiability left 5–6 of 7 directions below the noise floor, and
+   points near the optimiser's path (CMA-ES; the user's note said
+   Nelder–Mead, but the reasoning holds) under-sample flat directions.
+   The post-E6 backstop stays but does not replace this. **The pilot fit
+   is excluded.**
+3. **Flipping sensitivities** (contact threshold, giveUpTime): refit at
+   the flipping setting; that optimum joins the ensemble. If a
+   `contactGap` is ever adopted as part of the observer, it joins the
+   sensitivity set. (Currently not adopted: the diagnostic rejected the
+   flicker hypothesis.)
+4. **Ranking check:** the 10 best **distinct** points per layer (distinct
+   = ≥ 0.05 apart in encoded units; picked greedily in order of loss),
+   plus the selected optimum, **plus the flat-direction profile ends of
+   (2)**, so the check covers the ensemble's region. **The pilot fit is
+   excluded.**
+5. **Navigation parameters** from the literature, frozen in this log
+   before any E6 run; the run-hash baseline is **157cd66 or later** (post
+   wall fix) for both E2 and the 1999 rows.
+- **Open (to set before any E6 run):** the profile cut in (2). Claude's
+  proposal: Δloss ≤ 3.84 (χ²₁, 95 %) in the fit objective's units
+  (Σ debiased z², SE_data), evaluated on one common large batch, so
+  Monte Carlo noise in Δloss stays well below 1.
