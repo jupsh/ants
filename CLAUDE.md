@@ -23,8 +23,9 @@ when a step starts or finishes, and log decisions there before acting on them.
   - Colony (Mailleux 1999, current work): `fitM1999.ts --layer main|alt
     [--dt] [--warmup] [--tag]`, `reportM1999.ts` (judging, frozen rule),
     `convergeM1999.ts --vary dt|warmup [--levels a,b]` (equivalence gate),
-    `identM1999.ts [--n]`, test points from `m1999Points.ts`; dt
-    diagnostics `diagDt*.ts`.
+    `identM1999.ts [--n]`, `decompM1999.ts [--fit f] [--levels a,b]` (dt
+    decomposition of the stay, the gate's seeds), test points from
+    `m1999Points.ts`; dt diagnostics `diagDt*.ts`.
   - Fits (write `data/fits/*.json`): `fitE1.ts --variant A0|B` (step-5
     candidates → `e1-<variant>.json`; `e1-walk.json` is the adopted fit),
     `fitE2c.ts` (step-3c/3d E2 fits; `profileE2c.ts`, `recoverE2c.ts`,

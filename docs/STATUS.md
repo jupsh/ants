@@ -479,3 +479,11 @@ Earlier entries: the archive. Newest last.
   extreme parameter values. If the dt effect disappears after a redesign,
   it is logged as **removed, not explained**, unless the decomposition
   first locates it in the meeting dynamics.
+- **Decomposition implemented** (not yet run at a real point):
+  `M1999Options.decompose` → `M1999Recruiter.parts` (unload, unloaded,
+  bout, giveWait, rest; recorded by the observer, nothing else changes,
+  test in `test/m1999.test.ts`); `scripts/decompM1999.ts [--fit f]
+  [--levels 0.1,0.025] [--n 1600]` uses the dt gate's seeds and design, so
+  it decomposes exactly the recruiters the gate compares; it prints paired
+  differences only (no means, as the gate). It was smoke-tested at n 8 on
+  the start points, mechanics only, not a result.
