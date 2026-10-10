@@ -487,3 +487,10 @@ Earlier entries: the archive. Newest last.
   it decomposes exactly the recruiters the gate compares; it prints paired
   differences only (no means, as the gate). It was smoke-tested at n 8 on
   the start points, mechanics only, not a result.
+- **Disclosure (provenance):** the box sources were synced (3cc9be1:
+  the inert `decompose` option, shown by test not to change results) while
+  the pilot was running from d8090cc. The running process keeps its
+  loaded code, but `fitM1999.ts` computed provenance (simHash, commit) at
+  **write** time, so the pilot file will record the 3cc9be1 sources.
+  Fixed for future runs: provenance is taken at launch. **From now on:
+  no syncing of `src/` to the box while a run is going.**

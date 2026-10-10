@@ -62,6 +62,8 @@ type Model = M1999Model;
 const start1: Model = { P: P0, density: 1 };
 const start2: Model = { P: { ...P0, nest: { ...P0.nest, nestSpeedFactor: 0.2, returnRate: 1 / 30, shareEnd: 1 / 30 } }, density: 2.3 };
 
+// Provenance taken at launch (code and commit the run actually used; the sources may change before the fit ends).
+const PROVENANCE = provenance();
 const pool = await SimPool.create();
 const simulate = async (m: Model, seed: number, n = N): Promise<Record<M1999Day, M1999Recruiter[]>> => {
   const run = (day: M1999Day) => {
@@ -140,7 +142,7 @@ writeJson(OUT, {
   runDetails: runs,
   seeds: { scheme: `seedFor(1999, purpose, ${TAG ? '0x9170, ' : ''}...keys): fit (run, generation), cmaes (run), probe (run), select`, study: STUDY },
   noBoutBound: M1999_NO_BOUT_MAX,
-  provenance: provenance(),
+  provenance: PROVENANCE,
   k: FREE.length,
   free: values(m),
   atBound: bound,
