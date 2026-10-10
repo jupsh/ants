@@ -18,14 +18,15 @@
  * --perNest K: shared warm-ups (STATUS 2026-10-10), K recruiters per warmed
  * nest; default 0 = the independent design logged for the first fits.
  *
- * Usage: npx vite-node scripts/fitM1999.ts --layer main|alt [--gens 120] [--n 80] [--perNest 8] [--dt 0.1] [--warmup 300] [--tag pilot]
+ * Usage: npx vite-node scripts/fitM1999.ts --layer main|alt [--gens 120] [--n 80] [--perNest 8] [--dt 0.1] [--warmup 300] [--tag pilot] [--bch] [--fix shareEnd]
  * Writes data/fits/colony-m1999-<layer>.json (with --perNest: colony-m1999-<layer>-shared.json).
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
 import type { ColonyParams } from '../src/sim/experiments/colonyBles';
-import { M1999_DAYS, M1999_DEGENERATE, M1999_FREE, M1999_NO_BOUT_MAX, M1999_TARGETS, m1999AtBound, m1999Decode, m1999Encode, m1999FitLoss, m1999Values, type M1999Day, type M1999Model, type M1999Recruiter } from '../src/sim/experiments/colonyMailleux1999';
+import { M1999_DAYS, M1999_DEGENERATE, M1999_FREE, M1999_NO_BOUT_MAX, M1999_TARGETS, m1999AtBound, m1999FitLoss, m1999Values, type M1999Day, type M1999Model, type M1999Recruiter } from '../src/sim/experiments/colonyMailleux1999';
+import { fromX, toX } from '../src/sim/experiments/e2Variants';
 import { LASIUS_NEST, LASIUS_PARAMS, LASIUS_PARAMS_E2_ALT, MAILLEUX_SETUP, MAILLEUX_SETUP_E2_ALT } from '../src/sim/species/lasiusM1';
-import { arg, numArg, provenance, seedFor, writeJson } from './lib';
+import { arg, flag, numArg, provenance, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
 
 const LAYER = arg('--layer', '');
@@ -51,11 +52,21 @@ const sf = (p: Parameters<typeof seedFor>[1], ...k: number[]) => (TAG ? seedFor(
 const P0: ColonyParams = { ...(LAYER === 'main' ? LASIUS_PARAMS : LASIUS_PARAMS_E2_ALT), nest: LASIUS_NEST };
 const ACCESSIBLE = (LAYER === 'main' ? MAILLEUX_SETUP : MAILLEUX_SETUP_E2_ALT).accessible;
 
-const encode = (m: M1999Model) => m1999Encode(m);
-const decode = (x: number[]): M1999Model => m1999Decode(x, P0);
+// --fix a,b: parameters left out of the free set at their species values (e.g. shareEnd from Buffin 2011; STATUS
+// 2026-10-10 night). --bch: box coordinates with Mod-BCH bound handling instead of the logistic transform (each free
+// parameter mapped linearly, in log for log-scaled ones, onto [0, BOX]; BOX = 4 matches the logistic's slope at the
+// centre, so the probe step, initial SDs and tolX keep their meaning).
+const FIX = arg('--fix', '').split(',').filter(Boolean);
+const BCH = flag('--bch');
+const BOX = 4;
+const FREE = M1999_FREE.filter((f) => !FIX.includes(f.key) && !FIX.includes(f.key.replace('nest.', '')));
+if (FREE.length + FIX.length !== M1999_FREE.length) throw new Error(`--fix ${FIX.join(',')}: unknown parameter`);
+const unitOf = (v: number, tf: { lo: number; hi: number; log?: boolean }) => (tf.log ? Math.log(v / tf.lo) / Math.log(tf.hi / tf.lo) : (v - tf.lo) / (tf.hi - tf.lo));
+const ofUnit = (u: number, tf: { lo: number; hi: number; log?: boolean }) => (tf.log ? tf.lo * (tf.hi / tf.lo) ** u : tf.lo + (tf.hi - tf.lo) * u);
+const encode = (m: M1999Model) => FREE.map((f) => (BCH ? BOX * unitOf(f.get(m), f.tf as any) : toX(f.get(m), f.tf)));
+const decode = (x: number[]): M1999Model => FREE.reduce((m, f, i) => f.set(m, BCH ? ofUnit(Math.min(1, Math.max(0, x[i] / BOX)), f.tf as any) : fromX(x[i], f.tf)), { P: P0, density: 1 } as M1999Model);
 const values = (m: M1999Model) => m1999Values(m);
-const atBound = (m: M1999Model) => m1999AtBound(m);
-const FREE = M1999_FREE;
+const atBound = (m: M1999Model) => m1999AtBound(m).filter((k) => FREE.some((f) => f.key === k));
 type Model = M1999Model;
 
 // Start 1: the provisional values at density 1 / cm². Start 2: E6 density, a slow nest walker, faster return and bout ending.
@@ -101,12 +112,14 @@ const one = async (label: string, x0: number[], lambda: number | undefined, run:
     tolX: TOLX,
     seed: sf('cmaes', run),
     averageLast: AVERAGE_LAST,
+    ...(BCH ? { bounds: { lo: FREE.map(() => 0), hi: FREE.map(() => BOX) }, tolUpSigma: 20 } : {}),
     log: (g) => g.generation % 10 === 0 && console.log(`${label} gen ${g.generation} evals ${g.evals} best ${g.fs[0].toFixed(2)} median ${g.fs[g.fs.length >> 1].toFixed(2)} σ ${g.sigma.toFixed(3)}`),
   });
   evals += r.evals;
   const f = await score(r.meanAvg);
   console.log(`${label}: λ ${lambda ?? 'default'}, ${r.generations} generations, ${r.evals} evaluations, final σ ${r.sigma.toFixed(3)}; mean averaged over the last ${r.avgWindow} generations, drift (encoded units) ${r.meanDrift.map((v) => v.toFixed(2)).join(' ')}; selection-batch loss ${f.toFixed(3)}`);
-  return { label, run, x0, initialSds: stds, lambda: lambda ?? null, generations: r.generations, evals: r.evals, finalSigma: r.sigma, avgWindow: r.avgWindow, meanDrift: r.meanDrift, x: r.meanAvg, f, estimate: values(decode(r.meanAvg)) };
+  console.log(`${label}: stop ${r.stopReason}${r.gamma ? `, γ ${r.gamma.map((v) => v.toPrecision(2)).join(' ')}` : ''}`);
+  return { label, run, x0, initialSds: stds, lambda: lambda ?? null, generations: r.generations, evals: r.evals, finalSigma: r.sigma, avgWindow: r.avgWindow, meanDrift: r.meanDrift, stopReason: r.stopReason, converged: r.stopReason === 'tolX', gamma: r.gamma ?? null, x: r.meanAvg, f, estimate: values(decode(r.meanAvg)) };
 };
 
 const t0 = Date.now();
@@ -133,7 +146,8 @@ writeJson(OUT, {
   warmup: WARMUP,
   dt: DT,
   tag: TAG || null,
-  optimizer: { method: 'CMA-ES', starts: 2, restarts: RESTARTS, maxGenerations: GENS, tolX: TOLX, averageLast: AVERAGE_LAST },
+  optimizer: { method: 'CMA-ES', starts: 2, restarts: RESTARTS, maxGenerations: GENS, tolX: TOLX, averageLast: AVERAGE_LAST, boundHandling: BCH ? `Mod-BCH (Sakamoto & Akimoto 2017), box [0, ${BOX}], tolUpSigma 20` : 'logistic transform' },
+  fixed: Object.fromEntries(M1999_FREE.filter((f) => !FREE.includes(f)).map((f) => [f.key, f.get({ P: P0, density: 1 })])),
   evals,
   seconds: (Date.now() - t0) / 1000,
   selectionLoss: best.f,
