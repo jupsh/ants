@@ -2867,3 +2867,15 @@ See [`CLAUDE.md`](../CLAUDE.md).
     "borderline", not decided by Monte Carlo noise.
   - Backlog additions (Open problems): E1 data orientation and the tilt bias
     of `alignY`; the E2 clip-at-zero observer; E6 contact vs flow.
+- **2026-10-09** **User decision: the Mailleux 2009 reference baseline is
+  dropped.** It supersedes item (b) of the "three corrections from user
+  review" entry ("adopted as the next step after the step-3c judging"). The
+  paper does not specify how its times arise and its theoretical column is
+  not reproducible from the stated rules, so a baseline would be our own
+  reconstruction (entry "Reference baseline from Mailleux et al. 2009: not
+  buildable"). What it was meant to answer, whether a candidate's fitted
+  search agrees with a direct measurement, stays as the development
+  comparison of the fitted search mean(s) and the model's giving-up time
+  (all scouts and non-layers) with Pl = 1/85 s in `selectE2.ts`. After the
+  step-3c judging the next step is the laying-decision question (step 3d if
+  every candidate fails the group contrasts), else step 4.
