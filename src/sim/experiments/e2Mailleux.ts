@@ -24,7 +24,7 @@ export interface LasiusParams {
 export interface ScoutResult {
   /** From entering the area to first touching the drop (s). */
   findTime: number;
-  /** Per drop: volume as the experimenter would estimate it, true volume, drinking time. */
+  /** Per drop: volume as the experimenter would estimate it, true volume removed from the drop, drinking time. */
   drinks: { ul: number; trueUl: number; time: number }[];
   /** Laid trail on the return trip (any gaster contact) — overall and per bridge section. */
   laidTrail: boolean;
@@ -133,7 +133,6 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
     const per = perceive(w, body, dt);
     const io = interocept(body);
     const prevMode = mind.mode;
-    const cropBefore = body.cropUl;
     const act = lasiusForager(per, io, mind, P.forager, body.rng);
     applyForagerAction(w, agent, act, per, P.walk, P.phys, dt);
     w.time += dt;
@@ -156,7 +155,8 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
         drop2Added = true;
       }
     }
-    if (mind.mode === 'drink') currentDrinkUl += Math.max(0, body.cropUl - cropBefore);
+    // The experimenter's estimate sees what left the drop (crop → midgut transfer stays in the gaster).
+    if (mind.mode === 'drink') currentDrinkUl += Math.max(0, body.mouthFlow);
     if (prevMode === 'drink' && mind.mode !== 'drink') {
       const est = currentDrinkUl + (o.volumeSd ? obsRng.normal(0, o.volumeSd) : 0);
       res.drinks.push({ ul: Math.max(0, est), trueUl: currentDrinkUl, time: w.time - drinkStart });

@@ -114,7 +114,7 @@ export function get(m: E2Model, key: string): number {
   return (a === 'setup' ? m.setup : (m.P as unknown as Record<string, Record<string, number>>)[a])[b as never] as number;
 }
 
-function set(m: E2Model, key: string, v: number): E2Model {
+export function set(m: E2Model, key: string, v: number): E2Model {
   const [a, b] = key.split('.');
   if (a === 'setup') return { ...m, setup: { ...m.setup, [b]: v } };
   const P = m.P as unknown as Record<string, Record<string, number>>;

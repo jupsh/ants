@@ -36,6 +36,7 @@ export async function syntheticTargets(fit: any, rep: number, run: ScoutRunner, 
   const vtN = 2 * (values['two.ul2']?.length ?? 0);
   return E2_TARGETS.map((t): Target => {
     const xs = values[t.id] ?? [];
+    if (t.id === 'two.vtRs1' || t.id === 'two.vtRs2') return { ...t, value: xs[0], se: Math.sqrt(1.06 / (vtN / 2 - 3)), n: vtN / 2 };
     if (t.id === 'two.vtSlope' || t.id === 'two.vtRs') {
       const r = values['two.vtRs'][0];
       const v = xs[0];

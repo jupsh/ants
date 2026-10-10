@@ -63,6 +63,7 @@ const LASIUS_PHYS_BASE = {
   intakeSd: estimated(0, 'log units', 'Between-worker SD of log intake rate; intake rate is an individual trait (Mailleux et al. 2009). Set by the step-3 fits.'),
   metabolic: derived(1.2e-3, 'mg/h/mg^0.75', 'gillooly2001', 'Resting ant metabolism ≈1 µL O2 h⁻¹ mg⁻¹ converted to sucrose equivalents.'),
   activeFactor: estimated(3, '×', 'Walking raises metabolic rate several-fold.'),
+  cropAbsorption: estimated(0, '1/s', 'Crop → reserve transfer beyond the metabolic need, per s, times the reserve room (mg). Unsourced: set to 0 (STATUS 2026-10-09 amendment; replaces a hard-coded 0.001 /s); value to come from the literature on crop emptying before the E6 calibration, on which it bears (forager crop available for sharing).'),
   permeability: estimated(20, 'µg cm⁻² h⁻¹ mmHg⁻¹', 'Mid-range cuticular permeability of mesic ants (≈5–60).'),
   surfaceArea: estimated(16, 'mm²', 'Body surface of a ~2 mg worker (≈10·m^(2/3)).'),
   depositPerMm: estimated(1, 'units/mm', 'Normalisation of trail units: one gaster-contact millimetre deposits 1 unit.'),

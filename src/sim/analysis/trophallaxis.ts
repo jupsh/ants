@@ -45,6 +45,14 @@ export interface ObserverOptions {
   /** A contact counts if mouth-to-mouth contact lasts longer than this (s). */
   minContact?: number;
   /**
+   * How "lasts > minContact" is applied at a scan: 'after' (default) — the
+   * contact continues more than minContact s after the scan instant, the only
+   * reading an observer starting at an instantaneous scan can apply;
+   * 'total' — in progress at the scan and longer than minContact in total
+   * (the earlier reading, kept as a sensitivity; STATUS 2026-10-09).
+   */
+  rule?: 'after' | 'total';
+  /**
    * Time of the first scan after food introduction (s, in [0, period)). The
    * real phase is unknown, so callers draw it uniformly per colony.
    */
@@ -58,7 +66,8 @@ export interface ObserverOptions {
 /**
  * Simulated observer matching the Bles et al. protocol: every `period` s,
  * record each donor→receiver pair whose contact is in progress at the scan
- * instant and lasts > `minContact` s in total. Returns scan records in the
+ * instant and continues > `minContact` s after it (rule 'after'; or lasts
+ * > `minContact` s in total, rule 'total'). Returns scan records in the
  * same form as the data, so `scansToEvents` and `colonyStats` apply as-is.
  */
 export function observeContacts(contacts: ContactInterval[], o: ObserverOptions): Scan[] {
@@ -67,13 +76,14 @@ export function observeContacts(contacts: ContactInterval[], o: ObserverOptions)
   const phase = o.phase ?? 0;
   const nScans = o.scans ?? 61;
   const foodMinute = o.foodMinute ?? 30;
+  const after = (o.rule ?? 'after') === 'after';
   const out: Scan[] = [];
   for (const c of contacts) {
     if (c.end - c.start <= minContact) continue;
     const k0 = Math.max(0, Math.ceil((c.start - phase) / period));
     for (let k = k0; k < nScans; k++) {
       const tau = phase + k * period;
-      if (tau >= c.end) break;
+      if (tau >= c.end || (after && c.end - tau <= minContact)) break;
       out.push({ colony: o.colony, minute: foodMinute + k, donor: c.donor, receiver: c.receiver });
     }
   }

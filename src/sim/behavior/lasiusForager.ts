@@ -138,7 +138,6 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
   // Food touched while not already drinking: start drinking (scouts and homing ants alike).
   if (per.food && per.food.available && m.mode !== 'drink' && m.foodId !== per.food.id) {
     m.foodId = per.food.id;
-    m.lastCropUl = io.cropUl;
     setMode(m, 'drink');
   }
 
@@ -153,9 +152,9 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
       return { ...NONE, motor: { noHomeBias: true } };
 
     case 'drink': {
-      const dV = Math.max(0, io.cropUl - m.lastCropUl);
+      // Intake sensed at the mouthparts (not the net crop change, which crop absorption would reduce).
+      const dV = Math.max(0, io.mouthFlow);
       m.ingested += p.satiationOnTime ? (dV > 0 ? p.nominalIntake * per.dt : 0) : dV;
-      m.lastCropUl = io.cropUl;
       const available = !!per.food && per.food.available && per.food.id === m.foodId;
       // Leaving hazard: response-threshold function of the volume ingested.
       const threshold = 1 / (1 + Math.exp(-p.stopEta * (m.ingested - m.desired)));

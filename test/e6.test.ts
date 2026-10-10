@@ -18,7 +18,11 @@ describe('E6 scan observer', () => {
   it('misses contacts between scans and ignores contacts of ≤ 5 s', () => {
     expect(observeContacts([c(61, 119)], { colony: 1, phase: 0 })).toHaveLength(0);
     expect(observeContacts([c(118, 123)], { colony: 1, phase: 0 })).toHaveLength(0);
-    expect(observeContacts([c(118, 124)], { colony: 1, phase: 0 })).toHaveLength(1);
+    // Default rule: the contact must continue > 5 s after the scan instant (120 s).
+    expect(observeContacts([c(110, 124)], { colony: 1, phase: 0 })).toHaveLength(0);
+    expect(observeContacts([c(118, 126)], { colony: 1, phase: 0 })).toHaveLength(1);
+    // Sensitivity rule: in progress at the scan and > 5 s in total.
+    expect(observeContacts([c(118, 124)], { colony: 1, phase: 0, rule: 'total' })).toHaveLength(1);
     // A scan at the instant the contact ends does not see it.
     expect(observeContacts([c(30, 60)], { colony: 1, phase: 0 })).toHaveLength(0);
   });

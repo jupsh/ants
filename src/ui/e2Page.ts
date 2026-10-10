@@ -222,7 +222,7 @@ function renderTable(card: HTMLElement, rows: E2Row[], foundBoth: number): void 
     head.appendChild(th);
   }
   t.appendChild(head);
-  const dp = (unit: string) => (unit === 'µL/s' ? 4 : unit === 'µL' || unit === 'r' ? 2 : 0);
+  const dp = (unit: string) => (unit === 'µL/s' ? 4 : unit === 'µL' || unit === 'r' || unit === 'atanh r' ? 2 : 0);
   const fmt = (v: number, unit: string) => (unit === '' ? `${(v * 100).toFixed(0)} %` : `${v.toFixed(dp(unit))} ${unit}`);
   for (const { target: tg, sim, mean, spread } of rows) {
     const tr = document.createElement('tr');

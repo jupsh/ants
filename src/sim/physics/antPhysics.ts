@@ -24,6 +24,11 @@ export interface PhysParams {
   /** Resting metabolic rate (mg sucrose-equivalent per hour per mg^0.75) at 25 °C, and the factor while walking. */
   metabolic: number;
   activeFactor: number;
+  /**
+   * Crop → reserve transfer beyond the metabolic need (1/s, × reserve room in
+   * mg). One rule everywhere, in and out of the nest. Unset: 0.
+   */
+  cropAbsorption?: number;
   /** Cuticular water permeability (µg cm⁻² h⁻¹ mmHg⁻¹) and body surface area (mm²). */
   permeability: number;
   surfaceArea: number;
@@ -55,6 +60,7 @@ export function applyForagerAction(w: World, a: Agent, act: ForagerAction, per: 
   const b = a.body;
   b.gasterDown = act.gasterDown;
   b.stepLen = 0;
+  b.mouthFlow = 0;
   const walked = act.stand ? 0 : walkAnt(w, a, per, walkP, phys, act.motor, motor);
   if (act.drinkFrom >= 0) drink(w, b, act.drinkFrom, phys, dt);
   else b.boutUl = 0;
@@ -182,7 +188,7 @@ export function metabolise(w: World, b: Body, phys: PhysParams, active: boolean,
   let need = rate * dt;
   // Absorb crop sugar into the reserve when the reserve is not full.
   const room = Math.max(0, b.reserveMax - b.reserve);
-  const absorb = Math.min(b.cropSugar, need + room * 0.001 * dt);
+  const absorb = Math.min(b.cropSugar, need + room * (phys.cropAbsorption ?? 0) * dt);
   if (absorb > 0) {
     const frac = absorb / b.cropSugar;
     const wa = b.cropWater * frac;

@@ -30,7 +30,11 @@ export interface CmaOptions {
   /** Stop when σ times the largest axis of the distribution falls below this. */
   tolX?: number;
   seed?: number;
-  /** Also return the average of the distribution means over the last this many generations (noise handling). */
+  /**
+   * Also return the average of the distribution means over the last
+   * min(averageLast, ⌊generations run / 2⌋) generations (noise handling; a
+   * run that stops early is not pulled towards its first positions).
+   */
   averageLast?: number;
   log?: (g: CmaGeneration) => void;
 }
@@ -47,8 +51,12 @@ export interface CmaGeneration {
 export interface CmaResult {
   /** Final distribution mean. */
   mean: number[];
-  /** Average of the means over the last `averageLast` generations (the final mean if not requested). */
+  /** Average of the means over the averaging window (see `averageLast`; the final mean if not requested). */
   meanAvg: number[];
+  /** Change of the mean across the averaging window (last − first window mean; zeros if not requested). */
+  meanDrift: number[];
+  /** Generations in the averaging window. */
+  avgWindow: number;
   sigma: number;
   /** Best point seen and its (noisy) value: for diagnostics only. */
   best: { x: number[]; f: number };
@@ -135,8 +143,10 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
       break;
     }
   }
-  const meanAvg = recent.length ? m.map((_, j) => recent.reduce((s, r) => s + r[j], 0) / recent.length) : m.slice();
-  return { mean: m, meanAvg, sigma, best, generations: g, evals };
+  const win = recent.slice(recent.length - Math.max(1, Math.min(recent.length, Math.floor(g / 2))));
+  const meanAvg = recent.length ? m.map((_, j) => win.reduce((s, r) => s + r[j], 0) / win.length) : m.slice();
+  const meanDrift = recent.length ? m.map((_, j) => win[win.length - 1][j] - win[0][j]) : m.map(() => 0);
+  return { mean: m, meanAvg, meanDrift, avgWindow: recent.length ? win.length : 0, sigma, best, generations: g, evals };
 }
 
 function identity(n: number): number[][] {
