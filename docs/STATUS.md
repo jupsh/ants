@@ -822,3 +822,24 @@ Extraction in `docs/research/buffin2011.md`.
   after the recruiter's exit; all non-recruiter bouts 70 / 128 / 142. **The
   "8–14 %" was the observation window**, not a lack of onward flow. To be
   rerun at pilot2's optimum with the bout diagnostic.
+
+**2026-10-10 night — pilot2 finished (k = 6, shareEnd fixed at Buffin's rate, Mod-BCH); condition 4 NOT met.**
+- **Run (23:40):** starts 0 and 1 grew σ to 6.4 / 7.2 (box range 4) while
+  the loss was still falling, and stopped at the 60-generation cap; γ stayed
+  uniform (the mean never sat outside the box for long). The IPOP restart
+  settled (σ 0.22, drift ≤ 0.17) but also stopped at the cap, not tolX.
+  Point: nestSpeedFactor 0.030, returnRate 0.625 /s, shareRate 0.0276
+  µL/s (2.2× pilot-1), receiveReserve 0.959, reserveSd 0.67, density 0.73
+  /cm²; shareEnd 0.0195 fixed. Extreme values persist (nestSpeedFactor
+  closer to its floor, receiveReserve closer to 1, returnRate high).
+- **Condition 4** (`checkPilotM1999.ts`, generalised to any pilot tag and
+  its own seed key): 1-d no-bout 12.9 % (met), 4 d 5.4 %, 8 d 2.9 %; **rows
+  beyond |fitZ| 5: trophTotal at 1, 4 and 8 d, and contacts at 4 d → NOT
+  usable as gate point.** Per condition 4: no gate at pilot2; a stage-3
+  "not adequate" signal. The failing rows are reported here; the model
+  change is logged before acting.
+- **Reading so far:** with bouts ending at Buffin's rate, the model cannot
+  reach the 1999 total trophallaxis (56–66 s). The bout diagnostic
+  (`--follow 600`) and the dish check at pilot2's optimum are running;
+  they show whether the recruiter fails to re-initiate after a random
+  ending (Plan 4: encounter and initiation) or something else.

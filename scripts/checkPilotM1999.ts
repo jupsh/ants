@@ -17,11 +17,14 @@ import { SimPool } from './pool';
 const FIT = arg('--fit', 'data/fits/colony-m1999-main-shared-pilot.json');
 const N = numArg('--n', 240);
 const fit = readJson<any>(FIT);
-if (fit.tag !== 'pilot') throw new Error(`${FIT} is not a pilot fit`);
+if (!String(fit.tag ?? '').startsWith('pilot')) throw new Error(`${FIT} is not a pilot fit`);
 const alt = String(fit.layer).startsWith('L0S1 ');
 const accessible = (alt ? MAILLEUX_SETUP_E2_ALT : MAILLEUX_SETUP).accessible;
 const perNest = fit.design?.recruitersPerNest ?? 4;
-const seed = seedFor(1999, 'select', 0x9170, 1);
+// The pilot's own key (as fitM1999: 0x9170 for 'pilot', else a hash of the tag), batch 1 (its selection batch has none).
+const TAG: string = fit.tag;
+const TAG_KEY = TAG === 'pilot' ? 0x9170 : [...TAG].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0, 0x9171);
+const seed = seedFor(1999, 'select', TAG_KEY, 1);
 const pool = await SimPool.create();
 const sim = Object.fromEntries(
   await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999Shared(fit.params, { seed, starvationDays: d, density: fit.density1999, pipetteAccessible: accessible, warmup: fit.warmup, dt: fit.dt }, N, perNest)] as const)),
