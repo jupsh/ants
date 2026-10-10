@@ -3264,3 +3264,29 @@ See [`CLAUDE.md`](../CLAUDE.md).
     the fitted scale, the satiated fraction at drop 1, ΔP̄ vs L0S1 on the
     selection seeds (1 extra parameter, penalty 2), and the group contrasts
     (a cohort scale is not expected to fix them).
+- **2026-10-09** **Addition to the frozen L0S1c reading (user/review;
+  logged before any L0S1c output was looked at).** Two reported
+  development checks, not fitted, that the cohort hypothesis predicts
+  (the scale touches only the 2009 condition, so the other studies keep
+  the original desired volume):
+  1. **2000 single drop, trail % at 0.7 µL** (L0S1 42 % vs 17 %, z 3.5):
+     should fall towards 17 % while `two.tl1` stays near 38 % (a 2009
+     cohort that wants less explains both its higher laying fraction and
+     its smaller drop-2 intake).
+  2. **Whole-bout intake at 3 µL, 4 d** (L0S1 0.67 vs 0.9 µL) **and the
+     fitted fast-phase size** (`boutFastUl`; L0S1 0.28 µL): if satiation
+     now shortens drop-2 bouts, the fast phase should shrink and the 3 µL
+     intake rise towards 0.9.
+  **Reading:** drop 2 passes and both checks move the right way → the
+  cohort explanation gains support the fit could not produce by itself;
+  drop 2 passes but neither check moves → the extra parameter is absorbing
+  misfit (stated as such); mixed → reported as mixed.
+  **Wording corrections to the re-judging report:** a τ-dependent pass is
+  not evidence; the robust results are the within-2009 contrasts. Drop 2
+  for L0S1 "would need 7–11 % between-study variation in means, which the
+  cross-study pairs neither show nor exclude". The two volume pairs behind
+  the log-scale point estimate of 0 (0.3 and 0.7 µL) are at drops the ants
+  empty, so their intake is capped by the drop, not the desired volume:
+  they cannot register a desired-volume difference between cohorts, and
+  the "point" scenario carries little weight for drop 2. Only the
+  giving-up and trail pairs can register one.
