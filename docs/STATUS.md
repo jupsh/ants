@@ -2765,3 +2765,36 @@ See [`CLAUDE.md`](../CLAUDE.md).
     time at one 0.3 µL drop). Also noted from the paper: the text reports
     TL1 vs nTL1 drop-2 volume as "U = 287, p < 0.03, NS" (sic; Table 1
     letters b vs c say different).
+- **2026-10-09** **Literature check: crop absorption and I1's fast rate**
+  (reading policy: recorded only for the specific measurement each adds).
+  - **Crop emptying (`cropAbsorption`).** No *Lasius* or *Camponotus*
+    crop-emptying rate was found; the proventriculus of formicines is
+    elaborate (occlusory tract / cupola) and retains liquid in the crop.
+    The one direct measurement found: Howard & Tschinkel 1981 (J Insect
+    Physiol 27:67–74; *Solenopsis invicta*, a myrmicine, workers starved
+    1 week, 5 % sucrose with ¹²⁵I, isolated). The crop's share of the meal
+    falls "rapidly between 0 and 6 h, then slightly to moderately" (text);
+    read from their Fig. 5 for medium workers: ≈ 0.85 at 0 h, ≈ 0.65 at
+    6 h, ≈ 0.55 at 24 h (small workers ≈ 0.6 → 0.3 → 0.25). That is a few
+    % of the meal per hour (≈ 3–5 %/h over the first 6 h), against ≈ 6 %
+    per minute under the old `room × 0.001 /s` drain. Reading: (a) on a
+    foraging trip of minutes, absorption beyond metabolism is negligible,
+    so `cropAbsorption` = 0 is right for E2; (b) in E6's 60-min window a
+    myrmicine-like rate would move ≲ 5 % of a forager's crop, an upper
+    bound for a formicine. Proposal for E6: keep 0, or re-parameterise
+    as a first-order fraction of crop contents per hour (≈ 0.03–0.05 /h,
+    source above, upper bound) rather than × reserve room; decide at the
+    step-4 calibration.
+  - **I1 fast rate.** Josens et al. 2006 (J Insect Physiol 52:1234;
+    *Camponotus mus*, electrical pump recordings): pump frequency 2–12
+    peaks/s; for 10–50 % sucrose the pattern is regular and "decreased with
+    intake in all cases". Falibene et al. 2009 (J Insect Physiol 55:518):
+    initial and final pump frequencies, and their difference, are higher in
+    sugar-deprived ants; concentration changes volume per contraction, not
+    frequency. Only abstracts were accessible (full texts paywalled), so no
+    initial/final ratio is available. Reading: intake rate declines
+    *gradually* within a bout; nothing found supports a step-shaped
+    initial phase at ≈ 5× the sustained rate (I1's 0.05 µL/s). If I1 is
+    selected, the 0.02 µL/s (≈ 2×) sensitivity run is the more plausible
+    end, and I1 is reported as a stand-in for a declining rate, not as a
+    measured burst.
