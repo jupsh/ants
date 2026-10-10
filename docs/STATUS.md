@@ -516,3 +516,46 @@ Earlier entries: the archive. Newest last.
   or restart on divergence, bounds handled by reflection or penalty
   instead of saturation, and a convergence flag in the fit file.
 - No action until the pilot finishes (start 1 and the IPOP restart).
+
+**2026-10-10 night — papers supplied by the user; CMA-ES fix adopted as the plan (user: "I like that").**
+- **Read in full (methods only, no ant data):**
+  - Sakamoto & Akimoto 2017, Trans. Jpn. Soc. Evol. Comput. 8(2):23–35
+    (Mod-BCH box-constraint handling for CMA-ES).
+  - Auger & Hansen 2005, CEC (IPOP-CMA-ES restart criteria; bounds by
+    penalty; flat regions as needle-in-a-haystack).
+  - Carrella 2021, JASSS 24(2):7 ("No free lunch when estimating
+    simulation parameters").
+- **Adopted plan for the fitting method (before the recovery test, Plan 3):**
+  (1) replace the logistic bound transform in CMA-ES with Mod-BCH:
+  search in the box coordinates, evaluate an infeasible point at its
+  clipped point, plus the penalty (1/n) Σ γᵢ (xᵢ − x_feasᵢ)², γ adapted
+  from the normalised IQR of recent losses (trimmed median, uniform
+  decrease); unit tests on the paper's bounded sphere / exponential cases
+  with the optimum on a bound; (2) stop and restart on σ divergence, and
+  record per run in the fit file whether it converged; (3) check whether
+  the failed E2 L0S1c recovery (`boutFastUl` ×9.1) shows the same
+  plateau signature. Implementation waits until the pilot finishes (the
+  pilot's own reading uses the current method).
+- **Proposal from Carrella (not adopted; for the user):** a
+  reference-table identifiability check. Draw parameter sets over the
+  whole box, simulate the 15 rows for each, and predict each parameter
+  from the rows by cross-validated regression (random forest / GAM).
+  Performance < 0.3 for every method → the parameter is not identified.
+  This is global, unlike the local Jacobian whose noise floor left 5–6 of
+  7 directions undecided. The same runs serve as the global sensitivity
+  analysis and as a cheap recovery test for any number of synthetic
+  targets. Cost ≈ one fit (≈ 1000 draws).
+- **Two in-nest *L. niger* data papers (only title pages read; roles to be
+  set by the user before any results are read):**
+  - Buffin, Mailleux, Detrain & Deneubourg 2011, Insect. Soc. 58:177–183,
+    "Trophallaxis in *Lasius niger*: a variable frequency and constant
+    duration for three food types". Listed in `lasius-niger.md` as an
+    evidence gap (trophallaxis durations); nothing seen.
+  - Mailleux, Buffin, Detrain & Deneubourg 2011, Insect. Soc.
+    58:559–567, "Recruitment in starved nests: the role of direct and
+    indirect interactions between scouts and nestmates in *L. niger*".
+    **Prior exposure (now registered):** a second-hand summary (Bles
+    thesis) in `mailleux-rules.md` §7: ≈ 30 % of fed nestmates lay
+    pheromone at 4 and 8 d, not at 1 d; nest exits rise with starvation
+    independently of direct contacts. Statistics on those findings count
+    as contaminated in any test.
