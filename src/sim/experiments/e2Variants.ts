@@ -93,8 +93,25 @@ export const E2_VARIANTS_3D: E2Variant[] = [
   { id: 'L1S2', label: 'L1S2', description: 'As L1S1, with a separate search mean for laying ants.', fix: fix3d(2, 1), free: [...B3D_L1, LAY_MEAN] },
 ];
 
-/** Step-3c and step-3d candidates by id. */
-export const variant3 = (id: string): E2Variant | undefined => [...E2_VARIANTS_3C, ...E2_VARIANTS_3D].find((v) => v.id === id);
+/**
+ * Step-3d cohort diagnostic (not a candidate; STATUS 2026-10-09, between-study
+ * variance): L0S1 with a desired-volume scale for the 2009 two-drop cohort.
+ */
+export const E2_DIAGNOSTICS_3D: E2Variant[] = [
+  {
+    id: 'L0S1c',
+    label: 'L0S1c (cohort diagnostic)',
+    description: 'L0S1 with a free desired-volume scale for the 2009 cohort.',
+    fix: (m) => {
+      const f = fix3d(1, 0)(m);
+      return { ...f, setup: { ...f.setup, desiredScale2009: f.setup.desiredScale2009 ?? 1 } };
+    },
+    free: [...B3D_L0, { key: 'setup.desiredScale2009', tf: { lo: 0.3, hi: 3, log: true } }],
+  },
+];
+
+/** Step-3c and step-3d candidates (and diagnostics) by id. */
+export const variant3 = (id: string): E2Variant | undefined => [...E2_VARIANTS_3C, ...E2_VARIANTS_3D, ...E2_DIAGNOSTICS_3D].find((v) => v.id === id);
 
 export const E2_VARIANTS: E2Variant[] = [
   {

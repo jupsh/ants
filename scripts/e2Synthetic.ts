@@ -17,10 +17,10 @@ import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/s
 const DATA_N: Record<string, number> = { d1: 67, d4: 141, d8: 97, two: 66 };
 
 /** The model of a step-3c fit file. */
-export function modelOf(fit: any): { P: LasiusParams; setup: { accessible: number; volumeSd: number } } {
+export function modelOf(fit: any): { P: LasiusParams; setup: { accessible: number; volumeSd: number; desiredScale2009?: number } } {
   return {
     P: { walk: LASIUS_WALK, forager: { ...LASIUS_FORAGER, ...fit.forager }, phys: { ...LASIUS_PHYS, ...fit.phys }, morph: LASIUS_MORPH },
-    setup: { accessible: fit.pipetteAccessible, volumeSd: fit.observer.volumeSd },
+    setup: { accessible: fit.pipetteAccessible, volumeSd: fit.observer.volumeSd, ...(fit.desiredScale2009 !== undefined ? { desiredScale2009: fit.desiredScale2009 } : {}) },
   };
 }
 

@@ -3215,3 +3215,52 @@ See [`CLAUDE.md`](../CLAUDE.md).
     was not included. Not acted on yet; the judging above uses SE_data ⊕
     SE_sim only.
   - Running (unattended): L0S1 recovery and profiles (diagnostics).
+- **2026-10-09** **Between-study variance: pre-registration (frozen; user
+  approved with four changes from review, all included).**
+  - **Lead finding, independent of any study effect:** within 2009, layers
+    and non-layers drink the same at drop 1 but layers drink less at drop 2
+    (L0S1: drop-1 time contrast z −4.5, drop-2 volume contrast z +2.7). No
+    between-study variance touches comparisons within one study.
+  - **τ is not estimable.** Independent cross-study pairs of the same
+    quantity (3 µL pairs excluded as overlapping): trail % at 0.7 µL, 2000
+    vs 2009 (logit diff 1.08, SE 0.56) and at 0.3 µL, 4 d, 2000 vs 2006
+    (0.23, SE 0.71); volume at 0.7 µL (2000 vs 2009) and 0.3 µL (2000 vs
+    2006), giving-up at 0.3 µL (2000 vs 2006): log diffs 0.06 / 0.05 / 0.27,
+    each below its SE. Estimates (per study, method of moments): logit
+    0.32 (0.65 from the 0.7 µL pair alone), log 0; Q-profile 95 % ranges
+    [0, 3.45] and [0, 0.38]. **Overlap check (change 3):** 2000 used six
+    colonies of 1000–2000 workers in 20 × 20 cm four-section nests at 4 d
+    only; 2006 used three colonies of 1000–1300 in 15 × 5 cm three-section
+    nests at 1 / 4 / 8 d in random order: different colony sets, so the
+    0.3 µL pair is kept (evidence, not proof). If it overlaps, the point
+    estimate becomes the generous one (logit ≈ 0.65).
+  - **Re-judging (`selectE2.ts`, all nine candidates, no refits):** τ added
+    to each row's variance (logit scale for proportions, log scale for
+    means, delta method at the data value; Fisher-z rows none). Reference
+    scenarios none / point (logit 0.32, log 0) / generous (logit 0.67, log
+    0.15). **For every row with |z| > 2: the smallest τ at which it passes
+    (|z| ≤ 3 and ≤ 2; change 2)**, plus the same for the 2000 single-drop
+    trail series. Reading: a row **fails robustly** if it fails under
+    generous, **passes robustly** if it passes under none, otherwise
+    "depends on τ".
+  - **Limits (change 4):** a study effect is shared by all rows of a
+    study, so per-row slack is an upper bound (change 1). The candidates
+    were fitted without τ; τ-weighted fits could land elsewhere. **This
+    re-judging cannot make a candidate adequate or change the selection**;
+    it only shows which failures depend on the between-study assumption.
+    A pass under the generous scenario is not adoption.
+  - **Cohort diagnostic (change 1; a diagnostic, not a candidate):**
+    `L0S1c` = L0S1 plus a desired-volume scale for the 2009 two-drop
+    cohort (`setup.desiredScale2009`, log-bounded [0.3, 3]), fitted with
+    the same `fitE2c.ts` procedure. Rationale: most ants empty drop 1, so a
+    lower desired volume barely changes drop-1 intake but cuts drop-2
+    intake; its side effects are checkable (more ants satiated at drop 1,
+    shorter drop-1 times, a higher drop-1 trail fraction). Smoke test at
+    scale 0.7: `two.ul2` 0.38 → 0.31 µL, `two.t2` 27.5 → 14.8 s, `two.tl1`
+    0.32 → 0.44. **Reading:** cohort effect supported if `two.ul2` and
+    `two.t2` reach |z| ≤ 2 while `two.ul1`, `two.t1`, `two.tl1` stay
+    |z| ≤ 2; if drop-2 passes only by pushing drop-1 rows out, it is not a
+    cohort effect; if drop-2 still fails, the failure is structural. Report
+    the fitted scale, the satiated fraction at drop 1, ΔP̄ vs L0S1 on the
+    selection seeds (1 extra parameter, penalty 2), and the group contrasts
+    (a cohort scale is not expected to fix them).

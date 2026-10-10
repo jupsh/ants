@@ -28,6 +28,12 @@ export interface E2Setup {
   accessible: number;
   /** SD (µL) of the experimenter's volume estimates. */
   volumeSd: number;
+  /**
+   * Desired-volume scale of the 2009 two-drop cohort relative to the other
+   * studies (default 1). Only the step-3d cohort diagnostic frees it (STATUS
+   * 2026-10-09, between-study variance).
+   */
+  desiredScale2009?: number;
 }
 
 export interface Condition {
@@ -94,7 +100,7 @@ export const E2_CONDITIONS: Condition[] = [
     id: 'two',
     label: 'Mailleux 2009: two 0.7 µL drops, 4 days starved',
     options: (n, seed0, su, dt) =>
-      Array.from({ length: n }, (_, i) => ({ seed: seed0 + i, drop1: { ul: 0.7, molar: 0.6 }, drop2: { ul: 0.7, molar: 0.6 }, pipetteAccessible: su.accessible, volumeSd: su.volumeSd, starvationDays: 4, dt, maxTime: 900 })),
+      Array.from({ length: n }, (_, i) => ({ seed: seed0 + i, drop1: { ul: 0.7, molar: 0.6 }, drop2: { ul: 0.7, molar: 0.6 }, pipetteAccessible: su.accessible, volumeSd: su.volumeSd, desiredScale: su.desiredScale2009, starvationDays: 4, dt, maxTime: 900 })),
     metrics: (rs) => {
       const both = rs.filter((r) => r.drinks.length >= 2);
       return {

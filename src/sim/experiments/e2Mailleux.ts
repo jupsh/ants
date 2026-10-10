@@ -75,6 +75,8 @@ export interface ScoutOptions {
   pipetteAccessible: number;
   /** Factor on the walker's speed in this apparatus (default: the derived E2 context factor). */
   walkSpeedFactor?: number;
+  /** Factor on the desired volume (desiredFed, desiredHungry) of this cohort (default 1; the step-3d cohort diagnostic). */
+  desiredScale?: number;
   starvationDays: number;
   /** SD (µL) of the experimenter's gaster-ellipsoid volume estimate (observation noise). */
   volumeSd?: number;
@@ -118,11 +120,13 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
   // The E1 walker in the E2 context (22 °C, bridge): speed scaled by the derived context factor.
   const f = o.walkSpeedFactor ?? E2_CONTEXT.walkSpeedFactor;
   const walkP = f === 1 ? P.walk : { ...P.walk, speed: P.walk.speed * f };
-  const mind = newMind(drawTraits(P.forager, body.rng), walkP, body.rng);
+  const ds = o.desiredScale ?? 1;
+  const forager = ds === 1 ? P.forager : { ...P.forager, desiredFed: P.forager.desiredFed * ds, desiredHungry: P.forager.desiredHungry * ds };
+  const mind = newMind(drawTraits(forager, body.rng), walkP, body.rng);
   mind.walk.heading = 0;
   const agent: Agent = { body, mind, inactive: false };
   w.ants.push(agent);
-  startTrip(mind, P.forager, interocept(body), body.rng);
+  startTrip(mind, forager, interocept(body), body.rng);
   const walked = start - entrance[0];
   mind.pi.x = Math.cos(mind.piBias) * walked;
   mind.pi.y = Math.sin(mind.piBias) * walked;
@@ -150,7 +154,7 @@ export function runScoutWorld(P: LasiusParams, o: ScoutOptions, onStep?: (w: Wor
     const per = perceive(w, body, dt);
     const io = interocept(body);
     const prevMode = mind.mode;
-    const act = lasiusForager(per, io, mind, P.forager, body.rng);
+    const act = lasiusForager(per, io, mind, forager, body.rng);
     applyForagerAction(w, agent, act, per, walkP, P.phys, dt);
     w.time += dt;
     if (onStep) onStep(w);

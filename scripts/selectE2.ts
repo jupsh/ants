@@ -67,6 +67,25 @@ for (const id of IDS) {
   const fz = rows.filter((r) => r.target.role === 'fit').map((r) => r.mean.z);
   const off = fz.filter((z) => !Number.isFinite(z) || Math.abs(z) > 3).length;
   const marg = fz.filter((z) => Math.abs(z) > 2 && Math.abs(z) <= 3).length;
+  // Between-study variance (STATUS 2026-10-09; judging only, the frozen adequacy above uses none): a study SD
+  // τ added to each row's variance, on the logit scale for proportions and the log scale for means (τ_abs from
+  // the delta method at the data value). Reference scenarios, and per failing row the smallest τ that passes it.
+  // A real study effect is shared by all rows of a study, so per-row slack is an upper bound.
+  const TAU: [string, number, number][] = [['none', 0, 0], ['point', 0.32, 0], ['generous', 0.67, 0.15]];
+  const tauRows = rows.filter((r) => r.target.unit !== 'atanh r' && Number.isFinite(r.mean.z));
+  const scale = (r: (typeof rows)[number]) => (r.target.unit === '' ? r.target.value * (1 - r.target.value) : Math.abs(r.target.value));
+  const zAt = (r: (typeof rows)[number], tl: number, tm: number) => {
+    const ta = (r.target.unit === '' ? tl : tm) * scale(r);
+    return (r.mean.sim - r.mean.data) / Math.sqrt(r.mean.seData ** 2 + r.mean.seSim ** 2 + ta ** 2);
+  };
+  const tauNeeded = (r: (typeof rows)[number], c: number) => {
+    const v = (r.mean.sim - r.mean.data) ** 2 / (c * c) - r.mean.seData ** 2 - r.mean.seSim ** 2;
+    return v <= 0 ? 0 : Math.sqrt(v) / scale(r);
+  };
+  const cls = (r: (typeof rows)[number]) => (Math.abs(zAt(r, 0.67, 0.15)) > 3 ? 'ROBUST FAIL' : Math.abs(r.mean.z) <= 3 ? 'pass' : 'depends on τ');
+  console.log(`  between-study variance (rows with |z| > 2 at τ 0; z at none / point (logit 0.32, log 0) / generous (logit 0.67, log 0.15); τ needed for |z| ≤ 3 and ≤ 2; scale logit for %, log for means):`);
+  for (const r of tauRows.filter((r) => Math.abs(r.mean.z) > 2))
+    console.log(`    ${(r.target.id + (r.target.role === 'fit' ? '' : '(dev)')).padEnd(18)} ${TAU.map(([, a, b]) => zAt(r, a, b).toFixed(1)).join(' / ').padEnd(16)} τ ≤3: ${tauNeeded(r, 3).toFixed(2)}, ≤2: ${tauNeeded(r, 2).toFixed(2)}  → ${cls(r)}`);
   // The two-drop condition again, scout by scout, for the groups.
   const two = E2_CONDITIONS.find((c) => c.id === 'two')!;
   const rs = ((await run(P, two.options(N * BATCHES, SEED + 60_000_000, setup, 0.1))) as ScoutResult[]).filter((r) => r.drinks.length);
@@ -134,7 +153,7 @@ for (const id of IDS) {
     const p = rs.filter((r) => r.laidTrail).length / Math.max(1, rs.length);
     const gt = (xs: ScoutResult[]) => xs.map((r) => r.givingUpTime).filter(Number.isFinite);
     console.log(
-      `    ${String(ul).padEnd(3)} µL: trail ${(100 * p).toFixed(0)} % [${(100 * tr).toFixed(0)} %, n ${n}] z ${((p - tr) / Math.sqrt((tr * (1 - tr)) / n)).toFixed(1)}; ` +
+      `    ${String(ul).padEnd(3)} µL: trail ${(100 * p).toFixed(0)} % [${(100 * tr).toFixed(0)} %, n ${n}] z ${((p - tr) / Math.sqrt((tr * (1 - tr)) / n)).toFixed(1)} (τ logit for |z| ≤ 3: ${(Math.sqrt(Math.max(0, (p - tr) ** 2 / 9 - (tr * (1 - tr)) / n)) / (tr * (1 - tr))).toFixed(2)}); ` +
         `giving-up layers ${msd(gt(rs.filter((r) => r.laidTrail)), 0)} s [${guL}], non-layers ${msd(gt(rs.filter((r) => !r.laidTrail)), 0)} s [${guN}]; ` +
         `volume ${msd(rs.map((r) => r.drinks.reduce((a, d) => a + d.ul, 0)), 2)} µL [${vol}]`,
     );

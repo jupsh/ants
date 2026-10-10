@@ -22,7 +22,7 @@
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
 import { e2Loss, simulateE2Async, E2_TARGETS, type E2Sim } from '../src/sim/experiments/e2Targets';
-import { atBound, decode, encode, freeValues, variant3, E2_VARIANTS_3C, E2_VARIANTS_3D, type E2Model } from '../src/sim/experiments/e2Variants';
+import { atBound, decode, encode, freeValues, variant3, E2_DIAGNOSTICS_3D, E2_VARIANTS_3C, E2_VARIANTS_3D, type E2Model } from '../src/sim/experiments/e2Variants';
 import { LASIUS_FORAGER, LASIUS_MORPH, LASIUS_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
 import { arg, numArg, readJson, writeJson } from './lib';
 import { SimPool } from './pool';
@@ -37,7 +37,7 @@ const SEED = 30_000_000;
 const DEGENERATE = 1e7;
 const variant = variant3(arg('--variant', ''));
 if (!variant) throw new Error(`--variant ${[...E2_VARIANTS_3C, ...E2_VARIANTS_3D].map((v) => v.id).join('|')} required`);
-const STAGE = E2_VARIANTS_3D.includes(variant) ? '3d' : '3c';
+const STAGE = E2_VARIANTS_3D.includes(variant) || E2_DIAGNOSTICS_3D.includes(variant) ? '3d' : '3c';
 const RECOVER = arg('--recover', '');
 const REP = numArg('--rep', 0);
 const FAST_RATE = numArg('--fastRate', 0);
@@ -139,6 +139,7 @@ writeJson(OUT, {
   phys: m.P.phys,
   pipetteAccessible: m.setup.accessible,
   observer: { volumeSd: m.setup.volumeSd },
+  ...(m.setup.desiredScale2009 !== undefined ? { desiredScale2009: m.setup.desiredScale2009 } : {}),
   ...(RECOVER ? { recovery: { truth: RECOVER, rep: REP } } : {}),
   ...(FAST_RATE ? { fastRateSensitivity: FAST_RATE } : {}),
 });
