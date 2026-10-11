@@ -5,12 +5,14 @@
 #   nohup bash scripts/boxS2018.sh fit <outRate> > logs/fitS2018.log 2>&1 &
 # Usage: bash scripts/boxS2018.sh setup | hash | checks | fit <outRate>
 set -euo pipefail
-. /opt/nvm/nvm.sh && nvm use >/dev/null
+. /opt/nvm/nvm.sh && nvm use 22.22.1 >/dev/null
 which npx >/dev/null
 # Container CPU quota, not the host's core count (CLAUDE.md, rented containers).
-if [ -z "${SIM_WORKERS:-}" ] && [ -r /sys/fs/cgroup/cpu.max ]; then
-  read -r q p < /sys/fs/cgroup/cpu.max
-  if [ "$q" != max ]; then export SIM_WORKERS=$(( q / p - 2 )); fi
+if [ -z "${SIM_WORKERS:-}" ]; then
+  if [ -r /sys/fs/cgroup/cpu.max ]; then read -r q p < /sys/fs/cgroup/cpu.max
+  elif [ -r /sys/fs/cgroup/cpu/cpu.cfs_quota_us ]; then q=$(cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us); p=$(cat /sys/fs/cgroup/cpu/cpu.cfs_period_us)
+  else q=max; fi
+  if [ "$q" != max ] && [ "$q" -gt 0 ]; then export SIM_WORKERS=$(( q / p - 2 )); fi
 fi
 export RAYON_NUM_THREADS=2 ROLLDOWN_WORKER_THREADS=2 ROLLDOWN_MAX_BLOCKING_THREADS=4 UV_THREADPOOL_SIZE=2
 echo "SIM_WORKERS=${SIM_WORKERS:-default} node $(node --version) commit $(git rev-parse --short HEAD)"
