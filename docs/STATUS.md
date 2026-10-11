@@ -36,11 +36,12 @@ Pages) when the user asks.
   fixed) and a dt-dependent distance observer (now the walked path). After
   the fixes, contacts and timeInNest (4 d) still depend on dt, and the
   start points are too far from the data for the gate to mean much.
-  **Now (Plan 4):** pilot3 tests option A (refractory parting) on the
-  box (`logs/pilot3-main.log`), with condition 4, the bout diagnostic and
-  the dish check queued after it. Option B (stops at encounters, sourced
-  from Depickère et al. 2004) is implemented, switched off and checked; a B
-  pilot waits on user approval of spec B1–B3 (Decisions log, last entry).
+  **Now (Plan 4):** A failed the adoption rule (bounds) and B with
+  arena-sourced motion cannot reach the 1999 distance and contact rows
+  (B pilot stopped). B needs in-nest motion from the literature. The
+  candidate papers are in `literature/` and the Stroeymeyt et al. 2018
+  data are being downloaded; **their roles must be assigned before any is
+  read** (Decisions log, last two entries). The box is destroyed.
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
   adequate 1999 fit and the fit-protection checks.
@@ -96,8 +97,9 @@ Pages) when the user asks.
   from colony and nest size, trophallaxis flow rate for `shareRate`,
   antennation durations for the redesign), so fewer directions are flat.
   E6 must not be used to fix anything.
-- **Box:** kept through the gate, refits and fit protection; everything
-  copied back. Keeping it for E6 depends on the ensemble's cost.
+- **Box:** destroyed by the user (2026-10-10 night) after its data were
+  archived in `logs/box-2026-10-10/`. A new box is rented when a fit
+  needs one.
 
 ## Rules in force
 
@@ -333,6 +335,16 @@ non-optimum disclosed):
   - **Colony pilot fit:** its generation-0 loss at the start points was
     seen while the profile cut-off was still open (disclosed in the
     archive, 2026-10-10 night); judged uninformative.
+  - **Stroeymeyt et al. 2018** (*L. niger* in-nest tracking, Zenodo
+    data): split by colony into fit/development and held-out colonies
+    (user, 2026-10-10 night). Unread except the README and methods; the
+    split is registered in the Decisions log before any track is opened.
+  - **Planckaert et al. 2019** (Sci. Rep. 9:15620): unread; probably the
+    same experiments as E6, so treated like E6 development until the
+    overlap is checked from its methods alone.
+  - **Lenoir & Ataya 1983** (Z. Tierpsychol. 63:213–232): development
+    (structure source for in-nest resting); its abstract was seen while
+    identifying the scan.
   - **Buffin et al. 2011 and Mailleux et al. 2011:** abstract-level findings
     were relayed in the assistant's literature replies on 2026-10-10.
     These qualitative findings are development, not untouched test results;
@@ -1205,3 +1217,48 @@ Extraction in `docs/research/buffin2011.md`.
   7th parameter, shared warm-ups and the wall fix. They are kept for the
   record only. Committed fit files (pilot, pilot2, pilot3) already match
   the box.
+
+**2026-10-10 night — new literature filed; Stroeymeyt 2018 data downloading; roles pending.**
+- **Box destroyed (user)** after the archive above. Nothing runs remotely.
+- **Filed in `literature/`** (git-excluded; the user's downloads, renamed
+  to the folder's convention; one duplicate Greenwald copy removed,
+  identical MD5). Only title pages and citation lines were read.
+  - *L. niger* data, **`_ROLE-PENDING`** in the file name:
+    Stroeymeyt et al. 2018 (Science 362:941), Planckaert et al. 2019
+    (Sci. Rep. 9:15620), Lenoir & Ataya 1983 (Z. Tierpsychol.
+    63:213–232).
+  - Other species or methods, structure sources only, never targets:
+    Greenwald et al. 2018 (eLife 7:e31730; *Camponotus sanctus*, crop
+    loads), Baltiansky et al. 2023 (eLife 12:e77659; *C. sanctus*,
+    forager movement in the nest), Mersch et al. 2013 (Science
+    340:1090; *C. fellah*, spatial fidelity), Poissonnier et al. 2019
+    (eLife 8:e48945; *Linepithema humile*, traffic under crowding),
+    Grimm et al. 2005 (Science 310:987; pattern-oriented modelling).
+- **Disclosure (Lenoir & Ataya 1983):** the scan has no text layer, so
+  to identify it I rendered page 1, which shows the English abstract. It
+  verifies the citation above (the earlier "unverified" note). The abstract
+  is qualitative: 5 young colonies, 225 marked ants; nurses, foragers and
+  a large "reserve" group; activity levels exponential within tasks and
+  log-normal overall, with a few hyperactive workers. No numbers seen. It
+  does not state the "about half hypoactive" figure.
+- **Stroeymeyt et al. 2018 data** (Zenodo, CC-BY 4.0): the download is
+  in progress in the repo root (`zenodo-data*`, git-excluded `/*.zip`).
+  Nothing opened, including its README. When it finishes it goes to
+  `data/stroeymeyt2018/` (raw archive not committed; size and licence
+  checked first).
+- **Roles (proposed below; approved by the user, 2026-10-10 night):**
+  - **Stroeymeyt 2018** is the main candidate for in-nest motion. Proposal:
+    split by colony, with fit/development colonies for in-nest speeds,
+    resting fractions and stop durations, and held-out colonies for a
+    colony-level test. The split is registered here after reading only the
+    README and methods, before any track is opened.
+  - **Planckaert 2019:** probably the same experiments as E6. Proposal:
+    leave it unread, like E6 development, until the overlap is checked
+    from the methods alone.
+  - **Lenoir & Ataya 1983:** proposal: development (structure source for
+    the in-nest resting fraction), since its abstract has already been
+    seen.
+- **Next (approved):** once the download finishes, read the Stroeymeyt
+  data README and the paper's methods only, move the data to
+  `data/stroeymeyt2018/`, and register the colony split here before any
+  track is opened.
