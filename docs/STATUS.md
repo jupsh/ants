@@ -1425,3 +1425,47 @@ Extraction in `docs/research/buffin2011.md`.
   description and the two width parameters' plain meaning, and validate it
   locally against counts from the GPL tool run on the fit colonies
   (local only, like the Khuong port; only agreement statistics committed).
+
+**2026-10-10 night — Stroeymeyt rows: operational definitions (fixed before any track is opened).**
+Applied identically to recorded and simulated colonies (the simulation's
+observer emits the same frame records, including missing detections).
+- **Frames and positions:** the 0.5 s frame grid; consecutive frames by
+  frame number. Position = tag centre (all tag offsets are 0 in the main
+  experiment) × 0.0229659 mm/px. Phase by the frame's UTC time: light
+  06:00–18:00, dark otherwise.
+- **Ants:** workers with a task group (nurse or forager, from
+  `task_groups.txt`) and final status `alive` or `lost_tag` (the latter
+  until their last detection). Excluded, as the authors did: ants that
+  died or were removed (`dead`, `drowned`, `accident`, …). The queen is
+  excluded from the rows and counted in density.
+- **In nest:** y ≤ `Ynestmax` of the colony (the authors' nest limit).
+- **Steps:** between consecutive detections of the same ant, both in the
+  nest, g ≤ 3 frames apart (up to 2 missing frames bridged); a step lasts
+  0.5 g s with displacement d. Larger gaps break the sequence.
+- **Row 2, speed:** Σ d / Σ 0.5 g over steps, per colony × group × phase.
+- **Row 3, stillness:** a step is still if d / g < 0.6 mm (sensitivity
+  0.14 mm, the code's "asleep" threshold). Still fraction = Σ g (still) /
+  Σ g. Runs = maximal sequences of steps in one state, broken by a gap
+  > 3 frames or by leaving the nest. A run is complete if bounded on both
+  sides by the opposite state; only complete runs enter the duration
+  statistics. Per colony × group × phase (by the run's start): mean and
+  median duration, and P(run ≥ D) for D = 1, 2, 5, 10, 30, 60, 300 s.
+- **Row 1, forager stays:** zone (nest or out) changes only when the new
+  zone holds for 2 consecutive detections (debounce; sensitivity 1).
+  Entry = first detection of the in-nest run; exit = first detection of
+  the following out-of-nest run. A stay is complete if bounded by
+  out-of-nest runs on both sides. Duration = exit − entry; path = Σ d of
+  its steps; phase by entry. Per colony × phase: number of stays, mean and
+  median duration, mean path. Contacts per stay are added once the contact
+  observer is settled (licence question above).
+- **Row 4, contacts:** waits on the contact observer.
+- **Row 5, density (input):** in each frame an ant counts as in the nest if
+  its latest detection within 20 frames (10 s) is in the nest; ants / 28
+  cm² (70 × 40 mm), per colony × phase mean.
+- **Tracking noise:** σ per axis from first and second differences of
+  still-ant positions (`noiseTrack` approach); the simulation's observer
+  adds it, together with independent missed detections at each colony's
+  measured detection rate.
+- **Across colonies:** row values are per colony; the target is the mean
+  over the 22 colonies, with SE = SD / √22 (colony blocks). Treatment
+  (sham vs pathogen) is ignored, since all of this is PreTreatment.
