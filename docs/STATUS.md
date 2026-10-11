@@ -316,6 +316,12 @@ non-optimum disclosed):
     58:177–183, trophallaxis frequency and duration): **parameter and
     structure source** (user, 2026-10-10 night); read in full, so none of
     its results can serve as a test.
+  - **Mailleux, Sempo, Depickère & Detrain 2011** (Insect. Soc. 58:219–225,
+    starvation and spatial organisation in nests; same lab and year as the
+    held-out paper): **role not yet assigned**, received 2026-10-10 as an
+    option-B literature candidate. Only the title header seen (identifying
+    the file). Not read until its role is set; check first whether its
+    colonies overlap the held-out paper's.
   - **Colony pilot fit:** its generation-0 loss at the start points was
     seen while the profile cut-off was still open (disclosed in the
     archive, 2026-10-10 night); judged uninformative.
