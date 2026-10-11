@@ -62,7 +62,12 @@ export function perceive(w: World, b: Body, dt: number): SurfacePercept {
     if (dir !== null) exitCue = { bearing: wrap(dir - b.heading) };
   }
   const contacts: ContactPercept[] = [];
-  for (const o of w.ants) {
+  // Candidates: the ants binned near this one when the runner keeps a contact grid (same ants, same order), else all.
+  const grid = w.contactGrid;
+  const near = grid ? grid.near(b.x, b.y) : null;
+  const count = near ? near.length : w.ants.length;
+  for (let k = 0; k < count; k++) {
+    const o = w.ants[near ? near[k] : k];
     if (o.body === b || !o.body.alive) continue;
     const ox = o.body.x - b.x;
     const oy = o.body.y - b.y;

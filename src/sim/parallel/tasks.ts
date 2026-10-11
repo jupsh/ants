@@ -6,6 +6,7 @@ import { runScout, type LasiusParams, type ScoutOptions, type ScoutResult } from
 import type { ColonyParams } from '../experiments/colonyBles';
 import { runNests1999, runRecruiters1999, type M1999Options, type M1999Recruiter } from '../experiments/colonyMailleux1999';
 import { simulateColonies, type E6Metrics } from '../experiments/e6Bles';
+import { simulateStroeymeyt, type StroeymeytColony, type StroeymeytRunOptions } from '../experiments/colonyStroeymeyt';
 import type { WalkParams } from '../models/walk';
 import { runBles, type BlesParams } from '../reference/blesTEC';
 import { runSectored, type SectoredOptions, type SectorPools } from '../reference/sectoredWalker';
@@ -33,6 +34,11 @@ export const TASKS = {
   m1999: (P: ColonyParams, o: M1999Options, first: number, count: number): M1999Recruiter[] => runRecruiters1999(P, o, first, count),
   /** Mailleux 1999, shared warm-ups: nests [first, first + count), perNest recruiters each, in nest then recruiter order. */
   m1999Nests: (P: ColonyParams, o: M1999Options, first: number, count: number, perNest: number): M1999Recruiter[] => runNests1999(P, o, first, count, perNest),
+  /** Stroeymeyt 2018 set-up: one colony, one window; rows only (and per sub-window with `windows`). */
+  s2018Colony: (P: ColonyParams, c: StroeymeytColony, o: StroeymeytRunOptions): { rows: Record<string, number>; windowRows: Record<string, number>[]; foragersIn: number } => {
+    const r = simulateStroeymeyt(P, c, o);
+    return { rows: r.rows, windowRows: r.windowRows, foragersIn: r.foragersIn };
+  },
 };
 
 export type TaskName = keyof typeof TASKS;

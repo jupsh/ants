@@ -2,6 +2,7 @@ import { Body } from '../agent/body';
 import { Ledger } from '../physics/ledger';
 import type { Mind } from '../mind/mind';
 import type { Apparatus } from './apparatus';
+import type { ContactGrid } from './contactGrid';
 import type { PheromoneField } from './field';
 import type { SugarDroplet } from './food';
 import type { PathField } from './pathField';
@@ -40,6 +41,8 @@ export class World {
    */
   nestOdour: PathField | null = null;
   exitCue: PathField | null = null;
+  /** Ants binned by position, rebuilt by the runner each step before perception (null: perception checks all ants). */
+  contactGrid: ContactGrid | null = null;
   private nextFoodId = 1;
 
   constructor(

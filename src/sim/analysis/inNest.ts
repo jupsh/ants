@@ -90,6 +90,8 @@ export interface InNestColony {
   /** One record per debounce value, in config order. */
   stays: Record<Phase, StayCell>[];
   density: Record<Phase, { sum: number; frames: number }>;
+  /** Share of foragers (seen at least once) whose latest detection is in the nest, summed over frames (an input for the trip rate). */
+  foragerIn: Record<Phase, { sum: number; frames: number }>;
   /** Second- and first-difference sums of near-still positions (noise estimate). */
   noise: { n: number; d1x: number; d1y: number; d2x: number; d2y: number };
   /** Detections and detection opportunities (frames from first to last detection), workers. */
@@ -197,6 +199,7 @@ export class InNestAccumulator {
       motion,
       stays: cfg.debounce.map(() => ({ light: { dur: [], path: [] }, dark: { dur: [], path: [] } })),
       density: { light: { sum: 0, frames: 0 }, dark: { sum: 0, frames: 0 } },
+      foragerIn: { light: { sum: 0, frames: 0 }, dark: { sum: 0, frames: 0 } },
       noise: { n: 0, d1x: 0, d1y: 0, d2x: 0, d2y: 0 },
       detection: { det: 0, span: 0 },
       perAnt: { 'nurse.light': { still: [], speed: [] }, 'nurse.dark': { still: [], speed: [] }, 'forager.light': { still: [], speed: [] }, 'forager.dark': { still: [], speed: [] } },
@@ -237,10 +240,23 @@ export class InNestAccumulator {
     }
     // Density: ants last seen in the nest within the hold window (queen included).
     let count = 0;
-    for (const a of this.ants) if (a.lastIn && frame - a.lastFrame <= this.cfg.densityHold) count++;
+    let fSeen = 0;
+    let fIn = 0;
+    for (const a of this.ants) {
+      if (a.lastIn && frame - a.lastFrame <= this.cfg.densityHold) count++;
+      if (a.role === 'forager' && a.firstFrame >= 0) {
+        fSeen++;
+        if (a.lastIn) fIn++;
+      }
+    }
     const d = this.out.density[phase];
     d.sum += count / this.cfg.nestAreaCm2;
     d.frames++;
+    if (fSeen) {
+      const q = this.out.foragerIn[phase];
+      q.sum += fIn / fSeen;
+      q.frames++;
+    }
   }
 
   private detect(i: number, f: number, phase: Phase, x: number, y: number, inside: boolean): void {
@@ -469,6 +485,7 @@ export function colonyRows(c: InNestColony, cfg: InNestConfig = STROEYMEYT_CFG):
     }
   });
   for (const p of PHASES) r[`density.${p}`] = c.density[p].frames ? c.density[p].sum / c.density[p].frames : NaN;
+  for (const p of PHASES) r[`foragerIn.${p}`] = c.foragerIn[p].frames ? c.foragerIn[p].sum / c.foragerIn[p].frames : NaN;
   const n = c.noise;
   r['noise.x'] = n.n ? Math.sqrt(n.d2x / n.n / 6) : NaN;
   r['noise.y'] = n.n ? Math.sqrt(n.d2y / n.n / 6) : NaN;

@@ -28,6 +28,8 @@ export interface StroeymeytRunOptions {
   warmupS: number;
   obsS: number;
   dt?: number;
+  /** Also report rows for the first w seconds of the observed time, for each w here (window check; each ≤ obsS). */
+  windows?: number[];
 }
 
 export interface StroeymeytRun {
@@ -35,6 +37,8 @@ export interface StroeymeytRun {
   colony: InNestColony;
   /** Mean share of foragers in the nest over the observed frames (true positions). */
   foragersIn: number;
+  /** Rows of the first w observed seconds, per `windows` entry. */
+  windowRows: Record<string, number>[];
 }
 
 /** Temperature per phase (Stroeymeyt et al. 2018: 12 h light at 26 °C, 12 h dark at 22 °C). */
@@ -68,6 +72,7 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     tempC: STROEYMEYT_TEMP[o.phase],
   });
   const acc = new InNestAccumulator(roles, STROEYMEYT_CFG);
+  const wins = (o.windows ?? []).map((w) => ({ end: w, acc: new InNestAccumulator(roles, STROEYMEYT_CFG) }));
   const obs = roles.map((_, i) => RNG.stream(o.seed, 0x0b5e, i));
   const frameDt = STROEYMEYT_CFG.frameDt;
   const app = sim.w.apparatus;
@@ -100,7 +105,9 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
       ys.push(a.body.y + ny);
       ins.push(r.kind === 'nest');
     });
-    acc.frame(frame++, PHASE_HOUR[o.phase], ids.length, ids, xs, ys, ins);
+    acc.frame(frame, PHASE_HOUR[o.phase], ids.length, ids, xs, ys, ins);
+    for (const w of wins) if (frame * frameDt < w.end - 1e-9) w.acc.frame(frame, PHASE_HOUR[o.phase], ids.length, ids, xs, ys, ins);
+    frame++;
     for (const i of foragers) {
       const r = app.regionAt(sim.w.ants[i].body.x, sim.w.ants[i].body.y);
       if (r?.kind === 'nest') fIn++;
@@ -109,5 +116,5 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
   };
   while (sim.stepIndex < sim.steps) sim.step(onStep);
   const colony = acc.result();
-  return { rows: colonyRows(colony, STROEYMEYT_CFG), colony, foragersIn: fN ? fIn / fN : NaN };
+  return { rows: colonyRows(colony, STROEYMEYT_CFG), colony, foragersIn: fN ? fIn / fN : NaN, windowRows: wins.map((w) => colonyRows(w.acc.result(), STROEYMEYT_CFG)) };
 }

@@ -969,3 +969,70 @@ not taken.
   fit keeps whole colonies at their own size, and the structure needs a
   mechanism by which nestmates shorten walking (e.g. option B's
   encounter stops).
+
+**2026-10-11 — step 4b: structure, rows and checks (approved by the user, "yes"; logged before any fit).**
+- **Structure = option B's, refitted on in-nest data.** Per group
+  (nurses; foragers via the forager-trait overrides): `nestSpeedFactor`
+  (walking speed, × the 45 mm/s walker), `activeToRest` (spontaneous
+  stops), `restToActive` (walk-on rate of a lone stopped ant),
+  `nestPauseFactor` (the walker's own short pauses, 0.053 /s × factor,
+  0.70 s mean). Shared: `encounterStop` (probability of stopping at the
+  onset of antennal contact) and `restCrowdExp` (walk-on rate ×
+  N^−b, N = ants in the stop), the only crowding mechanism the model has.
+  **k = 10.** No per-ant heterogeneity yet (spread rule at the optimum).
+- **Bounds (box, Mod-BCH as in the 1999 pilots; log scale):**
+  nestSpeedFactor 0.005–0.5; activeToRest 0.01–10 /s; restToActive
+  0.001–10 /s; nestPauseFactor 0.01–100; encounterStop 0–1 (linear);
+  restCrowdExp 0–3 (linear).
+- **Fit rows (32):** per group × phase: still fraction (0.6 mm),
+  moving-only speed, still-run mean, P(still run ≥ 2 / 10 / 60 s),
+  moving-run mean, P(moving run ≥ 2 s). Medians are left out (they move
+  in 0.5 s frame steps, flat for an optimiser). Target = the 22-colony
+  mean, SE = colony-block SE; loss Σ fitZ², debiased (minus the simulated
+  mean's variance / SE²), as in the 1999 fits.
+- **Simulation per evaluation:** all 22 colonies at their own size,
+  noise and detection rate, one window each. The model has no phase
+  dependence inside the nest (no temperature factor; light does not
+  reach the covered nest), so one simulated window per colony serves both
+  phases' rows (disclosed: light–dark differences in the data stay as
+  residuals). Common random numbers within a generation.
+- **Checks, not fitted (judged at the optimum):** (1) crowding: Spearman
+  of moving-only speed and moving-run mean with density across the 22
+  simulated colonies, against the data's (−0.28 to −0.56); (2) per-ant
+  spread rule (logged earlier); (3) forager stays (row 1), after
+  `outRate` is set from the density input; (4) stays-based V_stay.
+- **Before the fit, locally (step-4 cost rule):** a spatial grid for
+  contact checks (bit-identical, tested); at a start point, a 30-min and a
+  2-h window vs a full 12-h phase, and dt 0.1 vs 0.05, each by the gate's
+  rule (90 % CI of the per-row difference inside ±0.5 SE_data, colony
+  bootstrap). The shortest passing window and the coarsest passing dt are
+  used.
+- **Box:** rented by the user for the fit (2026-10-11).
+
+**2026-10-11 — step 4b preparations (code; nothing fitted yet).**
+- **Contact grid** (`world/contactGrid.ts`): ants binned per step,
+  contacts checked in the 3 × 3 cells around each ant, candidates in
+  index order; runs identical with and without it (`test/contactGrid.test.ts`:
+  a Bles colony with sharing, a crowded Stroeymeyt nest with option-B
+  stops). 17.5 → 12.6 s per colony-hour (colony209).
+- **Input row `foragerIn`** (share of foragers whose latest detection is
+  in the nest, per frame; same code on data and model): data 0.821 ±
+  0.035 light, 0.718 ± 0.047 dark. Added because the density row
+  undercounts (it holds an ant only 10 s after its last detection, and
+  real misses are clustered: inferring the forager share from density gave
+  values below 0). Reducer rerun; all other rows unchanged. `outRate` now
+  also applies to resting ants (so the trip rate does not depend on the
+  fitted rest/walk rates) and is set by `scripts/calibOutRate.ts` to the
+  mean of the two phases (0.77).
+- **Start point** (`scripts/s2018Lib.ts`, by two hand-tried runs on
+  colony209, a development look at fit data): speed factor 0.06, stops
+  3 / 2 per s, walk-on 0.15 / 0.25 per s (nurses / foragers), pause factor
+  1, encounterStop 0.5, restCrowdExp 0.5. At it, colony209's moving speed
+  and nurse still fraction are close; still runs are too long at 2–10 s
+  and too short in the tail (one exponential rest cannot give the data's
+  P(≥ 2 s) 0.4 with P(≥ 60 s) 0.02; only the crowd exponent can fatten
+  the tail, so the fit will show whether the structure suffices).
+- **Scripts:** `fitS2018.ts` (as logged for 4b), `checkS2018Window.ts`
+  (window and dt checks), `calibOutRate.ts`; targets, free set, bounds
+  and loss in `src/sim/experiments/stroeymeytTargets.ts`; pool task
+  `s2018Colony`.

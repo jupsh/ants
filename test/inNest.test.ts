@@ -149,6 +149,12 @@ describe('in-nest rows (Stroeymeyt 2018 definitions)', () => {
     expect(r['speed.nurse.light'] / r['noise.floorSpeed']).toBeCloseTo(1, 1);
   });
 
+  it('forager share in the nest by latest detection', () => {
+    // Forager 1 inside all the time; forager 2 outside for the first 40 of 100 frames; a nurse is ignored.
+    const r = feed(['forager', 'forager', 'nurse'], 100, (i, f) => (i === 1 && f < 40 ? [0, 60] : [5, 5]));
+    expect(r['foragerIn.light']).toBeCloseTo((40 * 0.5 + 60 * 1) / 100, 10);
+  });
+
   it('splits light and dark by UTC hour', () => {
     const r = feed(['nurse'], 200, (_, f) => [f < 100 ? 0 : f - 100, 10], (f) => (f < 100 ? 3 : 7));
     expect(r['still.nurse.dark']).toBe(1);
