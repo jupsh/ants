@@ -1103,3 +1103,26 @@ not taken.
   alongside the calibration (separate checkout `~/ants2`, 70 workers) at
   **provisional trip inputs** (exploreGiveUp 1000 s, outRate 1/3500 /s;
   disclosed); rerun if the calibrated values differ by more than 2×.
+
+**2026-10-11 — two problems found on the box; diagnosis before any change.**
+- **Trips plateau at ≈ 50 s** (calibration round 1, outRate 1/2000):
+  exploreGiveUp 60 / 150 / 300 / 500 / 800 / 1200 / 1800 / 2700 s gave
+  observed trip means 33 / 44 / 46 / 48 / 49 / 50 / 51 / 51 s; the target
+  1177 s is not bracketed and the run stopped. Cause (code): an exploring
+  forager that walks back through the hole stays under the forager policy
+  (only `return` hands it to the nest), but it is in the nest, so the
+  observer counts an entry. In a 70 × 54 mm area at outside walking speed
+  the 4 mm hole is found within about a minute.
+- **dt 0.1 vs 0.05 at the start point (provisional trip inputs): 13 of
+  16 rows not shown equivalent**, systematic on stillness: still fraction
+  nurses −2.71 SE (CI −2.95, −2.47), still-run mean −1.14, P(still ≥ 10
+  s) −5.85 (nurses) / −4.62 (foragers), P(≥ 60 s) −3.52 / −1.16; moving
+  rows mostly ok (nurses). The model is stiller at the finer step.
+  Hypothesis: encounters are contact onsets checked once per step, so a
+  contact flickering at the antennal-reach boundary yields more "onsets"
+  (more encounter stops) at a finer step. **Test (pre-registered):** the
+  same dt comparison with encounterStop 0, and with restCrowdExp 0 (one
+  mechanism off at a time); if the shift disappears only without
+  encounter stops, the cause is the onset detection. The window check
+  (running alongside) was stopped: void at a dt-dependent point with
+  broken trips.

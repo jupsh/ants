@@ -10,7 +10,7 @@
  *   --mode dt: dt 0.1 against 0.05 at --obs (default 1800 s), --reps seeds
  *     per colony.
  *
- *   npx vite-node scripts/checkS2018Window.ts --mode window|dt [--fit f] [--warmup 1200] [--obs 1800] [--reps 2]
+ *   npx vite-node scripts/checkS2018Window.ts --mode window|dt [--fit f] [--set k=v,...] [--tag t] [--warmup 1200] [--obs 1800] [--reps 2]
  * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts), or --explore s --outRate r.
  */
 import fs from 'node:fs';
@@ -21,7 +21,9 @@ import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018Ta
 
 const MODE = arg('--mode', 'window');
 const fit = arg('--fit', '');
-const values = fit ? JSON.parse(fs.readFileSync(fit, 'utf8')).free : S2018_START;
+// --set k=v,...: overrides of free-parameter values (diagnostics, e.g. a mechanism switched off).
+const SET = Object.fromEntries(arg('--set', '').split(',').filter(Boolean).map((kv) => [kv.split('=')[0], Number(kv.split('=')[1])]));
+const values = { ...(fit ? JSON.parse(fs.readFileSync(fit, 'utf8')).free : S2018_START), ...SET };
 // Trip inputs from the calibration, or provisional values given explicitly (--explore, --outRate; disclosed in STATUS).
 const trips = arg('--explore', '') ? { exploreGiveUp: numArg('--explore', NaN), outRate: numArg('--outRate', NaN) } : loadTrips();
 const outRate = trips.outRate;
@@ -85,7 +87,7 @@ if (MODE === 'window') {
   result.dt = compare(a.map((r) => r.rows), b.map((r) => r.rows), 'dt 0.1 vs 0.05');
 } else throw new Error('--mode window|dt');
 result.seconds = (Date.now() - t0) / 1000;
-const out = `logs/checkS2018-${MODE}${fit ? '-fit' : ''}.json`;
+const out = `logs/checkS2018-${MODE}${fit ? '-fit' : ''}${arg('--tag', '') ? `-${arg('--tag', '')}` : ''}.json`;
 writeJson(out, result);
 console.log(`wrote ${out} (${(result.seconds as number).toFixed(0)} s)`);
 pool.close();
