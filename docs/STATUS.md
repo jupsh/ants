@@ -1070,3 +1070,28 @@ not taken.
   per 12 h, agrees with the data's ≈ 8). `scripts/calibTrips.ts` replaces
   `calibOutRate.ts`: grids in parallel over a 12-h window (as the data's
   phases, so complete-trip censoring matches) → `data/fits/s2018-trips.json`.
+
+**2026-10-11 — Greenwald et al. 2015 filed; role registered before reading.**
+- User supplied two PDFs (repo root). `s41598-019-52019-6.pdf` is
+  Planckaert et al. 2019 (identified by its DOI file name; byte-identical
+  to the copy already in `literature/`, so the root copy was removed);
+  **not opened**, as instructed (E6 data).
+- `srep12496.pdf`, identified from its PDF metadata only: **Greenwald,
+  Segre & Feinerman 2015**, Sci. Rep. 5:12496, "Ant trophallactic
+  networks: simultaneous measurement of interaction patterns and food
+  dissemination" (*Camponotus sanctus*). Filed as
+  `literature/Greenwald2015_SciRep5-12496_trophallactic-networks-food-dissemination.pdf`.
+- **Role (user: "as a prior"): parameter and structure source, other
+  genus; never a target or test.** Values from it can set priors or
+  bounds for in-nest trophallaxis (flow rate, bout durations, crop loads),
+  scaled and disclosed; none is a *L. niger* value. **E6 exposure
+  (disclosed):** it measures food dissemination through a colony, the
+  kind of outcome E6 tests in *L. niger*; E6 is already a development
+  benchmark, and nothing from this paper may be used to set or tune an
+  E6-facing choice beyond the step-5 priors logged here.
+- **Read** (2026-10-11): extraction in `docs/research/greenwald2015.md`.
+  Candidate step-5 priors: foragers unload ≈ 50 % of their crop per
+  visit (vs our unload-to-10 % rule); transfer volume not linear in bout
+  duration (against one constant `shareRate`); 240 s between an ant's
+  trophallaxes; small events dominate. **Seen but not used:** its colony
+  accumulation curve (rate 0.036, E6-type outcome) and network results.
