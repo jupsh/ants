@@ -17,6 +17,8 @@ import { arg, provenance, writeJson } from './lib';
 const ROOT = 'data/stroeymeyt2018/main_experiment/original_data';
 /** mm per px (authors' `pix_to_mm_ratio`, the larger of their two values; STATUS 2026-10-10). */
 export const MM_PER_PX = 0.0229658793;
+/** Lines held back to restore frame order (largest lag seen in the fit files: 5). */
+const REORDER_WINDOW = 8;
 
 interface ColonyInfo {
   label: string; // colony020
@@ -77,14 +79,17 @@ async function reduce(col: ColonyInfo) {
   let first = NaN;
   let last = NaN;
   let prevFrame = -Infinity;
-  for await (const line of rl) {
-    if (!line) continue;
-    const f = line.split(',');
-    const t = Number(f[0]);
-    const frame = Number(f[1]);
-    const n = Number(f[3]);
-    if (!(frame > prevFrame)) throw new Error(`${col.label}: frames out of order at ${frame}`);
+  // Lines are sometimes written out of order (adjacent swaps; one line
+  // misplaced to the end of a file): reorder within a window, drop and count
+  // lines arriving later than that (STATUS 2026-10-11).
+  const pending: { frame: number; f: string[] }[] = [];
+  let reordered = 0;
+  let late = 0;
+  const emit = (frame: number, f: string[]) => {
+    if (frame === prevFrame) throw new Error(`${col.label}: frame ${frame} repeated`);
     prevFrame = frame;
+    const t = Number(f[0]);
+    const n = Number(f[3]);
     ids.length = xs.length = ys.length = ins.length = 0;
     for (let j = 0; j < n; j++) {
       const i = index.get(Number(f[4 + 4 * j]));
@@ -99,7 +104,25 @@ async function reduce(col: ColonyInfo) {
     frames++;
     if (Number.isNaN(first)) first = t;
     last = t;
+  };
+  for await (const line of rl) {
+    if (!line) continue;
+    const f = line.split(',');
+    const frame = Number(f[1]);
+    if (frame <= prevFrame) {
+      late++;
+      continue;
+    }
+    let k = pending.length;
+    while (k > 0 && pending[k - 1].frame > frame) k--;
+    if (k < pending.length) reordered++;
+    pending.splice(k, 0, { frame, f });
+    if (pending.length > REORDER_WINDOW) {
+      const p = pending.shift()!;
+      emit(p.frame, p.f);
+    }
   }
+  for (const p of pending) emit(p.frame, p.f);
   const count = (r: AntRole) => [...roleOf.values()].filter((v) => v === r).length;
   return {
     colony: col.label,
@@ -107,6 +130,8 @@ async function reduce(col: ColonyInfo) {
     colonySize: col.size,
     ants: { nurse: count('nurse'), forager: count('forager'), queen: count('queen') },
     frames,
+    /** Lines put back in frame order, and lines dropped for arriving too late. */
+    order: { reordered, late },
     hours: (last - first) / 3600,
     /** Repeated reads of a tag in a frame: merged, and dropped (disagreeing). */
     duplicates: acc.duplicates,
@@ -123,7 +148,7 @@ async function main() {
     const t0 = Date.now();
     const r = await reduce(col);
     per.push(r);
-    console.log(`${col.label}: ${r.frames} frames, ${r.hours.toFixed(1)} h, ants ${JSON.stringify(r.ants)}, repeated reads merged ${r.duplicates.merged}, dropped ${r.duplicates.dropped}, ${((Date.now() - t0) / 1000).toFixed(0)} s`);
+    console.log(`${col.label}: ${r.frames} frames, ${r.hours.toFixed(1)} h, ants ${JSON.stringify(r.ants)}, repeated reads merged ${r.duplicates.merged}, dropped ${r.duplicates.dropped}, lines reordered ${r.order.reordered}, late ${r.order.late}, ${((Date.now() - t0) / 1000).toFixed(0)} s`);
   }
   const out = arg('--out', 'data/reference/stroeymeyt2018-fit-rows.json');
   writeJson(out, {

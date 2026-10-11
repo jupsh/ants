@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-11 (session 4: plan review — step-3 branch rule, contact observer, between-ant spread, step-4 cost, stopping rule; STATUS cleanup). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-11 (session 4: plan review and STATUS cleanup; step 3 done — branch R ≤ 2, in-nest motion ≈ 10× slower than arena; step 4 next). Keep this file current: update it whenever a step starts or finishes._
 
 Everything up to 2026-10-10 evening (session notes, step results, the full
 decisions log of about 4,500 lines) is in
@@ -41,12 +41,14 @@ Pages) when the user asks.
   22 fit-colony tracks are in (`data/stroeymeyt2018/`, 1.7 GB,
   gzip-verified). Rows, definitions and the colony split are frozen
   (Rules in force).
-  **Next:** (1) two small additions to `inNest.ts`, logged 2026-10-11
-  before any output: moving-only speed and per-ant spreads; (2) step 3,
-  `npx vite-node scripts/stroeymeytRows.ts`, read under the **step-3
-  branch rule** (Rules in force); (3) in parallel, our own contact
-  observer (approved 2026-10-11). The box is destroyed; none is rented
-  before step 4 has been timed locally.
+  **Step 3 done (2026-10-11):** the branch rule gives R ≤ 2 (1.5 / 1.6):
+  Stroeymeyt foragers' short stays move like the 1999 recruiter. In the
+  nest, ants are still ≈ 95 % of the time and move at ≈ 0.27 cm/s, ≈ 10×
+  slower than option B's arena values (Decisions log, last entry).
+  **Next:** step 4, the Stroeymeyt nest in the simulation, its frame
+  observer and the cost timing; in parallel, our own contact observer
+  (approved 2026-10-11). The box is destroyed; none is rented before step
+  4 has been timed locally.
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
   adequate 1999 fit and the fit-protection checks. **Open for the user:**
@@ -70,9 +72,11 @@ any pilot.
    0.0229659 mm/px from the authors' code.
 2. ~~**Statistics code before data**~~ **done:** `src/sim/analysis/inNest.ts`
    (rows 1–3, 5, noise estimate), tested on synthetic colonies; reducer
-   `scripts/stroeymeytRows.ts`. **Additions before step 3 runs** (logged
-   2026-10-11): moving-only speed and per-ant spreads.
-3. **Rows on the 22 fit colonies:** a targets module with roles, light
+   `scripts/stroeymeytRows.ts`; additions (2026-10-11): moving-only
+   speed, short-stay speed, noise floor, per-ant spreads.
+3. ~~**Rows on the 22 fit colonies**~~ **done 2026-10-11: R ≤ 2 in
+   both phases** (`data/reference/stroeymeyt2018-fit-rows.json`).
+   **Rows on the 22 fit colonies:** a targets module with roles, light
    and dark phases separately, colony-block SE. The **branch rule**
    (Rules in force, 2026-10-11) compares like with like: whole-stay speed
    of Stroeymeyt foragers' short stays against the 1999 recruiter's
@@ -533,7 +537,10 @@ Full results, tables and the history of each step are in the archive
   distance (2026-10-10 night). Pilots (night archive): Buffin-rate bout
   endings push the fit to bounds; option A (refractory parting) fails the
   adoption rule; option B (arena-sourced stop-and-go motion) walks ≥ 12×
-  the 1999 distance with 20–75× the contacts. No valid colony fit yet.
+  the 1999 distance with 20–75× the contacts. Stroeymeyt 2018 in-nest
+  rows (2026-10-11): ants still ≈ 95 % of the time, ≈ 0.27 cm/s when
+  moving; foragers' short stays within 2× the 1999 recruiter's speed. No
+  valid colony fit yet.
 
 ## Open problems and backlog
 - **Colony:** contact-triggered leaving (Table 2b, G3) not modelled;
@@ -836,3 +843,51 @@ observer emits the same frame records, including missing detections).
 - Step 3: `npx vite-node scripts/stroeymeytRows.ts` on the 22 fit
   colonies → `data/reference/stroeymeyt2018-fit-rows.json`, read under the
   branch rule above.
+
+**2026-10-11 — step 3 stopped on out-of-order frames; data-cleaning rule (logged before the rerun).**
+- The reducer stops on a non-increasing frame number. In the 22 fit
+  tracking files, lines are sometimes written out of order: 13 files
+  have 1–40 adjacent swaps (a line one frame behind, rarely up to 5), and
+  colony237's last line is frame 697585 (misplaced from the middle of the
+  file). No frame number occurs twice in any file, and a line's
+  timestamp goes with its frame number, so these are write-order slips,
+  not duplicate or corrupt records. Only frame numbers and timestamps
+  were looked at, not any position or row.
+- **Rule:** lines are put back in frame order with a reorder window of
+  8 lines; a line arriving later than that (only colony237's) is dropped
+  and counted per colony, which the definitions treat as a frame with no
+  detections. Simulated colonies are produced in order.
+
+**2026-10-11 — step 3 result: the branch rule says R ≤ 2 (Stroeymeyt foragers move like the 1999 recruiter).**
+`data/reference/stroeymeyt2018-fit-rows.json` (22 fit colonies; reorder
+rule applied: 1–40 lines reordered per file, 1 late line in colony237).
+Means over colonies ± colony-block SE; speeds in cm/s.
+- **Branch (V_stay, forager stays ≤ 5 min):** light 0.122 ± 0.008, dark
+  0.130 ± 0.007 (21 colonies; colony265, 12 foragers, has < 5 such
+  stays). R against 1999 at 1 d: **1.51 light, 1.60 dark → R ≤ 2 in both
+  phases.** Against 4 d / 8 d: 1.65–1.97. Sensitivities: stays ≤ 20 min
+  R 0.93 / 1.03; all stays R 0.29 / 0.34 (long resting stays). Per the
+  rule: step 4's motion is expected to reach the 1999 distance rows; no
+  recruiter-specific change is considered. (The old row-2 rule would have
+  given the same branch: colony-wide speed is far below 0.4 cm/s.)
+- **In-nest motion is slow and mostly still.** Still fraction (< 0.6 mm
+  per 0.5 s frame): foragers 0.944 / 0.953, nurses 0.984 / 0.989
+  (light / dark). Path speed: foragers 0.026 / 0.023, nurses 0.010 /
+  0.009. **Moving-only speed:** foragers 0.275 / 0.275, nurses 0.221 /
+  0.216 (0.14 mm threshold: 0.13 / 0.09). Option B's arena values were
+  2.9–3.7 cm/s (Depickère 2004): the nest is ≈ 10× slower when moving and
+  still ≈ 95 % of the time. This is the size of B's distance miss.
+- **Runs (foragers, light):** still runs median 1.5 s, mean 9.6 s,
+  P(≥ 60 s) 0.03, P(≥ 300 s) 0.01; moving runs median 0.9 s, mean 1.4 s.
+- **Stays:** 224–252 complete per colony and phase; mean 3629 / 1911 s,
+  median 769 / 498 s (most stays are long rests, not unloading visits).
+- **Per-ant spreads:** SD of still fraction across ants, foragers 0.049 /
+  0.045, nurses 0.014 / 0.012; of speed, foragers 0.022 / 0.019, nurses
+  0.006 / 0.005.
+- **Density (input):** 3.17 / 2.98 /cm², 3–6× the 1999 fits' 0.5–1.1.
+- **Observation:** noise σ 0.022 mm per axis (white ratio 1.52: slow drift
+  within still windows, so the second-difference σ is the one used);
+  noise-floor speed 0.008, so **nurses' overall speed (0.009–0.010) is
+  almost all tracking noise**, and foragers' is ≈ 3× the floor; detection
+  0.805 per frame between first and last detection.
+- **Next: step 4** (Stroeymeyt nest set-up, observer, cost timing).
