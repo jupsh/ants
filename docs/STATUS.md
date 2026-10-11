@@ -1196,3 +1196,12 @@ Extraction in `docs/research/buffin2011.md`.
   - **Lenoir & Ataya 1983 / Lenoir 1979:** about half of *L. niger*
     workers are "hypoactive" in the nest (author's later recollection,
     unverified).
+- **Box data secured before release.** All 76 files from the box's
+  `~/ants/logs`, `~/ants/data/fits` and `~/antsB/logs` are in
+  `logs/box-2026-10-10/` (local, not committed; checksums match). Of these,
+  46 logs and 2 fit files were not already local. The two fits
+  (`colony-m1999-{main,alt}.json`, 2026-10-10 morning, k = 6, independent
+  design, warm-up 300) are the superseded first refits, from before the
+  7th parameter, shared warm-ups and the wall fix. They are kept for the
+  record only. Committed fit files (pilot, pilot2, pilot3) already match
+  the box.
