@@ -55,6 +55,14 @@ export const REFS: Record<string, Ref> = {
     short: 'Buffin et al. 2011',
     full: 'Buffin A, Mailleux AC, Detrain C, Deneubourg JL (2011) Trophallaxis in Lasius niger: a variable frequency and constant duration for three food types. Insect Soc 58:177–183. Exponential trophallaxis durations (constant stopping hazard); sucrose fed→starved 29 ± 28 s, hazard 0.039 /s, n 66 (Table 2).',
   },
+  depickere2004: {
+    short: 'Depickère et al. 2004',
+    full: 'Depickère S, Fresneau D, Deneubourg JL (2004) Dynamics of aggregation in Lasius niger (Formicidae): influence of polyethism. Insect Soc 51:81–90. doi:10.1007/s00040-003-0719-8. Arena (19.8 cm), 20 ants: stop on encounter (p = 1), spontaneous stops (foragers 0.08, brood-tenders 0.11 /s), leaving a stop of N ants a·N^−b (3.9·N^−1.36, 0.4·N^−1.16 /s), moving speed 3.67 ± 1.48 / 2.91 ± 0.96 cm/s.',
+  },
+  nicolis2005: {
+    short: 'Nicolis et al. 2005',
+    full: 'Nicolis SC, Theraulaz G, Deneubourg JL (2005) The effect of aggregates on interaction rate in ant colonies. Anim Behav 69:535–540. doi:10.1016/j.anbehav.2004.06.007. 4-d starved L. niger, 30 cm arena, 25 °C: exponential pair (0.27–0.53 s) and trio (0.75–1.2 s) lifetimes; speed with pauses 2.56 cm/s.',
+  },
   bles2022: {
     short: 'Bles et al. 2022',
     full: 'Bles O, Deneubourg JL, Sueur C, Nicolis SC (2022) A data-driven simulation of the trophallactic network and intranidal food flow dissemination in ants. Animals 12:2963.',

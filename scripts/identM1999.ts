@@ -82,7 +82,7 @@ function eigSym(A: number[][]): { values: number[]; vectors: number[][] } {
 for (const pt of m1999Points(FIT)) {
   const means = async (x: number[], seed: number): Promise<number[]> => {
     const m = m1999Decode(x, pt.P);
-    const sim = Object.fromEntries(await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999(m.P, { seed, starvationDays: d, density: m.density, pipetteAccessible: pt.accessible, warmup: WARMUP, dt: DT }, N)] as const))) as Record<M1999Day, M1999Recruiter[]>;
+    const sim = Object.fromEntries(await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999(m.P, { seed, starvationDays: d, density: m.density, pipetteAccessible: pt.accessible, warmup: WARMUP, dt: DT, contactMin: pt.contactMin }, N)] as const))) as Record<M1999Day, M1999Recruiter[]>;
     return M1999_TARGETS.map((t) => {
       const v = sim[t.day].map((r) => r[t.stat]).filter(Number.isFinite);
       return v.length ? v.reduce((a, b) => a + b, 0) / v.length : NaN;

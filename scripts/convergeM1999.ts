@@ -57,7 +57,7 @@ for (const [p, pt] of POINTS.entries()) {
   for (const level of LEVELS) {
     const t0 = Date.now();
     const knob = VARY === 'dt' ? { warmup: 300, dt: level } : { warmup: level, dt: 0.1 };
-    runs.push(Object.fromEntries(await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999(pt.P, { seed: seedOf(p), starvationDays: d, density: pt.density, pipetteAccessible: pt.accessible, contactGap: GAP, ...knob }, N)] as const))) as Record<M1999Day, M1999Recruiter[]>);
+    runs.push(Object.fromEntries(await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999(pt.P, { seed: seedOf(p), starvationDays: d, density: pt.density, pipetteAccessible: pt.accessible, contactGap: GAP, contactMin: pt.contactMin, ...knob }, N)] as const))) as Record<M1999Day, M1999Recruiter[]>);
     console.log(`${pt.label}, ${VARY} ${level}: ${((Date.now() - t0) / 1000).toFixed(0)} s`);
   }
   const [a, c] = runs;

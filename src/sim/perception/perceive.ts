@@ -70,7 +70,7 @@ export function perceive(w: World, b: Body, dt: number): SurfacePercept {
     const bound = antennalBound(b, o.body);
     if (ox * ox + oy * oy > bound * bound || !antennalContact(b, o.body)) continue;
     const d = Math.hypot(ox, oy);
-    contacts.push({ id: o.body.id, bearing: wrap(Math.atan2(oy, ox) - b.heading), dist: d, layingTrail: o.body.gasterDown, offering: o.body.offering, soliciting: o.body.soliciting, mouthContact: mouthContact(b, o.body), sharing: o.body.sharingWith >= 0, sharingWithMe: o.body.sharingWith === b.id });
+    contacts.push({ id: o.body.id, bearing: wrap(Math.atan2(oy, ox) - b.heading), dist: d, layingTrail: o.body.gasterDown, offering: o.body.offering, soliciting: o.body.soliciting, mouthContact: mouthContact(b, o.body), sharing: o.body.sharingWith >= 0, sharingWithMe: o.body.sharingWith === b.id, moving: o.body.stepLen > 0 });
   }
   return {
     dt,

@@ -15,6 +15,8 @@ export interface Traits {
   layIntensity: number;
   /** In-nest workers: individual propensity to leave the nest to forage (multiplies the base rate). */
   forageDrive?: number;
+  /** In-nest workers: moves and stops with the forager values (`NestParams.forager`), else the nest-worker ones (Plan 4 option B). */
+  forager?: boolean;
 }
 
 /** Forager policy modes (outside the nest); `inNest` is the end of a trip, handed to the nest policy. */
@@ -71,6 +73,8 @@ export interface Stay {
   parted: { id: number; since: number }[];
   /** Seconds since this ant last passed food to a nestmate (or since it entered). */
   sinceGive: number;
+  /** Nestmates in antennal contact last step: a contact not among them is an encounter (its onset; Plan 4 option B). */
+  touching: number[];
 }
 
 /** Everything an ant knows and intends. Never contains world truth. */
@@ -97,7 +101,7 @@ export function newTrip(): Trip {
 }
 
 export function newStay(): Stay {
-  return { bout: null, parted: [], sinceGive: 0 };
+  return { bout: null, parted: [], sinceGive: 0, touching: [] };
 }
 
 export function newMind(traits: Traits, walkP: WalkParams, rng: RNG): Mind {

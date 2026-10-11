@@ -161,6 +161,8 @@ export class ColonySim {
   private nextFrame = 0;
   private readonly walkP: WalkParams;
   private readonly walkNestP: WalkParams;
+  /** In-nest walking for ants with the forager trait (option B: their own speed factor). */
+  private readonly walkNestForagerP: WalkParams;
   private readonly foragerP: ForagerParams;
   private readonly motor: MotorFn;
   private readonly reserveMax: number;
@@ -178,7 +180,12 @@ export class ColonySim {
     this.walkP = f === 1 ? P.walk : { ...P.walk, speed: P.walk.speed * f };
     // Inside the nest the walker is further scaled by the calibrated nest factor (STATUS 2026-10-09).
     const nf = P.nest.nestSpeedFactor ?? 1;
-    this.walkNestP = nf === 1 ? this.walkP : { ...this.walkP, speed: this.walkP.speed * nf };
+    // Option B: the walker's own pauses are off in the nest (nestPauseFactor 0; the sourced stops include them).
+    const pf = P.nest.nestPauseFactor ?? 1;
+    const inNest = (f: number): WalkParams => (f === 1 && pf === 1 ? this.walkP : { ...this.walkP, speed: this.walkP.speed * f, pauseRate: this.walkP.pauseRate * pf });
+    this.walkNestP = inNest(nf);
+    const ff = P.nest.forager?.nestSpeedFactor ?? nf;
+    this.walkNestForagerP = ff === nf ? this.walkNestP : inNest(ff);
     this.dt = o.dt ?? 0.1;
     this.steps = Math.round(((o.minutes ?? 90) * 60) / this.dt);
     this.foodTime = (o.foodMinute ?? 30) * 60;
@@ -240,8 +247,8 @@ export class ColonySim {
     return agent;
   }
 
-  private walkFor(p: SurfacePercept): WalkParams {
-    return p.inNest ? this.walkNestP : this.walkP;
+  private walkFor(p: SurfacePercept, a: Agent): WalkParams {
+    return !p.inNest ? this.walkP : a.mind.traits.forager ? this.walkNestForagerP : this.walkNestP;
   }
 
   /** A copy of the whole state; with `key`, its random streams are forked (independent continuation). */
@@ -271,6 +278,8 @@ export class ColonySim {
       w.ledger.move('water', 'external', 'crop', rec.cropWater);
       // Initial condition: it arrives from a trip on which it fed (its trip record; read by the return rule).
       a.mind.trip = { ...newTrip(), ingested: rec.ingested };
+      // A forager: stops and walks with the forager values where they differ (option B).
+      if (P.nest.forager) a.mind.traits.forager = true;
       this.recruiterIn = true;
     }
     const frameEvery = this.o.frameEvery ?? 0;
@@ -298,7 +307,7 @@ export class ColonySim {
       if (!act) return;
       if (outside[i]) {
         const before = a.body.cropUl;
-        applyForagerAction(w, a, act as ForagerAction, per[i]!, this.walkFor(per[i]!), P.phys, dt, this.motor);
+        applyForagerAction(w, a, act as ForagerAction, per[i]!, this.walkFor(per[i]!, a), P.phys, dt, this.motor);
         // Forager status: ≥ 5 consecutive seconds of feeding at the source.
         feedRun[i] = a.mind.mode === 'drink' && a.body.cropUl > before ? feedRun[i] + dt : 0;
         if (feedRun[i] >= 5 - 1e-9) forager[i] = true;
@@ -307,7 +316,7 @@ export class ColonySim {
       const na = act as NestAction;
       a.body.gasterDown = false;
       a.body.stepLen = 0;
-      if (!na.stand) walked[i] = walkAnt(w, a, per[i]!, this.walkFor(per[i]!), P.phys, na.motor, this.motor);
+      if (!na.stand) walked[i] = walkAnt(w, a, per[i]!, this.walkFor(per[i]!, a), P.phys, na.motor, this.motor);
     });
     // Food sharing between ants that both agreed, in donor-index order.
     w.ants.forEach((a, i) => {

@@ -36,9 +36,11 @@ Pages) when the user asks.
   fixed) and a dt-dependent distance observer (now the walked path). After
   the fixes, contacts and timeInNest (4 d) still depend on dt, and the
   start points are too far from the data for the gate to mean much.
-  **Now:** a pilot fit at dt 0.025 / warm-up 900 s (box,
-  `logs/pilot-main.log`) to get a point near the data; the late-signal
-  (handshake) test (local, `logs/diag-handshake-d4.log`).
+  **Now (Plan 4):** pilot3 tests option A (refractory parting) on the
+  box (`logs/pilot3-main.log`), with condition 4, the bout diagnostic and
+  the dish check queued after it. Option B (stops at encounters, sourced
+  from Depickère et al. 2004) is implemented, switched off and checked; a B
+  pilot waits on user approval of spec B1–B3 (Decisions log, last entry).
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
   adequate 1999 fit and the fit-protection checks.
@@ -316,12 +318,18 @@ non-optimum disclosed):
     58:177–183, trophallaxis frequency and duration): **parameter and
     structure source** (user, 2026-10-10 night); read in full, so none of
     its results can serve as a test.
-  - **Mailleux, Sempo, Depickère & Detrain 2011** (Insect. Soc. 58:219–225,
-    starvation and spatial organisation in nests; same lab and year as the
-    held-out paper): **role not yet assigned**, received 2026-10-10 as an
-    option-B literature candidate. Only the title header seen (identifying
-    the file). Not read until its role is set; check first whether its
-    colonies overlap the held-out paper's.
+  - **Mailleux, Sempo, Depickère & Detrain 2011** (Insect. Soc. 58:219–225)
+    and **Depickère, Fresneau, Deneubourg & Detrain 2008** (Insect. Soc.
+    55:163–170), in-nest spatial organisation under starvation: **held-out
+    candidates** (user, 2026-10-10 night), unread. Only the title headers
+    seen (identifying the files). Methods only, after the model structure
+    is frozen; check whether their colonies overlap the held-out 2011
+    recruitment paper's. The model has no aggregation mechanism yet, so
+    they may not be testable in M1.
+  - **Nicolis, Theraulaz & Deneubourg 2005** (Anim. Behav. 69:535–540) and
+    **Depickère, Fresneau & Deneubourg 2004** (Insect. Soc. 51:81–90):
+    **parameter and structure sources** for option B (user, 2026-10-10
+    night); read in full, so none of their results can serve as a test.
   - **Colony pilot fit:** its generation-0 loss at the start points was
     seen while the profile cut-off was still open (disclosed in the
     archive, 2026-10-10 night); judged uninformative.
@@ -928,3 +936,91 @@ Extraction in `docs/research/buffin2011.md`.
   nestmate encounters (no durations in the abstract). **Not to be used:**
   Mailleux et al. 2011 (held-out). Mailleux et al. 2010 (Anim. Behav.,
   recruiter or recruit) would need a role first.
+
+**2026-10-10 night — option B prepared: sources read, spec proposed (logged before implementing; implemented switched off).**
+- **Roles (user):** Nicolis et al. 2005 and Depickère et al. 2004 (Insect.
+  Soc.) are parameter and structure sources, read in full; Depickère et
+  al. 2008 and Mailleux, Sempo et al. 2011 are held-out candidates,
+  unread (contamination log). Extraction: `docs/research/encounters-aggregation.md`.
+- **What the sources give** (Depickère 2004, L. niger, arena, not
+  starved): a walking ant that meets another **stops (p = 1)**; walking
+  ants also stop spontaneously at **pS**; a stopped ant leaves at
+  **pL = a·N^−b**, N = ants in the stop. Foragers: pS 0.08 /s, a 3.9,
+  b 1.36 (lone stop 0.26 s), moving speed 3.67 ± 1.48 cm/s.
+  Brood-tenders: pS 0.11 /s, a 0.4, b 1.16 (lone stop 2.5 s), 2.91 ± 0.96
+  cm/s. Nicolis 2005 (4-d starved, 25 °C): pair lifetimes 0.27–0.53 s
+  (the paper's two values disagree), speed with pauses 2.56 cm/s.
+- **What it says about the pilots:** every sourced speed is 20–35× the
+  fitted in-nest speed (nestSpeedFactor 0.03–0.044, ≈ 1–1.6 mm/s). The
+  fit has been buying "slow" where the sources say "fast, with frequent
+  stops". Encounters last well under 1 s, so the ≥ 1 s contact rule
+  counts something other than encounters.
+- **Spec (proposed; B1–B3 need user approval before any B fit):**
+  - Structure: an `active` nest worker stops (→ `rest`) at the **onset**
+    of antennal contact with a nestmate, with probability `encounterStop`
+    (1). A stopped ant leaves at `restToActive × N^−restCrowdExp`, with
+    N = 1 + nestmates in antennal contact that are not walking (new
+    percept `moving`). Walking ants stop spontaneously at `activeToRest`.
+    Ants in `leave` mode (heading out) do not stop (assumption). The
+    trophallaxis decision is unchanged: it runs whenever two ants are in
+    contact, so during an encounter stop too.
+  - **B1, castes:** foragers get the forager values and nestmates get the
+    brood-tender values. The recruiter is a forager. Nestmates are
+    brood-tenders by default, set by `foragerFrac` (default 0; sensitivity:
+    all foragers). It's a trait drawn at set-up from its own stream.
+  - **B2, speed:** per-caste in-nest speed factors, **derived** by
+    bisection so that the walker's mean speed over 3-s moving paths in an
+    open arena equals 3.67 / 2.91 cm/s, at the E6 context. This replaces
+    the free `nestSpeedFactor`.
+  - **B3, observer:** a contact is an antennal-contact episode with a
+    nestmate lasting ≥ 0.04 s (Depickère's video precision), for both
+    contact rows. ≥ 1 s becomes a sensitivity check.
+  - **Free under B (k = 5):** returnRate, shareRate, receiveReserve,
+    reserveSd, density. Fixed: shareEnd (Buffin), stop rates and speeds
+    (Depickère). The profile cut becomes 3.84 × max(1, L_min/10) (k = 5).
+  - **Implementation check (not a test; the sources are read):** in a
+    lone-pair and a lone-ant set-up, the model's lone-stop and duo-break
+    rates reproduce the input values (e.g. brood-tender duo 0.36 /s).
+  - **Defaults keep the current model:** `encounterStop` 0,
+    `restCrowdExp` 0, no forager overrides, and no extra random draws, so
+    pilot3 and E2 are unchanged (to be confirmed bit-identical).
+- **Conflicts to watch:** sourced pL is from lit arenas at 0.1 /cm², not
+  a dark nest at ≈ 0.5–2 /cm²; brood-tenders may rest far longer in the
+  nest. A slow recruiter can now come only from encounters, crowding and
+  trophallaxis. If B cannot reach the distance rows (5–9 cm per stay),
+  that is a finding to report, not something to fix by freeing the speed.
+- **Implemented (switched off by default; 111 tests pass):**
+  - Percept `moving` and the encounter memory `Stay.touching`.
+  - Trait `forager`: the recruiter has it whenever forager values are
+    set; for nestmates it's drawn only if `foragerFrac` > 0.
+  - Nest parameters `encounterStop`, `restCrowdExp`, `foragerFrac`,
+    `forager` (overrides) and `nestPauseFactor`.
+  - `nestPauseFactor` is new, beyond the spec above: under B the walker's
+    own E1 pauses are off in the nest, because Depickère's stops include
+    all pauses (a forager's lone stop lasts 0.26 s). Keeping them would
+    count stops twice.
+  - Preset `LASIUS_NEST_B` (`lasiusM1.ts`, sourced values); references
+    `depickere2004` and `nicolis2005`.
+  - `fitM1999.ts --model B` fixes nestSpeedFactor, takes contactMin 0.04
+    by default (B3), and records model and contactMin in the fit file.
+    The judging and check scripts take contactMin from the fit file.
+  - **Defaults are bit-identical:** a colony run and 1999 recruiters at
+    pilot2's point (dt 0.025), and the E2 report (600 scouts, main layer).
+  - **B2 speed factors** (`calibNestSpeed.ts`, 2000 paths): the
+    E6-context walker with pauses off walks 4.54 ± 1.80 cm/s over 3-s
+    paths. Factors: **forager 0.809** (3.67 ± 1.45 cm/s vs Depickère's
+    ± 1.48) and **brood-tender 0.641** (2.91 ± 1.15 vs ± 0.96). The SDs
+    are reported, not used.
+  - **Implementation check** (`checkStopsB.ts`; 20 ants, half foragers,
+    4 × 30 min, dt 0.025). Walk-on hazards match a·N^−b for 0–3 stopped
+    nestmates within 2 SE, after the discretisation (1 − e^(−r·dt))/dt;
+    e.g. brood-tender 0.404 / 0.186 / 0.104 / 0.079 vs 0.400 / 0.179 /
+    0.112 / 0.080. In-nest spontaneous stops are 0.113 / 0.084 vs 0.11 /
+    0.08 /s.
+  - Invariant suite: a B case was added and passes. Smoke run on the
+    1999 set-up: completes, ≈ 7 s per nest of 4 recruiters. No fit-row
+    statistic was computed or seen.
+- **Before a B fit:** user approval of B1–B3 and of `nestPauseFactor` 0.
+  Then a B pilot (as pilot3, `--model B --tag pilotB`; k = 5) and
+  condition 4, the bout diagnostic and the dish check, under the adoption
+  rule.

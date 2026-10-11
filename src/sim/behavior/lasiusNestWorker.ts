@@ -36,6 +36,14 @@ import type { ContactPercept, Interoception, SurfacePercept } from '../perceptio
  *     it has passed no food for `giveUpTime` (STATUS 2026-10-10).
  *   - Nest fidelity: a worker outside the nest that is not on a foraging
  *     trip heads back to the entrance (gain `leaveGain`) and does not rest.
+ *   - Stops (Plan 4 option B, STATUS 2026-10-10 night; Depickère et al.
+ *     2004): a walking ant stops at the onset of antennal contact with a
+ *     nestmate (an encounter) with probability `encounterStop`, and
+ *     spontaneously at `activeToRest`; a stopped ant walks on at
+ *     `restToActive × N^−restCrowdExp`, N = 1 + stopped nestmates in
+ *     contact. Ants with the `forager` trait use the `forager` values.
+ *     Ants heading out (`leave`) do not stop. With `encounterStop` and
+ *     `restCrowdExp` 0 the earlier rest / walk switching is unchanged.
  */
 export interface NestParams {
   /** Switching rates between resting and walking (1/s). */
@@ -65,9 +73,25 @@ export interface NestParams {
   giveUpTime: number;
   /** Factor on walking speed inside the nest (applied by the runner; the policy does not read it). */
   nestSpeedFactor: number;
+  /** Factor on the walker's own pause rate inside the nest (runner; option B: 0, as the sourced stops include all pauses). */
+  nestPauseFactor: number;
   /** SD of log of each nestmate's reserve-deficit factor (between-ant variation; applied by the runner at set-up). */
   reserveSd: number;
+  /** Probability that a walking ant stops at an encounter (onset of antennal contact with a nestmate; 0: never). */
+  encounterStop: number;
+  /** Exponent b in the walk-on rate of a stopped ant, restToActive × N^−b (N: ants in the stop; 0: independent of N). */
+  restCrowdExp: number;
+  /** Fraction of nestmates with the forager trait (drawn at set-up by the runner; a recruiter is always a forager). */
+  foragerFrac: number;
+  /** Values for ants with the forager trait (absent: the same as everyone's). */
+  forager?: ForagerMotion;
 }
+
+/** Stop and walking values that differ between foragers and nest workers (Depickère et al. 2004). */
+export type ForagerMotion = Partial<Pick<NestParams, 'restToActive' | 'activeToRest' | 'restCrowdExp' | 'nestSpeedFactor'>>;
+
+/** The nest parameters this ant uses: the forager values for an ant with the forager trait. */
+export const nestParamsOf = (p: NestParams, forager: boolean | undefined): NestParams => (forager && p.forager ? { ...p, ...p.forager } : p);
 
 export interface NestAction {
   motor: MotorMod;
@@ -93,10 +117,10 @@ const NONE: NestAction = {
   solicit: false,
 };
 
-export function drawNestTraits(p: NestParams, rng: RNG): { forageDrive: number } {
-  return {
-    forageDrive: Math.exp(rng.normal(0, p.forageDriveSd) - (p.forageDriveSd * p.forageDriveSd) / 2),
-  };
+export function drawNestTraits(p: NestParams, rng: RNG): { forageDrive: number; forager?: boolean } {
+  const forageDrive = Math.exp(rng.normal(0, p.forageDriveSd) - (p.forageDriveSd * p.forageDriveSd) / 2);
+  // Drawn after forageDrive and only when used, so earlier draws and runs without foragers are unchanged.
+  return p.foragerFrac > 0 ? { forageDrive, forager: rng.chance(p.foragerFrac) } : { forageDrive };
 }
 
 // Mode entry functions (STATUS 2026-10-10): every nest transition goes through one of these.
@@ -148,7 +172,8 @@ function returning(m: Mind, p: NestParams, carrying: boolean, dt: number, rng: R
   return true;
 }
 
-export function lasiusNestWorker(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, rng: RNG): NestAction {
+export function lasiusNestWorker(per: SurfacePercept, io: Interoception, m: Mind, p0: NestParams, rng: RNG): NestAction {
+  const p = nestParamsOf(p0, m.traits.forager);
   const act = decide(per, io, m, p, rng);
   // Signals, shown in the nest and not on the way out: offering while holding food to give; soliciting while
   // accepting food and holding none to give (a carrying ant is a donor).
@@ -165,6 +190,9 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
   stay.sinceGive = io.mouthFlow < 0 ? 0 : stay.sinceGive + per.dt;
   // After a bout the two ants part: each former partner becomes eligible again once antennal contact with it is lost.
   if (stay.parted.length) stay.parted = stay.parted.map((q) => ({ id: q.id, since: q.since + per.dt })).filter((q) => q.since < p.partRefractory && per.contacts.some((x) => x.id === q.id));
+  // An encounter: antennal contact with a nestmate that was not in contact last step.
+  const encounter = per.contacts.some((c) => !stay.touching.includes(c.id));
+  stay.touching = per.contacts.map((c) => c.id);
 
   if (m.mode === 'give' || m.mode === 'receive') {
     const bout = stay.bout!;
@@ -220,10 +248,13 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
           noHomeBias: true,
         },
       };
-    case 'rest':
+    case 'rest': {
       if (returning(m, p, carrying, per.dt, rng)) return { ...NONE };
-      if (rng.hazard(p.restToActive, per.dt) || !per.inNest) toActive(m);
+      // Walk-on rate falls with the number of ants in the stop (Depickère et al. 2004: a·N^−b).
+      const walkOn = !p.restCrowdExp ? p.restToActive : p.restToActive * Math.pow(1 + per.contacts.filter((c) => !c.moving).length, -p.restCrowdExp);
+      if (rng.hazard(walkOn, per.dt) || !per.inNest) toActive(m);
       return { ...NONE, stand: true };
+    }
     case 'active': {
       if (per.inNest && returning(m, p, carrying, per.dt, rng)) return { ...NONE };
       // Nest fidelity: a worker that has strayed out of the nest (not on a
@@ -232,6 +263,11 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
       if (hungry && io.cropUl < p.leaveCropFrac * io.cropCapacity && rng.hazard(p.leaveRate * (m.traits.forageDrive ?? 1), per.dt)) {
         toLeave(m);
         return { ...NONE };
+      }
+      // An encounter stops the ant at once (drawn only when stopping is possible, so runs without it are unchanged).
+      if (encounter && p.encounterStop > 0 && (p.encounterStop >= 1 || rng.chance(p.encounterStop))) {
+        toRest(m);
+        return { ...NONE, stand: true };
       }
       if (rng.hazard(p.activeToRest, per.dt)) toRest(m);
       return { ...NONE };

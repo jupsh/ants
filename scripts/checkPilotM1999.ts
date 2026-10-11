@@ -27,7 +27,7 @@ const TAG_KEY = TAG === 'pilot' ? 0x9170 : [...TAG].reduce((h, c) => (Math.imul(
 const seed = seedFor(1999, 'select', TAG_KEY, 1);
 const pool = await SimPool.create();
 const sim = Object.fromEntries(
-  await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999Shared(fit.params, { seed, starvationDays: d, density: fit.density1999, pipetteAccessible: accessible, warmup: fit.warmup, dt: fit.dt }, N, perNest)] as const)),
+  await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999Shared(fit.params, { seed, starvationDays: d, density: fit.density1999, pipetteAccessible: accessible, warmup: fit.warmup, dt: fit.dt, contactMin: fit.contactMin }, N, perNest)] as const)),
 ) as Record<M1999Day, M1999Recruiter[]>;
 pool.close();
 const noBout = M1999_DAYS.map((d) => m1999NoBout(sim[d]));

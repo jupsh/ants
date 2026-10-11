@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { runColony, type ColonyOptions, type ColonyParams } from '../src/sim/experiments/colonyBles';
 import { recruiterLoad } from '../src/sim/experiments/colonyMailleux1999';
 import { newStay, newTrip, type ForagerMode, type NestMode } from '../src/sim/mind/mind';
-import { LASIUS_NEST, LASIUS_PARAMS, MAILLEUX_SETUP } from '../src/sim/species/lasiusM1';
+import { LASIUS_NEST, LASIUS_NEST_B, LASIUS_PARAMS, MAILLEUX_SETUP } from '../src/sim/species/lasiusM1';
 
 /**
  * Behaviour invariants checked on every step of colony runs (STATUS
@@ -135,6 +135,17 @@ describe('colony behaviour invariants (STATUS 2026-10-10; gate for colony fittin
     const c = checkRun(P, { seed: 22, ants: 40, minutes: 12, foodMinute: Infinity, starvationDays: 4, recruiter: { enterAt: 60, ...load } });
     expect(c.boutsStarted).toBeGreaterThan(3);
     expect(c.tripsStarted).toBeGreaterThan(0);
+  });
+
+  // Option B (STATUS 2026-10-10 night): the same invariants with stops at encounters and sourced stop rates.
+  it('hold under option B: a foraging colony and a 1999 recruiter (forager trait)', () => {
+    const P = { ...LASIUS_PARAMS, nest: { ...LASIUS_NEST_B, returnRate: 1 / 20, shareEnd: 1 / 10, foragerFrac: 0.3 } };
+    const c = checkRun(P, { seed: 24, ants: 30, minutes: 10, foodMinute: 1, exploreGiveUp: 120 });
+    expect(c.boutsStarted).toBeGreaterThan(10);
+    expect(c.entries).toBeGreaterThan(3);
+    const load = recruiterLoad(P, { seed: 5, starvationDays: 4, density: 1, pipetteAccessible: MAILLEUX_SETUP.accessible });
+    const r = checkRun(P, { seed: 25, ants: 40, minutes: 8, foodMinute: Infinity, starvationDays: 4, recruiter: { enterAt: 60, ...load } });
+    expect(r.boutsStarted).toBeGreaterThan(3);
   });
 
   // A well-fed nest (1 d, defaults): few nestmates accept food.

@@ -39,7 +39,7 @@ for (const [p, pt] of POINTS.entries()) {
   const runs: Record<M1999Day, M1999Recruiter[]>[] = [];
   for (const dt of LEVELS) {
     const t0 = Date.now();
-    runs.push(Object.fromEntries(await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999(pt.P, { seed: seedOf(p), starvationDays: d, density: pt.density, pipetteAccessible: pt.accessible, warmup: 300, dt, decompose: true }, N)] as const))) as Record<M1999Day, M1999Recruiter[]>);
+    runs.push(Object.fromEntries(await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999(pt.P, { seed: seedOf(p), starvationDays: d, density: pt.density, pipetteAccessible: pt.accessible, warmup: 300, dt, decompose: true, contactMin: pt.contactMin }, N)] as const))) as Record<M1999Day, M1999Recruiter[]>);
     console.log(`${pt.label}, dt ${dt}: ${((Date.now() - t0) / 1000).toFixed(0)} s`);
   }
   console.log(`${pt.label}: paired Δ (dt ${LEVELS[0]} − ${LEVELS[1]}) ± SE over ${N} recruiters per day`);

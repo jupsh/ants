@@ -45,7 +45,7 @@ for (const day of DAYS) {
   const recs: Rec[] = [];
   for (let k = 0; k < N; k++) {
     const seed = RNG.stream(31999, day, k).int(2 ** 31);
-    const o = { seed, starvationDays: day, density: pt.density, pipetteAccessible: pt.accessible, dt, warmup };
+    const o = { seed, starvationDays: day, density: pt.density, pipetteAccessible: pt.accessible, dt, warmup, contactMin: pt.contactMin };
     const load = recruiterLoad(P, o);
     const sim = new ColonySim(P, { seed, ants: n, dt, minutes: (warmup + 1200 + FOLLOW) / 60 + 0.01, foodMinute: Infinity, starvationDays: day, recruiter: { enterAt: warmup, ...load } });
     let prev = new Map<string, ShareBout>();

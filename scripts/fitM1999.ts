@@ -18,14 +18,20 @@
  * --perNest K: shared warm-ups (STATUS 2026-10-10), K recruiters per warmed
  * nest; default 0 = the independent design logged for the first fits.
  *
- * Usage: npx vite-node scripts/fitM1999.ts --layer main|alt [--gens 120] [--n 80] [--perNest 8] [--dt 0.1] [--warmup 300] [--tag pilot] [--bch] [--fix shareEnd]
+ * --model B: Plan 4 option B (STATUS 2026-10-10 night): the nest
+ * parameters LASIUS_NEST_B (sourced stops and in-nest speeds, so
+ * nestSpeedFactor is fixed) and contacts observed as antennal-contact
+ * episodes ≥ 0.04 s (spec B3; --contactMin overrides, e.g. 1 for the
+ * sensitivity check). Default A: the current model, contacts ≥ 1 s.
+ *
+ * Usage: npx vite-node scripts/fitM1999.ts --layer main|alt [--gens 120] [--n 80] [--perNest 8] [--dt 0.1] [--warmup 300] [--tag pilot] [--bch] [--fix shareEnd] [--model A|B] [--contactMin s]
  * Writes data/fits/colony-m1999-<layer>.json (with --perNest: colony-m1999-<layer>-shared.json).
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
 import type { ColonyParams } from '../src/sim/experiments/colonyBles';
-import { M1999_DAYS, M1999_DEGENERATE, M1999_FREE, M1999_NO_BOUT_MAX, M1999_TARGETS, m1999AtBound, m1999FitLoss, m1999Values, type M1999Day, type M1999Model, type M1999Recruiter } from '../src/sim/experiments/colonyMailleux1999';
+import { M1999_CONTACT_MIN, M1999_DAYS, M1999_DEGENERATE, M1999_FREE, M1999_NO_BOUT_MAX, M1999_TARGETS, m1999AtBound, m1999FitLoss, m1999Values, type M1999Day, type M1999Model, type M1999Recruiter } from '../src/sim/experiments/colonyMailleux1999';
 import { fromX, toX } from '../src/sim/experiments/e2Variants';
-import { LASIUS_NEST, LASIUS_PARAMS, LASIUS_PARAMS_E2_ALT, MAILLEUX_SETUP, MAILLEUX_SETUP_E2_ALT } from '../src/sim/species/lasiusM1';
+import { LASIUS_NEST, LASIUS_NEST_B, LASIUS_PARAMS, LASIUS_PARAMS_E2_ALT, MAILLEUX_SETUP, MAILLEUX_SETUP_E2_ALT } from '../src/sim/species/lasiusM1';
 import { arg, flag, numArg, provenance, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
 
@@ -50,14 +56,19 @@ const OUT = `data/fits/colony-m1999-${LAYER}${PER_NEST ? '-shared' : ''}${TAG ? 
 const TAG_KEY = TAG === 'pilot' ? 0x9170 : [...TAG].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0, 0x9171);
 const sf = (p: Parameters<typeof seedFor>[1], ...k: number[]) => (TAG ? seedFor(STUDY, p, TAG_KEY, ...k) : seedFor(STUDY, p, ...k));
 
-const P0: ColonyParams = { ...(LAYER === 'main' ? LASIUS_PARAMS : LASIUS_PARAMS_E2_ALT), nest: LASIUS_NEST };
+// --model: A (the current nest model) or B (option B: sourced stops and speeds, encounter observer; STATUS 2026-10-10 night).
+const MODEL = arg('--model', 'A');
+if (MODEL !== 'A' && MODEL !== 'B') throw new Error('--model A|B');
+const CONTACT_MIN = numArg('--contactMin', MODEL === 'B' ? 0.04 : M1999_CONTACT_MIN);
+const P0: ColonyParams = { ...(LAYER === 'main' ? LASIUS_PARAMS : LASIUS_PARAMS_E2_ALT), nest: MODEL === 'B' ? LASIUS_NEST_B : LASIUS_NEST };
 const ACCESSIBLE = (LAYER === 'main' ? MAILLEUX_SETUP : MAILLEUX_SETUP_E2_ALT).accessible;
 
 // --fix a,b: parameters left out of the free set at their species values (e.g. shareEnd from Buffin 2011; STATUS
 // 2026-10-10 night). --bch: box coordinates with Mod-BCH bound handling instead of the logistic transform (each free
 // parameter mapped linearly, in log for log-scaled ones, onto [0, BOX]; BOX = 4 matches the logistic's slope at the
 // centre, so the probe step, initial SDs and tolX keep their meaning).
-const FIX = arg('--fix', '').split(',').filter(Boolean);
+// Under B the in-nest speed is sourced (Depickère et al. 2004), not free.
+const FIX = [...new Set([...arg('--fix', '').split(',').filter(Boolean), ...(MODEL === 'B' ? ['nestSpeedFactor'] : [])])];
 const BCH = flag('--bch');
 const BOX = 4;
 const FREE = M1999_FREE.filter((f) => !FIX.includes(f.key) && !FIX.includes(f.key.replace('nest.', '')));
@@ -79,7 +90,7 @@ const PROVENANCE = provenance();
 const pool = await SimPool.create();
 const simulate = async (m: Model, seed: number, n = N): Promise<Record<M1999Day, M1999Recruiter[]>> => {
   const run = (day: M1999Day) => {
-    const o = { seed, starvationDays: day, density: m.density, pipetteAccessible: ACCESSIBLE, warmup: WARMUP, dt: DT };
+    const o = { seed, starvationDays: day, density: m.density, pipetteAccessible: ACCESSIBLE, warmup: WARMUP, dt: DT, contactMin: CONTACT_MIN };
     return PER_NEST ? pool.m1999Shared(m.P, o, n, PER_NEST) : pool.m1999(m.P, o, n);
   };
   const per = await Promise.all(M1999_DAYS.map(run));
@@ -147,6 +158,8 @@ writeJson(OUT, {
   warmup: WARMUP,
   dt: DT,
   tag: TAG || null,
+  model: MODEL,
+  contactMin: CONTACT_MIN,
   optimizer: { method: 'CMA-ES', starts: 2, restarts: RESTARTS, maxGenerations: GENS, tolX: TOLX, averageLast: AVERAGE_LAST, boundHandling: BCH ? `Mod-BCH (Sakamoto & Akimoto 2017), box [0, ${BOX}], tolUpSigma 20` : 'logistic transform' },
   fixed: Object.fromEntries(M1999_FREE.filter((f) => !FREE.includes(f)).map((f) => [f.key, f.get({ P: P0, density: 1 })])),
   evals,

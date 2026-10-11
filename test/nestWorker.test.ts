@@ -9,7 +9,7 @@ import { LASIUS_NEST, LASIUS_PARAMS } from '../src/sim/species/lasiusM1';
 const P = LASIUS_PARAMS;
 const traits = { desiredVolumeFactor: 1, neverLays: false, layIntensity: 0.13 };
 /** A nestmate in contact (soliciting unless offering, by default); `with`: whom it is sharing with (−1 none; 0 = the ant under test). */
-const contact = (id: number, o: { offering?: boolean; soliciting?: boolean; with?: number } = {}): ContactPercept => ({ id, bearing: 0, dist: id, layingTrail: false, offering: !!o.offering, soliciting: o.soliciting ?? !o.offering, mouthContact: true, sharing: (o.with ?? -1) >= 0, sharingWithMe: o.with === 0 });
+const contact = (id: number, o: { offering?: boolean; soliciting?: boolean; with?: number } = {}): ContactPercept => ({ id, bearing: 0, dist: id, layingTrail: false, offering: !!o.offering, soliciting: o.soliciting ?? !o.offering, mouthContact: true, sharing: (o.with ?? -1) >= 0, sharingWithMe: o.with === 0, moving: false });
 const inNest = (contacts: ContactPercept[]) => ({ ...basicPercept(0.1, 0, 0, 22, 0), inNest: true, contacts });
 const io = (cropUl: number, mouthFlow = 0, reserve = 0.9): Interoception => ({ reserve, cropUl, cropCapacity: 2, water: 1, bodyMass: 2, mouthFlow, cropFull: cropUl >= 1.96 });
 
@@ -122,8 +122,72 @@ describe('nest worker: bouts (STATUS 2026-10-10)', () => {
     const { m } = giver(0);
     m.stay.parted = [{ id: 7, since: 0 }];
     enterNest(m);
-    expect(m.stay).toEqual({ bout: null, parted: [], sinceGive: 0 });
+    expect(m.stay).toEqual({ bout: null, parted: [], sinceGive: 0, touching: [] });
     expect(m.mode).toBe('active');
+  });
+});
+
+describe('nest worker: stops (Plan 4 option B, STATUS 2026-10-10 night)', () => {
+  /** A nestmate in contact showing no signal (no bout can start with it). */
+  const quiet = (id: number, moving = false): ContactPercept => ({ ...contact(id, { soliciting: false }), moving });
+  /** A walking ant that neither carries nor is hungry (reserve 0.99). */
+  function walker(p = LASIUS_NEST) {
+    const rng = new RNG(3);
+    const m = newMind(traits, P.walk, rng);
+    enterNest(m);
+    const q = { ...p, activeToRest: 0, leaveRate: 0, restToActive: 0 };
+    return { m, rng, step: (cs: ContactPercept[], pp = q) => lasiusNestWorker(inNest(cs), io(0, 0, 0.99), m, pp, rng) };
+  }
+
+  it('off by default: an encounter does not stop a walking ant', () => {
+    const w = walker();
+    expect(w.step([quiet(4, true)]).stand).toBe(false);
+    expect(w.m.mode).toBe('active');
+  });
+
+  it('an encounter (contact onset) stops a walking ant at once; a contact already present does not', () => {
+    const w = walker({ ...LASIUS_NEST, encounterStop: 1 });
+    expect(w.step([]).stand).toBe(false);
+    expect(w.step([quiet(4, true)]).stand).toBe(true);
+    expect(w.m.mode).toBe('rest');
+    // Walking on while still touching 4: no new encounter, no stop; a new nestmate is one.
+    w.m.mode = 'active';
+    expect(w.step([quiet(4, true)]).stand).toBe(false);
+    expect(w.step([quiet(4, true), quiet(6, true)]).stand).toBe(true);
+  });
+
+  it('an ant heading out does not stop at encounters', () => {
+    const w = walker({ ...LASIUS_NEST, encounterStop: 1 });
+    w.m.mode = 'leave';
+    expect(w.step([quiet(4, true)]).stand).toBe(false);
+    expect(w.m.mode).toBe('leave');
+  });
+
+  it('walk-on rate a·N^−b with N = 1 + stopped nestmates in contact; the forager trait takes the forager values', () => {
+    const a = 0.4;
+    const b = 1.16;
+    const p = { ...LASIUS_NEST, restToActive: a, restCrowdExp: b, activeToRest: 0, leaveRate: 0, forager: { restToActive: 3.9, restCrowdExp: 1.36 } };
+    // Mean stop duration over many stops, with one walking and `k` stopped nestmates in contact.
+    const meanStop = (k: number, forager: boolean) => {
+      const rng = new RNG(11 + k);
+      const m = newMind({ ...traits, forager }, P.walk, rng);
+      const cs = [quiet(20, true), ...Array.from({ length: k }, (_, i) => quiet(30 + i))];
+      let total = 0;
+      const reps = 4000;
+      for (let r = 0; r < reps; r++) {
+        enterNest(m, true);
+        let t = 0;
+        while (m.mode === 'rest') {
+          lasiusNestWorker({ ...inNest(cs), dt: 0.01 }, io(0, 0, 0.99), m, p, rng);
+          t += 0.01;
+        }
+        total += t;
+      }
+      return total / reps;
+    };
+    for (const k of [0, 2]) expect(meanStop(k, false)).toBeCloseTo(1 / (a * Math.pow(1 + k, -b)), 0);
+    expect(meanStop(1, true) / (1 / (3.9 * Math.pow(2, -1.36)))).toBeGreaterThan(0.95);
+    expect(meanStop(1, true) / (1 / (3.9 * Math.pow(2, -1.36)))).toBeLessThan(1.05);
   });
 });
 

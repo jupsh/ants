@@ -208,5 +208,37 @@ export const LASIUS_NEST_DEF = {
   giveUpTime: estimated(120, 's', `${PROVISIONAL} A forager whose load nobody takes leaves with it after this long without passing food (STATUS 2026-10-10: longer than most observed stays, 80–113 s; not fitted, sensitivity 60 and 300 s).`),
   reserveSd: estimated(0.5, '', `${PROVISIONAL} SD of log of each nestmate's reserve-deficit factor (deficit = starvation days / reserveDays × factor, mean 1): between-ant reserve variation (STATUS 2026-10-10: identical reserves made receiveReserve a 4-level switch); to be calibrated on Mailleux 1999.`),
   nestSpeedFactor: estimated(1, '×', `${PROVISIONAL} Factor on walking speed inside the nest, on top of the context factor; to be calibrated on Mailleux 1999 (recruiters cover 5–9 cm in the 14–56 s of their stay outside trophallaxis).`),
+  nestPauseFactor: estimated(1, '×', 'Factor on the walker\'s own pause rate inside the nest. 1 here (the E1 walker\'s pauses); option B: 0, since Depickère et al. 2004\'s stops (sourced) include all pauses.'),
+  encounterStop: estimated(0, '', 'Probability of stopping at an encounter. 0 here: the option-B stops are off in this model (LASIUS_NEST_B sets them; STATUS 2026-10-10 night).'),
+  restCrowdExp: estimated(0, '', 'Exponent of the number of ants in a stop in its walk-on rate. 0 here: off (option B: LASIUS_NEST_B).'),
+  foragerFrac: estimated(0, '', 'Fraction of nestmates with the forager trait (option B: they stop and walk with the forager values; the recruiter always has it).'),
 };
 export const LASIUS_NEST = resolve(LASIUS_NEST_DEF);
+
+/**
+ * Plan 4 option B (STATUS 2026-10-10 night; spec B1–B3 pending user
+ * approval): stop-and-encounter motion in the nest from Depickère et al.
+ * 2004 (arena, not starved; open lit arena at ≈ 0.1 ants/cm², not a dark
+ * nest). Nestmates take the brood-tender values, the recruiter (forager
+ * trait) the forager values. Replaces the provisional rest / walk rates and
+ * the free in-nest speed factor.
+ */
+const DEPICKERE = { conditions: 'arena 19.8 cm, 20 ants, dim light, colonies of 500–1000 not starved; temperature not reported (rearing 23 ± 1 °C)' };
+const NEST_SPEED_NOTE = 'E6-context walker with pauses off, flat open plane: mean speed over 3-s paths 4.54 ± 1.80 cm/s (scripts/calibNestSpeed.ts, 2000 paths); the factor matches Depickère et al. 2004\'s 3-s path speed. Temperature and surface not corrected.';
+export const LASIUS_NEST_B_DEF = {
+  ...LASIUS_NEST_DEF,
+  encounterStop: derived(1, '', 'depickere2004', 'A walking ant that meets a nestmate stops: the model assumption of Depickère et al. 2004 (validated there at the collective level).', DEPICKERE),
+  activeToRest: derived(0.11, '1/s', 'depickere2004', 'Spontaneous stop rate of brood-tenders (foragers 0.08; not significantly different); exponential walking-path lifetimes.', DEPICKERE),
+  restToActive: derived(0.4, '1/s', 'depickere2004', 'Leaving a stop, brood-tenders: a in a·N^−b (Fig. 6A); lone stop 2.5 s.', DEPICKERE),
+  restCrowdExp: derived(1.16, '', 'depickere2004', 'Leaving a stop, brood-tenders: b in a·N^−b, N = ants in the stop (Fig. 6A, N = 1–6).', DEPICKERE),
+  nestSpeedFactor: derived(0.641, '×', ['depickere2004', 'khuongTrajectories'], `Brood-tenders 2.91 ± 0.96 cm/s (40 paths of 3 s). ${NEST_SPEED_NOTE}`, { ...DEPICKERE, transform: 'f = 29.1 mm/s ÷ 45.4 mm/s' }),
+  nestPauseFactor: derived(0, '×', 'depickere2004', 'The walker\'s own pauses are off in the nest: the sourced stops (lone forager stops last 0.26 s) include all pauses.', DEPICKERE),
+  foragerFrac: estimated(0, '', 'Nestmates are taken as brood-tenders (spec B1; sensitivity: all foragers). The recruiter is a forager.'),
+  forager: {
+    activeToRest: derived(0.08, '1/s', 'depickere2004', 'Spontaneous stop rate of foragers.', DEPICKERE),
+    restToActive: derived(3.9, '1/s', 'depickere2004', 'Leaving a stop, foragers: a in a·N^−b (Fig. 6A); lone stop 0.26 s.', DEPICKERE),
+    restCrowdExp: derived(1.36, '', 'depickere2004', 'Leaving a stop, foragers: b in a·N^−b (Fig. 6A, N = 1–4).', DEPICKERE),
+    nestSpeedFactor: derived(0.809, '×', ['depickere2004', 'khuongTrajectories'], `Foragers 3.67 ± 1.48 cm/s (40 paths of 3 s). ${NEST_SPEED_NOTE}`, { ...DEPICKERE, transform: 'f = 36.7 mm/s ÷ 45.4 mm/s' }),
+  },
+};
+export const LASIUS_NEST_B = resolve(LASIUS_NEST_B_DEF);

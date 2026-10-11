@@ -62,6 +62,8 @@ export interface ContactPercept {
   /** The nestmate is engaged in food sharing (its trophallactic posture), and whether with me (STATUS 2026-10-10). */
   sharing: boolean;
   sharingWithMe: boolean;
+  /** The nestmate walked in the last step (a stopped one is part of a stop; Plan 4 option B, STATUS 2026-10-10 night). */
+  moving: boolean;
 }
 
 /** The ant's sense of its own body state. */

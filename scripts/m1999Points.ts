@@ -12,6 +12,8 @@ export interface M1999Point {
   P: ColonyParams;
   density: number;
   accessible: number;
+  /** Observed-contact minimum duration (s) the point was fitted with (option B: 0.04; else the default). */
+  contactMin?: number;
 }
 
 const P0: ColonyParams = { ...LASIUS_PARAMS, nest: LASIUS_NEST };
@@ -31,6 +33,7 @@ export function m1999Points(fitFile: string): M1999Point[] {
       P: fit.params ?? { ...(alt ? LASIUS_PARAMS_E2_ALT : LASIUS_PARAMS), nest: { ...LASIUS_NEST, ...fit.nest } },
       density: fit.density1999,
       accessible: (alt ? MAILLEUX_SETUP_E2_ALT : MAILLEUX_SETUP).accessible,
+      contactMin: fit.contactMin,
     },
   ];
 }

@@ -379,7 +379,8 @@ export interface M1999Model {
 }
 
 type FreeM = FreeParam & { get: (m: M1999Model) => number; set: (m: M1999Model, v: number) => M1999Model };
-const nestKey = (k: keyof ColonyParams['nest']): Pick<FreeM, 'get' | 'set'> => ({
+type NumericNestKey = { [K in keyof ColonyParams['nest']]-?: ColonyParams['nest'][K] extends number ? K : never }[keyof ColonyParams['nest']];
+const nestKey = (k: NumericNestKey): Pick<FreeM, 'get' | 'set'> => ({
   get: (m) => m.P.nest[k],
   set: (m, v) => ({ ...m, P: { ...m.P, nest: { ...m.P.nest, [k]: v } } }),
 });

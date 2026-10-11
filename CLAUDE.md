@@ -21,7 +21,9 @@ when a step starts or finishes, and log decisions there before acting on them.
   possible (e.g. `pool.e1Sample` returns per-ant summaries, not tracks):
   serial statistics on the main process were 60 % of E1 fit time.
   - Colony (Mailleux 1999, current work): `fitM1999.ts --layer main|alt
-    [--dt] [--warmup] [--tag]`, `reportM1999.ts` (judging, frozen rule),
+    [--dt] [--warmup] [--tag] [--model A|B] [--contactMin]` (B: Plan 4
+    option B, `LASIUS_NEST_B`; `calibNestSpeed.ts` derives its in-nest
+    speeds, `checkStopsB.ts` checks its stop rates), `reportM1999.ts` (judging, frozen rule),
     `convergeM1999.ts --vary dt|warmup [--levels a,b]` (equivalence gate),
     `identM1999.ts [--n]`, `decompM1999.ts [--fit f] [--levels a,b]` (dt
     decomposition of the stay, the gate's seeds), test points from
