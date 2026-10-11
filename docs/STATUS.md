@@ -1265,3 +1265,28 @@ not taken.
   the fit. If either still fails, dt 0.05 vs 0.025 runs at the same
   power, and the fit uses the coarsest passing dt (the gate's rule).
   Seeing the result does not change this rule.
+- **Trip calibration: targets changed (logged before rerunning; the run on
+  55d68fd is superseded).** The old run (trip mean 1177 s and foragerIn
+  0.770, solved one input at a time) showed that the trip mean depends on
+  the trip rate as well. At exploreGiveUp 1412 s the mean falls from 1359
+  s (outRate 1/250) to 332 s (1/32000). `scripts/diagTripsByRole.ts`
+  (colony 0, start point, true positions, 2 × 4 h) shows why. Nurses stray
+  out of the entrance about 0.18 times per ant-h, for 10–15 s each.
+  Foragers also make short excursions while walking (31 of 146 trips at
+  1/2000 are under 60 s; 56 of 72 at 1/32000). Their real trips last
+  about exploreGiveUp, which is a fixed timer (median 1415 s at 1/2000).
+  So the model's trip durations have two humps, while the data's are
+  skewed (light: median 144 s, mean 1025 s; about 255 complete trips per
+  colony per 12 h). The trip mean reflects the mix and the shape, not
+  what the in-nest fit depends on: how many foragers are in the nest
+  (density) and how often ants pass the entrance. **New targets:**
+  `trip.n` (complete trips per colony per 12-h phase, the same observer
+  on data and model; sets the exit rate) and `foragerIn`, both means of
+  light and dark. They are solved jointly on a 4 × 4 grid (exploreGiveUp
+  600–2600 s × outRate 1/1000–1/8000, all 22 colonies, 12 h each) by
+  interpolation in log coordinates, then confirmed at the solution.
+  `trip.mean` and `trip.median` are reported against the data, not
+  targeted. Disclosed limitation: the fixed give-up timer cannot give the
+  skewed trip shape (a hazard-based give-up is the candidate if trip shape
+  ever matters). The calibration runs on the final code (after the dt
+  decision), at dt 0.1 unless the dt rule says otherwise.
