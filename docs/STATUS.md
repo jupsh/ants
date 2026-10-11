@@ -895,3 +895,30 @@ Extraction in `docs/research/buffin2011.md`.
   while in contact"); 106 tests pass. **E2 report (600 scouts, main layer)
   bit-identical** to the post-wall-fix one (so neither the shareEnd change
   nor A touches E2). pilot3 launched.
+
+**2026-10-10 night — Plan 4 option B (stop-and-antennate encounters): design draft and literature needs (not implemented).**
+- **Mechanism:** when two nest workers come into antennal range head-on
+  or head-to-side, each stops with a probability (or always) and
+  antennates for a duration; within the encounter each decides from the
+  other's signals (offer / solicit) whether to start a bout; otherwise
+  they part. The contact rows count these encounters (replacing the ≥ 1 s
+  overlap rule, which then becomes a sensitivity check). Density is then
+  free to be realistic, because brushing past no longer counts as a
+  contact.
+- **Values needed (from the literature, not fitted):** antennation
+  duration per encounter (s); probability of stopping on contact;
+  in-nest walking speed (would also fix nestSpeedFactor); interaction rate
+  vs density (a check on the encounter kinetics); nest density of
+  1000–2000-worker colonies in Janet nests (would fix the 1999 density).
+- **Candidate sources (searched 2026-10-10 night; abstracts only, full
+  texts paywalled):** Nicolis, Theraulaz & Deneubourg 2005, Anim. Behav.
+  69:535–540 (L. niger interaction rate vs density, kinetic encounter
+  model, transient clusters); Depickere et al. 2004, Insect. Soc. (L.
+  niger aggregation, brood-tenders vs foragers; a starvation paper by the
+  same group); Davidson & Gordon 2017, J. R. Soc. Interface (harvester
+  ants, collision-theory framework). A Camponotus japonicus traffic study
+  reports 2.6 s to resolve a head-on encounter (other genus, outside the
+  nest). Czaczkes et al. 2024 (L. niger): antennation in 100 % of
+  nestmate encounters (no durations in the abstract). **Not to be used:**
+  Mailleux et al. 2011 (held-out). Mailleux et al. 2010 (Anim. Behav.,
+  recruiter or recruit) would need a role first.
