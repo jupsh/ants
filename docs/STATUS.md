@@ -1126,3 +1126,29 @@ not taken.
   encounter stops, the cause is the onset detection. The window check
   (running alongside) was stopped: void at a dt-dependent point with
   broken trips.
+
+**2026-10-11 — diagnosis results; two fixes (logged before implementing the second).**
+- **dt test (pre-registered above): hypothesis rejected.** The stillness
+  shift is unchanged without encounter stops (still fraction nurses
+  −2.56 SE, P(still ≥ 10 s) −5.65 / −5.70) and without crowding (−3.81;
+  −7.47 / −4.67). The baseline rerun reproduced the first run exactly
+  (deterministic). So neither crowding mechanism is the cause.
+- **New hypothesis (from the code):** mode switches act one step late. A
+  walking ant that decides to rest still walks that step; a resting ant
+  that decides to walk on still stands that step. Each spell gains one
+  step of its old state. At the start point walking spells average 1/3 s
+  (activeToRest 3 /s), about 3 steps at dt 0.1, so the lag adds ≈ 30 %
+  walking at dt 0.1 and ≈ 15 % at 0.05: less stillness at the coarser
+  step, as seen. **Fix:** a switch takes effect in the step it is decided
+  (rest → stand now; walk on → walk now). This changes every colony run
+  (the 1999 pilots and E6 runs used slow switching, 1/120–1/180 /s, where
+  the lag is < 2 %; no adopted colony fit exists, so nothing adopted
+  changes; E2 does not use the nest policy). The dt check is rerun after
+  the fix.
+- **Trips fixed (kinematic):** steering away from the hole did not hold
+  explorers back (at 45 mm/s the 9 mm passage takes 0.2 s, faster than a
+  turn). Now an exploring forager cannot step into the nest chamber
+  (`ColonyOptions.exploreOutside`, a walkable-area test in `walkAnt`); a
+  device to realise the trip-length input, disclosed. Colony209 (2 h, explore
+  1000 s, outRate 1/3500): 47 observed trips, mean 647 s (censored by the
+  window), stays median 835 s, foragerIn 0.81. Steering attempts reverted.

@@ -53,6 +53,12 @@ export interface ColonyOptions {
   molar?: number;
   /** Scouts that find nothing return after this long (s). */
   exploreGiveUp?: number;
+  /**
+   * Exploring foragers cannot step into the nest chamber, so a trip lasts
+   * until `exploreGiveUp` and homing (Stroeymeyt set-up, STATUS 2026-10-11:
+   * without it, explorers wandered back through the hole within a minute).
+   */
+  exploreOutside?: boolean;
   /** Seconds between recorded frames (0: none). */
   frameEvery?: number;
   /** Motor program (default: the adopted E1 walker). */
@@ -324,7 +330,8 @@ export class ColonySim {
       if (!act) return;
       if (outside[i]) {
         const before = a.body.cropUl;
-        applyForagerAction(w, a, act as ForagerAction, per[i]!, this.walkFor(per[i]!, a), P.phys, dt, this.motor);
+        const keepOut = this.o.exploreOutside && a.mind.mode === 'explore' ? (x: number, y: number) => { const r = app.regionAt(x, y); return !!r && r.kind !== 'nest'; } : undefined;
+        applyForagerAction(w, a, act as ForagerAction, per[i]!, this.walkFor(per[i]!, a), P.phys, dt, this.motor, keepOut);
         // Forager status: ≥ 5 consecutive seconds of feeding at the source.
         feedRun[i] = a.mind.mode === 'drink' && a.body.cropUl > before ? feedRun[i] + dt : 0;
         if (feedRun[i] >= 5 - 1e-9) forager[i] = true;

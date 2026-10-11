@@ -68,6 +68,7 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     // No food in this set-up (never added within the run).
     foodMinute: Infinity,
     exploreGiveUp: o.exploreGiveUp,
+    exploreOutside: true,
     starvationDays: 0,
     walkSpeedFactor: 1,
     tempC: STROEYMEYT_TEMP[o.phase],

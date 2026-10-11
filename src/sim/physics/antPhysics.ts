@@ -57,12 +57,12 @@ export type MotorFn = typeof walkStep;
  * deposition, drinking, metabolism and water loss. All mass flows go
  * through the ledger.
  */
-export function applyForagerAction(w: World, a: Agent, act: ForagerAction, per: SurfacePercept, walkP: WalkParams, phys: PhysParams, dt: number, motor: MotorFn = walkStep): void {
+export function applyForagerAction(w: World, a: Agent, act: ForagerAction, per: SurfacePercept, walkP: WalkParams, phys: PhysParams, dt: number, motor: MotorFn = walkStep, walkable?: (x: number, y: number) => boolean): void {
   const b = a.body;
   b.gasterDown = act.gasterDown;
   b.stepLen = 0;
   b.mouthFlow = 0;
-  const walked = act.stand ? 0 : walkAnt(w, a, per, walkP, phys, act.motor, motor);
+  const walked = act.stand ? 0 : walkAnt(w, a, per, walkP, phys, act.motor, motor, walkable);
   if (act.drinkFrom >= 0) drink(w, b, act.drinkFrom, phys, dt);
   else b.boutUl = 0;
   metabolise(w, b, phys, walked > 0, dt);
@@ -75,7 +75,7 @@ export function applyForagerAction(w: World, a: Agent, act: ForagerAction, per: 
  * integration reads the true self-motion through a biased, noisy compass.
  * Returns the path length walked (mm).
  */
-export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkParams, phys: PhysParams, mod: MotorMod, motor: MotorFn = walkStep): number {
+export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkParams, phys: PhysParams, mod: MotorMod, motor: MotorFn = walkStep, walkable: (x: number, y: number) => boolean = (x, y) => w.apparatus.inside(x, y)): number {
   const b = a.body;
   const m = a.mind;
   return motor(
@@ -99,7 +99,7 @@ export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkPara
         const y0 = b.y;
         const pieces = Math.max(1, Math.ceil(len / 0.5));
         let done = 0;
-        while (done < pieces && w.apparatus.inside(x0 + (dx * (done + 1)) / pieces, y0 + (dy * (done + 1)) / pieces)) done++;
+        while (done < pieces && walkable(x0 + (dx * (done + 1)) / pieces, y0 + (dy * (done + 1)) / pieces)) done++;
         const f = done / pieces;
         const walked = len * f;
         if (walked > 0) {
@@ -128,7 +128,7 @@ export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkPara
         for (let k = 1; k <= 12 && !turned; k++)
           for (const sgn of [1, -1]) {
             const h = m.walk.heading + sgn * k * 0.26;
-            if (w.apparatus.inside(b.x + Math.cos(h) * 0.5, b.y + Math.sin(h) * 0.5)) {
+            if (walkable(b.x + Math.cos(h) * 0.5, b.y + Math.sin(h) * 0.5)) {
               m.walk.heading = h;
               turned = true;
               break;

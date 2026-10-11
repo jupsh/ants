@@ -262,7 +262,11 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
       if (returning(m, p, carrying, per.dt, rng)) return { ...NONE };
       // Walk-on rate falls with the number of ants in the stop (Depickère et al. 2004: a·N^−b).
       const walkOn = !p.restCrowdExp ? p.restToActive : p.restToActive * Math.pow(1 + per.contacts.filter((c) => !c.moving).length, -p.restCrowdExp);
-      if (rng.hazard(walkOn, per.dt) || !per.inNest) toActive(m);
+      // A switch takes effect in the step it is decided (STATUS 2026-10-11: acting a step late lengthened every spell by dt).
+      if (rng.hazard(walkOn, per.dt) || !per.inNest) {
+        toActive(m);
+        return { ...NONE };
+      }
       return { ...NONE, stand: true };
     }
     case 'active': {
@@ -279,7 +283,10 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
         toRest(m);
         return { ...NONE, stand: true };
       }
-      if (rng.hazard(p.activeToRest, per.dt)) toRest(m);
+      if (rng.hazard(p.activeToRest, per.dt)) {
+        toRest(m);
+        return { ...NONE, stand: true };
+      }
       return { ...NONE };
     }
     default:
