@@ -1095,3 +1095,11 @@ not taken.
   duration (against one constant `shareRate`); 240 s between an ant's
   trophallaxes; small events dominate. **Seen but not used:** its colony
   accumulation curve (rate 0.036, E6-type outcome) and network results.
+- **Box speed:** cores capped at 1.9 GHz (`scaling_max_freq`; Zen 2), so
+  one process runs ≈ 5× slower than locally; 243 workers ≈ 50 local cores.
+  Trip calibration ≈ 1.5 h (each round bound by the 193-ant colony × 12 h);
+  fit estimate revised to ≈ 2 min per generation, ≈ 10 h for two starts
+  and a restart. To use idle workers, the window and dt checks run
+  alongside the calibration (separate checkout `~/ants2`, 70 workers) at
+  **provisional trip inputs** (exploreGiveUp 1000 s, outRate 1/3500 /s;
+  disclosed); rerun if the calibrated values differ by more than 2×.

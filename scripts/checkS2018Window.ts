@@ -11,7 +11,7 @@
  *     per colony.
  *
  *   npx vite-node scripts/checkS2018Window.ts --mode window|dt [--fit f] [--warmup 1200] [--obs 1800] [--reps 2]
- * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts).
+ * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts), or --explore s --outRate r.
  */
 import fs from 'node:fs';
 import { RNG } from '../src/sim/core/rng';
@@ -22,7 +22,8 @@ import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018Ta
 const MODE = arg('--mode', 'window');
 const fit = arg('--fit', '');
 const values = fit ? JSON.parse(fs.readFileSync(fit, 'utf8')).free : S2018_START;
-const trips = loadTrips();
+// Trip inputs from the calibration, or provisional values given explicitly (--explore, --outRate; disclosed in STATUS).
+const trips = arg('--explore', '') ? { exploreGiveUp: numArg('--explore', NaN), outRate: numArg('--outRate', NaN) } : loadTrips();
 const outRate = trips.outRate;
 const exploreGiveUp = trips.exploreGiveUp;
 const P = s2018Params(values, outRate);
