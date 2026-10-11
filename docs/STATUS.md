@@ -1290,3 +1290,13 @@ not taken.
   skewed trip shape (a hazard-based give-up is the candidate if trip shape
   ever matters). The calibration runs on the final code (after the dt
   decision), at dt 0.1 unless the dt rule says otherwise.
+- **dt 0.1 vs 0.05 at 36 seeds × 22 colonies × 1 h: 15 of 16 rows pass;
+  dt 0.1 is not adopted.** The remaining failure is a small real shift,
+  not width: P(still ≥ 10 s) forager +0.55 SE [0.32, 0.79]. Also seen,
+  but inside the bound: still forager +0.27 [0.23, 0.32], nurse +0.13
+  [0.10, 0.17]. Everything else is within ±0.2 SE. By the logged rule:
+  dt 0.05 vs 0.025 at the same power is next, and the fit uses the
+  coarsest passing dt. To save a round trip, the trip calibration
+  (b8c8001) runs at dt 0.05 at the same time. If 0.05 fails too, it is
+  rerun at the adopted dt. The residual forager-only term is not chased
+  further unless 0.05 fails.
