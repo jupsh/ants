@@ -867,3 +867,24 @@ Extraction in `docs/research/buffin2011.md`.
   The density is held down by the contacts row, which ties the failure to
   the ≥ 1 s contact rule. pilot-1 avoided all this by never ending bouts.
   **Plan 4 points at bout initiation and encounters**, as anticipated.
+
+**2026-10-10 night — Plan 4 decision (user): A now, design B in parallel (logged before acting).**
+- **A, refractory parting:** after a bout ends, the former partner is
+  excluded until contact is lost **or** a refractory time τ has passed,
+  whichever comes first (now: only until contact is lost). New nest
+  parameter `partRefractory` τ, **estimated 5 s** (no source; sensitivity
+  2 / 10 s); τ = ∞ restores the old rule. The invariant "no restart with a
+  former partner while in contact" becomes "not within τ". The pair may
+  resume, and Buffin's observer would score each resumption as a separate
+  trophallaxis (cf. 1999's "one long main trophallaxis" of ≈ 40–60 s vs
+  Buffin's 26 s mean).
+- **pilot3:** as pilot2 (k = 6, shareEnd fixed, Mod-BCH, dt 0.025, warm-up
+  900, 60 generations, `--tag pilot3`) on the model with A. Then condition
+  4, the bout diagnostic (with re-initiation gaps) and the dish check at
+  its optimum.
+- **B, stop-and-antennate encounters:** designed in parallel, parameters
+  from the literature (parallel track b); not implemented yet.
+- **Adoption rule (fixed now):** adopt whichever of A and B passes
+  condition 4 and the dish check without parameters at or near bounds
+  (within 5 % of the box ends). If neither passes, B is required (and
+  revised).
