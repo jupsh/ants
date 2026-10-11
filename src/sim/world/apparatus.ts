@@ -92,3 +92,18 @@ export function blesApparatus(): { app: Apparatus; entrance: [number, number]; f
   const area: Region = { name: 'area', kind: 'arena', x0: 60, y0: -4, x1: 121, y1: 45, covered: false };
   return { app: new Apparatus([nest, passage, area]), entrance: [56, 20.5], feeder: [90.5, 20.5] };
 }
+
+/**
+ * Stroeymeyt et al. (2018) tracking box: a covered nest chamber 70 × 40 mm
+ * (6 mm high, under an IR-pass filter, dark to the ants), a 4 × 3 mm hole
+ * through a 9 mm wall (a 4 × 9 mm passage here, planar), and an open
+ * foraging area 70 × 54 mm with sugar water ad libitum. The hole's position
+ * (centred) and the sugar zone (centre x 16, y 90 mm) come from the fit
+ * colonies' zone maps and tracked positions (STATUS 2026-10-11, step 4a).
+ */
+export function stroeymeytApparatus(): { app: Apparatus; entrance: [number, number]; feeder: [number, number] } {
+  const nest: Region = { name: 'nest', kind: 'nest', x0: 0, y0: 0, x1: 70, y1: 40, covered: true };
+  const passage: Region = { name: 'passage', kind: 'bridge', x0: 33, y0: 40, x1: 37, y1: 49, covered: false };
+  const area: Region = { name: 'area', kind: 'arena', x0: 0, y0: 49, x1: 70, y1: 103, covered: false };
+  return { app: new Apparatus([nest, passage, area]), entrance: [35, 40], feeder: [16, 90] };
+}

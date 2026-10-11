@@ -212,6 +212,7 @@ export const LASIUS_NEST_DEF = {
   encounterStop: estimated(0, '', 'Probability of stopping at an encounter. 0 here: the option-B stops are off in this model (LASIUS_NEST_B sets them; STATUS 2026-10-10 night).'),
   restCrowdExp: estimated(0, '', 'Exponent of the number of ants in a stop in its walk-on rate. 0 here: off (option B: LASIUS_NEST_B).'),
   foragerFrac: estimated(0, '', 'Fraction of nestmates with the forager trait (option B: they stop and walk with the forager values; the recruiter always has it).'),
+  outRate: estimated(0, '1/s', 'Hazard of leaving on a trip regardless of hunger. 0 here; the Stroeymeyt set-up gives foragers a rate matched to the colony\'s in-nest density (STATUS 2026-10-11, step 4a).'),
 };
 export const LASIUS_NEST = resolve(LASIUS_NEST_DEF);
 

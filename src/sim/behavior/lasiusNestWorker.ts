@@ -44,6 +44,9 @@ import type { ContactPercept, Interoception, SurfacePercept } from '../perceptio
  *     contact. Ants with the `forager` trait use the `forager` values.
  *     Ants heading out (`leave`) do not stop. With `encounterStop` and
  *     `restCrowdExp` 0 the earlier rest / walk switching is unchanged.
+ *   - Trips of a fed colony's foragers (Stroeymeyt set-up, STATUS
+ *     2026-10-11): an active ant in the nest leaves at hazard `outRate`
+ *     whatever its hunger (drawn only when `outRate` > 0).
  */
 export interface NestParams {
   /** Switching rates between resting and walking (1/s). */
@@ -83,12 +86,14 @@ export interface NestParams {
   restCrowdExp: number;
   /** Fraction of nestmates with the forager trait (drawn at set-up by the runner; a recruiter is always a forager). */
   foragerFrac: number;
+  /** Hazard (1/s) of leaving on a trip regardless of hunger (Stroeymeyt set-up: foragers of a fed colony; 0: never). */
+  outRate: number;
   /** Values for ants with the forager trait (absent: the same as everyone's). */
   forager?: ForagerMotion;
 }
 
 /** Stop and walking values that differ between foragers and nest workers (Depickère et al. 2004). */
-export type ForagerMotion = Partial<Pick<NestParams, 'restToActive' | 'activeToRest' | 'restCrowdExp' | 'nestSpeedFactor'>>;
+export type ForagerMotion = Partial<Pick<NestParams, 'restToActive' | 'activeToRest' | 'restCrowdExp' | 'nestSpeedFactor' | 'nestPauseFactor' | 'outRate'>>;
 
 /** The nest parameters this ant uses: the forager values for an ant with the forager trait. */
 export const nestParamsOf = (p: NestParams, forager: boolean | undefined): NestParams => (forager && p.forager ? { ...p, ...p.forager } : p);
@@ -261,6 +266,10 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
       // foraging trip) walks back to the entrance and does not rest outside.
       if (!per.inNest) return { ...NONE, motor: { goal: per.nestCue ? m.walk.heading + per.nestCue.bearing : Math.atan2(-m.pi.y, -m.pi.x), goalGain: p.leaveGain, noHomeBias: true } };
       if (hungry && io.cropUl < p.leaveCropFrac * io.cropCapacity && rng.hazard(p.leaveRate * (m.traits.forageDrive ?? 1), per.dt)) {
+        toLeave(m);
+        return { ...NONE };
+      }
+      if (p.outRate > 0 && rng.hazard(p.outRate, per.dt)) {
         toLeave(m);
         return { ...NONE };
       }

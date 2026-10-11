@@ -62,6 +62,14 @@ export interface ColonyOptions {
    * (`ingested` µL): the Mailleux 1999 recruiter. Absent until then.
    */
   recruiter?: RecruiterEntry;
+  /** Apparatus, entrance and food position (default: the Bles et al. nest). */
+  setup?: { app: Apparatus; entrance: [number, number]; feeder: [number, number] };
+  /**
+   * Fixed role per worker (length `ants`; default: none). Workers with role
+   * `forager` get the forager trait (its values and `outRate` trips); `nurse`
+   * and `queen` do not. Replaces the random `foragerFrac` draw.
+   */
+  roles?: ('nurse' | 'forager' | 'queen')[];
 }
 
 export interface RecruiterEntry {
@@ -185,12 +193,13 @@ export class ColonySim {
     const inNest = (f: number): WalkParams => (f === 1 && pf === 1 ? this.walkP : { ...this.walkP, speed: this.walkP.speed * f, pauseRate: this.walkP.pauseRate * pf });
     this.walkNestP = inNest(nf);
     const ff = P.nest.forager?.nestSpeedFactor ?? nf;
-    this.walkNestForagerP = ff === nf ? this.walkNestP : inNest(ff);
+    const fpf = P.nest.forager?.nestPauseFactor ?? pf;
+    this.walkNestForagerP = ff === nf && fpf === pf ? this.walkNestP : { ...this.walkP, speed: this.walkP.speed * ff, pauseRate: this.walkP.pauseRate * fpf };
     this.dt = o.dt ?? 0.1;
     this.steps = Math.round(((o.minutes ?? 90) * 60) / this.dt);
     this.foodTime = (o.foodMinute ?? 30) * 60;
     this.motor = o.motor ?? walkStep;
-    const { app, entrance, feeder } = blesApparatus();
+    const { app, entrance, feeder } = o.setup ?? blesApparatus();
     this.entrance = entrance;
     this.feeder = feeder;
     const w = new World(app, entrance, o.seed, o.tempC ?? 22, 50);
@@ -233,6 +242,8 @@ export class ColonySim {
     const physRng = RNG.stream(seed, 0x1a7a, i);
     body.intakeFactor = Math.exp(physRng.normal(0, P.phys.intakeSd) - (P.phys.intakeSd * P.phys.intakeSd) / 2);
     const traits = { ...drawTraits(P.forager, body.rng), ...drawNestTraits(P.nest, RNG.stream(seed, 0x7e57, i)) };
+    const role = i < this.n ? this.o.roles?.[i] : undefined;
+    if (role) traits.forager = role === 'forager';
     const mind = newMind(traits, this.walkP, body.rng);
     mind.walk.heading = body.heading;
     // In the nest the ant knows where it is relative to the entrance (path-integration origin).

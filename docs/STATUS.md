@@ -900,3 +900,72 @@ model that failed the 1999 calibration (failing rows listed beside it).
 The rest of the E6 rule (ensemble, fit protection, set-up, sensitivity
 runs) applies unchanged. Option (a), no E6 without an adequate fit, is
 not taken.
+
+**2026-10-11 — step 4a: the Stroeymeyt set-up in the simulation (decisions logged before implementing).**
+- **Geometry (from metadata and fit-colony positions):** the zone maps
+  (`.plume`: 608 × 912 cells of 5 px) put the sugar zone at x 9–23, y
+  82–99 mm and water at x 47–61, y 84–99 (image coordinates; x across the
+  70 mm width). Detected positions (colony209) fill the nest at y 1–39,
+  none at y 40–47 (the 9 mm wall: ants in the hole are invisible to the
+  tracker), the foraging area from y 48; crossings at x ≈ 34–35. Model:
+  nest 70 × 40 mm (covered), passage 4 × 9 mm centred (x 33–37, y 40–49),
+  foraging area 70 × 54 mm (y 49–103); sugar drop at (16, 90), ad libitum
+  (10 % ≈ 0.3 M, never runs out). Water is not modelled (no drinking of
+  water in the model; disclosed). 6 mm height: planar, as elsewhere.
+- **Ants:** each colony's own workers by task group (nurses, foragers:
+  the data's labels, an input) plus the queen; no brood (disclosed). The
+  queen moves as a nurse, never leaves, and is excluded from the rows as
+  in the data.
+- **Behaviour (provisional, for 4a):** fed colony (starvation 0, so
+  nobody is hungry and no in-nest sharing happens; contacts and sharing
+  wait for the contact observer). Nurses never leave. Forager-trait ants
+  leave on trips at a new hazard `outRate` (0 by default, so every
+  existing run is unchanged), run the forager policy outside (explore,
+  sugar, drink, return) and re-enter. `returnRate` 0 here (no recruitment
+  loop in a fed colony). `outRate` is set so the in-nest forager share
+  matches the colony's density row (an input), not fitted to rows 2–3.
+- **Walking:** no temperature factor between phases (the data's moving
+  speed is the same in light, 26 °C, and dark, 22 °C: 0.275 / 0.275
+  cm/s); temperature acts on metabolism only.
+- **Observer:** every 0.5 s, each ant's body centre (tag offsets are 0 in
+  the data; the thorax–centre offset is ignored, disclosed) plus white
+  noise with the colony's σ, each detection missed independently at the
+  colony's rate (frozen definitions), no detection in the passage (as the
+  wall hides the hole); in-nest = inside the nest chamber. The frames go
+  through the same `InNestAccumulator`.
+- **Windows:** per colony × phase, warm-up 20 min + 2 h observed, to be
+  checked against a full 12 h phase (step-4 cost rule); dt 0.1 s, checked
+  against 0.05 s on the same rule.
+- **Then (4b):** compare the provisional model's rows with the data and
+  propose the free motion parameters (per group: in-nest speed factor,
+  rest/walk switching, the walker's in-nest pause rate), logged before any
+  fit. One colony-hour is timed first.
+
+**2026-10-11 — step 4a done: set-up runs; cost; provisional model far off; crowding in the data.**
+- Implemented as logged: `stroeymeytApparatus` (`apparatus.ts`),
+  `ColonySim` options `setup` and `roles`, nest parameter `outRate`
+  (default 0; forager overrides now also carry `nestPauseFactor` and
+  `outRate`), `src/sim/experiments/colonyStroeymeyt.ts` (set-up and
+  observer), `scripts/stroeymeytSim.ts` (one colony, rows beside its
+  data), test `test/stroeymeytSim.test.ts`. Fast tier 128 pass;
+  defaults unchanged.
+- **Cost:** colony209 (100 ants), dt 0.1: **17.6–18.4 s per simulated
+  colony-hour**. `perceive` (all-pairs contact check) is 37 % of it; a
+  spatial grid with candidates in index order would keep results
+  bit-identical. One evaluation of all 22 colonies × 2 phases at 20 min
+  warm-up + 2 h ≈ 30 min serial (≈ 4 min on ~8 local workers); shorter
+  windows, if they pass the window check, scale this down.
+- **Provisional model vs colony209 (light; development look at fit
+  data):** moving-only speed 34 vs 2.9 mm/s, path speed 20 vs 0.32,
+  still fraction 0.41 vs 0.93, moving runs median 14 vs 1.0 s; still
+  runs mean 8.9 vs 6.9 s (close by accident: the walker's own pauses).
+  Forager stays median 31 vs 366 s (outRate 1/300 provisional). In-nest
+  ants in the data move in short (≈ 1 s), slow bursts.
+- **Crowding (fit data, across the 22 colonies, Spearman with the
+  colony's density):** moving-only speed −0.28 to −0.54, moving-run mean
+  −0.28 to −0.56 (all 8 negative; |ρ| > 0.42 is p < 0.05 at n 22); still
+  fraction −0.10 to +0.24. Denser colonies walk in shorter, slower bouts
+  but are not stiller. So ants cannot be simulated independently: the
+  fit keeps whole colonies at their own size, and the structure needs a
+  mechanism by which nestmates shorten walking (e.g. option B's
+  encounter stops).
