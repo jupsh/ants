@@ -63,11 +63,12 @@ export interface Stay {
   /** Current bout (modes give / receive), else null. */
   bout: Bout | null;
   /**
-   * Former partners this ant has parted from and is still in antennal
-   * contact with: none is shared with again until contact with it has been
-   * lost (each is dropped individually; STATUS 2026-10-10).
+   * Former partners this ant has parted from (`since`: seconds since the
+   * parting): none is shared with again until contact with it has been lost
+   * or `partRefractory` has passed (each is dropped individually; STATUS
+   * 2026-10-10, refractory 2026-10-10 night).
    */
-  parted: number[];
+  parted: { id: number; since: number }[];
   /** Seconds since this ant last passed food to a nestmate (or since it entered). */
   sinceGive: number;
 }

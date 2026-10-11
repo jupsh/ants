@@ -56,7 +56,7 @@ describe('nest worker: bouts (STATUS 2026-10-10)', () => {
     lasiusNestWorker(inNest([contact(5), contact(6, { with: 0 })]), io(1.5, -0.01), m, q, rng);
     lasiusNestWorker(inNest([contact(5), contact(6, { with: 0 })]), io(1.5, -0.01), m, p, rng);
     expect(m.stay.bout).toBeNull();
-    expect(m.stay.parted.sort()).toEqual([5, 6]);
+    expect(m.stay.parted.map((q) => q.id).sort()).toEqual([5, 6]);
     expect(lasiusNestWorker(inNest([contact(5), contact(6)]), io(1.5), m, q, rng).give).toBe(-1);
     // Contact with B lost (C still touching): B is eligible again, C is not.
     lasiusNestWorker(inNest([contact(6)]), io(1.5), m, q, rng);
@@ -107,9 +107,20 @@ describe('nest worker: bouts (STATUS 2026-10-10)', () => {
     expect(lasiusNestWorker(inNest([]), io(0, 0, 0.95), h, p, rng).solicit).toBe(false); // sated
   });
 
+  it('a former partner still in contact becomes eligible again after partRefractory (STATUS 2026-10-10 night)', () => {
+    const { m, rng, p } = giver(1e9); // in a bout with 5
+    const q = { ...p, shareEnd: 0, partRefractory: 0.25 };
+    lasiusNestWorker(inNest([contact(5, { with: 0 })]), io(1.5, -0.01), m, p, rng); // ends at random
+    expect(m.stay.bout).toBeNull();
+    // Still touching 5: excluded until 0.25 s have passed (steps of 0.1 s), then eligible though contact was never lost.
+    expect(lasiusNestWorker(inNest([contact(5)]), io(1.5), m, q, rng).give).toBe(-1);
+    expect(lasiusNestWorker(inNest([contact(5)]), io(1.5), m, q, rng).give).toBe(-1);
+    expect(lasiusNestWorker(inNest([contact(5)]), io(1.5), m, q, rng).give).toBe(5);
+  });
+
   it('entering the nest gives a fresh stay record', () => {
     const { m } = giver(0);
-    m.stay.parted = [7];
+    m.stay.parted = [{ id: 7, since: 0 }];
     enterNest(m);
     expect(m.stay).toEqual({ bout: null, parted: [], sinceGive: 0 });
     expect(m.mode).toBe('active');

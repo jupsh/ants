@@ -888,3 +888,10 @@ Extraction in `docs/research/buffin2011.md`.
   condition 4 and the dish check without parameters at or near bounds
   (within 5 % of the box ends). If neither passes, B is required (and
   revised).
+- **A implemented:** `Stay.parted` holds `{ id, since }`; a former partner
+  becomes eligible when contact is lost or `since` ≥ `partRefractory`
+  (`NestParams`, estimated 5 s in `lasiusM1.ts`). Unit test (eligible after
+  τ while still in contact); invariant suite updated ("no restart within τ
+  while in contact"); 106 tests pass. **E2 report (600 scouts, main layer)
+  bit-identical** to the post-wall-fix one (so neither the shareEnd change
+  nor A touches E2). pilot3 launched.
