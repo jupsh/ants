@@ -11,7 +11,7 @@
  * the last generation means, runs compared on one common selection batch.
  * Every evaluation simulates all 22 fit colonies (one window each).
  *
- *   npx vite-node scripts/fitS2018.ts [--gens 100] [--warmup 1200] [--obs 1800] [--dt 0.1] [--tag t]
+ *   npx vite-node scripts/fitS2018.ts [--gens 100] [--warmup 1200] [--obs 1800] [--dt 0.1] [--runs 0,1] [--restart 1] [--tag t]
  * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts).
  * Writes data/fits/s2018-motion[-tag].json.
  */
@@ -28,6 +28,9 @@ const DT = numArg('--dt', 0.1);
 // Trip-process inputs (scripts/calibTrips.ts; STATUS 2026-10-11).
 const { outRate: OUT_RATE, exploreGiveUp: EXPLORE } = loadTrips();
 const TAG = arg('--tag', '');
+// Which starts to run (seeds are keyed by run index, so a start run alone equals the same start in the full design) and whether to restart.
+const RUNS = (arg('--runs', '0,1') as string).split(',').map(Number);
+const RESTART = numArg('--restart', 1) === 1;
 const OUT = `data/fits/s2018-motion${TAG ? `-${TAG}` : ''}.json`;
 const TAG_KEY = [...TAG].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0, 0x5018);
 const sf = (p: Parameters<typeof seedFor>[1], ...k: number[]) => seedFor(2018, p, TAG_KEY, ...k);
@@ -93,10 +96,10 @@ const START2: Record<string, number> = { ...S2018_START, encounterStop: 1, restC
 const t0 = Date.now();
 console.log(`Stroeymeyt 2018 in-nest motion: k = ${S2018_FREE.length}, ${targets.length} rows, ${colonies.length} colonies per evaluation, window ${WARMUP} + ${OBS} s, dt ${DT}, outRate ${OUT_RATE.toPrecision(3)}, ${pool.size} workers`);
 const runs: Awaited<ReturnType<typeof one>>[] = [];
-for (const [k, s] of [S2018_START, START2].entries()) runs.push(await one(`start ${k}`, encode(s), undefined, k));
+for (const [k, s] of [S2018_START, START2].entries()) if (RUNS.includes(k)) runs.push(await one(`start ${k}`, encode(s), undefined, k));
 const lambda0 = 4 + Math.floor(3 * Math.log(S2018_FREE.length));
 const best0 = runs.reduce((a, b) => (b.f < a.f ? b : a));
-runs.push(await one('restart 1', best0.x, lambda0 * 2, 2));
+if (RESTART) runs.push(await one('restart 1', best0.x, lambda0 * 2, 2));
 const best = runs.reduce((a, b) => (b.f < a.f ? b : a));
 const free = decode(best.x);
 const nest = s2018Params(free, OUT_RATE).nest;
@@ -110,7 +113,7 @@ writeJson(OUT, {
   window: { warmup: WARMUP, obs: OBS, dt: DT },
   outRate: OUT_RATE,
   exploreGiveUp: EXPLORE,
-  optimizer: { method: 'CMA-ES', starts: 2, restarts: 1, maxGenerations: GENS, tolX: TOLX, averageLast: AVERAGE_LAST, boundHandling: `Mod-BCH, box [0, ${BOX}], tolUpSigma 20` },
+  optimizer: { method: 'CMA-ES', starts: RUNS, restarts: RESTART ? 1 : 0, maxGenerations: GENS, tolX: TOLX, averageLast: AVERAGE_LAST, boundHandling: `Mod-BCH, box [0, ${BOX}], tolUpSigma 20` },
   evals,
   seconds: (Date.now() - t0) / 1000,
   selectionLoss: best.f,

@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-11 (session 4: step 3 done; step 4a done; step 4b pre-fit checks: dt error being fixed). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-11 (session 4: step 3 done; step 4a done; step 4b pre-fit checks done; fit start 0 running). Keep this file current: update it whenever a step starts or finishes._
 
 Everything up to 2026-10-10 evening (session notes, step results, the full
 decisions log of about 4,500 lines) is in
@@ -46,11 +46,11 @@ Pages) when the user asks.
   nest, ants are still ≈ 95 % of the time and move at ≈ 0.27 cm/s, ≈ 10×
   slower than option B's arena values (Decisions log, last entry).
   **Step 4 in progress:** 4a done (the Stroeymeyt set-up runs). 4b
-  (fit of in-nest motion, k = 10, 32 rows) is blocked on the pre-fit
-  checks: dt 0.1 vs 0.05 still fails on still-run rows (cause being
-  narrowed down, Decisions log, last entries); the trip calibration
-  (`calibTrips.ts`) is to be rerun on the final code; then the window
-  check, then the fit. A vast.ai box is rented (see the step-4b box entry
+  (fit of in-nest motion, k = 10, 32 rows): all pre-fit checks done
+  (trip calibration 2147 s, 1/7271 /s; dt 0.05; 2-h warm-up + 6-h
+  window; Decisions log, last entries). **Fit start 0 running on the
+  box** (tag `s0`, ≤ 22 h); start 1 and the restart decided after it. A vast.ai
+  box is rented (see the step-4b box entry
   for access and set-up).
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
@@ -1300,3 +1300,95 @@ not taken.
   (b8c8001) runs at dt 0.05 at the same time. If 0.05 fails too, it is
   rerun at the adopted dt. The residual forager-only term is not chased
   further unless 0.05 fails.
+- **dt 0.05 vs 0.025 at 36 seeds × 22 colonies × 1 h: 16 of 16 rows
+  pass; dt 0.05 is adopted for the step-4b fit** (coarsest passing dt, by
+  the logged rule). Largest shifts: P(still ≥ 60 s) nurse +0.14 SE [0.05,
+  0.24], still forager +0.13 [0.08, 0.17], P(still ≥ 10 s) forager +0.11
+  [−0.11, 0.35]; all others within ±0.06. The forager term that failed at
+  0.1 vs 0.05 (+0.55) has shrunk to within the bound. 5988 s on the box
+  beside the calibration (`logs/checkS2018-dt-episode36-fine.json`). The
+  trip calibration already running at dt 0.05 (b8c8001) stands. Next: the
+  window check, then the fit, both at dt 0.05.
+- **Trip calibration at dt 0.05 done (b8c8001, 156 min):** exploreGiveUp
+  2147 s, outRate 1/7271 /s (`data/fits/s2018-trips.json`, on the box).
+  Confirmation at the solution: trips 235.2 per colony per 12 h (−0.22
+  SE), foragerIn 0.771 (+0.03 SE). Reported only: trip mean 1283 s (data
+  1177), median 2148 s (data 283; the disclosed shape limit of the fixed
+  give-up timer). The grid bracketed the targets (solution inside it).
+  **The provisional inputs used by the dt checks (1000 s, 1/3500) are
+  2.15× and 2.08× off, beyond the logged 2× bound**, so by that rule the
+  dt check (0.05 vs 0.025, 36 seeds × 1 h) is rerun at the calibrated
+  inputs, alongside the window check (both on the box, 120 workers each,
+  tags `calib36-fine`, `calib`). If the dt rerun passes, the fit runs at
+  dt 0.05 with these trip inputs.
+- **Reruns at the calibrated trip inputs (2147 s, 1/7271 /s), 2026-10-11
+  night, on the box.** dt 0.05 vs 0.025 (36 seeds × 22 colonies × 1 h):
+  **16 of 16 rows pass; dt 0.05 confirmed**
+  (`logs/checkS2018-dt-calib36-fine.json`). Window check (start point,
+  light, 1 seed per colony, 20-min warm-up, prefixes of a 12-h run;
+  `logs/checkS2018-window-calib.json`): **2 h fails 3 of 16 rows** (forager
+  P(still ≥ 2 s) −0.33 SE [−0.63, −0.07]; nurse P(still ≥ 10 s) −0.19
+  [−0.53, 0.16]; forager P(still ≥ 10 s) −0.79 [−1.39, −0.18]); 30 min fails
+  7. **Caveat:** window mode had dt 0.1 hard-coded, so this ran at dt 0.1,
+  not the adopted 0.05 (now a `--dt` option, default 0.1 so old runs
+  reproduce).
+- **Next (logged before running): the window check again at dt 0.05 with a
+  2-h warm-up.** Hypothesis: the 2-h failures are a warm-up transient, not
+  the window length. The warm-up (20 min) is far shorter than the forager
+  cycle at the calibrated inputs (stays ≈ 4000 s, give-up 2147 s), so the
+  first 2 h after it are not yet steady state. All three failures are
+  still-run tails, two of them in foragers, and all have the sign of a
+  short window. **Rule:** if 2 h passes (16 of 16) after the 2-h warm-up,
+  the fit uses 2 h warm-up + 2 h. If it fails, the logged rule applies
+  (longer window, recheck): the 12-h phase unless an intermediate window
+  is added to the script and passes. Seeing the result does not change
+  this rule.
+
+**2026-10-11 — E1: Khuong positions are in-plane, not projected (user question).**
+- **Question:** could the E1 incline misfit come from the tracker
+  recording camera-projected positions of the tilted canvas (y shrunk by
+  cos θ)?
+- **Check (all 5 incline files; geometry only, no behavioural statistic):**
+  raw track ends along the slope axis sit at a median ≈ 262 mm at every
+  incline (projection would give ≈ 131 mm at 60°), and the median 0.4 s
+  step length along y vs x is 1.03–1.14 at every incline (projection would
+  give 0.5 at 60°). The y-noise rising as 1/cos θ (`slope-walking.md` §5)
+  is what rescaling a foreshortened image to the plane produces, so it
+  supports corrected coordinates. **Projection is ruled out** as a cause;
+  our 2-D plane walker compares like with like.
+- **Doc fix:** `lasius-niger.md` and `DATA.md` said the files end at
+  0.2 m; raw tracks run to a median ≈ 0.26 m (up to 0.37 m) and are cut at
+  0.2 m by the authors and by `KHUONG_PREP`. No code or results change.
+- **Contamination:** 20° and 45° are already development; nothing
+  held-out (Bonavita 2026) was opened.
+- **Window recheck at dt 0.05 with a 2-h warm-up: the warm-up hypothesis is
+  rejected.** 2 h still fails the same 3 rows, with smaller shifts of the
+  same sign (forager P(still ≥ 2 s) −0.25 SE [−0.54, 0.04]; nurse P(still ≥
+  10 s) −0.16 [−0.54, 0.19]; forager P(still ≥ 10 s) −0.41 [−1.04, 0.18]);
+  30 min fails 7 (`logs/checkS2018-window-calib-w2h-dt05.json`, 1326 s on
+  240 workers, wall time set by the largest colony). Reading: short windows
+  shorten still-run tails (runs cut at the window edges), a window effect,
+  not a transient. **Next (logged before running), by the rule "longer
+  window, recheck":** 4-h and 6-h prefixes (new `--windows` option),
+  dt 0.05, 2-h warm-up, same seeds. The fit uses 2-h warm-up + the shorter
+  of the two that passes 16 of 16, else the full 12-h phase. Cost
+  reference: 2-h warm-up + 12 h took 1326 s wall per colony set, so one
+  evaluation (22 colonies × 2 phases) is about 22 min at 12 h, ≈ 9 min at
+  4 h, ≈ 12 min at 6 h.
+- **Window check, 4 h and 6 h (dt 0.05, 2-h warm-up; `logs/checkS2018-
+  window-calib-w46h-dt05.json`):** 4 h fails 1 of 16 (forager P(still ≥
+  10 s) −0.46 SE [−0.78, −0.14]); **6 h passes 16 of 16. The fit uses
+  dt 0.05, 2-h warm-up + 6-h window** (`fitS2018.ts --dt 0.05 --warmup
+  7200 --obs 21600`), trip inputs 2147 s, 1/7271 /s. All pre-fit checks
+  are done. **Cost estimate:** a generation (≈ 10 points × 22 colonies, on
+  240 workers) is bound by the largest colony's 8-h run, ≈ 13 min (from
+  the 14-h run's 1394 s); at up to 100 generations × (two starts + one
+  restart) that is up to ≈ 65 h, against ≈ 10 h estimated for 20 min +
+  2 h windows. tolX may stop starts earlier. Launch waits for the user
+  (box time).
+- **Fit launched, start 0 only (user, 2026-10-11 night):** `fitS2018.ts
+  --dt 0.05 --warmup 7200 --obs 21600 --runs 0 --restart 0 --tag s0`
+  (new `--runs`, `--restart` options; seeds keyed by run index, so start 0
+  is the same as in the full design). Up to 100 generations, ≈ 22 h at
+  most. Start 1 and the IPOP restart are decided from how start 0
+  converges.

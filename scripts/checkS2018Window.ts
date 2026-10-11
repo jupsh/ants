@@ -10,7 +10,7 @@
  *   --mode dt: dt 0.1 against 0.05 (--dts a,b) at --obs (default 1800 s), --reps seeds
  *     per colony.
  *
- *   npx vite-node scripts/checkS2018Window.ts --mode window|dt [--fit f] [--set k=v,...] [--tag t] [--warmup 1200] [--obs 1800] [--reps 2]
+ *   npx vite-node scripts/checkS2018Window.ts --mode window|dt [--fit f] [--set k=v,...] [--tag t] [--warmup 1200] [--dt 0.1] [--windows 1800,7200] (window) [--obs 1800] [--reps 2]
  * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts), or --explore s --outRate r.
  */
 import fs from 'node:fs';
@@ -36,6 +36,8 @@ const targets = s2018TargetsFromData();
 const se = new Map<string, number>();
 for (const t of targets) se.set(t.simId, Math.min(se.get(t.simId) ?? Infinity, t.se));
 const WARMUP = numArg('--warmup', 1200);
+const WDT = numArg('--dt', 0.1); // window mode only
+const WINDOWS = (arg('--windows', '1800,7200') as string).split(',').map(Number); // window mode: prefix lengths, s
 const pool = await SimPool.create();
 const t0 = Date.now();
 
@@ -70,13 +72,15 @@ function compare(a: Record<string, number>[], b: Record<string, number>[], label
   return { rows: out, fails };
 }
 
-const result: Record<string, unknown> = { mode: MODE, values, outRate, exploreGiveUp, warmup: WARMUP, provenance: provenance() };
+const result: Record<string, unknown> = { mode: MODE, values, outRate, exploreGiveUp, warmup: WARMUP, dt: MODE === 'window' ? WDT : undefined, provenance: provenance() };
 if (MODE === 'window') {
   const FULL = 12 * 3600;
-  const runs = await simulateAll(pool, P, colonies, { phase: 'light', warmupS: WARMUP, obsS: FULL, dt: 0.1, windows: [1800, 7200], exploreGiveUp }, (i) => seedFor(2018, 'converge', 0x3d, i));
+  const runs = await simulateAll(pool, P, colonies, { phase: 'light', warmupS: WARMUP, obsS: FULL, dt: WDT, windows: WINDOWS, exploreGiveUp }, (i) => seedFor(2018, 'converge', 0x3d, i));
   const full = runs.map((r) => r.rows);
-  result.w30 = compare(runs.map((r) => r.windowRows[0]), full, '30 min vs 12 h');
-  result.w120 = compare(runs.map((r) => r.windowRows[1]), full, '2 h vs 12 h');
+  WINDOWS.forEach((w, k) => {
+    const label = w < 3600 ? `${w / 60} min` : `${w / 3600} h`;
+    result[`w${w / 60}`] = compare(runs.map((r) => r.windowRows[k]), full, `${label} vs 12 h`);
+  });
 } else if (MODE === 'dt') {
   const REPS = numArg('--reps', 2);
   const OBS = numArg('--obs', 1800);
