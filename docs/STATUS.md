@@ -51,9 +51,9 @@ Pages) when the user asks.
   4 has been timed locally.
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
-  adequate 1999 fit and the fit-protection checks. **Open for the user:**
-  whether E6 still runs, disclosed, if the stopping rule ends the 1999
-  work without an adequate fit (Plan, step 5).
+  adequate 1999 fit and the fit-protection checks, or, if the stopping
+  rule ends the 1999 work without one, on the best step-5 fit, disclosed
+  as such (user, 2026-10-11).
 - **M1's honest end state (agreed 2026-10-10 night):** *calibrated and
   stress-tested, with failures disclosed*, not "validated". Validating the
   colony model needs independent held-out data; finding it is a work item
@@ -207,7 +207,8 @@ Mailleux 1999 colony calibration:
   the failing rows and why; ~~Claude decides the model change and logs it
   before acting~~ **from step 5 on, the stopping rule applies (Plan, step
   5; 2026-10-11): no further 1999-driven model revision in M1, bug fixes
-  only**; E6 does not run (open for the user, RESUME).
+  only**; E6 then runs on the best step-5 fit as a disclosed development
+  benchmark (user, 2026-10-11).
 - **Equivalence gate:** per row, 90 % bootstrap CI (paired seeds,
   recruiters resampled jointly over rows and levels) inside ±0.5 SE_data;
   1600 recruiters per day per level; dt 0.1 vs 0.025 (then 0.05 vs 0.025),
@@ -891,3 +892,11 @@ Means over colonies ± colony-block SE; speeds in cm/s.
   almost all tracking noise**, and foragers' is ≈ 3× the floor; detection
   0.805 per frame between first and last detection.
 - **Next: step 4** (Stroeymeyt nest set-up, observer, cost timing).
+
+**2026-10-11 — E6 if step 5 is not adequate: option (b) (user: "I agree with b").**
+If the stopping rule ends the 1999 work without an adequate fit, E6 still
+runs, with the best step-5 fit, labelled a development benchmark on a
+model that failed the 1999 calibration (failing rows listed beside it).
+The rest of the E6 rule (ensemble, fit protection, set-up, sensitivity
+runs) applies unchanged. Option (a), no E6 without an adequate fit, is
+not taken.
