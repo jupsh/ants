@@ -1036,3 +1036,37 @@ not taken.
   (window and dt checks), `calibOutRate.ts`; targets, free set, bounds
   and loss in `src/sim/experiments/stroeymeytTargets.ts`; pool task
   `s2018Colony`.
+
+**2026-10-11 — step 4b: the forager trip process needs a second input (logged before the change).**
+- **Found:** `calibOutRate` could not reach the data's forager share
+  (0.77): at outRate 1/632, 1/112, 1/47, 1/31, 1/25 s the simulated share
+  was 0.965, 0.938, 0.914, 0.902, 0.897. Diagnostic (colony209, start
+  point, 1 h): simulated trips last median 14 s, mean 22 s; every forager
+  sits at a full crop (1.96 µL), so a trip is walk to the drop, find the
+  crop full, go home. Data: mean stays 1900–3600 s with 23 % of forager
+  time outside imply trips of ≈ 600–1000 s. Matching the share with 20 s
+  trips would need ≈ 70 s stays, and forager in-nest motion would then be
+  dominated by walking to and from the hole (contaminating rows 2–3).
+- **Change (Stroeymeyt set-up only):** (1) no sugar drop in the model.
+  In a fed colony without sharing, feeding does not reach the in-nest
+  rows, and the drop is what cuts trips short (disclosed). (2) A trip is
+  exploration of the foraging area for `exploreGiveUp` s, then homing.
+  (3) Two inputs instead of one, both from the same observer on data and
+  model: the mean duration of complete out-of-nest runs (exit to next
+  entry, debounce 2; new statistic `trip.*`, reducer rerun) sets
+  `exploreGiveUp`, and `foragerIn` sets `outRate`. Row 1 (stays) stays a
+  check; its mean is now partly implied by the two inputs (disclosed),
+  its shape (median, tail) is not.
+- **Box:** rented by the user (vast.ai, Thailand, 2 × EPYC 7B12, CPU
+  quota 245, 251 GB). Code fd474fc via git bundle, Node 22.22.1; fast
+  tier 131 pass (the local-only Khuong test is not in the bundle); run
+  hash `c4988f4c…` (colony112, 60 + 300 s) equals the local one.
+- **Trip input (reducer rerun; all other rows unchanged):** complete
+  trips per colony 255 / 233 (light / dark), mean 1025 ± 227 / 1329 ±
+  229 s, median 144 / 423 s (heavily skewed). Target: mean of the two
+  phases' means, 1177 s; the model's trips are near-fixed (explore, then
+  home), so the trip *shape* is not matched (disclosed; it does not enter
+  the in-nest rows; the transit frequency it implies, ≈ 8.5 per forager
+  per 12 h, agrees with the data's ≈ 8). `scripts/calibTrips.ts` replaces
+  `calibOutRate.ts`: grids in parallel over a 12-h window (as the data's
+  phases, so complete-trip censoring matches) → `data/fits/s2018-trips.json`.

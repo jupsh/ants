@@ -12,6 +12,14 @@ import { LASIUS_NEST_B, LASIUS_PARAMS } from '../src/sim/species/lasiusM1';
 import type { SimPool } from './pool';
 
 export const S2018_ROWS = 'data/reference/stroeymeyt2018-fit-rows.json';
+export const S2018_TRIPS = 'data/fits/s2018-trips.json';
+
+/** The trip-process inputs (scripts/calibTrips.ts). */
+export function loadTrips(): { exploreGiveUp: number; outRate: number } {
+  if (!fs.existsSync(S2018_TRIPS)) throw new Error(`${S2018_TRIPS} missing: run scripts/calibTrips.ts first`);
+  const t = JSON.parse(fs.readFileSync(S2018_TRIPS, 'utf8'));
+  return { exploreGiveUp: t.exploreGiveUp, outRate: t.outRate };
+}
 
 export interface DataColony {
   colony: string;

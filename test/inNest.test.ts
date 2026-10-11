@@ -92,6 +92,9 @@ describe('in-nest rows (Stroeymeyt 2018 definitions)', () => {
     expect(r['stay@db1.n.light']).toBe(19);
     // Nurses never contribute stays.
     expect(feed(['nurse'], 300, script)['stay.n.light']).toBe(0);
+    // Trips: exit (first out-of-nest detection, frame 30k) to the next entry (frame 30k + 10): 9 complete trips of 5 s.
+    expect(r['trip.n.light']).toBe(9);
+    expect(r['trip.mean.light']).toBeCloseTo(5, 10);
   });
 
   it('moving-only speed leaves still steps out', () => {

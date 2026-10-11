@@ -10,18 +10,21 @@
  *   --mode dt: dt 0.1 against 0.05 at --obs (default 1800 s), --reps seeds
  *     per colony.
  *
- *   npx vite-node scripts/checkS2018Window.ts --mode window|dt [--fit f] [--warmup 1200] [--obs 1800] [--reps 2] [--outRate r]
+ *   npx vite-node scripts/checkS2018Window.ts --mode window|dt [--fit f] [--warmup 1200] [--obs 1800] [--reps 2]
+ * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts).
  */
 import fs from 'node:fs';
 import { RNG } from '../src/sim/core/rng';
 import { arg, numArg, provenance, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
-import { colonyFromData, loadS2018, S2018_START, s2018Params, s2018TargetsFromData, simulateAll } from './s2018Lib';
+import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018TargetsFromData, simulateAll } from './s2018Lib';
 
 const MODE = arg('--mode', 'window');
 const fit = arg('--fit', '');
 const values = fit ? JSON.parse(fs.readFileSync(fit, 'utf8')).free : S2018_START;
-const outRate = numArg('--outRate', fit ? JSON.parse(fs.readFileSync(fit, 'utf8')).outRate : 1 / 600);
+const trips = loadTrips();
+const outRate = trips.outRate;
+const exploreGiveUp = trips.exploreGiveUp;
 const P = s2018Params(values, outRate);
 const data = loadS2018();
 const colonies = data.colonies.map(colonyFromData);
@@ -64,10 +67,10 @@ function compare(a: Record<string, number>[], b: Record<string, number>[], label
   return { rows: out, fails };
 }
 
-const result: Record<string, unknown> = { mode: MODE, values, outRate, warmup: WARMUP, provenance: provenance() };
+const result: Record<string, unknown> = { mode: MODE, values, outRate, exploreGiveUp, warmup: WARMUP, provenance: provenance() };
 if (MODE === 'window') {
   const FULL = 12 * 3600;
-  const runs = await simulateAll(pool, P, colonies, { phase: 'light', warmupS: WARMUP, obsS: FULL, dt: 0.1, windows: [1800, 7200] }, (i) => seedFor(2018, 'converge', 0x3d, i));
+  const runs = await simulateAll(pool, P, colonies, { phase: 'light', warmupS: WARMUP, obsS: FULL, dt: 0.1, windows: [1800, 7200], exploreGiveUp }, (i) => seedFor(2018, 'converge', 0x3d, i));
   const full = runs.map((r) => r.rows);
   result.w30 = compare(runs.map((r) => r.windowRows[0]), full, '30 min vs 12 h');
   result.w120 = compare(runs.map((r) => r.windowRows[1]), full, '2 h vs 12 h');
@@ -76,7 +79,7 @@ if (MODE === 'window') {
   const OBS = numArg('--obs', 1800);
   const seeds = (i: number) => seedFor(2018, 'converge', 0xd7, i % colonies.length, Math.floor(i / colonies.length));
   const cols = Array.from({ length: REPS }, () => colonies).flat();
-  const o = { phase: 'light' as const, warmupS: WARMUP, obsS: OBS };
+  const o = { phase: 'light' as const, warmupS: WARMUP, obsS: OBS, exploreGiveUp };
   const [a, b] = await Promise.all([simulateAll(pool, P, cols, { ...o, dt: 0.1 }, seeds), simulateAll(pool, P, cols, { ...o, dt: 0.05 }, seeds)]);
   result.dt = compare(a.map((r) => r.rows), b.map((r) => r.rows), 'dt 0.1 vs 0.05');
 } else throw new Error('--mode window|dt');

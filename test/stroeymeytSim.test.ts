@@ -7,7 +7,7 @@ const col = { label: 'test', nurses: 6, foragers: 6, noiseSd: 0.02, detection: 0
 
 describe('Stroeymeyt set-up (step 4a)', () => {
   it('is deterministic, observes the nest, and only foragers leave', () => {
-    const o = { seed: 3, phase: 'light' as const, warmupS: 60, obsS: 300 };
+    const o = { seed: 3, phase: 'light' as const, warmupS: 60, obsS: 300, exploreGiveUp: 30 };
     const a = simulateStroeymeyt(P, col, o);
     const b = simulateStroeymeyt(P, col, o);
     expect(a.rows).toEqual(b.rows);

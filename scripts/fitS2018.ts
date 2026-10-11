@@ -11,21 +11,22 @@
  * the last generation means, runs compared on one common selection batch.
  * Every evaluation simulates all 22 fit colonies (one window each).
  *
- *   npx vite-node scripts/fitS2018.ts [--gens 100] [--warmup 1200] [--obs 1800] [--dt 0.1] [--outRate r] [--tag t]
+ *   npx vite-node scripts/fitS2018.ts [--gens 100] [--warmup 1200] [--obs 1800] [--dt 0.1] [--tag t]
+ * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts).
  * Writes data/fits/s2018-motion[-tag].json.
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
 import { S2018_FREE, s2018AtBound, s2018Loss, s2018Values, type S2018Free } from '../src/sim/experiments/stroeymeytTargets';
 import { arg, numArg, provenance, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
-import { colonyFromData, loadS2018, S2018_START, s2018Params, s2018TargetsFromData, simulateAll } from './s2018Lib';
+import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018TargetsFromData, simulateAll } from './s2018Lib';
 
 const GENS = numArg('--gens', 100);
 const WARMUP = numArg('--warmup', 1200);
 const OBS = numArg('--obs', 1800);
 const DT = numArg('--dt', 0.1);
-const OUT_RATE = numArg('--outRate', NaN);
-if (!(OUT_RATE > 0)) throw new Error('--outRate required (scripts/calibOutRate.ts)');
+// Trip-process inputs (scripts/calibTrips.ts; STATUS 2026-10-11).
+const { outRate: OUT_RATE, exploreGiveUp: EXPLORE } = loadTrips();
 const TAG = arg('--tag', '');
 const OUT = `data/fits/s2018-motion${TAG ? `-${TAG}` : ''}.json`;
 const TAG_KEY = [...TAG].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0, 0x5018);
@@ -43,7 +44,7 @@ const decode = (x: number[]) => Object.fromEntries(S2018_FREE.map((f, i) => [f.k
 
 const PROVENANCE = provenance();
 const pool = await SimPool.create();
-const o = { phase: 'light' as const, warmupS: WARMUP, obsS: OBS, dt: DT };
+const o = { phase: 'light' as const, warmupS: WARMUP, obsS: OBS, dt: DT, exploreGiveUp: EXPLORE };
 /** One evaluation: all colonies; `reps` seeds each (the selection batch uses 3). */
 const evalAt = async (v: Record<string, number>, seed: (i: number) => number, reps = 1) => {
   const cols = Array.from({ length: reps }, () => colonies).flat();
@@ -108,6 +109,7 @@ writeJson(OUT, {
   fittedOn: targets.map((t) => t.id),
   window: { warmup: WARMUP, obs: OBS, dt: DT },
   outRate: OUT_RATE,
+  exploreGiveUp: EXPLORE,
   optimizer: { method: 'CMA-ES', starts: 2, restarts: 1, maxGenerations: GENS, tolX: TOLX, averageLast: AVERAGE_LAST, boundHandling: `Mod-BCH, box [0, ${BOX}], tolUpSigma 20` },
   evals,
   seconds: (Date.now() - t0) / 1000,

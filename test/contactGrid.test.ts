@@ -33,7 +33,7 @@ describe('contact grid (STATUS 2026-10-11)', () => {
   it('leaves the Stroeymeyt rows unchanged', () => {
     const P = { ...LASIUS_PARAMS, nest: { ...LASIUS_NEST, returnRate: 0, forager: { outRate: 1 / 60 } } };
     const col = { label: 't', nurses: 10, foragers: 5, noiseSd: 0.02, detection: 0.8 };
-    const r = simulateStroeymeyt(P, col, { seed: 2, phase: 'dark', warmupS: 30, obsS: 120 });
+    const r = simulateStroeymeyt(P, col, { seed: 2, phase: 'dark', warmupS: 30, obsS: 120, exploreGiveUp: 60 });
     expect(Number.isFinite(r.rows['speed.nurse.dark'])).toBe(true);
   });
 });

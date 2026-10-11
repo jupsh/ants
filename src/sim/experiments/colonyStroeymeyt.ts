@@ -6,8 +6,10 @@ import { ColonySim, type ColonyParams } from './colonyBles';
 /**
  * A Stroeymeyt et al. (2018) fit colony in its tracking box (step 4a,
  * STATUS 2026-10-11): the colony's own nurses and foragers plus the queen,
- * a fed colony with sugar water ad libitum, one phase (light 26 °C or dark
- * 22 °C) at a time. Observed like the recorded colonies: every 0.5 s each
+ * a fed colony, one phase (light 26 °C or dark 22 °C) at a time. No sugar
+ * drop (STATUS 2026-10-11: feeding does not reach the in-nest rows of a fed
+ * colony without sharing, and the drop cut trips short): a forager's trip
+ * is `exploreGiveUp` s of exploring the foraging area, then homing. Observed like the recorded colonies: every 0.5 s each
  * ant's position plus white tracking noise, each detection missed
  * independently at the colony's rate, nothing seen in the hole through the
  * wall; the frames go through the same `InNestAccumulator` as the data.
@@ -30,6 +32,8 @@ export interface StroeymeytRunOptions {
   dt?: number;
   /** Also report rows for the first w seconds of the observed time, for each w here (window check; each ≤ obsS). */
   windows?: number[];
+  /** Seconds a forager explores the foraging area on a trip before heading home (an input, STATUS 2026-10-11). */
+  exploreGiveUp: number;
 }
 
 export interface StroeymeytRun {
@@ -45,9 +49,6 @@ export interface StroeymeytRun {
 export const STROEYMEYT_TEMP: Record<Phase, number> = { light: 26, dark: 22 };
 /** UTC hour handed to the accumulator so the frames fall in the wanted phase. */
 const PHASE_HOUR: Record<Phase, number> = { light: 12, dark: 0 };
-/** Sugar drop: 500 µL (radius 6.2 mm, about the 13.6 mm sugar zone), 10 % sucrose ≈ 0.3 M; never emptied in a run. */
-const SUGAR_UL = 500;
-const SUGAR_MOLAR = 0.3;
 
 /** Roles in index order: nurses, foragers, then the queen. */
 export function stroeymeytRoles(c: StroeymeytColony): AntRole[] {
@@ -64,9 +65,9 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     setup: stroeymeytApparatus(),
     dt,
     minutes: (o.warmupS + o.obsS) / 60,
-    foodMinute: 0,
-    foodUl: SUGAR_UL,
-    molar: SUGAR_MOLAR,
+    // No food in this set-up (never added within the run).
+    foodMinute: Infinity,
+    exploreGiveUp: o.exploreGiveUp,
     starvationDays: 0,
     walkSpeedFactor: 1,
     tempC: STROEYMEYT_TEMP[o.phase],

@@ -3,7 +3,7 @@
  * at the step-4b start point (or --set overrides) beside the colony's own
  * data rows, and the run time.
  *
- *   npx vite-node scripts/stroeymeytSim.ts [--colony 122] [--phase light] [--warmup 1200] [--obs 3600] [--dt 0.1] [--seed 1] [--outRate r] [--set k=v,...] [--out f]
+ *   npx vite-node scripts/stroeymeytSim.ts [--colony 122] [--phase light] [--warmup 1200] [--obs 3600] [--dt 0.1] [--seed 1] [--outRate r] [--explore s] [--set k=v,...] [--out f]
  */
 import type { Phase } from '../src/sim/analysis/inNest';
 import { simulateStroeymeyt } from '../src/sim/experiments/colonyStroeymeyt';
@@ -27,6 +27,7 @@ function main() {
     warmupS: Number(arg('--warmup', '1200')),
     obsS: Number(arg('--obs', '3600')),
     dt: Number(arg('--dt', '0.1')),
+    exploreGiveUp: Number(arg('--explore', '600')),
   });
   const secs = (Date.now() - t0) / 1000;
   const simH = (Number(arg('--warmup', '1200')) + Number(arg('--obs', '3600'))) / 3600;

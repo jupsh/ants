@@ -83,6 +83,8 @@ export interface StayCell {
   /** Complete forager stays: duration (s) and in-nest path (mm). */
   dur: number[];
   path: number[];
+  /** Complete forager trips (exit to the next entry; s), by the exit's phase (an input for the trip process, STATUS 2026-10-11). */
+  trips: number[];
 }
 
 export interface InNestColony {
@@ -123,6 +125,9 @@ interface StayTracker {
   entryFrame: number;
   entryPhase: Phase;
   entryCum: number;
+  outside: boolean; // a trip with an observed exit is open
+  exitFrame: number;
+  exitPhase: Phase;
 }
 
 interface AntState {
@@ -189,6 +194,7 @@ export class InNestAccumulator {
       stays: cfg.debounce.map(() => ({
         confirmed: NONE, cand: NONE, candCount: 0, candFrame: 0, candPhase: 'light' as Phase, candCum: 0,
         inside: false, entryFrame: 0, entryPhase: 'light' as Phase, entryCum: 0,
+        outside: false, exitFrame: 0, exitPhase: 'light' as Phase,
       })),
       hist: [],
       own: { light: { time: 0, path: 0, still: 0 }, dark: { time: 0, path: 0, still: 0 } },
@@ -197,7 +203,7 @@ export class InNestAccumulator {
     for (const g of GROUPS) for (const p of PHASES) motion[`${g}.${p}`] = motionCell(k);
     this.out = {
       motion,
-      stays: cfg.debounce.map(() => ({ light: { dur: [], path: [] }, dark: { dur: [], path: [] } })),
+      stays: cfg.debounce.map(() => ({ light: { dur: [], path: [], trips: [] }, dark: { dur: [], path: [], trips: [] } })),
       density: { light: { sum: 0, frames: 0 }, dark: { sum: 0, frames: 0 } },
       foragerIn: { light: { sum: 0, frames: 0 }, dark: { sum: 0, frames: 0 } },
       noise: { n: 0, d1x: 0, d1y: 0, d2x: 0, d2y: 0 },
@@ -339,16 +345,24 @@ export class InNestAccumulator {
       t.cand = NONE;
       t.candCount = 0;
       if (z === 1) {
-        // Entry: observed only if the ant was seen outside before.
+        // Entry: observed only if the ant was seen outside before; it completes a trip whose exit was observed.
         t.inside = prev === 2;
         t.entryFrame = t.candFrame;
         t.entryPhase = t.candPhase;
         t.entryCum = t.candCum;
-      } else if (t.inside) {
-        const cell = this.out.stays[k][t.entryPhase];
-        cell.dur.push((t.candFrame - t.entryFrame) * this.cfg.frameDt);
-        cell.path.push(t.candCum - t.entryCum);
-        t.inside = false;
+        if (t.outside) this.out.stays[k][t.exitPhase].trips.push((t.candFrame - t.exitFrame) * this.cfg.frameDt);
+        t.outside = false;
+      } else {
+        if (t.inside) {
+          const cell = this.out.stays[k][t.entryPhase];
+          cell.dur.push((t.candFrame - t.entryFrame) * this.cfg.frameDt);
+          cell.path.push(t.candCum - t.entryCum);
+          t.inside = false;
+        }
+        // Exit: observed only if the ant was seen inside before.
+        t.outside = prev === 1;
+        t.exitFrame = t.candFrame;
+        t.exitPhase = t.candPhase;
       }
     }
   }
@@ -468,6 +482,9 @@ export function colonyRows(c: InNestColony, cfg: InNestConfig = STROEYMEYT_CFG):
       r[`stay${tag}.mean.${p}`] = s.dur.length ? s.dur.reduce((a, b) => a + b, 0) / s.dur.length : NaN;
       r[`stay${tag}.median.${p}`] = median(s.dur);
       r[`stay${tag}.path.${p}`] = s.path.length ? s.path.reduce((a, b) => a + b, 0) / s.path.length : NaN;
+      r[`trip${tag}.n.${p}`] = s.trips.length;
+      r[`trip${tag}.mean.${p}`] = s.trips.length ? s.trips.reduce((a, b) => a + b, 0) / s.trips.length : NaN;
+      r[`trip${tag}.median.${p}`] = median(s.trips);
       for (const cut of [...cfg.stayCutS, Infinity]) {
         const name = `staySpeed${tag}.${cut === Infinity ? 'all' : cut}`;
         let n = 0;

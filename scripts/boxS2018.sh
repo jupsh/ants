@@ -2,8 +2,8 @@
 # Step 4b on a rented box (STATUS 2026-10-11): set-up checks, run hash, then
 # the window and dt checks. The fit is started separately, after the checks
 # are logged in STATUS:
-#   nohup bash scripts/boxS2018.sh fit <outRate> > logs/fitS2018.log 2>&1 &
-# Usage: bash scripts/boxS2018.sh setup | hash | checks | fit <outRate>
+#   nohup bash scripts/boxS2018.sh fit > logs/fitS2018.log 2>&1 &
+# Usage: bash scripts/boxS2018.sh setup | hash | trips | checks | fit
 set -euo pipefail
 . /opt/nvm/nvm.sh && nvm use 22.22.1 >/dev/null
 which npx >/dev/null
@@ -20,7 +20,8 @@ mkdir -p logs
 case "${1:-}" in
   setup) npm ci && npm test ;;
   hash) npx vite-node scripts/stroeymeytSim.ts --colony 112 --warmup 60 --obs 300 --out logs/hash-s2018.json >/dev/null && node -e "const r=require('./logs/hash-s2018.json').rows;console.log(require('crypto').createHash('sha256').update(JSON.stringify(r)).digest('hex'))" ;;
-  checks) npx vite-node scripts/checkS2018Window.ts --mode window --outRate "$2" && npx vite-node scripts/checkS2018Window.ts --mode dt --outRate "$2" ;;
-  fit) npx vite-node scripts/fitS2018.ts --outRate "$2" ;;
-  *) echo "usage: $0 setup | hash | checks <outRate> | fit <outRate>"; exit 1 ;;
+  trips) npx vite-node scripts/calibTrips.ts ;;
+  checks) npx vite-node scripts/checkS2018Window.ts --mode window && npx vite-node scripts/checkS2018Window.ts --mode dt ;;
+  fit) npx vite-node scripts/fitS2018.ts ;;
+  *) echo "usage: $0 setup | hash | trips | checks | fit"; exit 1 ;;
 esac
