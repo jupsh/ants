@@ -1,0 +1,392 @@
+{
+  "experiment": "Colony calibration: Mailleux et al. 1999 first recruiter in the nest (Table 2a, 1 / 4 / 8 d)",
+  "layer": "L0S1c (e2-3d-L0S1c.json)",
+  "fittedOn": [
+    "timeInNest.d1",
+    "timeInNest.d4",
+    "timeInNest.d8",
+    "distance.d1",
+    "distance.d4",
+    "distance.d8",
+    "contacts.d1",
+    "contacts.d4",
+    "contacts.d8",
+    "trophTotal.d1",
+    "trophTotal.d4",
+    "trophTotal.d8",
+    "contactsBefore.d1",
+    "contactsBefore.d4",
+    "contactsBefore.d8"
+  ],
+  "recruitersPerDay": 80,
+  "design": {
+    "sharedWarmup": true,
+    "recruitersPerNest": 4
+  },
+  "warmup": 900,
+  "dt": 0.025,
+  "tag": "pilot3",
+  "optimizer": {
+    "method": "CMA-ES",
+    "starts": 2,
+    "restarts": 1,
+    "maxGenerations": 60,
+    "tolX": 0.03,
+    "averageLast": 30,
+    "boundHandling": "Mod-BCH (Sakamoto & Akimoto 2017), box [0, 4], tolUpSigma 20"
+  },
+  "fixed": {
+    "nest.shareEnd": 0.0195
+  },
+  "evals": 2199,
+  "seconds": 3571.22,
+  "selectionLoss": 366.019111832545,
+  "runs": [
+    1356.6991816924635,
+    380.9936455755303,
+    366.019111832545
+  ],
+  "runDetails": [
+    {
+      "label": "start 0",
+      "run": 0,
+      "x0": [
+        4,
+        1.6900986225919077,
+        2.1679458768602426,
+        3.0000000000000004,
+        2.4967854023271396,
+        1.7448343358842524
+      ],
+      "initialSds": [
+        0.3,
+        0.02,
+        0.02,
+        0.3,
+        0.3,
+        0.3
+      ],
+      "lambda": null,
+      "generations": 60,
+      "evals": 540,
+      "finalSigma": 0.9223363020273275,
+      "avgWindow": 30,
+      "meanDrift": [
+        -0.01569777480419071,
+        0.15225105877141054,
+        0.1364747359230023,
+        -0.4675041337745478,
+        -1.5305037370238441,
+        -0.1072283914327945
+      ],
+      "stopReason": "maxGenerations",
+      "converged": false,
+      "gamma": [
+        7821.160009175682,
+        7821.160009175682,
+        7821.160009175682,
+        7821.160009175682,
+        7821.160009175682,
+        7821.160009175682
+      ],
+      "x": [
+        0.4977231180285499,
+        1.898174712551537,
+        2.1520347318831496,
+        3.8327761006086916,
+        0.9774556877093585,
+        1.2170467761073867
+      ],
+      "f": 1356.6991816924635,
+      "estimate": {
+        "nest.nestSpeedFactor": 0.032541244476345016,
+        "nest.returnRate": 0.024100427601389286,
+        "nest.shareRate": 0.01640932097415275,
+        "nest.shareEnd": 0.0195,
+        "nest.receiveReserve": 0.9665552201217384,
+        "nest.reserveSd": 0.12315602609688646,
+        "density": 0.6574843490171589
+      }
+    },
+    {
+      "label": "start 1",
+      "run": 1,
+      "x0": [
+        2.354367640271116,
+        2.0811506219509934,
+        2.1679458768602426,
+        3.0000000000000004,
+        2.4967854023271396,
+        2.7931603459492407
+      ],
+      "initialSds": [
+        0.02,
+        0.02,
+        0.3,
+        0.3,
+        0.3,
+        0.02
+      ],
+      "lambda": null,
+      "generations": 60,
+      "evals": 540,
+      "finalSigma": 2.6357571884028794,
+      "avgWindow": 30,
+      "meanDrift": [
+        -0.35860833568221806,
+        1.4081487858119415,
+        -0.8329001580179658,
+        -0.2194959847846505,
+        -1.2131880757302302,
+        -1.1171688120427086
+      ],
+      "stopReason": "maxGenerations",
+      "converged": false,
+      "gamma": [
+        1197.5073177410916,
+        1197.5073177410916,
+        1197.5073177410916,
+        1197.5073177410916,
+        1197.5073177410916,
+        1197.5073177410916
+      ],
+      "x": [
+        1.820169309301901,
+        3.5910097989358625,
+        2.677339377405409,
+        4,
+        2.988597158419002,
+        1.6134449708400995
+      ],
+      "f": 380.9936455755303,
+      "estimate": {
+        "nest.nestSpeedFactor": 0.11861326495760124,
+        "nest.returnRate": 0.48435218222140647,
+        "nest.shareRate": 0.02742899018444369,
+        "nest.shareEnd": 0.0195,
+        "nest.receiveReserve": 1,
+        "nest.reserveSd": 0.7869515384960909,
+        "density": 0.9008733307037233
+      }
+    },
+    {
+      "label": "restart 1",
+      "run": 2,
+      "x0": [
+        1.820169309301901,
+        3.5910097989358625,
+        2.677339377405409,
+        4,
+        2.988597158419002,
+        1.6134449708400995
+      ],
+      "initialSds": [
+        0.07353844436309569,
+        0.3,
+        0.13772275581420151,
+        0.3,
+        0.3,
+        0.10983522351994081
+      ],
+      "lambda": 18,
+      "generations": 60,
+      "evals": 1080,
+      "finalSigma": 0.5676499856525637,
+      "avgWindow": 30,
+      "meanDrift": [
+        -0.04354440559849726,
+        0.1771085961422072,
+        -0.04113854962692165,
+        0.16222110102463327,
+        0.4201551450514973,
+        -0.34352917830706153
+      ],
+      "stopReason": "maxGenerations",
+      "converged": false,
+      "gamma": [
+        1607.1325531524387,
+        1607.1325531524387,
+        1607.1325531524387,
+        1607.1325531524387,
+        1607.1325531524387,
+        1607.1325531524387
+      ],
+      "x": [
+        2.555915425770159,
+        4,
+        1.9807284753079126,
+        4,
+        3.2399317039914513,
+        1.9017358396640762
+      ],
+      "f": 366.019111832545,
+      "estimate": {
+        "nest.nestSpeedFactor": 0.24357679189724898,
+        "nest.returnRate": 1,
+        "nest.shareRate": 0.013878085611014522,
+        "nest.shareEnd": 0.0195,
+        "nest.receiveReserve": 1,
+        "nest.reserveSd": 0.9922274639381234,
+        "density": 1.1327636516495097
+      }
+    }
+  ],
+  "seeds": {
+    "scheme": "seedFor(1999, purpose, 0x8649292c, ...keys): fit (run, generation), cmaes (run), probe (run), select",
+    "study": 1999
+  },
+  "noBoutBound": 0.10883035576078481,
+  "provenance": {
+    "simHash": "8a1ebee91aa59042",
+    "commit": "18b78667e14a6fc528815ef87342fa2f0a7dd6d6",
+    "dirty": true,
+    "node": "v24.20.0",
+    "argv": [
+      "--layer",
+      "main",
+      "--dt",
+      "0.025",
+      "--warmup",
+      "900",
+      "--bch",
+      "--fix",
+      "shareEnd",
+      "--tag",
+      "pilot3",
+      "--gens",
+      "60"
+    ],
+    "date": "2026-10-11T00:14:19.208Z"
+  },
+  "k": 6,
+  "free": {
+    "nest.nestSpeedFactor": 0.24357679189724898,
+    "nest.returnRate": 1,
+    "nest.shareRate": 0.013878085611014522,
+    "nest.shareEnd": 0.0195,
+    "nest.receiveReserve": 1,
+    "nest.reserveSd": 0.9922274639381234,
+    "density": 1.1327636516495097
+  },
+  "atBound": [
+    "nest.returnRate",
+    "nest.receiveReserve"
+  ],
+  "nest": {
+    "restToActive": 0.008333333333333333,
+    "activeToRest": 0.005555555555555556,
+    "giveFrac": 0.1,
+    "receiveReserve": 1,
+    "shareEnd": 0.0195,
+    "stallTime": 3,
+    "partRefractory": 5,
+    "shareRate": 0.013878085611014522,
+    "leaveRate": 0.0033333333333333335,
+    "leaveCropFrac": 0.05,
+    "forageDriveSd": 1,
+    "leaveGain": 1.5,
+    "returnRate": 1,
+    "giveUpTime": 120,
+    "reserveSd": 0.9922274639381234,
+    "nestSpeedFactor": 0.24357679189724898
+  },
+  "density1999": 1.1327636516495097,
+  "params": {
+    "walk": {
+      "speed": 55.41107606391765,
+      "speedSdBetween": 0.2811567723111964,
+      "speedSdWithin": 0.3587457208467387,
+      "speedTau": 1.2434674811191244,
+      "meanFreePath": 10.079370624664397,
+      "g": 0.6037790001800335,
+      "jitter": 0.0014251144941529975,
+      "jitterTime": 0,
+      "turnRateTime": 0,
+      "turnDip": 0,
+      "turnDipTau": 0.25,
+      "stopTurnG": 1,
+      "stopHomePull": 0,
+      "pauseRate": 0.052917957368167186,
+      "pauseMean": 0.700448109160251,
+      "slopeSpeedK": 0.40753600717295324,
+      "slopePauseK": 1.0852347821015746,
+      "slopeJitterK": 0.9288189507766671,
+      "slopeSpeedSdK": 0.9464482809941557,
+      "geoRunGain": 0.03294786488082038,
+      "geoHeadingPull": 0.10184865039410958,
+      "geoTorque": 0,
+      "geoPolar": 0,
+      "slopeSpeedKSd": 0,
+      "homeRunBias": 0.5670750863131675,
+      "homeHeadingPull": 0.1272881357687236,
+      "homeRange": 76.51631881258147
+    },
+    "forager": {
+      "desiredFed": 0.9027526449702385,
+      "desiredHungry": 1.28658806559568,
+      "hungerScale": 0.3,
+      "desiredSd": 0.047716933971332615,
+      "stopHazard": 0.1617035092104739,
+      "stopEta": 4.3,
+      "stopPerVolume": 0,
+      "satiationOnTime": 0,
+      "nominalIntake": 0.0095,
+      "emptyPatience": 3,
+      "neverLayFraction": 0.07694308366293515,
+      "unsatisfiedLayProb": 0.2825686301412362,
+      "layIntensity": 0.13,
+      "layIntensitySd": 0.08,
+      "gasterBout": 0.25,
+      "arsMean": 184.81599119863068,
+      "arsRunScale": 0.4,
+      "homeGain": 1,
+      "homeRunScale": 3,
+      "compassBias": 0.08,
+      "searchMode": 1,
+      "arsMeanLay": 80,
+      "layRule": 0,
+      "layKappa": 10,
+      "layRatio50": 0.7,
+      "loadSlowdown": 0
+    },
+    "phys": {
+      "intakeRate": 0.009661243120898107,
+      "intakeSd": 0.07640894285550197,
+      "metabolic": 0.0012,
+      "activeFactor": 3,
+      "cropAbsorption": 0,
+      "permeability": 20,
+      "surfaceArea": 16,
+      "depositPerMm": 1,
+      "compassNoise": 0.0005,
+      "boutFastUl": 0.006984175416892337,
+      "boutFastRate": 0.05
+    },
+    "morph": {
+      "len": 4.1,
+      "mass": 2,
+      "cropCapacity": 2,
+      "antennaReach": 2.6,
+      "cropFullFrac": 0.98,
+      "reserveDays": 14
+    },
+    "nest": {
+      "restToActive": 0.008333333333333333,
+      "activeToRest": 0.005555555555555556,
+      "giveFrac": 0.1,
+      "receiveReserve": 1,
+      "shareEnd": 0.0195,
+      "stallTime": 3,
+      "partRefractory": 5,
+      "shareRate": 0.013878085611014522,
+      "leaveRate": 0.0033333333333333335,
+      "leaveCropFrac": 0.05,
+      "forageDriveSd": 1,
+      "leaveGain": 1.5,
+      "returnRate": 1,
+      "giveUpTime": 120,
+      "reserveSd": 0.9922274639381234,
+      "nestSpeedFactor": 0.24357679189724898
+    }
+  }
+}

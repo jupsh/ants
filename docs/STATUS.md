@@ -1071,3 +1071,21 @@ Extraction in `docs/research/buffin2011.md`.
   local-only Khuong segmentation port in `src/sim/reference/` is counted
   by `simHash`. Compare run hashes on clean clones. The port is not used
   by the colony runs.
+
+**2026-10-10 night — pilot3 (option A) result: A fails the adoption rule.**
+- **Fit** (k = 6, shareEnd fixed, Mod-BCH, dt 0.025, warm-up 900, 60
+  generations; `colony-m1999-main-shared-pilot3.json`):
+  - Selection-batch loss 366.0. Runs: start 0 1357, start 1 381,
+    restart 366. All three stopped at the generation cap without
+    converging. Pilot2 reached 317.6 on the model without A.
+  - Point: nestSpeedFactor 0.244, returnRate 1.00, shareRate 0.0139,
+    receiveReserve 1.00, reserveSd 0.99, density 1.13.
+  - **returnRate and receiveReserve are at their upper bounds.**
+  - Provenance: the old rsynced `~/ants` checkout (commit 18b7866, dirty,
+    simHash 8a1ebee9…), as for pilot2.
+- **Adoption rule (fixed in advance):** a parameter at a bound fails it,
+  whatever condition 4 and the dish check show. **A is not adopted.**
+  Those checks are still being run and logged for the record. Per the
+  rule, B is required.
+- **B pilot launched** in `~/antsB` once pilot3's fit had ended. The dish
+  check runs alongside it on one CPU.
