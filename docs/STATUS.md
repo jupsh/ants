@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-11 (session 4: plan review and STATUS cleanup; step 3 done — branch R ≤ 2, in-nest motion ≈ 10× slower than arena; step 4 next). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-11 (session 4: step 3 done; step 4a done; step 4b pre-fit checks: dt error being fixed). Keep this file current: update it whenever a step starts or finishes._
 
 Everything up to 2026-10-10 evening (session notes, step results, the full
 decisions log of about 4,500 lines) is in
@@ -45,10 +45,13 @@ Pages) when the user asks.
   Stroeymeyt foragers' short stays move like the 1999 recruiter. In the
   nest, ants are still ≈ 95 % of the time and move at ≈ 0.27 cm/s, ≈ 10×
   slower than option B's arena values (Decisions log, last entry).
-  **Next:** step 4, the Stroeymeyt nest in the simulation, its frame
-  observer and the cost timing; in parallel, our own contact observer
-  (approved 2026-10-11). The box is destroyed; none is rented before step
-  4 has been timed locally.
+  **Step 4 in progress:** 4a done (the Stroeymeyt set-up runs). 4b
+  (fit of in-nest motion, k = 10, 32 rows) is blocked on the pre-fit
+  checks: dt 0.1 vs 0.05 still fails on still-run rows (cause being
+  narrowed down, Decisions log, last entries); the trip calibration
+  (`calibTrips.ts`) is to be rerun on the final code; then the window
+  check, then the fit. A vast.ai box is rented (see the step-4b box entry
+  for access and set-up).
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
   adequate 1999 fit and the fit-protection checks, or, if the stopping
@@ -1190,3 +1193,21 @@ not taken.
   summed walking time of the step. Exact for rates constant within a step;
   by memorylessness the clock also carries over when another cause
   (encounter, bout, leaving) changes the mode.
+- **Exposure clock: most of the dt error is gone, not all** (de48823; dt
+  0.1 vs 0.05, start point, provisional trips): 8 of 16 rows still fail,
+  same sign as before (coarse dt less still), but the shifts are 3–4×
+  smaller: nurse still fraction −2.8 → −0.67 SE, P(still ≥ 10 s) forager
+  −6.4 → −2.5, nurse −7.1 → −0.6; still forager −0.36, runStill.mean
+  forager −0.40, P60 −0.55 / −0.57; all moving rows pass. A unit test
+  shows a lone ant's walking share is the same at dt 0.025, 0.1 and 0.5.
+  **Next suspect (logged before testing): encounter detection.** An
+  encounter is "a contact id not in contact last step". A coarse step
+  misses contacts shorter than dt, and at a fine step, contacts at the
+  edge of antenna reach flicker off and on and count again. Both make
+  coarse-dt ants stop less, which is the observed sign. The earlier noEnc
+  test could not show this while the switching error dominated. **Test:**
+  the dt check again with encounterStop 0, and with encounterStop 0 and
+  restCrowdExp 0. If the rows then pass, encounter detection is changed so
+  that it does not depend on dt (logged before changing it). If they still
+  fail, the remaining cause lies elsewhere (walls, walk-on rate read at
+  step start).
