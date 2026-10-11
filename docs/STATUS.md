@@ -1054,3 +1054,20 @@ Extraction in `docs/research/buffin2011.md`.
   (`~/antsB`), only if pilot3 is far from done. Workers are split; kills
   only by pid; each run's provenance and sim hash are recorded from its own
   checkout.
+- **B pilot set-up (decided):**
+  - **Not run beside pilot3.** Pilot3 is using 230 of the box's 245 CPUs,
+    about halfway (start 0 done at 60 generations; start 1 and the
+    restart remain), so a split would have only ≈ 15 workers.
+  - **Separate clean checkout:** `~/antsB` is a git clone of 89c8255 from
+    a bundle, clean, with node_modules copied. Its runner `runPilotB.sh`
+    runs the fit as pilot3 plus `--model B --tag pilotB` (60 generations,
+    SIM_WORKERS 230), then condition 4, the bout diagnostic (200 per day,
+    `--follow 600`) and the dish check (200 dishes).
+  - **Start:** a local watcher starts it once pilot3's check job has
+    exited, unless a fit is still running.
+  - **Box check:** the B stop-rate check runs on the box.
+- **Sim hash note:** the local working copy hashes differently
+  (ccb2970b…) from any clone (a2985fa3…, box = clean local clone). The
+  local-only Khuong segmentation port in `src/sim/reference/` is counted
+  by `simHash`. Compare run hashes on clean clones. The port is not used
+  by the colony runs.
