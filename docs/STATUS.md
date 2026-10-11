@@ -825,3 +825,14 @@ observer emits the same frame records, including missing detections).
   profile cut written for any k); a Stroeymeyt section collects the
   frozen rows and today's additions. RESUME and Plan rewritten around the
   current state (all 22 fit tracks in).
+
+**2026-10-11 — additions implemented; step 3 launched.**
+- `inNest.ts`: `speedMove` (moving-only speed, both thresholds),
+  `staySpeed.{300,1200,all}` with counts (< 5 stays → missing),
+  `noise.floorSpeed` (σ√π / 0.5 s, rms σ of the two axes), per-ant
+  `antN` / `antSd.still` / `antSd.speed` (ants with ≥ 30 min of in-nest
+  steps per phase). Synthetic tests with known answers
+  (`test/inNest.test.ts`, 15 pass; fast tier 127 pass).
+- Step 3: `npx vite-node scripts/stroeymeytRows.ts` on the 22 fit
+  colonies → `data/reference/stroeymeyt2018-fit-rows.json`, read under the
+  branch rule above.

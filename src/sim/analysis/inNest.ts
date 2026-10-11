@@ -31,6 +31,12 @@ export interface InNestConfig {
   noiseStillMm: number;
   /** Reads of one tag in one frame within this distance (mm) are one detection; farther apart, all are dropped. */
   dupTolMm: number;
+  /** Short-stay speed (Σ path / Σ duration) over complete forager stays up to each of these durations (s); all stays too. */
+  stayCutS: number[];
+  /** Fewer such stays in a colony × phase than this → the short-stay speed is missing. */
+  stayMinN: number;
+  /** Per-ant spreads use ants with at least this much in-nest step time in the phase (s). */
+  antMinS: number;
 }
 
 export const STROEYMEYT_CFG: InNestConfig = {
@@ -45,6 +51,9 @@ export const STROEYMEYT_CFG: InNestConfig = {
   runD: [1, 2, 5, 10, 30, 60, 300],
   noiseStillMm: 0.6,
   dupTolMm: 0.12,
+  stayCutS: [300, 1200],
+  stayMinN: 5,
+  antMinS: 1800,
 };
 
 export type Group = 'nurse' | 'forager';
@@ -62,8 +71,9 @@ export interface MotionCell {
   /** Σ step durations (s) and Σ displacements (mm). */
   time: number;
   path: number;
-  /** Σ durations of still steps (s), per threshold. */
+  /** Σ durations and Σ displacements of still steps (s, mm), per threshold. */
   stillTime: number[];
+  stillPath: number[];
   /** Complete still and moving runs, per threshold. */
   runsStill: RunHist[];
   runsMove: RunHist[];
@@ -84,6 +94,8 @@ export interface InNestColony {
   noise: { n: number; d1x: number; d1y: number; d2x: number; d2y: number };
   /** Detections and detection opportunities (frames from first to last detection), workers. */
   detection: { det: number; span: number };
+  /** Per ant with at least `antMinS` of in-nest steps in the phase: still fraction (primary threshold) and path speed (mm/s). */
+  perAnt: Record<`${Group}.${Phase}`, { still: number[]; speed: number[] }>;
 }
 
 const NONE = 0;
@@ -124,6 +136,8 @@ interface AntState {
   stays: StayTracker[];
   /** Recent consecutive in-nest positions for the noise estimate (frame, x, y). */
   hist: number[];
+  /** Own in-nest step time, path and still time (primary threshold), per phase. */
+  own: Record<Phase, { time: number; path: number; still: number }>;
 }
 
 function motionCell(k: number): MotionCell {
@@ -131,6 +145,7 @@ function motionCell(k: number): MotionCell {
     time: 0,
     path: 0,
     stillTime: new Array(k).fill(0),
+    stillPath: new Array(k).fill(0),
     runsStill: Array.from({ length: k }, () => []),
     runsMove: Array.from({ length: k }, () => []),
   };
@@ -174,6 +189,7 @@ export class InNestAccumulator {
         inside: false, entryFrame: 0, entryPhase: 'light' as Phase, entryCum: 0,
       })),
       hist: [],
+      own: { light: { time: 0, path: 0, still: 0 }, dark: { time: 0, path: 0, still: 0 } },
     }));
     const motion = {} as InNestColony['motion'];
     for (const g of GROUPS) for (const p of PHASES) motion[`${g}.${p}`] = motionCell(k);
@@ -183,6 +199,7 @@ export class InNestAccumulator {
       density: { light: { sum: 0, frames: 0 }, dark: { sum: 0, frames: 0 } },
       noise: { n: 0, d1x: 0, d1y: 0, d2x: 0, d2y: 0 },
       detection: { det: 0, span: 0 },
+      perAnt: { 'nurse.light': { still: [], speed: [] }, 'nurse.dark': { still: [], speed: [] }, 'forager.light': { still: [], speed: [] }, 'forager.dark': { still: [], speed: [] } },
     };
   }
 
@@ -237,11 +254,19 @@ export class InNestAccumulator {
         const d = hypot(x - a.lastX, y - a.lastY);
         a.cumPath += d;
         const cell = this.out.motion[`${a.role}.${phase}`];
-        cell.time += g * this.cfg.frameDt;
+        const dt = g * this.cfg.frameDt;
+        cell.time += dt;
         cell.path += d;
+        const own = a.own[phase];
+        own.time += dt;
+        own.path += d;
         for (let k = 0; k < this.cfg.stillMm.length; k++) {
           const s = d / g < this.cfg.stillMm[k] ? STILL : MOVE;
-          if (s === STILL) cell.stillTime[k] += g * this.cfg.frameDt;
+          if (s === STILL) {
+            cell.stillTime[k] += dt;
+            cell.stillPath[k] += d;
+            if (k === 0) own.still += dt;
+          }
           this.runStep(a.runs[k], s, g, cell, k);
         }
       } else {
@@ -336,10 +361,18 @@ export class InNestAccumulator {
     const det = this.out.detection;
     det.det = 0;
     det.span = 0;
+    for (const v of Object.values(this.out.perAnt)) v.still.length = v.speed.length = 0;
     for (const a of this.ants) {
       if (a.role === 'queen' || a.firstFrame < 0) continue;
       det.det += a.det;
       det.span += a.lastFrame - a.firstFrame + 1;
+      for (const p of PHASES) {
+        const o = a.own[p];
+        if (o.time < this.cfg.antMinS) continue;
+        const v = this.out.perAnt[`${a.role}.${p}`];
+        v.still.push(o.still / o.time);
+        v.speed.push(o.path / o.time);
+      }
     }
     return this.out;
   }
@@ -381,7 +414,9 @@ function median(v: number[]): number {
 
 /**
  * Row values of one colony, keyed by row id. Speeds in mm/s, durations in s,
- * paths in mm, density in ants/cm², noise σ in mm.
+ * paths in mm, density in ants/cm², noise σ in mm. Besides the frozen rows
+ * (STATUS 2026-10-10 night): moving-only speed, short-stay speed, the
+ * noise-floor speed and per-ant spreads (STATUS 2026-10-11).
  */
 export function colonyRows(c: InNestColony, cfg: InNestConfig = STROEYMEYT_CFG): Record<string, number> {
   const r: Record<string, number> = {};
@@ -390,9 +425,15 @@ export function colonyRows(c: InNestColony, cfg: InNestConfig = STROEYMEYT_CFG):
       const m = c.motion[`${g}.${p}`];
       const key = `${g}.${p}`;
       r[`speed.${key}`] = m.time ? m.path / m.time : NaN;
+      const ants = c.perAnt[`${g}.${p}`];
+      r[`antN.${key}`] = ants.still.length;
+      r[`antSd.still.${key}`] = meanSd(ants.still).sd;
+      r[`antSd.speed.${key}`] = meanSd(ants.speed).sd;
       cfg.stillMm.forEach((thr, k) => {
         const tag = k === 0 ? '' : `@${thr}`;
         r[`still${tag}.${key}`] = m.time ? m.stillTime[k] / m.time : NaN;
+        const moveTime = m.time - m.stillTime[k];
+        r[`speedMove${tag}.${key}`] = moveTime > 0 ? (m.path - m.stillPath[k]) / moveTime : NaN;
         for (const [name, h] of [['runStill', m.runsStill[k]], ['runMove', m.runsMove[k]]] as const) {
           const s = runSummary(h, cfg.frameDt, cfg.runD);
           r[`${name}${tag}.n.${key}`] = s.n;
@@ -411,6 +452,20 @@ export function colonyRows(c: InNestColony, cfg: InNestConfig = STROEYMEYT_CFG):
       r[`stay${tag}.mean.${p}`] = s.dur.length ? s.dur.reduce((a, b) => a + b, 0) / s.dur.length : NaN;
       r[`stay${tag}.median.${p}`] = median(s.dur);
       r[`stay${tag}.path.${p}`] = s.path.length ? s.path.reduce((a, b) => a + b, 0) / s.path.length : NaN;
+      for (const cut of [...cfg.stayCutS, Infinity]) {
+        const name = `staySpeed${tag}.${cut === Infinity ? 'all' : cut}`;
+        let n = 0;
+        let dur = 0;
+        let path = 0;
+        s.dur.forEach((d, i) => {
+          if (d > cut) return;
+          n++;
+          dur += d;
+          path += s.path[i];
+        });
+        r[`${name}.n.${p}`] = n;
+        r[`${name}.${p}`] = n >= cfg.stayMinN ? path / dur : NaN;
+      }
     }
   });
   for (const p of PHASES) r[`density.${p}`] = c.density[p].frames ? c.density[p].sum / c.density[p].frames : NaN;
@@ -418,6 +473,10 @@ export function colonyRows(c: InNestColony, cfg: InNestConfig = STROEYMEYT_CFG):
   r['noise.x'] = n.n ? Math.sqrt(n.d2x / n.n / 6) : NaN;
   r['noise.y'] = n.n ? Math.sqrt(n.d2y / n.n / 6) : NaN;
   r['noise.white'] = n.n ? (n.d1x + n.d1y) / 2 / ((n.d2x + n.d2y) / 6) : NaN;
+  // Path speed of a perfectly still ant under white noise: one step's
+  // displacement has per-axis SD σ√2, so its mean length is σ√π (rms σ
+  // over the two axes; exact when they are equal).
+  r['noise.floorSpeed'] = n.n ? (Math.sqrt(Math.PI * (r['noise.x'] ** 2 + r['noise.y'] ** 2) / 2)) / cfg.frameDt : NaN;
   r['detection'] = c.detection.span ? c.detection.det / c.detection.span : NaN;
   return r;
 }

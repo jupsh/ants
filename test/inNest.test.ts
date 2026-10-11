@@ -5,8 +5,8 @@ import { acrossColonies, colonyRows, InNestAccumulator, runSummary, STROEYMEYT_C
 /** Position of each ant at a frame, or null when not detected; inNest decided by y ≤ 40. */
 type Script = (ant: number, frame: number) => [number, number] | null;
 
-function feed(roles: AntRole[], frames: number, script: Script, utcHour: (f: number) => number = () => 12) {
-  const acc = new InNestAccumulator(roles);
+function feed(roles: AntRole[], frames: number, script: Script, utcHour: (f: number) => number = () => 12, cfg = STROEYMEYT_CFG) {
+  const acc = new InNestAccumulator(roles, cfg);
   for (let f = 0; f < frames; f++) {
     const ids: number[] = [];
     const xs: number[] = [];
@@ -22,7 +22,7 @@ function feed(roles: AntRole[], frames: number, script: Script, utcHour: (f: num
     });
     acc.frame(f, utcHour(f), ids.length, ids, xs, ys, ins);
   }
-  return colonyRows(acc.result());
+  return colonyRows(acc.result(), cfg);
 }
 
 describe('in-nest rows (Stroeymeyt 2018 definitions)', () => {
@@ -92,6 +92,61 @@ describe('in-nest rows (Stroeymeyt 2018 definitions)', () => {
     expect(r['stay@db1.n.light']).toBe(19);
     // Nurses never contribute stays.
     expect(feed(['nurse'], 300, script)['stay.n.light']).toBe(0);
+  });
+
+  it('moving-only speed leaves still steps out', () => {
+    // Still 10 frames, then 4 frames at 2 mm/frame (4 mm/s), repeated.
+    let x = 0;
+    const pos: number[] = [];
+    for (let f = 0; f < 14 * 30; f++) {
+      if (f % 14 >= 10) x += 2;
+      pos.push(x);
+    }
+    const r = feed(['nurse'], pos.length, (_, f) => [pos[f], 10]);
+    expect(r['speedMove.nurse.light']).toBeCloseTo(4, 10);
+    expect(r['speed.nurse.light']).toBeCloseTo((4 * 4) / 14, 1);
+    expect(feed(['nurse'], 100, () => [5, 5])['speedMove.nurse.light']).toBeNaN();
+  });
+
+  it('short-stay speed: Σ path / Σ duration over stays up to the cut, missing below the minimum count', () => {
+    // As the stays test: 9 complete stays of 10 s with 17 mm of path each.
+    const script: Script = (_, f) => {
+      const c = f % 30;
+      if (c < 10) return [0, 60];
+      if (c === 20) return [c - 10, 50];
+      return [c - 10, 20];
+    };
+    const r = feed(['forager'], 300, script);
+    expect(r['staySpeed.300.light']).toBeCloseTo(1.7, 10);
+    expect(r['staySpeed.300.n.light']).toBe(9);
+    expect(r['staySpeed.all.light']).toBeCloseTo(1.7, 10);
+    // A cut below the stays' length: none qualify, so the speed is missing.
+    const short = feed(['forager'], 300, script, () => 12, { ...STROEYMEYT_CFG, stayCutS: [5] });
+    expect(short['staySpeed.5.n.light']).toBe(0);
+    expect(short['staySpeed.5.light']).toBeNaN();
+    // Fewer stays than the minimum count: missing too.
+    const few = feed(['forager'], 300, script, () => 12, { ...STROEYMEYT_CFG, stayMinN: 10 });
+    expect(few['staySpeed.300.light']).toBeNaN();
+  });
+
+  it('per-ant spreads over ants with enough in-nest time', () => {
+    // 4000 frames = 2000 s: one still nurse, one walking at 4 mm/s; a third
+    // nurse seen for 1000 s only is left out.
+    const r = feed(['nurse', 'nurse', 'nurse'], 4000, (i, f) =>
+      i === 0 ? [5, 5] : i === 1 ? [10 + (f % 20 < 10 ? 2 * (f % 10) : 20 - 2 * (f % 10)), 20] : f < 2000 ? [30, 30] : null,
+    );
+    expect(r['antN.nurse.light']).toBe(2);
+    expect(r['antSd.still.nurse.light']).toBeCloseTo(Math.SQRT1_2, 10);
+    expect(r['antSd.speed.nurse.light']).toBeCloseTo(4 * Math.SQRT1_2, 10);
+    expect(r['antN.forager.light']).toBe(0);
+    expect(r['antSd.still.forager.light']).toBeNaN();
+  });
+
+  it('noise floor: still ants under white noise walk at the floor speed', () => {
+    const rng = new RNG(11);
+    const r = feed(['nurse', 'nurse'], 20000, () => [10 + rng.normal(0, 0.05), 10 + rng.normal(0, 0.05)]);
+    expect(r['noise.floorSpeed']).toBeCloseTo((0.05 * Math.sqrt(Math.PI)) / 0.5, 2);
+    expect(r['speed.nurse.light'] / r['noise.floorSpeed']).toBeCloseTo(1, 1);
   });
 
   it('splits light and dark by UTC hour', () => {
