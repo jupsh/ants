@@ -1024,3 +1024,33 @@ Extraction in `docs/research/buffin2011.md`.
   Then a B pilot (as pilot3, `--model B --tag pilotB`; k = 5) and
   condition 4, the bout diagnostic and the dish check, under the adoption
   rule.
+
+**2026-10-10 night — option B spec approved (user; logged before the B pilot).**
+- **B1 (castes): approved.** The recruiter uses the forager values and
+  nestmates use the brood-tender values. Both come from the same paper, so
+  the castes are consistent. Sensitivity: all nestmates foragers
+  (`foragerFrac` 1).
+- **B2 (derived speeds 0.809 / 0.641): approved.** Speed is not freed
+  again: if B misses the distance rows (5–9 cm per stay), that is reported
+  as a finding.
+- **B3 (observed contact = antennal-contact episode ≥ 0.04 s): approved,
+  with disclosure.** Like the 1 s rule, this threshold was chosen with the
+  model in view. The 0.04 s figure is Depickère et al. 2004's video
+  precision, and no simulated contact durations under B were looked at
+  when choosing it. Sources: pair lifetimes 0.27–0.53 s (Nicolis 2005)
+  and duo break rates 0.38–3.72 /s (Depickère 2004). ≥ 1 s stays as a
+  sensitivity check (`--contactMin 1`).
+- **Decision (not in the original spec): walker pauses off in the nest
+  under B** (`nestPauseFactor` 0, derived). Depickère's stop process
+  (spontaneous stops at pS, walk-on at a·N^−b; a forager's lone stop lasts
+  0.26 s) is measured from video at 0.04 s, so it includes the short pauses
+  the E1 walker produces itself. Keeping both would count stops twice. The
+  B2 speeds were derived with pauses off for the same reason (3-s
+  *moving* paths). Outside the nest the walker keeps its pauses.
+- **Main risk (agreed):** stop rates measured in lit arenas at ≈ 0.1
+  ants/cm² may not carry over to a dark nest at 0.5–2 /cm². Density is
+  free; a distance miss is informative.
+- **Running B beside pilot3:** in a separate checkout on the box
+  (`~/antsB`), only if pilot3 is far from done. Workers are split; kills
+  only by pid; each run's provenance and sim hash are recorded from its own
+  checkout.
