@@ -1189,7 +1189,7 @@ Extraction in `docs/research/buffin2011.md`.
     Zenodo (doi:10.5281/zenodo.1322669, CC-BY 4.0). Could give in-nest
     speeds, active fractions and stop durations, or serve as held-out
     colony data.
-  - **Planckaert et al. 2019** (Sci. Rep. 9:15620?; doi:10.1038/s41598-019-52019-6):
+  - **Planckaert et al. 2019** (Sci. Rep. 2019; doi:10.1038/s41598-019-52019-6):
     spatiotemporal trophallaxis in starved *L. niger* nests. Same lab and
     probably the same experiments as E6 (Bles et al. 2022), so reading it
     would be E6 development exposure.
