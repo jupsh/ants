@@ -122,7 +122,7 @@ describe('nest worker: bouts (STATUS 2026-10-10)', () => {
     const { m } = giver(0);
     m.stay.parted = [{ id: 7, since: 0 }];
     enterNest(m);
-    expect(m.stay).toEqual({ bout: null, parted: [], sinceGive: 0, touching: [] });
+    expect(m.stay).toEqual({ bout: null, parted: [], sinceGive: 0, touching: [], spell: 0 });
     expect(m.mode).toBe('active');
   });
 });
@@ -207,5 +207,27 @@ describe('forager: successive trips', () => {
     const per = { ...basicPercept(0.1, 0, 0, 22), food: { id: 7, kind: 'sugar' as const, molar: 0.6, available: true } };
     lasiusForager(per, io(0, 0, 0.7), m, P.forager, rng);
     expect(m.mode).toBe('drink');
+  });
+});
+
+describe('nest worker: rest/walk switching in continuous time (STATUS 2026-10-11)', () => {
+  /** Fraction of time walked by a lone ant switching at rates `off` (walk → rest) and `on` (rest → walk), at step dt. */
+  function walkedFraction(dt: number, off: number, on: number, steps: number) {
+    const rng = new RNG(5);
+    const m = newMind(traits, P.walk, rng);
+    enterNest(m);
+    const p = { ...LASIUS_NEST, activeToRest: off, restToActive: on, leaveRate: 0 };
+    const per = { ...basicPercept(dt, 0, 0, 22, 0), inNest: true, contacts: [] };
+    let walked = 0;
+    for (let k = 0; k < steps; k++) {
+      const a = lasiusNestWorker(per, io(0, 0, 0.99), m, p, rng);
+      if (!a.stand) walked += a.walkFrac ?? 1;
+    }
+    return walked / steps;
+  }
+
+  it('the walked fraction is on / (on + off) at any step, also when spells are shorter than a step', () => {
+    // Walking spells of 1/3 s, rests of 2 s: expected 1/7.
+    for (const dt of [0.025, 0.1, 0.5]) expect(walkedFraction(dt, 3, 0.5, Math.round(40000 / dt))).toBeCloseTo(1 / 7, 2);
   });
 });

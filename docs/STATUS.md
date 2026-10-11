@@ -1174,3 +1174,19 @@ not taken.
   the step, through a percept with dt × fraction (the walker places its
   own pauses in continuous time, so a partial step is exact). The dt
   checks are rerun, 0.1 vs 0.05 first.
+- **Within-step switching did not fix it** (dt 0.1 vs 0.05: P(still ≥ 10
+  s) −5.8 / −6.1 SE, nurse still fraction −2.4). A single nurse alone in
+  the nest (6 × 4 h per dt) shows the shift too (still 0.9456 / 0.9487 /
+  0.9522 at dt 0.1 / 0.05 / 0.025), also with walker pauses off, but not
+  for an ant that never rests (0.0467 / 0.0470 / 0.0478): the error is in
+  the rest/walk switching of one ant, not in interactions. Why the fix
+  failed: a spell that starts inside a step cannot end in the rest of that
+  step (the next hazard check is at the next step), so spells are still
+  ≈ dt/2 too long. **Fix (exact):** one unit-rate exposure clock per ant,
+  as the walker uses for its pauses: draw E ~ Exp(1); in each step the
+  current mode's rate (activeToRest, or the crowd-dependent walk-on rate)
+  accumulates exposure, and the mode switches exactly when it reaches E,
+  as many times as that happens inside the step; the ant walks for the
+  summed walking time of the step. Exact for rates constant within a step;
+  by memorylessness the clock also carries over when another cause
+  (encounter, bout, leaving) changes the mode.
