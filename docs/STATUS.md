@@ -1469,3 +1469,19 @@ observer emits the same frame records, including missing detections).
 - **Across colonies:** row values are per colony; the target is the mean
   over the 22 colonies, with SE = SD / √22 (colony blocks). Treatment
   (sham vs pathogen) is ignored, since all of this is PreTreatment.
+
+**2026-10-10 night — Stroeymeyt rows: repeated tag reads (data-quality rule added after one fit colony's output).**
+- Statistics code: `src/sim/analysis/inNest.ts` (`InNestAccumulator`,
+  `colonyRows`, `acrossColonies`), tests `test/inNest.test.ts` (synthetic
+  colonies with known answers); data reducer `scripts/stroeymeytRows.ts`
+  (≈ 10 s per colony).
+- **Found on colony209 (a fit colony; its output was inspected):** the
+  tracking files list most tags twice in a frame, ≈ 10 tags per frame,
+  and 99.99 % of the repeats are within 2 px of each other, so they are
+  double reports of one detection. A first rule (drop every repeated tag)
+  gave zero-frame runs and cut detection to 0.75. **Rule now:** reads
+  of one tag in one frame within 0.12 mm (≈ 5 px) are one detection
+  (the first is kept); if any read is farther away (0.0006 % of repeats in
+  colony209, > 100 px: misreads), all that tag's reads in the frame are
+  dropped. Counts are reported per colony. This is a data-cleaning rule,
+  not a row change; simulated colonies never produce repeats.
