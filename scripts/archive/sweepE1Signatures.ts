@@ -8,17 +8,17 @@
  *
  * Usage: npx vite-node scripts/sweepE1Signatures.ts [--sets 300] [--ants 150] [--fitAnts 2000] [--inclines 1,5] [--out f.json]
  */
-import { STOP_IDS, stopCheckSample } from '../src/sim/analysis/e1StopChecks';
-import { TURN_IDS, turnCheckSample } from '../src/sim/analysis/e1TurnChecks';
-import { KHUONG_PREP, prepareTrack, type Track } from '../src/sim/analysis/trajectory';
-import { diagSample } from '../src/sim/analysis/walkDiagnostics';
-import { RNG } from '../src/sim/core/rng';
-import { sampleFor } from '../src/sim/experiments/e1Compare';
-import { walkParams, type WalkParams } from '../src/sim/models/walk';
-import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { decode, encode, logit, specsFor } from './e1Specs';
-import { arg, INCLINES, loadKhuong, numArg, readJson, writeJson } from './lib';
-import { SimPool } from './pool';
+import { STOP_IDS, stopCheckSample } from '../../src/sim/analysis/e1StopChecks';
+import { TURN_IDS, turnCheckSample } from '../../src/sim/analysis/e1TurnChecks';
+import { KHUONG_PREP, prepareTrack, type Track } from '../../src/sim/analysis/trajectory';
+import { diagSample } from '../../src/sim/analysis/walkDiagnostics';
+import { RNG } from '../../src/sim/core/rng';
+import { sampleFor } from '../../src/sim/experiments/e1Compare';
+import { walkParams, type WalkParams } from '../../src/sim/models/walk';
+import { khuongTracking } from '../../src/sim/species/lasiusM1';
+import { decode, encode, logit, specsFor } from '../e1Specs';
+import { arg, INCLINES, loadKhuong, numArg, readJson, writeJson } from '../lib';
+import { SimPool } from '../pool';
 
 /** Uniform draws over the fit ranges, plus local draws around the fitted point (STATUS 2026-10-09 amendment). */
 const SETS = numArg('--sets', 150);

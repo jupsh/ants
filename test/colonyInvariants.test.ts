@@ -41,8 +41,9 @@ function checkRun(P: ColonyParams, o: ColonyOptions, recruiterLeft?: { at: numbe
   let prevBout: (number | null)[] = [];
   let prevMode: string[] = [];
   let unmatched: number[] = [];
-  // Pair (i, j) whose bout ended and who have stayed in contact since: a new bout between them is a violation.
-  const parted = new Set<string>();
+  // Pair (i, j) whose bout ended and who have stayed in contact since → time of the ending: a new bout between them
+  // within partRefractory is a violation (STATUS 2026-10-10 night; before: at any time while in contact).
+  const parted = new Map<string, number>();
   const drankAt = new Map<number, Set<number>>();
   let prevCrop: number[] = [];
   runColony(P, o, (w, info) => {
@@ -80,17 +81,18 @@ function checkRun(P: ColonyParams, o: ColonyOptions, recruiterLeft?: { at: numbe
       if (m.stay.bout && m.stay.bout.stall > nest.stallTime + (o.dt ?? 0.1) + 1e-9) fail(`ant ${i} stalled ${m.stay.bout.stall} s`);
       // 3. No restart with the same partner while in contact since the bout ended.
       const contacts = new Set((info.per[i]?.contacts ?? []).map((c) => c.id));
-      for (const key of [...parted]) {
+      for (const key of [...parted.keys()]) {
         const [a, b] = key.split('>').map(Number);
         if (a === i && !contacts.has(b)) parted.delete(key);
       }
       if (prevBout[i] != null && j !== prevBout[i]) {
         counts.boutsEnded++;
-        parted.add(`${i}>${prevBout[i]}`);
+        parted.set(`${i}>${prevBout[i]}`, info.t);
       }
       if (j !== null && prevBout[i] !== j) {
         counts.boutsStarted++;
-        if (parted.has(`${i}>${j}`)) fail(`ant ${i} restarted a bout with ${j} while still in contact since the last one`);
+        const ended = parted.get(`${i}>${j}`);
+        if (ended !== undefined && info.t - ended < nest.partRefractory - 1e-9) fail(`ant ${i} restarted a bout with ${j} ${(info.t - ended).toFixed(2)} s after the last one, still in contact (refractory ${nest.partRefractory} s)`);
       }
       // 6. Transfer only within matching bouts: crop changes from sharing need the pair in each other's bout.
       const body = ants[i].body;

@@ -1,6 +1,6 @@
 /**
  * E1 stop-rate and turn-linked speed checks (moved unchanged from
- * scripts/diagE1Turns.ts, STATUS 2026-10-09, so the selection rule can run
+ * scripts/archive/diagE1Turns.ts, STATUS 2026-10-09, so the selection rule can run
  * them in code). Same code on recorded and simulated tracks.
  *
  *   1. Stop episodes (forward 0.2 s speed < 2 mm/s, as in diagTrack) per

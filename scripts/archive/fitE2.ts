@@ -14,12 +14,12 @@
  * Writes data/fits/e2-<variant>.json.
  */
 import fs from 'node:fs';
-import { nelderMead } from '../src/sim/analysis/optimize';
-import { e2Compare, e2Loss, e2Table, simulateE2Async, E2_TARGETS } from '../src/sim/experiments/e2Targets';
-import { decode, encode, freeValues, E2_VARIANTS, type E2Model } from '../src/sim/experiments/e2Variants';
-import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
-import { arg, readJson } from './lib';
-import { SimPool } from './pool';
+import { nelderMead } from '../../src/sim/analysis/optimize';
+import { e2Compare, e2Loss, e2Table, simulateE2Async, E2_TARGETS } from '../../src/sim/experiments/e2Targets';
+import { decode, encode, freeValues, E2_VARIANTS, type E2Model } from '../../src/sim/experiments/e2Variants';
+import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../../src/sim/species/lasiusM1';
+import { arg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const N = 150;
 const DT = 0.1;

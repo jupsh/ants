@@ -13,13 +13,13 @@
  *
  * Usage: npx vite-node scripts/regE2Drops.ts [--fit data/fits/e2-drinking.json] [--n 3000] [--seed s]
  */
-import { bootstrapDraws, olsFit } from '../src/sim/analysis/compare';
-import type { ScoutResult } from '../src/sim/experiments/e2Mailleux';
-import { RNG } from '../src/sim/core/rng';
-import { E2_CONDITIONS } from '../src/sim/experiments/e2Targets';
-import { modelOf } from './e2Synthetic';
-import { arg, numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import { bootstrapDraws, olsFit } from '../../src/sim/analysis/compare';
+import type { ScoutResult } from '../../src/sim/experiments/e2Mailleux';
+import { RNG } from '../../src/sim/core/rng';
+import { E2_CONDITIONS } from '../../src/sim/experiments/e2Targets';
+import { modelOf } from '../e2Synthetic';
+import { arg, numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const { P, setup } = modelOf(readJson<any>(arg('--fit', 'data/fits/e2-drinking.json')));
 const N = numArg('--n', 3000);

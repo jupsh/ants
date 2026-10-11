@@ -51,6 +51,10 @@ export const REFS: Record<string, Ref> = {
     full: 'Mailleux AC, Deneubourg JL, Detrain C (2009) Food transport in ants: do Lasius niger foragers maximize their individual load? C R Biologies 332:500–506. Two-drop experiment; individual drinking model (0.01 µL/s, η = 4.3, Vc = 1 µL).',
     url: 'https://comptes-rendus.academie-sciences.fr/biologies/item/10.1016/j.crvi.2008.10.005.pdf',
   },
+  buffin2011: {
+    short: 'Buffin et al. 2011',
+    full: 'Buffin A, Mailleux AC, Detrain C, Deneubourg JL (2011) Trophallaxis in Lasius niger: a variable frequency and constant duration for three food types. Insect Soc 58:177–183. Exponential trophallaxis durations (constant stopping hazard); sucrose fed→starved 29 ± 28 s, hazard 0.039 /s, n 66 (Table 2).',
+  },
   bles2022: {
     short: 'Bles et al. 2022',
     full: 'Bles O, Deneubourg JL, Sueur C, Nicolis SC (2022) A data-driven simulation of the trophallactic network and intranidal food flow dissemination in ants. Animals 12:2963.',

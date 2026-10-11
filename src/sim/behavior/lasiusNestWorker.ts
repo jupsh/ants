@@ -48,6 +48,8 @@ export interface NestParams {
   /** Ending hazard of a sharing bout (1/s) and the no-flow timeout (s). */
   shareEnd: number;
   stallTime: number;
+  /** A former partner may be shared with again after this long even if contact was never lost (s; ∞ = only after contact is lost). */
+  partRefractory: number;
   /** Transfer rate (µL/s). */
   shareRate: number;
   /** Base rate (1/s) at which a hungry ant with an empty crop leaves to forage; SD of log forageDrive. */
@@ -122,10 +124,10 @@ function startBout(m: Mind, partner: number, mode: 'give' | 'receive'): void {
   setMode(m, mode);
 }
 
-/** A bout ends (either side, any reason): the two part; the partner is excluded until contact with it is lost. */
+/** A bout ends (either side, any reason): the two part; the partner is excluded until contact with it is lost or `partRefractory` has passed. */
 function endBout(m: Mind): void {
   const j = m.stay.bout?.partner ?? -1;
-  if (j >= 0 && !m.stay.parted.includes(j)) m.stay.parted.push(j);
+  if (j >= 0) m.stay.parted = [...m.stay.parted.filter((q) => q.id !== j), { id: j, since: 0 }];
   m.stay.bout = null;
   setMode(m, 'active');
 }
@@ -162,7 +164,7 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
   const stay = m.stay;
   stay.sinceGive = io.mouthFlow < 0 ? 0 : stay.sinceGive + per.dt;
   // After a bout the two ants part: each former partner becomes eligible again once antennal contact with it is lost.
-  if (stay.parted.length) stay.parted = stay.parted.filter((j) => per.contacts.some((x) => x.id === j));
+  if (stay.parted.length) stay.parted = stay.parted.map((q) => ({ id: q.id, since: q.since + per.dt })).filter((q) => q.since < p.partRefractory && per.contacts.some((x) => x.id === q.id));
 
   if (m.mode === 'give' || m.mode === 'receive') {
     const bout = stay.bout!;
@@ -190,7 +192,7 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
 
   // Start sharing with a nestmate in antennal contact (the nearest suitable one): not a former partner still in
   // contact, and not one that is sharing with another ant.
-  const free = (c: ContactPercept) => !stay.parted.includes(c.id) && (!c.sharing || c.sharingWithMe);
+  const free = (c: ContactPercept) => !stay.parted.some((q) => q.id === c.id) && (!c.sharing || c.sharingWithMe);
   const pick = (ok: (c: ContactPercept) => boolean) => per.contacts.filter((c) => free(c) && ok(c)).sort((a, b) => a.dist - b.dist || a.id - b.id)[0];
   if (per.inNest && m.mode !== 'leave') {
     // Donors offer only to soliciting nestmates (STATUS 2026-10-10); hungry ants accept from offering ones.

@@ -20,17 +20,25 @@ when a step starts or finishes, and log decisions there before acting on them.
   per-individual RNG streams, joined in order. Reduce in the worker where
   possible (e.g. `pool.e1Sample` returns per-ant summaries, not tracks):
   serial statistics on the main process were 60 % of E1 fit time.
+  - Colony (Mailleux 1999, current work): `fitM1999.ts --layer main|alt
+    [--dt] [--warmup] [--tag]`, `reportM1999.ts` (judging, frozen rule),
+    `convergeM1999.ts --vary dt|warmup [--levels a,b]` (equivalence gate),
+    `identM1999.ts [--n]`, `decompM1999.ts [--fit f] [--levels a,b]` (dt
+    decomposition of the stay, the gate's seeds), test points from
+    `m1999Points.ts`; dt diagnostics `diagDt*.ts`.
   - Fits (write `data/fits/*.json`): `fitE1.ts --variant A0|B` (step-5
     candidates → `e1-<variant>.json`; `e1-walk.json` is the adopted fit),
-    `fitE2.ts --variant
-    Ma|Mb|Mc|Mc0|Md`, `fitE6TEC.ts` — minutes with the pool.
+    `fitE2c.ts` (step-3c/3d E2 fits; `profileE2c.ts`, `recoverE2c.ts`,
+    `selectE2.ts`), `fitE6TEC.ts` — minutes with the pool.
   - Judge without writing: `reportE1.ts [--fit f]` (~9 s), `diagE1.ts
     [--fit f]` (step-5 structure diagnostics, data vs model),
     `diagE1Stops.ts [--fits A0=f,B=g] [--clean]` (stop reorientation, within- vs
     between-ant speed–turning), `reportE1Ref.ts [--fits walk,A0,T]`
-    (our walkers vs the Khuong/Bonavita reference walkers), `scanE1.ts` (loss on a 2-parameter grid), `selectE1.ts --a f --b g`
-    (draft A0 vs T selection rule, real or recovery data; parked), `reportE2.ts [--walk f] [--seed s]` (~9 s),
-    `reportE6.ts [--fit]` (~4 s), `compareE2.ts`, `identifyE2.ts --variant X`.
+    (our walkers vs the Khuong/Bonavita reference walkers), `reportE2.ts
+    [--alt] [--out f] [--walk f] [--seed s]` (~9 s), `reportE6.ts [--fit]` (~4 s).
+  - Finished one-off studies and superseded fits (`fitE2.ts`, `compareE2.ts`,
+    `identifyE2.ts`, `scanE1.ts`, `selectE1.ts`, …) are in `scripts/archive/`
+    (index in its README); they still run.
   - Profiling: `node --cpu-prof node_modules/.bin/vite-node <script>` and sum
     self time per function from the `.cpuprofile`.
 - Pages open on **precomputed results** for their default settings
@@ -128,7 +136,7 @@ when a step starts or finishes, and log decisions there before acting on them.
   `/sys/fs/cgroup/cpu.max`), and cap Rolldown's per-process threads or
   hundreds of workers exceed the task limit: `RAYON_NUM_THREADS=2
   ROLLDOWN_WORKER_THREADS=2 ROLLDOWN_MAX_BLOCKING_THREADS=4
-  UV_THREADPOOL_SIZE=2`. Node via `. /opt/nvm/nvm.sh`; install the local
+  UV_THREADPOOL_SIZE=2`. Node via `. /opt/nvm/nvm.sh` **then `nvm use`** (sourcing alone leaves `npx` off PATH in non-interactive ssh; check `which npx` before `nohup`, or the run dies with exit 127); install the local
   Node version and check run hashes before fitting.
 - **Blind checks while a frozen reading is pending:** status checks leak
   results (a log's last line, a fit's loss, a file listing with sizes). When

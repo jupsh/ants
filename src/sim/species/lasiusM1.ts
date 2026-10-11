@@ -52,7 +52,7 @@ const e2Free = (group: string) => (E2FIT.free ? Object.keys(E2FIT.free).filter((
 const E2_FIT_LABEL = `E2 fit${E2FIT.variant ? ` (variant ${E2FIT.variant})` : ''}, data/fits/e2-drinking.json`;
 
 const LASIUS_FORAGER_BASE = {
-  desiredFed: fitted(0.65, 'µL', ['mailleux1999', 'mailleux2009'], 'Median desired volume of a recently fed forager.', { ...MAILLEUX, fit: 'E2 (scripts/fitE2.ts) on 1-, 4-, 8-day starvation drinking times and trail-laying proportions', uncertainty: { kind: 'to be estimated by profile likelihood' } }),
+  desiredFed: fitted(0.65, 'µL', ['mailleux1999', 'mailleux2009'], 'Median desired volume of a recently fed forager.', { ...MAILLEUX, fit: 'E2 (scripts/archive/fitE2.ts) on 1-, 4-, 8-day starvation drinking times and trail-laying proportions', uncertainty: { kind: 'to be estimated by profile likelihood' } }),
   desiredHungry: fitted(1.06, 'µL', ['mailleux1999', 'mailleux2009'], 'Median desired volume of a strongly starved forager (Vc ≈ 1 µL after 4 days).', { ...MAILLEUX, fit: 'E2' }),
   hungerScale: estimated(0.3, '', 'Reserve deficit at which the desired volume saturates; tied to the starvation→reserve mapping (reserveDays).'),
   desiredSd: fitted(0.4, 'log units', 'mailleux2005', 'Between-individual variation of desired volume; the individual value is constant across trips.', { ...MAILLEUX, fit: 'E2' }),
@@ -145,7 +145,7 @@ export const MAILLEUX_SETUP_E2_ALT = { accessible: E2ALT.pipetteAccessible ?? 0.
  * E2 context factor on the walker's speed in the Mailleux apparatus (22 °C,
  * bridge and 6 × 6 cm area; STATUS 2026-10-09 amendment): the E1 walker was
  * fitted at 26 °C on a canvas and walks ≈ 2× faster than scouts on the
- * bridge. Derived, not fitted to any E2 target: set by scripts/calibrateE2Speed.ts
+ * bridge. Derived, not fitted to any E2 target: set by scripts/archive/calibrateE2Speed.ts
  * so the model's homebound mid-bridge speed (mean over ants of 2.5 cm ÷ time)
  * equals the measured 1.6 cm/s. Temperature and context are not separated.
  */
@@ -195,8 +195,10 @@ export const LASIUS_NEST_DEF = {
   activeToRest: estimated(1 / 180, '1/s', `${PROVISIONAL} Walking → resting.`),
   giveFrac: estimated(0.1, '', `${PROVISIONAL} Crop fill above which an ant offers food.`),
   receiveReserve: estimated(0.8, '', `${PROVISIONAL} Reserve fraction below which an ant accepts food.`),
-  shareEnd: estimated(1 / 60, '1/s', `${PROVISIONAL} Ending hazard of a sharing bout.`),
+  // Per ant: each partner draws it, and either ending ends the bout, so the pair's rate is 2 × shareEnd (STATUS 2026-10-10 night).
+  shareEnd: derived(0.0195, '1/s', 'buffin2011', 'Per-ant ending hazard of a sharing bout: half the pair ending rate 0.039 /s observed for 1 M sucrose, fed donor → starved receiver, 4-d starved colonies (Buffin et al. 2011, Table 2; durations exponential). Exact 95 % ≈ 0.030–0.048 /s for the pair (66 bouts); sensitivity 0.015 / 0.024 per ant. Hunger-state dependence (fed→fed 0.034, starved→starved 0.058) not modelled; 1-d and 8-d receivers are an extrapolation.'),
   stallTime: estimated(3, 's', `${PROVISIONAL} A bout ends after this long without flow.`),
+  partRefractory: estimated(5, 's', 'After a bout, the two partners may share again once contact is lost or after this long (Plan 4 option A, STATUS 2026-10-10 night). No source; sensitivity 2 and 10 s. Infinity restores the earlier rule (only after contact is lost).'),
   shareRate: estimated(2 / 120, 'µL/s', `${PROVISIONAL} Crop capacity per 120 s (Bles et al. TEC: 1 unit = 1 s of transfer, mean load 120 units).`),
   leaveRate: estimated(1 / 300, '1/s', `${PROVISIONAL} Rate at which a hungry ant with an empty crop leaves to forage.`),
   leaveCropFrac: estimated(0.05, '', `${PROVISIONAL} Crop fill below which a hungry ant counts as empty and may leave to forage (was hard-coded; STATUS 2026-10-10: largely explains G3, open).`),

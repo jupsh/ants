@@ -7,12 +7,12 @@
  *
  * Usage: npx vite-node scripts/profileE2.ts --variant Ma --params setup.volumeSd,forager.unsatisfiedLayProb [--evals 80]
  */
-import { nelderMead } from '../src/sim/analysis/optimize';
-import { e2Loss, simulateE2Async } from '../src/sim/experiments/e2Targets';
-import { decode, encode, E2_VARIANTS, type E2Model } from '../src/sim/experiments/e2Variants';
-import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../src/sim/species/lasiusM1';
-import { arg, numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import { nelderMead } from '../../src/sim/analysis/optimize';
+import { e2Loss, simulateE2Async } from '../../src/sim/experiments/e2Targets';
+import { decode, encode, E2_VARIANTS, type E2Model } from '../../src/sim/experiments/e2Variants';
+import { E2_LEGACY_FORAGER, LASIUS_MORPH, E2_LEGACY_PHYS, LASIUS_WALK } from '../../src/sim/species/lasiusM1';
+import { arg, numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const variant = E2_VARIANTS.find((v) => v.id === arg('--variant', 'Ma'))!;
 const fit = readJson<any>(`data/fits/e2-${variant.id}.json`);

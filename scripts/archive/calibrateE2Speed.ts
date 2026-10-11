@@ -11,10 +11,10 @@
  *
  * Usage: npx vite-node scripts/calibrateE2Speed.ts [--n 1000]
  */
-import type { ScoutResult } from '../src/sim/experiments/e2Mailleux';
-import { LASIUS_PARAMS, MAILLEUX_SETUP } from '../src/sim/species/lasiusM1';
-import { numArg } from './lib';
-import { SimPool } from './pool';
+import type { ScoutResult } from '../../src/sim/experiments/e2Mailleux';
+import { LASIUS_PARAMS, MAILLEUX_SETUP } from '../../src/sim/species/lasiusM1';
+import { numArg } from '../lib';
+import { SimPool } from '../pool';
 
 const N = numArg('--n', 1000);
 const TARGET = 16; // mm/s

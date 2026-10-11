@@ -39,7 +39,7 @@ precompute`); after a change to simulation code they simulate live until
 those are regenerated.
 
 Fits, reports and diagnostics run with `npx vite-node scripts/<name>.ts`
-(e.g. `fitE1.ts`, `fitE2.ts`, `fitE6TEC.ts`, `reportE1.ts`, `reportE2.ts`,
+(e.g. `fitE1.ts`, `fitE2c.ts`, `fitE6TEC.ts`, `reportE1.ts`, `reportE2.ts`,
 `reportE6.ts`); simulation-heavy ones use all cores through a process pool
 with results identical to serial runs. See [CLAUDE.md](CLAUDE.md) for the
 full list.

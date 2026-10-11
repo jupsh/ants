@@ -11,11 +11,11 @@
  *
  * Usage: npx vite-node scripts/strideE1.ts [--ants 600]
  */
-import type { Track } from '../src/sim/analysis/trajectory';
-import { walkParams } from '../src/sim/models/walk';
-import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { INCLINES, loadKhuong, numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import type { Track } from '../../src/sim/analysis/trajectory';
+import { walkParams } from '../../src/sim/models/walk';
+import { khuongTracking } from '../../src/sim/species/lasiusM1';
+import { INCLINES, loadKhuong, numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const DT = 0.04;
 const N = 32;

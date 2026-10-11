@@ -9,12 +9,12 @@
  *
  * Usage: npx vite-node scripts/scaleE1.ts [--ants 1000] [--inclines 1,2,3,4,5] [--out f.json]
  */
-import { bootstrapSE, combinedZ } from '../src/sim/analysis/compare';
-import { prepareTrack, type Track } from '../src/sim/analysis/trajectory';
-import { walkParams } from '../src/sim/models/walk';
-import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { arg, INCLINES, loadKhuong, loadKhuongPools, numArg, readJson, writeJson } from './lib';
-import { SimPool } from './pool';
+import { bootstrapSE, combinedZ } from '../../src/sim/analysis/compare';
+import { prepareTrack, type Track } from '../../src/sim/analysis/trajectory';
+import { walkParams } from '../../src/sim/models/walk';
+import { khuongTracking } from '../../src/sim/species/lasiusM1';
+import { arg, INCLINES, loadKhuong, loadKhuongPools, numArg, readJson, writeJson } from '../lib';
+import { SimPool } from '../pool';
 
 const ANTS = numArg('--ants', 1000);
 const KS = arg('--inclines', '1,2,3,4,5').split(',').map(Number);

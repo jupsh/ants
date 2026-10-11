@@ -73,7 +73,24 @@ export interface M1999Options {
   followNestmates?: boolean;
   /** Minimum duration (s) of an observed contact (default M1999_CONTACT_MIN; sensitivity runs only). */
   contactMin?: number;
+  /** Contact episodes with the same nestmate separated by at most this many seconds are merged (default 0; diagnostics). */
+  contactGap?: number;
+  /** Record the parts of the stay (`parts`; STATUS 2026-10-10 night, dt decomposition; diagnostics). */
+  decompose?: boolean;
   dt?: number;
+}
+
+/** Parts of a recruiter's stay (s), pre-registered for the dt decomposition (STATUS 2026-10-10 night). */
+export interface M1999Parts {
+  /** Entry → first step with crop ≤ giveFrac × capacity; the stay if that never happens (`unloaded` false). */
+  unload: number;
+  unloaded: boolean;
+  /** Time in give or receive mode. */
+  bout: number;
+  /** Time in give mode without flow. */
+  giveWait: number;
+  /** Time in rest mode. */
+  rest: number;
 }
 
 export interface M1999Recruiter {
@@ -92,6 +109,8 @@ export interface M1999Recruiter {
   /** Table 2b (with `followNestmates`): contacted nestmates, and how many left the nest within 5 min of the contact. */
   troph: { n: number; left: number };
   other: { n: number; left: number };
+  /** With `decompose`. */
+  parts?: M1999Parts;
 }
 
 const OBSERVE = 20 * 60;
@@ -136,15 +155,13 @@ function colonyOptions(o: M1999Options, seed: number, n: number, enterAt: number
  * the observation and summarise the recruiter as the paper defines its
  * measures.
  */
-function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean, contactMin = M1999_CONTACT_MIN): M1999Recruiter {
+function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean, contactMin = M1999_CONTACT_MIN, contactGap = 0, decompose = false): M1999Recruiter {
   const r = n;
   let exitAt = NaN;
   // End of the step at which the observation ended (absolute time, as bout ends): bouts are clipped to it, so a
   // followed run measures the stay exactly as a run that stops there (the fit runs).
   let stopAt = NaN;
   let dist = 0;
-  let px = NaN;
-  let py = NaN;
   // Contact episodes with each nestmate during the stay (open ones by start time), then those lasting ≥ contactMin.
   const open = new Map<number, number>();
   const episodes: { id: number; start: number; end: number }[] = [];
@@ -152,6 +169,7 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
   const exits = new Map<number, number[]>();
   const wasOut = new Array<boolean>(n).fill(false);
   let cropAtExit = NaN;
+  const parts: M1999Parts | undefined = decompose ? { unload: 0, unloaded: false, bout: 0, giveWait: 0, rest: 0 } : undefined;
   const onStep = (w: World, info: ColonyStepInfo): boolean => {
     const a = w.ants[r];
     const t = info.t - enterAt;
@@ -169,9 +187,19 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
         open.clear();
         if (!followNestmates) return true;
       } else {
-        if (!Number.isNaN(px)) dist += Math.hypot(a.body.x - px, a.body.y - py);
-        px = a.body.x;
-        py = a.body.y;
+        if (parts && t > 0) {
+          const dt = sim.dt;
+          if (!parts.unloaded) {
+            if (a.body.cropUl <= sim.P.nest.giveFrac * a.body.morph.cropCapacity) parts.unloaded = true;
+            else parts.unload += dt;
+          }
+          const mode = a.mind.mode;
+          if (mode === 'give' || mode === 'receive') parts.bout += dt;
+          if (mode === 'give' && !(a.body.mouthFlow < 0)) parts.giveWait += dt;
+          if (mode === 'rest') parts.rest += dt;
+        }
+        // Distance: the path walked this step (STATUS 2026-10-10 night; summed step chords depended on dt).
+        if (t > 0) dist += a.body.stepLen;
         const now = new Set((info.per[r]?.contacts ?? []).map((c) => c.id));
         for (const id of now) if (!open.has(id)) open.set(id, t);
         for (const [id, start] of [...open])
@@ -184,6 +212,17 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
     return t >= exitAt + FOLLOW;
   };
   while (sim.stepIndex < sim.steps) if (sim.step(onStep)) break;
+  // Optional gap tolerance: a nestmate's episodes separated by ≤ contactGap s count as one.
+  if (contactGap > 0) {
+    episodes.sort((p, q) => p.id - q.id || p.start - q.start);
+    for (let i = episodes.length - 1; i > 0; i--) {
+      const [a, b] = [episodes[i - 1], episodes[i]];
+      if (a.id === b.id && b.start - a.end <= contactGap + 1e-9) {
+        a.end = Math.max(a.end, b.end);
+        episodes.splice(i, 1);
+      }
+    }
+  }
   const observed = episodes.filter((e) => e.end - e.start >= contactMin - 1e-9).sort((p, q) => p.start - q.start || p.id - q.id);
   const bouts = sim
     .result()
@@ -215,7 +254,7 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
     }
   }
   const left = exitAt < OBSERVE;
-  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: observed.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other };
+  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: observed.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other, ...(parts ? { parts } : {}) };
 }
 
 /** One recruiter in its own freshly warmed nest (independent design). */
@@ -224,7 +263,7 @@ export function runRecruiter1999(P: ColonyParams, o: M1999Options): M1999Recruit
   const n = nestmates(o.density);
   const enterAt = o.warmup ?? 600;
   const sim = new ColonySim(P, { ...colonyOptions(o, o.seed, n, enterAt), recruiter: { enterAt, ...load } });
-  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin);
+  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose);
 }
 
 /** Recruiters [first, first + count) for one starvation day; recruiter k uses the stream (seed, day, k). */
@@ -252,7 +291,7 @@ export function runNest1999(P: ColonyParams, o: M1999Options, nest: number, perN
     const sim = warm.clone(k + 1);
     sim.recruiter = { enterAt, ...load };
     sim.recruiterSeed = seed;
-    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin);
+    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose);
   });
 }
 

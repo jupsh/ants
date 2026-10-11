@@ -8,11 +8,11 @@
  *
  * Usage: npx vite-node scripts/censorE1.ts [--fits walk,A0,T] [--ants 1000]
  */
-import { KHUONG_PREP, prepareTrack, trackStats, type Track } from '../src/sim/analysis/trajectory';
-import { walkParams } from '../src/sim/models/walk';
-import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { arg, INCLINES, loadKhuong, numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import { KHUONG_PREP, prepareTrack, trackStats, type Track } from '../../src/sim/analysis/trajectory';
+import { walkParams } from '../../src/sim/models/walk';
+import { khuongTracking } from '../../src/sim/species/lasiusM1';
+import { arg, INCLINES, loadKhuong, numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const FITS = arg('--fits', 'walk,A0,T').split(',');
 const ANTS = numArg('--ants', 1000);

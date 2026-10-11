@@ -28,6 +28,16 @@ describe('Mailleux 1999 recruiter (mechanics)', () => {
     expect(crops).toBeCloseTo(res.world.ledger.get('sugar', 'crop'), 9);
   });
 
+  it('recording the parts of the stay (decompose) changes nothing else; the parts are consistent', () => {
+    const plain = runRecruiter1999(P, { ...base, seed: 9 });
+    const dec = runRecruiter1999(P, { ...base, seed: 9, decompose: true });
+    const { parts, ...rest } = dec;
+    expect(rest).toEqual(plain);
+    expect(parts!.unload).toBeLessThanOrEqual(dec.timeInNest + 1e-9);
+    expect(parts!.giveWait).toBeLessThanOrEqual(parts!.bout + 1e-9);
+    expect(parts!.bout + parts!.rest).toBeLessThanOrEqual(dec.timeInNest + 1e-9);
+  });
+
   it('is deterministic', () => {
     const a = runRecruiter1999(P, { ...base, seed: 9 });
     const b = runRecruiter1999(P, { ...base, seed: 9 });

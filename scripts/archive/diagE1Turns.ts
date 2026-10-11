@@ -16,12 +16,12 @@
  *          [--fits A0=data/fits/e1-walk.json,B=data/fits/e1-B-loss11.json]
  */
 import fs from 'node:fs';
-import { combinedZ } from '../src/sim/analysis/compare';
-import { TURN_LABELS as LABELS, turnCheckSample as sample } from '../src/sim/analysis/e1TurnChecks';
-import { walkParams } from '../src/sim/models/walk';
-import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { arg, INCLINES, loadKhuong, numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import { combinedZ } from '../../src/sim/analysis/compare';
+import { TURN_LABELS as LABELS, turnCheckSample as sample } from '../../src/sim/analysis/e1TurnChecks';
+import { walkParams } from '../../src/sim/models/walk';
+import { khuongTracking } from '../../src/sim/species/lasiusM1';
+import { arg, INCLINES, loadKhuong, numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const ANTS = numArg('--ants', 600);
 const ONLY = numArg('--incline', 0);

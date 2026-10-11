@@ -19,11 +19,11 @@
  *   (default: every file in data/fits/recover/)
  */
 import fs from 'node:fs';
-import { compareE1, referenceFor, scaleReference, type E1Comparison, type E1Reference } from '../src/sim/experiments/e1Compare';
-import { walkParams, type WalkParams } from '../src/sim/models/walk';
-import { khuongTracking } from '../src/sim/species/lasiusM1';
-import { arg, INCLINES, numArg, readJson } from './lib';
-import { SimPool } from './pool';
+import { compareE1, referenceFor, scaleReference, type E1Comparison, type E1Reference } from '../../src/sim/experiments/e1Compare';
+import { walkParams, type WalkParams } from '../../src/sim/models/walk';
+import { khuongTracking } from '../../src/sim/species/lasiusM1';
+import { arg, INCLINES, numArg, readJson } from '../lib';
+import { SimPool } from '../pool';
 
 const DIR = 'data/fits/recover';
 const FILES = arg('--fits', '')
