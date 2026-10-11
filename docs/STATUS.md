@@ -1152,3 +1152,11 @@ not taken.
   device to realise the trip-length input, disclosed. Colony209 (2 h, explore
   1000 s, outRate 1/3500): 47 observed trips, mean 647 s (censored by the
   window), stays median 835 s, foragerIn 0.81. Steering attempts reverted.
+- **After the lag fix (dt 0.1 vs 0.05, start point, provisional trips):**
+  all 6 moving rows now equivalent (|diff| ≤ 0.25 SE); stillness rows
+  still shift: still fraction −2.79 (nurses) / −1.04 SE, still-run mean
+  −1.19 / −0.89, P(≥ 2 s) −1.13 / −2.64, P(≥ 10 s) −6.42 / −7.12, P(≥ 60
+  s) −3.71 / −1.06. In absolute terms small (nurse still fraction ≈ 0.003;
+  P(≥ 10 s) ≈ 0.03), but the data's SEs are tiny (22 colonies × 12 h), so
+  the gate's ±0.5 SE is strict. Per the rule: dt 0.05 vs 0.025 next; the
+  coarsest passing dt is used.

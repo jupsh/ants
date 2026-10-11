@@ -7,7 +7,7 @@
  *
  *   --mode window: one run per colony, warm-up then 12 h observed; the rows
  *     of the first 30 min and 2 h against the full 12 h (prefix windows).
- *   --mode dt: dt 0.1 against 0.05 at --obs (default 1800 s), --reps seeds
+ *   --mode dt: dt 0.1 against 0.05 (--dts a,b) at --obs (default 1800 s), --reps seeds
  *     per colony.
  *
  *   npx vite-node scripts/checkS2018Window.ts --mode window|dt [--fit f] [--set k=v,...] [--tag t] [--warmup 1200] [--obs 1800] [--reps 2]
@@ -83,8 +83,11 @@ if (MODE === 'window') {
   const seeds = (i: number) => seedFor(2018, 'converge', 0xd7, i % colonies.length, Math.floor(i / colonies.length));
   const cols = Array.from({ length: REPS }, () => colonies).flat();
   const o = { phase: 'light' as const, warmupS: WARMUP, obsS: OBS, exploreGiveUp };
-  const [a, b] = await Promise.all([simulateAll(pool, P, cols, { ...o, dt: 0.1 }, seeds), simulateAll(pool, P, cols, { ...o, dt: 0.05 }, seeds)]);
-  result.dt = compare(a.map((r) => r.rows), b.map((r) => r.rows), 'dt 0.1 vs 0.05');
+  // --dts coarse,fine (default 0.1,0.05; then 0.05,0.025 if the first fails, as the gate's order).
+  const [d1, d2] = arg('--dts', '0.1,0.05').split(',').map(Number);
+  const [a, b] = await Promise.all([simulateAll(pool, P, cols, { ...o, dt: d1 }, seeds), simulateAll(pool, P, cols, { ...o, dt: d2 }, seeds)]);
+  result.dts = [d1, d2];
+  result.dt = compare(a.map((r) => r.rows), b.map((r) => r.rows), `dt ${d1} vs ${d2}`);
 } else throw new Error('--mode window|dt');
 result.seconds = (Date.now() - t0) / 1000;
 const out = `logs/checkS2018-${MODE}${fit ? '-fit' : ''}${arg('--tag', '') ? `-${arg('--tag', '')}` : ''}.json`;
