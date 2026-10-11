@@ -32,7 +32,11 @@ const warmup = fit.warmup ?? 300;
 const { app } = blesApparatus();
 const nest = app.regions.find((r) => r.kind === 'nest')!;
 const n = Math.max(1, Math.round((pt.density * (nest.x1 - nest.x0) * (nest.y1 - nest.y0)) / 100));
-type Rec = { dur: number; cause: string; recruiter: boolean; onward: boolean; after: boolean };
+type Rec = { dur: number; cause: string; recruiter: boolean; onward: boolean; after: boolean; start: number; end: number; k: number };
+// Gaps between a recruiter's consecutive bouts within its stay (re-initiation; STATUS 2026-10-10 night), after a random vs a depletion ending.
+const gapsAfter: Record<string, number[]> = {};
+let stays = 0;
+let multi = 0;
 const CAUSES = ['donor depleted', 'receiver satiated', 'stalled', 'random / other'];
 
 // --days 4,8: a subset of days (to run days in parallel processes).
@@ -66,13 +70,22 @@ for (const day of DAYS) {
             else if (r.cropUl >= r.morph.cropCapacity * r.morph.cropFullFrac || r.reserve / r.reserveMax >= P.nest.receiveReserve) cause = 'receiver satiated';
             else if (md.mode === 'give' && md.stay?.bout?.partner === b.receiver && mr.mode === 'receive' && mr.stay?.bout?.partner === b.donor) cause = 'stalled';
             if (b.donor === n) fedByRecruiter.add(b.receiver);
-            recs.push({ dur: b.end - b.start, cause, recruiter: b.donor === n || b.receiver === n, onward: b.donor !== n && fedByRecruiter.has(b.donor), after: !Number.isNaN(exitT) });
+            recs.push({ dur: b.end - b.start, cause, recruiter: b.donor === n || b.receiver === n, onward: b.donor !== n && fedByRecruiter.has(b.donor), after: !Number.isNaN(exitT), start: b.start, end: b.end, k });
           }
       prev = new Map(sim.open);
       return false;
     };
     while (sim.stepIndex < sim.steps) if (sim.step(onStep)) break;
+    const mine = recs.filter((x) => x.k === k && x.recruiter && !x.after).sort((a, b) => a.start - b.start);
+    stays++;
+    if (mine.length > 1) multi++;
+    for (let i = 1; i < mine.length; i++) (gapsAfter[mine[i - 1].cause] ??= []).push(mine[i].start - mine[i - 1].end);
   }
+  const fmt = (v: number[]) => (v.length ? `${v.length}, mean ${(v.reduce((s, x) => s + x, 0) / v.length).toFixed(1)} s, median ${v.slice().sort((a, b) => a - b)[v.length >> 1].toFixed(1)} s` : 'none');
+  console.log(`${day} d, re-initiation: ${multi} of ${stays} stays with ≥ 2 recruiter bouts; gap to the next bout after a random ending: ${fmt(gapsAfter['random / other'] ?? [])}; after depletion: ${fmt(gapsAfter['donor depleted'] ?? [])}`);
+  for (const key of Object.keys(gapsAfter)) delete gapsAfter[key];
+  stays = 0;
+  multi = 0;
   if (FOLLOW) {
     const rb = recs.filter((x) => x.recruiter).length;
     const on = recs.filter((x) => x.onward);

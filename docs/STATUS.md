@@ -843,3 +843,27 @@ Extraction in `docs/research/buffin2011.md`.
   (`--follow 600`) and the dish check at pilot2's optimum are running;
   they show whether the recruiter fails to re-initiate after a random
   ending (Plan 4: encounter and initiation) or something else.
+
+**2026-10-10 night — pilot2 diagnostics; the Plan 4 evidence.**
+- **Bout diagnostic at pilot2** (200 recruiters per day, `--follow 600`):
+  recruiter bouts per recruiter 1.6 / 2.0 / 2.0 (1 / 4 / 8 d); bouts > 3 s
+  mean 12 / 15 / 15 s, SD/mean 0.58–0.65; ending causes donor depleted
+  65 / 55 / 57 %, random or other 35 / 45 / 43 %; onward bouts 281 / 412 /
+  431 (most after the recruiter left).
+- **Dish check at pilot2: FAIL.** ML ending rate 0.085 /s (z 9.4 vs 0.039),
+  log-survival slope 0.103, SD/mean 0.54 (z −4.2). At shareRate 0.0276
+  µL/s Buffin's 0.9 µL donors run out in ≈ 25 s, which truncates bouts.
+- **Re-initiation** (`diagBoutsM1999.ts`, gap stats added; 80 per day):
+  stays with ≥ 2 recruiter bouts 29 / 42 / 37 of 80; gap to the next bout
+  after a random ending mean 32 / 23 / 20 s (median 24 / 11 / 12 s).
+- **Reading:** the fit doubled shareRate so the recruiter empties fast,
+  sacrificing total trophallaxis (the failing rows). The 1999 data imply
+  ≈ 0.5–0.9 µL at ≈ 0.01 µL/s, so ≈ 50–65 s in about two Buffin-length
+  bouts. At 4 d, 80 s in the nest with 66 s of trophallaxis leaves ≈ 14 s
+  for reaching a partner, the gaps and leaving. The model's gap after a
+  random ending is > 20 s on average: the old partner is excluded until
+  contact is lost, so the recruiter must find another one, walking ≈ 1 mm/s
+  (nestSpeedFactor 0.03) in a sparse nest (density 0.73 /cm² vs E6's 2.3).
+  The density is held down by the contacts row, which ties the failure to
+  the ≥ 1 s contact rule. pilot-1 avoided all this by never ending bouts.
+  **Plan 4 points at bout initiation and encounters**, as anticipated.
