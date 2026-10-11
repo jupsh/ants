@@ -36,12 +36,18 @@ Pages) when the user asks.
   fixed) and a dt-dependent distance observer (now the walked path). After
   the fixes, contacts and timeInNest (4 d) still depend on dt, and the
   start points are too far from the data for the gate to mean much.
-  **Now (Plan 4):** A failed the adoption rule (bounds) and B with
-  arena-sourced motion cannot reach the 1999 distance and contact rows
-  (B pilot stopped). B needs in-nest motion from the literature. The
-  candidate papers are in `literature/` and the Stroeymeyt et al. 2018
-  data are being downloaded; **their roles must be assigned before any is
-  read** (Decisions log, last two entries). The box is destroyed.
+  **Now (Plan, step 3):** A failed the adoption rule (bounds) and B with
+  arena-sourced motion cannot reach the 1999 distance and contact rows, so
+  in-nest motion comes from Stroeymeyt et al. 2018 (*L. niger*, in-nest
+  tracking). Roles, colony split, rows and their operational definitions
+  are frozen (Decisions log, 2026-10-10 night). Step 1 (fetch, scale) and
+  step 2 (statistics code, `src/sim/analysis/inNest.ts`, tested) are done.
+  **Next:** the last of the 22 fit-colony tracks finish downloading
+  (`python3 -I scripts/fetchStroeymeyt.py`, skips finished files), then
+  `npx vite-node scripts/stroeymeytRows.ts` for step 3 (the user runs or
+  asks for it). **Open for the user:** the contact observer (the authors'
+  trapezoid code is GPL-3.0; proposal in the step-1 entry). The box is
+  destroyed.
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
   adequate 1999 fit and the fit-protection checks.
@@ -1485,3 +1491,14 @@ observer emits the same frame records, including missing detections).
   colony209, > 100 px: misreads), all that tag's reads in the frame are
   dropped. Counts are reported per colony. This is a data-cleaning rule,
   not a row change; simulated colonies never produce repeats.
+
+**2026-10-11 morning — fetch stalled overnight; resumed.**
+- One download died on a DNS failure at 22:10 and five hung with it
+  (the first scratchpad fetcher had no backoff). 16 of 22 tracks were
+  complete. The stuck processes (own pids only) were stopped, partial
+  files removed, and the remaining 6 refetched with
+  `scripts/fetchStroeymeyt.py` (retries with backoff).
+- The data README is now `data/stroeymeyt2018/README.txt`.
+- **Seen so far:** the rows of one fit colony (colony209), used to check
+  the code (repeated-read rule above). Fit data, so no contamination;
+  noted for completeness. No other colony's output has been looked at.
