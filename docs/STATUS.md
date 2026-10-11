@@ -1211,3 +1211,29 @@ not taken.
   that it does not depend on dt (logged before changing it). If they still
   fail, the remaining cause lies elsewhere (walls, walk-on rate read at
   step start).
+- **Encounter detection confirmed as the remaining systematic dt term.**
+  With encounterStop 0 the shifts vanish: all mean differences are within
+  ±0.5 SE and of mixed sign (nurse still −0.17, P(still ≥ 10 s) forager
+  +0.49, nurse +0.03 SE). The rows that still fail (6 of 16; 5 of 16 with
+  restCrowdExp 0 as well) fail on CI width, not on a shift: P10 forager
+  [−0.72, 1.64], P2 forager [−0.52, 0.63]. Two seeds × 22 colonies × 30
+  min cannot show tail rows equivalent at ±0.5 SE. A local count
+  (`scripts/diagDtEncounter.ts`, one colony, encounter stops off) shows
+  the mechanism: new-contact onsets per ant-second are 0.0341 / 0.0371 /
+  0.0370 at dt 0.1 / 0.05 / 0.025. Contacts shorter than a step are missed
+  (the shortest 10 % last 0.40 / 0.25 / 0.15 s), and re-contacts with the
+  same ant within 0.25 s rise with finer dt (2.9 / 4.7 / 5.6 %).
+  **Decisions (logged before acting):** (1) an encounter becomes a
+  contact *episode* with a nestmate, defined so that it does not depend
+  on dt. The episode counts as an encounter once its estimated duration
+  (span between first and latest sighting, + dt) reaches τ_on. It ends
+  once the estimated gap (time unseen − dt) exceeds τ_gap. Both are fixed
+  `estimated` constants, not fitted, chosen as the smallest pair on the
+  grid τ_on ∈ {0, 0.2, 0.3, 0.5} s × τ_gap ∈ {0, 0.5, 1} s for which the
+  onset rate at dt 0.1 is within 1 % of dt 0.025 (diagnostic, encounter
+  stops off), smaller τ_on first. Biologically, a stop after an
+  antennation of a few tenths of a second, and a brief loss of contact
+  that does not count as a new meeting, are both plausible; the
+  Stroeymeyt frames (0.5 s) cannot resolve either. (2) The dt check gets
+  the power it needs for tail rows: --reps 6 and --obs 3600 (6× the
+  data), on the box.
