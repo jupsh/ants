@@ -50,47 +50,65 @@ Pages) when the user asks.
   colony model needs independent held-out data; finding it is a work item
   now (Plan, parallel track).
 
-### Plan (agreed 2026-10-10 night)
-1. **Pilot fit** (running): `fitM1999.ts --layer main --dt 0.025
-   --warmup 900 --tag pilot --gens 60`. Conditions (user, 2026-10-10):
-   (1) a tool, not a result: never judged, adopted, used in the ranking
-   check or added to the E6 ensemble; its loss is not reported as fit
-   quality; seeds namespaced (extra key 0x9170). (2) Reference settings dt
-   0.025, warm-up 900 s, k = 7, debiased objective, shared design (4 per
-   nest), main layer, reduced budget. (3) Contact observer fixed first:
-   gap 0 (done). (4) Usable as a gate point only if the 1-d no-bout
-   fraction is ≤ 2 × `M1999_NO_BOUT_MAX` and no row has |fitZ| > 5; else
-   no gate, a stage-3 "not adequate" signal: report the rows, Claude logs
-   the model change before acting. (5) The timeInNest dt effect is tested
-   regardless and fixed before the pilot-point gate if confirmed. (6) dt
-   for the refits comes from the gate at the pilot optimum (0.1 vs 0.025,
-   then 0.05 vs 0.025), with warm-up and identifiability (replicate
-   Jacobian for the noise floor) at the same point.
-2. **Late-signal test** (running): covers contacts as well as timeInNest.
-3. **Recovery at the pilot optimum**, 3 replicates at the pilot's budget,
-   before any full refit: does the fitting method recover known values?
-4. **Encounter redesign decision, before the full refits:**
-   stop-and-antennate on meeting, with the share decision made within the
-   encounter (one change; it may also replace the ≥ 1 s contact rule and
-   the late-signal lag). Inputs: the late-signal result and whether the
-   pilot needs extreme values (parameters at bounds). New parameters from
-   the literature, not fitted. If adopted, the pilot and its gate are
-   redone on the new model.
-5. **Gate at the pilot optimum** (dt, warm-up, identifiability); the
-   flat-direction rule sets the refits' free set.
-6. **Refits**, both layers, larger budget, shared warm-ups (4 per nest),
-   debiased objective.
-7. **Judging** on fresh seeds (adequacy rule).
+### Plan (agreed 2026-10-10 late night; replaces Plan 4)
+Plan 4's pilot steps are done: A failed the adoption rule, and B with
+arena-sourced motion cannot reach the 1999 distance and contact rows
+(Decisions log). In-nest motion now comes from in-nest data
+(Stroeymeyt et al. 2018, *L. niger*), and 1999 is fitted afterwards with
+motion fixed. Pilot conditions (a tool, not a result; namespaced seeds)
+still apply to any pilot.
+1. **Data in:** the Zenodo archive goes to `data/stroeymeyt2018/` (raw zip
+   not committed; CC-BY 4.0 added to `NOTICE.md`). Extract only the
+   metadata and the main experiment's PreTreatment files. Derive px/mm
+   from the metadata (nest Y-limits vs 40 mm, cross-checked against
+   `trapezoid_length` and the authors' code) and log it before any track
+   is opened.
+2. **Statistics code before data:** the frozen rows go in
+   `src/sim/analysis/` on a common observed-track format (0.5 s samples,
+   tag offset), which the simulation's observer also produces, so the
+   same code runs on data and model. Tested on synthetic tracks with known
+   answers. Tracking noise is estimated from stationary ants. Parsing
+   streams and runs in the pool, one colony per task.
+3. **Rows on the 22 fit colonies:** a targets module with roles, light
+   and dark phases separately, colony-block SE. **Branch point,
+   in-nest speed (row 2):**
+   - ≈ 0.4 cm/s: arena motion does not transfer; step 4 addresses the
+     1999 distance gap.
+   - ≥ 1 cm/s, like B: the 1999 recruiter is unusual, not nest motion in
+     general. The cause would be recruiter-specific (standing while
+     soliciting or sharing) or how 1999 measured distance. The model
+     change is logged before acting.
+4. **Replace B's in-nest motion:** build the Stroeymeyt nest set-up
+   (70 × 40 × 6 mm nest, hole, foraging area with sugar water, each
+   colony's own size). Fit in-nest speed, stationary fraction and run
+   lengths to rows 2–4 (provenance: fitted, Stroeymeyt fit colonies).
+   Row 1 (forager stays) needs foraging and entries, so it comes second,
+   as a check. Body exclusion only if contacts vs density demands it.
+5. **Back to Mailleux 1999:** motion fixed from step 4; refit only the
+   trophallaxis parameters, with 1999 nest density from the literature
+   if available. Distance and contacts stay fit rows but no motion
+   parameter is free, so they test transfer. Contacts under B3
+   (≥ 0.04 s), ≥ 1 s as sensitivity. Same adoption rule (no parameter
+   at a bound, condition 4, dish check). A new box is rented only for
+   this, after steps 1–4 run locally.
+6. **Gate at the optimum** (dt, warm-up, identifiability; replicate
+   Jacobian for the noise floor); the flat-direction rule sets the free
+   set. **Recovery** (3 replicates) before the full refits.
+7. **Refits**, both layers, larger budget, shared warm-ups (4 per nest),
+   debiased objective; **judging** on fresh seeds (adequacy rule).
 8. **Fit protection** (gates E6): ranking check; convergence gate and
    identifiability at the optimum; flat-direction profiles.
-9. **E6 preparation:** ensemble pre-registered; directed navigation to a
-   known source as its own logged addition (parameters frozen from the
-   literature, own tests, run-hash check); `leaveCropFrac` sensitivity
-   reported with the E6 run.
-10. **E6 run** (development benchmark).
-11. **After or alongside E6, sized by it:** full-range 1-D scans at the
-    optimum (profiles where flat or stepped); 5 synthetic recovery fits at
-    the real n; the E2 backlog only if a reopening trigger fires.
+9. **Held-out tests:** the Stroeymeyt age-experiment colonies (rows 1–4,
+   unopened until then); then E6 preparation (ensemble pre-registered;
+   directed navigation as its own logged addition; `leaveCropFrac`
+   sensitivity) and the **E6 run** (development benchmark, pre-registered
+   rule).
+10. **After or alongside E6, sized by it:** full-range 1-D scans at the
+    optimum; 5 synthetic recovery fits at the real n; the E2 backlog only
+    if a reopening trigger fires.
+- **Main risk:** Stroeymeyt colonies are ≈ 10× smaller than 1999's and
+  have ad-libitum sugar. If the motion does not transfer in step 5, that
+  is a finding to disclose, not to fit away.
 - **Parallel track:** (a) candidate **held-out colony data** (in-nest
   trophallaxis, recruitment, contacts; other labs, ideally *Lasius*);
   (b) **literature values to fix in-nest parameters** (1999 nest density
