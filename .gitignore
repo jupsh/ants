@@ -6,3 +6,4 @@ dist/
 coverage/
 __pycache__/
 public/precomputed/
+data/stroeymeyt2018/

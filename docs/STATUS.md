@@ -1378,3 +1378,50 @@ Extraction in `docs/research/buffin2011.md`.
 - **Order:** download → move to `data/stroeymeyt2018/` → scale from
   metadata → rows approved and frozen here → only then open fit-colony
   tracks.
+
+**2026-10-10 night — Stroeymeyt 2018 step 1: fetch, scale, licences.**
+- **Fetch:** the full archive is 24.7 GB (19 GB are hourly arena photos).
+  The user's browser download was slow, and its first 1.0 GB held only
+  age-experiment (held-out) files. It was **never opened** and the user
+  deleted it. Instead, members are read from the remote zip by HTTP range
+  requests (Zenodo supports them): main-experiment metadata (81 files) and
+  the 22 PreTreatment tracks (≈ 1.8 GB compressed, stored as `.csv.gz`).
+  **No age-experiment or survival file has been downloaded.**
+  `data/stroeymeyt2018/` is in `.gitignore`; licence row in `NOTICE.md`.
+  Fetch script: `python3 -I scripts/fetchStroeymeyt.py` (skips existing
+  files; `--list` prints the archive's members).
+- **Opened (metadata only):** `info.txt` (22 colonies: 54–193 workers,
+  5–16 months, boxes, `Ynestmax` 1810–2052 px with `Ynestmin` 0),
+  tag-file columns and `trapezoid_length`, the plume zone map's structure
+  (zone codes 1 nest, 3 sugar, 5 water; the nest zone starts at image row
+  0, so its edges are not the chamber walls), `info_plume.txt` headers.
+- **Scale: 0.0229659 mm/px (43.5 px/mm)**, from the authors' code
+  (`analysis_parameters.R`: `pix_to_mm_ratio <- max(c(0.0225877193,
+  0.0229658793))`; the two values differ by 1.7 %, probably two camera
+  set-ups, and the authors use the larger for all colonies). Checks:
+  - Median `trapezoid_length` 127 px = 2.9 mm (10–90 %: 2.6–3.2 mm,
+    n = 2573), plausible for workers of young colonies.
+  - 40 mm nest = 1742 px, below `Ynestmax` 1810–2052 (the chamber plus
+    part of the 9 mm wall).
+  - The contact filter's `-d 25` px = 0.57 mm is the methods' "0.6 mm".
+    So "a third of the ant's body length" in the methods is a slip
+    (25 px is about a fifth of 127 px).
+  Their 1.7 % scale ambiguity is carried as a systematic error on
+  lengths and speeds.
+- **Contact rule details from the code (not in the methods):** contacts of
+  the same pair separated by gaps ≤ 20 frames (10 s) are one event if
+  neither ant moved > 25 px; "asleep" means < 6 px (0.14 mm) per frame;
+  asleep contacts are cut at 240 frames (2 min). Trapezoid shape:
+  `width_ratio` 0.7585, `width_factor` 0.7645; all contacts count
+  (`angle_parallel` 0).
+- **Row 3 threshold:** the frozen rows say "steps under 0.6 mm (their
+  stationarity threshold)". The code's own stationarity ("asleep") is
+  6 px = 0.14 mm per frame. Row 3 stays as frozen (0.6 mm); the 0.14 mm
+  threshold is added as a sensitivity (logged before any track is opened).
+- **Licence question (for the user):** the trapezoid geometry is defined in
+  anttrackingUNIL's C++, which is **GPL-3.0**; not read. Our contact
+  observer must also run on simulated ants inside MIT code, so it cannot be
+  a port. Proposal: write our own front-contact observer from the paper's
+  description and the two width parameters' plain meaning, and validate it
+  locally against counts from the GPL tool run on the fit colonies
+  (local only, like the Khuong port; only agreement statistics committed).
