@@ -1089,3 +1089,23 @@ Extraction in `docs/research/buffin2011.md`.
   rule, B is required.
 - **B pilot launched** in `~/antsB` once pilot3's fit had ended. The dish
   check runs alongside it on one CPU.
+- **Pilot3 checks (for the record; A is already out on the bound rule):**
+  - **Condition 4: NOT met.** 1-d no-bout fraction 8.3 % (met), 4 d
+    2.1 %, 8 d 1.7 %. Rows beyond |fitZ| 5: timeInNest 1 d, distance 4 d
+    and 8 d, contacts 4 d, trophTotal 1 d.
+  - **A did what it was meant to do.** After a random ending, the gap to
+    the next recruiter bout is now 2.1–2.5 s on average (median 1.2–1.4
+    s); pilot2 had 20–32 s. 118 / 161 / 153 of 200 stays have ≥ 2
+    recruiter bouts (pilot2: 29 / 42 / 37 of 80).
+  - Recruiter bouts > 3 s average 18–20 s (SD/mean 0.70–0.76). Endings:
+    donor depleted 35–48 %, random or other 52–65 %. Onward flow: 268 /
+    435 / 505 bouts by fed nestmates.
+  - **Dish check: FAIL**, but closer than pilot2. ML ending rate 0.050 /s
+    (z 2.28 vs 0.039; pilot2 z 9.4); log-survival slope 0.061; SD/mean
+    0.65 (z −3.07; pilot2 −4.2). Durations are still less variable than
+    exponential: some bouts are cut short by the donor running out.
+  - **Reading:** re-initiation is no longer the bottleneck. The 1999 fit
+    still pins returnRate and receiveReserve at their bounds, and the
+    distance rows now fail (nestSpeedFactor 0.244). Fixing re-initiation
+    alone does not make the 1999 rows reachable, which is consistent with
+    the missing stop mechanism that B adds.
