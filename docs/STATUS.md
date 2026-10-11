@@ -1262,3 +1262,44 @@ Extraction in `docs/research/buffin2011.md`.
   data README and the paper's methods only, move the data to
   `data/stroeymeyt2018/`, and register the colony split here before any
   track is opened.
+
+**2026-10-10 night — Stroeymeyt 2018 data: README and design read; colony split registered (before any track is opened).**
+- **Read:** the data README (`zenodo-data-readme.txt`) and the main
+  text's design paragraph. The Materials and Methods are only in the
+  supplement, which science.org refused to serve (403); the user is asked
+  for it. **Disclosure:** a grep of the main text for methods terms also
+  showed one result line (p. 4): pathogen-exposed workers "reduced their
+  area of movement while inside the nest" (post-treatment, qualitative).
+  No other result was read.
+- **What the data are:** 22 main-experiment colonies (11 sham-treated,
+  11 pathogen-exposed), 11 age-marked colonies (age experiment), and a
+  survival experiment. Each colony has a 24 h untreated **PreTreatment**
+  recording and a 24 h **PostTreatment** recording that starts 2 h after the
+  treated foragers are returned. ARTag positions in pixels at **2 frames/s**
+  (0.5 s), with per-ant tag offsets and body length, nest-chamber Y limits,
+  and nurse/forager labels from pre-treatment behaviour. No PreTreatment
+  data exist for colony021 (age experiment) or colony055 (survival).
+- **Split (registered; fixed before any track or colony table is opened):**
+  - **Fit/development:** main experiment, PreTreatment only, all 22
+    colonies.
+  - **Held-out:** age experiment, PreTreatment only, its 10 colonies with
+    PreTreatment data. Its tracking files are not extracted from the
+    archive until M1's final test, and `ant_ages.txt` is not opened.
+  - **Unused (reserve, unopened):** all PostTreatment recordings (handling
+    and pathogen exposure change behaviour, which is what the paper is
+    about), the survival experiment, the qPCR and simulation outputs.
+  - **Why by experiment and not at random within the main experiment:**
+    the rule needs no colony table to apply, so nothing is seen before
+    registering. The colonies are independent, from the same lab, set-up
+    and tracking system. The age-marked colonies may differ in size or
+    age; that is part of what the test checks.
+- **Observation model (decided in advance):** 0.5 s sampling cannot
+  resolve stops shorter than about 0.5 s (Depickère's lone stop is
+  0.26 s), and positions are of the tag, not the body centre. Simulated
+  ants are observed the same way: positions sampled at 0.5 s (the
+  `distanceSamples` mechanism), tag offset and tracking noise as estimated
+  from the fit colonies. Rows are defined after the methods are read and
+  before any fit-colony track is opened.
+- **Data handling:** the archive goes to `data/stroeymeyt2018/` (raw zip
+  not committed; CC-BY 4.0, to be added to `NOTICE.md`). Only the metadata
+  and the main experiment's PreTreatment files are extracted.
