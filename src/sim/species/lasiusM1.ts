@@ -210,6 +210,8 @@ export const LASIUS_NEST_DEF = {
   nestSpeedFactor: estimated(1, '×', `${PROVISIONAL} Factor on walking speed inside the nest, on top of the context factor; to be calibrated on Mailleux 1999 (recruiters cover 5–9 cm in the 14–56 s of their stay outside trophallaxis).`),
   nestPauseFactor: estimated(1, '×', 'Factor on the walker\'s own pause rate inside the nest. 1 here (the E1 walker\'s pauses); option B: 0, since Depickère et al. 2004\'s stops (sourced) include all pauses.'),
   encounterStop: estimated(0, '', 'Probability of stopping at an encounter. 0 here: the option-B stops are off in this model (LASIUS_NEST_B sets them; STATUS 2026-10-10 night).'),
+  encounterMin: estimated(0.2, 's', 'A contact episode with a nestmate counts as an encounter once it has lasted this long: the smallest value on the grid 0–0.5 s at which the encounter rate at dt 0.1 is within 1 % of dt 0.025 (scripts/diagDtEncounter.ts --sub, STATUS 2026-10-11). Grazing contacts shorter than this do not stop an ant; no source.'),
+  encounterGap: estimated(0, 's', 'A contact episode ends once contact has been lost for longer than this (chosen with encounterMin, STATUS 2026-10-11).'),
   restCrowdExp: estimated(0, '', 'Exponent of the number of ants in a stop in its walk-on rate. 0 here: off (option B: LASIUS_NEST_B).'),
   foragerFrac: estimated(0, '', 'Fraction of nestmates with the forager trait (option B: they stop and walk with the forager values; the recruiter always has it).'),
   outRate: estimated(0, '1/s', 'Hazard of leaving on a trip regardless of hunger. 0 here; the Stroeymeyt set-up gives foragers a rate matched to the colony\'s in-nest density (STATUS 2026-10-11, step 4a).'),

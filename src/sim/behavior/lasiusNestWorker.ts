@@ -1,5 +1,5 @@
 import type { RNG } from '../core/rng';
-import { newStay, setMode, type Mind } from '../mind/mind';
+import { newStay, setMode, type Mind, type Stay } from '../mind/mind';
 import type { MotorMod } from '../models/walk';
 import type { ContactPercept, Interoception, SurfacePercept } from '../perception/types';
 
@@ -37,13 +37,19 @@ import type { ContactPercept, Interoception, SurfacePercept } from '../perceptio
  *   - Nest fidelity: a worker outside the nest that is not on a foraging
  *     trip heads back to the entrance (gain `leaveGain`) and does not rest.
  *   - Stops (Plan 4 option B, STATUS 2026-10-10 night; Depickère et al.
- *     2004): a walking ant stops at the onset of antennal contact with a
- *     nestmate (an encounter) with probability `encounterStop`, and
+ *     2004): a walking ant stops at an encounter with a nestmate with
+ *     probability `encounterStop`, and
  *     spontaneously at `activeToRest`; a stopped ant walks on at
  *     `restToActive × N^−restCrowdExp`, N = 1 + stopped nestmates in
  *     contact. Ants with the `forager` trait use the `forager` values.
  *     Ants heading out (`leave`) do not stop. With `encounterStop` and
  *     `restCrowdExp` 0 the earlier rest / walk switching is unchanged.
+ *     An encounter is an episode of antennal contact with one nestmate
+ *     that has lasted `encounterMin`; the episode ends once contact has
+ *     been lost for longer than `encounterGap`. Both are estimated from
+ *     the steps as unbiased across dt (STATUS 2026-10-11: a bare contact
+ *     onset missed contacts shorter than a step, so coarse steps met 6 %
+ *     fewer nestmates).
  *   - Trips of a fed colony's foragers (Stroeymeyt set-up, STATUS
  *     2026-10-11): an ant resting or walking in the nest leaves at hazard
  *     `outRate` whatever its hunger (drawn only when `outRate` > 0).
@@ -80,8 +86,12 @@ export interface NestParams {
   nestPauseFactor: number;
   /** SD of log of each nestmate's reserve-deficit factor (between-ant variation; applied by the runner at set-up). */
   reserveSd: number;
-  /** Probability that a walking ant stops at an encounter (onset of antennal contact with a nestmate; 0: never). */
+  /** Probability that a walking ant stops at an encounter (a contact episode with a nestmate reaching `encounterMin`; 0: never). */
   encounterStop: number;
+  /** An episode of antennal contact with a nestmate counts as an encounter once it has lasted this long (s; estimated as time since first sighting + dt). */
+  encounterMin: number;
+  /** An episode ends once contact has been lost for longer than this (s; estimated as time unseen − dt). */
+  encounterGap: number;
   /** Exponent b in the walk-on rate of a stopped ant, restToActive × N^−b (N: ants in the stop; 0: independent of N). */
   restCrowdExp: number;
   /** Fraction of nestmates with the forager trait (drawn at set-up by the runner; a recruiter is always a forager). */
@@ -225,6 +235,32 @@ export function lasiusNestWorker(per: SurfacePercept, io: Interoception, m: Mind
   return { ...act, offer, solicit: signals && !offer && acceptsFood(io, p) };
 }
 
+/**
+ * Track contact episodes with nestmates; true if one becomes an encounter this step (its estimated duration, time
+ * since first sighting + dt, reaches `encounterMin`). An episode ends once its estimated gap, time unseen − dt,
+ * exceeds `encounterGap`.
+ */
+function meet(stay: Stay, per: SurfacePercept, p: NestParams): boolean {
+  const dt = per.dt;
+  const met = stay.met;
+  let n = 0;
+  for (const e of met) {
+    e.unseen = per.contacts.some((c) => c.id === e.id) ? 0 : e.unseen + dt;
+    if (e.unseen - dt > p.encounterGap + 1e-9) continue;
+    e.age += dt;
+    met[n++] = e;
+  }
+  met.length = n;
+  for (const c of per.contacts) if (!met.some((e) => e.id === c.id)) met.push({ id: c.id, age: 0, unseen: 0, counted: false });
+  let encounter = false;
+  for (const e of met)
+    if (!e.counted && e.unseen === 0 && e.age + dt >= p.encounterMin - 1e-9) {
+      e.counted = true;
+      encounter = true;
+    }
+  return encounter;
+}
+
 function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, rng: RNG): NestAction {
   m.modeTime += per.dt;
   const carrying = hasFoodToGive(io, p);
@@ -233,9 +269,7 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
   stay.sinceGive = io.mouthFlow < 0 ? 0 : stay.sinceGive + per.dt;
   // After a bout the two ants part: each former partner becomes eligible again once antennal contact with it is lost.
   if (stay.parted.length) stay.parted = stay.parted.map((q) => ({ id: q.id, since: q.since + per.dt })).filter((q) => q.since < p.partRefractory && per.contacts.some((x) => x.id === q.id));
-  // An encounter: antennal contact with a nestmate that was not in contact last step.
-  const encounter = per.contacts.some((c) => !stay.touching.includes(c.id));
-  stay.touching = per.contacts.map((c) => c.id);
+  const encounter = meet(stay, per, p);
 
   if (m.mode === 'give' || m.mode === 'receive') {
     const bout = stay.bout!;

@@ -1237,3 +1237,20 @@ not taken.
   Stroeymeyt frames (0.5 s) cannot resolve either. (2) The dt check gets
   the power it needs for tail rows: --reps 6 and --obs 3600 (6× the
   data), on the box.
+- **Encounter rule chosen (logged before implementing).** Comparing
+  separate runs per dt could not resolve 1 %: the raw onset rate at dt 0.1
+  moved by 5 % between two seed sets. The diagnostic therefore reads
+  contacts on every 1st / 2nd / 4th step of the same dt-0.025 runs
+  (`--sub`), which isolates detection; motion is already dt-invariant (the
+  noEnc check). Onset rate per ant-s at detection dt 0.025 / 0.05 / 0.1
+  (4 seeds × 20 min):
+  - current rule: 0.0362 / 0.0352 / 0.0339 (−6.4 %);
+  - τ_on 0 with τ_gap 0.5: 0.0335 / 0.0330 / 0.0322 (−3.9 %);
+  - **τ_on 0.2 s, τ_gap 0: 0.0316 / 0.0315 / 0.0315 (−0.3 %)**;
+  - every τ_on ≥ 0.2 is within 0.5 %.
+  By the rule: **τ_on = 0.2 s, τ_gap = 0**. The new rule counts about
+  12 % fewer encounters than the current one at dt 0.025, because grazing
+  contacts under 0.2 s no longer stop an ant. encounterStop is free, so
+  the fit absorbs this. Disclosed: `LASIUS_NEST_B` (option B, not
+  adopted) changes meaning with it, since its stops now come 0.2 s after
+  contact. Next: the dt check at --reps 6 --obs 3600 on the box.

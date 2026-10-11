@@ -122,7 +122,7 @@ describe('nest worker: bouts (STATUS 2026-10-10)', () => {
     const { m } = giver(0);
     m.stay.parted = [{ id: 7, since: 0 }];
     enterNest(m);
-    expect(m.stay).toEqual({ bout: null, parted: [], sinceGive: 0, touching: [], spell: 0 });
+    expect(m.stay).toEqual({ bout: null, parted: [], sinceGive: 0, met: [], spell: 0 });
     expect(m.mode).toBe('active');
   });
 });
@@ -145,8 +145,8 @@ describe('nest worker: stops (Plan 4 option B, STATUS 2026-10-10 night)', () => 
     expect(w.m.mode).toBe('active');
   });
 
-  it('an encounter (contact onset) stops a walking ant at once; a contact already present does not', () => {
-    const w = walker({ ...LASIUS_NEST, encounterStop: 1 });
+  it('an encounter with encounterMin 0 (contact onset) stops a walking ant at once; a contact already present does not', () => {
+    const w = walker({ ...LASIUS_NEST, encounterStop: 1, encounterMin: 0 });
     expect(w.step([]).stand).toBe(false);
     expect(w.step([quiet(4, true)]).stand).toBe(true);
     expect(w.m.mode).toBe('rest');
@@ -154,6 +154,27 @@ describe('nest worker: stops (Plan 4 option B, STATUS 2026-10-10 night)', () => 
     w.m.mode = 'active';
     expect(w.step([quiet(4, true)]).stand).toBe(false);
     expect(w.step([quiet(4, true), quiet(6, true)]).stand).toBe(true);
+  });
+
+  it('an encounter is a contact episode that has lasted encounterMin (0.2 s: the second step at dt 0.1), counted once', () => {
+    const w = walker({ ...LASIUS_NEST, encounterStop: 1, encounterMin: 0.2, encounterGap: 0 });
+    // A contact seen on one step only (≈ 0.1 s) is no encounter.
+    expect(w.step([quiet(4, true)]).stand).toBe(false);
+    expect(w.step([]).stand).toBe(false);
+    expect(w.step([]).stand).toBe(false);
+    // Episode with 6: stop on its second step.
+    expect(w.step([quiet(6, true)]).stand).toBe(false);
+    expect(w.step([quiet(6, true)]).stand).toBe(true);
+    w.m.mode = 'active';
+    // Lost for one step (estimated gap 0, not > encounterGap): the same episode, not a new encounter.
+    expect(w.step([]).stand).toBe(false);
+    expect(w.step([quiet(6, true)]).stand).toBe(false);
+    expect(w.step([quiet(6, true)]).stand).toBe(false);
+    // Lost for two steps: the episode has ended; contact again is a new episode, an encounter once it has lasted 0.2 s.
+    expect(w.step([]).stand).toBe(false);
+    expect(w.step([]).stand).toBe(false);
+    expect(w.step([quiet(6, true)]).stand).toBe(false);
+    expect(w.step([quiet(6, true)]).stand).toBe(true);
   });
 
   it('an ant heading out does not stop at encounters', () => {

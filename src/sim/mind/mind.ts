@@ -73,8 +73,8 @@ export interface Stay {
   parted: { id: number; since: number }[];
   /** Seconds since this ant last passed food to a nestmate (or since it entered). */
   sinceGive: number;
-  /** Nestmates in antennal contact last step: a contact not among them is an encounter (its onset; Plan 4 option B). */
-  touching: number[];
+  /** Episodes of antennal contact with nestmates (age and time unseen, s; counted once an encounter; STATUS 2026-10-11). */
+  met: { id: number; age: number; unseen: number; counted: boolean }[];
   /** Unit-rate exposure left before the next rest/walk switch (≤ 0: draw a new one; STATUS 2026-10-11). */
   spell: number;
 }
@@ -103,7 +103,7 @@ export function newTrip(): Trip {
 }
 
 export function newStay(): Stay {
-  return { bout: null, parted: [], sinceGive: 0, touching: [], spell: 0 };
+  return { bout: null, parted: [], sinceGive: 0, met: [], spell: 0 };
 }
 
 export function newMind(traits: Traits, walkP: WalkParams, rng: RNG): Mind {
