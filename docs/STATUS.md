@@ -1160,3 +1160,17 @@ not taken.
   P(≥ 10 s) ≈ 0.03), but the data's SEs are tiny (22 colonies × 12 h), so
   the gate's ±0.5 SE is strict. Per the rule: dt 0.05 vs 0.025 next; the
   coarsest passing dt is used.
+- **dt 0.05 vs 0.025 (same point): 11 of 16 rows fail; the shifts halve
+  with dt** (P(still ≥ 10 s) −6.4 → −2.8 / −7.1 → −2.3 SE; nurse still
+  fraction −2.8 → −1.1): a first-order discretization error. Per the rule
+  (1999 addition 1), a smaller step does not fix it; back to the cause.
+- **Cause (second O(dt) term):** a switch drawn once per step makes every
+  rest or walk spell a whole number of steps, mean dt / (1 − e^(−r dt)) ≈
+  1/r + dt/2; walking spells at 3 /s are ≈ 15 % too long at dt 0.1, and
+  the extra walking breaks long still runs. **Fix:** a switch happens
+  inside the step. When rest → walk or walk → rest is drawn, a uniform
+  fraction u of the step is drawn (exact to O(dt²) against the truncated
+  exponential); the ant walks u (walk → rest) or 1 − u (rest → walk) of
+  the step, through a percept with dt × fraction (the walker places its
+  own pauses in continuous time, so a partial step is exact). The dt
+  checks are rerun, 0.1 vs 0.05 first.

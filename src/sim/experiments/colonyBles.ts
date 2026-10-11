@@ -340,7 +340,9 @@ export class ColonySim {
       const na = act as NestAction;
       a.body.gasterDown = false;
       a.body.stepLen = 0;
-      if (!na.stand) walked[i] = walkAnt(w, a, per[i]!, this.walkFor(per[i]!, a), P.phys, na.motor, this.motor);
+      // A partial step (a rest/walk switch inside it) walks through a percept with the shorter dt.
+      const p = per[i]!;
+      if (!na.stand) walked[i] = walkAnt(w, a, na.walkFrac !== undefined ? { ...p, dt: p.dt * na.walkFrac } : p, this.walkFor(p, a), P.phys, na.motor, this.motor);
     });
     // Food sharing between ants that both agreed, in donor-index order.
     w.ants.forEach((a, i) => {

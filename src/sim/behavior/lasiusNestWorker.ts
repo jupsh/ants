@@ -110,6 +110,8 @@ export interface NestAction {
   offer: boolean;
   /** Show the soliciting signal (body `soliciting`, sensed next step). */
   solicit: boolean;
+  /** Fraction of the step walked when a rest/walk switch falls inside it (absent: the whole step). */
+  walkFrac?: number;
 }
 
 const NONE: NestAction = {
@@ -262,8 +264,13 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
       if (returning(m, p, carrying, per.dt, rng)) return { ...NONE };
       // Walk-on rate falls with the number of ants in the stop (Depickère et al. 2004: a·N^−b).
       const walkOn = !p.restCrowdExp ? p.restToActive : p.restToActive * Math.pow(1 + per.contacts.filter((c) => !c.moving).length, -p.restCrowdExp);
-      // A switch takes effect in the step it is decided (STATUS 2026-10-11: acting a step late lengthened every spell by dt).
-      if (rng.hazard(walkOn, per.dt) || !per.inNest) {
+      // A switch falls inside the step (STATUS 2026-10-11: whole-step spells were dt/2 too long on average); the ant walks
+      // the rest of the step after it.
+      if (rng.hazard(walkOn, per.dt)) {
+        toActive(m);
+        return { ...NONE, walkFrac: 1 - rng.next() };
+      }
+      if (!per.inNest) {
         toActive(m);
         return { ...NONE };
       }
@@ -284,8 +291,9 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
         return { ...NONE, stand: true };
       }
       if (rng.hazard(p.activeToRest, per.dt)) {
+        // The stop falls inside the step: walk the part before it.
         toRest(m);
-        return { ...NONE, stand: true };
+        return { ...NONE, walkFrac: rng.next() };
       }
       return { ...NONE };
     }
