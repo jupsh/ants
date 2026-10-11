@@ -1254,3 +1254,14 @@ not taken.
   the fit absorbs this. Disclosed: `LASIUS_NEST_B` (option B, not
   adopted) changes meaning with it, since its stops now come 0.2 s after
   contact. Next: the dt check at --reps 6 --obs 3600 on the box.
+- **dt 0.1 vs 0.05 with encounter episodes (717a041; 6 seeds × 22
+  colonies × 1 h): 14 of 16 rows pass.** Every systematic shift is gone:
+  still fraction +0.13 / +0.24 SE (CIs within ±0.4), all moving rows
+  within ±0.04 SE, run means within ±0.08. Only the two P(still ≥ 10 s)
+  rows fail, both on width: nurse +0.17 [−0.21, 0.55], forager +0.35
+  [−0.21, 0.89]. The run took 401 s on 90 workers. **Next (logged before
+  running):** the same check with --reps 36, which includes the 6 seeds
+  above, for √6 narrower CIs. If both rows pass, dt 0.1 is adopted for
+  the fit. If either still fails, dt 0.05 vs 0.025 runs at the same
+  power, and the fit uses the coarsest passing dt (the gate's rule).
+  Seeing the result does not change this rule.
