@@ -38,6 +38,18 @@ describe('Mailleux 1999 recruiter (mechanics)', () => {
     expect(parts!.bout + parts!.rest).toBeLessThanOrEqual(dec.timeInNest + 1e-9);
   });
 
+  it('sampled-position distances (distanceSamples) change nothing else and shrink as the interval grows', () => {
+    const plain = runRecruiter1999(P, { ...base, seed: 9 });
+    const smp = runRecruiter1999(P, { ...base, seed: 9, distanceSamples: [0.1, 1, 10] });
+    const { distanceSampled, ...rest } = smp;
+    expect(rest).toEqual(plain);
+    const [d01, d1, d10] = distanceSampled!;
+    expect(d01).toBeLessThanOrEqual(plain.distance + 1e-9);
+    expect(d1).toBeLessThanOrEqual(d01 + 1e-9);
+    expect(d10).toBeLessThanOrEqual(d1 + 1e-9);
+    expect(d01).toBeGreaterThan(0.5 * plain.distance);
+  });
+
   it('is deterministic', () => {
     const a = runRecruiter1999(P, { ...base, seed: 9 });
     const b = runRecruiter1999(P, { ...base, seed: 9 });

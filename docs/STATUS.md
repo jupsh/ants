@@ -1146,3 +1146,53 @@ Extraction in `docs/research/buffin2011.md`.
 - **Adoption rule:** B will not pass at these values ("if neither passes,
   B is required and revised"). Next steps wait for the user's decision:
   whether to stop the running B pilot, and which way to revise B.
+
+**2026-10-10 night — B pilot stopped; 1999 methods read; distance-sampling sensitivity; packing (user decisions and order).**
+- **B pilot stopped (user).** I killed only its process tree, by pid
+  (runner 258301 and 233 descendants). The box is idle and the local
+  watcher is stopped. No fit file was written, so the diagnostic above is
+  the record.
+- **Mailleux 1999 methods** (public PDF, p. 76, re-read 2026-10-10):
+  - Distance: "le parcours effectué par la fourmi est suivi et mesuré par
+    programme informatique" (the path is tracked and measured by
+    computer). Filmed at ×2. **No sampling interval given.**
+  - Contacts: "le nombre et la durée des contacts antennaires" (number and
+    duration of antennal contacts). **No minimum duration or other
+    criterion given.**
+  - So the observer is not settled by the methods. Per the user's rule:
+    B3 (any antennal contact ≥ 0.04 s) stays primary as the reading
+    closest to "antennal contacts"; ≥ 1 s stays a sensitivity analysis and
+    is not chosen because it lands near the data.
+- **Distance vs tracking interval** (sensitivity only, not an observer
+  choice). New observer option `distanceSamples`: path length through
+  positions sampled every Δ s, with a test. Day 4, 24 recruiters, seed 77;
+  values in cm, data 5.9:
+
+  | point | walked path | 0.5 s | 1 s | 2 s | 5 s | 10 s |
+  |---|---|---|---|---|---|---|
+  | B start, density 1 | 115 | 87 | 66 | 44 | 25 | 18 |
+  | B start, density 3 | 70 | 53 | 42 | 28 | 18 | 14 |
+  | pilot3 (A) point | 18 | 16 | 13 | 11 | 9 | 7.5 |
+
+  A coarse interval shrinks the walked path a lot. Still, B is 7–11× the
+  data at 1 s and 2–3× even at 10 s. Sampling is not the explanation.
+- **Packing (user's estimate, agreed):** a worker covers ≈ 0.04–0.05 cm²,
+  so 1–2 /cm² is 5–10 % of the floor, far from jammed. B still walks
+  78 cm at 6 /cm². Body exclusion is worth adding later for accuracy but is
+  not expected to close the gap. Not built now.
+- **Conclusion (the agreed risk):** arena motion does not carry over to
+  the 1999 nest. B needs in-nest motion from the literature (resting
+  fractions, in-nest walking speeds and stop durations), not a freed
+  speed. Candidates, not read, roles needed:
+  - **Stroeymeyt et al. 2018** (Science 362:941; doi:10.1126/science.aat4793):
+    automated in-nest tracking of whole *L. niger* colonies. Data on
+    Zenodo (doi:10.5281/zenodo.1322669, CC-BY 4.0). Could give in-nest
+    speeds, active fractions and stop durations, or serve as held-out
+    colony data.
+  - **Planckaert et al. 2019** (Sci. Rep. 9:15620?; doi:10.1038/s41598-019-52019-6):
+    spatiotemporal trophallaxis in starved *L. niger* nests. Same lab and
+    probably the same experiments as E6 (Bles et al. 2022), so reading it
+    would be E6 development exposure.
+  - **Lenoir & Ataya 1983 / Lenoir 1979:** about half of *L. niger*
+    workers are "hypoactive" in the nest (author's later recollection,
+    unverified).

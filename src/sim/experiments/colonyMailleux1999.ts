@@ -77,6 +77,8 @@ export interface M1999Options {
   contactGap?: number;
   /** Record the parts of the stay (`parts`; STATUS 2026-10-10 night, dt decomposition; diagnostics). */
   decompose?: boolean;
+  /** Also measure the distance from positions sampled every Δ s, for each Δ given (`distanceSampled`; the 1999 tracking interval is unreported; diagnostics). */
+  distanceSamples?: number[];
   dt?: number;
 }
 
@@ -111,6 +113,8 @@ export interface M1999Recruiter {
   other: { n: number; left: number };
   /** With `decompose`. */
   parts?: M1999Parts;
+  /** With `distanceSamples`: path length (cm) through positions sampled every Δ s from entry, plus the exit position. */
+  distanceSampled?: number[];
 }
 
 const OBSERVE = 20 * 60;
@@ -155,7 +159,7 @@ function colonyOptions(o: M1999Options, seed: number, n: number, enterAt: number
  * the observation and summarise the recruiter as the paper defines its
  * measures.
  */
-function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean, contactMin = M1999_CONTACT_MIN, contactGap = 0, decompose = false): M1999Recruiter {
+function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean, contactMin = M1999_CONTACT_MIN, contactGap = 0, decompose = false, distanceSamples: number[] = []): M1999Recruiter {
   const r = n;
   let exitAt = NaN;
   // End of the step at which the observation ended (absolute time, as bout ends): bouts are clipped to it, so a
@@ -169,6 +173,13 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
   const exits = new Map<number, number[]>();
   const wasOut = new Array<boolean>(n).fill(false);
   let cropAtExit = NaN;
+  // Sampled-position distances: last sampled position, next sample time and the running length, per interval.
+  const samp = distanceSamples.map((d) => ({ d, x: NaN, y: NaN, next: 0, len: 0 }));
+  const sample = (x: number, y: number) => (q: (typeof samp)[number]) => {
+    if (!Number.isNaN(q.x)) q.len += Math.hypot(x - q.x, y - q.y);
+    q.x = x;
+    q.y = y;
+  };
   const parts: M1999Parts | undefined = decompose ? { unload: 0, unloaded: false, bout: 0, giveWait: 0, rest: 0 } : undefined;
   const onStep = (w: World, info: ColonyStepInfo): boolean => {
     const a = w.ants[r];
@@ -181,6 +192,7 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
     if (Number.isNaN(exitAt)) {
       if (info.outside[r] || t >= OBSERVE) {
         exitAt = Math.min(t, OBSERVE);
+        samp.forEach(sample(a.body.x, a.body.y));
         stopAt = info.t + sim.dt;
         cropAtExit = a.body.cropUl;
         for (const [id, start] of open) episodes.push({ id, start, end: exitAt });
@@ -200,6 +212,11 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
         }
         // Distance: the path walked this step (STATUS 2026-10-10 night; summed step chords depended on dt).
         if (t > 0) dist += a.body.stepLen;
+        for (const q of samp)
+          if (t >= q.next - 1e-9) {
+            sample(a.body.x, a.body.y)(q);
+            q.next += q.d;
+          }
         const now = new Set((info.per[r]?.contacts ?? []).map((c) => c.id));
         for (const id of now) if (!open.has(id)) open.set(id, t);
         for (const [id, start] of [...open])
@@ -254,7 +271,7 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
     }
   }
   const left = exitAt < OBSERVE;
-  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: observed.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other, ...(parts ? { parts } : {}) };
+  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: observed.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other, ...(parts ? { parts } : {}), ...(samp.length ? { distanceSampled: samp.map((q) => q.len / 10) } : {}) };
 }
 
 /** One recruiter in its own freshly warmed nest (independent design). */
@@ -263,7 +280,7 @@ export function runRecruiter1999(P: ColonyParams, o: M1999Options): M1999Recruit
   const n = nestmates(o.density);
   const enterAt = o.warmup ?? 600;
   const sim = new ColonySim(P, { ...colonyOptions(o, o.seed, n, enterAt), recruiter: { enterAt, ...load } });
-  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose);
+  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose, o.distanceSamples);
 }
 
 /** Recruiters [first, first + count) for one starvation day; recruiter k uses the stream (seed, day, k). */
@@ -291,7 +308,7 @@ export function runNest1999(P: ColonyParams, o: M1999Options, nest: number, perN
     const sim = warm.clone(k + 1);
     sim.recruiter = { enterAt, ...load };
     sim.recruiterSeed = seed;
-    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose);
+    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose, o.distanceSamples);
   });
 }
 
