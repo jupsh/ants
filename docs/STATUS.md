@@ -1303,3 +1303,60 @@ Extraction in `docs/research/buffin2011.md`.
 - **Data handling:** the archive goes to `data/stroeymeyt2018/` (raw zip
   not committed; CC-BY 4.0, to be added to `NOTICE.md`). Only the metadata
   and the main experiment's PreTreatment files are extracted.
+
+**2026-10-10 night — Stroeymeyt 2018 methods read (supplement, Materials and Methods only); rows proposed.**
+- **Read:** the supplement's Materials and Methods (ant host, tracking,
+  arenas, the three experiments, general analysis, spatial analysis,
+  social network analysis) and the Fig. S1 caption. Not read: the other
+  figure captions, the tables and the simulation/statistics sections.
+  Methods text includes design numbers (colony sizes, matched treatments,
+  share of excluded dead ants); no behavioural result was read.
+  File: `literature/Stroeymeyt2018_Science362-941_SM-methods_ROLE-PENDING.pdf`.
+- **Set-up:** colonies founded from Lausanne queens (2013–14), 4.5–16
+  months old, 32–193 workers (median 107), one queen, brood. Arena
+  103 × 70 mm: **nest 70 × 40 mm, 6 mm high, under an IR-pass filter
+  (dark to the ants)**, foraging area 70 × 54 mm, open, with water and 10 %
+  sugar water ad libitum, joined by a 4 × 3 mm hole in a 9 mm wall.
+  Tracking cycle: 12 h light at 26 °C (06–18 UTC), 12 h dark at 22 °C.
+  Tags (0.7 mm, ≈ 0.12 mg, ≈ 10 % of body mass) on the thorax; 2 frames/s;
+  detection 92.7 % per ant-second.
+- **Their definitions (to reuse on simulated ants where we compare):**
+  - PreTreatment file = the final 24 h before treatment (colonies
+    habituate over the first days; they analyse only the last day).
+  - Nurse = never left the nest before treatment; forager = left at least
+    once.
+  - Contact = front end of one ant's trapezoid (mandibles to gaster tip)
+    inside another's. Successive records with both ants moving
+    < 0.6 mm count as one contact. Contacts between immobile ants are
+    truncated at 2 min.
+  - Activity: change-point segments of speed, clustered into active and
+    inactive bouts.
+- **Scale:** no px/mm given. To be derived from metadata alone (nest
+  Y-limits in px vs 40 mm; cross-checked against the authors' code,
+  zenodo 1322676) before any track is opened. Note: the methods call
+  0.6 mm "a third of the ant's body length" (implies 1.8 mm, but *L. niger*
+  workers are ≈ 3–5 mm); the tag files' `trapezoid_length` settles it.
+- **Differences from Mailleux 1999 (disclosed as a transfer risk):** small,
+  young colonies (≈ 100 workers vs 1000–2000), ad-libitum sugar rather
+  than a starved nest, a shallow 6 mm nest. Density
+  (≈ 100 / 28 cm² ≈ 3–4 /cm² if most ants are inside) is inside B's
+  allowed range.
+- **Rows (approved and frozen by the user, 2026-10-10 night; fit colonies only, in-nest samples only,
+  per colony then across colonies with colony-block SE, light and dark
+  phases reported separately; the same 0.5 s observer applied to
+  simulated ants):**
+  1. **Forager stays** (entry to exit through the nest hole): duration,
+     path length at 0.5 s sampling, front contacts per stay. This is the
+     closest analogue of the 1999 rows (timeInNest, distance, contacts),
+     but with unknown crop loads.
+  2. **In-nest speed:** mean path speed at 0.5 s sampling, foragers and
+     nurses separately (comparable to the 1999 ≈ 0.4 cm/s).
+  3. **Stationary fraction and run lengths:** share of 0.5 s steps under
+     0.6 mm (their stationarity threshold), and the durations of stationary
+     and moving runs. These give stops ≥ 0.5 s and walk durations.
+  4. **Contact rate:** front contacts per ant-hour in the nest, against
+     in-nest density.
+  5. **Inputs, not targets:** in-nest density per colony and phase.
+- **Order:** download → move to `data/stroeymeyt2018/` → scale from
+  metadata → rows approved and frozen here → only then open fit-colony
+  tracks.
