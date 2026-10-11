@@ -1109,3 +1109,40 @@ Extraction in `docs/research/buffin2011.md`.
     distance rows now fail (nestSpeedFactor 0.244). Fixing re-initiation
     alone does not make the 1999 rows reachable, which is consistent with
     the missing stop mechanism that B adds.
+
+**2026-10-10 night — B diagnostic: sourced motion misses the 1999 distance and contact rows at every density (the agreed main risk).**
+- **Why I looked:** at generation 10 the B pilot's best loss was still
+  42,600, against 53,000 at generation 0, with the median rising. So I
+  computed the day-4 fit-row means locally at B's starting values (24
+  recruiters per density, dt 0.025, warm-up 900, contactMin 0.04, seed
+  77). These are fit rows, so this is not a contamination; it is disclosed
+  here.
+
+  | density /cm² | timeInNest (80) | distance cm (5.9) | contacts (3.3) | trophTotal (66) | contactsBefore (1) |
+  |---|---|---|---|---|---|
+  | 0.25 | 190 | 442 | 67 | 55 | 7.0 |
+  | 1 | 116 | 115 | 62 | 42 | 4.5 |
+  | 3 | 130 | 70 | 150 | 43 | 8.5 |
+  | 6 | 119 | 78 | 255 | 42 | 16.2 |
+
+- **Reading:**
+  - Distance is ≥ 12× the data at every density.
+  - Contacts (≥ 0.04 s) are 20–75× the data.
+  - The free parameters (returnRate, shareRate, receiveReserve,
+    reserveSd) act mainly on time in the nest and trophallaxis. None of
+    them can slow the walking.
+  - The 1999 recruiter covers ≈ 0.4 cm/s outside trophallaxis
+    (5.9 cm in ≈ 14 s). Under B it covers 1–1.5 cm/s.
+  - The arena-sourced rates (Depickère: lit arena, ≈ 0.1 /cm²) don't
+    carry over to the 1999 nest.
+  - Per the agreement, speed is not freed again.
+  - Two candidate explanations, both untested:
+    1. Crowding: the model has no body exclusion, so ants pass through
+       each other at any density, whereas a nest of 1000–2000 workers is
+       packed.
+    2. The 1999 observers counted contacts more selectively than "any
+       touch ≥ 0.04 s". The ≥ 1 s sensitivity rule gave 3–6 per stay
+       under A.
+- **Adoption rule:** B will not pass at these values ("if neither passes,
+  B is required and revised"). Next steps wait for the user's decision:
+  whether to stop the running B pilot, and which way to revise B.
