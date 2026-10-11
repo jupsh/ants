@@ -42,9 +42,9 @@ Pages) when the user asks.
   tracking). Roles, colony split, rows and their operational definitions
   are frozen (Decisions log, 2026-10-10 night). Step 1 (fetch, scale) and
   step 2 (statistics code, `src/sim/analysis/inNest.ts`, tested) are done.
-  **Next:** the last of the 22 fit-colony tracks finish downloading
-  (`python3 -I scripts/fetchStroeymeyt.py`, skips finished files), then
-  `npx vite-node scripts/stroeymeytRows.ts` for step 3 (the user runs or
+  **Next:** all 22 fit-colony tracks are in (`data/stroeymeyt2018/`,
+  1.7 GB, gzip-verified); run `npx vite-node scripts/stroeymeytRows.ts`
+  for step 3 (the user runs or
   asks for it). **Open for the user:** the contact observer (the authors'
   trapezoid code is GPL-3.0; proposal in the step-1 entry). The box is
   destroyed.
