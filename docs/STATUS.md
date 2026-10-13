@@ -1446,4 +1446,15 @@ not taken.
   uncommitted pre-commit files saved in `/root/ants2-pre-794f598/`), fast
   tier 136 pass, same command as before with `nohup`. Check: gen 0 should
   print best 32125.3, median 43971.3.
+- **Start 1 launched beside start 0 (user, "go for it" on the idle
+  workers):** each generation waits for the largest colony (151 ants;
+  sizes 40–151), so ≈ 1/3 of the box idles (sum of sizes / 22 × max =
+  0.68). Start 0's generations cannot be shortened without changing its
+  results, so start 1 (planned anyway) uses the idle capacity: `nice 19`,
+  `--runs 1 --restart 0 --tag s0 --name s0-r1` (new `--name`: file names
+  only; seeds keyed by tag, so it equals start 1 of the full design).
+  Hyperthread sharing may slow start 0 somewhat; watch its minutes per
+  generation. **For the restart:** merge the two checkpoints' `done` lists
+  into one checkpoint keyed `RUNS [0,1], RESTART true`, then run
+  `--runs 0,1 --restart 1 --tag s0`.
 

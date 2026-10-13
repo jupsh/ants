@@ -31,7 +31,9 @@ const TAG = arg('--tag', '');
 // Which starts to run (seeds are keyed by run index, so a start run alone equals the same start in the full design) and whether to restart.
 const RUNS = (arg('--runs', '0,1') as string).split(',').map(Number);
 const RESTART = numArg('--restart', 1) === 1;
-const OUT = `data/fits/s2018-motion${TAG ? `-${TAG}` : ''}.json`;
+// File names (output, checkpoint); seeds stay keyed by the tag, so starts run as separate processes (`--runs 1 --name s0-r1`) equal the full design.
+const NAME = arg('--name', TAG) as string;
+const OUT = `data/fits/s2018-motion${NAME ? `-${NAME}` : ''}.json`;
 const TAG_KEY = [...TAG].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0, 0x5018);
 const sf = (p: Parameters<typeof seedFor>[1], ...k: number[]) => seedFor(2018, p, TAG_KEY, ...k);
 const TOLX = 0.03;
@@ -47,7 +49,7 @@ const decode = (x: number[]) => Object.fromEntries(S2018_FREE.map((f, i) => [f.k
 
 const PROVENANCE = provenance();
 // Checkpoint after the probe and every generation (STATUS 2026-10-12): rerunning the same command resumes, bit for bit.
-const CKPT = `logs/fitS2018${TAG ? `-${TAG}` : ''}.ckpt.json`;
+const CKPT = `logs/fitS2018${NAME ? `-${NAME}` : ''}.ckpt.json`;
 const CKPT_KEY = { simHash: PROVENANCE.simHash, GENS, WARMUP, OBS, DT, OUT_RATE, EXPLORE, RUNS, RESTART, TAG };
 interface Run { label: string; run: number; x0: number[]; initialSds: number[]; lambda: number | null; generations: number; evals: number; finalSigma: number; avgWindow: number; meanDrift: number[]; stopReason: string; converged: boolean; gamma: number[] | null; x: number[]; f: number; estimate: Record<string, number> }
 interface Ckpt { done: Run[]; current: { run: number; stds: number[]; cma: CmaState | null } | null; evals: number; seconds: number }
