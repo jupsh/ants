@@ -1457,4 +1457,15 @@ not taken.
   generation. **For the restart:** merge the two checkpoints' `done` lists
   into one checkpoint keyed `RUNS [0,1], RESTART true`, then run
   `--runs 0,1 --restart 1 --tag s0`.
+- **Start 1 paused (SIGSTOP, pid 62829 on the box) 2026-10-13 02:28; the
+  "idle capacity" idea did not hold.** Start 0 alone: gen 0 reproduced the
+  stopped run's log exactly (best 32125.3, median 43971.3, σ 0.972: the fast
+  path is exact on the box). Gen 0 took 39.8 min with start 1 running
+  (old run ≈ 41 min per early generation: no gain); **gen 1, start 1
+  paused, took 19.6 min (2.1×)**. A `nice 19` job still shares hyperthreads
+  and memory bandwidth with the main fit, and halved its speed. Start 0
+  alone: ≈ 20 min/generation, gen 30 in ≈ 10 h, 100 generations ≈ 33 h.
+  Resume start 1 (`kill -CONT 62829`) only when start 0 has finished, or
+  as a separate run on a second box. Local timing for reference: the largest
+  colony takes ≈ 2 min for 2 h + 6 h here, ≈ 20 min on the box.
 
