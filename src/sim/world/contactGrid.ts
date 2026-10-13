@@ -7,16 +7,18 @@ import type { Agent } from './world';
  * cells around it. `near` returns those candidates in index order, so a
  * contact search over them gives the same contacts in the same order as a
  * search over all ants. Dense cells over the apparatus bounds (positions
- * outside are clamped to the border cells, which only adds candidates);
- * each cell's neighbourhood list is merged once per step, on first use.
+ * outside are clamped to the border cells, which only adds candidates).
+ * Incremental (colony-fastpath side project, STATUS 2026-10-12): `build`
+ * moves only the ants that changed cell, and a cell's merged neighbourhood
+ * list is kept until an ant enters or leaves one of its 3 × 3 cells.
  */
 export class ContactGrid {
   private readonly nx: number;
   private readonly ny: number;
   private readonly cells: number[][];
-  private readonly hood: Int32Array[];
-  private readonly hoodStep: Int32Array;
-  private step = 0;
+  private readonly hood: (Int32Array | undefined)[];
+  /** Cell of each ant at the last build (−1: dead or not yet binned). */
+  private readonly antCell: number[] = [];
 
   constructor(
     readonly size: number,
@@ -26,7 +28,6 @@ export class ContactGrid {
     this.ny = Math.max(1, Math.ceil((bounds.y1 - bounds.y0) / size));
     this.cells = Array.from({ length: this.nx * this.ny }, () => []);
     this.hood = new Array(this.nx * this.ny);
-    this.hoodStep = new Int32Array(this.nx * this.ny).fill(-1);
   }
 
   private cell(x: number, y: number): number {
@@ -35,18 +36,42 @@ export class ContactGrid {
     return cx + cy * this.nx;
   }
 
+  /** Forget the merged lists of the 3 × 3 cells around cell k. */
+  private invalidate(k: number): void {
+    const cx = k % this.nx;
+    const cy = (k - cx) / this.nx;
+    for (let dy = -1; dy <= 1; dy++)
+      for (let dx = -1; dx <= 1; dx++) {
+        const x = cx + dx;
+        const y = cy + dy;
+        if (x >= 0 && x < this.nx && y >= 0 && y < this.ny) this.hood[x + y * this.nx] = undefined;
+      }
+  }
+
   build(ants: readonly Agent[]): void {
-    this.step++;
-    for (const c of this.cells) c.length = 0;
-    ants.forEach((a, i) => {
-      if (a.body.alive) this.cells[this.cell(a.body.x, a.body.y)].push(i);
-    });
+    for (let i = 0; i < ants.length; i++) {
+      const b = ants[i].body;
+      const next = b.alive ? this.cell(b.x, b.y) : -1;
+      const prev = this.antCell[i] ?? -1;
+      if (prev === next) continue;
+      if (prev >= 0) {
+        const c = this.cells[prev];
+        c.splice(c.indexOf(i), 1);
+        this.invalidate(prev);
+      }
+      if (next >= 0) {
+        this.cells[next].push(i);
+        this.invalidate(next);
+      }
+      this.antCell[i] = next;
+    }
   }
 
   /** Indices of the ants binned in the 3 × 3 cells around (x, y), ascending (shared until the next build; do not modify). */
   near(x: number, y: number): Int32Array {
     const k = this.cell(x, y);
-    if (this.hoodStep[k] === this.step) return this.hood[k];
+    const kept = this.hood[k];
+    if (kept) return kept;
     const cx = k % this.nx;
     const cy = (k - cx) / this.nx;
     let n = 0;
@@ -66,7 +91,6 @@ export class ContactGrid {
       }
     out.sort();
     this.hood[k] = out;
-    this.hoodStep[k] = this.step;
     return out;
   }
 }

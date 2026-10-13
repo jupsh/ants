@@ -51,6 +51,26 @@ export function writeJson(path: string, value: unknown): void {
   fs.writeFileSync(path, JSON.stringify(value, null, 2));
 }
 
+/**
+ * Checkpoints for long runs: written atomically (a crash mid-write leaves the
+ * previous checkpoint), numbers round-trip exactly, ±Infinity and NaN kept.
+ * `key` identifies the run (inputs, options); a checkpoint with another key
+ * is refused, never silently resumed or overwritten.
+ */
+export function saveCheckpoint(path: string, key: unknown, state: unknown): void {
+  fs.mkdirSync(path.replace(/\/[^/]*$/, ''), { recursive: true });
+  const text = JSON.stringify({ key, state, saved: new Date().toISOString() }, (_, v) => (typeof v === 'number' && !Number.isFinite(v) ? `__${v}` : v));
+  fs.writeFileSync(`${path}.tmp`, text);
+  fs.renameSync(`${path}.tmp`, path);
+}
+
+export function loadCheckpoint<T>(path: string, key: unknown): T | undefined {
+  if (!fs.existsSync(path)) return undefined;
+  const c = JSON.parse(fs.readFileSync(path, 'utf8'), (_, v) => (v === '__Infinity' ? Infinity : v === '__-Infinity' ? -Infinity : v === '__NaN' ? NaN : v));
+  if (JSON.stringify(c.key) !== JSON.stringify(key)) throw new Error(`${path}: checkpoint is from another run (saved ${JSON.stringify(c.key)}, now ${JSON.stringify(key)}); move it away to start afresh`);
+  return c.state as T;
+}
+
 /** Khuong et al. 2013 tracks for incline k = 1…5 (0, π/9, π/6, π/4, π/3). */
 export function loadKhuong(k: number): Track[] {
   return parseKhuongCsv(zlib.gunzipSync(fs.readFileSync(`data/khuong2013/incline${k}.csv.gz`)).toString('utf8'));

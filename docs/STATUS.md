@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-11 (session 4: step 3 done; step 4a done; step 4b pre-fit checks done; fit start 0 running). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-12 (session 5: start 0 stopped at gen 30; colony fast path (2×, bit-identical) and fit checkpointing in; relaunch pending). Keep this file current: update it whenever a step starts or finishes._
 
 Everything up to 2026-10-10 evening (session notes, step results, the full
 decisions log of about 4,500 lines) is in
@@ -48,8 +48,12 @@ Pages) when the user asks.
   **Step 4 in progress:** 4a done (the Stroeymeyt set-up runs). 4b
   (fit of in-nest motion, k = 10, 32 rows): all pre-fit checks done
   (trip calibration 2147 s, 1/7271 /s; dt 0.05; 2-h warm-up + 6-h
-  window; Decisions log, last entries). **Fit start 0 running on the
-  box** (tag `s0`, ≤ 22 h); start 1 and the restart decided after it. A vast.ai
+  window; Decisions log, last entries). **Start 0 was stopped by the user
+  at gen 30 (24.4 h, ≈ 45 min/generation, 3× the estimate; no checkpoint
+  then).** Since then (2026-10-12): the colony fast path (2× per
+  evaluation, bit-identical) and per-generation checkpoints (rerun the same
+  command to resume). Relaunch of start 0 (tag `s0`) pending; start 1 and
+  the restart decided after it. A vast.ai
   box is rented (see the step-4b box entry
   for access and set-up).
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
@@ -1392,3 +1396,48 @@ not taken.
   is the same as in the full design). Up to 100 generations, ≈ 22 h at
   most. Start 1 and the IPOP restart are decided from how start 0
   converges.
+
+**2026-10-12 — start 0 stopped; colony fast path and fit checkpoints (user request).**
+- **Start 0 stopped by the user** at gen 30 after 24.4 h (log archived in
+  `logs/box-2026-10-11/fitS2018-s0.log`): best 32125 → 12751, median
+  23006, σ 0.97 → 2.84 (rising: still moving, not converging). Generations
+  took ≈ 45 min, not the estimated 13 (240 hyperthreads, 8-h runs bound
+  by the largest colony). The CMA state was not saved, so the run cannot
+  be continued; a relaunch with the same tag replays it exactly. Trip
+  inputs file `data/fits/s2018-trips.json` copied from the box into the repo.
+- **Fast path adopted from `side-projects/colony-fastpath`** (reviewed;
+  `ColonyOptions.fastPath`, default on): (a) contacts sensed once per nearby
+  pair (`senseAllContacts`, `src/sim/perception/contactPairs.ts`) with a
+  geometry cache reused only while both bodies' positions and headings are
+  bit-identical (far pairs included); exact by construction, since the
+  contact tests are symmetric and IEEE subtraction is antisymmetric, and
+  each ant's list keeps ascending partner order; (b) a nest worker resting
+  at the start of a step gets `perceiveResting` (contacts, region, light,
+  temperature: all its rest-mode decision reads) and the full percept if it
+  walks within the step; every `onStep` consumer reads only contacts and
+  `inNest`; (c) `ContactGrid` is incremental (moves only ants that change
+  cell, keeps a cell's neighbour list until its 3 × 3 block changes).
+  **Not adopted:** `restDecision.ts` (a hand copy of the nest policy taking
+  `Body`; breaks the perception boundary and would diverge silently if the
+  policy changes; ≈ 5 %). **Checks:** fast tier 137 pass, incl. new
+  fastPath on/off equality tests (Bles with sharing; Stroeymeyt with
+  B-stops; Stroeymeyt with trips); largest colony (122, 151 ants) at fit
+  settings (dt 0.05, 400 + 1200 s): rows hash identical to HEAD, 15.7 /
+  14.7 s → 7.3 / 7.6 s (**2.0×**). The simulation hash changes (code), so
+  results reproduce but run hashes and precomputed pages are new.
+- **Checkpoints:** `cmaes` takes `checkpoint`/`resume` (full state incl.
+  the RNG's cached Gaussian, `RNG.snapshot/restore`); resumed runs are
+  bit-identical (unit test with bounds, noise, averaging, JSON round trip).
+  `fitS2018.ts` saves `logs/fitS2018-<tag>.ckpt.json` atomically after the
+  probe, after every generation and after each finished start; rerunning
+  the same command resumes; a checkpoint from other inputs (sim hash,
+  options) is refused. End-to-end check: a tiny fit resumed after its probe
+  wrote an output identical to the uninterrupted run. Losing the box costs
+  at most one generation (and its selection scoring).
+- **Logs:** one line per generation (best, median, σ, minutes for that
+  generation and the session, UTC time), the decoded mean every 5.
+- **Next:** relaunch start 0 on the box (same command, `--tag s0`); at
+  ≈ 2× it should reach gen 30 in ≈ 12 h and replay the stopped run's log
+  exactly (gen 0 best 32125.3), which doubles as a check of the fast path
+  on the box.
+

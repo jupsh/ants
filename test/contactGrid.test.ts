@@ -21,6 +21,7 @@ describe('contact grid (STATUS 2026-10-11)', () => {
     const P = { ...LASIUS_PARAMS, nest: LASIUS_NEST };
     const o = { seed: 5, ants: 40, minutes: 6, foodMinute: 1 };
     expect(run(P, { ...o, contactGrid: false })).toBe(run(P, o));
+    expect(run(P, { ...o, fastPath: false })).toBe(run(P, o));
   });
 
   it('gives the same run with option-B encounter stops in a crowded Stroeymeyt nest', () => {
@@ -28,6 +29,14 @@ describe('contact grid (STATUS 2026-10-11)', () => {
     const roles = [...Array(60).fill('nurse'), ...Array(20).fill('forager'), 'queen'] as ('nurse' | 'forager' | 'queen')[];
     const o = { seed: 9, ants: roles.length, roles, setup: stroeymeytApparatus(), minutes: 4, foodMinute: 0, foodUl: 500, molar: 0.3, starvationDays: 0, walkSpeedFactor: 1 };
     expect(run(P, { ...o, contactGrid: false })).toBe(run(P, o));
+    expect(run(P, { ...o, fastPath: false })).toBe(run(P, o));
+  });
+
+  it('fast path: same run as per-ant percepts in a Stroeymeyt nest with resting, waking and trips (STATUS 2026-10-12)', () => {
+    const P = { ...LASIUS_PARAMS, nest: { ...LASIUS_NEST, returnRate: 0, forager: { outRate: 1 / 120 } } };
+    const roles = [...Array(40).fill('nurse'), ...Array(15).fill('forager'), 'queen'] as ('nurse' | 'forager' | 'queen')[];
+    const o = { seed: 13, ants: roles.length, roles, setup: stroeymeytApparatus(), minutes: 6, foodMinute: 0, foodUl: 500, molar: 0.3, starvationDays: 0, walkSpeedFactor: 1 };
+    expect(run(P, { ...o, fastPath: false, contactGrid: false })).toBe(run(P, o));
   });
 
   it('leaves the Stroeymeyt rows unchanged', () => {

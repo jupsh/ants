@@ -28,6 +28,17 @@ export class RNG {
     this.s = seed >>> 0 || 1;
   }
 
+  /** The generator's full state, including the cached Gaussian (for checkpoints); `restore` continues it exactly. */
+  snapshot(): { s: number; spare: number | null } {
+    return { s: this.s, spare: this.spare };
+  }
+
+  restore(st: { s: number; spare: number | null }): this {
+    this.s = st.s;
+    this.spare = st.spare;
+    return this;
+  }
+
   /** Uniform in [0, 1). */
   next(): number {
     let t = (this.s = (this.s + 0x6d2b79f5) >>> 0);

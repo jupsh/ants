@@ -3,6 +3,16 @@ import { cmaes, eigenDecomposition } from '../src/sim/analysis/cmaes';
 import { RNG } from '../src/sim/core/rng';
 
 describe('CMA-ES', () => {
+  it('resumes from a JSON checkpoint bit for bit (bounded, noisy, averaged; STATUS 2026-10-12)', async () => {
+    const noise = (x: number[], g: number) => RNG.stream(3, g, Math.round(x[0] * 1e6)).gauss() * 0.01;
+    const f = (x: number[], g: number) => x.reduce((a, v, i) => a + (i + 1) * (v - 1.5) ** 2, 0) + noise(x, g);
+    const o = { sigma: 1, stds: [0.5, 0.3, 0.4, 0.2], maxGenerations: 40, seed: 11, averageLast: 10, bounds: { lo: [0, 0, 0, 0], hi: [1, 4, 4, 4] }, tolUpSigma: 20 };
+    const saved: string[] = [];
+    const full = await cmaes(f, [3, 3, 3, 3], { ...o, checkpoint: (st) => void saved.push(JSON.stringify(st)) });
+    const resumed = await cmaes(f, [3, 3, 3, 3], { ...o, resume: JSON.parse(saved[17]) });
+    expect(JSON.stringify(resumed)).toBe(JSON.stringify(full));
+  });
+
   it('eigendecomposition reconstructs a symmetric positive-definite matrix', () => {
     const r = new RNG(3);
     const n = 6;

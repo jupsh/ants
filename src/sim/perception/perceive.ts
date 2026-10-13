@@ -7,7 +7,7 @@ import type { ContactPercept, FoodContact, Interoception, SurfacePercept } from 
  * Build what one ant can sense right now. This module is the only bridge
  * from world truth to behaviour.
  */
-export function perceive(w: World, b: Body, dt: number): SurfacePercept {
+export function perceive(w: World, b: Body, dt: number, contacts: ContactPercept[] = senseContacts(w, b)): SurfacePercept {
   const reach = b.morph.antennaReach;
   const region = w.apparatus.regionAt(b.x, b.y);
   const slope = w.surface.slopeAt(b.x, b.y);
@@ -61,6 +61,25 @@ export function perceive(w: World, b: Body, dt: number): SurfacePercept {
     const dir = w.exitCue.descentAt(b.x, b.y);
     if (dir !== null) exitCue = { bearing: wrap(dir - b.heading) };
   }
+  return {
+    dt,
+    incline: slope.incline,
+    downhill: slope.downhill,
+    bodyTemp: w.tempC,
+    light: region?.covered ? 0 : w.light,
+    inNest,
+    nestCue,
+    exitCue,
+    edge,
+    trailL,
+    trailR,
+    food,
+    contacts,
+  };
+}
+
+/** The nestmates in antennal contact with `b`, in ant-index order (`senseAllContacts` gives every ant's at once). */
+export function senseContacts(w: World, b: Body): ContactPercept[] {
   const contacts: ContactPercept[] = [];
   // Candidates: the ants binned near this one when the runner keeps a contact grid (same ants, same order), else all.
   const grid = w.contactGrid;
@@ -77,21 +96,20 @@ export function perceive(w: World, b: Body, dt: number): SurfacePercept {
     const d = Math.hypot(ox, oy);
     contacts.push({ id: o.body.id, bearing: wrap(Math.atan2(oy, ox) - b.heading), dist: d, layingTrail: o.body.gasterDown, offering: o.body.offering, soliciting: o.body.soliciting, mouthContact: mouthContact(b, o.body), sharing: o.body.sharingWith >= 0, sharingWithMe: o.body.sharingWith === b.id, moving: o.body.stepLen > 0 });
   }
-  return {
-    dt,
-    incline: slope.incline,
-    downhill: slope.downhill,
-    bodyTemp: w.tempC,
-    light: region?.covered ? 0 : w.light,
-    inNest,
-    nestCue,
-    exitCue,
-    edge,
-    trailL,
-    trailR,
-    food,
-    contacts,
-  };
+  return contacts;
+}
+
+/**
+ * What a resting nest worker's decision reads, and nothing more: contacts,
+ * region, light and temperature. Movement cues (slope, edge, trail, food,
+ * nest and exit cues) are left empty, so the runner must replace this with
+ * `perceive` before the ant walks (colonyBles: a resting ant that starts
+ * walking within the step). Exact for the nest policy's rest mode, which
+ * reads only `dt`, `contacts` and `inNest`.
+ */
+export function perceiveResting(w: World, b: Body, dt: number, contacts: ContactPercept[]): SurfacePercept {
+  const region = w.apparatus.regionAt(b.x, b.y);
+  return { dt, incline: 0, downhill: 0, bodyTemp: w.tempC, light: region?.covered ? 0 : w.light, inNest: region?.kind === 'nest', nestCue: null, exitCue: null, edge: null, trailL: 0, trailR: 0, food: null, contacts };
 }
 
 export function interocept(b: Body): Interoception {

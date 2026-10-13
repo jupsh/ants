@@ -53,6 +53,30 @@ export interface CmaOptions {
    * flat region); `stopReason` 'tolUpSigma'.
    */
   tolUpSigma?: number;
+  /** Called after every generation that does not stop the run, with the state to continue from (plain data, JSON-safe except `best.f` = ±Infinity/NaN). */
+  checkpoint?: (s: CmaState) => void | Promise<void>;
+  /** Continue from a checkpoint: the run then matches the uninterrupted one bit for bit (same `f`, `x0` and options). */
+  resume?: CmaState;
+}
+
+/** Everything a run carries between generations. */
+export interface CmaState {
+  /** Next generation to run. */
+  generation: number;
+  m: number[];
+  sigma: number;
+  pc: number[];
+  ps: number[];
+  C: number[][];
+  B: number[][];
+  D: number[];
+  best: { x: number[]; f: number };
+  evals: number;
+  recent: number[][];
+  gamma: number[];
+  gammaSet: boolean;
+  dfHist: number[];
+  rng: { s: number; spare: number | null };
 }
 
 export interface CmaGeneration {
@@ -122,6 +146,25 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
   const histLen = 20 + Math.floor((3 * n) / lambda);
   const dGamma = Math.min(1, muEff / (10 * n));
   const dTh = 3 * Math.max(1, Math.sqrt(n) / muEff);
+  const r0 = o.resume;
+  if (r0) {
+    if (r0.m.length !== n || r0.rng === undefined) throw new Error('cmaes: checkpoint does not fit this problem');
+    g = r0.generation;
+    m = r0.m.slice();
+    sigma = r0.sigma;
+    pc.splice(0, n, ...r0.pc);
+    ps.splice(0, n, ...r0.ps);
+    C = r0.C.map((r) => r.slice());
+    B = r0.B.map((r) => r.slice());
+    D = r0.D.slice();
+    best = { x: r0.best.x.slice(), f: r0.best.f };
+    evals = r0.evals;
+    recent.push(...r0.recent.map((r) => r.slice()));
+    gamma.splice(0, n, ...r0.gamma);
+    gammaSet = r0.gammaSet;
+    dfHist.push(...r0.dfHist);
+    rng.restore(r0.rng);
+  }
   for (; g < o.maxGenerations; g++) {
     // Sample: y = B·D·z, x = m + σ·y.
     const ys: number[][] = [];
@@ -208,6 +251,10 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
       g++;
       stopReason = 'tolUpSigma';
       break;
+    }
+    if (o.checkpoint) {
+      const c2 = (A: number[][]) => A.map((r) => r.slice());
+      await o.checkpoint({ generation: g + 1, m: m.slice(), sigma, pc: pc.slice(), ps: ps.slice(), C: c2(C), B: c2(B), D: D.slice(), best: { x: best.x.slice(), f: best.f }, evals, recent: c2(recent), gamma: gamma.slice(), gammaSet, dfHist: dfHist.slice(), rng: rng.snapshot() });
     }
   }
   const win = recent.slice(recent.length - Math.max(1, Math.min(recent.length, Math.floor(g / 2))));

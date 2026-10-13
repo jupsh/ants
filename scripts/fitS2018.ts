@@ -15,9 +15,9 @@
  * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts).
  * Writes data/fits/s2018-motion[-tag].json.
  */
-import { cmaes } from '../src/sim/analysis/cmaes';
+import { cmaes, type CmaState } from '../src/sim/analysis/cmaes';
 import { S2018_FREE, s2018AtBound, s2018Loss, s2018Values, type S2018Free } from '../src/sim/experiments/stroeymeytTargets';
-import { arg, numArg, provenance, seedFor, writeJson } from './lib';
+import { arg, loadCheckpoint, numArg, provenance, saveCheckpoint, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
 import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018TargetsFromData, simulateAll } from './s2018Lib';
 
@@ -46,6 +46,13 @@ const encode = (v: Record<string, number>) => S2018_FREE.map((f) => BOX * unit(v
 const decode = (x: number[]) => Object.fromEntries(S2018_FREE.map((f, i) => [f.key, ofUnit(Math.min(1, Math.max(0, x[i] / BOX)), f)]));
 
 const PROVENANCE = provenance();
+// Checkpoint after the probe and every generation (STATUS 2026-10-12): rerunning the same command resumes, bit for bit.
+const CKPT = `logs/fitS2018${TAG ? `-${TAG}` : ''}.ckpt.json`;
+const CKPT_KEY = { simHash: PROVENANCE.simHash, GENS, WARMUP, OBS, DT, OUT_RATE, EXPLORE, RUNS, RESTART, TAG };
+interface Run { label: string; run: number; x0: number[]; initialSds: number[]; lambda: number | null; generations: number; evals: number; finalSigma: number; avgWindow: number; meanDrift: number[]; stopReason: string; converged: boolean; gamma: number[] | null; x: number[]; f: number; estimate: Record<string, number> }
+interface Ckpt { done: Run[]; current: { run: number; stds: number[]; cma: CmaState | null } | null; evals: number; seconds: number }
+const ck: Ckpt = loadCheckpoint<Ckpt>(CKPT, CKPT_KEY) ?? { done: [], current: null, evals: 0, seconds: 0 };
+const save = () => saveCheckpoint(CKPT, CKPT_KEY, { ...ck, evals, seconds: ck.seconds + (Date.now() - t0) / 1000 });
 const pool = await SimPool.create();
 const o = { phase: 'light' as const, warmupS: WARMUP, obsS: OBS, dt: DT, exploreGiveUp: EXPLORE };
 /** One evaluation: all colonies; `reps` seeds each (the selection batch uses 3). */
@@ -55,7 +62,7 @@ const evalAt = async (v: Record<string, number>, seed: (i: number) => number, re
   return s2018Loss(runs.map((r) => r.rows), targets);
 };
 
-let evals = 0;
+let evals = ck.evals;
 const score = (x: number[]) => evalAt(decode(x), (i) => sf('select', i), 3);
 const PROBE_H = 0.2;
 const PROBE_DELTA = 10;
@@ -71,8 +78,19 @@ const probe = async (x0: number[], run: number) => {
   });
 };
 const one = async (label: string, x0: number[], lambda: number | undefined, run: number) => {
-  const stds = await probe(x0, run);
-  console.log(`${label}: initial SDs ${stds.map((v) => v.toFixed(2)).join(' ')}`);
+  const done = ck.done.find((d) => d.run === run);
+  if (done) {
+    console.log(`${label}: done before the restart (checkpoint), selection-batch loss ${done.f.toFixed(2)}`);
+    return done;
+  }
+  const cur = ck.current?.run === run ? ck.current : null;
+  const stds = cur?.stds ?? (await probe(x0, run));
+  if (!cur) {
+    ck.current = { run, stds, cma: null };
+    save();
+  }
+  console.log(`${label}: initial SDs ${stds.map((v) => v.toFixed(2)).join(' ')}${cur ? ` (checkpoint; resuming at generation ${cur.cma?.generation ?? 0})` : ''}`);
+  let tg = Date.now();
   const r = await cmaes((x, g) => evalAt(decode(x), (i) => sf('fit', run, g, i)), x0, {
     sigma: 1,
     stds,
@@ -83,19 +101,33 @@ const one = async (label: string, x0: number[], lambda: number | undefined, run:
     averageLast: AVERAGE_LAST,
     bounds: { lo: S2018_FREE.map(() => 0), hi: S2018_FREE.map(() => BOX) },
     tolUpSigma: 20,
-    log: (g) => g.generation % 5 === 0 && console.log(`${label} gen ${g.generation} evals ${g.evals} best ${g.fs[0].toFixed(1)} median ${g.fs[g.fs.length >> 1].toFixed(1)} σ ${g.sigma.toFixed(3)} (${((Date.now() - t0) / 60000).toFixed(1)} min)`),
+    resume: cur?.cma ?? undefined,
+    checkpoint: (st) => {
+      ck.current!.cma = st;
+      save();
+    },
+    log: (g) => {
+      console.log(`${label} gen ${g.generation} evals ${g.evals} best ${g.fs[0].toFixed(1)} median ${g.fs[g.fs.length >> 1].toFixed(1)} σ ${g.sigma.toFixed(3)} (${((Date.now() - tg) / 60000).toFixed(1)} min this gen, ${((Date.now() - t0) / 60000).toFixed(1)} min this session) ${new Date().toISOString().slice(5, 16)}`);
+      if (g.generation % 5 === 0) console.log(`${label} gen ${g.generation} mean ${Object.entries(decode(g.mean)).map(([k, v]) => `${k} ${v.toPrecision(3)}`).join(', ')}`);
+      tg = Date.now();
+    },
   });
   evals += r.evals;
   const f = await score(r.meanAvg);
   console.log(`${label}: ${r.generations} generations, ${r.evals} evaluations, stop ${r.stopReason}, final σ ${r.sigma.toFixed(3)}; selection-batch loss ${f.toFixed(2)}`);
-  return { label, run, x0, initialSds: stds, lambda: lambda ?? null, generations: r.generations, evals: r.evals, finalSigma: r.sigma, avgWindow: r.avgWindow, meanDrift: r.meanDrift, stopReason: r.stopReason, converged: r.stopReason === 'tolX', gamma: r.gamma ?? null, x: r.meanAvg, f, estimate: decode(r.meanAvg) };
+  const out: Run = { label, run, x0, initialSds: stds, lambda: lambda ?? null, generations: r.generations, evals: r.evals, finalSigma: r.sigma, avgWindow: r.avgWindow, meanDrift: r.meanDrift, stopReason: r.stopReason, converged: r.stopReason === 'tolX', gamma: r.gamma ?? null, x: r.meanAvg, f, estimate: decode(r.meanAvg) };
+  ck.done.push(out);
+  ck.current = null;
+  save();
+  return out;
 };
 
 // Start 2: option B's arena-like stopping (every encounter stops, strong crowding), slow walking, long rests.
 const START2: Record<string, number> = { ...S2018_START, encounterStop: 1, restCrowdExp: 1.2, 'nurse.restToActive': 0.05, 'forager.restToActive': 0.1, 'nurse.nestSpeedFactor': 0.04, 'forager.nestSpeedFactor': 0.05, 'nurse.nestPauseFactor': 5, 'forager.nestPauseFactor': 5 };
 const t0 = Date.now();
 console.log(`Stroeymeyt 2018 in-nest motion: k = ${S2018_FREE.length}, ${targets.length} rows, ${colonies.length} colonies per evaluation, window ${WARMUP} + ${OBS} s, dt ${DT}, outRate ${OUT_RATE.toPrecision(3)}, ${pool.size} workers`);
-const runs: Awaited<ReturnType<typeof one>>[] = [];
+if (ck.done.length || ck.current) console.log(`resuming from ${CKPT}: ${ck.done.length} run(s) done${ck.current ? `, run ${ck.current.run} at generation ${ck.current.cma?.generation ?? 0}` : ''}`);
+const runs: Run[] = [];
 for (const [k, s] of [S2018_START, START2].entries()) if (RUNS.includes(k)) runs.push(await one(`start ${k}`, encode(s), undefined, k));
 const lambda0 = 4 + Math.floor(3 * Math.log(S2018_FREE.length));
 const best0 = runs.reduce((a, b) => (b.f < a.f ? b : a));
@@ -115,7 +147,7 @@ writeJson(OUT, {
   exploreGiveUp: EXPLORE,
   optimizer: { method: 'CMA-ES', starts: RUNS, restarts: RESTART ? 1 : 0, maxGenerations: GENS, tolX: TOLX, averageLast: AVERAGE_LAST, boundHandling: `Mod-BCH, box [0, ${BOX}], tolUpSigma 20` },
   evals,
-  seconds: (Date.now() - t0) / 1000,
+  seconds: ck.seconds + (Date.now() - t0) / 1000,
   selectionLoss: best.f,
   runs: runs.map((r) => r.f),
   runDetails: runs,

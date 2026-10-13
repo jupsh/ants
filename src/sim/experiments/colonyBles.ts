@@ -6,7 +6,8 @@ import { deepClone } from '../core/clone';
 import { RNG } from '../core/rng';
 import { newMind, newTrip } from '../mind/mind';
 import { walkStep, type WalkParams } from '../models/walk';
-import { interocept, perceive } from '../perception/perceive';
+import { ContactPairCache, senseAllContacts } from '../perception/contactPairs';
+import { interocept, perceive, perceiveResting } from '../perception/perceive';
 import type { SurfacePercept } from '../perception/types';
 import { applyForagerAction, metabolise, walkAnt, type MotorFn } from '../physics/antPhysics';
 import { alignFaceToFace, detectContacts, HEAD_OFFSET, mouthContact } from '../physics/contacts';
@@ -66,6 +67,13 @@ export interface ColonyOptions {
   /** Contact checks through a spatial grid (default true; results are identical either way, it is only faster). */
   contactGrid?: boolean;
   /**
+   * Fast path (default true; results are identical either way, STATUS
+   * 2026-10-12): contacts sensed once per nearby pair with a geometry cache,
+   * and a resting nest worker senses only what its decision reads
+   * (`perceiveResting`), completed with the full percept if it walks.
+   */
+  fastPath?: boolean;
+  /**
    * One extra ant (index `ants`) that enters the nest from the passage at
    * `enterAt` s carrying a crop load and the memory of having fed
    * (`ingested` µL): the Mailleux 1999 recruiter. Absent until then.
@@ -93,6 +101,7 @@ export interface RecruiterEntry {
 /** Per-step view for observers (`runColony`'s `onStep`); return true from `onStep` to stop the run. */
 export interface ColonyStepInfo {
   t: number;
+  /** With the fast path, a nest worker that rested through the step has only contacts, region, light and temperature. */
   per: readonly (SurfacePercept | null)[];
   /** Ants under the forager policy (outside the nest, or on their way in). */
   outside: readonly boolean[];
@@ -181,6 +190,7 @@ export class ColonySim {
   /** In-nest walking for ants with the forager trait (option B: their own speed factor). */
   private readonly walkNestForagerP: WalkParams;
   private readonly foragerP: ForagerParams;
+  private readonly pairCache?: ContactPairCache;
   private readonly motor: MotorFn;
   private readonly reserveMax: number;
   private readonly reserveFrac: number;
@@ -217,6 +227,7 @@ export class ColonySim {
     w.exitCue = new PathField(app, (r) => r.kind !== 'nest');
     w.nestCueRadius = 150;
     // Cells as wide as the largest antennal-contact distance (all ants share one morphology here).
+    if (o.fastPath !== false) this.pairCache = new ContactPairCache();
     if (o.contactGrid !== false) w.contactGrid = new ContactGrid(P.morph.antennaReach + 2 * HEAD_OFFSET * P.morph.len + 1e-3, app.bounds);
     this.w = w;
     this.foragerP = { ...P.forager, exploreGiveUp: o.exploreGiveUp ?? 300 };
@@ -311,11 +322,19 @@ export class ColonySim {
     }
     // Perceive (same state for all), then decide.
     w.contactGrid?.build(w.ants);
-    const per: (SurfacePercept | null)[] = w.ants.map((a) => (a.body.alive ? perceive(w, a.body, dt) : null));
+    const fast = this.o.fastPath !== false;
+    const contacts = fast ? senseAllContacts(w, this.pairCache) : null;
+    // Fast path: a nest worker resting at the start of the step decides from what its rest mode reads.
+    const resting = w.ants.map((a, i) => fast && a.body.alive && !outside[i] && a.mind.mode === 'rest');
+    const per: (SurfacePercept | null)[] = w.ants.map((a, i) => (!a.body.alive ? null : resting[i] ? perceiveResting(w, a.body, dt, contacts![i]) : perceive(w, a.body, dt, contacts?.[i])));
     const acts: (NestAction | ForagerAction | null)[] = w.ants.map((a, i) => {
       const p = per[i];
       if (!p) return null;
       return outside[i] ? lasiusForager(p, interocept(a.body), a.mind, this.foragerP, a.body.rng) : lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
+    });
+    // A resting ant that walks this step (it woke, or leaves or returns) gets the full percept of the same pre-move state.
+    w.ants.forEach((a, i) => {
+      if (resting[i] && acts[i] && !(acts[i] as NestAction).stand) per[i] = perceive(w, a.body, dt, contacts![i]);
     });
     // Move (and, outside, drink and metabolise as in E2). Mouth flow is re-sensed from here on.
     for (const a of w.ants) a.body.mouthFlow = 0;

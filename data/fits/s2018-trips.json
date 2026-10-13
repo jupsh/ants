@@ -1,0 +1,243 @@
+{
+  "experiment": "Step 4b inputs: forager trip process (Stroeymeyt 2018 fit colonies)",
+  "targets": {
+    "tripN": 244.13636363636363,
+    "foragerIn": 0.7695418519481543,
+    "se": {
+      "tripN": 41.252232837455566,
+      "foragerIn": 0.04100420635953714
+    },
+    "tolSe": 0.25
+  },
+  "reportedOnly": {
+    "tripMean": 1176.79094632084,
+    "tripMedian": 283.35795454545456
+  },
+  "exploreGiveUp": 2146.7517977815114,
+  "outRate": 0.0001375261480159022,
+  "confirmation": {
+    "explore": 2146.7517977815114,
+    "rate": 0.0001375261480159022,
+    "n": 235.1818181818182,
+    "foragerIn": 0.7707265475378804,
+    "tripMean": 1282.657237126092,
+    "tripMedian": 2148.2613636363635,
+    "stayMean": 3949.3021998097556,
+    "stayMedian": 2801
+  },
+  "passed": true,
+  "rounds": [
+    {
+      "grid": [
+        {
+          "explore": 600,
+          "rate": 0.001,
+          "n": 915.2727272727273,
+          "foragerIn": 0.6326572358290554,
+          "tripMean": 548.6299504149754,
+          "tripMedian": 603.7272727272727,
+          "stayMean": 925.235797259062,
+          "stayMedian": 640.4886363636364
+        },
+        {
+          "explore": 600,
+          "rate": 0.0005,
+          "n": 608.9090909090909,
+          "foragerIn": 0.7731727080177883,
+          "tripMean": 509.92216650249503,
+          "tripMedian": 603.3409090909091,
+          "stayMean": 1673.7808885727152,
+          "stayMedian": 1132.1136363636363
+        },
+        {
+          "explore": 600,
+          "rate": 0.00025,
+          "n": 399,
+          "foragerIn": 0.8699960063053865,
+          "tripMean": 443.9737002348105,
+          "tripMedian": 602.5681818181819,
+          "stayMean": 2769.829522754138,
+          "stayMedian": 1892.6022727272727
+        },
+        {
+          "explore": 600,
+          "rate": 0.000125,
+          "n": 266.5,
+          "foragerIn": 0.9298091960948163,
+          "tripMean": 357.19374702077243,
+          "tripMedian": 576.5,
+          "stayMean": 4188.863234197911,
+          "stayMedian": 2917.715909090909
+        },
+        {
+          "explore": 1000,
+          "rate": 0.001,
+          "n": 728.8636363636364,
+          "foragerIn": 0.5146086757354568,
+          "tripMean": 904.493177239739,
+          "tripMedian": 1003.7613636363636,
+          "stayMean": 936.3120321181741,
+          "stayMedian": 643.7272727272727
+        },
+        {
+          "explore": 1000,
+          "rate": 0.0005,
+          "n": 528.7727272727273,
+          "foragerIn": 0.6720609562984221,
+          "tripMean": 834.952068019238,
+          "tripMedian": 1003.2954545454545,
+          "stayMean": 1658.9657721647818,
+          "stayMedian": 1139.465909090909
+        },
+        {
+          "explore": 1000,
+          "rate": 0.00025,
+          "n": 368.8181818181818,
+          "foragerIn": 0.8012754131109587,
+          "tripMean": 720.6244294334962,
+          "tripMedian": 1002.5113636363636,
+          "stayMean": 2755.8573919163855,
+          "stayMedian": 1891.0113636363637
+        },
+        {
+          "explore": 1000,
+          "rate": 0.000125,
+          "n": 254.13636363636363,
+          "foragerIn": 0.8900912966223533,
+          "tripMean": 582.7286256673606,
+          "tripMedian": 1001.1477272727273,
+          "stayMean": 4170.280869644661,
+          "stayMedian": 2894.7045454545455
+        },
+        {
+          "explore": 1600,
+          "rate": 0.001,
+          "n": 552.8636363636364,
+          "foragerIn": 0.40123092576471575,
+          "tripMean": 1441.2929697074376,
+          "tripMedian": 1603.7045454545455,
+          "stayMean": 951.0128715461552,
+          "stayMedian": 648.5795454545455
+        },
+        {
+          "explore": 1600,
+          "rate": 0.0005,
+          "n": 437.95454545454544,
+          "foragerIn": 0.5649701180082564,
+          "tripMean": 1321.3557466746472,
+          "tripMedian": 1603.1931818181818,
+          "stayMean": 1671.9898070676768,
+          "stayMedian": 1186.659090909091
+        },
+        {
+          "explore": 1600,
+          "rate": 0.00025,
+          "n": 329.6363636363636,
+          "foragerIn": 0.7173191819709888,
+          "tripMean": 1143.2826714102373,
+          "tripMedian": 1602.5454545454545,
+          "stayMean": 2749.998089035799,
+          "stayMedian": 1905.875
+        },
+        {
+          "explore": 1600,
+          "rate": 0.000125,
+          "n": 240.77272727272728,
+          "foragerIn": 0.8343459288137388,
+          "tripMean": 919.453241570992,
+          "tripMedian": 1442.3636363636363,
+          "stayMean": 4104.611684148412,
+          "stayMedian": 2847.5454545454545
+        },
+        {
+          "explore": 2600,
+          "rate": 0.001,
+          "n": 389.3181818181818,
+          "foragerIn": 0.30027362154675036,
+          "tripMean": 2323.4762808607015,
+          "tripMedian": 2603.7727272727275,
+          "stayMean": 986.5501759763687,
+          "stayMedian": 645.6136363636364
+        },
+        {
+          "explore": 2600,
+          "rate": 0.0005,
+          "n": 338.1363636363636,
+          "foragerIn": 0.44332935301599696,
+          "tripMean": 2134.8848789486156,
+          "tripMedian": 2603.1363636363635,
+          "stayMean": 1649.7730035006555,
+          "stayMedian": 1119.8977272727273
+        },
+        {
+          "explore": 2600,
+          "rate": 0.00025,
+          "n": 271.1818181818182,
+          "foragerIn": 0.6115337427726031,
+          "tripMean": 1875.2028749063875,
+          "tripMedian": 2602.5454545454545,
+          "stayMean": 2786.391403848364,
+          "stayMedian": 1911.5454545454545
+        },
+        {
+          "explore": 2600,
+          "rate": 0.000125,
+          "n": 213.72727272727272,
+          "foragerIn": 0.759998391736027,
+          "tripMean": 1453.5195136875534,
+          "tripMedian": 2251.7272727272725,
+          "stayMean": 4172.796574246004,
+          "stayMedian": 2864.931818181818
+        }
+      ],
+      "solution": {
+        "explore": 2146.7517977815114,
+        "rate": 0.0001375261480159022,
+        "residualSe": [
+          1.7866469721853165e-11,
+          6.335744813211383e-13
+        ]
+      },
+      "confirmation": {
+        "explore": 2146.7517977815114,
+        "rate": 0.0001375261480159022,
+        "n": 235.1818181818182,
+        "foragerIn": 0.7707265475378804,
+        "tripMean": 1282.657237126092,
+        "tripMedian": 2148.2613636363635,
+        "stayMean": 3949.3021998097556,
+        "stayMedian": 2801
+      }
+    }
+  ],
+  "motion": {
+    "nurse.nestSpeedFactor": 0.06,
+    "nurse.activeToRest": 3,
+    "nurse.restToActive": 0.15,
+    "nurse.nestPauseFactor": 1,
+    "forager.nestSpeedFactor": 0.06,
+    "forager.activeToRest": 2,
+    "forager.restToActive": 0.25,
+    "forager.nestPauseFactor": 1,
+    "encounterStop": 0.5,
+    "restCrowdExp": 0.5
+  },
+  "window": {
+    "phase": "light",
+    "warmupS": 1200,
+    "obsS": 43200,
+    "dt": 0.05
+  },
+  "seconds": 9384.936,
+  "provenance": {
+    "simHash": "6503aa3c0a9e521e",
+    "commit": "ba8a557a7f2ee55decc04825131ab847a8b3830a",
+    "dirty": false,
+    "node": "v22.22.1",
+    "argv": [
+      "--dt",
+      "0.05"
+    ],
+    "date": "2026-10-11T21:10:28.809Z"
+  }
+}
