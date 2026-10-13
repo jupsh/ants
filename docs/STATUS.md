@@ -52,7 +52,9 @@ Pages) when the user asks.
   at gen 30 (24.4 h, ≈ 45 min/generation, 3× the estimate; no checkpoint
   then).** Since then (2026-10-12): the colony fast path (2× per
   evaluation, bit-identical) and per-generation checkpoints (rerun the same
-  command to resume). Relaunch of start 0 (tag `s0`) pending; start 1 and
+  command to resume). **Start 0 relaunched on the box 2026-10-12 ≈ 00:27
+  box time** (794f598, tag `s0`; old log `logs/fitS2018-s0-stopped-gen30.log`
+  there); if the box dies, rerun the same command. Start 1 and
   the restart decided after it. A vast.ai
   box is rented (see the step-4b box entry
   for access and set-up).
@@ -1440,4 +1442,8 @@ not taken.
   ≈ 2× it should reach gen 30 in ≈ 12 h and replay the stopped run's log
   exactly (gen 0 best 32125.3), which doubles as a check of the fast path
   on the box.
+- **Relaunched** (user approved): box on 794f598 via bundle (its
+  uncommitted pre-commit files saved in `/root/ants2-pre-794f598/`), fast
+  tier 136 pass, same command as before with `nohup`. Check: gen 0 should
+  print best 32125.3, median 43971.3.
 
