@@ -30,7 +30,7 @@ const outRate = trips.outRate;
 const exploreGiveUp = trips.exploreGiveUp;
 const P = s2018Params(values, outRate);
 const data = loadS2018();
-const colonies = data.colonies.map(colonyFromData);
+const colonies = data.colonies.map((c) => colonyFromData(c));
 const targets = s2018TargetsFromData();
 // One SE per simulated row: the smaller of its light and dark targets.
 const se = new Map<string, number>();

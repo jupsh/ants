@@ -1,15 +1,18 @@
 import { colonyRows, InNestAccumulator, STROEYMEYT_CFG, type AntRole, type InNestColony, type Phase } from '../analysis/inNest';
 import { RNG } from '../core/rng';
+import { DET_D_EDGES, DET_TSB_EDGES, ObservedState, type DetectionTracker } from '../analysis/detection';
 import { stroeymeytApparatus } from '../world/apparatus';
 import { ColonySim, type ColonyParams } from './colonyBles';
+import { S2018_WATER } from './stroeymeytTargets';
 
 /**
  * A Stroeymeyt et al. (2018) fit colony in its tracking box (step 4a,
  * STATUS 2026-10-11): the colony's own nurses and foragers plus the queen,
- * a fed colony, one phase (light 26 °C or dark 22 °C) at a time. No sugar
- * drop (STATUS 2026-10-11: feeding does not reach the in-nest rows of a fed
- * colony without sharing, and the drop cut trips short): a forager's trip
- * is `exploreGiveUp` s of exploring the foraging area, then homing. Observed like the recorded colonies: every 0.5 s each
+ * a fed colony, one phase (light 26 °C or dark 22 °C) at a time. Water and
+ * sugar water ad libitum (STATUS 2026-10-15; removed 2026-10-11, when the
+ * colony starved of water at ≈ 14.5 h); a forager's trip is
+ * `exploreGiveUp` s of exploring the foraging area (drinking at a source it
+ * touches with room in its crop), then homing. Observed like the recorded colonies: every 0.5 s each
  * ant's position plus white tracking noise, each detection missed
  * independently at the colony's rate, nothing seen in the hole through the
  * wall; the frames go through the same `InNestAccumulator` as the data.
@@ -21,6 +24,23 @@ export interface StroeymeytColony {
   /** Tracking noise SD per axis (mm) and detection probability per frame, the colony's own estimates. */
   noiseSd: number;
   detection: number;
+  /**
+   * Recorded detection masks (observer diagnostic, STATUS 2026-10-15): per
+   * ant in role order, a bitset over observed frames (bit f set: detected in
+   * frame f), replacing the independent draws; frames past the end fall back
+   * to them. Unset: independent misses at `detection`.
+   */
+  masks?: Uint8Array[];
+  /**
+   * Estimated detection tracker (STATUS 2026-10-15; under validation): in the
+   * nest, after each detection a gap starts with probability 1 − (1 −
+   * p[cell])^m (cell: the observed history, `ObservedState`; m: the ant's
+   * multiplier, drawn from `mult`), lasting a duration drawn from `dProb` of
+   * the onset's time-since-resumed bin;
+   * outside the nest detection stays independent at `detection`. Unset:
+   * independent misses everywhere. Per role (the queen uses the nurse tracker).
+   */
+  tracker?: { nurse: DetectionTracker; forager: DetectionTracker };
 }
 
 export interface StroeymeytRunOptions {
@@ -45,6 +65,28 @@ export interface StroeymeytRun {
   windowRows: Record<string, number>[];
 }
 
+/**
+ * Water and 10 % sugar water (≈ 0.3 M), ad libitum, at the centres of the
+ * zones mapped from the authors' plume files (STATUS 2026-10-11: water x
+ * 47–61, y 84–99; sugar x 9–23, y 82–99 mm). 50 µL each (radius ≈ 2.9 mm;
+ * the feeders' size is not reported: estimated).
+ */
+export const STROEYMEYT_SOURCES = [
+  { x: 54, y: 91.5, ul: 50, molar: 0, adLib: true },
+  { x: 16, y: 90.5, ul: 50, molar: 0.3, adLib: true },
+];
+
+/**
+ * Initial water state near the steady state of the water runs (STATUS
+ * 2026-10-15, late windows, model output): foragers full with crops
+ * ≈ 1.4–2.0 µL, nurses just above the thirst threshold, crops empty.
+ */
+export const STROEYMEYT_WATER_INIT = (thirst: number) => ({
+  nurse: [thirst, thirst + 0.06] as [number, number],
+  forager: [1, 1] as [number, number],
+  foragerCrop: [1.4, 2.0] as [number, number],
+});
+
 /** Temperature per phase (Stroeymeyt et al. 2018: 12 h light at 26 °C, 12 h dark at 22 °C). */
 export const STROEYMEYT_TEMP: Record<Phase, number> = { light: 26, dark: 22 };
 /** UTC hour handed to the accumulator so the frames fall in the wanted phase. */
@@ -65,8 +107,12 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     setup: stroeymeytApparatus(),
     dt,
     minutes: (o.warmupS + o.obsS) / 60,
-    // No food in this set-up (never added within the run).
+    // No timed food; the experiment's ad-libitum water and 10 % sugar water from the start (STATUS 2026-10-15).
     foodMinute: Infinity,
+    sources: STROEYMEYT_SOURCES,
+    // Near the water economy's steady state (STATUS 2026-10-15: from full, empty-crop starts it took ≈ 8–14 h to settle).
+    // With thirst off, the same initial state at the default threshold, so paired runs start matched.
+    waterInit: STROEYMEYT_WATER_INIT(P.nest.thirstFrac > 0 ? P.nest.thirstFrac : S2018_WATER.thirstFrac),
     exploreGiveUp: o.exploreGiveUp,
     exploreOutside: true,
     starvationDays: 0,
@@ -87,6 +133,21 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
   let fIn = 0;
   let fN = 0;
   const foragers = roles.map((r, i) => (r === 'forager' ? i : -1)).filter((i) => i >= 0);
+  // Tracker state per ant: missed frames left in the current gap, observed history, onset multiplier, own stream.
+  const T = c.tracker;
+  const trk = T ? roles.map((_, i) => RNG.stream(o.seed, 0x0b60, i)) : [];
+  const gapLeft = roles.map(() => 0);
+  const seenState = T ? roles.map(() => new ObservedState()) : [];
+  const roleTracker = (i: number) => (roles[i] === 'forager' ? T!.forager : T!.nurse);
+  const mult = T ? trk.map((r, i) => roleTracker(i).mult[r.int(roleTracker(i).mult.length)]) : [];
+  const drawGap = (r: RNG, dProb: number[]) => {
+    let u = r.range(0, 1);
+    let k = 0;
+    while (k < dProb.length - 1 && u >= dProb[k]) u -= dProb[k++];
+    const lo = DET_D_EDGES[k];
+    const hi = Number.isFinite(DET_D_EDGES[k + 1]) ? DET_D_EDGES[k + 1] : 2 * lo;
+    return lo + r.int(hi - lo);
+  };
   const onStep = () => {
     // Positions after this step are at time (stepIndex × dt).
     const t = sim.stepIndex * dt;
@@ -95,13 +156,34 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     ids.length = xs.length = ys.length = ins.length = 0;
     sim.w.ants.forEach((a, i) => {
       if (!a.body.alive) return;
+      // A tracker gap runs on in time wherever the ant is.
+      const hidden = T ? gapLeft[i] > 0 : false;
+      if (hidden) gapLeft[i]--;
       const r = app.regionAt(a.body.x, a.body.y);
       // The wall hides the hole: nothing is detected in the passage.
       if (!r || r.kind === 'bridge') return;
       const rng = obs[i];
       const nx = rng.normal(0, c.noiseSd);
       const ny = rng.normal(0, c.noiseSd);
-      if (!rng.chance(c.detection)) return;
+      // The draw is made either way, so the noise streams stay aligned with and without masks.
+      const drawn = rng.chance(c.detection);
+      const m = c.masks?.[i];
+      const inNest = r.kind === 'nest';
+      const seen = m && frame < m.length * 8 ? ((m[frame >> 3] >> (frame & 7)) & 1) === 1 : T && inNest ? !hidden : drawn;
+      if (!seen) return;
+      if (T) {
+        // As in the statistics on recorded tracks: in-nest detections advance the observed history; one outside only ends a gap.
+        const s = seenState[i];
+        if (inNest) {
+          s.update(frame, a.body.x + nx, a.body.y + ny);
+          const R = roleTracker(i);
+          if (trk[i].chance(1 - Math.pow(1 - R.p[s.cell()], mult[i]))) gapLeft[i] = drawGap(trk[i], R.dProb[s.cell() % DET_TSB_EDGES.length]);
+        } else {
+          s.lastFrame = frame;
+          s.x = a.body.x + nx;
+          s.y = a.body.y + ny;
+        }
+      }
       ids.push(i);
       xs.push(a.body.x + nx);
       ys.push(a.body.y + ny);

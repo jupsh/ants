@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { lasiusForager, startTrip } from '../src/sim/behavior/lasiusForager';
-import { enterNest, lasiusNestWorker } from '../src/sim/behavior/lasiusNestWorker';
+import { drawNestTraits, enterNest, lasiusNestWorker } from '../src/sim/behavior/lasiusNestWorker';
 import { RNG } from '../src/sim/core/rng';
-import { newMind, type Mind } from '../src/sim/mind/mind';
+import { newMind, setMode, type Mind } from '../src/sim/mind/mind';
 import { basicPercept, type ContactPercept, type Interoception } from '../src/sim/perception/types';
 import { LASIUS_NEST, LASIUS_PARAMS } from '../src/sim/species/lasiusM1';
 
@@ -105,6 +105,59 @@ describe('nest worker: bouts (STATUS 2026-10-10)', () => {
     expect(lasiusNestWorker(inNest([]), io(0, 0, 0.3), h, p, rng).solicit).toBe(true);
     expect(lasiusNestWorker(inNest([]), io(1.5, 0, 0.3), h, p, rng).solicit).toBe(false); // carrying: a donor
     expect(lasiusNestWorker(inNest([]), io(0, 0, 0.95), h, p, rng).solicit).toBe(false); // sated
+  });
+
+  it('thirsty ants (body water below thirstFrac) solicit like hungry ones; thirst is off by default', () => {
+    const rng = new RNG(5);
+    const h = newMind(traits, P.walk, rng);
+    enterNest(h);
+    const dry = { ...io(0, 0, 0.95), water: 0.85 }; // sated, but dry
+    expect(lasiusNestWorker(inNest([]), dry, h, { ...LASIUS_NEST, thirstFrac: 0.9 }, rng).solicit).toBe(true);
+    expect(lasiusNestWorker(inNest([]), { ...dry, water: 0.95 }, h, { ...LASIUS_NEST, thirstFrac: 0.9 }, rng).solicit).toBe(false);
+    expect(lasiusNestWorker(inNest([]), dry, h, LASIUS_NEST, rng).solicit).toBe(false);
+  });
+
+  it('thirst does not send an ant out to forage; reserve hunger does', () => {
+    const p = { ...LASIUS_NEST, thirstFrac: 0.9, leaveRate: 1e6, outRate: 0, activeToRest: 0 };
+    for (const [reserve, leaves] of [[0.95, false], [0.3, true]] as const) {
+      const rng = new RNG(6);
+      const m = newMind(traits, P.walk, rng);
+      enterNest(m);
+      lasiusNestWorker(inNest([]), { ...io(0, 0, reserve), water: 0.85 }, m, p, rng);
+      expect(m.mode === 'leave').toBe(leaves);
+    }
+  });
+
+  it('with drinkOnlyWithRoom a forager with a full crop does not start drinking; without it, it does', () => {
+    const per = { ...basicPercept(0.1, 0, 0, 22), food: { id: 1, kind: 'sugar' as const, molar: 0, available: true } };
+    const full = { ...io(1.98, 0, 0.95), cropFull: true };
+    for (const flag of [true, false]) {
+      const rng = new RNG(8);
+      const m = newMind(traits, P.walk, rng);
+      startTrip(m, P.forager, full, rng);
+      setMode(m, 'explore');
+      lasiusForager(per, full, m, { ...P.forager, exploreGiveUp: 1000, drinkOnlyWithRoom: flag }, rng);
+      // Without the flag it starts a drink at the source (and, crop full, leaves satiated at once: the E2/E6 rule).
+      expect(m.trip.foodId === 1).toBe(!flag);
+      if (flag) expect(m.mode).toBe('explore');
+    }
+  });
+
+  it('with drinkPausesTrip a drink pauses the explore clock and the ant explores on; without it, it goes home', () => {
+    const per = { ...basicPercept(0.1, 0, 0, 22), food: { id: 1, kind: 'sugar' as const, molar: 0, available: true } };
+    for (const flag of [true, false]) {
+      const rng = new RNG(9);
+      const m = newMind(traits, P.walk, rng);
+      startTrip(m, P.forager, io(0), rng);
+      setMode(m, 'explore');
+      m.modeTime = 100;
+      const p = { ...P.forager, exploreGiveUp: 1000, drinkOnlyWithRoom: true, drinkPausesTrip: flag };
+      lasiusForager(per, io(0), m, p, rng); // touches the source: drinks
+      expect(m.mode).toBe('drink');
+      lasiusForager(per, { ...io(1.98), cropFull: true }, m, p, rng); // crop full: the drink ends
+      expect(m.mode).toBe(flag ? 'explore' : 'return');
+      if (flag) expect(m.modeTime).toBeCloseTo(100.1, 6);
+    }
   });
 
   it('a former partner still in contact becomes eligible again after partRefractory (STATUS 2026-10-10 night)', () => {
@@ -287,7 +340,21 @@ describe('nest worker: rest depth (STATUS 2026-10-15)', () => {
     }
   });
 
-  it('off (restShape 0): exponential rests, and no depth drawn', () => {
+  it('two-state rests (mix2): lone rests are S(t) = q e^(−r t / D) + (1 − q) e^(−r t)', () => {
+    const r = 2;
+    const q = 0.2;
+    const D = 20;
+    const p = { ...LASIUS_NEST, restToActive: r, restShape: 0, restDeepFrac: q, restDeepRatio: D, activeToRest: 0, leaveRate: 0, restCrowdExp: 0 };
+    const n = 20_000;
+    const d = rests(p, n, 0.05, 200);
+    for (const t of [0.25, 1, 3, 10, 30]) {
+      const s = q * Math.exp((-r * t) / D) + (1 - q) * Math.exp(-r * t);
+      const obs = d.filter((x) => x >= t).length / n;
+      expect(Math.abs(obs - s)).toBeLessThan(4 * Math.sqrt((s * (1 - s)) / n) + 0.002);
+    }
+  });
+
+  it('off (restShape 0, restDeepFrac 0): exponential rests, and no depth drawn', () => {
     const p = { ...LASIUS_NEST, restToActive: 2, restShape: 0, activeToRest: 0, leaveRate: 0, restCrowdExp: 0 };
     const d = rests(p, 20_000, 0.05, 200);
     expect(d.filter((x) => x >= 1).length / d.length).toBeCloseTo(Math.exp(-2), 2);
@@ -300,5 +367,51 @@ describe('nest worker: rest depth (STATUS 2026-10-15)', () => {
       if (m.mode !== 'rest') enterNest(m, true);
       expect(Number.isNaN(m.stay.restMult)).toBe(true);
     }
+  });
+});
+
+describe('nest worker: persistent walk-on factor (STATUS 2026-10-15 late evening, under test)', () => {
+  it('off (walkOnSd 0): no factor drawn; on: lognormal with mean 1 and SD of log walkOnSd, drawn last', () => {
+    const p0 = { ...LASIUS_NEST, foragerFrac: 0.3, walkOnSd: 0 };
+    const p1 = { ...p0, walkOnSd: 0.8 };
+    const n = 20_000;
+    const f: number[] = [];
+    for (let i = 0; i < n; i++) {
+      const off = drawNestTraits(p0, RNG.stream(9, i));
+      const on = drawNestTraits(p1, RNG.stream(9, i));
+      expect('walkOnFactor' in off).toBe(false);
+      // The earlier draws are unchanged by switching it on.
+      expect(on.forageDrive).toBe(off.forageDrive);
+      expect(on.forager).toBe(off.forager);
+      f.push(on.walkOnFactor!);
+    }
+    const mean = f.reduce((a, b) => a + b, 0) / n;
+    expect(Math.abs(mean - 1)).toBeLessThan((4 * Math.sqrt(Math.exp(0.64) - 1)) / Math.sqrt(n));
+    const logs = f.map(Math.log);
+    const lm = logs.reduce((a, b) => a + b, 0) / n;
+    const sd = Math.sqrt(logs.reduce((a, b) => a + (b - lm) ** 2, 0) / (n - 1));
+    expect(sd).toBeCloseTo(0.8, 1);
+  });
+
+  it("an ant's factor multiplies its walk-on rate: lone rests are exponential at restToActive × factor", () => {
+    const r = 0.5;
+    const k = 3;
+    const p = { ...LASIUS_NEST, restToActive: r, restShape: 0, activeToRest: 0, leaveRate: 0, restCrowdExp: 0 };
+    const rng = new RNG(23);
+    const m = newMind({ ...traits, walkOnFactor: k }, P.walk, rng);
+    const per = { ...inNest([]), dt: 0.05 };
+    const n = 10_000;
+    let long = 0;
+    for (let i = 0; i < n; i++) {
+      enterNest(m, true);
+      let t = 0;
+      while (m.mode === 'rest' && t < 1) {
+        const a = lasiusNestWorker(per, io(0, 0, 0.99), m, p, rng);
+        t += a.stand ? per.dt : per.dt * (1 - (a.walkFrac ?? 1));
+      }
+      if (t >= 1 - 1e-9) long++;
+    }
+    const s = Math.exp(-r * k);
+    expect(Math.abs(long / n - s)).toBeLessThan(4 * Math.sqrt((s * (1 - s)) / n) + 0.002);
   });
 });

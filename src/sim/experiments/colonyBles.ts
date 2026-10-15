@@ -16,6 +16,7 @@ import { E6_CONTEXT } from '../species/lasiusM1';
 import { Apparatus, blesApparatus } from '../world/apparatus';
 import { ContactGrid } from '../world/contactGrid';
 import { SugarDroplet } from '../world/food';
+import { sucroseSugarPerUl, sucroseWaterPerUl } from '../physics/ledger';
 import { PathField } from '../world/pathField';
 import { PlaneSurface } from '../world/surface';
 import { World, type Agent } from '../world/world';
@@ -87,6 +88,15 @@ export interface ColonyOptions {
    * and `queen` do not. Replaces the random `foragerFrac` draw.
    */
   roles?: ('nurse' | 'forager' | 'queen')[];
+  /** Sources present from the start (Stroeymeyt set-up: water and sugar water); `adLib`: topped up to their volume every step. */
+  sources?: { x: number; y: number; ul: number; molar: number; adLib?: boolean }[];
+  /**
+   * Initial water state by role (STATUS 2026-10-15), drawn from each ant's
+   * own stream: body water as a fraction of the maximum, uniform in [lo, hi]
+   * (unset: full; the queen counts as a nurse), and foragers' crop volume
+   * (µL), uniform in [lo, hi], filled from one of `sources` at random.
+   */
+  waterInit?: { nurse: [number, number]; forager: [number, number]; foragerCrop?: [number, number] };
 }
 
 export interface RecruiterEntry {
@@ -184,6 +194,8 @@ export class ColonySim {
   recruiterSeed: number;
   recruiterIn = false;
   private foodAdded = false;
+  /** Ad-libitum sources (topped up every step). */
+  private readonly adLib: SugarDroplet[] = [];
   private nextFrame = 0;
   private readonly walkP: WalkParams;
   private readonly walkNestP: WalkParams;
@@ -244,6 +256,10 @@ export class ColonySim {
       const heading = place.range(-Math.PI, Math.PI);
       this.addAnt(i, x, y, heading, place.chance(0.5), o.seed);
     }
+    for (const s of o.sources ?? []) {
+      const f = w.addFood((id) => new SugarDroplet(id, s.x, s.y, s.ul, s.molar, 1));
+      if (s.adLib) this.adLib.push(f);
+    }
     this.recruiter = o.recruiter;
     this.recruiterSeed = o.seed;
   }
@@ -256,8 +272,25 @@ export class ColonySim {
     const sd = P.nest.reserveSd;
     const frac = i < this.n ? Math.max(0.02, 1 - this.deficit * Math.exp(RNG.stream(seed, 0x5e5e, i).normal(0, sd) - (sd * sd) / 2)) : this.reserveFrac;
     const body = new Body(i, seed, { len: m.len, mass: m.mass, cropCapacity: m.cropCapacity, antennaReach: m.antennaReach, cropFullFrac: m.cropFullFrac }, frac, this.reserveMax);
+    const wi = this.o.waterInit;
+    const isForager = this.o.roles?.[i] === 'forager';
+    const wrng = RNG.stream(seed, 0x3a7e, i);
+    if (wi && i < this.n) {
+      const r = isForager ? wi.forager : wi.nurse;
+      body.water = body.waterMax * wrng.range(r[0], r[1]);
+    }
     w.ledger.move('sugar', 'external', 'reserve', body.reserve);
     w.ledger.move('water', 'external', 'reserve', body.water);
+    const src = this.o.sources ?? [];
+    if (wi?.foragerCrop && isForager && i < this.n && src.length) {
+      const ul = Math.min(m.cropCapacity, wrng.range(wi.foragerCrop[0], wi.foragerCrop[1]));
+      const s = src[wrng.int(src.length)];
+      body.cropUl = ul;
+      body.cropSugar = ul * sucroseSugarPerUl(s.molar);
+      body.cropWater = ul * sucroseWaterPerUl(s.molar);
+      w.ledger.move('sugar', 'external', 'crop', body.cropSugar);
+      w.ledger.move('water', 'external', 'crop', body.cropWater);
+    }
     body.x = x;
     body.y = y;
     body.heading = heading;
@@ -296,6 +329,15 @@ export class ColonySim {
     const t = this.stepIndex * dt;
     this.stepIndex++;
     w.time = t;
+    // Ad-libitum sources: what was drunk is replaced from outside.
+    for (const f of this.adLib) {
+      const d = f.initialUl - f.volumeUl;
+      if (d > 0) {
+        w.ledger.move('sugar', 'external', 'food', d * f.sugarPerUl());
+        w.ledger.move('water', 'external', 'food', d * f.waterPerUl());
+        f.volumeUl = f.initialUl;
+      }
+    }
     if (!this.foodAdded && t >= this.foodTime) {
       w.addFood((id) => new SugarDroplet(id, this.feeder[0], this.feeder[1], this.o.foodUl ?? 3000, this.o.molar ?? 1, 1));
       this.foodAdded = true;

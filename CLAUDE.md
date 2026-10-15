@@ -20,7 +20,14 @@ when a step starts or finishes, and log decisions there before acting on them.
   per-individual RNG streams, joined in order. Reduce in the worker where
   possible (e.g. `pool.e1Sample` returns per-ant summaries, not tracks):
   serial statistics on the main process were 60 % of E1 fit time.
-  - Colony (Mailleux 1999, current work): `fitM1999.ts --layer main|alt
+  - In-nest motion (Stroeymeyt 2018, step 4b, current work): `fitS2018.ts`,
+    `diagS2018.ts [--set k=v,…] [--observer tracker|iid]`, shared set-up in
+    `s2018Lib.ts`. Simulated colonies are observed through the **frozen
+    detection tracker** `data/fits/s2018-tracker.json` (`colonyFromData`;
+    its `meta` holds conditioning, estimator and validation); rebuild check:
+    `trackerData.ts` then `estimateTracker.ts --check` (never `--write`
+    without the user: it is frozen).
+  - Colony (Mailleux 1999, next): `fitM1999.ts --layer main|alt
     [--dt] [--warmup] [--tag] [--model A|B] [--contactMin]` (B: Plan 4
     option B, `LASIUS_NEST_B`; `calibNestSpeed.ts` derives its in-nest
     speeds, `checkStopsB.ts` checks its stop rates), `reportM1999.ts` (judging, frozen rule),

@@ -46,6 +46,13 @@ import type { ContactPercept, Interoception, SurfacePercept } from '../perceptio
  *     multiplier, gamma with mean 1 and shape `restShape`, so a lone rest
  *     lasts a Lomax time (the Stroeymeyt rests are heavy-tailed within each
  *     ant). Drawn on the rest's first step; `restShape` 0: off, no draw.
+ *     Two-state rests (STATUS 2026-10-15, mix2): a rest is deep with
+ *     probability `restDeepFrac`, its walk-on rate divided by
+ *     `restDeepRatio`; lone rests are then a mixture of two exponentials.
+ *     Composes with the gamma depth; `restDeepFrac` 0: off, no draw.
+ *   - Persistent walk-on factor (STATUS 2026-10-15 late evening, under
+ *     test): each ant's walk-on rate is multiplied by its own lognormal
+ *     factor (mean 1, SD of log `walkOnSd`), drawn at set-up; 0: off.
  *     Ants heading out (`leave`) do not stop. With `encounterStop` and
  *     `restCrowdExp` 0 the earlier rest / walk switching is unchanged.
  *     An encounter is an episode of antennal contact with one nestmate
@@ -66,6 +73,8 @@ export interface NestParams {
   giveFrac: number;
   /** Reserve fraction below which an ant accepts food. */
   receiveReserve: number;
+  /** Body water fraction below which an ant accepts food as a hungry ant does (thirst; 0: off). */
+  thirstFrac: number;
   /** Ending hazard of a sharing bout (1/s) and the no-flow timeout (s). */
   shareEnd: number;
   stallTime: number;
@@ -100,6 +109,12 @@ export interface NestParams {
   restCrowdExp: number;
   /** Shape of the per-rest gamma multiplier (mean 1) on the walk-on rate (0: off, every rest at the plain rate). */
   restShape: number;
+  /** SD of log of each ant's persistent walk-on factor (lognormal, mean 1; 0: off, no draw; STATUS 2026-10-15 late evening, under test). */
+  walkOnSd: number;
+  /** Probability that a rest is deep (two-state rests; 0: off, no draw). */
+  restDeepFrac: number;
+  /** A deep rest's walk-on rate is the plain rate divided by this (used only when `restDeepFrac` > 0). */
+  restDeepRatio: number;
   /** Fraction of nestmates with the forager trait (drawn at set-up by the runner; a recruiter is always a forager). */
   foragerFrac: number;
   /** Hazard (1/s) of leaving on a trip regardless of hunger (Stroeymeyt set-up: foragers of a fed colony; 0: never). */
@@ -140,10 +155,13 @@ const NONE: NestAction = {
   solicit: false,
 };
 
-export function drawNestTraits(p: NestParams, rng: RNG): { forageDrive: number; forager?: boolean } {
+export function drawNestTraits(p: NestParams, rng: RNG): { forageDrive: number; forager?: boolean; walkOnFactor?: number } {
   const forageDrive = Math.exp(rng.normal(0, p.forageDriveSd) - (p.forageDriveSd * p.forageDriveSd) / 2);
   // Drawn after forageDrive and only when used, so earlier draws and runs without foragers are unchanged.
-  return p.foragerFrac > 0 ? { forageDrive, forager: rng.chance(p.foragerFrac) } : { forageDrive };
+  const t: { forageDrive: number; forager?: boolean; walkOnFactor?: number } = p.foragerFrac > 0 ? { forageDrive, forager: rng.chance(p.foragerFrac) } : { forageDrive };
+  // Last, and only when on, for the same reason.
+  if (p.walkOnSd > 0) t.walkOnFactor = Math.exp(rng.normal(0, p.walkOnSd) - (p.walkOnSd * p.walkOnSd) / 2);
+  return t;
 }
 
 // Mode entry functions (STATUS 2026-10-10): every nest transition goes through one of these.
@@ -164,10 +182,14 @@ function toRest(m: Mind): void {
   setMode(m, 'rest');
 }
 
-/** The current rest's walk-on multiplier: gamma with mean 1 and shape `restShape`, drawn once per rest (1 when off). */
+/** The current rest's walk-on multiplier, drawn once per rest (1 when both are off): gamma with mean 1 and shape `restShape`, divided by `restDeepRatio` if the rest is deep. */
 function restDepth(m: Mind, p: NestParams, rng: RNG): number {
-  if (!(p.restShape > 0)) return 1;
-  if (Number.isNaN(m.stay.restMult)) m.stay.restMult = rng.gamma(p.restShape, 1 / p.restShape);
+  if (!(p.restShape > 0) && !(p.restDeepFrac > 0)) return 1;
+  if (Number.isNaN(m.stay.restMult)) {
+    let g = p.restShape > 0 ? rng.gamma(p.restShape, 1 / p.restShape) : 1;
+    if (p.restDeepFrac > 0 && rng.chance(p.restDeepFrac)) g /= p.restDeepRatio;
+    m.stay.restMult = g;
+  }
   return m.stay.restMult;
 }
 
@@ -190,8 +212,8 @@ function endBout(m: Mind): void {
 
 /** Holds food to give: the one predicate behind both offering (the signal) and giving (STATUS 2026-10-10). */
 const hasFoodToGive = (io: Interoception, p: NestParams) => io.cropUl > p.giveFrac * io.cropCapacity;
-/** Accepts food: the one predicate behind both soliciting (the signal) and receiving. */
-const acceptsFood = (io: Interoception, p: NestParams) => io.reserve < p.receiveReserve && !io.cropFull;
+/** Accepts food (hungry, or thirsty: STATUS 2026-10-15): the one predicate behind both soliciting (the signal) and receiving. */
+const acceptsFood = (io: Interoception, p: NestParams) => (io.reserve < p.receiveReserve || io.water < p.thirstFrac) && !io.cropFull;
 
 /**
  * An ant that fed on its last trip leaves for the source at hazard
@@ -218,7 +240,9 @@ function returning(m: Mind, p: NestParams, carrying: boolean, dt: number, rng: R
  */
 function switchWithin(m: Mind, p: NestParams, per: SurfacePercept, rng: RNG): NestAction {
   // Walk-on rate falls with the number of ants in the stop (Depickère et al. 2004: a·N^−b); constant within the step.
-  const walkOn = !p.restCrowdExp ? p.restToActive : p.restToActive * Math.pow(1 + per.contacts.filter((c) => !c.moving).length, -p.restCrowdExp);
+  // The ant's persistent walk-on factor (1 when off) scales the spontaneous rate.
+  const base = p.restToActive * (m.traits.walkOnFactor ?? 1);
+  const walkOn = !p.restCrowdExp ? base : base * Math.pow(1 + per.contacts.filter((c) => !c.moving).length, -p.restCrowdExp);
   let left = per.dt;
   let walked = 0;
   for (let k = 0; k < 64; k++) {
@@ -359,7 +383,8 @@ function decide(per: SurfacePercept, io: Interoception, m: Mind, p: NestParams, 
       // Nest fidelity: a worker that has strayed out of the nest (not on a
       // foraging trip) walks back to the entrance and does not rest outside.
       if (!per.inNest) return { ...NONE, motor: { goal: per.nestCue ? m.walk.heading + per.nestCue.bearing : Math.atan2(-m.pi.y, -m.pi.x), goalGain: p.leaveGain, noHomeBias: true } };
-      if (hungry && io.cropUl < p.leaveCropFrac * io.cropCapacity && rng.hazard(p.leaveRate * (m.traits.forageDrive ?? 1), per.dt)) {
+      // Leaving to forage follows reserve hunger only; thirst only makes an ant accept and solicit (STATUS 2026-10-15).
+      if (io.reserve < p.receiveReserve && io.cropUl < p.leaveCropFrac * io.cropCapacity && rng.hazard(p.leaveRate * (m.traits.forageDrive ?? 1), per.dt)) {
         toLeave(m);
         return { ...NONE };
       }

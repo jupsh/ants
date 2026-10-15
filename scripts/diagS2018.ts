@@ -8,18 +8,19 @@
  * Seeds use their own purpose ('diag'), never the fit's, selection's or
  * judging's.
  *
- * `--set k=v,…` overrides free parameters (e.g. `restShape=1` at a
+ * `--set k=v,…` overrides free (or S2018_EXTRA) parameters (e.g. `restShape=1` at a
  * checkpoint from before restShape existed; a free parameter the checkpoint
  * lacks and `--set` does not give keeps its base value, i.e. off).
  *
  *   npx vite-node scripts/diagS2018.ts [--ckpt f] [--at mean|best|start]
- *     [--set k=v,…] [--dt 0.05] [--warmup 7200] [--obs 21600] [--reps 1] [--out f]
+ *     [--set k=v,…] [--dt 0.05] [--warmup 7200] [--obs 21600] [--reps 1] [--out f] [--masks f] [--observer tracker|iid]
  */
 import fs from 'node:fs';
-import { S2018_FREE, s2018AtBound, s2018Loss } from '../src/sim/experiments/stroeymeytTargets';
+import zlib from 'node:zlib';
+import { S2018_FREE, S2018_SETTABLE, s2018AtBound, s2018Loss } from '../src/sim/experiments/stroeymeytTargets';
 import { arg, numArg, provenance, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
-import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018TargetsFromData, simulateAll } from './s2018Lib';
+import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018TargetsFromData, simulateAll, S2018_WATER_KEYS } from './s2018Lib';
 
 const CKPT = arg('--ckpt', 'logs/box-2026-10-15/logs/fitS2018-s0.ckpt.json');
 const AT = arg('--at', 'mean');
@@ -50,12 +51,19 @@ if (AT === 'start') {
   source = `${CKPT} (${AT}, generation ${cma.generation}, simHash ${c.key.simHash}${AT === 'best' ? `, logged f ${cma.best.f.toFixed(1)}` : ''})`;
 }
 
-for (const k of Object.keys(SET)) if (!S2018_FREE.some((f) => f.key === k)) throw new Error(`--set ${k}: not a free parameter`);
+for (const k of Object.keys(SET)) if (!S2018_SETTABLE.some((f) => f.key === k) && !S2018_WATER_KEYS.includes(k)) throw new Error(`--set ${k}: not a settable parameter`);
 values = { ...values, ...SET };
 if (Object.keys(SET).length) source += `, set ${Object.entries(SET).map(([k, v]) => `${k}=${v}`).join(', ')}`;
 
 const { outRate, exploreGiveUp } = loadTrips();
-const colonies = loadS2018().colonies.map(colonyFromData);
+// --masks f: recorded detection masks per colony (observer diagnostic, STATUS 2026-10-15; scratch extractor output).
+const MASKS = arg('--masks', '');
+const maskData = MASKS ? JSON.parse(zlib.gunzipSync(fs.readFileSync(MASKS)).toString()) : null;
+// --observer: the frozen tracker (default) or independent misses ('iid', the earlier observer); masks replace both.
+const OBSERVER = maskData ? 'iid' : (arg('--observer', 'tracker') as 'tracker' | 'iid');
+const colonies = loadS2018().colonies.map((c) => colonyFromData(c, OBSERVER)).map((c) => (maskData ? { ...c, masks: (maskData[c.label].ants as string[]).map((b) => new Uint8Array(Buffer.from(b, 'base64'))) } : c));
+console.log(`observer: ${maskData ? 'recorded masks' : OBSERVER === 'tracker' ? 'frozen tracker' : 'independent misses'}`);
+if (maskData) console.log(`detection: recorded masks from ${MASKS}`);
 const targets = s2018TargetsFromData();
 const P = s2018Params(values, outRate);
 const pool = await SimPool.create();

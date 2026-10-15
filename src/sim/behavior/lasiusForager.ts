@@ -90,6 +90,10 @@ export interface ForagerParams {
    * the colony runner (step 4).
    */
   exploreGiveUp?: number;
+  /** An ant with a full crop does not start drinking (Stroeymeyt set-up, STATUS 2026-10-15); unset: it does, and leaves satiated at once. */
+  drinkOnlyWithRoom?: boolean;
+  /** A drink pauses an exploring trip: when it ends, the ant explores on, its explore clock resumed (Stroeymeyt set-up, STATUS 2026-10-15); unset: it goes home satiated. */
+  drinkPausesTrip?: boolean;
 }
 
 export interface ForagerAction {
@@ -142,7 +146,14 @@ export function startTrip(m: Mind, p: ForagerParams, io: Interoception, rng: RNG
 
 function toDrink(m: Mind, foodId: number): void {
   m.trip.foodId = foodId;
+  m.trip.explored = m.mode === 'explore' ? m.modeTime : -1;
   setMode(m, 'drink');
+}
+
+/** Back to exploring after a drink, the explore clock resumed (`drinkPausesTrip`). */
+function resumeExplore(m: Mind): void {
+  setMode(m, 'explore');
+  m.modeTime = m.trip.explored;
 }
 
 function toSearch(m: Mind, ars: number): void {
@@ -175,7 +186,7 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
   const piDist = Math.hypot(m.pi.x, m.pi.y);
 
   // Food touched while not already drinking: start drinking (scouts and homing ants alike).
-  if (per.food && per.food.available && m.mode !== 'drink' && m.trip.foodId !== per.food.id) {
+  if (per.food && per.food.available && m.mode !== 'drink' && m.trip.foodId !== per.food.id && !(p.drinkOnlyWithRoom && io.cropFull)) {
     toDrink(m, per.food.id);
   }
 
@@ -200,6 +211,10 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
       // (In M_d, m.trip.ingested is the time-based signal; actual crop volume still caps intake.)
       const cropFull = io.cropFull;
       if (cropFull || rng.hazard(hazard, per.dt)) {
+        if (p.drinkPausesTrip && m.trip.explored >= 0) {
+          resumeExplore(m);
+          return { ...NONE };
+        }
         // Satiated departure.
         m.trip.satisfied = true;
         m.site = { x: m.pi.x, y: m.pi.y };

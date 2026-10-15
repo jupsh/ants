@@ -6,19 +6,28 @@
 import fs from 'node:fs';
 import type { RowEstimate } from '../src/sim/analysis/inNest';
 import type { ColonyParams } from '../src/sim/experiments/colonyBles';
+import type { DetectionTracker } from '../src/sim/analysis/detection';
 import type { StroeymeytColony, StroeymeytRunOptions } from '../src/sim/experiments/colonyStroeymeyt';
-import { s2018Apply, s2018Base, s2018Targets } from '../src/sim/experiments/stroeymeytTargets';
+import { s2018Apply, s2018Base, s2018Targets, S2018_WATER } from '../src/sim/experiments/stroeymeytTargets';
 import { LASIUS_NEST_B, LASIUS_PARAMS } from '../src/sim/species/lasiusM1';
 import type { SimPool } from './pool';
 
 export const S2018_ROWS = 'data/reference/stroeymeyt2018-fit-rows.json';
 export const S2018_TRIPS = 'data/fits/s2018-trips.json';
+/** The frozen detection tracker (STATUS 2026-10-15 late evening; its `meta` records conditioning, estimator and validation). */
+export const S2018_TRACKER = 'data/fits/s2018-tracker.json';
 
 /** The trip-process inputs (scripts/calibTrips.ts). */
 export function loadTrips(): { exploreGiveUp: number; outRate: number } {
   if (!fs.existsSync(S2018_TRIPS)) throw new Error(`${S2018_TRIPS} missing: run scripts/calibTrips.ts first`);
   const t = JSON.parse(fs.readFileSync(S2018_TRIPS, 'utf8'));
   return { exploreGiveUp: t.exploreGiveUp, outRate: t.outRate };
+}
+
+/** Per colony label, the frozen tracker of each role (`StroeymeytColony.tracker`). */
+export function loadTracker(path = S2018_TRACKER): Record<string, { nurse: DetectionTracker; forager: DetectionTracker }> {
+  const t = JSON.parse(fs.readFileSync(path, 'utf8'));
+  return t.colonies ?? t;
 }
 
 export interface DataColony {
@@ -31,14 +40,27 @@ export function loadS2018(): { colonies: DataColony[]; across: Record<string, Ro
   return JSON.parse(fs.readFileSync(S2018_ROWS, 'utf8'));
 }
 
-export function colonyFromData(c: DataColony): StroeymeytColony {
-  return {
+let frozenTracker: ReturnType<typeof loadTracker> | undefined;
+
+/**
+ * A fit colony as a simulation input. Observed through the frozen detection
+ * tracker (STATUS 2026-10-15 late evening; in the nest; the arena keeps
+ * independent misses at the colony rate), or with `observer` 'iid'
+ * independent misses everywhere (the earlier observer, for comparisons).
+ */
+export function colonyFromData(c: DataColony, observer: 'tracker' | 'iid' = 'tracker'): StroeymeytColony {
+  const col: StroeymeytColony = {
     label: c.colony,
     nurses: c.ants.nurse,
     foragers: c.ants.forager,
     noiseSd: Math.sqrt((c.rows['noise.x'] ** 2 + c.rows['noise.y'] ** 2) / 2),
     detection: c.rows['detection'],
   };
+  if (observer === 'iid') return col;
+  frozenTracker ??= loadTracker();
+  const t = frozenTracker[c.colony];
+  if (!t) throw new Error(`${S2018_TRACKER}: no tracker for ${c.colony}`);
+  return { ...col, tracker: t };
 }
 
 export const s2018TargetsFromData = () => s2018Targets(loadS2018().across);
@@ -53,24 +75,32 @@ export const s2018TargetsFromData = () => s2018Targets(loadS2018().across);
  * still). Other values from start 0's gen-57 mean. The 2026-10-11 start
  * (exponential rests): nurse 0.06 / 3 / 0.15 / 1, forager 0.06 / 2 / 0.25
  * / 1, encounterStop 0.5, restCrowdExp 0.5.
+ * Revised again 2026-10-15 evening (water in the set-up; crowding
+ * condensation): restCrowdExp 1.88 → 1.0 (provisional; box upper bound
+ * 1.25) and both restToActive × 0.3 (were 1.15 / 2), from probes at
+ * b 1.0 that put the still fractions near the data.
  */
 export const S2018_START: Record<string, number> = {
   'nurse.nestSpeedFactor': 0.055,
   'nurse.activeToRest': 1.9,
-  'nurse.restToActive': 1.15,
+  'nurse.restToActive': 0.345,
   'nurse.nestPauseFactor': 0.03,
   'forager.nestSpeedFactor': 0.087,
   'forager.activeToRest': 1.07,
-  'forager.restToActive': 2,
+  'forager.restToActive': 0.6,
   'forager.nestPauseFactor': 5,
   encounterStop: 0.7,
-  restCrowdExp: 1.88,
+  restCrowdExp: 1.0,
   restShape: 1.4,
 };
 
-/** Base: option B's nest model (encounter stops, crowd-dependent walk-on, walker pauses off are overridden by the free set). */
+/** Water keys settable by `--set` (sensitivity checks, STATUS 2026-10-15): `water.thirstFrac`, `water.cropWaterRate`. */
+export const S2018_WATER_KEYS = ['water.thirstFrac', 'water.cropWaterRate'];
+
+/** Base: option B's nest model (encounter stops, crowd-dependent walk-on, walker pauses off are overridden by the free set); water from S2018_WATER unless `values` override it. */
 export function s2018Params(values: Record<string, number>, outRate: number): ColonyParams {
-  const base = s2018Base({ ...LASIUS_PARAMS, nest: { ...LASIUS_NEST_B, forager: {} } }, outRate);
+  const water = { thirstFrac: values['water.thirstFrac'] ?? S2018_WATER.thirstFrac, cropWaterRate: values['water.cropWaterRate'] ?? S2018_WATER.cropWaterRate };
+  const base = s2018Base({ ...LASIUS_PARAMS, nest: { ...LASIUS_NEST_B, forager: {} } }, outRate, water);
   return s2018Apply(base, values);
 }
 

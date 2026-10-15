@@ -86,6 +86,7 @@ const LASIUS_PHYS_BASE = {
   metabolic: derived(1.2e-3, 'mg/h/mg^0.75', 'gillooly2001', 'Resting ant metabolism ≈1 µL O2 h⁻¹ mg⁻¹ converted to sucrose equivalents.'),
   activeFactor: estimated(3, '×', 'Walking raises metabolic rate several-fold.'),
   cropAbsorption: estimated(0, '1/s', 'Crop → reserve transfer beyond the metabolic need: first-order, fraction of the crop sugar per s, limited by the reserve room. No Lasius or Camponotus rate found; 0 is the pre-registered E6 primary (STATUS 2026-10-09). Sensitivity scenario 0.05 /h (1.39e-5 /s; Howard & Tschinkel 1981, isolated Solenopsis workers: a scenario, not a Lasius bound).'),
+  cropWaterRate: estimated(0, '1/s', 'Crop water → body water while below the maximum, fraction of the crop water per s. 0 here: off; the Stroeymeyt set-up uses 1/300 s (estimated; sensitivity ×0.2 / ×5; STATUS 2026-10-15).'),
   permeability: estimated(20, 'µg cm⁻² h⁻¹ mmHg⁻¹', 'Mid-range cuticular permeability of mesic ants (≈5–60).'),
   surfaceArea: estimated(16, 'mm²', 'Body surface of a ~2 mg worker (≈10·m^(2/3)).'),
   depositPerMm: estimated(1, 'units/mm', 'Normalisation of trail units: one gaster-contact millimetre deposits 1 unit.'),
@@ -194,6 +195,7 @@ export const LASIUS_NEST_DEF = {
   restToActive: estimated(1 / 120, '1/s', `${PROVISIONAL} Resting → walking.`),
   activeToRest: estimated(1 / 180, '1/s', `${PROVISIONAL} Walking → resting.`),
   giveFrac: estimated(0.1, '', `${PROVISIONAL} Crop fill above which an ant offers food.`),
+  thirstFrac: estimated(0, '', 'Body water fraction below which an ant accepts food as a hungry ant does. 0 here: off; the Stroeymeyt set-up uses 0.9 (estimated; sensitivity 0.8 / 0.95; death below 0.6; STATUS 2026-10-15).'),
   receiveReserve: estimated(0.8, '', `${PROVISIONAL} Reserve fraction below which an ant accepts food.`),
   // Per ant: each partner draws it, and either ending ends the bout, so the pair's rate is 2 × shareEnd (STATUS 2026-10-10 night).
   shareEnd: derived(0.0195, '1/s', 'buffin2011', 'Per-ant ending hazard of a sharing bout: half the pair ending rate 0.039 /s observed for 1 M sucrose, fed donor → starved receiver, 4-d starved colonies (Buffin et al. 2011, Table 2; durations exponential). Exact 95 % ≈ 0.030–0.048 /s for the pair (66 bouts); sensitivity 0.015 / 0.024 per ant. Hunger-state dependence (fed→fed 0.034, starved→starved 0.058) not modelled; 1-d and 8-d receivers are an extrapolation.'),
@@ -214,6 +216,9 @@ export const LASIUS_NEST_DEF = {
   encounterGap: estimated(0, 's', 'A contact episode ends once contact has been lost for longer than this (chosen with encounterMin, STATUS 2026-10-11).'),
   restCrowdExp: estimated(0, '', 'Exponent of the number of ants in a stop in its walk-on rate. 0 here: off (option B: LASIUS_NEST_B).'),
   restShape: estimated(0, '', 'Shape of the per-rest gamma multiplier (mean 1) on the walk-on rate; rests alone are then Lomax. 0 here: off (every rest at the plain rate). Fitted in step 4b (Stroeymeyt 2018 rests are heavy-tailed within each ant, Lomax α ≈ 0.9–1.1 from 2 s; STATUS 2026-10-15).'),
+  restDeepFrac: estimated(0, '', 'Probability that a rest is deep (two-state rests, mix2): its walk-on rate is divided by restDeepRatio. 0 here: off. Under test for step 4b (STATUS 2026-10-15: the Lomax tail of restShape gives hours-long rests the Stroeymeyt data lack).'),
+  restDeepRatio: estimated(1, '×', 'A deep rest lasts this many times longer than a light one (walk-on rate divided by it); used only when restDeepFrac > 0.'),
+  walkOnSd: estimated(0, '', 'SD of log of each ant\'s persistent factor (lognormal, mean 1) on the spontaneous walk-on rate. 0 here: off, no draw. The Stroeymeyt set-up uses 0.4 (S2018_WALK_ON_SD; STATUS 2026-10-15 late evening: per-ant activity persists for hours in the Stroeymeyt data).'),
   foragerFrac: estimated(0, '', 'Fraction of nestmates with the forager trait (option B: they stop and walk with the forager values; the recruiter always has it).'),
   outRate: estimated(0, '1/s', 'Hazard of leaving on a trip regardless of hunger. 0 here; the Stroeymeyt set-up gives foragers a rate matched to the colony\'s in-nest density (STATUS 2026-10-11, step 4a).'),
 };

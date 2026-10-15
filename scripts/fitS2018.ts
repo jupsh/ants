@@ -30,12 +30,14 @@
  * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts).
  * Writes data/fits/s2018-motion[-name].json.
  */
+import { createHash } from 'node:crypto';
+import fs from 'node:fs';
 import { cmaes, type CmaState } from '../src/sim/analysis/cmaes';
 import type { StroeymeytRunOptions } from '../src/sim/experiments/colonyStroeymeyt';
 import { S2018_FREE, s2018AtBound, s2018Loss, s2018Values, type S2018Free } from '../src/sim/experiments/stroeymeytTargets';
 import { arg, loadCheckpoint, numArg, provenance, saveCheckpoint, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
-import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018TargetsFromData, simulateAll } from './s2018Lib';
+import { colonyFromData, loadS2018, loadTrips, S2018_START, S2018_TRACKER, s2018Params, s2018TargetsFromData, simulateAll } from './s2018Lib';
 
 // Phase 2 (the fit): the gated settings.
 const GENS = numArg('--gens', 60);
@@ -66,7 +68,7 @@ const TOLX = 0.03;
 const AVERAGE_LAST = 20;
 const BOX = 4;
 
-const colonies = loadS2018().colonies.map(colonyFromData);
+const colonies = loadS2018().colonies.map((c) => colonyFromData(c));
 const targets = s2018TargetsFromData();
 const unit = (v: number, f: S2018Free) => (f.log ? Math.log(v / f.lo) / Math.log(f.hi / f.lo) : (v - f.lo) / (f.hi - f.lo));
 const ofUnit = (u: number, f: S2018Free) => (f.log ? f.lo * (f.hi / f.lo) ** u : f.lo + (f.hi - f.lo) * u);
@@ -79,7 +81,9 @@ const CHEAP: Settings = { phase: 'light', warmupS: C_WARMUP, obsS: C_OBS, dt: C_
 
 const PROVENANCE = provenance();
 const CKPT = `logs/fitS2018${NAME ? `-${NAME}` : ''}.ckpt.json`;
-const CKPT_KEY = { simHash: PROVENANCE.simHash, design: 'two-phase 2026-10-15', GENS, WARMUP, OBS, DT, C_DT, C_WARMUP, C_OBS, C_LOSS, C_GENS, OUT_RATE, EXPLORE, RUNS, TAG };
+// The observer (frozen tracker file) is part of the key: simHash covers src/sim only.
+const TRACKER_SHA = createHash('sha256').update(fs.readFileSync(S2018_TRACKER)).digest('hex');
+const CKPT_KEY = { simHash: PROVENANCE.simHash, tracker: TRACKER_SHA, design: 'two-phase 2026-10-15', GENS, WARMUP, OBS, DT, C_DT, C_WARMUP, C_OBS, C_LOSS, C_GENS, OUT_RATE, EXPLORE, RUNS, TAG };
 interface Run { key: string; label: string; phase: 1 | 2; start: number; x0: number[]; initialSds: number[]; sigma0: number; generations: number; evals: number; finalSigma: number; avgWindow: number; meanDrift: number[]; stopReason: string; converged: boolean; gamma: number[] | null; x: number[]; f: number; estimate: Record<string, number> }
 interface Ckpt { done: Run[]; current: Record<string, { stds: number[]; cma: CmaState | null }>; evals: number; seconds: number }
 const ck: Ckpt = loadCheckpoint<Ckpt>(CKPT, CKPT_KEY) ?? { done: [], current: {}, evals: 0, seconds: 0 };

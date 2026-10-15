@@ -30,6 +30,13 @@ export interface PhysParams {
    * everywhere, in and out of the nest. Unset: 0.
    */
   cropAbsorption?: number;
+  /**
+   * Crop water → body water while the body is below its maximum (STATUS
+   * 2026-10-15, water in the Stroeymeyt set-up): first-order, fraction of the
+   * crop's water per s, up to the deficit; the crop's sugar stays. Unset: 0
+   * (off: crop water reaches the body only with absorbed sugar).
+   */
+  cropWaterRate?: number;
   /** Cuticular water permeability (µg cm⁻² h⁻¹ mmHg⁻¹) and body surface area (mm²). */
   permeability: number;
   surfaceArea: number;
@@ -219,10 +226,25 @@ export function metabolise(w: World, b: Body, phys: PhysParams, active: boolean,
   const metabolicWater = need * 0.579;
   b.water += metabolicWater;
   w.ledger.move('water', 'external', 'reserve', metabolicWater);
+  // Crop water → body water (cropWaterRate; off when unset).
+  const kw = phys.cropWaterRate ?? 0;
+  if (kw > 0 && b.cropWater > 0 && b.water < b.waterMax) {
+    const wa = Math.min(b.cropWater, b.cropWater * kw * dt, b.waterMax - b.water);
+    b.cropWater -= wa;
+    // 1 mg of water ≈ 1 µL of crop volume.
+    b.cropUl = Math.max(0, b.cropUl - wa);
+    b.water += wa;
+    w.ledger.move('water', 'crop', 'reserve', wa);
+  }
   // Evaporation.
   const vpd = c.vpd;
   const loss = Math.min(b.water, ((phys.permeability * (phys.surfaceArea / 100) * vpd) / 1000 / 3600) * dt); // mg
   b.water -= loss;
   w.ledger.move('water', 'reserve', 'evaporated', loss);
+  // Water beyond the body's maximum is excreted (STATUS 2026-10-15: dilute sugar water otherwise overfilled foragers).
+  if (b.water > b.waterMax) {
+    w.ledger.move('water', 'reserve', 'waste', b.water - b.waterMax);
+    b.water = b.waterMax;
+  }
   if (b.reserve <= 0 || b.water < b.waterMax * 0.6) b.alive = false;
 }

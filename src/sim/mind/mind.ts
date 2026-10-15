@@ -17,6 +17,8 @@ export interface Traits {
   forageDrive?: number;
   /** In-nest workers: moves and stops with the forager values (`NestParams.forager`), else the nest-worker ones (Plan 4 option B). */
   forager?: boolean;
+  /** In-nest workers: individual factor on the spontaneous walk-on rate (mean 1; absent: 1). */
+  walkOnFactor?: number;
 }
 
 /** Forager policy modes (outside the nest); `inNest` is the end of a trip, handed to the nest policy. */
@@ -46,6 +48,8 @@ export interface Trip {
   ars: number;
   /** Food being drunk on this trip (−1: none yet): the ant does not drink again at a drop it left on this trip. */
   foodId: number;
+  /** Seconds spent exploring before the current drink (−1: it did not start from exploring); with `drinkPausesTrip` the explore clock resumes from here. */
+  explored: number;
 }
 
 /** One trophallaxis bout as this ant sees it. */
@@ -101,7 +105,7 @@ export interface Mind {
 }
 
 export function newTrip(): Trip {
-  return { piBias: 0, piGain: 1, ingested: 0, desired: 1, satisfied: false, laying: false, gasterDown: false, ars: 0, foodId: -1 };
+  return { piBias: 0, piGain: 1, ingested: 0, desired: 1, satisfied: false, laying: false, gasterDown: false, ars: 0, foodId: -1, explored: -1 };
 }
 
 export function newStay(): Stay {

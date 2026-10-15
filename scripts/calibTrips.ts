@@ -30,7 +30,7 @@ const T_IN = avg('foragerIn');
 const TOL = 0.25;
 const fit = arg('--fit', '');
 const values = fit ? JSON.parse(fs.readFileSync(fit, 'utf8')).free : S2018_START;
-const colonies = data.colonies.map(colonyFromData);
+const colonies = data.colonies.map((c) => colonyFromData(c));
 const base = { phase: 'light' as const, warmupS: numArg('--warmup', 1200), obsS: numArg('--obs', 12 * 3600), dt: numArg('--dt', 0.1) };
 const pool = await SimPool.create();
 const t0 = Date.now();

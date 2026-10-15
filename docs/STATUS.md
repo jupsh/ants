@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-15 (rest depth in; two-phase fit ready; window gate drift → diagnostic running, mix2 fallback pending). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-15 late evening (tracker frozen and ported; per-ant walk-on factor σ 0.4 adopted; next: short stops and start point through the tracker). Keep this file current: update it whenever a step starts or finishes._
 
 Everything up to 2026-10-10 evening (session notes, step results, the full
 decisions log of about 4,500 lines) is in
@@ -15,7 +15,7 @@ archive again.
 
 ## ▶ RESUME HERE
 
-**State (2026-10-11).** Milestone M1, *Lasius niger* as the single
+**State (2026-10-15).** Milestone M1, *Lasius niger* as the single
 reference species. Work is on `browser-sim-m1`, merged to `main` (GitHub
 Pages) when the user asks.
 
@@ -56,12 +56,50 @@ Pages) when the user asks.
   box. **Gate rechecks failed:** dt only for lack of seeds (rerun at 36);
   **window drift** (6 h vs 12 h fails 14 of 16) because the Lomax tail
   makes hours-long rests the data do not have (≥ 60 min: ~1e-5 per run).
-  **Running at handover:** diagnostic window check with a near-exponential
-  tail (`--set restShape=20`, tag `depth-shape20`) on the box. **Next:**
-  read it; if the drift vanishes, the logged fallback applies, two-state
-  rests (mix2: light + deep, exponential each), **with the user's
-  confirmation**; implement (restShape stays, off), tests, local
-  evaluation, window + dt (36 seeds) gates on the box, then the fit.
+  **Since then (2026-10-15, all uncommitted; Decisions log 2026-10-15
+  evening):** the window drift came from crowding condensation (b 1.88),
+  not the tail; Lomax kept, mix2 off (user). **Water** added as in the
+  experiment (ad-lib sources, crop → body uptake, thirst solicitation,
+  excretion cap; drink pauses a trip), revised start point (walk-on 0.345
+  / 0.6, restCrowdExp 1.0, bound 1.25), converges from both
+  initializations, ants survive 20 h. **Observer** (priority before the
+  gates and fit): detection gaps are clustered and heavy-tailed, so a
+  **detection tracker** was built from detection patterns only
+  (`src/sim/analysis/detection.ts`, `StroeymeytColony.tracker`): onset by
+  observed class × time since detection resumed, per-ant multipliers
+  (hazard mapping), durations by time-since-resumed bin, per colony and
+  role, estimated on even hours (joint baseline + multipliers), validated
+  on odd hours (22 of 22). Coupled check (`logs/trk3-agg.txt`): all
+  state-conditional and state-standardized statistics pass; the raw
+  detection rate is lower in the simulation (0.73 vs 0.82 median),
+  because simulated ants are observed active ≈ 3× as often (every ant ≈
+  30 %; data median 10 %, more uneven), a behavioural mismatch shown to
+  move the raw rate through the fixed tracker (`--rta 0.5`).
+  **Since (2026-10-15 late evening):** tracker **frozen** (user):
+  `data/fits/s2018-tracker.json`, estimator ported to committed code
+  (`trackerData.ts`, `estimateTracker.ts --check`, reproduces it), and
+  `colonyFromData` observes every Stroeymeyt script through it (`diagS2018
+  --observer iid` for the old observer). Per-ant activity **persists for
+  hours** in the data (hourly rank correlation plateau ≈ 0.4, across
+  light/dark), far above the model's; of a per-ant lognormal walk-on
+  factor at σ 0 / 0.4 / 0.7 / 1.0 only **0.4 improves persistence, spread
+  and concentration together** → **adopted, fixed, not free**
+  (`S2018_WALK_ON_SD`, selected from the activity diagnostics: 11 optimizer parameters plus this data-informed choice; sensitivity 0.7). Not fixed by it:
+  moves clustered in time (near-movement share 0.29 vs 0.10) and the
+  short-stop shortage (still runs ≥ 2 s 0.81 vs 0.53); no further model
+  expansion (user).
+  **Next:** reassess short stops and the start point through the tracker
+  with σ 0.4; trips (per-trip give-up time from the observer-corrected trip
+  distribution; arena misses independent, stated); sensitivity runs
+  (thirstFrac 0.8 / 0.95, cropWaterRate ×0.2 / ×5, walkOnSd 0.7); window
+  gate with water; dt gate at 36 seeds; then the fit, with the user.
+  **Uncommitted work (ask before committing):** water, tracker, start
+  point, walk-on factor, detection modules (`detection.ts`,
+  `detectionStats.ts`, `detectionEstimate.ts`), `trackerData.ts`,
+  `estimateTracker.ts`, frozen tracker; tests 153/153, tsc clean. Scratch,
+  never commit: `scripts/tmp*.ts`, `scripts/scratch/` (Python estimators
+  of the session, `activityStats.ts`, `persist.py`, `simact.py`). Logs:
+  `logs/act/` (persistence data and the σ comparison), `logs/trk*/`.
   **Box (rented 2026-10-15):** vast.ai EPYC 9534, $0.307/h, `ssh -p 46397
   root@85.218.235.6`, repo `/root/ants` (synced by git bundle, clean at
   7180735 + later STATUS-only commits), Node via `. /opt/nvm/nvm.sh &&
@@ -1877,3 +1915,1009 @@ implement).**
     point; same settings, tag `depth-shape20`). If 6 h then passes or the
     drift largely vanishes, the tail is confirmed as the cause and mix2
     follows by the logged fallback (user to confirm).
+
+**2026-10-15 (evening) — mix2 built as an option while the shape-20
+diagnostic runs (user: "test out anything that you want to").** Testing
+only; adoption for the fit stays with the user after the diagnostic.
+- **Model option (off by default, existing results bit-identical):** each
+  rest is deep with probability `restDeepFrac` (0: off, no draw), and a deep
+  rest's walk-on multiplier is 1 / `restDeepRatio`; light rests keep 1.
+  Lone rests then have S(t) = q e^(−r t / D) + (1 − q) e^(−r t): a deep
+  mode with a real cutoff (the data's tail beyond ≈ 10 min falls with an
+  e-fold of ≈ 7–9 min). Composes with `restShape` (both multiply the
+  rate; each draws only when on); drawn lazily on the rest's first step
+  like rest depth. Settable by `--set` in the diagnostics through
+  `S2018_SETTABLE`; **not in the fit's free set** until adopted.
+- **Tests before use:** lone rests against the mixture survival; off: no
+  draw. Fast tier, tsc.
+- **Hand-set test point (development look at fit data, not a fit
+  point):** `S2018_START` with restShape 0, restDeepFrac 0.15,
+  restDeepRatio 25 (data mix2 from 2 s: deep share 0.10–0.15, ×30–36;
+  from 10 s 0.21–0.36, ×15–22), both restToActive ×1.3 (nurse 1.5,
+  forager 2.6) so the lone mean rest stays about the start's (Lomax α 1.4:
+  3.5 / r; mix2: 4.6 / r). Runs: (a) the window check on the box beside
+  the shape-20 run (it uses 22 of 62 workers; separate worktree, tag
+  `mix2`), read by the same rule; (b) one local evaluation with
+  `diagS2018.ts --at start --set …` for the rows and timing.
+- **Implemented and running (2026-10-15 evening):** `restDeepFrac` /
+  `restDeepRatio` in `LASIUS_NEST_DEF` (0 / 1, off), `restDepth` composes
+  them with the gamma, `S2018_EXTRA` / `S2018_SETTABLE` (`s2018Apply`
+  and `diagS2018 --set` accept them; `S2018_FREE` unchanged). Test:
+  lone mix2 rests against the mixture survival (q 0.2, ×20, r 2); the
+  "off" test covers both options. Fast tier 143/143, tsc clean.
+  **Running:** (a) box, worktree `/root/ants-mix2` (7180735 + this
+  patch, uncommitted), 22 workers beside the shape-20 run, →
+  `logs/checkS2018-window-mix2.json`, log `logs/check-mix2.log`;
+  (b) local, 13 workers, → `logs/diagS2018-mix2.{log,json}`.
+- **mix2 window check result (box, 1003 s; `logs/checkS2018-window-mix2.json`
+  on the box): 6 h vs 12 h fails 12 of 16, 4 h fails 15 of 16 — the same
+  drift signature as under Lomax** (6 h: runStill P10 forager +3.1 SE,
+  P2 +2.1, P60 +2.1, nurse P60 +1.1; runMove P2 forager −1.6, mean −1.05;
+  still.nurse −0.67). The deep mode has a cutoff, yet the drift stays, so
+  **the Lomax tail is not (or not alone) the cause; the fallback's premise
+  is in doubt.** mix2 is not proposed for adoption on this evidence.
+- **Hunger ruled out** (local smoke of a scratch state logger, colony 112,
+  dt 0.1): reserves flat (0.678), crops empty, outRate ≈ 1.4e-4 /s.
+- **Running (box, scratch `scripts/tmpDrift.ts` in the worktree, not
+  committed):** per-30-min colony state (share out, in-nest mode shares,
+  reserve) over 14 h for colonies 112 / 201 / 224 under start (Lomax) and
+  the mix2 point, each with `restCrowdExp` as is (1.88) and 0 →
+  `logs/drift-{lomax,lomax0,mix2,mix20}-c{0,6,12}.log`. Question: does the
+  colony settle over hours, and does rest crowding (1.88 now; 0.5 when the
+  6-h window passed on 2026-10-11) drive it?
+- **Drift logger result (partial, colonies 112 and 224; per 30 min from
+  the start incl. warm-up): the drift is rest crowding, not rest shape.**
+  Nurse in-nest active share with `restCrowdExp` 1.88: Lomax 0.055 → ~0.01
+  (c112), 0.029 → 0.002 (c224); mix2 0.051 → ~0.015, 0.023 → 0.002 — still
+  falling hours after the 2-h warm-up. With `restCrowdExp` 0: flat from
+  the first 30 min (Lomax 0.13–0.16, mix2 0.12–0.15). Set-up places ants
+  uniformly in the nest (half resting), i.e. under-clustered: the colony
+  aggregates slowly into crowded rests (positive feedback: crowding slows
+  waking, clusters persist and collect more resters). User's reading
+  (crowding-controlled relaxation from the initial conditions) confirmed
+  in mechanism; the direction is aggregation, not release. **So the mix2
+  fallback's premise is refuted: rest shape is not the cause.**
+- **Running (box):** the logger with cluster sizes (resting in-nest ants
+  linked at centre distance < 5 mm, ≈ antennal contact; size-weighted mean
+  cluster, largest share, lone share), 36 h, start point (Lomax),
+  `restCrowdExp` 1.88 / 1.16 (Depickère nurses) / 0.5 (where 6 h passed
+  on 2026-10-11), colonies 112 / 224 / 201 → `logs/clus-b{b}-c{0,12,6}.log`.
+  Question: does it plateau, after how long, and how does the time scale
+  depend on the exponent? That sizes the remedy (longer warm-up,
+  aggregated or snapshot start, or crowding bounded by the data).
+- **Decision tree for the drift (user, 2026-10-15 evening; Lomax kept,
+  mix2 stays in the code, off).** A plateau is necessary, not sufficient:
+  - *Longer warm-up* only if cluster structure **and the fit rows**
+    stabilize at an activity level consistent with the data (the data's
+    nurses are 98.4–98.9 % still, so low activity itself is the target;
+    the question is whether the plateau sits at the data's level).
+  - *Clustered initialization* first as a diagnostic: scattered and
+    clustered starts must converge to the same statistical state;
+    otherwise initialization would hide drift or select a different
+    persistent state.
+  - *Lower crowding exponent* if it gives stable dynamics consistent
+    with the observations; if 1.88 settles only below the data's
+    activity, a longer warm-up does not fix that.
+  - Separately, whatever fixes settling: check the run statistics' window
+    boundary handling and the share of ants contributing completed runs
+    (completed-run rows may describe the few movers and drop ants in
+    unfinished rests).
+- Local mix2 evaluation (`logs/diagS2018-mix2.*`) stopped: mix2 is not
+  pursued.
+- **Cluster trajectories (box, start point, scratch logger; resting in-nest
+  ants linked at < 5 mm; per 2 h to 14 h so far; `logs/clus-*.log` on the
+  box worktree).** "largest" = share of resting ants in the largest
+  cluster; nurse active share is mode-based (not the observer's).
+  - b 0.5: flat from 2 h at all sizes (largest 0.15 / 0.19 / 0.24 for
+    40 / ~70 / 143 ants; nurse active 0.08–0.12).
+  - b 1.16 (Depickère nurses): 40 ants flat (largest ≈ 0.2); ~70 ants
+    large swings (largest 0.47–0.76, active 0.046 → 0.033); 143 ants
+    grows 2 → 6 h, then ≈ 0.8 (active ≈ 0.02).
+  - **b 1.88 (start point): condensation** into one cluster holding
+    nearly all resters (largest 0.95–0.99) by 4 h (40 ants), 6 h (~70),
+    and **still growing at 14 h for 143 ants** (0.56 → 0.99); nurse active
+    0.002–0.003, below the data's ≈ 1.1–1.6 % still-complement (to be
+    compared through the observer).
+  - Reading (user's decision tree): crowding feedback drives condensation,
+    amplified by colony size; at 1.88 the plateau, where it exists, is
+    near-total inactivity and takes > 14 h in the largest colony, so a
+    longer warm-up is not the remedy. At 0.5 the dynamics settle within
+    2 h.
+- **Run audit (scratch `scripts/tmpRunAudit.ts` patching the accumulator's
+  run bookkeeping; same code on data and simulations):** where still time
+  goes at threshold k 0 (complete runs / open at start / broken by a gap
+  or exit / open at the end) and how many ants contribute complete runs.
+  First looks: data colony 112 light nurses complete 0.109, broken 0.761;
+  a 20-min sim smoke at the start point 0.109 / 0.748. **Most still time
+  is in runs broken by detection gaps (bridge 3 frames), in data and model
+  alike**, so the run rows describe a small slice of resting, and "the
+  data have almost no hour-long still runs" is partly the observer. Full
+  data pass (local) and 6 h vs 12 h sim audits (box, colonies 112 / 224,
+  b 1.88 and 0.5) running.
+- **Run audit, data (22 fit colonies, local, `logs/tmpAuditData.{log,json}`;
+  median [range] over colonies):** share of still time in complete runs
+  nurse light 0.133 [0.055, 0.329], dark 0.099; forager light 0.297, dark
+  0.243; broken by gaps / exits nurse 0.72–0.76, forager 0.53–0.58. Ants
+  contributing ≥ 1 complete still run: 1532 / 1534 nurses, all foragers.
+  Complete still runs ≥ 1 h: 4 / 12 (nurse light / dark), 2 / 0 (forager)
+  in ≈ 15,000 / 5,000 still-hours. **Correction to the 2026-10-15 "data
+  check" reading:** the near-absence of hour-long still runs is mostly
+  the observer (gaps > 1.5 s break long rests), not evidence that real
+  rests never last that long; the rows stay valid (same observer in the
+  model, each colony's own detection rate).
+- **Run audit, simulations (box, 2-h warm-up, 12 h, 6-h prefix, light,
+  start point; `logs/audit-*.log` in the worktree), nurse light, share of
+  still time in complete runs, data vs b 0.5 vs b 1.88:** c112 0.109 /
+  0.26 / 0.024; c224 0.129 / 0.58 / 0.016. Nurses contributing a complete
+  still run, c224: data 59 / 60, b 0.5 60 / 60, **b 1.88 46 / 60**. 6 h vs
+  12 h: stable at 0.5 (0.567 / 0.575), drifting at 1.88 (0.025 / 0.016).
+  **At 1.88 the condensed state hides a quarter of the nurses from the
+  complete-run rows (user's concern confirmed); the data sit between the
+  two exponents.**
+- **Running (box):** exponent scan b 0.75 / 1.0, colonies 201 (143 ants)
+  and 224, 14 h, cluster logger → `logs/clus-b{0.75,1.0}-c{6,12}.log`:
+  the largest exponent at which the biggest colonies settle within the
+  2-h warm-up, to bound `restCrowdExp` for the fit (proposal to follow,
+  user to approve).
+- **Found: every simulated Stroeymeyt colony dies of desiccation between
+  14.0 and 15.0 h after the start** (36-h logger runs, all colonies and
+  exponents; deterministic). `antPhysics.ts:227` kills an ant below 60 %
+  body water; the set-up has no water or food (sugar drop removed
+  2026-10-11) and `ColonySim` builds the `World` at 50 % RH. Behaviour
+  never reads body water, so rows before death are unaffected: **the
+  window gate's 12-h reference (2 h + 12 h = 14.0 h) ends just before the
+  die-off — not contaminated, but with no margin; any longer warm-up or
+  window would be.** The real colonies had water ad libitum. Proposed
+  fix for the user (model choice, not yet made): give the Stroeymeyt set-up
+  water (a source in the foraging area, or nest humidity), with a
+  check that rows up to 14 h are unchanged.
+- **Shape-20 diagnostic result (box, 3423 s,
+  `logs/checkS2018-window-depth-shape20.json`): 6 h vs 12 h fails 11 of
+  16, 4 h fails 14 of 16**, same signature, smaller (runStill P10 forager
+  +1.8 SE vs +3.6 at the start point; P2 +1.2; runMove P2 −0.9). By the
+  rule logged before it ran, the drift did not vanish with a
+  near-exponential tail: the tail is not the cause (shape 20 also
+  shortens the mean rest, which weakens condensation, hence the smaller
+  drift). Consistent with the crowding finding above.
+
+**2026-10-15 (evening) — User decisions after the drift diagnosis.** Keep
+Lomax (mix2 stays in the code, off; the evidence does not support it as
+the remedy). Order: **water fix first**, then the crowding scan's bound
+(an *operational* bound for settling within a 2-h warm-up, not an
+estimate of the biological exponent; start point with margin below the
+unstable region), then the window gate rebuilt with water and the dt gate
+at 36 seeds, then the fit. Water: access and replenishment as in the
+experiment, not "water loss off"; check that ants replenish and survive
+the intended run length. Run audit: the absence of long complete rests in
+the data is weak evidence on biological rest durations; complete-run
+fractions can constrain crowding only with comparable detection gaps and
+censoring in the simulation (the model's observer drops detections at
+each colony's own rate; whether gap *structure* matches is to be
+checked, not assumed).
+
+**PROPOSED, not adopted — water in the Stroeymeyt set-up (for the user's
+approval).** Budget: at 26 °C / 50 % RH an ant loses ≈ 0.040 mg/h
+(waterMax 1.4 mg, death below 60 %, ≈ 14.4 h); a 143-ant colony needs
+≈ 6 µL/h; foragers carry ≈ 60 µL/h (≈ 30 trips/h × 2 µL).
+- **W1 set-up:** the two ad-libitum sources at their mapped zones: water
+  (pure) at the water zone (x 47–61, y 84–99 mm) and 10 % sugar water
+  (≈ 0.3 M) at the sugar zone (x 9–23, y 82–99), never running out. This
+  restores the sugar source removed on 2026-10-11; trips are recalibrated
+  (W4).
+- **W2 physics:** crop water passes to the body while body water is below
+  its maximum, first-order at `cropWaterRate` (new, estimated), up to the
+  deficit; sugar keeps its existing rule. (Today crop uptake is driven by
+  sugar only, so a crop of pure water never rehydrates the ant.)
+- **W3 behaviour, thirst:** an ant with body water below `thirstFrac` ×
+  max (new, estimated) accepts and solicits as a hungry ant does (OR with
+  the reserve rule). Foragers already drink at any source they touch;
+  donors are the existing ones (crop above `giveFrac`). So nurses get
+  water by trophallaxis, as nurses that never leave must have, and
+  in-nest sharing bouts (stops) return to the Stroeymeyt runs.
+- **W4:** rerun `calibTrips` (trips now include drinking).
+- **W5 checks:** unit tests (crop water reaches the body; a thirsty ant
+  solicits and accepts; ledger conservation with water); 30-h runs on
+  three colony sizes: no deaths, body water steady, share of nurses
+  receiving; then the crowding scan again with water.
+- **Approved by the user (2026-10-15 evening):** W1–W5 as proposed (both
+  sources); `thirstFrac` 0.9 (sensitivity 0.8 / 0.95) and `cropWaterRate`
+  1/300 s (sensitivity ×0.2 / ×5), fixed, provenance estimated; k stays
+  11.
+- **Implemented (2026-10-15 evening):** `PhysParams.cropWaterRate`
+  (crop water → body up to the deficit; ledger crop → reserve),
+  `NestParams.thirstFrac` (ORed into `acceptsFood`), forager
+  `drinkOnlyWithRoom`, `ColonyOptions.sources` (ad-libitum top-up from
+  `external`, ledger-balanced) and `waterStart` (per-ant stream 0x3a7e);
+  all default off, so other set-ups are unchanged (fast tier 146/146 incl.
+  row hashes). Stroeymeyt set-up: `STROEYMEYT_SOURCES` (water at (54,
+  91.5), 0.3 M sugar water at (16, 90.5), 50 µL each, estimated size),
+  `S2018_WATER` in `s2018Base`, body water starts U(thirstFrac, 1).
+  Tests: thirsty ants solicit (off by default); full-crop guard; colony
+  test with water (ledger conserved with top-ups, sources stay full,
+  nurses receive and rehydrate, nobody dies in 40 min).
+- **Order (to avoid calibrating trips twice):** (1) survival + crowding
+  scan with water on the current trip inputs (running: box, colonies
+  112 / 224 / 201 × b 0.75 / 1.0 / 1.88, 30 h, logger with alive counts,
+  body water and bouts to nurses → `logs/water-b*-c*.log`); (2) bound and
+  start point (user); (3) `calibTrips` at that start; (4) settling
+  confirmation; (5) window gate (rebuilt with water) and dt gate at 36
+  seeds; (6) fit.
+- **Reading criteria for the water runs (user, 2026-10-15 evening):**
+  (a) starting water U(0.9, 1) is an initialization assumption, not an
+  equilibrium: look for a delayed wave in thirst, transfers or trips
+  after the warm-up; (b) the full-crop rule: check that full,
+  sugar-rich crops never leave thirsty foragers unable to get water
+  (forager minimum body water); (c) stationarity is judged by trends and
+  differences between successive windows, not by a flat largest-cluster
+  share (a stationary colony can swing widely; b 1.0's swings are not by
+  themselves a failure); (d) the crowding bound stays provisional until
+  water and the trip recalibration are in; the agreed sensitivity checks
+  (thirstFrac 0.8 / 0.95, cropWaterRate ×0.2 / ×5) are done before the
+  fit.
+- **Bug found by the water runs (fix logged before making it):** body
+  water has no upper cap. Foragers absorbing 0.3 M sugar water for their
+  metabolic need take ≈ 9 mg water per mg sugar with it, more than
+  evaporation, so their body water rose to 1.02–1.11 × max (forager
+  minimum, 40-ant colony, 14–30 h). With 1 M sucrose (E2/E6) the gain
+  stays below the loss, which is why it never showed. **Fix:** water above
+  `waterMax` is excreted (ledger reserve → waste) each step. Inert where
+  body water never exceeds the maximum (row hashes to confirm).
+- **70-ant colony with water (box, pre-cap code; 30 h):** survival fine
+  (all alive, nurse minimum water ≈ 0.9; one dip to 0.885). **Delayed
+  wave in transfers:** bouts to nurses per hour rise after the warm-up at
+  every b (0.75: 74 → 83 → 96 → 91 → 93 over 2–8 / … / 26–30 h; 1.0:
+  68 → 88 → 88 → 96 → 98): the colony's crop stock builds up over ≈ 10–14
+  h. Cluster share and activity flat at 0.75 / 1.0; 1.88 still condensing
+  at 15 h (largest 0.80 → 0.94). **Trips collapsed:** ≈ 0.8 % of
+  foragers outside (no water: 10–35 %; data 23 %): after drinking, a
+  forager makes the Mailleux satiated departure and goes home, and
+  foragers that gave water away have crop room, so nearly every trip ends
+  at the first source.
+- **Decision (user approved, 2026-10-15 evening):** in the Stroeymeyt
+  set-up a drink **pauses** the trip: the forager resumes exploring with
+  its explore clock paused during the drink and goes home at
+  `exploreGiveUp`, as in the 2026-10-11 trip model (forager flag
+  `drinkPausesTrip`; elsewhere the satiated return is unchanged). The
+  transfer wave is to be addressed with the trips fixed (crop stocks
+  depend on trips), then judged by the window gate.
+- **Implemented:** forager `drinkPausesTrip` (Trip.explored, −1 when the
+  drink did not start from exploring; the explore clock resumes after the
+  drink), on in `s2018Base`; test (explores on with the clock resumed; off:
+  goes home). Fast tier 147/147 (row hashes unchanged). Stale runs (old
+  code, collapsed trips) killed by pid; **rerun with the cap and the trip
+  fix:** colonies 112 / 224 / 201 × b 0.75 / 1.0 / 1.25, 30 h →
+  `logs/water2-b*-c*.log` (box worktree). Trip inputs still the
+  2026-10-11 values (recalibration after the start point).
+- **Water rerun, first results (fixed code; 40-ant colony 30 h, 70-ant
+  12 h):** trips restored (foragers outside 0.18–0.23; data 0.23);
+  forager minimum body water ≥ 0.9 throughout (no water-starved foragers:
+  user criterion (b) met so far); all alive. **The delayed wave remains:**
+  bouts to nurses rise after the warm-up (70 ants: 66 → 82, 74 → 96,
+  93 → 106 per h from 2–8 to 8–14 h at b 0.75 / 1.0 / 1.25; ≈ +1 SD),
+  nurse mean water drifts down (−1.5 SD). ≈ +16 bouts/h in 70 ants is
+  ≈ +0.3 % standing time, comparable to the gate's ±0.5 SE on still
+  fractions, so not negligible. **Cause: the initial state.** Steady
+  state (late windows): foragers body water 1.00, crops ≈ 1.7 µL (start
+  0.95, empty; filled over ≈ 8 h); nurses body water 0.92–0.94, crops
+  0.1–0.3 µL (start 0.95, empty).
+- **Initialization change (an initial condition, not a parameter; values
+  from the model's own late windows, not data):** foragers start with
+  full body water and crops U(1.4, 2.0) µL filled from one of the two
+  sources at random; nurses with body water U(0.90, 0.96) and empty
+  crops; each ant's own stream. Check: the 70- and 143-ant colonies at
+  b 1.0, successive windows (bouts/h, nurse water, crops, cluster share,
+  activity). The window gate judges it in the end.
+- **Implemented:** `ColonyOptions.waterInit` (by role; replaces
+  `waterStart`), `STROEYMEYT_WATER_INIT` (nurses U(thirst, thirst + 0.06),
+  foragers full with crops U(1.4, 2.0) µL from a random source); fast tier
+  147/147. **Running (box, second worktree `/root/ants-w3`):** 40 / 70 /
+  143 ants at b 1.0, 20 h → `logs/water3-b1.0-c*.log`.
+- **Results so far (successive 6-h windows after the warm-up):**
+  - New start state, b 1.0: bouts to nurses flat at 40 ants (25 / 24 /
+    24 per h) and 70 ants (91 / 89 / 89; old start 74 / 97 / 89 / 82 /
+    90); 143 ants overshoot then fall (189 / 163; old start 138 / 158 /
+    172 / 173). 143-ant 14–20 h pending.
+  - Crowding with water: b 0.75 / 1.0 / **1.25** show no trend in
+    largest-cluster share or activity at any size; 1.25 at 143 ants
+    swings widely (largest 0.42–0.62) with flat activity, stationary by
+    criterion (c). Without water 1.16 condensed the 143-ant colony to
+    ≈ 0.8: sharing bouts break up condensation.
+  - At b 1.0 with the start's walk-on rates nurses are active ≈ 5–10 %
+    (mode-based) vs ≈ 1.5 % non-still in the data: lowering b shortens
+    crowded rests, so walk-on rates must come down.
+- **Running (box, `/root/ants-w3`):** start-point probes at b 1.0,
+  both restToActive × 1 / 0.5 / 0.25, fit settings, current trip inputs,
+  15 workers each → `logs/probe-b1-r*.{log,json}` (development looks at
+  fit data, to place the start point).
+- **User (2026-10-15 evening):** water transfers also regulate
+  clustering, so the dry runs no longer set the crowding bound; **b 1.0
+  provisional start, 1.25 provisional upper bound** (a search boundary,
+  not a demonstrated stability limit), pending the largest-colony
+  settling result and the sensitivity checks. The revised initialization
+  is accepted as a warm-up shortcut with explicit provenance, **provided
+  the original and revised starts converge to the same late-window
+  behaviour** (else it could hide slow adjustment), rechecked if walk-on
+  rates or water parameters change. **Measure how much nurse activity
+  comes from water interactions vs spontaneous walking, with the data's
+  observer and classification** (a water-driven activity floor would let
+  lower walk-on rates distort walks without reaching ≈ 1.5 %). Trip
+  durations must agree too, not only the outside share.
+- **Original vs revised start, late window 14–20 h, b 1.0, one seed each
+  (nurse water / bouts per h / largest cluster / nurse active):** 40
+  ants 0.941 vs 0.928 / 20 vs 24 / 0.188 vs 0.186 / 0.107 vs 0.105; 70
+  ants 0.928 vs 0.927 / 89 vs 89 / 0.227 vs 0.259 / 0.069 vs 0.070; 143
+  ants 0.917 vs 0.920 / 172 vs 158 / 0.300 vs 0.318 / 0.050 vs 0.050.
+  Activity agrees; in the 143-ant colony bouts approach from both sides
+  (original 138 → 158 → 172 → 173, revised 189 → 163 → 158): **not yet
+  shown converged** (one seed each); to be rechecked with several seeds
+  at the chosen start point.
+- **Side effect found and fixed (within the approved design):** thirst
+  was ORed into `acceptsFood`, which also gates leaving to forage (a
+  "hungry" ant with an empty crop leaves at `leaveRate`), so thirsty
+  nurses left the nest (nurse share outside up to 0.017 per 30 min with
+  water vs ≤ 0.002 dry; data nurses never leave by definition). The
+  approved design made thirst act on accepting and soliciting only, so
+  leaving now uses reserve-based hunger alone (thirstFrac 0 elsewhere:
+  unchanged). Runs before this fix (water2, water3, probes) carry it.
+- **Implemented:** `s2018Params` takes `water.thirstFrac` and
+  `water.cropWaterRate` from `--set` (`S2018_WATER_KEYS`; for the
+  sensitivity checks); leave-to-forage on reserve hunger only, with a test
+  (thirsty but sated ants do not leave; hungry ones do). Fast tier
+  148/148. **Probes rerun with the fix** (the first set was killed):
+  b 1.0, both restToActive × 1 / 0.5 / 0.25 with water, and × 0.5 / 0.25
+  with thirst off (`water.thirstFrac=0`: no soliciting or receiving;
+  8-h runs end long before desiccation) → `logs/probe2-*.{log,json}` on
+  the box; the observer-level difference with / without thirst is the
+  water-driven share of nurse activity (user's point).
+- **User (2026-10-15 evening):** the survival, settling and crowding-bound
+  conclusions must be **reconfirmed under the corrected departure rule**;
+  b 1.0 / 1.25 stay provisional. The paired probe difference is the **net
+  effect of thirst-enabled water exchange** on observed activity (transfers
+  also alter clustering and can displace other activity), not an exact
+  share attributable to water; it needs matched seeds and initial states,
+  with thirst off keeping hunger-driven acceptance (it does: `acceptsFood`
+  keeps the reserve rule; existing test "hungry ants solicit" runs with
+  thirst off; in these fed colonies reserves stay high, so hunger rarely
+  fires). Convergence of the two starts stays unresolved.
+- **Matched initial state:** the dry twins started with full water and
+  empty crops (the initialization was tied to thirst > 0). Now
+  `simulateStroeymeyt` always uses `STROEYMEYT_WATER_INIT` (at the default
+  threshold when thirst is off); seeds were already matched (diag seeds by
+  colony index). Only the two dry probes are rerun (`probe2-*-dry`); the
+  water-on probes are unaffected by the change.
+- **Probe results (box; b 1.0, corrected departure rule, matched seeds and
+  initial states; fit settings, current trip inputs; loss / still nurse /
+  still forager / runStill P2 nurse / P10 nurse; data 0.984–0.989 /
+  0.944–0.953 / 0.52 / 0.14–0.15):** ×1 water 8753 / 0.936 / 0.840 / 0.69
+  / 0.23; ×0.5 water 13042 / 0.967 / 0.910 / 0.78 / 0.34; ×0.5 dry 12377 /
+  0.971 / 0.920 / 0.78 / 0.33; ×0.25 water 30476 / 0.983 / 0.950 / 0.85 /
+  0.45; ×0.25 dry 29813 / 0.985 / 0.956 / 0.85 / 0.45.
+  - **Net effect of thirst-enabled water exchange** (paired, wet − dry):
+    still fractions −0.002 to −0.004 (nurses), −0.006 to −0.010
+    (foragers); run rows nearly unchanged. **No activity floor:** at ×0.25
+    with water, nurse stillness reaches the data (0.983).
+  - **The distortion the user warned of is real but not water's:**
+    lowering walk-on rates makes still runs far too long (too few short
+    stops; half the data's still runs are < 2 s), with or without water.
+    The levers (pause factors, activeToRest, restShape) are free in the
+    fit; the start point only needs to be reasonable.
+- **Start point chosen (provisional; development look at fit data):**
+  S2018_START with restCrowdExp 1.0 and both restToActive × 0.3 (nurse
+  0.345, forager 0.6); other values unchanged. Fit box: restCrowdExp
+  upper bound 3 → 1.25 (provisional search boundary). Next, at this
+  start: convergence (original vs revised initial state, several seeds),
+  survival and settling under the corrected rule (b 1.0 and 1.25), trip
+  recalibration (trips' mean and median reported beside the outside
+  share), then sensitivity runs and gates.
+- **Implemented:** `S2018_START` revised as above (comment carries the
+  provenance); `restCrowdExp` box [0, 1.25] (START2's 1.2 inside); fast
+  tier 148/148. **Running (box, worktree `/root/ants-w5`):** `calibTrips`
+  at the new start (40 workers; targets trips 244 per colony per 12 h,
+  foragerIn 0.77; data trip mean 1177 s, median 283 s) →
+  `data/fits/s2018-trips.json` there; logger, 20 h, current trip inputs:
+  b 1.0, 143 ants × seeds 1–3 × {revised, original} start, 70 ants ×
+  seeds 1–2 × both; b 1.25, 143 ants × seeds 1–2 and 70 ants × seed 1,
+  revised start → `logs/conv-*.log`.
+- **User (2026-10-15 evening):** the start point is reasonable for
+  validation. The open issue is matching **stillness and run lengths
+  together**; free pause / stop-rate / rest-shape parameters mean **the
+  fit will test whether** it can fix the shortage of short stops (≈ 48 %
+  of still runs < 2 s in the data vs ≈ 15 % at the ×0.25 probe), not that
+  it can. Keep that statistic visible beside total stillness while
+  fitting (it is: `runStill.P2.*` are fit rows, reported per row by
+  `diagS2018`); its interpretation depends on the observer reproducing
+  the data's timing and gap handling at that scale. No new water
+  mechanism or free parameter. Proceed: trips, convergence, survival,
+  then sensitivity and gates.
+- **Observer check (local, data role fit; a look at detection timing, not
+  at behaviour rows):** the model drops detections independently per frame
+  at each colony's rate; if the data's misses cluster, short runs read
+  differently. Scratch script: distribution of in-nest detection gaps per
+  ant (frames between consecutive in-nest detections) in the data vs the
+  geometric distribution implied by each colony's detection rate.
+- **Convergence / survival at the new start (box, 20 h, current trip
+  inputs; `logs/conv-*.log` in `/root/ants-w5`):**
+  - Survival under the corrected rule: all alive at b 1.0 and 1.25; nurse
+    minimum water 0.894–0.897; nurses outside ≤ 0.001 (dry baseline).
+  - Original vs revised initial state (b 1.0; 143 ants × 3 seeds, 70 ×
+    2): the original start has a transient in 2–8 h (143 ants: bouts/h
+    79 vs 116, forager crops 1.42 vs 1.64 µL) and joins by 8–14 h; the
+    revised start is at its late level from 2–8 h. At 14–20 h bouts/h
+    116 ± 1 vs 120 ± 6, nurse active 0.016 vs 0.015, foragers out 0.22
+    vs 0.23, largest cluster 0.29 ± 0.02 vs 0.38 ± 0.05 (143 ants; it
+    swings widely within runs and does not separate at 70 ants); only
+    systematic residual: nurse crops 0.009 vs 0.005 µL (negligible).
+    **Read: converged in the behavioural quantities within seed spread;
+    the revised start removes a ≈ 8-h transient.** (The script's pooled-SD
+    score saturates near 2 with 2–3 seeds per group; raw spreads used.)
+  - b 1.25: survival fine, activity flat; cluster share moves between
+    windows (70 ants, 1 seed: 0.49 → 0.37 → 0.33; 143 ants, 2 seeds:
+    0.36 → 0.45 → 0.42, ± up to 0.10): usable as a provisional upper
+    bound only.
+- **Observer check, first pass (fit colonies, nurses; script had duplicate
+  reads, rerun running): detection misses are strongly clustered, not
+  independent per frame.** Typical colony (d ≈ 0.87–0.93): P(next frame
+  missed) 3–5 % in the data vs 7–14 % for independent misses; P(gap ≥ 4
+  frames, a run break) 0.8–1.4 % vs 0.03–0.3 %; P(gap ≥ 10) 0.2–0.5 % vs
+  ≈ 1e-9. The model's observer (independent misses at the colony's rate)
+  therefore breaks long still runs 3–30× less often than the tracker in
+  most colonies (the two low-detection colonies, 112 and 215, the other
+  way): the user's concern about comparable gaps and censoring is
+  confirmed. Rerun adds the gap-length histogram and whether gaps follow
+  still or moving steps (behaviour-dependent hiding?).
+- **User (2026-10-15 evening): the observer is now the priority, before
+  the gates or the fit** (fitting through the current tracker could push
+  rest and pause parameters to compensate for observation errors).
+  b 1.0 supported; 1.25 provisional while cluster drift is unresolved.
+  Order: resolve and validate the observer, then reassess the short-stop
+  discrepancy and the start point, then the final gates. A proposal for a
+  stochastic tracker must show: (1) it reproduces each colony's detection
+  rate, short misses, run-breaking gaps and long-gap tail (consistent
+  denominators, deduplicated frames); a two-state visible / hidden
+  process has geometric state durations and may miss the long-gap tail,
+  so the corrected gap distribution decides; (2) parameters come from
+  detection patterns, validated on separate time blocks, never tuned to
+  behaviour rows; (3) any supported dependence on activity is handled
+  (gaps after still steps are evidence of dependence, not proof that
+  resting ants are hidden).
+- **First diagnostic (planned): recorded detection masks on simulated
+  trajectories.** Each simulated ant takes the detection sequence of the
+  data ant in the same colony and role slot (a 6-h light block of the
+  PreTreatment file) instead of independent draws; rows recomputed at the
+  start point and compared with the independent-miss observer. Shows how
+  much the observed gap pattern changes the mismatch before a stochastic
+  tracker is chosen; limited if missingness depends on behaviour.
+- **Observer check, corrected (deduplicated; nurses' in-nest detections,
+  22 fit colonies; `logs/tmpGaps2.log`, `logs/tmpGaps.json`):**
+  - Nurse detection 0.62–0.91; P(next frame missed | detected) 2–7 % vs
+    9–38 % for independent misses; gaps ≥ 10 frames 0.1–0.6 % vs ≈
+    1e-10 to 1e-4: **misses sit mostly in long outages.**
+  - Run breaks (gap ≥ 4) 0.4–2.0 % per detection: more than independent
+    misses in high-detection colonies, fewer in low-detection ones.
+  - **Activity dependence supported:** gap ≥ 4 is 1.4–3× more likely
+    after a moving step than after a still one (e.g. colony224 1.3 % vs
+    0.5 %); gaps ≥ 10 show no consistent difference. Evidence of
+    dependence, not proof of the mechanism.
+  - **Gap durations are heavy-tailed:** the hazard of a gap ending falls
+    steadily, 0.59 / 0.31 / 0.11 / 0.05 / 0.02 at 2 / 4 / 10 / 20 / 39
+    frames (median colony; S(g) ≈ g^−1.2 from 4 to 40 frames). **A
+    two-state visible / hidden process (constant hazard in each state) is
+    not sufficient.** Candidate: an empirical renewal tracker (visible
+    runs and gaps drawn from each colony's own distributions, gap onset
+    conditioned on moving / still), estimated on one time block and
+    validated on another. To be decided after the mask diagnostic.
+- **Implemented for the diagnostic:** `StroeymeytColony.masks` (recorded
+  detection bitsets replace the independent draws; the draw is still made,
+  so noise streams stay aligned; unset: unchanged; fast tier 148/148);
+  `diagS2018 --masks f`; scratch extractor `scripts/tmpMasks.ts` (6-h
+  light block from 06:15 UTC per colony, simulation role order) running.
+- **User (2026-10-15 evening):** check that the heavy gap tail persists
+  **within ants** (pooling ants with different detection rates can by
+  itself make the gap-ending probability fall); that decides whether
+  simulated ants may draw from one colony-wide distribution. Recorded
+  masks preserve outage timing but are not coupled to the simulated ant's
+  behaviour: they **measure the effect of those masks**, not the observer;
+  compare per colony (short-stop fraction, long-run rows, complete-run
+  fraction, total stillness), since the current error changes direction
+  across colonies.
+- **Running:** per-ant gap histograms (local, `logs/tmpGaps3.*`); per-colony
+  mask diagnostic (box, worktree `/root/ants-w6`, 22 colonies × {iid,
+  masks}, start point, fit settings, light, seed 4242 both ways; scratch
+  `scripts/tmpMaskDiag.ts` with the run audit) → `logs/md-c*-{iid,masks}.log`.
+- **Trip recalibration at the new start (box, 25.8 min; `data/fits/
+  s2018-trips.json` in `/root/ants-w5`, not adopted yet):** exploreGiveUp
+  1868 s, outRate 1/6051 s; trips 243.9 vs 244.1, foragerIn 0.779 vs 0.770
+  (−0.01 / 0.24 SE); trip mean 1189 vs 1177 s; **trip median 1795 vs 283
+  s**: the model's trips are near-fixed (explore, then home), the data's
+  heavily skewed. Disclosed as "trip shape not matched" on 2026-10-11; the
+  user now asks durations to agree, so this is open. Trip counts and
+  foragerIn are themselves observer-dependent (complete out-of-nest runs),
+  so the trip question follows the observer fix.
+- **User (2026-10-15 evening) on trips:** fix the observer first (gaps
+  alter inferred exits, returns and which trips count as complete). Trip
+  count, mean duration and outside share are linked (outside time ≈
+  count × mean), so their agreement is weaker validation than three
+  numbers suggest; the median exposes the distributional mismatch. The
+  model's median (1795 s) above its mean (1189 s) implies a sizeable
+  shorter-trip component beside the main concentration ("near-fixed"
+  describes only that concentration); the mask results should show
+  whether the short trips are observational fragments or real
+  excursions. If the mismatch persists after the observer fix, a random
+  per-trip give-up time is a candidate, its form chosen from the
+  corrected trip distribution including the long tail and the handling
+  of incomplete trips (matching mean and median alone could leave
+  outside-time dynamics wrong). New trip inputs stay unapplied.
+- **Within-ant gap tail (local, `logs/tmpGaps3.json`; 1534 nurses):** the
+  heavy tail is **within ants, not a pooling artefact.** Median per-ant
+  hazard of a gap ending at 2 / 4 / 10 / 20 / 39 frames 0.57 / 0.30 /
+  0.11 / 0.048 / 0.022 (interquartile ranges narrow, e.g. 0.28–0.32 at
+  4), identical to the pooled curve; the same shape in every
+  detection-rate band (0.5–0.7 up to ≥ 0.95: 0.28–0.35 at 4, ≈ 0.024 at
+  39). What differs between ants is gap *onset*: per-ant P(gap ≥ 4) 0.005
+  – 0.019 (10–90 %). So one shared gap-length distribution is
+  defensible; ants differ in onset rate.
+- **Mask diagnostic (box, 22 colonies × {iid, masks}, start point, fit
+  settings, light, seed 4242; medians over colonies; data / iid / masks):**
+  - Nurses: still 0.985 / 0.981 / 0.980; still runs < 2 s 0.469 / 0.158 /
+    0.162; P10 0.141 / 0.441 / 0.458; P60 0.031 / 0.060 / 0.088;
+    complete-run share of still time 0.133 / 0.273 / 0.442.
+  - Foragers: still 0.945 / 0.944 / 0.945; < 2 s 0.555 / 0.263 / 0.277;
+    P10 0.100 / 0.287 / 0.279; P60 0.024 / 0.024 / 0.033; complete 0.297
+    / 0.441 / 0.524.
+  - **Read:** (1) the short-stop shortage is **not** explained by gap
+    timing (masks move it +0.004 / +0.014), nor is total stillness: as far
+    as uncoupled masks can show, it is behavioural. (2) Long-run rows and
+    the complete-run share depend on the observer, and real outage timing
+    moves them **away** from the data (fewer short misses leave more runs
+    complete). (3) With masks the model is above the data on P10 and the
+    complete share in every colony, and on P60 in all but one: the
+    direction no longer flips (iid over-broke runs in the low-detection
+    colonies, e.g. colony112 P60 0.003, complete 0.09).
+  - Open: the data have 72 % of nurse still time in broken runs, the
+    masked model 56 %. Uncoupled masks cannot show whether outages
+    coincide with long rests (hidden in clusters). Next, from the data:
+    gap-onset rate as a function of the current still-run age.
+- **User (2026-10-15 evening):** the evidence now points to a separate
+  **behavioural** problem (too few short stops alongside too much time in
+  long complete rests); the observer still needs correcting. Share the
+  gap-length distribution across ants with per-ant onset rates; sharing
+  across colonies depends on validation. Rest-duration dependence of gap
+  onset: estimate **per eligible observed frame at each elapsed still
+  duration**, with observed history only (after a break the true rest age
+  is unknown), and the same definition when validating the simulated
+  observer. Let that analysis decide whether rest-duration dependence is
+  warranted (the completeness gap alone does not: the model's excess long
+  rests also move it). Then: validate the tracker on separate blocks,
+  freeze it for the gates and fit, keep the short-stop fraction visible
+  as a behavioural target.
+- **Coupling test rerun (first version killed: it put frames after a
+  break into the "moving" bin).** States: moving; fresh (first detection
+  after a gap ≥ 4); bounded still run (began at an observed moving step,
+  age known); still after a break (age a lower bound); per detection
+  followed by another (one opportunity per eligible observed frame);
+  outcome gap ≥ 4 / ≥ 10 → `logs/tmpGapAge.{log,json}`.
+- **Tracker design and validation rule (user adjustments, 2026-10-15
+  evening; adopted before any estimate is made):**
+  1. **Blocks:** even hours estimate, odd hours validate, on the original
+     timeline (never concatenating separated hours). An interval cut by a
+     block boundary is right-censored in the block where its gap began;
+     a gap that began in the other block is not used (its onset belongs
+     there). The gap-length histogram extends beyond 40 frames (to the
+     longest outages), estimated with censoring (Kaplan–Meier), never
+     silently truncated.
+  2. **One sampling process:** at each detected frame, (a) given the
+     observed state (moving / still, plus observed rest age only if the
+     coupling test supports it), a gap starts (next frame missed) with
+     probability p_state; (b) the ant's multiplier m acts on that onset
+     through the hazard mapping p = 1 − (1 − p_state)^m; (c) if a gap
+     starts, its duration is drawn from the shared duration distribution.
+     The multiplier controls onset frequency only; the duration
+     distribution controls the tail.
+  3. **Validation targets (held-out block, per colony, the same code on
+     data and simulated colonies):** state-conditional onset rates;
+     detection rate both raw and standardized to the data's state mix;
+     P(next frame missed), P(gap ≥ 4), P(gap ≥ 10); gap survival at 20 /
+     40 / 120 / 600 frames; per-ant onset spread; with bootstrap
+     uncertainty over ants for the longest gaps and the per-ant spread.
+  4. After it passes, the tracker is **frozen**; behaviour is reassessed
+     through it; its coupling is never tuned to make behaviour rows agree.
+- **Coupling test result (corrected states; per eligible observed frame;
+  nurses, 22 fit colonies; `logs/tmpGapAge.{log,json}`):** P(gap ≥ 4)
+  moving 0.0159; first frame after a break 0.246 (14× moving, 10–90 %
+  over colonies 12–23×); still runs that began at a moving step: < 2 s
+  0.015, 2–10 s 0.015, 10–60 s 0.0074, 60–300 s 0.0015, ≥ 300 s 0.0008
+  (0.06× moving, 0.03–0.07 over colonies); still after a break: 0.106 at
+  < 2 s falling to 0.0011 at ≥ 300 s. **Long rests are hidden less, not
+  more** (≈ 20× fewer breaks per frame after 5 min still), in every
+  colony; outages come in episodes (self-exciting). Confound to settle
+  before choosing the tracker's state: observed rest age ≥ time since the
+  last break, so the decline may be tracker history, not behaviour
+  (selection on quiet ants could add to it). Running: moving vs still
+  within time-since-last-break bins (`logs/tmpGapAge2.log`).
+- **User (2026-10-15 evening):** the leading explanation is now episodes
+  of poor visibility (the 14× recurrence after an outage; long unbroken
+  observations select easy-to-detect periods); the falling rate during
+  observed rests does not show that resting protects. Reading rule for
+  the matched-history comparison: equal moving / still rates at equal
+  time since the last outage → tracker-history model; a difference → a
+  moving / still term; **rest-age dependence only if, among still ants
+  with comparable tracker history, gap risk varies with observed rest
+  age.** Account for ant identity (persistent between-ant differences
+  survive history matching) and check that compared groups overlap (long
+  observed rests restrict the histories available). Validation adds the
+  **gap-onset rate vs time since detection resumed, including the
+  recurrence spike.**
+- **Matched-history comparison (nurses, 22 fit colonies; per eligible
+  observed frame; `logs/tmpGapAge2.log`, `logs/tmpGapAge3.json`;
+  Mantel–Haenszel odds ratios with strata ant × time since the last
+  break, only strata holding both groups; 1000–1533 ants per comparison):**
+  - Tracker history is a strong term in every class: P(gap ≥ 4) falls
+    with time since the last break (moving 0.037 → 0.0064, still runs
+    after a break 0.106 → 0.0007, from < 2 s to ≥ 1200 s).
+  - Moving vs still at matched history: OR 0.35 / 0.61 / 1.49 / 3.6 / 6.0
+    / 6.6 (< 2 s … ≥ 1200 s). The low values come from still runs after a
+    break (part of the outage episode); **still runs < 2 s since a moving
+    step have the moving rate in every history bin** (0.031 / 0.023 /
+    0.015 / 0.011 / 0.0085 / 0.0075 vs 0.037 / 0.024 / 0.015 / 0.0098 /
+    0.0079 / 0.0064).
+  - **Rest age among still ants at matched history, within ant** (vs
+    still < 2 s): 2–10 s OR 1.04 (0.97–1.11 across history bins), 10–60 s
+    0.61 (0.46–0.67), 60–300 s 0.15 (0.13–0.17), ≥ 300 s 0.11 (0.09–0.11);
+    adjacent bins 1.04 / 0.58 / 0.30 / 0.85. **By the user's criterion,
+    rest-age dependence is supported**, beside the tracker-history term.
+- **Proposed tracker conditioning (onset only; for the user):** cells =
+  time since detection resumed (6 bins) × observed class {moving or still
+  < 10 s since a moving step; still 10–60 s; 60–300 s; ≥ 300 s; still
+  since a break; fresh}; the simulated observer computes these from its
+  own detections with the same definitions. Estimator updated to these
+  cells; estimate on even hours, validate on odd hours, then report
+  before freezing.
+- **Implemented (diagnostic; under validation, not adopted):**
+  `src/sim/analysis/detection.ts` (`ObservedState`, `detectionCell`, cells
+  and duration bins; one definition for recorded tracks and the simulated
+  observer); `StroeymeytColony.tracker` (in the nest, after each detection
+  a gap starts with 1 − (1 − p[cell])^m, m drawn per ant from the colony's
+  multipliers, duration from the binned duration distribution, uniform
+  within a bin, the open last bin capped at 2 × 7200 frames; own stream
+  0x0b60; outside the nest detection stays independent at the colony
+  rate: forager outside detection is not modelled yet, disclosed); unset:
+  unchanged (fast tier 148/148). Scratch: `scripts/trackerStats.ts`
+  (statistics, same code for data and simulations), `tmpTrackerData.ts`
+  (data by even / odd blocks), estimator / validator `est.py`
+  (scratchpad).
+- **Held-out validation, data only (estimate on even hours, predict odd
+  hours from their own state occupancy; nurses; per colony;
+  `logs/tmpTrackerData.json`, `est.py`):** P(next frame missed) predicted
+  almost exactly in all 22 colonies; onset by time since detection
+  resumed (median colony) 0.333 / 0.137 / 0.057 / 0.018 / 0.0096 / 0.0069
+  observed vs 0.330 / 0.139 / 0.057 / 0.018 / 0.0098 / 0.0074 predicted
+  (the recurrence spike included); S(D ≥ 40) and S(D ≥ 600) within the
+  bootstrap intervals; per-ant multipliers stable (10 / 50 / 90 % ≈ 0.8 /
+  1.0 / 1.2 in both blocks); **P(gap ≥ 4) inside the observed 90 %
+  interval in 22 of 22 colonies** (a first run read P(D ≥ 4) for P(D ≥ 3)
+  and failed all 22: script bug, fixed). Pooled across colonies: 8 of 22
+  → **per-colony parameters.** In-nest foragers under nurse estimates: 17
+  of 22, onset higher at 2–60 s (0.152 vs 0.134; 0.071 vs 0.061) and long
+  gaps shorter (S(D ≥ 40) 0.007–0.017 vs 0.011–0.028): forager estimates
+  next, excluding opportunities whose next detection is outside the nest
+  (exits into the hole, which the model already hides geometrically).
+- **Next (running / prepared):** forager-specific estimates (exits
+  excluded; `logs/tmpTrackerData2.json`) and their held-out check; export
+  of the even-hour estimates per colony and role (`logs/tracker-even.json`,
+  scratch `exportTracker.py`; empty cells fall back to the pooled cell
+  value; multipliers from ants with ≥ 2000 opportunities); `tracker` per
+  role in `StroeymeytColony`. Then the coupled check on the box
+  (worktree `/root/ants-w7`, scratch `tmpTrackerSim.ts`): 22 colonies ×
+  {tracker, iid} at the start point and fit settings, the observer's
+  frames through the same detection statistics (state-conditional onset,
+  onset vs time since detection resumed, durations, per-ant spread,
+  detection rate raw and standardized to the data's state mix) plus the
+  behaviour rows and the run audit through the tracker.
+- **Forager-specific estimates (held out):** with their own even-hour
+  estimates (exits excluded), in-nest foragers pass in 22 of 22 colonies
+  (P(gap ≥ 4) and S(D ≥ 40) inside the odd-hour 90 % intervals; onset by
+  time since resumed 0.312 / 0.151 / 0.071 / 0.025 / 0.013 / 0.010
+  observed vs 0.306 / 0.149 / 0.071 / 0.025 / 0.013 / 0.011 predicted).
+  Exported: `logs/tracker-even.json`.
+- **Coupled check, first version (shared duration) — fails on occupancy;
+  `logs/trk/`, `logs/trk-agg.txt`, scratch `agg.py`; sim one 6-h block per
+  colony vs data odd hours, ant-bootstrap combined z):** iid fails
+  everything state-dependent, as expected (flat onset 0.18, no gaps ≥ 40).
+  Tracker: everything conditioned on the cell matches — onset per class
+  and per time since resumed within cells, S(D ≥ 40 / 600 / 2400) 20–22
+  of 22, multipliers 20–21 of 22, **detection standardized to the data's
+  state mix 22 of 22** (nurses 0.785 vs 0.790, foragers 0.819 vs 0.807).
+  But raw in-nest P(miss) 0.075 vs 0.041 (nurses), raw detection row
+  0.50–0.84 vs 0.66–0.90 (all colonies lower): simulated ants rarely reach
+  long times since detection resumed (tsb ≥ 300 s ≈ 5 % of opportunities
+  vs ≈ 45 % in the data). Cause, found in the data: **gap duration depends
+  on the time since detection resumed** — P(D ≥ 4 | gap starts) 0.46 /
+  0.28 / 0.19 / 0.15 / 0.13 / 0.13 by tsb bin (nurses; even and odd hours
+  identical to 0.01; foragers 0.42 → 0.11), while the shared duration
+  gives 0.26 everywhere. Isolated misses in a well-detected stretch are
+  1–2-frame blips; misses right after an outage are long. The shared
+  duration therefore breaks runs too often in good stretches, which keeps
+  the simulated ants in the high-risk cells.
+- **Decision (logged before acting; deviates from "shared duration" in
+  the agreed design rule, to be reported before freezing):** the duration
+  is drawn conditional on the onset's time-since-resumed bin (6
+  Kaplan–Meier distributions per colony and role, even hours; a bin with
+  < 300 gaps borrows the next shorter bin's distribution). Still one
+  process (onset by cell → multiplier mapping → duration by tsb bin), still
+  from detection patterns only. Validation: per-bin durations even vs odd,
+  then the coupled check again (raw detection is the test that failed).
+- **Per-bin durations (held out):** P(gap ≥ 4) predicted inside the
+  odd-hour 90 % interval in 22 of 22 colonies (nurses and foragers); per
+  bin, P(D ≥ 3 | gap) 17–22 of 22 and S(D ≥ 40) 14–20 of 22 (the sparse
+  long-tsb tails weakest; the intervals leave out the even-hour estimate's
+  own noise). Export `logs/tracker-even2.json` (scratch
+  `exportTracker2.py`, `est2.py`; data pass `logs/tmpTrackerData3.json`).
+- **Coupled check, second version (`logs/trk2/`, `logs/trk2-agg.txt`):**
+  raw in-nest P(miss) 0.059 vs 0.041 (nurses; was 0.075), raw detection
+  row closer but still lower in all 22 colonies (e.g. 0.58 vs 0.66,
+  0.77 vs 0.84); standardized P(miss) and detection 22 of 22 (both
+  roles), S(D ≥ 40 / 600 / 2400) 18–21 of 22, multipliers 19–21 of 22.
+  Per cell: onset matched at short tsb, but ≈ 15 % low at long tsb (ratio
+  0.85–0.69). Occupancy: simulated nurses spend 32 % of opportunities
+  observed moving or still < 60 s (data 11.5 %), 2.6 % still ≥ 300 s
+  (data 8.5 %); moving cells carry 6–10× the onset of long stills, so the
+  more active observed mix breaks detection more often (behavioural,
+  through the agreed activity dependence). Behaviour through the tracker
+  (median colony): still 0.981 vs 0.985, P(still run ≥ 2 s) 0.824 vs
+  0.531 (the short-stop discrepancy persists), ≥ 10 s 0.425 vs 0.141, ≥ 60
+  s 0.079 vs 0.031.
+- **Decision (estimator correctness, before freezing):** p[cell] was the
+  pooled rate over the ants in the cell, which already reflects that
+  low-multiplier ants survive into long stretches; the simulated tracker
+  then applies each ant's multiplier again (double selection → onset low at
+  long tsb). Fix: estimate p (the m = 1 baseline hazard) and the per-ant
+  multipliers jointly (alternating; geometric mean of m fixed at 1),
+  even hours; validate on odd hours with each ant's even-hour multiplier;
+  rerun the coupled check.
+- **Joint estimation (held out):** odd-hour gaps predicted within 1–4 %
+  per tsb bin and class by both estimators (the data can't tell them
+  apart, as expected); the joint baseline p at tsb ≥ 300 s is 9 % (nurses)
+  / 16 % (foragers) above the pooled rate. Export
+  `logs/tracker-even3.json` (scratch `est3.py`).
+- **Coupled check, third version (`logs/trk3/`, `logs/trk3-agg.txt`):**
+  per-cell onset ratios sim / data 0.94–1.05 (≥ 1200 s: 0.8–1.26, sparse);
+  onset per observed class 17–22 of 22 (both roles), standardized P(miss)
+  and detection 21–22 of 22, S(D ≥ 40 / 600 / 2400) 20–22 of 22,
+  multipliers 19–22 of 22. Raw: in-nest P(miss) 0.061 vs 0.041 (nurses),
+  detection row 0.729 vs 0.815 (median colony, lower in all 22); the
+  tsb-marginal onsets at 60–1200 s and the after-break class fail by mix
+  alone (per cell they match).
+- **Behaviour sensitivity of the raw rate (`--rta 0.5`, walk-on rates
+  halved, same frozen tracker; a demonstration, not tuning;
+  `logs/trk4/`):** observed-active share (moving or still < 60 s) 0.31 →
+  0.22 (data 0.105), in-nest P(miss) 0.061 → 0.055 (0.041), tsb ≥ 300 s
+  occupancy 0.15 → 0.20 (0.35), detection row 0.729 → 0.746 (0.815): the
+  raw shortfall follows behaviour. Halving walk-ons worsens short stops
+  (P(still run ≥ 2 s) 0.887, data 0.531) and P60 (0.144 vs 0.031), so it
+  is no remedy.
+- **Per-ant activity (through the tracker; fit colonies, both blocks):**
+  observed-active share per nurse 10 / 50 / 90 % = 0.20 / 0.30 / 0.42
+  (sim) vs 0.04 / 0.10 / 0.20 (data); the most active 20 % of ants carry
+  28 % of activity (sim) vs 40 % (data); foragers 0.37 / 0.48 / 0.57 vs
+  0.12 / 0.26 / 0.49. With total stillness matched (0.982 vs 0.985), the
+  simulated ants move in brief bouts more often and more evenly than the
+  real ones. For the user: whether the fit can reach this (k = 11, no
+  between-ant activity heterogeneity beyond per-rest depth) or the model
+  needs a structural option; not acted on.
+- **Proposed frozen tracker (awaiting the user):** `logs/tracker-even3.json`
+  (even-hour, joint estimation, durations by tsb bin), with the
+  deviation from "shared duration" disclosed. Limitations: outside (arena)
+  detection still independent; the ≥ 1200 s bins are sparse.
+
+**2026-10-15 (late evening) — User decisions on the tracker and on uneven
+activity (logged before acting).**
+1. **Tracker frozen:** `logs/tracker-even3.json` with gap durations
+   conditioned on time since detection resumed (P(D ≥ 4 | gap) 0.46 →
+   0.13 across tsb bins, the same in even and odd hours, supports it; the
+   shared-duration rule was too restrictive). Joint estimation of onset
+   baseline and per-ant multipliers accepted as the correction for
+   selection into long visible stretches. The frozen artifact records the
+   conditioning variables, the estimator version and the validation
+   results. **Outside the nest, misses stay independent at the colony
+   rate: an explicit assumption whenever trip results are read.**
+2. **Uneven activity: investigate a minimal per-ant option before the fit,
+   not adopted.** First:
+   - **Definition.** The "observed-active share" (0.30 sim vs 0.10 data,
+     nurses) is the share of observed in-nest detections that are moving
+     *or* in a still run < 60 s begun at an observed moving step (cells
+     of classes 0–1 over all cells; reproduced: data nurses 10 / 50 / 90 %
+     = 0.04 / 0.10 / 0.21). It is not moving time (total stillness 0.982
+     vs 0.985). Renamed **near-movement share** (how activity is spread
+     over time); reported beside the per-ant **moving fraction** (share of
+     observed in-nest step time with steps ≥ 0.6 mm per frame, the rows'
+     definition through the observer's own history).
+   - **Persistence check (data first).** Per ant, per UTC hour (24 h per
+     colony): both statistics. Within colony and role, Spearman correlation
+     across ants between hours h and h + L (ants with ≥ 1800 observed
+     detections in both hours), averaged over hour pairs and colonies
+     (Fisher z, colony bootstrap) by lag L = 1 … 23 h, and the even/odd
+     split-half correlation. **Reading rule:** persistent individual
+     differences are supported if the correlation stays positive at long
+     lags (≥ 6 h, and across the light/dark change), with a colony-bootstrap
+     95 % interval above 0 and a plateau rather than decay to 0, **and**
+     exceeds the current model's at the same lags (the model has no
+     activity trait: its correlation measures what role, position,
+     crowding and the observer produce). Decay to ≈ 0 by a few hours means
+     temporary states (roles, clustering, observation), not a trait.
+     Observation effects: correlation of activity with the per-ant
+     detection multiplier is reported.
+   - **If supported:** one persistent positive multiplier per ant on the
+     spontaneous walk-on rate (`restToActive`), mean one (lognormal,
+     exp(σZ − σ²/2)), one spread parameter σ, own stream; σ 0 = off, no
+     draw. Compared with the current model through the frozen tracker
+     (22 colonies, start point, fit settings): per-ant spread and
+     concentration of both statistics, total stillness (must hold), run
+     summaries (P2, P10, P60), the lag correlations, and the raw detection
+     rate (kept visible as a joint model-and-observer diagnostic: halving
+     walk-ons closed ≈ 0.017 of a ≈ 0.09 gap, a contribution, not the
+     whole explanation). Not adopted without the user.
+- **Done:** frozen tracker written to `data/fits/s2018-tracker.json`
+  (`{meta, colonies}`; payload = `logs/tracker-even3.json`, sha256 f9238fa4…;
+  `meta` records the process, cells and bins, the estimator (est3 joint +
+  exportTracker2 durations) with sha256 of the scratch sources and inputs,
+  the held-out and coupled validation results, and the limitations, among
+  them the independent arena misses). Loader `loadTracker()` in
+  `s2018Lib.ts`; `tmpTrackerSim.ts` now uses it by default. Not yet wired
+  into `diagS2018` / the fit set-up (with the gates). The estimator is still
+  scratch: to be ported into committed code before the gates, and must
+  reproduce this file.
+- **Implemented (off by default):** `NestParams.walkOnSd` (lognormal per-ant
+  `Traits.walkOnFactor`, mean 1, drawn last in `drawNestTraits` and only when
+  on; multiplies `restToActive` before crowding and rest depth); settable by
+  `--set walkOnSd=…` (`S2018_EXTRA`), not free. Tests: off draws nothing and
+  leaves the other traits unchanged; on: mean 1, SD of log σ; lone rests
+  exponential at `restToActive × factor`. Fast tier 150/150 (row hashes
+  unchanged).
+- **Persistence check, data (22 fit colonies, 24 h; scratch
+  `scripts/scratch/activityStats.ts`, `tmpActivityData.ts`, `persist.py`;
+  `logs/act/persist-data.txt`; ants with ≥ 1800 observed detections or step
+  frames in both hours):**
+  - **Nurses:** hour-to-hour Spearman correlation of the moving fraction
+    0.48 at 1 h, 0.42 at 3 h, then a plateau 0.39 / 0.38 / 0.36 / 0.35 /
+    0.37 at 6 / 9 / 12 / 18 / 23 h (colony-bootstrap 95 % intervals ≈ ±
+    0.04, all far above 0); across the light/dark change the same (0.39 at
+    6 h, 0.36 at 12 h, 0.37 at 23 h). Near-movement share alike (plateau
+    0.35–0.38). 24-h even/odd split-half 0.86 (moving) / 0.88 (near); first
+    vs second 12 h of the file 0.72 / 0.77.
+  - **Foragers:** a larger transient part: moving fraction 0.54 at 1 h,
+    falling to 0.33 at 6 h and 0.26–0.27 at 12–23 h (intervals above 0);
+    split-half 0.89, first vs second half 0.66.
+  - **Observation effect:** per-ant moving fraction vs the ant's detection
+    multiplier, Spearman median −0.09 (nurses), +0.14 (foragers); the
+    near-movement share −0.23 (nurses: ants with more outages have more
+    after-break frames, which are never "near"), so the **moving fraction is
+    the cleaner per-ant statistic.**
+  - Data half of the rule met (long-lag plateau, across phases, intervals
+    above 0, for both roles); the model's half (its correlation at the same
+    lags) is running on the box: 22 colonies × σ ∈ {0, 0.4, 0.7, 1.0}, 12 h
+    light, frozen tracker, start point, seed 4242 → `logs/act/sim-s*-c*.log`
+    in `/root/ants-w7`. The σ levels are a comparison grid, not a fit.
+- **User (2026-10-15 late evening):** the data support a persistent
+  individual component strongly enough for the model comparison (the
+  hourly plateau is the informative part; split-half benefits from
+  averaging). If the model shows weaker persistence, that shows its spatial
+  and crowding mechanisms are insufficient **at the tested settings**, not
+  that they cannot produce persistence or that a fixed trait is the unique
+  explanation; the multiplier stays a reasonable minimal candidate.
+  **Comparison on the same 12-h light block and lag definitions in the
+  data** (the 24-h results establish persistence; they are not the
+  numerical target for a light-only simulation). **Adoption rule:** a
+  nonzero σ only if it improves persistence, spread and activity
+  concentration **together**, without materially worsening stillness and
+  run summaries (a mean-one multiplier need not leave colony activity
+  unchanged: crowding and rest transitions are nonlinear). Also needed
+  before the gates: the estimator in reproducible committed code, and the
+  frozen tracker connected to diagnostics and fitting. After the
+  comparison: choose the activity model and proceed without expanding the
+  model further.
+- **Activity-model comparison (box, 22 fit colonies × σ ∈ {0, 0.4, 0.7,
+  1.0}, 12 h light, frozen tracker, start point, seed 4242; data = each
+  colony's main contiguous light block, 12 h (colony208 11 h), same lags
+  and per-ant totals; scratch `simact.py`; `logs/act/compare.txt`, runs in
+  `logs/act/sim/`):**
+  - **Persistence** (moving fraction, Spearman at 1 / 6 / 11 h): nurses
+    data 0.53 / 0.43 / 0.40; σ 0 0.26 / 0.20 / 0.19; σ 0.4 0.55 / 0.49 /
+    0.49; σ 0.7 0.72 / 0.68 / 0.70; σ 1.0 0.79 / 0.75 / 0.77. Foragers data
+    0.54 / 0.36 / 0.32; σ 0 0.08 / 0.05 / 0.06; σ 0.4 0.49 / 0.46 / 0.45;
+    σ 0.7 0.67 / 0.65 / 0.64. The current model has some persistence of its
+    own (nurses ≈ 0.2: position and crowding), too little at the start
+    point. With the trait the curve is flat; the data decay from 1 to 6 h
+    (a transient part the trait does not supply).
+  - **Spread and concentration** (per-ant 12-h moving fraction, 10 / 50 /
+    90 %, top-20 % share; median colony): nurses data 0.0034 / 0.0093 /
+    0.0271, 0.48; σ 0 0.0121 / 0.0190 / 0.0239, 0.27; σ 0.4 0.0076 /
+    0.0159 / 0.0302, 0.37; σ 0.7 0.0047 / 0.0131 / 0.0361, 0.48; σ 1.0
+    0.0028 / 0.0097 / 0.0426, 0.59. Foragers data 0.0186 / 0.0537 / 0.1050,
+    0.43; σ 0 0.23; σ 0.4 0.30; σ 0.7 0.38; σ 1.0 0.45.
+  - **Near-movement share** stays far above the data at every σ (nurse
+    median 0.23–0.31 vs 0.10): moves in the data are clustered in time
+    (bouts of moves and short stops between long rests), a within-ant
+    structure the trait does not address, tied to the short-stop shortage.
+  - **Rows** (median colony; data SE): nurse still 0.9815 / 0.9821 /
+    0.9817 / 0.9818 (data 0.9847): unchanged. Nurse P2 0.824 → 0.810 →
+    0.779 → 0.743 (0.531), P10, P60 and mean run all move toward the data
+    with σ. Forager still 0.9466 / 0.9488 / 0.9516 / 0.9546 (0.9450, SE
+    0.0036); forager P60 0.0275 / 0.0292 / 0.0322 / 0.0385 (0.0241, SE
+    0.0017); forager P2 slightly better. Raw detection row 0.724 / 0.727 /
+    0.727 / 0.739 (0.815): the trait barely moves it.
+  - **Reading (adoption rule):** only **σ 0.4** improves persistence,
+    spread and concentration together; nurse stillness and run summaries
+    unchanged or better; forager stillness +0.6 SE and P60 +1 SE, at a
+    start point the fit re-adjusts (not material). σ 0.7 matches spread
+    and concentration but overshoots persistence (nurses no closer than
+    σ 0 at long lags), so it fails "together". No single σ matches both:
+    the data's spread includes hour-to-hour variation within ants that a
+    fixed trait cannot give (disclosed, not modelled further, per the
+    user).
+- **Decision (Claude, under the user's delegation "choose the activity
+  model and proceed without expanding the model further"; logged before
+  acting):** adopt the per-ant walk-on factor in the Stroeymeyt set-up
+  with **σ = 0.4 fixed** (provenance: estimated, from this grid on the fit
+  colonies, a development comparison, not a fit), **not free** in the fit
+  (k stays 11: the fit rows are colony means, which do not constrain σ and
+  would push it up to help nurse run rows at the cost of persistence).
+  Sensitivity σ 0.7 joins the agreed sensitivity runs. Persistence (1 / 6
+  / 11 h) and per-ant spread / top-20 % share of the moving fraction are
+  reported as diagnostics beside the fit rows. The spread rule (Rules in
+  force) still reads at the optimum.
+- **Next:** (1) σ 0.4 into `s2018Base` (row hashes of the Stroeymeyt tests
+  change; other set-ups unchanged); (2) the tracker estimator into
+  committed code (statistics → `src/sim/analysis/`, estimator →
+  `scripts/`), reproducing `data/fits/s2018-tracker.json`; (3) the frozen
+  tracker connected to `diagS2018` and the fit set-up; then the queued
+  work: short stops and start point through the tracker, trips,
+  sensitivity runs, window and dt gates, the fit (with the user).
+- **Done (2026-10-15 late evening):**
+  1. `S2018_WALK_ON_SD` = 0.4 in `s2018Base` (stroeymeytTargets.ts;
+     `lasiusM1` default stays 0, so other set-ups are unchanged); set-up
+     test asserts each ant has its own factor. `--set walkOnSd=0.7` for the
+     sensitivity run.
+  2. **Estimator in committed code, reproducing the frozen file:**
+     `src/sim/analysis/detectionStats.ts` (the statistics, moved from
+     scratch `trackerStats.ts`), `src/sim/analysis/detectionEstimate.ts`
+     (joint onset, Kaplan–Meier durations per tsb bin, pooled fallback),
+     `scripts/trackerData.ts` (counts, even / odd hours →
+     `logs/tracker-data.json`), `scripts/estimateTracker.ts` (`--check`
+     default; `--write` only with the user). Counts identical to the
+     scratch pass; estimates within 3.3e-14 relative of the frozen payload
+     (libm vs V8); payload kept, `meta` now points to the committed code.
+     Tests (`test/detectionEstimate.test.ts`): counting a known gap; KM
+     without censoring = histogram; joint estimation recovers known
+     hazards and multipliers under selection where pooled rates are biased.
+  3. **Tracker connected:** `colonyFromData(c, observer = 'tracker')`
+     attaches the frozen tracker, so `fitS2018`, `diagS2018`,
+     `checkS2018Window`, `calibTrips` and the rest observe through it;
+     `diagS2018 --observer iid` gives the earlier observer for comparison.
+     The fit's checkpoint key now includes the tracker file's sha256
+     (simHash covers `src/sim` only). Smoke run of `diagS2018` OK.
+  Fast tier 153/153, tsc clean. CLAUDE.md: a Stroeymeyt entry under Run.
+  **Not committed** (ask). Scratch remains uncommitted (`scripts/tmp*.ts`,
+  `scripts/scratch/`).
+- **Next (queued, as agreed):** reassess short stops and the start point
+  through the tracker with σ 0.4 (the current start point was chosen under
+  the iid observer and without the trait); then trips (per-trip give-up
+  time from the observer-corrected trip distribution, with the arena's
+  independent misses stated), sensitivity runs (thirstFrac 0.8 / 0.95,
+  cropWaterRate ×0.2 / ×5, walkOnSd 0.7), window gate with water, dt gate
+  at 36 seeds, then the fit with the user.
+
+**2026-10-15 (late evening) — User: commit, then proceed through the
+sequence.** σ = 0.4 fixed for this fit, σ = 0.7 in the sensitivity runs;
+described as **selected from the activity diagnostics**: the optimizer has
+11 parameters, but σ is an additional data-informed model choice (count it
+as such in any parameter accounting). The small forager deterioration is
+accepted for proceeding; whether the fit recovers it remains to be shown.
+**Limitations of this checkpoint (explicit):** temporal clustering of
+moves (near-movement share), the short-stop deficit, the raw detection
+mismatch. **Standing approval** to proceed without asking at each routine
+step: (1) start point and short stops through the frozen tracker with
+σ 0.4; (2) trip calibration including the duration distribution; (3)
+sensitivity runs, window and dt gates; (4) start the fit. **Bring back a
+decision** only if it needs a new behavioural mechanism or relaxing a
+gate. The start point need not match every behavioural summary before the
+fit does its work.
