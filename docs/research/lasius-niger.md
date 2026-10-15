@@ -9,7 +9,7 @@ only used to test the calibrated model.
 
 | Dataset | Source | Licence | Location |
 |---|---|---|---|
-| 345 trajectories of isolated foragers exploring a 0.5 × 0.5 m canvas at 5 inclines (0, π/9, π/6, π/4, π/3 rad), 26 °C, 50 % RH, 25 Hz, 69 ants per incline, tracks end at 0.2 m from the release point | Khuong et al. 2013, PLoS ONE 8:e76531, Datasets S1–S5 | CC BY 4.0 | `data/khuong2013/incline{1..5}.csv.gz` (columns: incline index, colony, °C, %RH, ant id, t s, x mm, y mm) |
+| 345 trajectories of isolated foragers exploring a 0.5 × 0.5 m canvas at 5 inclines (0, π/9, π/6, π/4, π/3 rad), 26 °C, 50 % RH, 25 Hz, 69 ants per incline; raw tracks run to a median ≈ 0.26 m from the release point (up to 0.37 m) and are cut at 0.2 m by the authors and by our pipeline (`KHUONG_PREP`); positions are in-plane mm on the tilted canvas, not projected (checked 2026-10-11) | Khuong et al. 2013, PLoS ONE 8:e76531, Datasets S1–S5 | CC BY 4.0 | `data/khuong2013/incline{1..5}.csv.gz` (columns: incline index, colony, °C, %RH, ant id, t s, x mm, y mm) |
 
 ## Experiments and targets
 
