@@ -1840,3 +1840,30 @@ implement).**
   at the start point; `logs/checkS2018-{window,dt}-depth.json`, log
   `logs/checks-depth.log`. Rules as logged: the fit uses the shortest
   passing window (16 of 16 rows), else longer, recheck.
+- **Gate recheck results (box, start point, commit 7180735;
+  `logs/checkS2018-{window,dt}-depth.json`):**
+  - **dt 0.05 vs 0.025: 9 of 16 not shown equivalent, but every
+    difference is small (|diff| ≤ 0.40 SE); the failures are interval
+    width at 12 seeds** (the 2026-10-11 gate needed 36). Not a bias
+    signal; to be rerun at 36 seeds on whichever model goes forward.
+  - **Window: 6 h vs 12 h fails 14 of 16, 4 h fails 15 of 16, up to
+    3.6 SE**, with the sign of a drift, not of edge truncation: the short
+    window has more long still runs per run (runStill P10 forager +3.6,
+    P2 forager +2.2, P60 +1.0 to +1.9), shorter walks (runMove −0.7 to
+    −1.6) and is less still (still.nurse −0.5). The colony is still
+    changing 8–14 h after the start.
+  - **Data check (fit colonies, per-ant cache):** still runs ≥ 30 min are
+    rare and ≥ 60 min almost absent (per run ≥ 2 s: nurse 1e-5 / 5e-5,
+    forager 6e-6 / 0; longest 56–143 min); beyond ≈ 10 min the tail falls
+    with an e-fold of ≈ 7–9 min. The Lomax shape (α ≈ 1–1.4) has no
+    cutoff: by rough arithmetic it gives on the order of 50× the data's
+    hour-long rests. Reading: ants accumulate in hours-long rests that the
+    data do not show, so the colony drifts; a heavy-tailed renewal process
+    settles very slowly.
+  - This is the condition of the logged fallback ("if a gamma with α ≈ 1
+    gives implausibly long rests in 8-h windows: mix2"). **Before
+    switching (logged before running):** one diagnostic window check with
+    a near-exponential tail (`--set restShape=20`, otherwise the start
+    point; same settings, tag `depth-shape20`). If 6 h then passes or the
+    drift largely vanishes, the tail is confirmed as the cause and mix2
+    follows by the logged fallback (user to confirm).
