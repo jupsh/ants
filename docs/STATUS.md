@@ -1812,3 +1812,25 @@ implement).**
 - **Running on the box:** worker benchmark (§1.2): 242 tasks at phase-1
   settings (start point, 11 seeds × 22 colonies, dt 0.1, 2 h + 2 h) with
   120 workers, then 62 → `logs/bench-w*.{log,json}`, `logs/bench.txt`.
+- **New start point evaluated (local, fit settings, diag seeds;
+  `logs/diagS2018-start2.{log,json}`):** loss 2673 at the start, about
+  where start 0 got after 57 generations; worst rows runMove.P2.forager
+  z 22 (walks too long), runMove.mean.forager 14, runStill.P2.nurse 12,
+  speedMove.forager 11; every other row |z| ≤ 10. **Timing (laptop, 15
+  workers on 8 cores / 16 threads):** 567 worker-minutes per full
+  evaluation; slowest colony 43.9 min (colony201, 143 ants), median 29.2,
+  smallest 2.9; wall 43.9 min = the slowest colony (largest-first).
+- **Worker benchmark (box, 242 tasks at phase-1 settings, start point):
+  62 workers 603 s, 120 workers 704 s; same loss (2572.6).** Hyperthreads
+  add no throughput here (1177.5 worker-min at 120 vs 590.6 at 62 for the
+  same tasks); with 120, the largest colony runs at half speed and sets
+  the wall (11.7 vs 7.0 min). `boxS2018.sh` now uses one worker per
+  physical core − 2. Box vs laptop: one box worker ≈ 2.4× a laptop
+  worker under full load (cheap evaluation 27 vs ≈ 142 worker-min).
+- **Fit cost estimate, this box, 62 workers, at the start point's
+  costs:** phase 1 (both starts side by side) ≈ 20 min per generation;
+  phase 2 ≈ 40 min per generation (242 full tasks ≈ 2360 worker-min,
+  slowest task ≈ 28 min). With 20–40 phase-1 and 30–60 phase-2
+  generations plus probes and selection batches: **≈ 30–55 h, ≈ $9–17.**
+  Per-generation cost depends on the parameters (more walking costs
+  more).

@@ -14,8 +14,10 @@ if [ -z "${SIM_WORKERS:-}" ]; then
   elif [ -r /sys/fs/cgroup/cpu/cpu.cfs_quota_us ]; then q=$(cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us); p=$(cat /sys/fs/cgroup/cpu/cpu.cfs_period_us)
   else q=max; fi
   if [ "$q" != max ] && [ "$q" -gt 0 ]; then export SIM_WORKERS=$(( q / p - 2 )); fi
-  # No more workers than tasks at once (faster-fit.md §1.2): phase 1 runs two starts × λ 11 × 22 colonies.
-  if [ -n "${SIM_WORKERS:-}" ] && [ "$SIM_WORKERS" -gt 484 ]; then export SIM_WORKERS=484; fi
+  # One worker per physical core, not per hardware thread (faster-fit.md §1.2; STATUS 2026-10-15: on the
+  # EPYC 9534, 62 workers did a phase-1 generation's 242 tasks in 603 s, 120 in 704 s).
+  cores=$(lscpu -p=Core,Socket | grep -v '^#' | sort -u | wc -l)
+  if [ -z "${SIM_WORKERS:-}" ] || [ "$SIM_WORKERS" -gt $(( cores - 2 )) ]; then export SIM_WORKERS=$(( cores - 2 )); fi
 fi
 export RAYON_NUM_THREADS=2 ROLLDOWN_WORKER_THREADS=2 ROLLDOWN_MAX_BLOCKING_THREADS=4 UV_THREADPOOL_SIZE=2
 echo "SIM_WORKERS=${SIM_WORKERS:-default} node $(node --version) commit $(git rev-parse --short HEAD)"
