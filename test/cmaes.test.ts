@@ -13,6 +13,20 @@ describe('CMA-ES', () => {
     expect(JSON.stringify(resumed)).toBe(JSON.stringify(full));
   });
 
+  it('stop ends the run after the generation it fires on; without it the run is unchanged', async () => {
+    const f = (x: number[]) => x.reduce((s, v) => s + v * v, 0);
+    const o = { sigma: 1, maxGenerations: 200, tolX: 1e-8, seed: 5 };
+    const plain = await cmaes(f, new Array(5).fill(3), o);
+    const seen: number[] = [];
+    const r = await cmaes(f, new Array(5).fill(3), { ...o, log: (g) => void seen.push(g.fs[0]), stop: (g) => g.fs[0] < 0.01 });
+    expect(r.stopReason).toBe('stop');
+    expect(seen[seen.length - 1]).toBeLessThan(0.01);
+    expect(seen.slice(0, -1).every((v) => v >= 0.01)).toBe(true);
+    expect(r.generations).toBe(seen.length);
+    const never = await cmaes(f, new Array(5).fill(3), { ...o, stop: () => false });
+    expect(JSON.stringify(never)).toBe(JSON.stringify(plain));
+  });
+
   it('eigendecomposition reconstructs a symmetric positive-definite matrix', () => {
     const r = new RNG(3);
     const n = 6;

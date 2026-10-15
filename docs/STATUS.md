@@ -1717,3 +1717,98 @@ restarts with it.**
   speedMove.forager (always 3.4–3.6 vs 2.75; set directly by
   forager.nestSpeedFactor). Evaluation cost grows with walking: 13 → 66
   min locally as nurse walks lengthened.
+
+**2026-10-15 — Preparing the step-4b refit (user: start point, cheap-phase
+rule for approval, per-colony timing; and what of `faster-fit.md` to
+implement).**
+- **Done, results unchanged:** `SimPool.mapTimed` (each task's time in its
+  worker); `simulateAll` submits the largest colony first (§1.2; seeds
+  stay keyed by data index: the smoke evaluation's loss and every
+  colony's rows are bit-identical to the data-order run); `diagS2018`
+  prints per-colony times; `scripts/profS2018.ts` runs one colony in
+  process for CPU profiles (§1.1).
+- **New start point** (`S2018_START`, revised; old values in its comment):
+  between probes C and D (development looks at fit data): nurse
+  0.055 / 1.9 / 1.15 / 0.03, forager 0.087 / 1.07 / 2 / 5 (speed factor,
+  activeToRest, restToActive, pause factor), encounterStop 0.7,
+  restCrowdExp 1.88, restShape 1.4. START2 inherits the new values except
+  its own overrides. Evaluating it at fit settings with timing →
+  `logs/diagS2018-start2.{log,json}`.
+- **Gates must be rerun under the new model (Rules in force: gates at a
+  test point).** The 6-h window was adopted because shorter windows cut
+  still-run tails at the edges (2026-10-11); heavier tails make that
+  worse, so the **window check** (`checkS2018Window.ts --mode window
+  --windows 14400,21600`, 2-h warm-up, dt 0.05) is rerun at the new start
+  before any fit; fail → longer window, as logged. The **dt gate** passed
+  at dt 0.05 vs 0.025 with exponential rests; rest depth adds no
+  dt-dependent step (the draw is per rest, switching is exact in
+  continuous time), so it is rerun with fewer seeds as a confirmation,
+  not skipped.
+- **PROPOSED, not adopted — cheap-phase rule (faster-fit.md §2.1) for the
+  user's approval:**
+  1. *Phase 1 (search only):* dt 0.1, 2-h warm-up + 2-h window (¼ of the
+     full steps). Both starts (S2018_START, START2), λ = 11, initial SDs
+     from a phase-1 probe. A start's phase 1 ends at the first of:
+     generation-best loss < 300; σ < 0.25 (box units); 40 generations;
+     tolX. 300 (RMS z ≈ 3) because the cheap settings' known biases
+     (dt +0.55 SE on one row; 2-h window: still-run tails, larger with
+     heavy-tailed rests) are a few units of loss each, small next to 300
+     but not next to the tens of a good fit.
+  2. *Selection:* each start's phase-1 estimate (mean of its last 5
+     generation means) is scored at full settings on the selection batch
+     (3 seeds × 22 colonies).
+  3. *Phase 2 (the fit):* full settings (dt 0.05, 2 h + 6 h, or what the
+     window recheck sets), CMA-ES from the better estimate, σ 0.5, SDs
+     from a full-settings probe there, at most 60 generations, tolX 0.03,
+     estimate = mean of the last 20 generation means, then the selection
+     batch, as now.
+  4. *The IPOP restart is dropped;* the two starts give the multi-start
+     check. If the other start's full selection loss is within 20 % of
+     the better one's and its estimate differs by more than 0.5 box units
+     in any coordinate, phase 2 also runs from it.
+  5. Phase-1 results are search tools under the pilot conditions (never
+     reported as fit quality, judged, ranked or adopted); phase seeds are
+     keyed apart. Only phase 2 is the fit, judged by the unchanged rules.
+- **faster-fit.md, item by item:**
+  - §1.1 profile at the current point: script ready; runs after the
+    timing run (they would compete for cores). Allocation refactor only
+    if the profile shows it.
+  - §1.2 faster cores: decide with the per-colony times (a generation on
+    a box with a core per task is the slowest colony). `SIM_WORKERS` =
+    tasks per generation (242) at most, not the hyperthread count (start
+    0 ran 440 workers for 220 tasks). Largest-first: done.
+  - §2.1 multi-fidelity: the proposal above.
+  - §2.2 colony subsets: not proposed now; it would stack a second
+    approximation on phase 1 for less saving (the largest colonies set
+    the wall time, and a stratified subset keeps them).
+  - §2.3 shared warm-ups: not now. With heavy-tailed rests a warm-up
+    under other parameters leaves rests drawn there running hours into
+    the window, so the equivalence check is likely to fail, and the
+    saving is ≤ 25 %.
+  - §2.4 fixing flat parameters: after phase 2, by the identifiability
+    check, as planned.
+- **Approved by the user (2026-10-15):** the cheap-phase rule as
+  proposed above, the gate rechecks, and the faster-fit.md choices.
+- **Implemented:** `cmaes` option `stop` (`stopReason` 'stop'; a run that
+  never stops is bit-identical, tested); `fitS2018.ts` rewritten for the
+  two phases (phase-1 starts run side by side on one pool; per-run
+  checkpoints keyed `p1-s0`, `p1-s1`, `p2-s…`; seeds keyed by phase and
+  start; defaults are now the gated full settings, dt 0.05, 2 h + 6 h;
+  no IPOP restart); `boxS2018.sh`: `SIM_WORKERS` capped at 484 (two
+  starts × λ 11 × 22 colonies), `checks` = the window recheck (4-h and
+  6-h prefixes, 2-h warm-up, dt 0.05) and the dt recheck (0.05 vs 0.025,
+  12 seeds × 1 h), both tagged `depth`.
+- **Box rented by the user (2026-10-15):** vast.ai, Denmark, AMD EPYC
+  9534 (64 cores / 128 threads, whole chip; container quota ≈ 123 CPUs),
+  251 GB, $0.307/h; `ssh -p 46397 root@85.218.235.6`, repo in
+  `/root/ants`. Code: bundle of ff8e35c + this session's uncommitted
+  changes as a patch (provenance will read dirty until committed);
+  Node 22.22.1. Fast tier 141/141 (20 files; `test/local` stays here).
+  **Run hash identical to local** (colony 112, 60 + 300 s:
+  4b0c6225…77576). **Two-phase fit smoke test** (tiny windows, 3 + 3
+  generations): runs end to end; **killed mid-phase-1 and rerun, the
+  result equals the uninterrupted run exactly** (selection loss, estimate,
+  every run's key, f, x, generations, stop reason).
+- **Running on the box:** worker benchmark (§1.2): 242 tasks at phase-1
+  settings (start point, 11 seeds × 22 colonies, dt 0.1, 2 h + 2 h) with
+  120 workers, then 62 → `logs/bench-w*.{log,json}`, `logs/bench.txt`.

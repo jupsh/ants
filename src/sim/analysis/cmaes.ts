@@ -53,6 +53,8 @@ export interface CmaOptions {
    * flat region); `stopReason` 'tolUpSigma'.
    */
   tolUpSigma?: number;
+  /** Stop after a generation for which this returns true (`stopReason` 'stop'; e.g. the cheap phase of a two-phase fit, STATUS 2026-10-15). */
+  stop?: (g: CmaGeneration, largestAxis: number) => boolean;
   /** Called after every generation that does not stop the run, with the state to continue from (plain data, JSON-safe except `best.f` = ±Infinity/NaN). */
   checkpoint?: (s: CmaState) => void | Promise<void>;
   /** Continue from a checkpoint: the run then matches the uninterrupted one bit for bit (same `f`, `x0` and options). */
@@ -102,8 +104,8 @@ export interface CmaResult {
   best: { x: number[]; f: number };
   generations: number;
   evals: number;
-  /** Why the run stopped: 'tolX' (converged), 'maxGenerations', or 'tolUpSigma' (diverged). */
-  stopReason: 'tolX' | 'maxGenerations' | 'tolUpSigma';
+  /** Why the run stopped: 'tolX' (converged), 'maxGenerations', 'tolUpSigma' (diverged) or 'stop' (the `stop` option). */
+  stopReason: 'tolX' | 'maxGenerations' | 'tolUpSigma' | 'stop';
   /** With `bounds`: the final penalty coefficients. */
   gamma?: number[];
 }
@@ -241,7 +243,8 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
     C = Cn;
     sigma *= Math.exp((cs / ds) * (psNorm / chiN - 1));
     ({ B, D } = eigenDecomposition(C));
-    o.log?.({ generation: g, evals, sigma, fs: order.map((k) => fs[k]), mean: m.slice() });
+    const gen = { generation: g, evals, sigma, fs: order.map((k) => fs[k]), mean: m.slice() };
+    o.log?.(gen);
     if (o.tolX !== undefined && sigma * Math.max(...D) < o.tolX) {
       g++;
       stopReason = 'tolX';
@@ -250,6 +253,11 @@ export async function cmaes(f: (x: number[], generation: number) => number | Pro
     if (o.tolUpSigma !== undefined && sigma * Math.max(...D) > o.tolUpSigma) {
       g++;
       stopReason = 'tolUpSigma';
+      break;
+    }
+    if (o.stop?.(gen, sigma * Math.max(...D))) {
+      g++;
+      stopReason = 'stop';
       break;
     }
     if (o.checkpoint) {

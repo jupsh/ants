@@ -44,24 +44,28 @@ export function colonyFromData(c: DataColony): StroeymeytColony {
 export const s2018TargetsFromData = () => s2018Targets(loadS2018().across);
 
 /**
- * Start point (2026-10-11, set by two hand-tried runs on colony209 before
- * any fit; development look at fit data): walking ≈ 2.7 mm/s (0.06 × 45),
- * short walks, rests of 4–7 s, the walker's own pauses as in E1, option B's
- * crowding at half strength.
+ * Start point, revised 2026-10-15 for the rest-depth model (STATUS
+ * 2026-10-15, short-end check points A–D; development looks at fit data):
+ * between C and D. Nurse walks ≈ 0.5 s (C 0.27 s too short, D 1 s too
+ * long), walk-on rates between the gen-57 mean (tails over) and C (under),
+ * restShape between 1 (over) and 2 (under); speed factors scaled to the
+ * data's moving speeds; forager pauses cut from 35 (foragers always too
+ * still). Other values from start 0's gen-57 mean. The 2026-10-11 start
+ * (exponential rests): nurse 0.06 / 3 / 0.15 / 1, forager 0.06 / 2 / 0.25
+ * / 1, encounterStop 0.5, restCrowdExp 0.5.
  */
 export const S2018_START: Record<string, number> = {
-  'nurse.nestSpeedFactor': 0.06,
-  'nurse.activeToRest': 3,
-  'nurse.restToActive': 0.15,
-  'nurse.nestPauseFactor': 1,
-  'forager.nestSpeedFactor': 0.06,
-  'forager.activeToRest': 2,
-  'forager.restToActive': 0.25,
-  'forager.nestPauseFactor': 1,
-  encounterStop: 0.5,
-  restCrowdExp: 0.5,
-  // Rest depth (STATUS 2026-10-15): the data's Lomax shape from 2 s, α ≈ 1.
-  restShape: 1,
+  'nurse.nestSpeedFactor': 0.055,
+  'nurse.activeToRest': 1.9,
+  'nurse.restToActive': 1.15,
+  'nurse.nestPauseFactor': 0.03,
+  'forager.nestSpeedFactor': 0.087,
+  'forager.activeToRest': 1.07,
+  'forager.restToActive': 2,
+  'forager.nestPauseFactor': 5,
+  encounterStop: 0.7,
+  restCrowdExp: 1.88,
+  restShape: 1.4,
 };
 
 /** Base: option B's nest model (encounter stops, crowd-dependent walk-on, walker pauses off are overridden by the free set). */
@@ -70,10 +74,19 @@ export function s2018Params(values: Record<string, number>, outRate: number): Co
   return s2018Apply(base, values);
 }
 
-/** All fit colonies, one task each, in data order. */
+/**
+ * All fit colonies, one task each, results in data order; `ms`: each task's
+ * time in its worker. Submitted largest colony first (faster-fit.md §1.2),
+ * so with fewer workers than tasks the slowest start first; seeds stay
+ * keyed by data index, so results do not depend on the order.
+ */
 export async function simulateAll(pool: SimPool, P: ColonyParams, colonies: StroeymeytColony[], o: Omit<StroeymeytRunOptions, 'seed'>, seed: (i: number) => number) {
-  return pool.map(
+  const order = colonies.map((_, i) => i).sort((a, b) => colonies[b].nurses + colonies[b].foragers - (colonies[a].nurses + colonies[a].foragers) || a - b);
+  const out = await pool.mapTimed(
     's2018Colony',
-    colonies.map((c, i) => [P, c, { ...o, seed: seed(i) }]),
+    order.map((i) => [P, colonies[i], { ...o, seed: seed(i) }]),
   );
+  const res = new Array<(typeof out)[number]['result'] & { ms: number }>(colonies.length);
+  order.forEach((i, k) => (res[i] = { ...out[k].result, ms: out[k].ms }));
+  return res;
 }

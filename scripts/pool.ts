@@ -49,6 +49,8 @@ interface Job {
   args: unknown[];
   resolve: (v: unknown) => void;
   reject: (e: Error) => void;
+  /** When a worker took the job (ms since the epoch). */
+  t0?: number;
 }
 
 export class SimPool {
@@ -94,6 +96,20 @@ export class SimPool {
   /** Run one task per argument list; results in the same order. */
   map<K extends TaskName>(name: K, argLists: TaskArgs<K>[]): Promise<TaskResult<K>[]> {
     return Promise.all(argLists.map((a) => this.run(name, ...a)));
+  }
+
+  /** As `map`, with each task's time in its worker (ms, from dispatch to result; time queued excluded). */
+  mapTimed<K extends TaskName>(name: K, argLists: TaskArgs<K>[]): Promise<{ result: TaskResult<K>; ms: number }[]> {
+    return Promise.all(
+      argLists.map(
+        (args) =>
+          new Promise<{ result: TaskResult<K>; ms: number }>((resolve, reject) => {
+            const job: Job = { id: this.nextId++, name, args, resolve: (v) => resolve({ result: v as TaskResult<K>, ms: Date.now() - job.t0! }), reject };
+            this.queue.push(job);
+            this.pump();
+          }),
+      ),
+    );
   }
 
   /** E2 scouts, chunked across the pool; results in input order. */
@@ -171,6 +187,7 @@ export class SimPool {
     while (this.idle.length && this.queue.length) {
       const w = this.idle.pop()!;
       const job = this.queue.shift()!;
+      job.t0 = Date.now();
       this.busy.set(w, job);
       w.send({ id: job.id, name: job.name, args: job.args });
     }

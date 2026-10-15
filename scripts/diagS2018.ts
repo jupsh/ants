@@ -96,6 +96,12 @@ for (const r of rows) {
   console.log([r.row.padEnd(22), `${p(r.dataLight)} ± ${p(r.seLight)}`, `${p(r.dataDark)} ± ${p(r.seDark)}`, `${p(r.sim)} (${p(r.simSd)})`, r.zLight.toFixed(1), r.zDark.toFixed(1), r.loss.toFixed(1), ((100 * cum) / loss).toFixed(0)].join('\t'));
 }
 
+// Cost per colony (time in its worker), largest first: what bounds a generation on a box with a core per task.
+const byTime = runs.map((r, i) => ({ colony: cols[i].label, ants: cols[i].nurses + cols[i].foragers, min: r.ms / 60000 })).sort((a, b) => b.min - a.min);
+const sumMin = byTime.reduce((a, b) => a + b.min, 0);
+console.log(`\nper-colony time (min, in worker): total ${sumMin.toFixed(1)}, slowest ${byTime[0].min.toFixed(1)} (${byTime[0].colony}, ${byTime[0].ants} ants), median ${byTime[byTime.length >> 1].min.toFixed(1)}`);
+console.log(byTime.map((b) => `${b.colony} ${b.ants} ${b.min.toFixed(1)}`).join(' · '));
+
 writeJson(OUT, {
   study: 'Step 4b diagnosis: per-row loss at one point (STATUS 2026-10-14)',
   source,
@@ -105,7 +111,7 @@ writeJson(OUT, {
   reps: REPS,
   loss,
   rows,
-  perColony: runs.map((r, i) => ({ colony: cols[i].label, rows: r.rows, foragersIn: r.foragersIn })),
+  perColony: runs.map((r, i) => ({ colony: cols[i].label, ants: cols[i].nurses + cols[i].foragers, ms: r.ms, rows: r.rows, foragersIn: r.foragersIn })),
   seeds: "seedFor(2018, 'diag', 0xd1a9, colony index)",
   seconds: (Date.now() - t0) / 1000,
   provenance: provenance(),
