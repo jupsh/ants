@@ -86,6 +86,24 @@ export class RNG {
     return -Math.log(1 - this.next()) * mean;
   }
 
+  /** Gamma deviate with the given shape and scale (Marsaglia & Tsang 2000; shape < 1 by the boost U^(1/shape)). */
+  gamma(shape: number, scale: number): number {
+    if (shape < 1) return this.gamma(shape + 1, scale) * Math.pow(1 - this.next(), 1 / shape);
+    const d = shape - 1 / 3;
+    const c = 1 / Math.sqrt(9 * d);
+    for (;;) {
+      let x: number;
+      let v: number;
+      do {
+        x = this.gauss();
+        v = 1 + c * x;
+      } while (v <= 0);
+      v = v * v * v;
+      const u = this.next();
+      if (u < 1 - 0.0331 * x ** 4 || Math.log(u) < 0.5 * x * x + d * (1 - v + Math.log(v))) return d * v * scale;
+    }
+  }
+
   lognormal(median: number, sigma: number): number {
     return median * Math.exp(sigma * this.gauss());
   }

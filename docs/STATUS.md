@@ -1631,3 +1631,53 @@ not taken.
   the spread rule asks for it. Before any fit: unit tests of the
   duration distribution, one local evaluation at a hand-set point to
   time it and look at the runStill rows.
+
+**2026-10-15 — Decision (user approved): rest depth drawn per rest; step 4b
+restarts with it.**
+- Each rest draws a walk-on multiplier G ~ Gamma(shape `restShape`, mean
+  1); the walk-on rate is `restToActive × N^−restCrowdExp × G`. Alone
+  (no crowding) rest durations are Lomax, S(t) = (1 + r t / α)^−α, the
+  shape that won `diagS2018Shapes` from 2 s. `restShape` 0 means off
+  (constant rate, no draw), so every existing model and result is
+  unchanged.
+- Drawn lazily from the ant's own policy RNG on its first rest step
+  (every rest entry clears it: `toRest`, `enterNest`), so rests started
+  inside a step and at set-up are covered; the ant stays in rest mode
+  (fast path). One shape for nurses and foragers (the data's α agree:
+  0.87–1.06), free in step 4b: k = 11, bounds [0.2, 50] (log), start 1.
+- No per-ant trait (BIC, shapes entry); the spread rule at the optimum
+  decides, as logged. Start 0's checkpoint is retired (the model and hash
+  change); its log and checkpoint stay in `logs/box-2026-10-15/`.
+- Before any fit: unit tests (gamma moments; a lone resting ant's rest
+  durations against the Lomax survival), the fast tier, row-hash equality
+  with `restShape` 0, then one local evaluation at a hand-set point at the
+  fit settings to time it and read the runStill rows.
+- **Implemented (2026-10-15):** `RNG.gamma` (Marsaglia–Tsang; shape < 1
+  by boosting), `Stay.restMult` (NaN until the rest's first step),
+  `restDepth` in `lasiusNestWorker.ts`, `restShape` in `LASIUS_NEST_DEF`
+  (0, off) and in `S2018_FREE` (k = 11), `S2018_START.restShape` 1.
+  Tests: `test/rng.test.ts` (gamma moments, shapes 0.4 / 1 / 3; seeding),
+  `nestWorker.test.ts` (lone rests against the Lomax survival at
+  0.25–30 s, r 2, α 2, 20 000 rests; off: exponential, no depth drawn).
+  Fast tier 141/141. `diagS2018.ts` gains `--set` and decodes checkpoints
+  with fewer coordinates. Sim hash changes (precomputed pages run live
+  until `npm run precompute`).
+- **Running:** one local evaluation at the gen-57 mean with restShape 1,
+  fit settings → `logs/diagS2018-mean-depth1.{log,json}` (timing, and
+  whether the runStill shape moves toward the data; not a fit point:
+  the other parameters were pushed to compensate for exponential rests).
+- **Result (2026-10-15): gen-57 mean + restShape 1, fit settings, 22
+  colonies, one diag seed each; `logs/diagS2018-mean-depth1.{log,json}`.**
+  **15.9 min per evaluation on 15 local workers (66 min before on 12)**:
+  long rests stay in rest mode (fast path). Loss 11938 (2483 without
+  depth; not a fit point, see above). **The tail rows came within reach:**
+  runStill.mean nurse 15.7 vs 14.1–14.5 (z 1.6 / 0.9; was −8), forager
+  9.7 vs 9.6–9.8 (z 0.2; was −8); runStill.P60 forager z 1.9 / 4.7 (was
+  −10), nurse now over (z +9 / +12, was −10). **The loss moved to the
+  short end:** P2 and P10 too high (nurse P2 0.76 vs 0.52, P10 0.35 vs
+  0.14; foragers 0.60 vs 0.44, 0.21 vs 0.10), i.e. too few still runs
+  under 2 s; still fractions 0.997 / 0.987 vs 0.984–0.989 / 0.944–0.953.
+  Short still runs come from walker pauses (nestPauseFactor, nurse at its
+  lower bound 0.03 in this point) and brief stops, which the old fit set
+  to compensate for exponential rests. Whether the short end is reachable
+  is not shown yet.

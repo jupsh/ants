@@ -50,7 +50,7 @@ const perGroup = (g: Group, k: MotionKey, lo: number, hi: number): S2018Free =>
     ? { key: `nurse.${k}`, lo, hi, log: true, get: (n) => n[k], set: (n, v) => ({ ...n, [k]: v }) }
     : { key: `forager.${k}`, lo, hi, log: true, get: (n) => n.forager?.[k] ?? n[k], set: (n, v) => ({ ...n, forager: { ...n.forager, [k]: v } }) };
 
-/** The free set, k = 10 (bounds logged 2026-10-11). */
+/** The free set, k = 11 (bounds logged 2026-10-11; restShape 2026-10-15). */
 export const S2018_FREE: S2018Free[] = [
   ...GROUPS.flatMap((g) => [
     perGroup(g, 'nestSpeedFactor', 0.005, 0.5),
@@ -60,6 +60,8 @@ export const S2018_FREE: S2018Free[] = [
   ]),
   { key: 'encounterStop', lo: 0, hi: 1, log: false, get: (n) => n.encounterStop, set: (n, v) => ({ ...n, encounterStop: v }) },
   { key: 'restCrowdExp', lo: 0, hi: 3, log: false, get: (n) => n.restCrowdExp, set: (n, v) => ({ ...n, restCrowdExp: v }) },
+  // Rest depth, one shape for both groups (STATUS 2026-10-15).
+  { key: 'restShape', lo: 0.2, hi: 50, log: true, get: (n) => n.restShape, set: (n, v) => ({ ...n, restShape: v }) },
 ];
 
 /** Nest parameters of the Stroeymeyt set-up around a base: no recruitment loop, no random caste draw, foragers' trip rate. */

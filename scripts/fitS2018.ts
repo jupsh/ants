@@ -1,8 +1,8 @@
 /**
  * Step 4b fit (STATUS 2026-10-11): in-nest motion on the Stroeymeyt et al.
- * 2018 fit colonies. k = 10 (S2018_FREE: per group speed factor, stop and
- * walk-on rates, the walker's pause factor; shared encounter stop and crowd
- * exponent), 32 fit rows (s2018Targets), loss Σ debiased fitZ².
+ * 2018 fit colonies. k = 11 (S2018_FREE: per group speed factor, stop and
+ * walk-on rates, the walker's pause factor; shared encounter stop, crowd
+ * exponent and rest-depth shape, STATUS 2026-10-15), 32 fit rows (s2018Targets), loss Σ debiased fitZ².
  *
  * Optimiser as the 1999 pilots: CMA-ES in box coordinates [0, 4] per
  * parameter (log-linear where log-scaled), Mod-BCH bounds, tolUpSigma 20,

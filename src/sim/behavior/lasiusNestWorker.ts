@@ -42,6 +42,10 @@ import type { ContactPercept, Interoception, SurfacePercept } from '../perceptio
  *     spontaneously at `activeToRest`; a stopped ant walks on at
  *     `restToActive × N^−restCrowdExp`, N = 1 + stopped nestmates in
  *     contact. Ants with the `forager` trait use the `forager` values.
+ *   - Rest depth (STATUS 2026-10-15): each rest draws its own walk-on
+ *     multiplier, gamma with mean 1 and shape `restShape`, so a lone rest
+ *     lasts a Lomax time (the Stroeymeyt rests are heavy-tailed within each
+ *     ant). Drawn on the rest's first step; `restShape` 0: off, no draw.
  *     Ants heading out (`leave`) do not stop. With `encounterStop` and
  *     `restCrowdExp` 0 the earlier rest / walk switching is unchanged.
  *     An encounter is an episode of antennal contact with one nestmate
@@ -94,6 +98,8 @@ export interface NestParams {
   encounterGap: number;
   /** Exponent b in the walk-on rate of a stopped ant, restToActive × N^−b (N: ants in the stop; 0: independent of N). */
   restCrowdExp: number;
+  /** Shape of the per-rest gamma multiplier (mean 1) on the walk-on rate (0: off, every rest at the plain rate). */
+  restShape: number;
   /** Fraction of nestmates with the forager trait (drawn at set-up by the runner; a recruiter is always a forager). */
   foragerFrac: number;
   /** Hazard (1/s) of leaving on a trip regardless of hunger (Stroeymeyt set-up: foragers of a fed colony; 0: never). */
@@ -142,7 +148,7 @@ export function drawNestTraits(p: NestParams, rng: RNG): { forageDrive: number; 
 
 // Mode entry functions (STATUS 2026-10-10): every nest transition goes through one of these.
 
-/** The ant enters (or starts in) the nest: a fresh stay record (no bout, no partner memory), resting or active. */
+/** The ant enters (or starts in) the nest: a fresh stay record (no bout, no partner memory, no rest depth yet), resting or active. */
 export function enterNest(m: Mind, rest = false): void {
   m.stay = newStay();
   setMode(m, rest ? 'rest' : 'active');
@@ -152,8 +158,17 @@ function toActive(m: Mind): void {
   setMode(m, 'active');
 }
 
+/** A new rest: its depth is drawn on its first step. */
 function toRest(m: Mind): void {
+  m.stay.restMult = NaN;
   setMode(m, 'rest');
+}
+
+/** The current rest's walk-on multiplier: gamma with mean 1 and shape `restShape`, drawn once per rest (1 when off). */
+function restDepth(m: Mind, p: NestParams, rng: RNG): number {
+  if (!(p.restShape > 0)) return 1;
+  if (Number.isNaN(m.stay.restMult)) m.stay.restMult = rng.gamma(p.restShape, 1 / p.restShape);
+  return m.stay.restMult;
 }
 
 function toLeave(m: Mind): void {
@@ -192,7 +207,8 @@ function returning(m: Mind, p: NestParams, carrying: boolean, dt: number, rng: R
 /**
  * Rest/walk switching in continuous time (STATUS 2026-10-11): one unit-rate
  * exposure clock per ant (`stay.spell`). The current mode's rate
- * (activeToRest walking; the walk-on rate, crowd-dependent, resting)
+ * (activeToRest walking; the walk-on rate, crowd-dependent, times the rest's
+ * depth, resting)
  * accumulates exposure, and the mode switches exactly when the clock runs
  * out, as often as that happens within the step. The ant walks for the
  * summed walking time of the step; it ends the step in the last mode.
@@ -208,7 +224,7 @@ function switchWithin(m: Mind, p: NestParams, per: SurfacePercept, rng: RNG): Ne
   for (let k = 0; k < 64; k++) {
     if (!(m.stay.spell > 0)) m.stay.spell = rng.exp(1);
     const walking = m.mode === 'active';
-    const rate = walking ? p.activeToRest : walkOn;
+    const rate = walking ? p.activeToRest : walkOn * restDepth(m, p, rng);
     const need = rate > 0 ? m.stay.spell / rate : Infinity;
     if (need >= left) {
       m.stay.spell -= rate * left;

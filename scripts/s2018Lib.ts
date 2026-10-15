@@ -60,6 +60,8 @@ export const S2018_START: Record<string, number> = {
   'forager.nestPauseFactor': 1,
   encounterStop: 0.5,
   restCrowdExp: 0.5,
+  // Rest depth (STATUS 2026-10-15): the data's Lomax shape from 2 s, α ≈ 1.
+  restShape: 1,
 };
 
 /** Base: option B's nest model (encounter stops, crowd-dependent walk-on, walker pauses off are overridden by the free set). */

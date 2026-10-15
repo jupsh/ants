@@ -122,7 +122,7 @@ describe('nest worker: bouts (STATUS 2026-10-10)', () => {
     const { m } = giver(0);
     m.stay.parted = [{ id: 7, since: 0 }];
     enterNest(m);
-    expect(m.stay).toEqual({ bout: null, parted: [], sinceGive: 0, met: [], spell: 0 });
+    expect(m.stay).toEqual({ bout: null, parted: [], sinceGive: 0, met: [], spell: 0, restMult: NaN });
     expect(m.mode).toBe('active');
   });
 });
@@ -250,5 +250,55 @@ describe('nest worker: rest/walk switching in continuous time (STATUS 2026-10-11
   it('the walked fraction is on / (on + off) at any step, also when spells are shorter than a step', () => {
     // Walking spells of 1/3 s, rests of 2 s: expected 1/7.
     for (const dt of [0.025, 0.1, 0.5]) expect(walkedFraction(dt, 3, 0.5, Math.round(40000 / dt))).toBeCloseTo(1 / 7, 2);
+  });
+});
+
+describe('nest worker: rest depth (STATUS 2026-10-15)', () => {
+  /** Durations of `reps` rests of a lone ant (no contacts, no crowding) at step dt; rests longer than `cap` are cut there. */
+  function rests(p: typeof LASIUS_NEST, reps: number, dt: number, cap: number): number[] {
+    const rng = new RNG(17);
+    const m = newMind(traits, P.walk, rng);
+    const per = { ...inNest([]), dt };
+    const out: number[] = [];
+    for (let r = 0; r < reps; r++) {
+      enterNest(m, true);
+      let t = 0;
+      while (m.mode === 'rest' && t < cap) {
+        const a = lasiusNestWorker(per, io(0, 0, 0.99), m, p, rng);
+        // The step's resting part: all of it, or the part before walking on.
+        t += a.stand ? dt : dt * (1 - (a.walkFrac ?? 1));
+      }
+      out.push(t);
+    }
+    return out;
+  }
+
+  it('each rest draws its own depth: lone rests are Lomax, S(t) = (1 + r t / α)^−α', () => {
+    const r = 2;
+    const alpha = 2;
+    const p = { ...LASIUS_NEST, restToActive: r, restShape: alpha, activeToRest: 0, leaveRate: 0, restCrowdExp: 0 };
+    const n = 20_000;
+    const d = rests(p, n, 0.05, 200);
+    for (const t of [0.25, 1, 3, 10, 30]) {
+      const s = (1 + (r * t) / alpha) ** -alpha;
+      const obs = d.filter((x) => x >= t).length / n;
+      // Within 4 binomial SE (plus a little for the step grid).
+      expect(Math.abs(obs - s)).toBeLessThan(4 * Math.sqrt((s * (1 - s)) / n) + 0.002);
+    }
+  });
+
+  it('off (restShape 0): exponential rests, and no depth drawn', () => {
+    const p = { ...LASIUS_NEST, restToActive: 2, restShape: 0, activeToRest: 0, leaveRate: 0, restCrowdExp: 0 };
+    const d = rests(p, 20_000, 0.05, 200);
+    expect(d.filter((x) => x >= 1).length / d.length).toBeCloseTo(Math.exp(-2), 2);
+    // No depth is ever drawn (existing results stay bit-identical; the row-hash tests check whole runs).
+    const rng = new RNG(4);
+    const m = newMind(traits, P.walk, rng);
+    enterNest(m, true);
+    for (let k = 0; k < 500; k++) {
+      lasiusNestWorker({ ...inNest([]), dt: 0.05 }, io(0, 0, 0.99), m, p, rng);
+      if (m.mode !== 'rest') enterNest(m, true);
+      expect(Number.isNaN(m.stay.restMult)).toBe(true);
+    }
   });
 });

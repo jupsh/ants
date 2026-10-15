@@ -8,8 +8,12 @@
  * Seeds use their own purpose ('diag'), never the fit's, selection's or
  * judging's.
  *
+ * `--set k=v,…` overrides free parameters (e.g. `restShape=1` at a
+ * checkpoint from before restShape existed; a free parameter the checkpoint
+ * lacks and `--set` does not give keeps its base value, i.e. off).
+ *
  *   npx vite-node scripts/diagS2018.ts [--ckpt f] [--at mean|best|start]
- *     [--dt 0.05] [--warmup 7200] [--obs 21600] [--reps 1] [--out f]
+ *     [--set k=v,…] [--dt 0.05] [--warmup 7200] [--obs 21600] [--reps 1] [--out f]
  */
 import fs from 'node:fs';
 import { S2018_FREE, s2018AtBound, s2018Loss } from '../src/sim/experiments/stroeymeytTargets';
@@ -23,12 +27,14 @@ const DT = numArg('--dt', 0.05);
 const WARMUP = numArg('--warmup', 7200);
 const OBS = numArg('--obs', 21600);
 const REPS = numArg('--reps', 1);
+const SET = Object.fromEntries((arg('--set', '') as string).split(',').filter(Boolean).map((kv) => [kv.split('=')[0], Number(kv.split('=')[1])]));
 const OUT = arg('--out', `logs/diagS2018-${AT}.json`);
 // Box and decoding as in fitS2018.ts.
 const BOX = 4;
 
 const ofUnit = (u: number, lo: number, hi: number, log: boolean) => (log ? lo * (hi / lo) ** u : lo + (hi - lo) * u);
-const decode = (x: number[]) => Object.fromEntries(S2018_FREE.map((f, i) => [f.key, ofUnit(Math.min(1, Math.max(0, x[i] / BOX)), f.lo, f.hi, f.log)]));
+// Checkpoints from before a free parameter was added hold fewer coordinates: decode those they have.
+const decode = (x: number[]) => Object.fromEntries(S2018_FREE.slice(0, x.length).map((f, i) => [f.key, ofUnit(Math.min(1, Math.max(0, x[i] / BOX)), f.lo, f.hi, f.log)]));
 
 let values: Record<string, number>;
 let source: string;
@@ -43,6 +49,10 @@ if (AT === 'start') {
   values = decode(x);
   source = `${CKPT} (${AT}, generation ${cma.generation}, simHash ${c.key.simHash}${AT === 'best' ? `, logged f ${cma.best.f.toFixed(1)}` : ''})`;
 }
+
+for (const k of Object.keys(SET)) if (!S2018_FREE.some((f) => f.key === k)) throw new Error(`--set ${k}: not a free parameter`);
+values = { ...values, ...SET };
+if (Object.keys(SET).length) source += `, set ${Object.entries(SET).map(([k, v]) => `${k}=${v}`).join(', ')}`;
 
 const { outRate, exploreGiveUp } = loadTrips();
 const colonies = loadS2018().colonies.map(colonyFromData);

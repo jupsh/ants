@@ -77,6 +77,8 @@ export interface Stay {
   met: { id: number; age: number; unseen: number; counted: boolean }[];
   /** Unit-rate exposure left before the next rest/walk switch (≤ 0: draw a new one; STATUS 2026-10-11). */
   spell: number;
+  /** Walk-on multiplier of the current rest (NaN: drawn on the next rest step; STATUS 2026-10-15). */
+  restMult: number;
 }
 
 /** Everything an ant knows and intends. Never contains world truth. */
@@ -103,7 +105,7 @@ export function newTrip(): Trip {
 }
 
 export function newStay(): Stay {
-  return { bout: null, parted: [], sinceGive: 0, met: [], spell: 0 };
+  return { bout: null, parted: [], sinceGive: 0, met: [], spell: 0, restMult: NaN };
 }
 
 export function newMind(traits: Traits, walkP: WalkParams, rng: RNG): Mind {
