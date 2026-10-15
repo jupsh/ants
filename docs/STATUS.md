@@ -1590,3 +1590,44 @@ not taken.
     candidate rest-duration families per ant on these runs (exponential,
     two-exponential mixture, Lomax; with and without a per-ant scale)
     to pick the structure, then write the model change for approval.
+- **Rest-duration shapes (2026-10-15; fit colonies, data role fit;
+  `scripts/diagS2018Shapes.ts` → `logs/diagS2018Shapes.{log,json}`,
+  per-ant run cache `logs/s2018-antRuns.json`; 8 min).** Still-run excess
+  over a base (2 s, 10 s) fitted per colony × group, per ant, and with a
+  shared shape plus per-ant scale; families exp, mix2 (light + deep rest),
+  lomax (rate redrawn per rest from a gamma), weibull. Exp rows reproduce
+  `diagS2018Runs` exactly.
+  - **Exponential is out everywhere** (ΔBIC 48k–600k).
+  - **Base 2 s (the fit rows' base): lomax per colony wins all 4 cells**,
+    ΔBIC ≈ 19k–24k ahead of mix2; obs/exp at ≥ 10/30/60/120/300 s
+    ≈ 0.95–1.0 / 0.9–1.02 / 1.03–1.19 / 1.33–1.37 / 1.07–1.61. Shape
+    α 0.94–1.06 (shared-shape fits), i.e. per-rest waking rates roughly
+    exponentially distributed. mix2 second: light share 0.85–0.90, deep
+    rests 30–36× longer; misses 60–120 s (obs/exp 0.67–0.79).
+  - **Base 10 s: mix2 and lomax tie** (mix2 ahead in 3 cells by ΔBIC
+    0–2489, lomax in 1 by 471); mix2 light share 0.64–0.79, deep ×15–22;
+    lomax α 0.87–0.93.
+  - **Per-ant parameters do not pay under BIC once the shape is heavy
+    tailed:** the per-colony structure beats shared-shape + per-ant scale
+    in all 8 cells (ΔBIC 3.8k–35k). Under AIC the per-ant scale would win
+    (e.g. nurse light lomax: −2 log L 6013 lower for 1489 extra
+    parameters), so between-ant variation is real but modest next to the
+    within-ant tail. Whether heavy-tailed rests alone reproduce the per-ant
+    still-fraction spread is for the spread rule at the step-4 optimum,
+    as logged.
+  - Caveats: the `colony` structure gives each colony its own parameters
+    (the model has one set per group); the α estimates agree across cells
+    (0.87–1.06), so one shared shape per group looks adequate. Observed
+    runs pass through the observer and include walking pauses.
+- **Proposed model change (NOT adopted; for the user's approval):** each
+  rest draws its own waking-rate multiplier from a gamma with mean 1 and
+  shape `restShape` (one new free parameter, shared by nurses and
+  foragers or one per group), so rest durations are Lomax and
+  `restToActive` keeps its meaning as the mean rate; crowding
+  (`restCrowdExp`) still multiplies the rate. Drawn from the ant's own
+  RNG stream at rest entry, so the rest stays in rest mode (fast path).
+  Fallback if a gamma with α ≈ 1 gives implausibly long rests in 8-h
+  windows: mix2 (light/deep, two parameters). No per-ant trait unless
+  the spread rule asks for it. Before any fit: unit tests of the
+  duration distribution, one local evaluation at a hand-set point to
+  time it and look at the runStill rows.
