@@ -13,7 +13,7 @@ import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params } from '
 
 const LABEL = arg('--colony', 'colony201');
 const SET = Object.fromEntries((arg('--set', '') as string).split(',').filter(Boolean).map((kv) => [kv.split('=')[0], Number(kv.split('=')[1])]));
-const { outRate, exploreGiveUp } = loadTrips();
+const { outRate, exploreGiveUp, exploreGiveUpSd } = loadTrips();
 const data = loadS2018().colonies;
 const i = data.findIndex((c) => c.colony === LABEL);
 if (i < 0) throw new Error(`no colony ${LABEL}`);
@@ -25,5 +25,6 @@ const r = simulateStroeymeyt(s2018Params({ ...S2018_START, ...SET }, outRate), c
   obsS: numArg('--obs', 3600),
   dt: numArg('--dt', 0.05),
   exploreGiveUp,
+  exploreGiveUpSd,
 });
 console.log(`${LABEL}: ${((Date.now() - t0) / 1000).toFixed(1)} s, still nurse ${r.rows['still.nurse.light'].toFixed(3)}, forager ${r.rows['still.forager.light'].toFixed(3)}`);

@@ -50,6 +50,8 @@ export interface Trip {
   foodId: number;
   /** Seconds spent exploring before the current drink (−1: it did not start from exploring); with `drinkPausesTrip` the explore clock resumes from here. */
   explored: number;
+  /** This trip's give-up time (s; NaN: the forager's fixed `exploreGiveUp`; STATUS 2026-10-15). */
+  giveUp: number;
 }
 
 /** One trophallaxis bout as this ant sees it. */
@@ -105,7 +107,7 @@ export interface Mind {
 }
 
 export function newTrip(): Trip {
-  return { piBias: 0, piGain: 1, ingested: 0, desired: 1, satisfied: false, laying: false, gasterDown: false, ars: 0, foodId: -1, explored: -1 };
+  return { piBias: 0, piGain: 1, ingested: 0, desired: 1, satisfied: false, laying: false, gasterDown: false, ars: 0, foodId: -1, explored: -1, giveUp: NaN };
 }
 
 export function newStay(): Stay {

@@ -90,6 +90,12 @@ export interface ForagerParams {
    * the colony runner (step 4).
    */
   exploreGiveUp?: number;
+  /**
+   * Per-trip give-up time (Stroeymeyt set-up, STATUS 2026-10-15): lognormal
+   * with median `exploreGiveUp` and this SD of log, drawn when the trip
+   * starts; unset or 0: every trip gives up at `exploreGiveUp` (no draw).
+   */
+  exploreGiveUpSd?: number;
   /** An ant with a full crop does not start drinking (Stroeymeyt set-up, STATUS 2026-10-15); unset: it does, and leaves satiated at once. */
   drinkOnlyWithRoom?: boolean;
   /** A drink pauses an exploring trip: when it ends, the ant explores on, its explore clock resumed (Stroeymeyt set-up, STATUS 2026-10-15); unset: it goes home satiated. */
@@ -140,7 +146,9 @@ export function startTrip(m: Mind, p: ForagerParams, io: Interoception, rng: RNG
   m.pi.x = at.x;
   m.pi.y = at.y;
   const piBias = rng.normal(0, p.compassBias);
-  m.trip = { ...newTrip(), piBias, desired: desiredVolume(p, m.traits, io.reserve) };
+  // Drawn after the compass bias and only when on, so other set-ups draw as before.
+  const giveUp = p.exploreGiveUp !== undefined && p.exploreGiveUpSd ? p.exploreGiveUp * Math.exp(rng.normal(0, p.exploreGiveUpSd)) : NaN;
+  m.trip = { ...newTrip(), piBias, desired: desiredVolume(p, m.traits, io.reserve), giveUp };
   setMode(m, 'explore');
 }
 
@@ -192,7 +200,7 @@ export function lasiusForager(per: SurfacePercept, io: Interoception, m: Mind, p
 
   switch (m.mode) {
     case 'explore':
-      if (p.exploreGiveUp !== undefined && m.modeTime > p.exploreGiveUp) {
+      if (p.exploreGiveUp !== undefined && m.modeTime > (Number.isNaN(m.trip.giveUp) ? p.exploreGiveUp : m.trip.giveUp)) {
         m.site = null;
         toReturn(m);
         return { ...NONE };

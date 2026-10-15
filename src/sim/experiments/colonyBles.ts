@@ -55,6 +55,8 @@ export interface ColonyOptions {
   molar?: number;
   /** Scouts that find nothing return after this long (s). */
   exploreGiveUp?: number;
+  /** SD of log of a per-trip lognormal give-up time with median `exploreGiveUp` (unset: fixed; STATUS 2026-10-15). */
+  exploreGiveUpSd?: number;
   /**
    * Exploring foragers cannot step into the nest chamber, so a trip lasts
    * until `exploreGiveUp` and homing (Stroeymeyt set-up, STATUS 2026-10-11:
@@ -242,7 +244,7 @@ export class ColonySim {
     if (o.fastPath !== false) this.pairCache = new ContactPairCache();
     if (o.contactGrid !== false) w.contactGrid = new ContactGrid(P.morph.antennaReach + 2 * HEAD_OFFSET * P.morph.len + 1e-3, app.bounds);
     this.w = w;
-    this.foragerP = { ...P.forager, exploreGiveUp: o.exploreGiveUp ?? 300 };
+    this.foragerP = { ...P.forager, exploreGiveUp: o.exploreGiveUp ?? 300, exploreGiveUpSd: o.exploreGiveUpSd };
     const m = P.morph;
     this.reserveMax = P.phys.metabolic * Math.pow(m.mass, 0.75) * 24 * m.reserveDays;
     this.deficit = (o.starvationDays ?? 4) / m.reserveDays;

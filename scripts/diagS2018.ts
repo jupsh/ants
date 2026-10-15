@@ -55,7 +55,7 @@ for (const k of Object.keys(SET)) if (!S2018_SETTABLE.some((f) => f.key === k) &
 values = { ...values, ...SET };
 if (Object.keys(SET).length) source += `, set ${Object.entries(SET).map(([k, v]) => `${k}=${v}`).join(', ')}`;
 
-const { outRate, exploreGiveUp } = loadTrips();
+const { outRate, exploreGiveUp, exploreGiveUpSd } = loadTrips();
 // --masks f: recorded detection masks per colony (observer diagnostic, STATUS 2026-10-15; scratch extractor output).
 const MASKS = arg('--masks', '');
 const maskData = MASKS ? JSON.parse(zlib.gunzipSync(fs.readFileSync(MASKS)).toString()) : null;
@@ -75,7 +75,7 @@ if (atBound.length) console.log(`at a bound: ${atBound.join(', ')}`);
 console.log(`${colonies.length} colonies × ${REPS}, window ${WARMUP} + ${OBS} s, dt ${DT}, ${pool.size} workers`);
 
 const cols = Array.from({ length: REPS }, () => colonies).flat();
-const runs = await simulateAll(pool, P, cols, { phase: 'light', warmupS: WARMUP, obsS: OBS, dt: DT, exploreGiveUp }, (i) => seedFor(2018, 'diag', 0xd1a9, i));
+const runs = await simulateAll(pool, P, cols, { phase: 'light', warmupS: WARMUP, obsS: OBS, dt: DT, exploreGiveUp, exploreGiveUpSd }, (i) => seedFor(2018, 'diag', 0xd1a9, i));
 pool.close();
 const sims = runs.map((r) => r.rows);
 const loss = s2018Loss(sims, targets);

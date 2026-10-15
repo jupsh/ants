@@ -85,6 +85,8 @@ export interface StayCell {
   path: number[];
   /** Complete forager trips (exit to the next entry; s), by the exit's phase (an input for the trip process, STATUS 2026-10-11). */
   trips: number[];
+  /** Trips with an observed exit still open at the last frame fed (censored durations, s), by the exit's phase; set by `result()` (STATUS 2026-10-15: trip-duration distribution). */
+  tripsOpen: number[];
 }
 
 export interface InNestColony {
@@ -176,6 +178,8 @@ export class InNestAccumulator {
   private readonly conflict: Uint8Array;
   /** Repeated reads: `merged` = reads beyond the first of a tag in a frame; `dropped` = tag-frames dropped because their reads disagree. */
   duplicates = { merged: 0, dropped: 0 };
+  /** The last frame fed (censoring point of open trips). */
+  private lastFed = -1;
 
   constructor(roles: AntRole[], private readonly cfg: InNestConfig = STROEYMEYT_CFG) {
     const k = cfg.stillMm.length;
@@ -203,7 +207,7 @@ export class InNestAccumulator {
     for (const g of GROUPS) for (const p of PHASES) motion[`${g}.${p}`] = motionCell(k);
     this.out = {
       motion,
-      stays: cfg.debounce.map(() => ({ light: { dur: [], path: [], trips: [] }, dark: { dur: [], path: [], trips: [] } })),
+      stays: cfg.debounce.map(() => ({ light: { dur: [], path: [], trips: [], tripsOpen: [] }, dark: { dur: [], path: [], trips: [], tripsOpen: [] } })),
       density: { light: { sum: 0, frames: 0 }, dark: { sum: 0, frames: 0 } },
       foragerIn: { light: { sum: 0, frames: 0 }, dark: { sum: 0, frames: 0 } },
       noise: { n: 0, d1x: 0, d1y: 0, d2x: 0, d2y: 0 },
@@ -223,6 +227,7 @@ export class InNestAccumulator {
    */
   frame(frame: number, utcHour: number, n: number, ids: ArrayLike<number>, x: ArrayLike<number>, y: ArrayLike<number>, inNest: ArrayLike<number | boolean>): void {
     const phase = phaseOf(utcHour, this.cfg);
+    this.lastFed = frame;
     const { first, conflict } = this;
     const tol = this.cfg.dupTolMm;
     for (let j = 0; j < n; j++) {
@@ -392,6 +397,11 @@ export class InNestAccumulator {
     det.det = 0;
     det.span = 0;
     for (const v of Object.values(this.out.perAnt)) v.still.length = v.speed.length = 0;
+    for (const st of this.out.stays) for (const p of PHASES) st[p].tripsOpen.length = 0;
+    for (const a of this.ants)
+      a.stays.forEach((t, k) => {
+        if (t.outside) this.out.stays[k][t.exitPhase].tripsOpen.push((this.lastFed - t.exitFrame) * this.cfg.frameDt);
+      });
     for (const a of this.ants) {
       if (a.role === 'queen' || a.firstFrame < 0) continue;
       det.det += a.det;
@@ -533,4 +543,37 @@ export function acrossColonies(rows: Record<string, number>[]): Record<string, R
     out[k] = { mean, sd, n, se: n > 1 ? sd / Math.sqrt(n) : NaN };
   }
   return out;
+}
+
+/**
+ * Kaplan–Meier survival P(T > x) at each x of durations with right
+ * censoring: `done` complete, `open` censored at their value (a censored
+ * duration equal to an event time counts as still at risk at it). Trip
+ * durations of data and simulations alike (STATUS 2026-10-15).
+ */
+export function kmSurvival(done: number[], open: number[], xs: number[]): number[] {
+  const ev = [...done.map((t) => [t, 1]), ...open.map((t) => [t, 0])].sort((a, b) => a[0] - b[0] || b[1] - a[1]);
+  let atRisk = ev.length;
+  let s = 1;
+  const steps: [number, number][] = [];
+  for (let i = 0; i < ev.length; ) {
+    const t = ev[i][0];
+    let d = 0;
+    let c = 0;
+    for (; i < ev.length && ev[i][0] === t; i++) {
+      d += ev[i][1];
+      c++;
+    }
+    if (d) s *= 1 - d / atRisk;
+    steps.push([t, s]);
+    atRisk -= c;
+  }
+  return xs.map((x) => {
+    let v = 1;
+    for (const [t, sv] of steps) {
+      if (t > x) break;
+      v = sv;
+    }
+    return v;
+  });
 }

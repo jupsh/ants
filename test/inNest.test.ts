@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { RNG } from '../src/sim/core/rng';
-import { acrossColonies, colonyRows, InNestAccumulator, runSummary, STROEYMEYT_CFG, type AntRole } from '../src/sim/analysis/inNest';
+import { acrossColonies, colonyRows, InNestAccumulator, kmSurvival, runSummary, STROEYMEYT_CFG, type AntRole } from '../src/sim/analysis/inNest';
 
 /** Position of each ant at a frame, or null when not detected; inNest decided by y ≤ 40. */
 type Script = (ant: number, frame: number) => [number, number] | null;
@@ -95,6 +95,28 @@ describe('in-nest rows (Stroeymeyt 2018 definitions)', () => {
     // Trips: exit (first out-of-nest detection, frame 30k) to the next entry (frame 30k + 10): 9 complete trips of 5 s.
     expect(r['trip.n.light']).toBe(9);
     expect(r['trip.mean.light']).toBeCloseTo(5, 10);
+  });
+
+  it('open trips: an observed exit without an entry is censored at the last frame fed (by the exit phase)', () => {
+    // In for 20 frames, out from frame 20 to the end (frame 99); a second ant never leaves.
+    const acc = new InNestAccumulator(['forager', 'forager']);
+    for (let f = 0; f < 100; f++) acc.frame(f, 12, 2, [0, 1], [5, 5], [f < 20 ? 20 : 60, 20], [f < 20, true]);
+    const st = acc.result().stays[0].light;
+    expect(st.trips).toEqual([]);
+    // Exit confirmed at its first out-of-nest frame (20); censored at 99: 79 frames of 0.5 s.
+    expect(st.tripsOpen).toEqual([39.5]);
+    // result() can be called again without double counting.
+    expect(acc.result().stays[0].light.tripsOpen).toEqual([39.5]);
+  });
+
+  it('Kaplan–Meier survival: without censoring the empirical survival; censoring removes ants from the risk set', () => {
+    expect(kmSurvival([1, 2, 3, 4], [], [0.5, 1, 2.5, 4])).toEqual([1, 0.75, 0.5, 0]);
+    // Censored at 2: at risk at 3 are {3, 4} → S(3) = 0.75 × (1 − 1/2).
+    const s = kmSurvival([1, 3, 4], [2], [1, 2, 3, 10]);
+    expect(s[0]).toBeCloseTo(0.75, 12);
+    expect(s[1]).toBeCloseTo(0.75, 12);
+    expect(s[2]).toBeCloseTo(0.375, 12);
+    expect(s[3]).toBeCloseTo(0, 12);
   });
 
   it('moving-only speed leaves still steps out', () => {

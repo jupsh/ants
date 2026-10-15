@@ -282,6 +282,40 @@ describe('forager: successive trips', () => {
     lasiusForager(per, io(0, 0, 0.7), m, P.forager, rng);
     expect(m.mode).toBe('drink');
   });
+
+  it('per-trip give-up time (STATUS 2026-10-15): off, no draw and the fixed time; on, lognormal with median exploreGiveUp', () => {
+    const off = { ...P.forager, exploreGiveUp: 100 };
+    const on = { ...off, exploreGiveUpSd: 1.5 };
+    // Off: no draw (the stream continues as before) and the trip uses the fixed time.
+    const r1 = new RNG(8);
+    const r2 = new RNG(8);
+    const m1 = newMind(traits, P.walk, r1);
+    newMind(traits, P.walk, r2);
+    startTrip(m1, off, io(0, 0, 0.7), r1);
+    r2.normal(0, P.forager.compassBias);
+    expect(Number.isNaN(m1.trip.giveUp)).toBe(true);
+    expect(r1.next()).toBe(r2.next());
+    // On: log give-up times have mean log 100 and SD 1.5.
+    const rng = new RNG(9);
+    const m = newMind(traits, P.walk, rng);
+    const logs: number[] = [];
+    for (let k = 0; k < 20_000; k++) {
+      startTrip(m, on, io(0, 0, 0.7), rng);
+      logs.push(Math.log(m.trip.giveUp));
+    }
+    const mu = logs.reduce((a, b) => a + b, 0) / logs.length;
+    const sd = Math.sqrt(logs.reduce((a, b) => a + (b - mu) ** 2, 0) / (logs.length - 1));
+    expect(Math.abs(mu - Math.log(100))).toBeLessThan((4 * 1.5) / Math.sqrt(logs.length));
+    expect(sd).toBeCloseTo(1.5, 1);
+    // The explore clock gives up at this trip's own time.
+    startTrip(m, { ...on, exploreGiveUpSd: 1e-9 }, io(0, 0, 0.7), rng);
+    m.trip.giveUp = 5;
+    const per = basicPercept(0.1, 0, 0, 22);
+    for (let t = 0; t < 49; t++) lasiusForager(per, io(0, 0, 0.7), m, on, rng);
+    expect(m.mode).toBe('explore');
+    for (let t = 0; t < 3; t++) lasiusForager(per, io(0, 0, 0.7), m, on, rng);
+    expect(m.mode).toBe('return');
+  });
 });
 
 describe('nest worker: rest/walk switching in continuous time (STATUS 2026-10-11)', () => {

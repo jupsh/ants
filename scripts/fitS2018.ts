@@ -56,7 +56,7 @@ const P2_SIGMA = 0.5;
 const SECOND_WITHIN = 0.2;
 const SECOND_DIST = 0.5;
 // Trip-process inputs (scripts/calibTrips.ts; STATUS 2026-10-11).
-const { outRate: OUT_RATE, exploreGiveUp: EXPLORE } = loadTrips();
+const { outRate: OUT_RATE, exploreGiveUp: EXPLORE, exploreGiveUpSd: EXPLORE_SD } = loadTrips();
 const TAG = arg('--tag', '');
 // Which starts to run (seeds are keyed by start index).
 const RUNS = (arg('--runs', '0,1') as string).split(',').map(Number);
@@ -76,14 +76,14 @@ const encode = (v: Record<string, number>) => S2018_FREE.map((f) => BOX * unit(v
 const decode = (x: number[]) => Object.fromEntries(S2018_FREE.map((f, i) => [f.key, ofUnit(Math.min(1, Math.max(0, x[i] / BOX)), f)]));
 
 type Settings = Omit<StroeymeytRunOptions, 'seed'>;
-const FULL: Settings = { phase: 'light', warmupS: WARMUP, obsS: OBS, dt: DT, exploreGiveUp: EXPLORE };
-const CHEAP: Settings = { phase: 'light', warmupS: C_WARMUP, obsS: C_OBS, dt: C_DT, exploreGiveUp: EXPLORE };
+const FULL: Settings = { phase: 'light', warmupS: WARMUP, obsS: OBS, dt: DT, exploreGiveUp: EXPLORE, exploreGiveUpSd: EXPLORE_SD };
+const CHEAP: Settings = { phase: 'light', warmupS: C_WARMUP, obsS: C_OBS, dt: C_DT, exploreGiveUp: EXPLORE, exploreGiveUpSd: EXPLORE_SD };
 
 const PROVENANCE = provenance();
 const CKPT = `logs/fitS2018${NAME ? `-${NAME}` : ''}.ckpt.json`;
 // The observer (frozen tracker file) is part of the key: simHash covers src/sim only.
 const TRACKER_SHA = createHash('sha256').update(fs.readFileSync(S2018_TRACKER)).digest('hex');
-const CKPT_KEY = { simHash: PROVENANCE.simHash, tracker: TRACKER_SHA, design: 'two-phase 2026-10-15', GENS, WARMUP, OBS, DT, C_DT, C_WARMUP, C_OBS, C_LOSS, C_GENS, OUT_RATE, EXPLORE, RUNS, TAG };
+const CKPT_KEY = { simHash: PROVENANCE.simHash, tracker: TRACKER_SHA, design: 'two-phase 2026-10-15', GENS, WARMUP, OBS, DT, C_DT, C_WARMUP, C_OBS, C_LOSS, C_GENS, OUT_RATE, EXPLORE, EXPLORE_SD, RUNS, TAG };
 interface Run { key: string; label: string; phase: 1 | 2; start: number; x0: number[]; initialSds: number[]; sigma0: number; generations: number; evals: number; finalSigma: number; avgWindow: number; meanDrift: number[]; stopReason: string; converged: boolean; gamma: number[] | null; x: number[]; f: number; estimate: Record<string, number> }
 interface Ckpt { done: Run[]; current: Record<string, { stds: number[]; cma: CmaState | null }>; evals: number; seconds: number }
 const ck: Ckpt = loadCheckpoint<Ckpt>(CKPT, CKPT_KEY) ?? { done: [], current: {}, evals: 0, seconds: 0 };
@@ -195,6 +195,7 @@ writeJson(OUT, {
   window: { warmup: WARMUP, obs: OBS, dt: DT },
   outRate: OUT_RATE,
   exploreGiveUp: EXPLORE,
+  exploreGiveUpSd: EXPLORE_SD,
   optimizer: {
     method: 'CMA-ES, two phases (STATUS 2026-10-15)',
     phase1: { window: { warmup: C_WARMUP, obs: C_OBS, dt: C_DT }, stop: `best < ${C_LOSS}, largest axis < ${C_AXIS}, ${C_GENS} generations or tolX`, averageLast: C_AVERAGE, starts: RUNS, note: 'search only; never reported as fit quality' },

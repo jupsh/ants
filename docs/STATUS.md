@@ -2921,3 +2921,183 @@ sensitivity runs, window and dt gates; (4) start the fit. **Bring back a
 decision** only if it needs a new behavioural mechanism or relaxing a
 gate. The start point need not match every behavioural summary before the
 fit does its work.
+- **Committed** `a4a95ca` (water, frozen tracker + committed estimator,
+  walk-on factor; scratch excluded; not pushed).
+- **Step (1) started — start point and short stops through the frozen
+  tracker with σ 0.4** (development looks at fit data). Box worktree
+  `/root/ants-w7` synced to `a4a95ca` (checksums identical). `diagS2018
+  --at start`, fit settings (2 h warm-up + 6 h, dt 0.05, light and dark),
+  12 runs × 10 workers → `logs/sp/*.{log,json}`: base (tracker); base with
+  the old observer (`--observer iid`: the observer's effect on the loss);
+  one at a time: nurse nestPauseFactor 0.01 / 0.1 / 0.3 (start 0.03),
+  forager nestPauseFactor 1.5 / 15 (start 5), restShape 0.7 / 3 (1.4),
+  switching ×2 / ×4 (both activeToRest and restToActive, both groups),
+  encounterStop 0.3 (0.7). Purpose: which levers move short stops (P2)
+  and whether the start point is reasonable; the start point need not
+  match every row (user).
+- **Step (2) prepared — trip-duration distribution of the data** (fit
+  colonies, foragers, the rows' accumulator; open trips at the stream end
+  now recorded as censored, `StayCell.tripsOpen`, rows unchanged, test
+  added; scratch `tmpTripData.ts`, `tripForm.py`; `logs/trips/form.txt`):
+  Kaplan–Meier, light: 10 / 50 / 90 / 99 % = 14 / 98 / 2092 / 14346 s
+  (5614 complete, 47 open); dark 30 / 256 / 3820 / 12547 s (5128, 178).
+  Censored ML over exponential, Weibull, gamma, lognormal, log-logistic:
+  **lognormal best by AIC** pooled and in each phase (log-logistic next,
+  Δ 66–400; Weibull and gamma miss the short end, exponential far off);
+  σ 1.86 light / 1.89 dark, median 132 / 336 s: the phases differ in
+  location, not shape. Fitted vs KM: within ≈ 0.04 everywhere (lognormal
+  tail slightly thin at 20–60 min).
+- **Decision (approved candidate, user 2026-10-15; logged before
+  implementing):** per-trip give-up time **lognormal**, median
+  `exploreGiveUp`, SD of log `exploreGiveUpSd` (new forager option, drawn
+  per trip at `startTrip` from the ant's stream only when > 0, so other
+  set-ups are unchanged). Calibrated by simulation (calibTrips v2) in
+  (log median, σ, log outRate) to: trip count, foragerIn, and colony-mean
+  KM trip survival S(30 / 120 / 600 / 3600 s), all averaged over the two
+  phases as before (one trip process for both phases; the data's
+  light/dark location difference, ×2.5 in median, is disclosed, not
+  modelled), weighted by colony-block SE, 12-h windows as in the data
+  (comparable censoring). Arena detection stays independent at the colony
+  rate (stated). Inputs written to `data/fits/s2018-trips.json` only
+  after the confirmation run.
+- **Implemented (step 2 tooling; not run yet):** forager
+  `exploreGiveUpSd` (per-trip lognormal give-up, `Trip.giveUp`, drawn in
+  `startTrip` only when on; test: off draws nothing, on gives log-mean
+  log(median) and SD σ, the explore clock honours the trip's own time);
+  `ColonyOptions` / `StroeymeytRunOptions.exploreGiveUpSd`; the pool task
+  returns each run's complete and open trips; `kmSurvival` (inNest.ts,
+  tested); committed reference `data/reference/stroeymeyt2018-trips.json`
+  (`scripts/stroeymeytTrips.ts`; identical to the scratch pass);
+  **calibTrips v2** (3 × 3 × 3 grid in log median, σ, log outRate, then
+  one at half spacing, quadratic surfaces, SE-weighted least squares over
+  trip.n, foragerIn, S(30 / 120 / 600 / 3600 s); confirmation run;
+  `passed` = every statistic within 1 SE); `loadTrips` returns the SD (0
+  for older files) and every consumer passes it (the fit's checkpoint key
+  includes it). Fast tier 156/156. Runs after step 1's start point.
+- **Step (1) result — start point through the frozen tracker, σ 0.4
+  (`logs/sp/`, `logs/sp/summary.txt`; fit settings, light, 22 colonies,
+  seed purpose 'diag'):** loss 21 940 at `S2018_START` (old observer 23 625).
+  Dominated by still-run lengths: nurse P10 0.402 vs 0.142, forager P10
+  0.265 vs 0.105, P2 nurse 0.808 vs 0.520, forager 0.704 vs 0.438; nurse
+  P60 0.072 vs 0.031 (old observer 0.055: the tracker leaves more long runs
+  complete); stillness close (nurse 0.981 vs 0.984, forager 0.947 vs
+  0.944); moving runs too short (nurse runMove P2 0.067 vs 0.140) and
+  moving speed high (2.44 vs 2.21 mm/s). One-at-a-time probes (loss; nurse
+  P2): nurse nestPauseFactor 0.01 / 0.1 / 0.3 22 032 / 22 155 / 22 473,
+  P2 0.808–0.811 (**inert**); forager nestPauseFactor 1.5 / 15 21 815 /
+  22 947 (inert on P2); restShape 0.7 36 611, 3 16 096 (P2 0.797, P60
+  0.040, but nurse still 0.961); switching ×2 / ×4 14 004 / 12 497 (P2
+  0.775 / 0.767, at the cost of moving runs: runMove P2 0.024 / 0.012,
+  speed 2.22 / 1.99); encounterStop 0.3 19 537 (P2 0.805).
+  **Reading:** no probed lever moves nurse P2 below ≈ 0.77 (data 0.52);
+  the short-stop deficit looks out of reach of the 11 parameters, and the
+  levers that move it at all (faster switching) damage moving runs. Risk
+  for the fit: it may trade moving-run and speed rows against the
+  short-stop rows. Per the user, the start point need not match every
+  summary: **`S2018_START` kept**; this is flagged to the user, the short
+  stops stay an explicit limitation, and the fit's per-row report will
+  show what it trades. Next: calibTrips v2 at `S2018_START` on the box.
+- **calibTrips v2, round 1 (box; 27 points, ≈ 35 min):** the surfaces'
+  compromise (median 413 s, σ 1.57, outRate 1/3001 s) still predicts
+  S(30 s) z −4.1 (trip.n +3.0, S(120 s) +2.2). Too many trips end within
+  30 s whatever the give-up time: at median 600 s, σ 1.2, 1/10000 s,
+  S(30 s) = 0.62 (data 0.86), and the short-trip share rises as outRate
+  falls. Round 2 and the confirmation running.
+- **User (2026-10-15 late evening):** run both diagnostics now. (A) Short
+  trips: their paths and whether they coincide with an actual foraging
+  departure; the same entrance region and trip-counting rule in the data;
+  report the **absolute number of sub-30-s trips per ant-hour** beside the
+  fraction (the rising share at lower outRate supports boundary crossings
+  but does not by itself establish a fixed background rate). (B) Short
+  stops: do brief still classifications occur inside otherwise continuous
+  walking bouts as speed dips below the observer's threshold (walking-speed
+  fluctuations) or do they need more transitions into rest? Lognormal
+  give-up stays the current candidate (adjusting it will not remove the
+  excess very short trips; not yet shown right for the remaining
+  excursions). Round 2 confirms the calibration result; then these two
+  diagnostics decide the smallest necessary correction. **No further
+  give-up-time search until the source of the short trips is clearer.**
+- **Diagnostics (A) and (B) (scratch `diagShort.ts`, `tmpShortData.ts`,
+  `tmpShortSim.ts`, `shortAgg.py`; `logs/short/agg.txt`; data: 22 fit
+  colonies, 24 h; sim: 6 colonies (40–143 ants), start point, σ 0.4,
+  frozen tracker, round-1 trip solution (median 413 s, σ 1.57, 1/3001 s),
+  2 h + 4 h light):**
+  - **(B) Short stops are speed dips in slow walking, not stops.** Steps
+    inside still runs < 2 s (bounded by moving steps): data 14–15 % at
+    noise level (d < 0.15 mm/frame) and 60 % at 0.3–0.6 (just below the
+    0.6 threshold), nurses and foragers alike; sim 70–75 % at noise level.
+    Steps in still runs ≥ 10 s: data 90 % < 0.15 (real rests). Flanking
+    moving steps in the data are slow (0.6–0.9 mm/frame: nurses 61 %,
+    foragers 52 %; sim 39 % / 22 %); all moving steps likewise (data 55 %
+    / 40 %, sim 37 % / 18 %). The data's ants walk slowly, near the
+    threshold, and brief "still" frames come from that; the model walks
+    faster and its brief stills are real stops. So more transitions into
+    rest are not the remedy. Probe running: both nestSpeedFactor × 0.75 /
+    × 0.6 (a free parameter), same diagnostic, to see whether slower
+    walking alone reproduces the dips or the speed distribution's shape
+    (variability) is missing.
+  - **(A) Short trips are non-foraging excursions.** Sim trips < 30 s: the
+    ant's true modes while out are in-nest modes (active 0.97, rest 0.85);
+    `explore` in only 7 % (longer trips: 95–100 %). Absolute rates: sim
+    0.215 sub-30-s trips per forager-hour (22 % of trips) vs data 0.147
+    (26 %) in the same 6 colonies, 0.099 (16 %) over all 22; total trips
+    per forager-hour sim 0.97 vs data 0.57 (same colonies). Sim
+    excursions reach farther from the exit point (median 43 mm vs 29;
+    longer trips 59–62 vs 51–57 mm). The departure flag of this run was
+    wrong (startTrip fires in the hidden passage before the exit is
+    confirmed; fixed, rerun with the speed probes).
+- **Rerun with the departure flag fixed, and speed probes (same 6
+  colonies; both nestSpeedFactor × 1 / 0.75 / 0.6):**
+  - (A) confirmed: of sim trips < 30 s, **8 %** began a foraging trip
+    (longer trips 96 %). Sub-30-s trips per forager-hour 0.215 / 0.147 /
+    0.153 (data, same colonies, 0.147): the excursion rate follows in-nest
+    forager speed (a free parameter), so it is set by the motion fit, not
+    by the give-up time.
+  - (B) **slower walking alone does not make the dips:** nurse still runs
+    < 2 s 0.193 / 0.177 / 0.165 (data 0.475; falls, not rises); short
+    stills still mostly at noise level (0.70 / 0.64 / 0.59 vs data 0.15).
+    Slowing shifts moving steps toward the threshold (nurses 0.6–0.9
+    mm/frame 0.37 / 0.48 / 0.59, data 0.53) but narrows the fast end (≥ 1.5:
+    0.22 / 0.12 / 0.06, data 0.17): the data's in-nest walking speed is
+    broad and fluctuates across the threshold within a walk; the model's
+    walker holds a steady speed. **The missing element is within-walk
+    speed fluctuation: a new mechanism → user decision** (rule of
+    2026-10-15). Not acted on.
+- **calibTrips v2 result (box, 70.6 min): NOT passed, not adopted.**
+  Round-2 surfaces: median 394 s, σ 1.60, outRate 1/2883 s (predicted z
+  3.4 / −1.6 / −4.3 / 2.1 / 1.5 / −1.3). Confirmation: trip.n 381 (z
+  +3.3), foragerIn 0.723 (−1.1), S(30 s) 0.801 (−3.6), S(120 s) 0.647
+  (+2.3), S(600 s) 0.338 (+1.9), S(3600 s) 0.065 (−1.6); trip mean 857 s,
+  median 257 s (data 1177 / 283). As expected from (A): the excess
+  excursions pull the solution to more trips. The output is kept as
+  `logs/trips/calibTrips2-failed.json` (+ log); the box's
+  `data/fits/s2018-trips.json` was restored to the current (2026-10-11
+  fixed give-up) inputs, so no script reads the failed one. **Waiting on
+  the user:** in-nest speed fluctuation (new mechanism) or not; trip
+  targets without S(30 s) (excursions as a motion check); keep or stop
+  the box.
+
+**2026-10-15 (late evening) — User decisions after the diagnostics.**
+1. **No new speed mechanism yet.** In-nest speed fluctuation stays out of
+   the next exploratory fit; the **short-stop deficit is recorded as an
+   explicit failure** (current evidence: brief still steps are mostly
+   just-below-threshold slow steps in the data, noise-level stops in the
+   model; slower walking alone does not reproduce them). Not established
+   that speed fluctuation would resolve it, and estimating two parameters
+   from step speeds carries its own modelling assumptions. **Proposal
+   preserved** for a targeted comparison after the fit shows what the
+   current parameters achieve.
+2. **Trips: the 30-s target is retained;** the failed v2 calibration
+   (`logs/trips/calibTrips2-failed.json`) and the **existing trip inputs**
+   (`data/fits/s2018-trips.json`, 2026-10-11, fixed give-up) are kept; the
+   confirmation also missed trip count and 2-min survival, so dropping
+   the 30-s point would not resolve the inconsistency. "Extra
+   non-foraging excursions" **remains a hypothesis** until a path audit
+   confirms a distinct class of entrance excursions; then one separation
+   rule, applied to data and simulation alike, and genuine foraging trips
+   calibrated. Lognormal give-up stays implemented, off.
+3. **Box kept.**
+4. **Next milestone:** a **frozen candidate**, the numerical (dt) and
+   settling (window) gates, then a **bounded exploratory joint fit** with
+   the trip and short-stop failures disclosed. The fit is diagnostic: its
+   parameter estimates do not support final biological conclusions.

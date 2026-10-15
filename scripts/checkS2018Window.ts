@@ -25,9 +25,10 @@ const fit = arg('--fit', '');
 const SET = Object.fromEntries(arg('--set', '').split(',').filter(Boolean).map((kv) => [kv.split('=')[0], Number(kv.split('=')[1])]));
 const values = { ...(fit ? JSON.parse(fs.readFileSync(fit, 'utf8')).free : S2018_START), ...SET };
 // Trip inputs from the calibration, or provisional values given explicitly (--explore, --outRate; disclosed in STATUS).
-const trips = arg('--explore', '') ? { exploreGiveUp: numArg('--explore', NaN), outRate: numArg('--outRate', NaN) } : loadTrips();
+const trips = arg('--explore', '') ? { exploreGiveUp: numArg('--explore', NaN), exploreGiveUpSd: numArg('--exploreSd', 0), outRate: numArg('--outRate', NaN) } : loadTrips();
 const outRate = trips.outRate;
 const exploreGiveUp = trips.exploreGiveUp;
+const exploreGiveUpSd = trips.exploreGiveUpSd;
 const P = s2018Params(values, outRate);
 const data = loadS2018();
 const colonies = data.colonies.map((c) => colonyFromData(c));
@@ -72,10 +73,10 @@ function compare(a: Record<string, number>[], b: Record<string, number>[], label
   return { rows: out, fails };
 }
 
-const result: Record<string, unknown> = { mode: MODE, values, outRate, exploreGiveUp, warmup: WARMUP, dt: MODE === 'window' ? WDT : undefined, provenance: provenance() };
+const result: Record<string, unknown> = { mode: MODE, values, outRate, exploreGiveUp, exploreGiveUpSd, warmup: WARMUP, dt: MODE === 'window' ? WDT : undefined, provenance: provenance() };
 if (MODE === 'window') {
   const FULL = 12 * 3600;
-  const runs = await simulateAll(pool, P, colonies, { phase: 'light', warmupS: WARMUP, obsS: FULL, dt: WDT, windows: WINDOWS, exploreGiveUp }, (i) => seedFor(2018, 'converge', 0x3d, i));
+  const runs = await simulateAll(pool, P, colonies, { phase: 'light', warmupS: WARMUP, obsS: FULL, dt: WDT, windows: WINDOWS, exploreGiveUp, exploreGiveUpSd }, (i) => seedFor(2018, 'converge', 0x3d, i));
   const full = runs.map((r) => r.rows);
   WINDOWS.forEach((w, k) => {
     const label = w < 3600 ? `${w / 60} min` : `${w / 3600} h`;
@@ -86,7 +87,7 @@ if (MODE === 'window') {
   const OBS = numArg('--obs', 1800);
   const seeds = (i: number) => seedFor(2018, 'converge', 0xd7, i % colonies.length, Math.floor(i / colonies.length));
   const cols = Array.from({ length: REPS }, () => colonies).flat();
-  const o = { phase: 'light' as const, warmupS: WARMUP, obsS: OBS, exploreGiveUp };
+  const o = { phase: 'light' as const, warmupS: WARMUP, obsS: OBS, exploreGiveUp, exploreGiveUpSd };
   // --dts coarse,fine (default 0.1,0.05; then 0.05,0.025 if the first fails, as the gate's order).
   const [d1, d2] = arg('--dts', '0.1,0.05').split(',').map(Number);
   const [a, b] = await Promise.all([simulateAll(pool, P, cols, { ...o, dt: d1 }, seeds), simulateAll(pool, P, cols, { ...o, dt: d2 }, seeds)]);

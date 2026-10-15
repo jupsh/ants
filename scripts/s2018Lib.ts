@@ -17,11 +17,11 @@ export const S2018_TRIPS = 'data/fits/s2018-trips.json';
 /** The frozen detection tracker (STATUS 2026-10-15 late evening; its `meta` records conditioning, estimator and validation). */
 export const S2018_TRACKER = 'data/fits/s2018-tracker.json';
 
-/** The trip-process inputs (scripts/calibTrips.ts). */
-export function loadTrips(): { exploreGiveUp: number; outRate: number } {
+/** The trip-process inputs (scripts/calibTrips.ts; `exploreGiveUpSd` 0 in files from before v2: a fixed give-up time). */
+export function loadTrips(): { exploreGiveUp: number; exploreGiveUpSd: number; outRate: number } {
   if (!fs.existsSync(S2018_TRIPS)) throw new Error(`${S2018_TRIPS} missing: run scripts/calibTrips.ts first`);
   const t = JSON.parse(fs.readFileSync(S2018_TRIPS, 'utf8'));
-  return { exploreGiveUp: t.exploreGiveUp, outRate: t.outRate };
+  return { exploreGiveUp: t.exploreGiveUp, exploreGiveUpSd: t.exploreGiveUpSd ?? 0, outRate: t.outRate };
 }
 
 /** Per colony label, the frozen tracker of each role (`StroeymeytColony.tracker`). */

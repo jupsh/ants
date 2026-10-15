@@ -52,8 +52,9 @@ export interface StroeymeytRunOptions {
   dt?: number;
   /** Also report rows for the first w seconds of the observed time, for each w here (window check; each ≤ obsS). */
   windows?: number[];
-  /** Seconds a forager explores the foraging area on a trip before heading home (an input, STATUS 2026-10-11). */
+  /** Seconds a forager explores the foraging area on a trip before heading home (an input, STATUS 2026-10-11); with `exploreGiveUpSd` the median of a per-trip lognormal (STATUS 2026-10-15). */
   exploreGiveUp: number;
+  exploreGiveUpSd?: number;
 }
 
 export interface StroeymeytRun {
@@ -114,6 +115,7 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     // With thirst off, the same initial state at the default threshold, so paired runs start matched.
     waterInit: STROEYMEYT_WATER_INIT(P.nest.thirstFrac > 0 ? P.nest.thirstFrac : S2018_WATER.thirstFrac),
     exploreGiveUp: o.exploreGiveUp,
+    exploreGiveUpSd: o.exploreGiveUpSd,
     exploreOutside: true,
     starvationDays: 0,
     walkSpeedFactor: 1,
