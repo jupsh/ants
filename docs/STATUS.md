@@ -1469,3 +1469,124 @@ not taken.
   as a separate run on a second box. Local timing for reference: the largest
   colony takes ≈ 2 min for 2 h + 6 h here, ≈ 20 min on the box.
 
+**2026-10-14 — faster-fit options surveyed; none adopted (user request).**
+- The user pasted start 0's log up to gen 43 (best 4317.9, median 7483.9,
+  σ 3.015; ≈ 60 min/gen since gen 28 against ≈ 22 min early). At the user's
+  request the options for a faster fit are surveyed in
+  `docs/faster-fit.md`: bit-identical routes (profile at the current mean
+  before any allocation refactor — the existing profiles were taken at the
+  start point; faster cores rather than more, since one colony task on one
+  core bounds a generation; a one-generation `SIM_WORKERS` benchmark),
+  cheaper-search routes behind a rule logged in advance (multi-fidelity
+  generations at dt 0.1 / 2-h window, colony-subset screening, shared
+  warm-up snapshots behind an equivalence check, parameter fixing behind
+  an identifiability check), and gated changes (5-h window, dt corrections)
+  recorded but not recommended.
+- **No decision taken and nothing changed:** start 0 continues untouched;
+  its checkpoint cannot resume under changed simulation code (the
+  checkpoint key carries the sim hash), so any code option applies only to
+  start 1, the restart, or a later fit. Recommended order is in the
+  document (§ Recommended order): faster-core box and worker benchmark
+  before the next launch, profiling locally at the current mean, and a
+  logged multi-fidelity rule for the restart if speed is still needed.
+
+- **Later 2026-10-14 (box 10-15 05:04 UTC):** start 0 at gen 56 (best
+  2250–2590, median 3273–4385, σ 1.74), ≈ 110 min/gen and still rising;
+  the box restarted once (resumed at gen 53 from the checkpoint).
+  At the gen-55 mean, nurse.nestPauseFactor is 0.033, close to its lower
+  bound of 0.01. At ≈ 110 min/gen the remaining 44 generations to the
+  100-generation cap take ≈ 80 h, before start 1 and the restart. The
+  user is weighing whether to stop; advice given: stop and copy the
+  checkpoint home, do a local per-row diagnosis at the current mean
+  before any further box spend. No decision yet.
+- **Start 0 stopped (user, 2026-10-14):** killed by pid at gen 57 (box
+  05:06 UTC; gen 57's partial work lost; checkpoint at gen 56 →
+  `cma.generation` 57). Box files copied to `logs/box-2026-10-15/`
+  (checkpoint and log sha256-verified against the box; `s2018-trips.json`
+  identical to ours; box repo clean at ad5b31f, no `src`/`scripts`/`data`
+  change since). Resumable bit-for-bit under the same sim hash
+  (16c4c1d2dabf3c19). The box (vast instance 55873702) has to be destroyed
+  by the user: Claude's self-destroy call was blocked by the permission
+  classifier.
+- **Phase floor:** the nest model has no light/dark dependence, so both
+  phases' rows face one simulated row; the irreducible part of the loss
+  from the data's phase differences is only **16.4** (largest: still.nurse
+  6.6, still.forager 2.9). It does not explain a loss in the thousands.
+- **Per-row diagnosis:** new `scripts/diagS2018.ts` (point from a
+  checkpoint mean/best or the start; seeds under a new purpose `diag`, so
+  fit, selection and judging seeds stay unused). Running locally at the
+  gen-57 mean, fit settings → `logs/diagS2018-mean.{log,json}`.
+- **Per-row diagnosis at the gen-57 mean (2026-10-15, fit settings, one
+  seed per colony, 66 min locally; `logs/diagS2018-mean.{log,json}`).**
+  Loss 2483 (the fit logged 2250–2590 near here). **The still-run
+  distribution carries 72 % of it** (the eight `runStill.*` rows, 1798 of
+  2483): the simulated rests are too short in the tail and too many at
+  2 s. Nurse P(still run ≥ 2/10/60 s): data 0.52/0.14/0.031, sim
+  0.64/0.11/0.008; forager data 0.44/0.105/0.026, sim 0.47/0.049/0.009;
+  mean still run 14 s vs 5.5 s (nurse), 9.6 s vs 4.3 s (forager). Worst
+  rows: runStill.P10.forager z −15…−19 (592), runStill.P2.nurse +14 (398),
+  runStill.P60 both groups z ≈ −10 (≈ 190 each). Also forager speedMove
+  3.51 vs 2.75 (z +9…10) and still fractions too high (0.995 vs 0.984).
+  - **Structural reading (arithmetic, not a fit):** the data's P2→P10
+    decay implies an exponential rate of 0.16 /s (nurse), 0.18 /s
+    (forager), which would put P60 at 4e-5 and 1e-5; the data have 0.031
+    and 0.026. A single rest-to-active rate per group gives geometric rest
+    durations, so no value of the 10 free parameters can match all three
+    quantiles: the data's rests are heavy-tailed (mixture of short and
+    very long). The optimiser's drift to bounds/odd values (nurse
+    nestPauseFactor 0.03 → bound 0.01; forager nestPauseFactor 35;
+    restCrowdExp 1.9) is it compensating. More generations would polish a
+    misfit.
+  - This is the evidence that the logged **per-ant spread rule / activity
+    trait** (Rules in force, "Per-ant spread rule (step 4)") anticipated,
+    though from the run-length rows rather than the spread rows. Not yet
+    checked against the rule's own statistic (z of log SD_sim/SD_data).
+  - **No decision taken.** Candidate next step, needing the user's
+    go-ahead and a logged design before any code: per-ant heterogeneity of
+    the rest-to-active rate (e.g. lognormal multiplier, 1 extra parameter
+    per group or shared), tested first with cheap local evaluations (not a
+    new box), then a fit with the existing checkpoint abandoned (the
+    model and so the hash change).
+- **Spread rule, read early (2026-10-15, at the gen-57 mean, not an
+  optimum; approximate: log ratio of colony means, SEs combined):** z of
+  log(SD_sim / SD_data) for per-ant still fraction is −9.6 / −7.7 (nurse
+  light / dark) and −11.2 / −10.9 (forager); the simulated between-ant SD
+  is 0.005 vs 0.012–0.014 (nurse) and 0.013 vs 0.045–0.049 (forager). All
+  four cells are far below the rule's −3 trigger. The rule is defined at
+  the step-4 optimum, so this is a read-ahead, not the rule firing.
+- **Open question before designing the trait:** is the heavy tail of
+  still runs between ants (each ant exponential, rates differ → per-ant
+  trait suffices) or within ants (each ant's own rests heavy-tailed → a
+  second rest state or a waking hazard that falls with rest duration;
+  a trait alone would not fix it)? Checkable from the fit-colony tracks
+  with no simulation. Proposed next, not yet started.
+- **Between- vs within-ant still-run tails (2026-10-15; fit colonies,
+  data role fit; `scripts/diagS2018Runs.ts` → `logs/diagS2018Runs.{log,json}`).**
+  Per-ant accumulators (same `InNestAccumulator`, checked to add up
+  exactly to each colony's runs; `stroeymeytTracks.ts` factored out of
+  `stroeymeytRows.ts`, colony112 rows reproduced bit-for-bit). Still runs
+  ≥ base get a geometric excess with each unit's own mean; observed vs
+  expected runs ≥ D. Ratios obs/exp (base 2 s; colony rate → ant rate →
+  ant × 2 h rate):
+  - nurse light: 10 s 0.39 → 0.43 → 0.49; 300 s 168 → 15 → 5.7.
+  - forager light: 10 s 0.38 → 0.40 → 0.44; 300 s 1470 → 46 → 16.
+  - dark phases the same pattern (nurse 300 s 75 → 8.8 → 4.1; forager
+    639 → 29 → 12). From base 10 s, per ant: 30–60 s 0.48–0.62, 300 s
+    1.75–2.9 (per ant × 2 h: 1.5–2.2). Colony-block log ratios for the
+    per-ant variant: 22/22 colonies, SE 0.01–0.6, all signs consistent.
+  - **Reading:** between-ant variation is real and large (per-ant rates
+    cut the 300-s excess 10–30×; per-ant mean excess over 2 s has SD of
+    log 0.63–0.76 across ants, sampling noise included), but **each ant's
+    own rests are heavy-tailed**: too few medium rests and too many long
+    ones relative to any exponential, barely changed by per-ant or
+    per-ant-per-2-h rates (10-s deficit 0.38 → 0.44). A per-ant rate trait
+    alone cannot fit the runStill rows. Needed in addition: a waking
+    hazard that falls with time at rest within an ant (e.g. two rest
+    states, light and deep; or a rate redrawn per rest from a gamma,
+    i.e. Lomax durations). Caveat: observed still runs pass through the
+    observer (threshold, noise, missed detections) and include walker
+    pauses, so these are shapes, not parameter estimates.
+  - **No decision taken.** Proposed next (cheap, data only): compare
+    candidate rest-duration families per ant on these runs (exponential,
+    two-exponential mixture, Lomax; with and without a per-ant scale)
+    to pick the structure, then write the model change for approval.

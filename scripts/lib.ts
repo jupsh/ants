@@ -14,7 +14,7 @@ import { simHash } from './simHash';
  * judging and diagnostics never share streams. Hand-picked offsets did: the
  * 1999 judging seed 7.9e9 was fit generation 90's (7e9 + 90 × 1e7).
  */
-export const SEED_PURPOSE = { fit: 1, cmaes: 2, probe: 3, select: 4, judge: 5, converge: 6, ident: 7, recover: 8 } as const;
+export const SEED_PURPOSE = { fit: 1, cmaes: 2, probe: 3, select: 4, judge: 5, converge: 6, ident: 7, recover: 8, diag: 9 } as const;
 export function seedFor(study: number, purpose: keyof typeof SEED_PURPOSE, ...keys: number[]): number {
   return RNG.stream(study, 0x5eed, SEED_PURPOSE[purpose], ...keys).int(2 ** 32);
 }
