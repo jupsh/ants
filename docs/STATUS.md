@@ -1825,8 +1825,8 @@ implement).**
   add no throughput here (1177.5 worker-min at 120 vs 590.6 at 62 for the
   same tasks); with 120, the largest colony runs at half speed and sets
   the wall (11.7 vs 7.0 min). `boxS2018.sh` now uses one worker per
-  physical core − 2. Box vs laptop: one box worker ≈ 2.4× a laptop
-  worker under full load (cheap evaluation 27 vs ≈ 142 worker-min).
+  physical core − 2. Box vs laptop: one box worker ≈ 2.6× a laptop
+  worker under full load (cheap evaluation ≈ 54 vs ≈ 142 worker-min).
 - **Fit cost estimate, this box, 62 workers, at the start point's
   costs:** phase 1 (both starts side by side) ≈ 20 min per generation;
   phase 2 ≈ 40 min per generation (242 full tasks ≈ 2360 worker-min,
@@ -1834,3 +1834,9 @@ implement).**
   generations plus probes and selection batches: **≈ 30–55 h, ≈ $9–17.**
   Per-generation cost depends on the parameters (more walking costs
   more).
+- **Gate rechecks launched on the box (2026-10-15, commit 7180735, 62
+  workers):** `boxS2018.sh checks` → window (4-h and 6-h prefixes of a
+  12-h run, 2-h warm-up, dt 0.05) then dt (0.05 vs 0.025, 12 seeds × 1 h),
+  at the start point; `logs/checkS2018-{window,dt}-depth.json`, log
+  `logs/checks-depth.log`. Rules as logged: the fit uses the shortest
+  passing window (16 of 16 rows), else longer, recheck.
