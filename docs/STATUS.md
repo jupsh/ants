@@ -1681,3 +1681,39 @@ restarts with it.**
   lower bound 0.03 in this point) and brief stops, which the old fit set
   to compensate for exponential rests. Whether the short end is reachable
   is not shown yet.
+- **Short-end reachability check (2026-10-15, user approved; a look,
+  not a fit; same diag seeds, fit settings):** from the gen-57 mean +
+  restShape 1: A nurse.nestPauseFactor 30; B = A + restShape 2; C = B +
+  restToActive ×2 (nurse 1.64, forager 2.84). Walker pauses (rate 0.05 /s
+  × factor, mean ≈ 1 s) are the model's source of still runs under 2 s;
+  at gen 57 nurses have almost none (factor 0.03). Outputs
+  `logs/diagS2018-short{A,B,C}.{log,json}`.
+- **Short-end check results (loss; minutes per evaluation):** depth1
+  11938 (15.9), A 22317 (13.3), B 10152 (31.3), C 3849 (38.4).
+  - **Walker pauses are not the lever:** A (nurse pauses ×1000) made the
+    nurse short end worse (P2 0.76 → 0.82, P10 0.35 → 0.45, P60 0.053 →
+    0.091). Reading: at gen 57 nurse activeToRest is 3.73 /s, so walks
+    last ≈ 0.27 s, under one 0.5-s frame; rests then merge across walks
+    the observer cannot see, making long still runs. The data's nurses
+    walk visibly (runMove mean 1.07 s; sim 0.73–0.83). The lever is walk
+    length (activeToRest), which the old fit pushed up to keep the still
+    fraction high under exponential rests.
+  - B and C moved every forager row toward the data (C: P2 z 6, P10 −8,
+    runMove P2 +4, mean −1; was 29 / 28 / −7 / −7); nurse P2 / P10 still
+    z 23 / 25 at C with nurse walks still 0.27 s.
+  - Evaluation cost rises as rests shorten (13–38 min here): it depends
+    on the point; the optimum's cost is not known yet.
+- **D (running):** C with nurse.activeToRest 1 (walks ≈ 1 s) and the
+  nurse pause factor back at gen 57's 0.03 → `logs/diagS2018-shortD.*`.
+- **D result (loss 7650; 65.6 min):** nurse walks ≈ 1 s overshoot
+  (runMove nurse mean 1.96 s vs 1.07, P2 0.39 vs 0.14), and the nurse
+  short end crossed the data: P2 0.714 (C) → 0.448 (D) vs 0.52, P10
+  0.260 → 0.079 vs 0.14. **Bracketing across the five points:** every
+  runStill / runMove row and both still fractions for nurses have been
+  on both sides of the data at some point (tails: over at depth1, under
+  at C / D), so each is reachable one at a time; jointly not shown.
+  Not yet bracketed: still.forager (0.976–0.987 vs 0.944–0.953, always
+  too still; forager pause factor 35 untested as a lever) and
+  speedMove.forager (always 3.4–3.6 vs 2.75; set directly by
+  forager.nestSpeedFactor). Evaluation cost grows with walking: 13 → 66
+  min locally as nurse walks lengthened.
