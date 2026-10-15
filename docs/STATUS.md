@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-12 (session 5: start 0 stopped at gen 30; colony fast path (2×, bit-identical) and fit checkpointing in; relaunch pending). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-15 (rest depth in; two-phase fit ready; window gate drift → diagnostic running, mix2 fallback pending). Keep this file current: update it whenever a step starts or finishes._
 
 Everything up to 2026-10-10 evening (session notes, step results, the full
 decisions log of about 4,500 lines) is in
@@ -45,19 +45,29 @@ Pages) when the user asks.
   Stroeymeyt foragers' short stays move like the 1999 recruiter. In the
   nest, ants are still ≈ 95 % of the time and move at ≈ 0.27 cm/s, ≈ 10×
   slower than option B's arena values (Decisions log, last entry).
-  **Step 4 in progress:** 4a done (the Stroeymeyt set-up runs). 4b
-  (fit of in-nest motion, k = 10, 32 rows): all pre-fit checks done
-  (trip calibration 2147 s, 1/7271 /s; dt 0.05; 2-h warm-up + 6-h
-  window; Decisions log, last entries). **Start 0 was stopped by the user
-  at gen 30 (24.4 h, ≈ 45 min/generation, 3× the estimate; no checkpoint
-  then).** Since then (2026-10-12): the colony fast path (2× per
-  evaluation, bit-identical) and per-generation checkpoints (rerun the same
-  command to resume). **Start 0 relaunched on the box 2026-10-12 ≈ 00:27
-  box time** (794f598, tag `s0`; old log `logs/fitS2018-s0-stopped-gen30.log`
-  there); if the box dies, rerun the same command. Start 1 and
-  the restart decided after it. A vast.ai
-  box is rented (see the step-4b box entry
-  for access and set-up).
+  **Step 4 in progress (state 2026-10-15; details in the Decisions log,
+  2026-10-14/15 entries):** start 0 (exponential rests) was stopped at
+  gen 57: per-row diagnosis showed the still-run tail unreachable (rests
+  are heavy-tailed within each ant, `diagS2018Runs`/`diagS2018Shapes`).
+  **Rest depth** (per-rest gamma walk-on multiplier, `restShape`, Lomax
+  rests) was implemented and committed; k = 11; new start point
+  (`S2018_START`, loss 2673 at start); **two-phase fit** (cheap search,
+  then full; rule approved) implemented, smoke- and resume-tested on the
+  box. **Gate rechecks failed:** dt only for lack of seeds (rerun at 36);
+  **window drift** (6 h vs 12 h fails 14 of 16) because the Lomax tail
+  makes hours-long rests the data do not have (≥ 60 min: ~1e-5 per run).
+  **Running at handover:** diagnostic window check with a near-exponential
+  tail (`--set restShape=20`, tag `depth-shape20`) on the box. **Next:**
+  read it; if the drift vanishes, the logged fallback applies, two-state
+  rests (mix2: light + deep, exponential each), **with the user's
+  confirmation**; implement (restShape stays, off), tests, local
+  evaluation, window + dt (36 seeds) gates on the box, then the fit.
+  **Box (rented 2026-10-15):** vast.ai EPYC 9534, $0.307/h, `ssh -p 46397
+  root@85.218.235.6`, repo `/root/ants` (synced by git bundle, clean at
+  7180735 + later STATUS-only commits), Node via `. /opt/nvm/nvm.sh &&
+  nvm use 22.22.1`, **SIM_WORKERS=62** (one per core; 120 threads were
+  slower). Fit cost estimate there ≈ 30–55 h, ≈ $9–17. Old box destroyed;
+  its files in `logs/box-2026-10-15/`.
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
   adequate 1999 fit and the fit-protection checks, or, if the stopping
