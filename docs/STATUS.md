@@ -110,22 +110,82 @@ Pages) when the user asks (last merge `e1e6847`, 2026-10-16).
     at the estimate = `checkS2018Window --mode window --fit <estimate>
     --reps 4 --windows 21600 --warmup 7200 --dt 0.05` (same seeds and rule
     as the C1 gate).
+    **Check 20:45 (gen 55 of 60):** generation bests 532–654 since gen 52,
+    median 814–1036, **σ now contracting** (3.20 → 2.75); ≈ 17.3 min per
+    generation, so the last generation ends ≈ 21:35 and the selection
+    batch follows; post-fit chain still waiting (pid 62443).
+    **Fit C1 ended 21:39 UTC** (20.8 h, 1389 evaluations; local copy
+    `data/fits/s2018-motion-c1.json`, log `logs/c1/fitS2018-c1.log`):
+    phase 2 stopped at the 60-generation cap, **not converged** (final σ
+    2.07; it contracted only from gen ≈ 50, 4.5 → 2.1). **Selection-batch
+    loss 620.3** (start 21 940). Estimate (mean of the last 20
+    generations): nurse nestSpeedFactor 0.0498, activeToRest 1.74,
+    restToActive 2.00, nestPauseFactor 0.150; forager 0.0720, 1.78, 4.06,
+    0.531; encounterStop 0.982 (**at its bound**, fit rule); restCrowdExp
+    0.148 (off its bound now); restShape 0.698 (< 1). **The mean was still
+    moving across the averaging window** (last − first, box units of 4):
+    restCrowdExp +0.86, nurse.nestPauseFactor −0.44, nurse.restToActive
+    +0.31, forager.nestPauseFactor −0.19 (log); the estimate averages a
+    drifting path. Fit file `provenance.commit` reads `7180735` dirty (the
+    box's own stale HEAD); the code is `c544f6f` (above).
+    **Window gate at the estimate: PASS, 0 of 16 rows** at 6 h vs 12 h
+    (4 seeds, 88 runs, same rule; largest runStill.P10.forager +0.14 SE
+    [−0.05, 0.32], still.nurse −0.13 [−0.25, −0.02]; `logs/c1/window-est.log`,
+    `logs/c1/checkS2018-window-fit-c1est.json`). restShape 0.70 does not
+    break the 6-h window. Read first, before any other output (as agreed). **Code the relaunched fit runs = commit `c544f6f`**
+    (cap-raise change; box `fitS2018.ts`, `lib.ts`, `cmaes.test.ts`
+    md5-identical to it, checked 16:05). All 244 tracked files under
+    `src/`, `scripts/`, `test/`, `data/fits/`, `data/reference/` match
+    `c544f6f` except two comment-only differences (`s2018Lib.ts`,
+    `profS2018.ts` on the box still cite `faster-fit.md`, reworded in
+    `a584559`); no code difference. Box worktree otherwise untouched while
+    the fit runs, except `scripts/calibTrips.ts` (`--check`) and the new
+    `scripts/reportS2018.ts`, copied at 17:14 (the fit does not import
+    either; checked).
+    **Post-fit chain (prepared 17:00, relaunched 17:14 with the trip
+    checks; routine steps of the agreed sequence):** `logs/post-c1.sh` on the box (log `logs/post-c1.log`,
+    end marker `logs/post-c1.done`) waits for the fit process to exit,
+    requires `wrote data/fits/s2018-motion-c1.json`, then runs, writing to
+    `logs/c1/`: (1) the window gate at the estimate (`window-est.log`; read
+    first, before anything else); (2) `diagS2018` at the estimate (`--at
+    start --set <all 11 fitted values>`) and at the start point, 4 'diag'
+    seeds per colony each, paired (`diag-est.json`, `diag-start.json`);
+    (3) per-ant activity through the frozen tracker at the estimate,
+    12 h, seed 4242 as the σ runs (`logs/act/sim-sC1est-c*.log`); (4)
+    trip statistics at both points, `calibTrips --check` (new, judge
+    only: the trip inputs in use, nothing in `data/fits` written; the
+    chain checks `s2018-trips.json` unchanged), 4 seeds, 12 h, dt 0.05,
+    warm-up 7200 (`trips-est.json`, `trips-start.json`). New
+    `scripts/reportS2018.ts` reads (2) and (4) and the fit file: per-row
+    fitZ and combinedZ (SE_sim from seed spread within colonies), the
+    start → estimate trade per row (paired shift), parameters against
+    their bounds; tested on the s3 walkOn07 vs base outputs (reproduces
+    the logged shifts). `scratch/simact.py` now sorts named sets (C1est)
+    after σ values. Dry runs: `diagS2018 --set` with all 11 values,
+    `tmpTrackerSim --set` (1 h).
     **Stale done file:** `logs/fit-c1.done` (06:52:16) is from the killed
     first run; the relaunch writes none. Check the process instead:
     `ps -eo pid,etime,args | grep "[n]ode .*fitS2018.ts --cheap"`; the
     end is `best selection-batch loss …` / `wrote data/fits/s2018-motion…`
     in `logs/fitS2018-c1.log`.
-  - **Next:** phase-1 end (both estimates, selection losses), first
-    phase-2 generation time, then the fit report as agreed: per-row z,
-    parameters at bounds, which rows the fit trades (moving runs and
-    speed against short stops), persistence / spread of per-ant activity,
-    trip rows, the σ 0.4 vs 0.7 trade-off, sensitivities (water
-    parameters material: conclusions conditional on them); "best within
-    budget" kept apart from evidence that the model cannot fit. Then the
-    checks at the optimum (spread rule, crowding, stays), and step 5.
-    Parked proposals: in-nest speed fluctuation (short stops; targeted
-    comparison after the fit), an entrance-excursion path audit and
-    separation rule (trips; lognormal give-up implemented, off).
+  - **Fit C1 done, report written** (Decisions log, 2026-10-16 night):
+    loss 647 (4 seeds), not adoptable (encounterStop at its bound, 19 of
+    32 targets > 3 SE), not converged (best within budget only). Short
+    stops reachable after all (53 % of the loss, from 92 %), traded
+    against the still-run tail and means; **per-ant persistence collapsed**
+    at the estimate (nurse 6-h lag +0.09 vs data +0.43); trip shape
+    unchanged (fixed give-up time).
+  - **Next (user agreed, 2026-10-16 ≈ 23:20; Decisions log):** (1) now:
+    persistence diagnostic, restShape series at the C1 estimate (1.4,
+    50; box, ≈ 20 min) to tell heavy rest tails from a swamped trait;
+    (2) in-nest speed fluctuation as a targeted comparison (short stops;
+    may also relieve encounterStop at its bound and the restShape < 1
+    pressure); (3) entrance-excursion path audit, local, in parallel
+    (trips; lognormal give-up implemented, off). **No new fit until
+    per-ant persistence is in the objective** (fit colonies; log the
+    role) and the rest form is settled by (1). Step 5 only once motion is
+    settled; the checks at the optimum (spread rule, crowding, stays)
+    wait for an adoptable motion fit.
   - **Box (rented 2026-10-15):** vast.ai EPYC 9534, $0.307/h, `ssh -p 46397
     root@85.218.235.6`; fit worktree `/root/ants-w7`, synced by file copy,
     checksum-identical to `e168807` at launch (its git HEAD is older and
@@ -956,3 +1016,109 @@ archive. Newest last.
   b4bc66512736; uncommitted local changes, same files); simHash unaffected
   (it does not cover `scripts/`). Expected end ≈ 21:50 UTC 2026-10-16
   (57 generations × ≈ 15.5 min + scoring), whole fit ≈ 21 h, ≈ $6.5.
+
+**2026-10-16 night — fit C1: diagnostic report.** Best within this search
+budget, **not** evidence that the model cannot fit: phase 2 ran from start
+0 only (start 1 not within 20 %), stopped at the 60-generation cap without
+converging (σ 2.07, contracting only from gen ≈ 50), and the mean was
+still drifting across the 20 averaged generations (restCrowdExp +0.86 box
+units of 4, nurse.nestPauseFactor −0.44). Outputs `logs/c1/` (box chain
+`logs/post-c1.sh`); report `scripts/reportS2018.ts` (new);
+persistence `scripts/scratch/simact.py` → `logs/c1/simact.txt`.
+- **Window gate at the estimate: PASS** (0 of 16; RESUME). Read first.
+- **Loss:** selection batch 620.3; `diagS2018` at the estimate, 4 fresh
+  'diag' seeds per colony, 646.9 (start 21 316, same seeds). Reference
+  points: floor ≈ 16, sampling noise ≈ 30–50, all rows at 2 SE ≈ 130. 8
+  of 32 targets at combined |z| ≤ 2, 13 ≤ 3, **19 > 3**.
+- **Where the 647 sits:** short stops (runStill P2, P10) 341 (53 %; at
+  the start 92 %), moving runs 110, long stops / still-run means 93,
+  stillness 74, speed 28. Worst rows (z light / dark): runStill.P10.nurse
+  7.2 / 7.2; runStill.P2.forager 6.7 / 7.4; runMove.P2.forager 7.0 / 6.4;
+  runStill.P10.forager 5.1 / 7.7; still.nurse −3.2 / −7.8 (part of it the
+  light/dark floor: the model has no phase dependence); runStill.P2.nurse
+  5.5 / 4.7; runStill.P60.forager −5.0 / −3.5; runStill.mean nurse −3.9 /
+  −3.7, forager −3.9 / −3.0. Within 2: runMove.mean (both groups),
+  runStill.P60.nurse, still.forager (light 2.0).
+- **Short stops are not out of reach of the 11 parameters** (the earlier
+  conclusion, from probes up to nestPauseFactor 0.3 at the start point,
+  was wrong): P10.nurse 59 → 7 SE, P2.forager 51 → 7, P10.forager 50 →
+  6.5, P2.nurse 34 → 5. The means: nurse and forager restToActive ×6 and
+  ×7, nurse nestPauseFactor 0.03 → 0.15, forager 5.0 → 0.53, restShape
+  1.4 → 0.70, **encounterStop 0.70 → 0.98 (at its bound, fails the
+  adoption rule)**: the fit wants more brief stops than encounters can
+  give.
+- **What was traded** (paired shifts start → estimate, in SE_data): the
+  still-run distribution was compressed as a whole. Short-stop shares
+  fell (−30 to −56 SE) and moving runs lengthened (runMove.P2 +14 / +16,
+  means +9.5), but the long tail and the mean went too far:
+  runStill.mean.forager 11.0 → 7.05 s (|z| 1.8 → 3.5; data 9.6),
+  runStill.P60.forager 0.030 → 0.018 (|z| 3.7 → 4.3), runStill.mean.nurse
+  19.7 → 10.0 (data 14.1, now too short, |z| 4.9 → 3.8), still.nurse
+  slightly worse (5.4 → 5.9). Data still runs are fewer under 2 s *and*
+  heavier-tailed than one rest process plus pauses gives; consistent with
+  the parked reading that the data's brief stills are slow steps under
+  the threshold (in-nest speed fluctuation), not tested here.
+- **Per-ant persistence collapsed at the estimate** (frozen tracker, 12-h
+  light block, seed 4242 per colony, Spearman lag correlation across ants,
+  Fisher mean over colonies): nurse moving fraction 1 h / 3 h / 6 h / 11 h
+  data +0.53 / +0.46 / +0.43 / +0.40; start point σ 0.4 +0.55 / +0.50 /
+  +0.49 / +0.49; **estimate +0.31 / +0.12 / +0.09 / +0.10** (below σ 0
+  at the start, +0.20 at 6 h). Near-movement share, nurses: data +0.42 at
+  6 h, estimate +0.00; foragers moving fraction 6 h: data +0.36, estimate
+  +0.08. Spread of per-ant 12-h totals: nurse moving fraction 10 / 50 /
+  90 % 0.0079 / 0.0170 / 0.0305, top-20 % share 0.357 (data 0.0034 /
+  0.0093 / 0.0271, 0.482; σ 0.4 at start 0.367); the near-movement share
+  improved (nurse median 0.146 vs data 0.102, start 0.290; forager 0.232
+  vs 0.278, start 0.447), raw detection 0.766 (data 0.815, start 0.727).
+  Reading (hypothesis, untested): with restShape < 1 and fast walk-on,
+  an ant's hour is dominated by whether it drew a very long rest, not by
+  its walk-on trait, so the colony-average rows were bought with the
+  individual structure the σ 0.4 choice was made to match.
+- **σ 0.4 vs 0.7 trade-off (start point, as agreed to report):** σ 0.7
+  lowered the loss (20 232 vs 21 940) but overshoots persistence (nurse
+  moving fraction +0.67–0.72 vs data +0.40–0.53; σ 0.4 matched). The fit
+  then lost persistence by other parameters at σ 0.4 fixed: colony-average
+  targets alone do not protect individual persistence.
+- **Trips** (`calibTrips --check`, 4 seeds, 12 h, dt 0.05, warm-up 7200;
+  trip inputs in use, unchanged): estimate / start z: trip.n −0.9 / −0.6,
+  foragerIn 0.0 / 0.0, **S(30 s) −8.3 / −10.7, S(120 s) +3.1 / +2.2,
+  S(600 s) +11.2 / +10.1, S(3600 s) −4.7 / −4.7**; trip median 2160 s vs
+  data 283 (mean 1466 vs 1177). The fixed give-up time (2147 s) shapes the
+  trips; motion barely moves them. Trip shape stays a disclosed failure
+  of the trip inputs (lognormal give-up implemented, off;
+  entrance-excursion audit parked).
+- **Conditional on the water parameters:** at the start point
+  cropWaterRate ×5 moved still.nurse −1.38 and still.forager −1.12 SE;
+  all conclusions above hold for the water settings in use only.
+- **Parameters at bounds:** encounterStop (0.982 of [0, 1]); none other
+  within 2 % of a bound (restCrowdExp 0.148, unit 0.12; restShape 0.698,
+  unit 0.23).
+- **Not adoptable** under the adoption rule (encounterStop at a bound;
+  19 targets > 3 combined SE). Next steps go to the user: the parked
+  proposals (in-nest speed fluctuation for short stops; entrance-excursion
+  audit for trips), and the persistence collapse as a new finding against
+  this estimate.
+
+**2026-10-16 ≈ 23:20 — Next steps after fit C1 (user agreed).** Order:
+persistence diagnostic → in-nest speed fluctuation (targeted comparison,
+not a fit) with the trip path audit locally in parallel → no new fit until
+per-ant persistence is a fit target (fit colonies, data role fit; the σ
+choice already inspected them, logged here) and the rest form is settled.
+- **Persistence diagnostic (logged before running; diagnostic only, no
+  fit, nothing in `data/fits` written).** Two explanations of the
+  collapse: (a) heavy rest tails — at restShape 0.70 the per-rest
+  log-multiplier SD (≈ 1.7) is ≈ 4× the trait's σ 0.4 and rests have
+  infinite mean, so an ant's hours are set by its longest rest; (b) a
+  swamped trait — with walk-on ×6–7 and encounterStop 0.98, still time
+  comes mostly from ant-independent stops (encounters, pauses) and the
+  walk-on trait matters less. Arms: the C1 estimate with restShape 1.4
+  (the start's value) and 50 (≈ no per-rest noise), all else at the
+  estimate; `tmpTrackerSim --mode tracker --obsH 12 --set …`, seed 4242
+  per colony (paired with `sim-sC1est`), 22 colonies × 2 arms, box.
+  Reading, fixed now: persistence climbing with restShape toward the
+  start's level (nurse moving fraction 6 h +0.49) → (a): the next fit
+  bounds restShape ≥ 1 or uses mix2 rests; staying near the estimate's
+  +0.09 at both arms → (b): the trait sits in the wrong place (stopping
+  as well as walk-on). Read only lag correlations, per-ant spread and the
+  long-still audit (complete still runs ≥ 1 h; data: runs ≥ 60 min almost
+  absent, 2026-10-15); the arms' rows are off the fit and not judged.

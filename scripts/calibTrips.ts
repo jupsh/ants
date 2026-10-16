@@ -22,17 +22,19 @@
  * the data. Motion values: the start point or --fit.
  *
  *   npx vite-node scripts/calibTrips.ts [--fit f] [--warmup 1200] [--obs 43200] [--dt 0.1]
+ *     [--check [--reps 4] [--out f]]   (judge only: the inputs in use, nothing in data/fits written)
  * Writes data/fits/s2018-trips.json. Its first run (2026-10-15 late
  * evening) did not pass and was not adopted (logs/trips/calibTrips2-failed.json):
  * the inputs in use are still v1's (fixed give-up time, 2026-10-11; v1 is
  * in git history before this version).
  */
 import fs from 'node:fs';
+import { combinedZ, fitZ } from '../src/sim/analysis/compare';
 import { kmSurvival } from '../src/sim/analysis/inNest';
 import { nelderMead } from '../src/sim/analysis/optimize';
 import { arg, numArg, provenance, readJson, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
-import { colonyFromData, loadS2018, S2018_START, s2018Params, simulateAll } from './s2018Lib';
+import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, simulateAll } from './s2018Lib';
 
 const data = loadS2018();
 const ref = readJson<{ colonies: Record<string, Record<'light' | 'dark', { trips: number[]; open: number[] }>> }>('data/reference/stroeymeyt2018-trips.json').colonies;
@@ -104,6 +106,28 @@ async function solve(pts: Point[], q0: number[]) {
 }
 
 console.log(`targets (means over colonies, light and dark averaged): ${TARGETS.map((t) => `${t.key} ${t.T.toFixed(3)} ± ${t.se.toFixed(3)}`).join(', ')}; data trip mean ${avg('trip.mean').toFixed(0)} s, median ${avg('trip.median').toFixed(0)} s; dt ${base.dt}; ${pool.size} workers`);
+// --check: judge only (STATUS 2026-10-16): the six statistics at the trip inputs in use and the motion values (start
+// point or --fit), --reps seeds per colony (rounds 100 + r, apart from the calibration's); data/fits is not written.
+if (process.argv.includes('--check')) {
+  const tr = loadTrips();
+  const reps = numArg('--reps', 4);
+  const pts = await Promise.all(Array.from({ length: reps }, (_, r) => at(tr.exploreGiveUp, tr.exploreGiveUpSd, tr.outRate, 100 + r)));
+  console.log(`check at ${fit || 'S2018_START'}, trip inputs in use, ${reps} seeds per colony:`);
+  pts.forEach(show);
+  const stats = TARGETS.map((t, k) => {
+    const v = pts.map((p) => p.y[k]);
+    const sim = meanOf(v);
+    const seSim = reps > 1 ? seOf(v) : NaN;
+    return { key: t.key, data: t.T, seData: t.se, sim, seSim, fitZ: fitZ(sim, t.T, t.se), combinedZ: combinedZ(sim, seSim, t.T, t.se) };
+  });
+  for (const s of stats) console.log(`  ${s.key.padEnd(10)} data ${s.data.toFixed(3)} ± ${s.seData.toFixed(3)}  sim ${s.sim.toFixed(3)} ± ${s.seSim.toFixed(3)}  z ${s.fitZ.toFixed(2)} (combined ${s.combinedZ.toFixed(2)})`);
+  const extra = (k: 'tripMean' | 'tripMedian' | 'stayMean' | 'stayMedian') => meanOf(pts.map((p) => p[k]));
+  console.log(`  trip mean ${extra('tripMean').toFixed(0)} s (data ${avg('trip.mean').toFixed(0)}), median ${extra('tripMedian').toFixed(0)} s (data ${avg('trip.median').toFixed(0)})`);
+  const out = arg('--out', '');
+  if (out) writeJson(out, { study: 'trip statistics check (calibTrips --check)', fit: fit || null, motion: values, trips: tr, window: base, reps, stats, points: pts, seconds: (Date.now() - t0) / 1000, provenance: provenance() });
+  await pool.close();
+  process.exit(0);
+}
 const grid3 = (c: number[], h: number[]) => [-1, 0, 1].flatMap((i) => [-1, 0, 1].flatMap((j) => [-1, 0, 1].map((k) => [c[0] + i * h[0], c[1] + j * h[1], c[2] + k * h[2]])));
 const runGrid = (qs: number[][], round: number) => Promise.all(qs.map((q) => at(Math.exp(q[0]), q[1], Math.exp(q[2]), round)));
 let centre = [Math.log(200), 1.8, Math.log(1 / 4000)];
