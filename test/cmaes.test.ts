@@ -1,4 +1,8 @@
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { loadCheckpointRaised, saveCheckpoint } from '../scripts/lib';
 import { cmaes, eigenDecomposition } from '../src/sim/analysis/cmaes';
 import { RNG } from '../src/sim/core/rng';
 
@@ -11,6 +15,31 @@ describe('CMA-ES', () => {
     const full = await cmaes(f, [3, 3, 3, 3], { ...o, checkpoint: (st) => void saved.push(JSON.stringify(st)) });
     const resumed = await cmaes(f, [3, 3, 3, 3], { ...o, resume: JSON.parse(saved[17]) });
     expect(JSON.stringify(resumed)).toBe(JSON.stringify(full));
+  });
+
+  it('a run resumed under a raised generation cap is the run with that cap from the start (STATUS 2026-10-16)', async () => {
+    const noise = (x: number[], g: number) => RNG.stream(4, g, Math.round(x[0] * 1e6)).gauss() * 0.01;
+    const f = (x: number[], g: number) => x.reduce((a, v, i) => a + (i + 1) * (v - 1.5) ** 2, 0) + noise(x, g);
+    const o = { sigma: 1, stds: [0.5, 0.3, 0.4, 0.2], seed: 12, averageLast: 10, bounds: { lo: [0, 0, 0, 0], hi: [1, 4, 4, 4] }, tolUpSigma: 20 };
+    const saved: string[] = [];
+    await cmaes(f, [3, 3, 3, 3], { ...o, maxGenerations: 15, checkpoint: (st) => void saved.push(JSON.stringify(st)) });
+    const long = await cmaes(f, [3, 3, 3, 3], { ...o, maxGenerations: 30 });
+    const resumed = await cmaes(f, [3, 3, 3, 3], { ...o, maxGenerations: 30, resume: JSON.parse(saved[9]) });
+    expect(long.generations).toBe(30);
+    expect(JSON.stringify(resumed)).toBe(JSON.stringify(long));
+  });
+
+  it('a checkpoint key may grow only in the named fields', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ckpt-'));
+    const file = path.join(dir, 'c.json');
+    saveCheckpoint(file, { a: 1, GENS: 30, b: 'x' }, { n: 5 });
+    expect(loadCheckpointRaised(file, { a: 1, GENS: 30, b: 'x' }, ['GENS'])).toEqual({ state: { n: 5 }, raised: {} });
+    expect(loadCheckpointRaised(file, { a: 1, GENS: 60, b: 'x' }, ['GENS'])).toEqual({ state: { n: 5 }, raised: { GENS: [30, 60] } });
+    expect(() => loadCheckpointRaised(file, { a: 1, GENS: 20, b: 'x' }, ['GENS'])).toThrow(/only grow/);
+    expect(() => loadCheckpointRaised(file, { a: 2, GENS: 60, b: 'x' }, ['GENS'])).toThrow(/another run/);
+    expect(() => loadCheckpointRaised(file, { a: 1, GENS: 60 }, ['GENS'])).toThrow(/another run/);
+    expect(() => loadCheckpointRaised(file, { a: 1, GENS: 60, b: 'x', c: 0 }, ['GENS'])).toThrow(/another run/);
+    fs.rmSync(dir, { recursive: true });
   });
 
   it('stop ends the run after the generation it fires on; without it the run is unchanged', async () => {

@@ -71,6 +71,30 @@ export function loadCheckpoint<T>(path: string, key: unknown): T | undefined {
   return c.state as T;
 }
 
+/**
+ * As loadCheckpoint, but the numeric key fields named in `raisable` may have
+ * grown since the checkpoint was saved (e.g. a generation cap raised for a
+ * resumed run, STATUS 2026-10-16); every other field must still match
+ * exactly, and a raisable field may not shrink. Returns the state and the
+ * raised fields as [saved, now].
+ */
+export function loadCheckpointRaised<T>(path: string, key: Record<string, unknown>, raisable: string[]): { state: T; raised: Record<string, [number, number]> } | undefined {
+  if (!fs.existsSync(path)) return undefined;
+  const c = JSON.parse(fs.readFileSync(path, 'utf8'), (_, v) => (v === '__Infinity' ? Infinity : v === '__-Infinity' ? -Infinity : v === '__NaN' ? NaN : v));
+  const saved = c.key as Record<string, unknown>;
+  const rest = (k: Record<string, unknown>) => JSON.stringify(Object.fromEntries(Object.entries(k).filter(([f]) => !raisable.includes(f))));
+  if (rest(saved) !== rest(key) || Object.keys(saved).join() !== Object.keys(key).join())
+    throw new Error(`${path}: checkpoint is from another run (saved ${JSON.stringify(saved)}, now ${JSON.stringify(key)}); move it away to start afresh`);
+  const raised: Record<string, [number, number]> = {};
+  for (const f of raisable) {
+    const [s, n] = [saved[f], key[f]];
+    if (typeof s !== 'number' || typeof n !== 'number') throw new Error(`${path}: raisable field ${f} must be a number (saved ${s}, now ${n})`);
+    if (n < s) throw new Error(`${path}: ${f} may only grow on resume (saved ${s}, now ${n})`);
+    if (n > s) raised[f] = [s, n];
+  }
+  return { state: c.state as T, raised };
+}
+
 /** Khuong et al. 2013 tracks for incline k = 1…5 (0, π/9, π/6, π/4, π/3). */
 export function loadKhuong(k: number): Track[] {
   return parseKhuongCsv(zlib.gunzipSync(fs.readFileSync(`data/khuong2013/incline${k}.csv.gz`)).toString('utf8'));

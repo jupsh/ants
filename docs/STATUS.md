@@ -61,14 +61,60 @@ Pages) when the user asks (last merge `e1e6847`, 2026-10-16).
     `logs/fitS2018-c1.log`; budget ≈ 25 h / ≈ $8. Check at 01:40 (phase
     1, start 0 gen 3, start 1 gen 2): ≈ 8–9 min per generation per start.
     The phase-1 loss rule (< 300) is out of reach, so both starts run the
-    30-generation cap (≈ 8.3 h, to ≈ 09:15 UTC). Phase 2: ≈ 33 min per
-    generation if it scales like phase 1 against the logged estimate,
-    40 min at the start point's logged cost, so 16.5–20 h; **total ≈ 25–29
-    h, ≈ $8–9, at or over the budget**: read the first phase-2
-    generations' time and raise any overrun with the user. START2 is ≈ 10×
-    start 0's loss so far; if it stays far behind, the cross-start check
-    does not fire and the report says "best within this search budget".
+    30-generation cap. **Correction (check 04:32, gen 22 both starts):**
+    the two starts run side by side (≈ 8.4 min per generation each, wall
+    clock), not one after the other, so phase 1 ends ≈ 05:35 UTC (≈ 4.7
+    h), not ≈ 09:15. Phase 2: 16.5–20 h at the logged 33–40 min per
+    generation (those figures may assume a shared pool; phase 2 alone has
+    all 62 workers), so **total ≈ 21–25 h, ≈ $6.5–7.7, within the budget**;
+    still read the first phase-2 generations' time. At gen 22 start 0's
+    generation best has hovered at ≈ 6200–7600 since gen 9 with σ ≈ 1.4–1.8
+    (no contraction); start 1 (≈ 36 000, ≈ 6× start 0) sits in a different
+    nurse regime (restToActive ≈ 0.06 vs 0.44, nestPauseFactor ≈ 5.6 vs
+    0.034) with restShape near its upper bound (37 of 50); start 0's
+    restCrowdExp is near 0 (0.03–0.12 of 1.25). The cross-start check will
+    not fire, so the report says "best within this search budget".
     Phase-1 losses are search tools only, never fit quality.
+    **Check 06:33:** phase 1 ended 05:26, both at the 30-generation cap
+    (start 0 final σ 1.24, not contracted; start 1 σ 0.70).
+    Selection-batch losses at full settings 5196 (start 0) and 31281
+    (start 1), close to their last cheap generation bests (≈ 4800–5400,
+    ≈ 31 000–32 000), so the cheap settings ranked the starts as the full
+    ones do. Phase 2 from start 0 only (start 1 not within 20 %). Its
+    full-settings probe put nurse.nestPauseFactor at the SD cap 0.50 (flat;
+    the value ≈ 0.03 is near the 0.01 floor, pauses almost off), the
+    others at 0.02–0.06. Phase-2 gen 0 at 06:22, 15.8 min (the logged 33–40
+    min overstated it about 2×). **Phase-2 cap raised 30 → 60** (user,
+    decided on run time only; Decisions log 2026-10-16 ≈ 06:45): resumed
+    06:52 at generation 3 from the checkpoint, phase 1 not rerun; **end ≈
+    21:50 UTC, whole fit ≈ 21 h, ≈ $6.5**. Stop at 60 under the existing
+    rules, no further extension.
+    **Check 15:11 (phase 2 gen 36 of 60):** generation best 1158–1517
+    since gen 31 (gen 3: 4774), median rising (1718 → 2598), **σ growing
+    2.5 → 4.0** (still moving, not contracting). Gen-35 mean: nurse
+    restToActive 1.17, activeToRest 1.10, **nestPauseFactor 2.04** (the
+    start-point probes only went to 0.3 and found it inert, so "short stops
+    out of reach of the 11 parameters" may be wrong: check P2 rows in the
+    report); forager restToActive 2.85, activeToRest 1.33, nestPauseFactor
+    0.28; encounterStop 0.89; **restCrowdExp 0.00 (at its bound)**;
+    **restShape 0.66 (< 1: Lomax rests with infinite mean; the window gate
+    passed at 1.4 only — rerun it at the estimate before reading
+    anything)**. Loss reference points (debiased fitZ², 32 targets, light
+    simulation vs light and dark targets): light/dark floor 16.4 (nurse
+    still 6.6, forager still 2.9); a model right up to sampling noise ≈
+    30–50; all targets at 2 SE ≈ 130, at 3 SE ≈ 290; logged generation
+    bests are minima of 11 noisy evaluations and flatter the estimate.
+    **Check 15:58 (gen 39 of 60):** generation bests 849 (gen 37), 989,
+    1240; median 1597–2687; σ still growing (4.20 → 4.54); ≈ 16.5 min per
+    generation, so **end ≈ 21:45 UTC**. Prepared for the end: window gate
+    at the estimate = `checkS2018Window --mode window --fit <estimate>
+    --reps 4 --windows 21600 --warmup 7200 --dt 0.05` (same seeds and rule
+    as the C1 gate).
+    **Stale done file:** `logs/fit-c1.done` (06:52:16) is from the killed
+    first run; the relaunch writes none. Check the process instead:
+    `ps -eo pid,etime,args | grep "[n]ode .*fitS2018.ts --cheap"`; the
+    end is `best selection-batch loss …` / `wrote data/fits/s2018-motion…`
+    in `logs/fitS2018-c1.log`.
   - **Next:** phase-1 end (both estimates, selection losses), first
     phase-2 generation time, then the fit report as agreed: per-row z,
     parameters at bounds, which rows the fit trades (moving runs and
@@ -858,3 +904,55 @@ archive. Newest last.
   given as ≈ 33 min per generation only; the logged start-point cost is
   ≈ 40 min, so the total is ≈ 25–29 h (RESUME), at or over the ≈ 25 h
   budget.
+
+**2026-10-16 ≈ 06:45 UTC — fit C1: phase-2 cap 30 → 60 (user).**
+- Decided on measured run time only, before any phase-2 result after
+  generation 0 was looked at (seen so far: phase-1 ends, both selection
+  losses, the phase-2 probe SDs, phase-2 gen 0's best 5082 / median 5340
+  and its 15.8 min). Phase 2 at ≈ 16 min per generation makes 60
+  generations ≈ 21 h total, ≈ $6.5, within the approved ≈ 25 h / $8; the
+  cap was cut to 30 for budget only, so this restores the design's search
+  allowance. Phase 1 stays at 30 (already done; not rerun).
+- **Stopping:** 60 under the existing rules (tolX 0.03, tolUpSigma), and
+  no further extension to obtain convergence. More generations give the
+  search a better chance to settle, not a guarantee of tolX; σ alone does
+  not describe the search width (the covariance matters: the tolX rule
+  uses σ·max(D)).
+- **Estimate:** the mean of the last 20 generation means is scored itself
+  at the selection settings (`score(r.meanAvg)`, full settings, 3 seeds
+  per colony), never inferred from the losses of the averaged points. Already so in the code; unchanged.
+- **Mechanism:** a validated cap increase, not removing the cap from the
+  checkpoint key: `loadCheckpointRaised` (`scripts/lib.ts`) lets named
+  numeric key fields only grow, all others must match exactly, and
+  `fitS2018.ts` refuses a raise once any phase-2 run has finished and
+  records it (`optimizer.phase2.maxGenerationsRaised`). Optimizer state
+  (mean, C, paths, σ, RNG snapshot, averaging window), completed
+  generations and saved runs come from the checkpoint; `maxGenerations`
+  is only cmaes's loop bound and generation seeds depend only on the
+  generation index, so the resumed run is the run that would have had cap
+  60 from the start (test: `test/cmaes.test.ts`, resume under a raised
+  cap is bit-identical to the long run). The generation in progress when
+  the process is stopped is rerun with the same seeds.
+- **Readings kept in scope:** the cheap/full agreement holds for the two
+  selected candidates only; it supports the start choice, not that the
+  cheap objective preserves rankings across parameter space. The flat
+  nurse.nestPauseFactor direction is a result to report, not a reason to
+  widen this run's model or bounds.
+- **Done 06:52 UTC.** A script on the box (`logs/switch-c1.sh`, log
+  `logs/switch-c1.log`) waited for the generation-2 checkpoint (06:52:14),
+  killed only that run's pids (main, npm, sh, its 62 workers), copied the
+  checkpoint to `logs/fitS2018-c1.ckpt.pre-gens60.json` (not opened) and
+  relaunched `--cheap-gens 30 --gens 60 --obs 21600 --tag c1`, SIM_WORKERS 62,
+  appending to `logs/fitS2018-c1.log` after a `=== resumed` marker. The
+  script's own "left alive" check was broken (malformed `ps` list, counted
+  0 regardless); checked by hand instead: no old pid alive, exactly 62
+  workers, all under the new run. Start-up lines (only these read): cap
+  raised 30 → 60, phase 1 both "done before (checkpoint)" with the same
+  selection losses, phase-2 probe SDs identical, "resuming at generation
+  3"; at most seconds of generation 3 were lost. New tests pass locally
+  (158/158) and on the box. **Provenance:** the box now differs from
+  `e168807` in `scripts/lib.ts`, `scripts/fitS2018.ts`,
+  `test/cmaes.test.ts` (sha256 prefixes 69bd13317d4e, f12ca5e7b5e2,
+  b4bc66512736; uncommitted local changes, same files); simHash unaffected
+  (it does not cover `scripts/`). Expected end ≈ 21:50 UTC 2026-10-16
+  (57 generations × ≈ 15.5 min + scoring), whole fit ≈ 21 h, ≈ $6.5.

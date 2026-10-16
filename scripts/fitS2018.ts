@@ -35,7 +35,7 @@ import fs from 'node:fs';
 import { cmaes, type CmaState } from '../src/sim/analysis/cmaes';
 import type { StroeymeytRunOptions } from '../src/sim/experiments/colonyStroeymeyt';
 import { S2018_FREE, s2018AtBound, s2018Loss, s2018Values, type S2018Free } from '../src/sim/experiments/stroeymeytTargets';
-import { arg, loadCheckpoint, numArg, provenance, saveCheckpoint, seedFor, writeJson } from './lib';
+import { arg, loadCheckpointRaised, numArg, provenance, saveCheckpoint, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
 import { colonyFromData, loadS2018, loadTrips, S2018_START, S2018_TRACKER, s2018Params, s2018TargetsFromData, simulateAll } from './s2018Lib';
 
@@ -85,8 +85,19 @@ const CKPT = `logs/fitS2018${NAME ? `-${NAME}` : ''}.ckpt.json`;
 const TRACKER_SHA = createHash('sha256').update(fs.readFileSync(S2018_TRACKER)).digest('hex');
 const CKPT_KEY = { simHash: PROVENANCE.simHash, tracker: TRACKER_SHA, design: 'two-phase 2026-10-15', GENS, WARMUP, OBS, DT, C_DT, C_WARMUP, C_OBS, C_LOSS, C_GENS, OUT_RATE, EXPLORE, EXPLORE_SD, RUNS, TAG };
 interface Run { key: string; label: string; phase: 1 | 2; start: number; x0: number[]; initialSds: number[]; sigma0: number; generations: number; evals: number; finalSigma: number; avgWindow: number; meanDrift: number[]; stopReason: string; converged: boolean; gamma: number[] | null; x: number[]; f: number; estimate: Record<string, number> }
-interface Ckpt { done: Run[]; current: Record<string, { stds: number[]; cma: CmaState | null }>; evals: number; seconds: number }
-const ck: Ckpt = loadCheckpoint<Ckpt>(CKPT, CKPT_KEY) ?? { done: [], current: {}, evals: 0, seconds: 0 };
+interface Ckpt { done: Run[]; current: Record<string, { stds: number[]; cma: CmaState | null }>; evals: number; seconds: number; gensRaised?: { from: number; to: number; at: string }[] }
+// The phase-2 cap may be raised on resume (C1: 30 → 60, user 2026-10-16), never lowered, and only before
+// any phase-2 run has finished; everything else in the key must match. maxGenerations is only cmaes's loop
+// bound, so the resumed run is the run it would have been with the higher cap from the start.
+const loaded = loadCheckpointRaised<Ckpt>(CKPT, CKPT_KEY, ['GENS']);
+const ck: Ckpt = loaded?.state ?? { done: [], current: {}, evals: 0, seconds: 0 };
+if (loaded?.raised.GENS) {
+  const [from, to] = loaded.raised.GENS;
+  const finished = ck.done.filter((d) => d.phase === 2).map((d) => d.key);
+  if (finished.length) throw new Error(`${CKPT}: phase-2 cap ${from} → ${to} refused: ${finished.join(', ')} already finished at the old cap`);
+  ck.gensRaised = [...(ck.gensRaised ?? []), { from, to, at: new Date().toISOString() }];
+  console.log(`phase-2 generation cap raised ${from} → ${to} on resume (checkpoint otherwise identical)`);
+}
 const save = () => saveCheckpoint(CKPT, CKPT_KEY, { ...ck, evals, seconds: ck.seconds + (Date.now() - t0) / 1000 });
 const pool = await SimPool.create();
 /** One evaluation: all colonies at the given settings; `reps` seeds each (the selection batch uses 3). */
@@ -199,7 +210,7 @@ writeJson(OUT, {
   optimizer: {
     method: 'CMA-ES, two phases (STATUS 2026-10-15)',
     phase1: { window: { warmup: C_WARMUP, obs: C_OBS, dt: C_DT }, stop: `best < ${C_LOSS}, largest axis < ${C_AXIS}, ${C_GENS} generations or tolX`, averageLast: C_AVERAGE, starts: RUNS, note: 'search only; never reported as fit quality' },
-    phase2: { sigma: P2_SIGMA, maxGenerations: GENS, tolX: TOLX, averageLast: AVERAGE_LAST, second: `other start if selection loss within ${SECOND_WITHIN * 100} % and > ${SECOND_DIST} box units apart` },
+    phase2: { sigma: P2_SIGMA, maxGenerations: GENS, ...(ck.gensRaised ? { maxGenerationsRaised: ck.gensRaised } : {}), tolX: TOLX, averageLast: AVERAGE_LAST, second: `other start if selection loss within ${SECOND_WITHIN * 100} % and > ${SECOND_DIST} box units apart` },
     boundHandling: `Mod-BCH, box [0, ${BOX}], tolUpSigma 20`,
   },
   evals,
