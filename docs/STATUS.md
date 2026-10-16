@@ -3101,3 +3101,113 @@ fit does its work.
    settling (window) gates, then a **bounded exploratory joint fit** with
    the trip and short-stop failures disclosed. The fit is diagnostic: its
    parameter estimates do not support final biological conclusions.
+- **Frozen candidate (C1), committed `fda8ab3`:** model at that commit
+  (water, frozen tracker `data/fits/s2018-tracker.json` md5 ca6f24c2…,
+  walk-on factor σ 0.4, give-up lognormal off), parameters `S2018_START`
+  (k = 11 free in the fit), trip inputs `data/fits/s2018-trips.json` md5
+  6ea0f3ad… (2026-10-11, fixed give-up 2147 s, outRate 1/7271 s), targets
+  `data/reference/stroeymeyt2018-fit-rows.json`. Disclosed failures going
+  in: short stops (P2 rows), trip shape (30-s and 2-min survival, trip
+  count with a lognormal), the raw detection rate, temporal clustering of
+  moves.
+- **Gates on C1 launched (box, `/root/ants-w7` synced to `fda8ab3`):**
+  window (4-h and 6-h prefixes vs 12 h, 2-h warm-up, dt 0.05; 22 workers),
+  dt (0.05 vs 0.025, 36 seeds × 22 colonies × 1 h, 1200-s warm-up; 22
+  workers), and beside them the agreed sensitivity runs at the start point
+  (`diagS2018`, paired 'diag' seeds: base, thirstFrac 0.8 / 0.95,
+  cropWaterRate ×0.2 / ×5, walkOnSd 0.7; 6 workers each, two chains) →
+  `logs/s3/`, `logs/checkS2018-{window,dt}-s3.json`. Gate rule as logged:
+  per row the 90 % bootstrap CI of the paired difference inside ±0.5
+  SE_data; the fit uses the shortest passing window.
+- **Bound for the exploratory fit (logged before launch; applies if the
+  gates pass):** the approved two-phase design with tighter caps: phase 1
+  (cheap search, both starts `S2018_START` and START2) at most **30**
+  generations per start (was 40), phase 2 (full settings) at most **30**
+  generations (was 60), estimate = mean of the last 20 generation means as
+  designed; `--tag c1`. Expected cost ≈ 5 h + 20 h on the box, ≈ $8.
+  Reported as diagnostic: per-row z, parameters at bounds, which rows the
+  fit trades (moving runs and speed against short stops), the persistence /
+  spread diagnostics of per-ant activity, the trip rows; no biological
+  conclusions from the estimates.
+- **User (2026-10-15 late evening):** interpretation confirmed: all 11
+  motion parameters jointly on the 22 colonies, trip inputs fixed,
+  lognormal give-up off for C1. **If both gates pass, launch within the
+  logged ≈ 25 h / ≈ $8 budget.** Report sensitivity shifts; **flag
+  mortality or continuing drift before launch.** If a gate fails, bring
+  back the failed rows and effect sizes before changing settings or
+  thresholds. In the fit report, distinguish "best result within this
+  search budget" from evidence that the model cannot fit the data
+  (agreement across starts, parameter bounds and persistent residual
+  patterns set how strong that conclusion can be).
+- **Mortality / drift under the sensitivity settings (local, scratch
+  `tmpDrift.ts`, start point, current trip inputs, light, 14 h, one seed;
+  colonies 40 / 67 / 143 ants; `logs/sensdrift/summary.txt`):** **no
+  deaths** in any of 18 runs; nurse minimum water ≥ 0.894 (thirst 0.8:
+  0.794, its own threshold), forager minimum ≥ 0.904; nurse water and
+  nurse activity flat between 2–8 h and 8–14 h in every run. Flagged: in
+  the 143-ant colony the largest-cluster share moves between windows
+  (base 0.335 → 0.452, cropWaterRate ×0.2 0.314 → 0.423, thirstFrac 0.95
+  0.380 → 0.282), single seeds, both directions, within the known swings
+  (±0.10, 2026-10-15); the window gate (22 colonies, paired) judges drift.
+  Transfers depend strongly on cropWaterRate (bouts to nurses per h, 143
+  ants: base 115–129, ×0.2 56–63, ×5 240–254) while observed activity does
+  not move: a sensitivity to report beside contact- or transfer-related
+  results later, not a fit-row effect.
+- **Gates on C1 (box; `logs/s3/`, `logs/s3/checkS2018-{window,dt}-s3.json`):**
+  - **dt 0.05 vs 0.025 (36 seeds × 22 colonies × 1 h): PASS, 0 of 16 rows
+    not shown equivalent** (largest |diff| 0.10 SE).
+  - **Window: FAIL, 4 of 16 rows at 6 h vs 12 h** (4 of 16 at 4 h). 6 h:
+    runStill.P2.forager −0.32 SE [−0.59, −0.05]; P10.nurse −0.16 [−0.54,
+    0.20]; P10.forager −0.34 [−0.80, 0.12]; P60.nurse −0.30 [−0.55,
+    −0.07]; the other 12 rows pass (|diff| ≤ 0.15). 4 h: P2.forager −0.26
+    [−0.61, 0.09], P10.forager −0.26 [−0.82, 0.25], P60.nurse −0.53
+    [−0.91, −0.15], P60.forager −0.16 [−0.53, 0.19]. Two of the four 6-h
+    failures are interval width (CI spans 0), two are small shifts (≤ 0.32
+    SE) with the CI past −0.5. Sign: the shorter window has *fewer* long
+    still runs, the direction of edge truncation (runs cut at the window's
+    end are not complete), and P60.nurse shrinks from −0.53 (4 h) to −0.30
+    (6 h). The pre-water drift had the opposite sign (short window *more*
+    long runs) and failed 14 of 16 up to 3.6 SE. One seed per colony.
+  - **Sensitivities (diagS2018, paired seeds; shifts vs base in SE_data;
+    loss base 21 940):** thirstFrac 0.8 / 0.95 and cropWaterRate ×0.2 move
+    no row by more than 0.72 SE (losses 22 083 / 21 799 / 21 980);
+    **cropWaterRate ×5** still.nurse −1.38, still.forager −1.12, others ≤
+    0.73 (21 989); **walkOnSd 0.7** P10.nurse −4.48, P2.nurse −2.16,
+    P2.forager −1.77, P60.forager +1.69, still.forager +0.95 (loss 20 232,
+    lower than at σ 0.4).
+  - Per the user: the window gate failed, so its rows and effect sizes go
+    to the user **before any change of settings or thresholds; fit not
+    launched.** Box idle since ≈ 00:07 UTC.
+- **User (2026-10-16 early):** option 1: **four seeds per colony in total,
+  the 6-h window and the gate unchanged**, original seeds retained, seed
+  list fixed before running, all 16 rows reassessed once. If it still
+  fails: **9 h vs 12 h under the same rule** (the fit's extra runtime and
+  cost approved if 9 h passes). No relaxing the gate. Truncation is
+  plausible (6 h smaller than 4 h) but sign alone does not exclude drift;
+  the state logs are the separate evidence against drift; the gate judges
+  the total window effect whatever its cause. **σ stays 0.4**; the lower
+  loss at 0.7 confirms that colony-average targets can favour a value that
+  worsens individual persistence: report that trade-off explicitly. Water
+  uptake has a material effect: fitted conclusions are conditional on the
+  chosen water parameters. dt pass resolves the numerical question for C1
+  at the tested start point. If the window gate passes, launch the bounded
+  diagnostic fit as agreed.
+- **Window recheck design (fixed before running):** `checkS2018Window
+  --mode window --reps 4 --windows 21600,32400 --warmup 7200 --dt 0.05`;
+  runs = 22 colonies × reps 0–3; seed of colony i, rep r:
+  `seedFor(2018, 'converge', 0x3d, i)` for r = 0 (the original seeds,
+  reproducing the first check), `seedFor(2018, 'converge', 0x3d, i, r)`
+  for r = 1, 2, 3. Units of the bootstrap = the 88 runs (as the dt gate's
+  colony × seed runs); rule unchanged (90 % CI inside ±0.5 SE_data, all
+  16 rows). The 9-h prefix comes from the same runs and is read only if
+  6 h fails. Check: rep 0 reproduces the first run's rows.
+- **Window gate, 4 seeds (box, `logs/s3/window-r4.log`,
+  `logs/s3/checkS2018-window-s3r4.json`): PASS, 0 of 16 rows at 6 h vs
+  12 h** (largest runStill.P2.forager −0.14 SE [−0.28, 0.00]; the four
+  rows that failed on one seed: P10.nurse −0.02, P10.forager −0.04,
+  P60.nurse −0.02, P2.forager −0.14). 9 h also 0 of 16 (not needed).
+  Rep 0 reproduces the first run exactly (mean differences equal to
+  7e-18 SE). Disclosed: bootstrap units are the 88 runs, as pre-logged
+  (the dt gate's convention), not colonies. **6-h window kept; fit
+  launched** as agreed: `fitS2018 --cheap-gens 30 --gens 30 --obs 21600
+  --tag c1` (62 workers) → `logs/fitS2018-c1.log` on the box.

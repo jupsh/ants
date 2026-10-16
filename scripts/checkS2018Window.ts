@@ -5,7 +5,7 @@
  * paired difference inside ±0.5 SE_data (the smaller of the light and dark
  * SEs).
  *
- *   --mode window: one run per colony, warm-up then 12 h observed; the rows
+ *   --mode window: --reps runs per colony (default 1), warm-up then 12 h observed; the rows
  *     of the first 30 min and 2 h against the full 12 h (prefix windows).
  *   --mode dt: dt 0.1 against 0.05 (--dts a,b) at --obs (default 1800 s), --reps seeds
  *     per colony.
@@ -76,7 +76,15 @@ function compare(a: Record<string, number>[], b: Record<string, number>[], label
 const result: Record<string, unknown> = { mode: MODE, values, outRate, exploreGiveUp, exploreGiveUpSd, warmup: WARMUP, dt: MODE === 'window' ? WDT : undefined, provenance: provenance() };
 if (MODE === 'window') {
   const FULL = 12 * 3600;
-  const runs = await simulateAll(pool, P, colonies, { phase: 'light', warmupS: WARMUP, obsS: FULL, dt: WDT, windows: WINDOWS, exploreGiveUp, exploreGiveUpSd }, (i) => seedFor(2018, 'converge', 0x3d, i));
+  // --reps r: r runs per colony (STATUS 2026-10-16); rep 0 keeps the original seeds, later reps add the rep as a key.
+  const REPS = numArg('--reps', 1);
+  const n = colonies.length;
+  const cols = Array.from({ length: REPS }, () => colonies).flat();
+  const seedOf = (i: number) => (i < n ? seedFor(2018, 'converge', 0x3d, i) : seedFor(2018, 'converge', 0x3d, i % n, Math.floor(i / n)));
+  const runs = await simulateAll(pool, P, cols, { phase: 'light', warmupS: WARMUP, obsS: FULL, dt: WDT, windows: WINDOWS, exploreGiveUp, exploreGiveUpSd }, seedOf);
+  result.reps = REPS;
+  result.fullRows = runs.map((r) => r.rows);
+  result.windowRows = runs.map((r) => r.windowRows);
   const full = runs.map((r) => r.rows);
   WINDOWS.forEach((w, k) => {
     const label = w < 3600 ? `${w / 60} min` : `${w / 3600} h`;
