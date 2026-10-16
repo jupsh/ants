@@ -1,6 +1,6 @@
 /**
  * One Stroeymeyt colony in this process (no pool), for CPU profiles at a
- * step-4b point (faster-fit.md §1.1):
+ * step-4b point (fit-speed survey §1.1, Stroeymeyt archive 2026-10-15):
  *
  *   node --cpu-prof --cpu-prof-dir logs/prof node_modules/.bin/vite-node scripts/profS2018.ts
  *     [--colony colony201] [--set k=v,…] [--dt 0.05] [--warmup 1800] [--obs 3600]

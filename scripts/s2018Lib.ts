@@ -106,8 +106,9 @@ export function s2018Params(values: Record<string, number>, outRate: number): Co
 
 /**
  * All fit colonies, one task each, results in data order; `ms`: each task's
- * time in its worker. Submitted largest colony first (faster-fit.md §1.2),
- * so with fewer workers than tasks the slowest start first; seeds stay
+ * time in its worker. Submitted largest colony first (fit-speed survey
+ * §1.2, Stroeymeyt archive 2026-10-15), so with fewer workers than tasks
+ * the slowest start first; seeds stay
  * keyed by data index, so results do not depend on the order.
  */
 export async function simulateAll(pool: SimPool, P: ColonyParams, colonies: StroeymeytColony[], o: Omit<StroeymeytRunOptions, 'seed'>, seed: (i: number) => number) {
