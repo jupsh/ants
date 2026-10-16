@@ -88,24 +88,28 @@ Pages) when the user asks.
   moves clustered in time (near-movement share 0.29 vs 0.10) and the
   short-stop shortage (still runs ≥ 2 s 0.81 vs 0.53); no further model
   expansion (user).
-  **Next:** reassess short stops and the start point through the tracker
-  with σ 0.4; trips (per-trip give-up time from the observer-corrected trip
-  distribution; arena misses independent, stated); sensitivity runs
-  (thirstFrac 0.8 / 0.95, cropWaterRate ×0.2 / ×5, walkOnSd 0.7); window
-  gate with water; dt gate at 36 seeds; then the fit, with the user.
-  **Uncommitted work (ask before committing):** water, tracker, start
-  point, walk-on factor, detection modules (`detection.ts`,
-  `detectionStats.ts`, `detectionEstimate.ts`), `trackerData.ts`,
-  `estimateTracker.ts`, frozen tracker; tests 153/153, tsc clean. Scratch,
-  never commit: `scripts/tmp*.ts`, `scripts/scratch/` (Python estimators
-  of the session, `activityStats.ts`, `persist.py`, `simact.py`). Logs:
-  `logs/act/` (persistence data and the σ comparison), `logs/trk*/`.
+  **Frozen candidate C1 committed** (`fda8ab3`); dt gate and window gate
+  (4 seeds, 6 h) **pass**; sensitivities reported (Decisions log,
+  2026-10-15/16). **Bounded exploratory fit C1 running** on the box since
+  ≈ 00:53 UTC 2026-10-16 (`/root/ants-w7`, `logs/fitS2018-c1.log`; budget
+  ≈ 25 h / ≈ $8). Check at 01:40 (phase 1, start 0 gen 3, start 1 gen 2):
+  ≈ 8–9 min per generation per start; the phase-1 loss rule (< 300) is
+  out of reach, so both starts run the 30-generation cap (phase 1 ≈ 8.3 h,
+  to ≈ 09:15); phase 2 projected ≈ 33 min per generation, ≈ 16–17 h, so
+  the total sits at the budget (watch phase-2 generation time; > 35 min
+  overruns). START2 is ≈ 10× start 0's loss so far; if it stays far
+  behind, the cross-start check will not fire and the report says "best
+  within budget". Phase-1 losses are search tools only, never fit quality.
+  **Next:** phase-1 end (both estimates, selection losses), first phase-2
+  generation time, then the fit report as agreed (per-row z, bounds,
+  traded rows, persistence/spread, trip rows, σ 0.4 vs 0.7 trade-off).
+  Scratch, never commit: `scripts/tmp*.ts`, `scripts/scratch/`. Logs:
+  `logs/act/`, `logs/trk*/`, `logs/s3/`.
   **Box (rented 2026-10-15):** vast.ai EPYC 9534, $0.307/h, `ssh -p 46397
-  root@85.218.235.6`, repo `/root/ants` (synced by git bundle, clean at
-  7180735 + later STATUS-only commits), Node via `. /opt/nvm/nvm.sh &&
-  nvm use 22.22.1`, **SIM_WORKERS=62** (one per core; 120 threads were
-  slower). Fit cost estimate there ≈ 30–55 h, ≈ $9–17. Old box destroyed;
-  its files in `logs/box-2026-10-15/`.
+  root@85.218.235.6`, fit worktree `/root/ants-w7` (synced by file copy,
+  checksum-identical to `e168807` at launch), Node via `. /opt/nvm/nvm.sh
+  && nvm use 22.22.1`, **SIM_WORKERS=62** (one per core; 120 threads were
+  slower). Old box destroyed; its files in `logs/box-2026-10-15/`.
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
   adequate 1999 fit and the fit-protection checks, or, if the stopping
@@ -3211,3 +3215,8 @@ fit does its work.
   (the dt gate's convention), not colonies. **6-h window kept; fit
   launched** as agreed: `fitS2018 --cheap-gens 30 --gens 30 --obs 21600
   --tag c1` (62 workers) → `logs/fitS2018-c1.log` on the box.
+- **Fit C1 provenance:** the box worktree `/root/ants-w7` is synced by
+  file copy (its own git HEAD is older and shows dirty); at launch its
+  `src/`, `scripts/`, `data/fits/`, `data/reference/` were checksum-identical
+  to commit `e168807` (verified after launch). Read the fit's
+  `provenance.commit` with that in mind.
