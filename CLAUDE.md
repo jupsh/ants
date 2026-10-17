@@ -67,6 +67,13 @@ when a step starts or finishes, and log decisions there before acting on them.
 - **Evidence policy** (STATUS.md § Evidence policy): every data set has a role
   — fit, development (inspected) or held-out. Never fit to a development or
   held-out target; log any inspection in the contamination log.
+- **Literature:** `literature/` (local only) holds just the papers cleared
+  for full-text reading, pinned by SHA-256 in `docs/literature.json`. Search
+  their page text with `rg -n "terms" .cache/papers` (`pNN.txt` = PDF page;
+  build with `npx vite-node scripts/paperText.ts`). Every other PDF is in
+  `~/ants-literature/held/`, blocked by a local hook (`.claude/sealed-paths.txt`);
+  never work around it. New PDFs go there first; clearing one is the user's
+  decision, logged in STATUS.
 - **Two z-scores** (`src/sim/analysis/compare.ts`): fitting uses `fitZ`
   (SE_data only); judging uses `combinedZ` (SE_data ⊕ SE_sim, SE_sim from seed
   blocks or ant bootstraps). |z| ≤ 2 ok, ≤ 3 marginal. Spread (SD) is compared
@@ -152,4 +159,5 @@ when a step starts or finishes, and log decisions there before acting on them.
   a pre-registration is still being written or amended, check only that
   outputs don't exist yet (e.g. `ls logs | grep -c judgeC`), never `tail` a
   log or open a fit file. If something is seen anyway, say exactly what in
-  the reply and in the STATUS entry.
+  the reply and in the STATUS entry. To make this enforced, add the output
+  path to `.claude/sealed-paths.txt` until the reading is frozen.

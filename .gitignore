@@ -8,3 +8,5 @@ __pycache__/
 public/precomputed/
 data/stroeymeyt2018/
 logs/
+
+.cache/papers/

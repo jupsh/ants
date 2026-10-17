@@ -1,0 +1,71 @@
+{
+  "about": "Papers cleared for full-text reading. Only these live in literature/; every other PDF stays in ~/ants-literature/held/ (outside the repo, blocked for agents) until a logged decision clears the whole paper. Roles are defined by STATUS.md § Evidence policy; this file only pins the reviewed bytes. Never update a hash to silence a mismatch.",
+  "papers": [
+    {
+      "file": "AugerHansen2005_CEC2005-1769_IPOP-CMA-ES.pdf",
+      "sha256": "67e91cca499d21c7fbd757f857aca24742788392b77abfa26a3d9c5b61a157b3",
+      "role": "methods",
+      "cleared": "docs/archive/STATUS-2026-10-10-night.md: 2026-10-10 night — papers supplied; read in full, methods only (no ant data)."
+    },
+    {
+      "file": "Buffin2011_InsectSoc58-177_trophallaxis-frequency-duration.pdf",
+      "sha256": "b1da7d29b5a7673eba8ccf2f9b0b9270c4024d5db7aadd1f60bf27406c8f0070",
+      "role": "parameter-and-structure-source",
+      "cleared": "docs/STATUS.md: Evidence policy, additions 2026-10-09/10 — user assigned role, read in full; not a test."
+    },
+    {
+      "file": "Carrella2021_JASSS24-2-7_no-free-lunch-parameter-estimation.pdf",
+      "sha256": "734e34aac8914858e3324b097d5908102572b1a75d5fd3070f4be68ff25f58a1",
+      "role": "methods",
+      "cleared": "docs/archive/STATUS-2026-10-10-night.md: 2026-10-10 night — papers supplied; read in full, methods only (no ant data)."
+    },
+    {
+      "file": "CharbonneauDornhaus2015_BehavEcolSociobiol69-1459_inactive-workers.pdf",
+      "sha256": "6df52847e739a4480458eb69a9490d4ad785db9533833a715eeff87b872f9cca",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, literature check 2026-10-16 — read in full; hypotheses only, no parameters imported."
+    },
+    {
+      "file": "Crosscombe2026_Entropy28-451_dwell-time-transitions.pdf",
+      "sha256": "b544e1387ab8f30ed76165b244dcfd50761132363384f3808ad223ab11833956",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, literature check 2026-10-16 — read in full; hypotheses only, no parameters imported."
+    },
+    {
+      "file": "Depickere2004_InsectSoc51-81_aggregation-polyethism.pdf",
+      "sha256": "28c0c2d001e2aba66059338977d1ee677ff722f5e356653335c24a8ecf5fd9b5",
+      "role": "parameter-and-structure-source",
+      "cleared": "docs/research/encounters-aggregation.md: user decision 2026-10-10 night; read in full, not a test."
+    },
+    {
+      "file": "GallottiChialvo2018_JRSocInterface15-20180223_how-ants-move.pdf",
+      "sha256": "d36e69116cf9ade0aa2034abe4bf54ae601e4953c05a0ec6dccdefbded832bd3",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, literature check 2026-10-16 — read in full; hypotheses only, no parameters imported."
+    },
+    {
+      "file": "Greenwald2015_SciRep5-12496_trophallactic-networks-food-dissemination.pdf",
+      "sha256": "000b46c26d5a58fee80bc83072f8afbe4291b5f8d389ac6fea5d8190ae230ceb",
+      "role": "structure-source-other-genus",
+      "cleared": "docs/STATUS.md: Evidence policy, user 2026-10-11 — read in full; never a target or test; E6 choices limited to logged step-5 priors."
+    },
+    {
+      "file": "Mailleux2000_AnimBehav59-1061_how-do-ants-assess-food-volume.pdf",
+      "sha256": "95c943468294af19a518e45426cc3c76a9911ede74f89fef7be61dfa8edf3f0e",
+      "role": "development",
+      "cleared": "docs/STATUS.md: Evidence policy, E2 — read in full 2026-10-09; no longer held-out."
+    },
+    {
+      "file": "Nicolis2005_AnimBehav69-535_aggregates-interaction-rate.pdf",
+      "sha256": "fdffadacdc5b804b4ba0b503700b7926283111787de106e8add19fefc94debaa",
+      "role": "parameter-and-structure-source",
+      "cleared": "docs/research/encounters-aggregation.md: user decision 2026-10-10 night; read in full, not a test."
+    },
+    {
+      "file": "SakamotoAkimoto2017_TJSEC8_box-constraint-handling-CMA-ES.pdf",
+      "sha256": "fe63af7468a20a40ef76ef4e6afa10adb3775cfeb4c9ef996b7e6dfa735d8f70",
+      "role": "methods",
+      "cleared": "docs/archive/STATUS-2026-10-10-night.md: 2026-10-10 night — papers supplied; read in full, methods only (no ant data)."
+    }
+  ]
+}
