@@ -223,11 +223,17 @@ export class ColonySim {
     const nf = P.nest.nestSpeedFactor ?? 1;
     // Option B: the walker's own pauses are off in the nest (nestPauseFactor 0; the sourced stops include them).
     const pf = P.nest.nestPauseFactor ?? 1;
-    const inNest = (f: number): WalkParams => (f === 1 && pf === 1 ? this.walkP : { ...this.walkP, speed: this.walkP.speed * f, pauseRate: this.walkP.pauseRate * pf });
-    this.walkNestP = inNest(nf);
-    const ff = P.nest.forager?.nestSpeedFactor ?? nf;
-    const fpf = P.nest.forager?.nestPauseFactor ?? pf;
-    this.walkNestForagerP = ff === nf && fpf === pf ? this.walkNestP : { ...this.walkP, speed: this.walkP.speed * ff, pauseRate: this.walkP.pauseRate * fpf };
+    // Within-walk speed fluctuation in the nest (STATUS 2026-10-16 night, under test): factors on the walker's SD and τ.
+    const sf = P.nest.nestSpeedSdFactor ?? 1;
+    const tf = P.nest.nestSpeedTauFactor ?? 1;
+    const inNest = (f: number, pf: number, sf: number, tf: number): WalkParams =>
+      f === 1 && pf === 1 && sf === 1 && tf === 1
+        ? this.walkP
+        : { ...this.walkP, speed: this.walkP.speed * f, pauseRate: this.walkP.pauseRate * pf, speedSdWithin: this.walkP.speedSdWithin * sf, speedTau: this.walkP.speedTau * tf };
+    this.walkNestP = inNest(nf, pf, sf, tf);
+    const fo = P.nest.forager;
+    const [ff, fpf, fsf, ftf] = [fo?.nestSpeedFactor ?? nf, fo?.nestPauseFactor ?? pf, fo?.nestSpeedSdFactor ?? sf, fo?.nestSpeedTauFactor ?? tf];
+    this.walkNestForagerP = ff === nf && fpf === pf && fsf === sf && ftf === tf ? this.walkNestP : inNest(ff, fpf, fsf, ftf);
     this.dt = o.dt ?? 0.1;
     this.steps = Math.round(((o.minutes ?? 90) * 60) / this.dt);
     this.foodTime = (o.foodMinute ?? 30) * 60;

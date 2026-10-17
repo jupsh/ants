@@ -97,6 +97,10 @@ export interface NestParams {
   nestSpeedFactor: number;
   /** Factor on the walker's own pause rate inside the nest (runner; option B: 0, as the sourced stops include all pauses). */
   nestPauseFactor: number;
+  /** Factor on the walker's within-walk SD of log speed inside the nest (runner; 1: the walker's own; STATUS 2026-10-16 night, under test). */
+  nestSpeedSdFactor: number;
+  /** Factor on the walker's correlation time of within-walk speed fluctuation inside the nest (runner; 1: the walker's own). */
+  nestSpeedTauFactor: number;
   /** SD of log of each nestmate's reserve-deficit factor (between-ant variation; applied by the runner at set-up). */
   reserveSd: number;
   /** Probability that a walking ant stops at an encounter (a contact episode with a nestmate reaching `encounterMin`; 0: never). */
@@ -124,7 +128,7 @@ export interface NestParams {
 }
 
 /** Stop and walking values that differ between foragers and nest workers (Depickère et al. 2004). */
-export type ForagerMotion = Partial<Pick<NestParams, 'restToActive' | 'activeToRest' | 'restCrowdExp' | 'nestSpeedFactor' | 'nestPauseFactor' | 'outRate'>>;
+export type ForagerMotion = Partial<Pick<NestParams, 'restToActive' | 'activeToRest' | 'restCrowdExp' | 'nestSpeedFactor' | 'nestPauseFactor' | 'nestSpeedSdFactor' | 'nestSpeedTauFactor' | 'outRate'>>;
 
 /** The nest parameters this ant uses: the forager values for an ant with the forager trait. */
 export const nestParamsOf = (p: NestParams, forager: boolean | undefined): NestParams => (forager && p.forager ? { ...p, ...p.forager } : p);

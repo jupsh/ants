@@ -98,14 +98,17 @@ export const s2018Values = (n: NestParams): Record<string, number> => Object.fro
 
 /**
  * Settable by diagnostics (`--set`), not free in the fit: two-state rests
- * (mix2, under test) and the per-ant walk-on factor (sensitivity runs;
- * STATUS 2026-10-15).
+ * (mix2, under test), the per-ant walk-on factor (sensitivity runs;
+ * STATUS 2026-10-15) and in-nest speed fluctuation (STATUS 2026-10-16 night).
  */
 export const S2018_EXTRA: S2018Free[] = [
   { key: 'restDeepFrac', lo: 0, hi: 1, log: false, get: (n) => n.restDeepFrac, set: (n, v) => ({ ...n, restDeepFrac: v }) },
   { key: 'restDeepRatio', lo: 1, hi: 1000, log: true, get: (n) => n.restDeepRatio, set: (n, v) => ({ ...n, restDeepRatio: v }) },
   // Persistent per-ant walk-on factor (STATUS 2026-10-15 late evening); fixed at S2018_WALK_ON_SD in s2018Base.
   { key: 'walkOnSd', lo: 0, hi: 3, log: false, get: (n) => n.walkOnSd, set: (n, v) => ({ ...n, walkOnSd: v }) },
+  // In-nest speed fluctuation (STATUS 2026-10-16 night, targeted comparison): factors on the walker's SD and τ, both groups.
+  { key: 'nestSpeedSdFactor', lo: 0, hi: 10, log: false, get: (n) => n.nestSpeedSdFactor, set: (n, v) => ({ ...n, nestSpeedSdFactor: v }) },
+  { key: 'nestSpeedTauFactor', lo: 0.01, hi: 100, log: true, get: (n) => n.nestSpeedTauFactor, set: (n, v) => ({ ...n, nestSpeedTauFactor: v }) },
 ];
 export const S2018_SETTABLE: S2018Free[] = [...S2018_FREE, ...S2018_EXTRA];
 
