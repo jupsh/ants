@@ -175,7 +175,13 @@ Pages) when the user asks (last merge `e1e6847`, 2026-10-16).
     against the still-run tail and means; **per-ant persistence collapsed**
     at the estimate (nurse 6-h lag +0.09 vs data +0.43); trip shape
     unchanged (fixed give-up time).
-  - **Now (user, 2026-10-16 ≈ 23:35; Decisions log):** in-nest speed
+  - **Update 2026-10-17 ≈ 05:15 UTC:** the speed line is closed (no arm
+    of the 8 meets the logged rules; the short-still deficit stays a
+    disclosed failure; Decisions log ≈ 05:08). The oracle colony-coupling
+    diagnostic (design ≈ 05:11, pilot ≈ 05:14) runs on the box
+    (`logs/orc/run-orc.sh`); read it against the pre-registered reading,
+    nothing else. The persistence targets and the trip audit stay on hold.
+  - **Earlier "Now" (user, 2026-10-16 ≈ 23:35; Decisions log):** in-nest speed
     fluctuation, targeted comparison at the start point (design logged
     before running), and the compact per-ant persistence targets
     (proposal logged; implemented in the shared statistics code while the
@@ -571,6 +577,13 @@ non-optimum disclosed):
   supplement was inaccessible; no positional-accuracy number was obtained.
   Development methods source only; no held-out data or other candidate
   papers opened for this check.
+- **Stroeymeyt 2018 fit tracks, contact rates (2026-10-17 ≈ 05:43 UTC,
+  overnight contact check):** a new statistic (pairwise contact onsets,
+  near share) computed from the 22 fit colonies' PreTreatment tracks, as
+  a check on whether the motion failures matter downstream; not a fit
+  target. Colony 0's values were seen before the reading was logged (code
+  check). The 10 age-experiment colonies and the Stroeymeyt SM results
+  remain unopened.
 - **E1 (Khuong et al. 2013):**
   - The first fit's results at 20° and 45° were inspected before
     slope-dependent pausing, jitter and speed variability were added.
@@ -1800,3 +1813,279 @@ resting tags, not shared biological responses. Bears on the disclosed
 logged plan the colony-coupling diagnostic is now worth its cost: start
 point, one coupling parameter, with a placebo arm; designed and logged
 before any run, after the speed follow-up is read.
+
+**2026-10-17 ≈ 05:08 UTC — Bounded speed follow-up v2 read against the
+03:08 rules: no arm supports the hypothesis; the speed line stops.**
+Eight arms at the start point (σ 0.4), control `logs/sf/diag-ctl.json`,
+`logs/sf2/report-<arm>.txt` (`reportS2018 --est arm --start ctl`), step
+diagnostic `sf2-<arm>` (`scratch/sf2Agg.py`), persistence
+`simact.py` (`SF2<arm>` sets, seed 4242, 22 colonies). Brief-still share
+(i) and 6-h persistence (iii) are on the box (`logs/short`, `logs/act`;
+not fetched, the short files are large); the reports are local.
+- **(ii) fails in every arm.** All four short-still rows get *worse* in
+  all eight arms (survival past 2 s and 10 s rises). Control → arm, nurse
+  P2 0.806 → 0.817–0.837 (data 0.52), nurse P10 0.399 → 0.427–0.490 (data
+  0.14), forager P2 0.702 → 0.704–0.725 (0.44), forager P10 0.261 →
+  0.268–0.314 (0.10). Lower mean walking speed makes it worse, not better
+  (m 0.6 is worse than m 0.8); shorter τ barely moves it. Arms with a
+  larger SD factor also cost speedMove (m 0.8, SD 3: nurse |z| 4.7 → 15.5).
+- **(i) fails in every arm.** Nurse brief-still steps at 0.3–0.6
+  mm/frame: control 0.196, arms 0.208–0.299 (data 0.60; the bar was
+  0.40). Forager control 0.165, arms 0.197–0.299. The arms do move the
+  moving-step median toward the data (nurse 1.03 → 0.83–1.07 vs data
+  0.88) and raise the 0.3–0.6 steps per moving step (nurse 0.51 → 0.69–1.09
+  vs data 1.77), but the extra sub-threshold steps do not turn into brief
+  stills of the right kind.
+- **(iii) passes in every arm** (nurse 6-h persistence 0.49 control, arms
+  0.49–0.58, all within 0.10) — so persistence was not the obstacle.
+- **Beside them (gains and costs):** total loss rises in every arm:
+  control 21 316 → 24 278 (m 0.8, SD 1, τ 1; the best arm) … 38 420 (m
+  0.6, SD 3, τ 0.5). speedMove improves for several arms (nurse/forager
+  |z| 4.7/7.9 → 0.5/0.6 for m 0.6, SD 2, τ 0.25), the cost falls on
+  runStill and long-still families.
+- **Reading.** The four earlier arms (SD and τ varied, mean kept) and
+  these eight (mean also lowered, shorter τ) all fail the short-still rows
+  in the same direction. Slower, more variable walking speed, at the
+  settings tried, does not produce the data's brief stills; this does not
+  show that no speed model could. Together with the observer sensitivity verdict (agreement), the
+  short-still deficit stays a **disclosed failure** of the 4b motion
+  model, unexplained; the speed line stops as logged, with no further
+  speed arms. The 4b motion fit is re-planned without it (persistence
+  targets still on hold).
+- **Next (logged 03:50):** the colony-coupling diagnostic, designed and
+  pre-registered here before any run.
+
+**2026-10-17 ≈ 05:11 UTC — Oracle colony-coupling diagnostic: design and
+reading, logged before any run (the user left the choice of the next box
+run to Claude).** Question only: *if the model's ants shared a slow colony
+signal, would the data's synchrony (D_w 2.6 / 4.2 / 6.3 at 5 s / 1 min /
+10 min vs model 1.06 / 1.25 / 1.57) appear, and would any row or
+persistence statistic move with it?* It is a cheat channel (the signal is
+the colony's true moving state, which no ant could read), not a
+mechanism, not adoptable, not a fit; it says whether coupling of this
+kind is worth modelling at all (Sumpter & Pratt 2003; Feinerman & Korman
+2017 for the logic).
+- **Hook, outside `src/sim/behavior/`:** runner option
+  `ColonyOptions.oracle` (`colonyBles.ts`), carried by
+  `StroeymeytColony.oracle` and set from `--oracle` in `withObsVariant`
+  (cloneable, so it reaches pool workers). Absent: bit-identical (tested).
+  Each step, before the policy call: u = fraction of in-nest ants not
+  resting (true state), smoothed with an exponential of time constant
+  τ_c; ū = the same with 30 min; every in-nest ant's `restToActive` is
+  multiplied for its policy call by g = clamp((u / ū)^κ, 0.25, 4) (set and
+  restored around the call, no behaviour code touched). One coupling
+  parameter, κ; τ_c = 60 s fixed (the middle of the three bin widths);
+  walk-on only, walk-off untouched; u / ū keeps the mean rate.
+- **Arms (start point, σ 0.4, rest of C1 as in the control):** coupled
+  κ = 0.5 and κ = 1 (κ > 1 is unstable by construction: the loop gain
+  κ·r_off exceeds the relaxation; not tried); **placebo** for each: every
+  ant gets its own independent OU log-multiplier with τ_c = 60 s and the SD
+  of log g that the coupled arm produced (same marginal modulation of
+  walk-on, no sharing). Placebo SD is read from a pilot of the coupled arm
+  (4 colonies, one seed, signal variability only — no target statistic is
+  looked at) and logged here before the placebo arms run. Control:
+  `logs/sf/diag-ctl.json`, `sim-s0.4`, `sf-ctl`.
+- **Outputs, as in the speed comparison:** rows (`diagS2018`, 4 seeds,
+  `reportS2018` paired with the control), per-ant activity (`tmpTrackerSim`
+  12 h, `simact.py`), synchrony (`tmpShortSim` → `syncAgg.py`, 4-h light
+  window as the gate).
+- **Reading, fixed now:** (a) *synchrony is reproduced by coupling* if a
+  coupled arm closes at least half of the gap to the data at both 1 min and
+  10 min (D ≥ 2.7 and ≥ 3.9, all ants, light) while the placebo of the same
+  κ stays at the control's level (the CI of the control's D); a placebo that
+  also rises means modulation, not sharing, and the arm shows nothing about
+  coupling. (b) *persistence protected*: nurse and forager 6-h
+  moving-fraction lag correlation within 0.10 of the control (data 0.43 /
+  0.36; control 0.49 / 0.46). (c) rows and spread reported beside them as
+  gains or costs against the control *and* the placebo (loss by family,
+  top-20 % share of moving, the short-still rows), not as a criterion.
+  Outcomes: (a) met and (b) kept → shared coupling reproduces the
+  synchrony; whether it also repairs any row is read from (c) and recorded
+  either way; the next question is external vs ant-to-ant coupling (a
+  design, not a fit). (a) not met at κ ≤ 1 → this formulation cannot
+  produce it; no further κ or τ_c arms. (a) met but (b) broken → the
+  coupling trades persistence for synchrony; record it. Two κ only; no
+  further arms in any case.
+
+**2026-10-17 ≈ 05:14 UTC — Oracle diagnostic: hook built and tested; the
+pilot sets the placebo SD (signal variability only).** `colonyBles.ts`
+(`oracle` option, `oracleStep`, applied around the policy call),
+`colonyStroeymeyt.ts` (`oracle` field, `oracleLogSd` in the run),
+`s2018Lib.ts` (`--oracle coupled:κ:τ_c|placebo:sd:τ_c` in
+`withObsVariant`), `test/oracle.test.ts` (κ = 0 and a placebo of SD 0 are
+bit-identical to no oracle; coupling changes the run; `P.nest` restored).
+Pilot (`scratch/oraclePilot.ts`: colonies 0–3, seed 4242, 2 h + 2 h at the
+start point; prints only the SD of log g, no target statistic): SD of log
+g, κ = 0.5: 0.303 / 0.287 / 0.312 / 0.385 (mean **0.32**); κ = 1: 0.547 /
+0.459 / 0.533 / 0.569 (mean **0.53**). **Placebo SDs fixed at 0.32 and 0.53,
+τ_c 60 s.** Arms: `orc-k0.5`, `orc-k1`, `orc-p0.32`, `orc-p0.53`. Control
+sync: `t12-ctl`.
+
+**2026-10-17 ≈ 05:15 UTC — Oracle run launched on the box**
+(`logs/orc/run-orc.sh`, started 05:14:47 box time; stage 1 rows for the
+four arms with 30 workers each, then stage 2 activity and synchrony;
+roughly 50–60 min). Note on clocks: the three entries above (05:08, 05:11,
+05:14) were first written with times ahead of the clock; corrected to
+the box/local clock here. Nothing read yet.
+
+**2026-10-17 ≈ 05:43 UTC — Overnight plan (user, just before this entry: run more on the
+box overnight; contact check, dark-phase oracle synchrony, and a
+slow-episode what-if in place of the creep what-if). Logged before any of
+it runs.** The creep what-if was dropped before building: observer
+variant B already moved observed positions during rests by the measured
+amount and left the 32 rows unchanged, so true-position creep of that size
+is predicted to do the same for the short stills (it could only show an
+effect on contacts). The user chose the slow-episode what-if instead.
+No fits, no model changes; every arm below is a runner-level switch that
+is off by default (tested bit-identical) and not adoptable.
+
+*1. Contact check (downstream relevance of the motion failures).*
+`scratch/contactStats.ts`, one code path for recorded tracks
+(`contactData.ts`, 22 fit colonies, PreTreatment 24 h, light 06–18 UTC /
+dark) and simulated observers (`tmpShortSim --phase light|dark`, 2 h
+warm-up + 12 h, seed 4242, frozen tracker). Pair of tracked in-nest ants
+both detected: near if centre distance < r, far once > r + 1 mm
+(hysteresis); a contact is a far → near transition (joint gaps ≤ 3
+frames). r = 4.1 mm (one body length, primary) and 6 mm (sensitivity).
+Statistics per colony and phase: contacts per detected ant-hour (×2 per
+event); share of contacts with at least one ant moving (≥ 0.6
+mm/frame); share of ant-frames with a near neighbour. Fit tracks used for
+a new, non-fitted check statistic (contamination log). **Seen before this
+entry:** colony 0's data values only, as a code check (light ≈ 142, dark
+≈ 63 contacts per ant-hour at 4.1 mm; near share ≈ 0.93); no model value.
+- Arms: control (start point σ 0.4), speed arms m0.8-s1-t1 and
+  m0.6-s3-t0.5 (the smallest and largest short-still shifts of v2), the
+  four oracle arms, the C1 estimate, and the three slow-episode arms below;
+  light and dark.
+- **Reading, fixed now:** ratio model / data of contacts per ant-hour at
+  4.1 mm, geometric mean over colonies with a colony bootstrap 95 % CI,
+  per phase. **Contacts adequate** if the control's ratio CI overlaps
+  [0.8, 1.25] in both phases → the motion failures do not compromise
+  contact rates at the precision the colony step needs; this favours
+  accepting the disclosed failures and moving on (the user decides).
+  **Not adequate** → in-nest motion matters downstream; the arms then show
+  which changes move contacts toward the data (|log ratio| falls by more
+  than its CI half-width). The moving share and the 6-mm results are
+  reported beside it, not as criteria. The 25 % tolerance is a judgement
+  (between-colony spread is larger), stated before the result.
+
+*2. Dark-phase oracle synchrony* comes from the same runs (synchrony is
+kept in the lite outputs): coupled and placebo arms in dark, read with
+the 05:11 rule against the data's dark blocks (22, 02 h), only after the
+light result is read. Light-phase reading stays the primary one.
+
+*3. Slow-episode what-if* (`ColonyOptions.slowEp`, `--slowEp
+rate:dur:factor`; `test/oracle.test.ts`). A walking in-nest ant enters, at
+`rate` per walking second, a slow episode of exponential duration (mean
+`dur`) in which its walker's speed is × `factor`; stopping ends it.
+Discrete two-state slowing, unlike the continuous log-speed noise of the
+v1/v2 speed arms. The control's moving-step median is 1.03 / 1.48
+mm/frame (nurse / forager), so factor 0.4 puts nurse episode steps at ≈
+0.41 and factor 0.3 puts forager ones at ≈ 0.44 (the 0.3–0.6 band); dur 1
+s matches the brief stills (< 2 s). Arms (start point, σ 0.4):
+`se-r0.5-f0.4` (0.5/s, 1 s, 0.4), `se-r1-f0.4`, `se-r1-f0.3`. Outputs as
+v2: rows (`diagS2018`, 4 seeds, paired with `logs/sf/diag-ctl.json`),
+persistence (`tmpTrackerSim` 12 h, `simact.py`), step diagnostic
+(`tmpShortSim` light, full output; its control is a fresh control run of
+the same length). **Reading: the 03:08 rules unchanged** — (i) nurse
+brief-still steps at 0.3–0.6 ≥ 0.40; (ii) |z| falls for ≥ 3 of the 4 short
+rows; (iii) nurse 6-h persistence within 0.10 of the control. An arm
+meeting (i)–(iii) → discrete slow episodes become a candidate model
+element for the user (a mechanistic version designed then, not this
+switch); none → the short-still deficit is not produced by discrete
+slowing either, recorded as such; no further slow-episode arms in either
+case. Costs reported beside them (loss by family, speedMove, contacts).
+
+**2026-10-17 ≈ 05:55 UTC — Overnight addition: how fast does activity
+spread? (user's question, just before this entry; logged before any
+reading.)** Bears on the open point of the 03:50 synchrony result:
+ant-to-ant coupling vs a shared external driver. `scratch/wakeStats.ts`,
+one code path for tracks (`contactData.ts`, all 22 fit colonies, light /
+dark by clock) and simulations (`tmpShortSim`, every overnight arm, both
+phases). A wake is an ant's first moving step (≥ 0.6 mm/frame) after ≥ 10
+s still; every pair of wakes of different ants within 5 min is counted by
+distance band between the two wake positions (< 5, 5–10, 10–20, 20–40,
+≥ 40 mm) and |lag| (frames). The overnight script was restarted (it was
+only waiting for the oracle run) to include it; staged code checksums
+match the local files. **Seen before this entry:** colony 0's wake counts
+only (2213 light / 866 dark wakes; pair totals), as a structure check; no
+correlogram looked at.
+- **Reading, fixed now** (pooled over colonies, colony bootstrap; lag
+  bins 0, 1, 2, 3–4, 5–8, 9–16, 17–32 frames; baseline = mean count per
+  frame at 240–600 frames in the same band; excess = count / baseline − 1):
+  - *Spread from ant to ant* if near-lag excess (|lag| ≤ 4 frames, 2 s)
+    falls with distance (< 5 mm at least 2× the 20–40 mm band) **and** the
+    lag bin with the largest excess moves later with distance (later in
+    the 20–40 mm band than in < 5 mm); speed ≈ distance / lag between bands,
+    reported with its bootstrap range.
+  - *Shared driver* if near-lag excess is within a factor 1.5 across bands
+    and peaks in the 0–1 frame bins in every band.
+  - Otherwise *mixed*; described, no claim.
+- **Method check before the data are read:** the coupled oracle arms
+  (one colony-wide signal, no distance) must read *shared driver* or at
+  least show no peak-lag growth with distance; the start-point control
+  (local encounters only) is the other reference. If the coupled arms
+  show a spurious lag gradient, the method does not discriminate and the
+  data reading is not reported as evidence. Caveats stated now: 2 fps
+  limits lag to 0.5 s steps; ≥ 10 s still before a wake selects settled
+  ants; distances are between centres at the two wakes.
+- **Disclosure (contact check):** after the 05:43 entry, a 10-min smoke
+  run of the scripts (colony 0, dark, slow-episode r1-f0.4, 1 min warm-up)
+  printed its contact rate (≈ 78 per ant-hour at 4.1 mm). A code check on
+  a what-if arm, far too short to bear on the reading; noted as seen.
+
+**2026-10-17 ≈ 05:57 UTC — Spread analysis amended before any reading
+(user guidance, just before this entry).** Points taken: (1) detecting
+spatially ordered activation is not identifying its cause, and an
+external trigger plus ant-to-ant spread can coexist (a disturbance
+starts a few ants, they start their neighbours); (2) the 05:55 baseline
+(far-lag level) is a null that destroys both social spread and shared
+triggers: beating it shows synchrony only; the informative null keeps
+the shared activity episode; (3) the event is a **movement onset**
+(a crossing of the 0.6 mm/frame threshold after ≥ 10 s below it), not
+waking; the analysis and reports use that name (the code's JSON key stays
+`wake`/`onsets` as written; the term is fixed here). The overnight batch
+had not started (still waiting on the oracle run), so the recorded output
+was extended; nothing has been read. **Replaces the 05:55 reading:**
+- **Recorded:** every movement onset (frame, ant, position, still time
+  before it) per phase; the far-lag correlogram stays as a description
+  of synchrony only. Online, per frame, every still ant (≥ 10 s below
+  threshold) is a unit at risk: *exposed* if it is contacted (far → near
+  at 4.1 mm, as in the contact check) by a partner that is moving while it
+  is not; outcome: its own movement onset within the next 4 frames (2 s).
+  Strata: distance to the nearest movement onset in the last 4 frames (< 5,
+  5–10, 10–20 mm, farther or none) × colony onsets in the last 10 frames
+  (0, 1–2, ≥ 3), i.e. matched on episode timing and nearness to activity.
+- **Episodes** (offline): onsets in time order, a gap > 10 frames (5 s)
+  ends an episode; episodes with ≥ 3 distinct ants; the first onset is the
+  initiator; each ant's first onset in it.
+- **Test A — spatial order within the episode:** Spearman ρ between each
+  participant's distance from the initiator and its lag after it, mean
+  over episodes. Null 1 (keeps the episode: who took part, where, and the
+  set of onset times): onset times permuted among the participants within
+  each episode (1000 permutations). Null 2 (keeps usual location): the
+  same ρ computed from the initiator position of 20 other episodes of the
+  same colony and phase; a fixed regional order (one part of the nest
+  always first) passes null 1 but not null 2. Usual activity: partial ρ
+  adding each ant's leave-one-episode-out mean normalised rank. Colony
+  bootstrap for every difference.
+- **Test B — contacts predict onset:** Mantel–Haenszel risk ratio
+  (exposed vs unexposed, the strata above), colony bootstrap.
+- **Readings (as the guidance phrased them):** ρ above both nulls (CI of
+  the difference excludes 0) and lag rising with distance → *spatially
+  structured activation*, not yet proof of transmission (speed from
+  distance / lag reported as a description); test B risk ratio CI above 1
+  → *stronger evidence of a social contribution* (contact by a moving ant
+  predicts onset beyond distance and episode timing); neither → *no
+  resolvable travelling wave*; fast or more complex social coupling stays
+  possible (2 fps: 0.5 s resolution). Above null 1 but not null 2 → a
+  regional order, not spread from the starting point. Nothing here
+  identifies what starts an episode.
+- **Method check unchanged in role:** the coupled oracle arms (one
+  colony-wide signal) must show neither ρ above null 2 nor a test-B effect
+  beyond the control's. The control model's only local channel of this
+  kind is weak and indirect (walk-on is suppressed by *still* contacts,
+  `restCrowdExp`, so a neighbour that starts moving releases it; a moving
+  partner's arrival does not raise it): its test-B value is the reference
+  for that channel, not assumed positive. If the coupled arms fail this,
+  the data are not read as evidence.

@@ -51,7 +51,8 @@ let frozenTracker: ReturnType<typeof loadTracker> | undefined;
 /**
  * Observer sensitivity variants from the command line (STATUS 2026-10-17 ≈
  * 01:30 UTC): `--obsVariant tag|rest:sd:tau` (slow position offset per ant)
- * and `--pxRound mm` (pixel rounding). Neither given: the colony unchanged.
+ * and `--pxRound mm` (pixel rounding), and the oracle colony-coupling diagnostic `--oracle coupled:kappa:tauC|placebo:sd:tauC`.
+ * None given: the colony unchanged.
  */
 export function withObsVariant(c: StroeymeytColony, argv = process.argv): StroeymeytColony {
   const at = (f: string) => (argv.includes(f) ? argv[argv.indexOf(f) + 1] : undefined);
@@ -64,6 +65,19 @@ export function withObsVariant(c: StroeymeytColony, argv = process.argv): Stroey
     out = { ...out, posDrift: { kind, sd: Number(sd), tau: Number(tau) } };
   }
   if (px) out = { ...out, pxRound: Number(px) };
+  // Oracle colony coupling (STATUS 2026-10-17 ≈ 05:11 UTC): `--oracle coupled:kappa:tauC` or `placebo:sd:tauC`.
+  const orc = at('--oracle');
+  if (orc) {
+    const [kind, v, tauC] = orc.split(':');
+    if (kind !== 'coupled' && kind !== 'placebo') throw new Error(`--oracle ${orc}: kind must be coupled or placebo`);
+    out = { ...out, oracle: kind === 'coupled' ? { kind, kappa: Number(v), tauC: Number(tauC) } : { kind, sd: Number(v), tauC: Number(tauC) } };
+  }
+  // Slow-episode what-if (STATUS 2026-10-17, overnight): `--slowEp rate:dur:factor`.
+  const se = at('--slowEp');
+  if (se) {
+    const [rate, dur, factor] = se.split(':').map(Number);
+    out = { ...out, slowEp: { rate, dur, factor } };
+  }
   return out;
 }
 

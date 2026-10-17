@@ -2,7 +2,7 @@ import { colonyRows, InNestAccumulator, STROEYMEYT_CFG, type AntRole, type InNes
 import { RNG } from '../core/rng';
 import { DET_D_EDGES, DET_TSB_EDGES, ObservedState, type DetectionTracker } from '../analysis/detection';
 import { stroeymeytApparatus } from '../world/apparatus';
-import { ColonySim, type ColonyParams } from './colonyBles';
+import { ColonySim, type ColonyOptions, type ColonyParams } from './colonyBles';
 import { S2018_WATER } from './stroeymeytTargets';
 
 /**
@@ -52,6 +52,10 @@ export interface StroeymeytColony {
   posDrift?: { kind: 'tag' | 'rest'; sd: number; tau: number };
   /** Observed coordinates rounded to this pixel size (mm), as the recorded positions are. Unset: not rounded. */
   pxRound?: number;
+  /** Oracle colony-coupling diagnostic (STATUS 2026-10-17 ≈ 05:11 UTC; see `ColonyOptions.oracle`). Unset: none. */
+  oracle?: ColonyOptions['oracle'];
+  /** Slow-episode what-if (STATUS 2026-10-17, overnight; see `ColonyOptions.slowEp`). Unset: none. */
+  slowEp?: ColonyOptions['slowEp'];
 }
 
 export interface StroeymeytRunOptions {
@@ -75,6 +79,8 @@ export interface StroeymeytRun {
   foragersIn: number;
   /** Rows of the first w observed seconds, per `windows` entry. */
   windowRows: Record<string, number>[];
+  /** Oracle (coupled): SD of the log multiplier over the steps after 30 min, NaN if none. */
+  oracleLogSd?: number;
 }
 
 /**
@@ -128,6 +134,8 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     exploreGiveUp: o.exploreGiveUp,
     exploreGiveUpSd: o.exploreGiveUpSd,
     exploreOutside: true,
+    oracle: c.oracle,
+    slowEp: c.slowEp,
     starvationDays: 0,
     walkSpeedFactor: 1,
     tempC: STROEYMEYT_TEMP[o.phase],
@@ -243,5 +251,10 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
   };
   while (sim.stepIndex < sim.steps) sim.step(onStep);
   const colony = acc.result();
-  return { rows: colonyRows(colony, STROEYMEYT_CFG), colony, foragersIn: fN ? fIn / fN : NaN, windowRows: wins.map((w) => colonyRows(w.acc.result(), STROEYMEYT_CFG)) };
+  const res: StroeymeytRun = { rows: colonyRows(colony, STROEYMEYT_CFG), colony, foragersIn: fN ? fIn / fN : NaN, windowRows: wins.map((w) => colonyRows(w.acc.result(), STROEYMEYT_CFG)) };
+  if (c.oracle?.kind === 'coupled') {
+    const m = sim.oracleLogSum / sim.oracleLogN;
+    res.oracleLogSd = sim.oracleLogN ? Math.sqrt(sim.oracleLogSq / sim.oracleLogN - m * m) : NaN;
+  }
+  return res;
 }

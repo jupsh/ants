@@ -1,0 +1,45 @@
+import { describe, expect, it } from 'vitest';
+import { simulateStroeymeyt, type StroeymeytColony } from '../src/sim/experiments/colonyStroeymeyt';
+import { s2018Base } from '../src/sim/experiments/stroeymeytTargets';
+import { LASIUS_NEST_B, LASIUS_PARAMS } from '../src/sim/species/lasiusM1';
+
+// Oracle colony-coupling diagnostic (STATUS 2026-10-17 ≈ 05:11 UTC) and slow-episode what-if (overnight): off or neutral =
+// bit-identical; on changes the run.
+const P = s2018Base({ ...LASIUS_PARAMS, nest: { ...LASIUS_NEST_B, forager: {} } }, 1 / 300);
+const base: StroeymeytColony = { label: 'test', nurses: 10, foragers: 4, noiseSd: 0, detection: 0.9 };
+const o = { seed: 7, phase: 'light' as const, warmupS: 60, obsS: 900, exploreGiveUp: 60 };
+const rows = (c: StroeymeytColony) => JSON.stringify(simulateStroeymeyt(P, c, o).rows);
+
+describe('oracle colony coupling', () => {
+  const none = rows(base);
+  it('κ = 0 and a placebo of SD 0 leave the run bit-identical', () => {
+    expect(rows({ ...base, oracle: { kind: 'coupled', kappa: 0, tauC: 60 } })).toBe(none);
+    expect(rows({ ...base, oracle: { kind: 'placebo', sd: 0, tauC: 60 } })).toBe(none);
+  });
+  it('coupling and placebo change the run, and the shared parameter is restored', () => {
+    const before = P.nest.restToActive;
+    const r = simulateStroeymeyt(P, { ...base, oracle: { kind: 'coupled', kappa: 1, tauC: 60 } }, o);
+    expect(JSON.stringify(r.rows)).not.toBe(none);
+    expect(rows({ ...base, oracle: { kind: 'placebo', sd: 0.5, tauC: 60 } })).not.toBe(none);
+    expect(P.nest.restToActive).toBe(before);
+  });
+  it('the coupled arm reports a positive SD of log g once the slow signal has run 30 min', () => {
+    const r = simulateStroeymeyt(P, { ...base, oracle: { kind: 'coupled', kappa: 1, tauC: 60 } }, { ...o, warmupS: 1800 });
+    expect(r.oracleLogSd!).toBeGreaterThan(0);
+    expect(r.oracleLogSd!).toBeLessThan(1.5);
+  });
+});
+
+describe('slow-episode what-if', () => {
+  const none = rows(base);
+  it('rate 0 or factor 1 leaves the run bit-identical', () => {
+    expect(rows({ ...base, slowEp: { rate: 0, dur: 1, factor: 0.4 } })).toBe(none);
+    expect(rows({ ...base, slowEp: { rate: 1, dur: 1, factor: 1 } })).toBe(none);
+  });
+  it('episodes slow the walking ants (lower moving speed)', () => {
+    const a = simulateStroeymeyt(P, base, o).rows;
+    const b = simulateStroeymeyt(P, { ...base, slowEp: { rate: 2, dur: 1, factor: 0.3 } }, o).rows;
+    expect(JSON.stringify(b)).not.toBe(none);
+    expect(b['speedMove.nurse.light']).toBeLessThan(a['speedMove.nurse.light']);
+  });
+});

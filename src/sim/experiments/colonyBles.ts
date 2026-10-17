@@ -99,6 +99,20 @@ export interface ColonyOptions {
    * (µL), uniform in [lo, hi], filled from one of `sources` at random.
    */
   waterInit?: { nurse: [number, number]; forager: [number, number]; foragerCrop?: [number, number] };
+  /**
+   * Oracle colony-coupling diagnostic (STATUS 2026-10-17 ≈ 05:11 UTC; a cheat channel, not a mechanism). Each step every
+   * in-nest ant's walk-on rate (`restToActive`) is multiplied for its policy call by g. `coupled`: g = clamp((u / ū)^κ,
+   * 0.25, 4), u the fraction of in-nest ants not resting (true state) smoothed over `tauC` s, ū the same over 30 min.
+   * `placebo`: g = exp(x_i), x_i an independent OU process per ant (time constant `tauC`, stationary SD `sd`): the same
+   * modulation without sharing. Absent: nothing changes.
+   */
+  oracle?: { kind: 'coupled'; kappa: number; tauC: number } | { kind: 'placebo'; sd: number; tauC: number };
+  /**
+   * Slow-episode what-if (STATUS 2026-10-17, overnight; a diagnostic, not a mechanism, not adoptable). An in-nest ant
+   * that walks enters, at `rate` per walking second, a slow episode of exponential duration (mean `dur` s) during which
+   * its walker's speed is × `factor`; the episode ends early if it stops. Absent: nothing changes.
+   */
+  slowEp?: { rate: number; dur: number; factor: number };
 }
 
 export interface RecruiterEntry {
@@ -196,6 +210,19 @@ export class ColonySim {
   recruiterSeed: number;
   recruiterIn = false;
   private foodAdded = false;
+  /** Oracle diagnostic state (see `ColonyOptions.oracle`); plain fields so `clone` copies it. */
+  private oracleU = NaN;
+  private oracleSlow = NaN;
+  private readonly oracleOu: number[] = [];
+  private readonly oracleRng: RNG[] = [];
+  /** Σ and Σ² of log g over the steps after 30 min (coupled), and their count: the signal's variability, read for the placebo's SD. */
+  oracleLogSum = 0;
+  oracleLogSq = 0;
+  oracleLogN = 0;
+  /** Slow-episode what-if: seconds left in each ant's episode, own streams, the slowed walk parameters (nest, forager). */
+  private readonly slowLeft: number[] = [];
+  private readonly slowRng: RNG[] = [];
+  private slowP: [WalkParams, WalkParams] | null = null;
   /** Ad-libitum sources (topped up every step). */
   private readonly adLib: SugarDroplet[] = [];
   private nextFrame = 0;
@@ -325,6 +352,57 @@ export class ColonySim {
     return !p.inNest ? this.walkP : a.mind.traits.forager ? this.walkNestForagerP : this.walkNestP;
   }
 
+  /** Slow-episode what-if: advance ant i's episode for this step and return the walk parameters it walks with. */
+  private slowWalk(i: number, a: Agent, p: SurfacePercept, walks: boolean, dt: number): WalkParams {
+    const e = this.o.slowEp!;
+    if (!this.slowP) this.slowP = [{ ...this.walkNestP, speed: this.walkNestP.speed * e.factor }, { ...this.walkNestForagerP, speed: this.walkNestForagerP.speed * e.factor }];
+    while (this.slowLeft.length <= i) {
+      this.slowRng.push(RNG.stream(this.o.seed, 0x51e9, this.slowLeft.length));
+      this.slowLeft.push(0);
+    }
+    if (!walks) this.slowLeft[i] = 0;
+    else if (this.slowLeft[i] > 0) this.slowLeft[i] -= dt;
+    else if (this.slowRng[i].chance(1 - Math.exp(-e.rate * dt))) this.slowLeft[i] = this.slowRng[i].exp(e.dur);
+    return this.slowLeft[i] > 0 ? this.slowP[a.mind.traits.forager ? 1 : 0] : this.walkFor(p, a);
+  }
+
+  /** Advance the oracle signal one step; returns each ant's walk-on multiplier. */
+  private oracleStep(dt: number, outside: boolean[]): (i: number) => number {
+    const o = this.o.oracle!;
+    const ants = this.w.ants;
+    if (o.kind === 'placebo') {
+      if (!this.oracleRng.length) {
+        for (let i = 0; i < ants.length; i++) {
+          this.oracleRng.push(RNG.stream(this.o.seed, 0x0c0a, i));
+          this.oracleOu.push(o.sd * this.oracleRng[i].gauss());
+        }
+      }
+      const k = Math.exp(-dt / o.tauC);
+      const sd = o.sd * Math.sqrt(1 - k * k);
+      for (let i = 0; i < ants.length; i++) this.oracleOu[i] = this.oracleOu[i] * k + sd * this.oracleRng[i].gauss();
+      return (i) => Math.exp(this.oracleOu[i]);
+    }
+    let n = 0;
+    let moving = 0;
+    for (let i = 0; i < ants.length; i++) {
+      if (!ants[i].body.alive || outside[i]) continue;
+      n++;
+      if (ants[i].mind.mode !== 'rest') moving++;
+    }
+    const u = n ? moving / n : 0;
+    if (Number.isNaN(this.oracleU)) this.oracleU = this.oracleSlow = u;
+    this.oracleU += (u - this.oracleU) * (1 - Math.exp(-dt / o.tauC));
+    this.oracleSlow += (u - this.oracleSlow) * (1 - Math.exp(-dt / 1800));
+    const g = this.oracleSlow > 0 ? Math.min(4, Math.max(0.25, Math.pow(this.oracleU / this.oracleSlow, o.kappa))) : 1;
+    if (this.stepIndex * dt >= 1800) {
+      const l = Math.log(g);
+      this.oracleLogSum += l;
+      this.oracleLogSq += l * l;
+      this.oracleLogN++;
+    }
+    return () => g;
+  }
+
   /** A copy of the whole state; with `key`, its random streams are forked (independent continuation). */
   clone(key?: number): ColonySim {
     return deepClone(this, { share: IMMUTABLE, rekey: key });
@@ -377,10 +455,19 @@ export class ColonySim {
     // Fast path: a nest worker resting at the start of the step decides from what its rest mode reads.
     const resting = w.ants.map((a, i) => fast && a.body.alive && !outside[i] && a.mind.mode === 'rest');
     const per: (SurfacePercept | null)[] = w.ants.map((a, i) => (!a.body.alive ? null : resting[i] ? perceiveResting(w, a.body, dt, contacts![i]) : perceive(w, a.body, dt, contacts?.[i])));
+    const orc = this.o.oracle ? this.oracleStep(dt, outside) : null;
     const acts: (NestAction | ForagerAction | null)[] = w.ants.map((a, i) => {
       const p = per[i];
       if (!p) return null;
-      return outside[i] ? lasiusForager(p, interocept(a.body), a.mind, this.foragerP, a.body.rng) : lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
+      if (outside[i]) return lasiusForager(p, interocept(a.body), a.mind, this.foragerP, a.body.rng);
+      if (!orc) return lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
+      const base = P.nest.restToActive;
+      P.nest.restToActive = base * orc(i);
+      try {
+        return lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
+      } finally {
+        P.nest.restToActive = base;
+      }
     });
     // A resting ant that walks this step (it woke, or leaves or returns) gets the full percept of the same pre-move state.
     w.ants.forEach((a, i) => {
@@ -411,7 +498,8 @@ export class ColonySim {
       a.body.stepLen = 0;
       // A partial step (a rest/walk switch inside it) walks through a percept with the shorter dt.
       const p = per[i]!;
-      if (!na.stand) walked[i] = walkAnt(w, a, na.walkFrac !== undefined ? { ...p, dt: p.dt * na.walkFrac } : p, this.walkFor(p, a), P.phys, na.motor, this.motor);
+      const wp = this.o.slowEp && p.inNest ? this.slowWalk(i, a, p, !na.stand, dt) : this.walkFor(p, a);
+      if (!na.stand) walked[i] = walkAnt(w, a, na.walkFrac !== undefined ? { ...p, dt: p.dt * na.walkFrac } : p, wp, P.phys, na.motor, this.motor);
     });
     // Food sharing between ants that both agreed, in donor-index order.
     w.ants.forEach((a, i) => {
