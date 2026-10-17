@@ -120,6 +120,13 @@ single reference species. Work is on `browser-sim-m1`, merged to `main`
     dark 1.5, model 1.0. **P (15:51): mixed** — median NN matched, near
     share 0.82 (the model has ~20 % isolated ant-frames), occupancy at
     walls vs the data's colony-specific site.
+  - **Wall rule (22:55): W-spec (specular reflection) chosen** — passes
+    the data-anchored guard (W fails moving fraction narrowly); wall band
+    0.52 → 0.11. **Oracle correction (22:56):** with foragers coupled,
+    κ = 1 overshoots the data's synchrony (5.99 / 13.3 vs 4.15 / 6.28),
+    placebo not rising (its control-CI clause unmet at 1 min), persistence
+    kept — diagnostic capacity only; mechanism unresolved (X does not
+    exclude a within-nest global signal; Y shows spatial structure).
   - **Comparison Q read (18:14):** W+E(1.0) reads "deficit is packing"
     by the table, but over-compacts (median NN 1.40 vs 2.17) and the
     M-observed count overshoots (×1.35–1.64); the guard failed (W cuts
@@ -572,8 +579,10 @@ archive; each item traceable to its dated entry there or below):
 - **Closed lines (no further arms):** in-nest speed fluctuation (4 arms
   with the mean kept, 2026-10-17 ≈ 00:10 / 00:55; 8 with the mean lowered
   and shorter τ, ≈ 05:08); global oracle coupling (no further κ or τ_c,
-  ≈ 06:20; **caveat 16:18: it coupled nurses only** — reopening is the
-  user's call); discrete slow episodes at the tested settings (13:10; this
+  ≈ 06:20; **caveat 16:18: it coupled nurses only**; reopened narrowly and
+  corrected 21:15 / 22:56: with foragers coupled κ = 1 overshoots the
+  data's synchrony — diagnostic capacity only; still no further κ or τ
+  arms); discrete slow episodes at the tested settings (13:10; this
   rejects the settings, not the mechanism, 13:11); a contact-based
   activation arm is not warranted on current evidence (14:02, user).
 - **Measurement:** the track-only measurement checks stopped at checks A
@@ -2241,3 +2250,234 @@ given).
    unresolved synchrony disclosed; wall behaviour and packing settled
    before any spatial coupling; the persistence-target prerequisites
    stay before any fit.
+
+**2026-10-17 ≈ 21:18 UTC — Oracle correction (user decision 21:15 item
+2): fix, regression test and rerun designed before running.**
+- **Fix:** the oracle multiplier now also scales the foragers' own
+  walk-on value (`P.nest.forager.restToActive`), restored after each
+  policy call; `oracleNurseOnly` (`--oracleNurseOnly`) keeps the pre-fix
+  behaviour so runs logged before the fix reproduce. Default (no oracle)
+  path unchanged. **Regression test** (`test/oracle.test.ts`, forager
+  overlay as at the start point, restToActive 0.6, activeToRest 1.07): a
+  constant factor 2 equals doubling both role values; with
+  `oracleNurseOnly` it equals doubling the nurse value only; both values
+  restored. Passes.
+- **Rerun = the 05:11 design, unchanged in settings and rule:** start
+  point (σ 0.4), original geometry (no wall switch); arms **coupled κ
+  0.5 and κ 1 (τ_c 60 s), placebo SD 0.32 and 0.53 (τ_c 60 s)** — the
+  logged placebo SDs; no other κ or τ. Outputs as then: rows
+  (`diagS2018 --at start --oracle … --reps 4`, paired with
+  `logs/sf/diag-ctl.json`), per-ant activity (`tmpTrackerSim` 12 h,
+  `simact.py`, control `sim-s0.4`), synchrony (`tmpShortSim --trips`,
+  4-h light window, `syncAgg.py`). The synchrony control is rerun
+  (`oc-ctl`) only to add the forager-only series; its all-ant and nurse
+  values must reproduce the earlier control (check, reported).
+- **Reading, as fixed at 05:11:** (a) *synchrony reproduced by coupling*
+  if a coupled arm closes ≥ half the gap at both 1 min and 10 min (all
+  ants, light: D ≥ 2.7 and ≥ 3.9) while the placebo of the same κ stays
+  at the control's level (control CI); (b) *persistence protected*: nurse
+  and forager 6-h lag correlation within 0.10 of the control; (c) rows
+  and spread reported as gains / costs against control and placebo.
+  **Reported beside (user):** role-specific synchrony (nurses, foragers)
+  and persistence; the coupled arms' realised SD of log g next to the
+  placebo SDs (a mismatch > 20 % is flagged, the rule unchanged). A
+  pass establishes diagnostic capacity only; Y leaves the spatial
+  mechanism unresolved.
+- Data side: `tmpShortData.ts` rerun locally (22 colonies) to add the
+  forager-only synchrony series; all other keys must equal the
+  pre-rerun files (backed up in `logs/short/pre-2120/`; check reported).
+- **Launched ≈ 21:19** (`run.sh` run `oc-20261017T211940Z`,
+  `scripts/scratch/box/run-oc.sh`): stage 1 rows (4 × `diagS2018`,
+  `SIM_WORKERS=15` each), stage 2 activity and synchrony (198 runs,
+  `xargs -P 62`). Copied the fixed `colonyBles.ts`,
+  `colonyStroeymeyt.ts`, `s2018Lib.ts`, `antPhysics.ts`,
+  `tmpShortSim.ts` (forager-only synchrony added) and the tests; md5
+  sweep shows only the known `lib.ts` / `paperText.ts` differences and
+  `syncStats.ts`, **left at the box's version on purpose** (the one the
+  05:11 run used, so the arms' synchrony is computed as then; whether
+  the local block-wise version gives the same D for one 4-h window is
+  not checked and not relied on).
+  Outputs `logs/oc/`, `logs/act/sim-sOC*`.
+
+**2026-10-17 ≈ 21:26 UTC — Before designing the wall rule: data
+anchors for the guard, and a further Q qualification (descriptive;
+found by Claude, not yet put to the user).** Data side for oracle
+correction done: `tmpShortData` rerun identical to the backups in 22 / 22
+colonies apart from the new forager key. Exits on recorded tracks with
+the `tmpShortSim` counter (`scratch/exitsData.ts`, `logs/q/exits-data-*`);
+moving fraction of the data from comparison X's per-ant series (same
+step definition). Geometric means over colonies, light / dark:
+
+| | data | baseline | W | W+E(0.25) | W+E(1.0) | W+S(3) |
+|---|---|---|---|---|---|---|
+| exits / in-nest ant-h | 0.204 / 0.202 | 0.348 / 0.356 | 0.238 / 0.243 | 0.170 / 0.170 | 0.146 / 0.147 | 0.200 / 0.205 |
+| moving fraction | 0.0241 / 0.0176 | 0.0265 / 0.0264 | 0.0292 / 0.0292 | 0.0084 / 0.0084 | 0.0025 / 0.0024 | 0.0171 / 0.0174 |
+
+- **The guard was anchored to a baseline that is itself off:** baseline
+  exits 1.7–1.8× the data's (this counter counts every observed in →
+  out transition, so entrance excursions and boundary flicker are
+  included on both sides), moving fraction 1.10 / 1.50×, and no light /
+  dark activity contrast (data 1.37×, model 1.00). **W moves exits
+  toward the data (1.16–1.20×) and moving fraction away (1.21 /
+  1.65×).**
+- **Further Q qualification (an omission in the 16:19 design: the guard
+  covered W only):** the aggregation arms cut activity drastically —
+  moving fraction ×0.29 (E 0.25) and ×0.09 (E 1.0) relative to W; W+E(1.0)
+  is ≈ 10× stiller than the data. The "packing" verdict was reached by
+  largely freezing the colony; stop-rate multiplication is not a
+  viable form of aggregation. Any packing follow-up must keep activity
+  (and exits) as guarded quantities and redistribute where ants stop
+  rather than how often.
+
+**2026-10-17 ≈ 21:31 UTC — User decisions on the guard and Q (pasted,
+adopted), and comparison WR (wall rule) designed before building.**
+- **Guard re-anchored to the data (option B; the user withdrew
+  "preserve exits" given the baseline's excess).** Exact rule: for each
+  guarded quantity, mismatch **m = max(model / data, data / model)**;
+  an arm passes a quantity if **m_arm ≤ 1.10 × m_baseline**. Quantities,
+  each separately: exits per in-nest ant-hour (light, dark), moving
+  fraction (light, dark), the light / dark ratio of the moving fraction,
+  and the light / dark ratio of moving-involved contacts (cell 5.1 /
+  dwell 0, per detected ant-frame). Passing means **acceptable for the
+  next comparison**, not that the quantities are reproduced.
+- **Q's interpretation (beside the table verdict, which stands):** the
+  missing activity guard, applied now: W+E(0.25) / W+E(1.0) moving
+  fraction ≈ 0.008 / 0.0025 against the data's 0.024 / 0.018 (21:26).
+  What Q shows is **an over-packed, nearly frozen colony plus M-sized
+  error producing enough crossings** — a narrow demonstration of
+  possibility; it does not resolve the contact blocker.
+- **Packing follow-up (later, pre-registered separately):** every arm
+  guarded against the data and compared with the chosen wall control;
+  aggregation changes where stops happen, and realised activity, exits
+  and still-run durations are checked (preserving the nominal stop rate
+  is not enough).
+- **Oracle correction:** unchanged, read on its 05:11 rule and geometry.
+
+*Comparison WR — wall rule.*
+- **Arms** (start point, 22 colonies × light / dark × 12 h, seed 4242,
+  control observer, `--lite --robust`): **W** (uniform inward heading;
+  Q's `q-W-ctl` runs reused, same seeds and code) and **W-spec**
+  (specular reflection: at an edge the heading is mirrored — of π − h and
+  −h, the one whose next 0.5 mm stays on the surface; if both, the
+  smaller turn; if neither, reverse; no random draw). Neither adds a
+  chance to stop or changes rests. Reference: Q's baseline (`q-base-ctl`)
+  and the data (exits `logs/q/exits-data-*`, moving fraction from X's
+  per-ant series, moving-involved contacts from `logs/robust/data-*`).
+- **Guard per quantity as above**, on geometric means over colonies
+  (point estimates). **Uncertainty rule, fixed now:** the colony
+  bootstrap (2000, colonies resampled jointly for arm, baseline and
+  data) of m_arm / m_baseline is reported per quantity; a quantity
+  passes on its point estimate; if its 95 % upper bound exceeds 1.10 the
+  pass is labelled "uncertain" (still a pass); a rule passes if every
+  quantity passes.
+- **Choice:** among passing rules, the one with the lower wall-band
+  share (3 mm; the reason for the rule); if neither passes, reported, and
+  the packing follow-up waits for the user. Occupancy correlation, S1–S3
+  and still–still crossings reported beside, not used.
+- **WR built and queued ≈ 21:34.** `ColonyOptions.wall: 'specular'`
+  (`ColonySim.specularTurn`), `--wall specular` (`s2018Lib.ts`); test:
+  specular changes the run and differs from inward (`test/packingArms`;
+  13 / 13 with `test/oracle`; tsc clean). Data references for the guard
+  precomputed in `logs/q/guard-data.json` (exits from
+  `exitsData.ts`, moving fraction from X's per-ant series,
+  moving-involved contacts from `logs/robust/data-*`); aggregator
+  `scripts/scratch/wrAgg.py` (not run). `run.sh` run
+  `wr-20261017T213410Z` waits for the oracle run's exit file, then
+  installs the staged `colonyBles.ts` / `s2018Lib.ts` (md5 checked; the
+  running oracle jobs keep their loaded copies) and runs 44 W-spec runs.
+
+**2026-10-17 ≈ 22:55 UTC — Comparison WR read (21:31 rule): W fails
+the guard narrowly, W-spec passes; W-spec is the chosen wall rule.**
+Run `wr-20261017T213410Z` ok (48 min, ended ≈ 22:23; 44 runs);
+`logs/wr/agg.txt` (`wrAgg.py`). m_arm / m_baseline per quantity (pass ≤
+1.10; bootstrap 95 %):
+
+| quantity | W | W-spec |
+|---|---|---|
+| exits light | 0.684 [0.660, 0.761] | 0.809 [0.775, 0.843] |
+| exits dark | 0.682 [0.652, 0.720] | 0.774 [0.750, 0.795] |
+| moving fraction light | **1.104** [0.998, 1.121] FAIL | 1.090 [0.983, 1.107] pass (uncertain) |
+| moving fraction dark | **1.104** [1.085, 1.122] FAIL | 1.084 [1.069, 1.099] |
+| light / dark moving fraction | 1.000 | 0.995 |
+| light / dark moving contacts | 1.006 | 1.005 |
+| wall-band share (baseline 0.524) | 0.160 | **0.108** |
+
+Mismatches behind the ratios (baseline → W-spec): exits 1.70 → 1.38
+(light), 1.77 → 1.37 (dark); moving fraction 1.10 → 1.19, 1.50 → 1.62;
+light / dark moving fraction 1.37 → 1.36; light / dark moving contacts
+1.52 → 1.53. **W-spec is acceptable for the next comparison** (not a
+reproduction of these quantities). The packing follow-up uses W-spec as
+its wall control; its design is pre-registered separately.
+
+**2026-10-17 ≈ 22:56 UTC — Oracle correction read (05:11 rule,
+original geometry): with foragers coupled, (a) is met and (b) kept — κ
+= 1 overshoots the data's synchrony; κ = 0.5 falls short.** Run
+`oc-20261017T211940Z` ok (53 min); `logs/oc/sync.txt`, `persist.txt`,
+`rows.txt`. Checks: the rerun synchrony control `oc-ctl` reproduces the
+earlier control (`t12-ctl`) exactly in all-ant and nurse D, 22 / 22
+colonies; the data side matched its backups (21:26). Realised SD of log g
+in the coupled arms 0.38 (κ 0.5) / 0.63 (κ 1) vs placebo SDs 0.32 /
+0.53: 1.19× both, just inside the 20 % flag.
+
+| D_w, light, 1 min / 10 min | data | control | κ 0.5 | κ 1 | placebo 0.32 | placebo 0.53 |
+|---|---|---|---|---|---|---|
+| all ants | 4.15 / 6.28 | 1.25 / 1.57 | 1.84 / 2.70 | **5.99 / 13.26** | 1.19 / 1.50 | 1.16 / 1.43 |
+| nurses | 3.67 / 5.12 | 1.16 / 1.42 | 1.52 / 2.00 | 4.45 / 9.01 | 1.11 / 1.30 | 1.08 / 1.26 |
+| foragers | 2.12 / 3.12 | 1.12 / 1.27 | 1.34 / 1.72 | 2.81 / 5.74 | 1.08 / 1.26 | 1.08 / 1.23 |
+
+- **(a) met:** κ = 1 exceeds the half-gap bars (2.7 / 3.9) at both widths,
+  indeed overshoots the data (all ants ×1.44 at 1 min, ×2.1 at 10 min);
+  its placebo does not rise. *Literal-reading note:* the placebo's 1.16
+  at 1 min lies just below the control's CI [1.19, 1.30] (1.43 inside
+  [1.37, 1.75] at 10 min); the rule guards against a placebo that rises
+  (modulation), and the 06:20 reading accepted a similar slightly-below
+  value, so it is read as "at the control's level", flagged. κ = 0.5
+  does not meet the bars (1.84 / 2.70). **Corrected ≈ 22:58 (user):**
+  the 05:11 rule's clause "the placebo stays at the control's level (the
+  CI of the control's D)" is **unmet as written at 1 min** (1.16 below
+  [1.19, 1.30]); it is reported as unmet beside the "no increase"
+  interpretation used at 06:20, not broadened. The capacity result
+  stands on κ = 1's size, not on that clause.
+- **(b) kept:** 6-h lag correlation nurse / forager: control 0.49 / 0.46;
+  κ 0.5 0.48 / 0.45; κ 1 0.48 / 0.41; placebo 0.32 0.48 / 0.48; placebo
+  0.53 0.52 / 0.47 (all within 0.10).
+- **(c) rows (loss, control 21 316):** κ 0.5 21 435, κ 1 19 143, placebo
+  0.32 18 999, placebo 0.53 15 688. The placebos' row gains equal or
+  exceed coupling's: as in the 06:20 run, the row gains come from
+  per-ant modulation, not sharing; κ 1 improves still.nurse slightly
+  (|z| 5.4 → 5.1) where placebo 0.53 worsens it (→ 7.4).
+- **Outcome per 05:11:** shared coupling of this global form *can*
+  produce the data's synchrony (at κ = 1 more than enough) without
+  breaking persistence. This establishes **diagnostic capacity only**:
+  the oracle is a cheat channel on the colony's true state. ~~X says the
+  synchrony is mainly within-nest and Y that it is graded over 1–4 cm,
+  which a global signal does not produce~~ **(overstated, corrected ≈
+  22:58, user):** X argues against a dominant driver shared *across
+  recording systems*, but a signal shared within one nest remains
+  possible; Y shows spatial structure that a purely uniform signal does
+  not explain (Y's κ = 1 reference, nurse-only, was flat beyond contact
+  range). Neither establishes that there is no global component; the
+  mechanism remains unresolved. The next question (05:11)
+  — external vs ant-to-ant coupling, and here the spatial form — is a
+  design, not a fit. The 06:20 "closed line" verdict is superseded for
+  the coupled-everyone case; no further κ or τ arms (user, 21:15).
+
+**2026-10-17 ≈ 22:58 UTC — User decisions after WR and the oracle
+correction (pasted, adopted).** Two corrections to the oracle reading
+made in place (22:56 entry, RESUME). Commit the oracle fix, the
+specular rule and their tests as the second checkpoint. Then **one
+bounded packing comparison: W-spec control plus two pre-registered
+taxis strengths** (redistribution left out). Before running, fix: the two
+strengths, the 8-mm range and the heading rule (including no resting
+neighbours and opposing directions); a **joint packing criterion** —
+median NN distance model / data within 0.90–1.10 plus a bounded
+near-share tolerance around the data, both phases, neither compensating
+for the other; the still-run summaries, tolerances and uncertainty
+rule; the existing data-relative guards for activity and exits. Reading:
+packing reached **and every guard passed** = usable; packing reached by
+failing a guard = failed candidate; neither strength reaching packing =
+this bounded test did not establish the explanation. Crossings under
+both observers reported beside, never used to choose strengths; W-spec's
+uncertain light-activity pass stays attached. No further κ or τ arms;
+after the two strengths, read against the fixed table before deciding
+anything else.

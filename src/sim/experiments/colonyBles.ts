@@ -110,6 +110,12 @@ export interface ColonyOptions {
    */
   oracle?: { kind: 'coupled'; kappa: number; tauC: number } | { kind: 'placebo'; sd: number; tauC: number; meanOne?: boolean } | { kind: 'const'; factor: number };
   /**
+   * The oracle's multiplier reaches nurses and foragers (their own `P.nest.forager` walk-on value too; fixed 2026-10-17
+   * ≈ 21:17 UTC). `oracleNurseOnly`: the earlier behaviour, nurses only (STATUS 16:18 defect), to reproduce runs logged
+   * before the fix.
+   */
+  oracleNurseOnly?: boolean;
+  /**
    * Slow-episode what-if (STATUS 2026-10-17, overnight; a diagnostic, not a mechanism, not adoptable). An in-nest ant
    * that walks enters, at `rate` per walking second, a slow episode of exponential duration (mean `dur` s) during which
    * its walker's speed is × `factor`; the episode ends early if it stops. Absent: nothing changes.
@@ -118,12 +124,14 @@ export interface ColonyOptions {
   /**
    * Comparison Q (STATUS 2026-10-17 ≈ 16:19 UTC; diagnostics, not mechanisms, not adoptable). `wall: 'inward'`: in the
    * nest an ant whose step reaches the edge of the surface takes a uniformly drawn heading that stays on the surface
-   * (own stream per ant) instead of turning along the edge. `aggregate`: each in-nest ant's stop rate (`activeToRest`,
+   * (own stream per ant) instead of turning along the edge; `wall: 'specular'` (comparison WR, STATUS ≈ 21:31): the
+   * heading is mirrored (of π − h and −h, the one whose next 0.5 mm stays on the surface; both: the smaller turn;
+   * neither: reverse), no random draw. `aggregate`: each in-nest ant's stop rate (`activeToRest`,
    * nurse and forager values) × (1 + k·n), n = resting in-nest nestmates within r mm (true state), recounted every 1 s.
    * `site`: stop rate × (1 + k·w(x, y)), w a map on 1-mm cells from (x0, y0), nx × ny, row-major by y. Absent: nothing
    * changes.
    */
-  wall?: 'inward';
+  wall?: 'inward' | 'specular';
   aggregate?: { k: number; r: number };
   site?: { k: number; x0: number; y0: number; nx: number; ny: number; w: number[] };
 }
@@ -466,6 +474,14 @@ export class ColonySim {
     };
   }
 
+  /** Comparison WR `wall: 'specular'`: the mirrored heading that stays on the surface (else reverse). */
+  private static specularTurn(x: number, y: number, h: number, walkable: (x: number, y: number) => boolean): number {
+    const turn = (g: number) => Math.abs(Math.atan2(Math.sin(g - h), Math.cos(g - h)));
+    const ok = [Math.PI - h, -h].filter((g) => walkable(x + Math.cos(g) * 0.5, y + Math.sin(g) * 0.5));
+    if (!ok.length) return h + Math.PI;
+    return ok.length === 1 || turn(ok[0]) <= turn(ok[1]) ? ok[0] : ok[1];
+  }
+
   /** A copy of the whole state; with `key`, its random streams are forked (independent continuation). */
   clone(key?: number): ColonySim {
     return deepClone(this, { share: IMMUTABLE, rekey: key });
@@ -525,13 +541,18 @@ export class ColonySim {
       if (!p) return null;
       if (outside[i]) return lasiusForager(p, interocept(a.body), a.mind, this.foragerP, a.body.rng);
       if (!orc && !stopMult) return lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
-      // The oracle scales the shared walk-on value only (it never reached foragers' own values: STATUS 16:18, kept so
-      // earlier runs reproduce); the comparison-Q multiplier scales the nurse and forager stop rates.
+      // The oracle scales the nurse and forager walk-on values (nurses only with `oracleNurseOnly`, the pre-fix
+      // behaviour); the comparison-Q multiplier scales the nurse and forager stop rates.
       const base = P.nest.restToActive;
       const baseA = P.nest.activeToRest;
       const f = P.nest.forager;
       const fA = f?.activeToRest;
-      if (orc) P.nest.restToActive = base * orc(i);
+      const fR = f?.restToActive;
+      if (orc) {
+        const g = orc(i);
+        P.nest.restToActive = base * g;
+        if (f && fR !== undefined && !this.o.oracleNurseOnly) f.restToActive = fR * g;
+      }
       if (stopMult) {
         const g = stopMult(i);
         P.nest.activeToRest = baseA * g;
@@ -543,6 +564,7 @@ export class ColonySim {
         P.nest.restToActive = base;
         P.nest.activeToRest = baseA;
         if (f && fA !== undefined) f.activeToRest = fA;
+        if (f && fR !== undefined) f.restToActive = fR;
       }
     });
     // A resting ant that walks this step (it woke, or leaves or returns) gets the full percept of the same pre-move state.
@@ -575,7 +597,7 @@ export class ColonySim {
       // A partial step (a rest/walk switch inside it) walks through a percept with the shorter dt.
       const p = per[i]!;
       const wp = this.o.slowEp && p.inNest ? this.slowWalk(i, a, p, !na.stand, dt) : this.walkFor(p, a);
-      if (!na.stand) walked[i] = walkAnt(w, a, na.walkFrac !== undefined ? { ...p, dt: p.dt * na.walkFrac } : p, wp, P.phys, na.motor, this.motor, undefined, this.o.wall === 'inward' ? this.inwardTurn(i) : undefined);
+      if (!na.stand) walked[i] = walkAnt(w, a, na.walkFrac !== undefined ? { ...p, dt: p.dt * na.walkFrac } : p, wp, P.phys, na.motor, this.motor, undefined, this.o.wall === 'inward' ? this.inwardTurn(i) : this.o.wall === 'specular' ? ColonySim.specularTurn : undefined);
     });
     // Food sharing between ants that both agreed, in donor-index order.
     w.ants.forEach((a, i) => {

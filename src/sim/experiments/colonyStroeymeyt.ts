@@ -54,6 +54,8 @@ export interface StroeymeytColony {
   pxRound?: number;
   /** Oracle colony-coupling diagnostic (STATUS 2026-10-17 ≈ 05:11 UTC; see `ColonyOptions.oracle`). Unset: none. */
   oracle?: ColonyOptions['oracle'];
+  /** Pre-fix oracle behaviour, nurses only (see `ColonyOptions.oracleNurseOnly`). */
+  oracleNurseOnly?: boolean;
   /** Slow-episode what-if (STATUS 2026-10-17, overnight; see `ColonyOptions.slowEp`). Unset: none. */
   slowEp?: ColonyOptions['slowEp'];
   /** Comparison Q switches (STATUS 2026-10-17 ≈ 16:19 UTC; see `ColonyOptions.wall` / `aggregate` / `site`). Unset: none. */
@@ -139,6 +141,7 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     exploreGiveUpSd: o.exploreGiveUpSd,
     exploreOutside: true,
     oracle: c.oracle,
+    oracleNurseOnly: c.oracleNurseOnly,
     slowEp: c.slowEp,
     wall: c.wall,
     aggregate: c.aggregate,

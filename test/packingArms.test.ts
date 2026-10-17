@@ -20,6 +20,8 @@ describe('comparison Q switches', () => {
   });
   it('the wall, aggregation and site switches change the run', () => {
     expect(rows({ ...base, wall: 'inward' })).not.toBe(none);
+    expect(rows({ ...base, wall: 'specular' })).not.toBe(none);
+    expect(rows({ ...base, wall: 'specular' })).not.toBe(rows({ ...base, wall: 'inward' }));
     expect(rows({ ...base, aggregate: { k: 1, r: 8 } })).not.toBe(none);
     expect(rows({ ...base, site: { k: 3, ...map(1) } })).not.toBe(none);
   });

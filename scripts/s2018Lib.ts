@@ -75,17 +75,19 @@ export function withObsVariant(c: StroeymeytColony, argv = process.argv): Stroey
     else if (kind === 'placebo') out = { ...out, oracle: mode === 'unit' ? { kind, sd: Number(v), tauC: Number(tauC), meanOne: true } : { kind, sd: Number(v), tauC: Number(tauC) } };
     else throw new Error(`--oracle ${orc}: kind must be coupled, placebo or const`);
   }
+  // `--oracleNurseOnly`: the pre-fix oracle (nurses only; STATUS 2026-10-17 ≈ 16:18 / 21:17 UTC), to reproduce earlier runs.
+  if (argv.includes('--oracleNurseOnly')) out = { ...out, oracleNurseOnly: true };
   // Slow-episode what-if (STATUS 2026-10-17, overnight): `--slowEp rate:dur:factor`.
   const se = at('--slowEp');
   if (se) {
     const [rate, dur, factor] = se.split(':').map(Number);
     out = { ...out, slowEp: { rate, dur, factor } };
   }
-  // Comparison Q (STATUS 2026-10-17 ≈ 16:19 UTC): `--wall inward`, `--agg k:r` (the site map is phase-specific: set by
+  // Comparison Q (STATUS 2026-10-17 ≈ 16:19 UTC): `--wall inward|specular` (specular: comparison WR, ≈ 21:31), `--agg k:r` (the site map is phase-specific: set by
   // the caller, e.g. `tmpShortSim --site k`).
   const wall = at('--wall');
   if (wall) {
-    if (wall !== 'inward') throw new Error(`--wall ${wall}: only 'inward'`);
+    if (wall !== 'inward' && wall !== 'specular') throw new Error(`--wall ${wall}: 'inward' or 'specular'`);
     out = { ...out, wall };
   }
   const ag = at('--agg');

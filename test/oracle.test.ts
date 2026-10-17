@@ -52,3 +52,24 @@ describe('slow-episode what-if', () => {
     expect(b['speedMove.nurse.light']).toBeLessThan(a['speedMove.nurse.light']);
   });
 });
+
+// Regression (STATUS 2026-10-17 ≈ 16:18 defect, fixed ≈ 21:17): with the foragers' own walk-on value in the overlay, as
+// at the start point, the oracle must scale it too; `oracleNurseOnly` keeps the pre-fix behaviour.
+describe('oracle reaches foragers with their own walk-on value', () => {
+  const PF = s2018Base({ ...LASIUS_PARAMS, nest: { ...LASIUS_NEST_B, forager: { activeToRest: 1.07, restToActive: 0.6 } } }, 1 / 300);
+  const scaled = (nurse: number, forager: number) => ({ ...PF, nest: { ...PF.nest, restToActive: PF.nest.restToActive * nurse, forager: { ...PF.nest.forager!, restToActive: PF.nest.forager!.restToActive! * forager } } });
+  const run = (P2: typeof PF, c: StroeymeytColony) => JSON.stringify(simulateStroeymeyt(P2, c, o).rows);
+  it('a constant factor 2 equals doubling both role values', () => {
+    expect(run(PF, { ...base, oracle: { kind: 'const', factor: 2 } })).toBe(run(scaled(2, 2), base));
+  });
+  it('with oracleNurseOnly it equals doubling the nurse value only (the pre-fix behaviour)', () => {
+    expect(run(PF, { ...base, oracle: { kind: 'const', factor: 2 }, oracleNurseOnly: true })).toBe(run(scaled(2, 1), base));
+  });
+  it('restores both values', () => {
+    const r = PF.nest.restToActive;
+    const f = PF.nest.forager!.restToActive;
+    simulateStroeymeyt(PF, { ...base, oracle: { kind: 'coupled', kappa: 1, tauC: 60 } }, o);
+    expect(PF.nest.restToActive).toBe(r);
+    expect(PF.nest.forager!.restToActive).toBe(f);
+  });
+});
