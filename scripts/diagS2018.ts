@@ -20,7 +20,7 @@ import zlib from 'node:zlib';
 import { S2018_FREE, S2018_SETTABLE, s2018AtBound, s2018Loss } from '../src/sim/experiments/stroeymeytTargets';
 import { arg, numArg, provenance, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
-import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018TargetsFromData, simulateAll, S2018_WATER_KEYS } from './s2018Lib';
+import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018TargetsFromData, simulateAll, S2018_WATER_KEYS, withObsVariant } from './s2018Lib';
 
 const CKPT = arg('--ckpt', 'logs/box-2026-10-15/logs/fitS2018-s0.ckpt.json');
 const AT = arg('--at', 'mean');
@@ -61,8 +61,9 @@ const MASKS = arg('--masks', '');
 const maskData = MASKS ? JSON.parse(zlib.gunzipSync(fs.readFileSync(MASKS)).toString()) : null;
 // --observer: the frozen tracker (default) or independent misses ('iid', the earlier observer); masks replace both.
 const OBSERVER = maskData ? 'iid' : (arg('--observer', 'tracker') as 'tracker' | 'iid');
-const colonies = loadS2018().colonies.map((c) => colonyFromData(c, OBSERVER)).map((c) => (maskData ? { ...c, masks: (maskData[c.label].ants as string[]).map((b) => new Uint8Array(Buffer.from(b, 'base64'))) } : c));
-console.log(`observer: ${maskData ? 'recorded masks' : OBSERVER === 'tracker' ? 'frozen tracker' : 'independent misses'}`);
+const colonies = loadS2018().colonies.map((c) => withObsVariant(colonyFromData(c, OBSERVER))).map((c) => (maskData ? { ...c, masks: (maskData[c.label].ants as string[]).map((b) => new Uint8Array(Buffer.from(b, 'base64'))) } : c));
+const VARIANT = { posDrift: colonies[0].posDrift ?? null, pxRound: colonies[0].pxRound ?? null };
+console.log(`observer: ${maskData ? 'recorded masks' : OBSERVER === 'tracker' ? 'frozen tracker' : 'independent misses'}${VARIANT.posDrift || VARIANT.pxRound ? `, variant ${JSON.stringify(VARIANT)}` : ''}`);
 if (maskData) console.log(`detection: recorded masks from ${MASKS}`);
 const targets = s2018TargetsFromData();
 const P = s2018Params(values, outRate);
@@ -111,6 +112,7 @@ console.log(`\nper-colony time (min, in worker): total ${sumMin.toFixed(1)}, slo
 console.log(byTime.map((b) => `${b.colony} ${b.ants} ${b.min.toFixed(1)}`).join(' · '));
 
 writeJson(OUT, {
+  ...(VARIANT.posDrift || VARIANT.pxRound ? { observerVariant: VARIANT } : {}),
   study: 'Step 4b diagnosis: per-row loss at one point (STATUS 2026-10-14)',
   source,
   values,

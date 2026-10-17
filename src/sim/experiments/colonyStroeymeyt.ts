@@ -41,6 +41,17 @@ export interface StroeymeytColony {
    * independent misses everywhere. Per role (the queen uses the nurse tracker).
    */
   tracker?: { nurse: DetectionTracker; forager: DetectionTracker };
+  /**
+   * Sensitivity variants (STATUS 2026-10-17 ≈ 01:30 UTC): a slowly varying
+   * position offset per ant, OU per axis with stationary SD `sd` (mm) and
+   * correlation time `tau` (s), from its own stream (drawn only when set).
+   * 'tag': at all times (a per-tag measurement error); 'rest': evolves only
+   * while the ant is in rest mode, from 0 at each rest, and is kept after
+   * (creep during rest, as an observed offset). Unset: none.
+   */
+  posDrift?: { kind: 'tag' | 'rest'; sd: number; tau: number };
+  /** Observed coordinates rounded to this pixel size (mm), as the recorded positions are. Unset: not rounded. */
+  pxRound?: number;
 }
 
 export interface StroeymeytRunOptions {
@@ -138,6 +149,14 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
   // Tracker state per ant: missed frames left in the current gap, observed history, onset multiplier, own stream.
   const T = c.tracker;
   const trk = T ? roles.map((_, i) => RNG.stream(o.seed, 0x0b60, i)) : [];
+  const D = c.posDrift;
+  const drift = D ? roles.map((_, i) => RNG.stream(o.seed, 0x0d21, i)) : [];
+  const dA = D ? Math.exp(-frameDt / D.tau) : 0;
+  const dS = D ? D.sd * Math.sqrt(1 - dA * dA) : 0;
+  const off = D ? drift.map((g) => (D.kind === 'tag' ? [g.normal(0, D.sd), g.normal(0, D.sd)] : [0, 0])) : [];
+  const dev = D ? roles.map(() => [0, 0]) : [];
+  const px = c.pxRound;
+  const quant = (v: number) => (px ? Math.round(v / px) * px : v);
   const gapLeft = roles.map(() => 0);
   const seenState = T ? roles.map(() => new ObservedState()) : [];
   const roleTracker = (i: number) => (roles[i] === 'forager' ? T!.forager : T!.nurse);
@@ -158,6 +177,26 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     ids.length = xs.length = ys.length = ins.length = 0;
     sim.w.ants.forEach((a, i) => {
       if (!a.body.alive) return;
+      // The position offset evolves every frame, seen or not.
+      let ox = 0;
+      let oy = 0;
+      if (D) {
+        const u = off[i];
+        const g = drift[i];
+        if (D.kind === 'tag') {
+          u[0] = u[0] * dA + dS * g.normal(0, 1);
+          u[1] = u[1] * dA + dS * g.normal(0, 1);
+        } else if (a.mind.mode === 'rest') {
+          const d = dev[i];
+          const n0 = d[0] * dA + dS * g.normal(0, 1);
+          const n1 = d[1] * dA + dS * g.normal(0, 1);
+          u[0] += n0 - d[0];
+          u[1] += n1 - d[1];
+          d[0] = n0;
+          d[1] = n1;
+        } else dev[i][0] = dev[i][1] = 0;
+        [ox, oy] = u;
+      }
       // A tracker gap runs on in time wherever the ant is.
       const hidden = T ? gapLeft[i] > 0 : false;
       if (hidden) gapLeft[i]--;
@@ -173,22 +212,24 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
       const inNest = r.kind === 'nest';
       const seen = m && frame < m.length * 8 ? ((m[frame >> 3] >> (frame & 7)) & 1) === 1 : T && inNest ? !hidden : drawn;
       if (!seen) return;
+      const X = quant(a.body.x + nx + ox);
+      const Y = quant(a.body.y + ny + oy);
       if (T) {
         // As in the statistics on recorded tracks: in-nest detections advance the observed history; one outside only ends a gap.
         const s = seenState[i];
         if (inNest) {
-          s.update(frame, a.body.x + nx, a.body.y + ny);
+          s.update(frame, X, Y);
           const R = roleTracker(i);
           if (trk[i].chance(1 - Math.pow(1 - R.p[s.cell()], mult[i]))) gapLeft[i] = drawGap(trk[i], R.dProb[s.cell() % DET_TSB_EDGES.length]);
         } else {
           s.lastFrame = frame;
-          s.x = a.body.x + nx;
-          s.y = a.body.y + ny;
+          s.x = X;
+          s.y = Y;
         }
       }
       ids.push(i);
-      xs.push(a.body.x + nx);
-      ys.push(a.body.y + ny);
+      xs.push(X);
+      ys.push(Y);
       ins.push(r.kind === 'nest');
     });
     acc.frame(frame, PHASE_HOUR[o.phase], ids.length, ids, xs, ys, ins);

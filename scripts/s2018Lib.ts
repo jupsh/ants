@@ -48,6 +48,25 @@ let frozenTracker: ReturnType<typeof loadTracker> | undefined;
  * independent misses at the colony rate), or with `observer` 'iid'
  * independent misses everywhere (the earlier observer, for comparisons).
  */
+/**
+ * Observer sensitivity variants from the command line (STATUS 2026-10-17 ≈
+ * 01:30 UTC): `--obsVariant tag|rest:sd:tau` (slow position offset per ant)
+ * and `--pxRound mm` (pixel rounding). Neither given: the colony unchanged.
+ */
+export function withObsVariant(c: StroeymeytColony, argv = process.argv): StroeymeytColony {
+  const at = (f: string) => (argv.includes(f) ? argv[argv.indexOf(f) + 1] : undefined);
+  const v = at('--obsVariant');
+  const px = at('--pxRound');
+  let out = c;
+  if (v) {
+    const [kind, sd, tau] = v.split(':');
+    if (kind !== 'tag' && kind !== 'rest') throw new Error(`--obsVariant ${v}: kind must be tag or rest`);
+    out = { ...out, posDrift: { kind, sd: Number(sd), tau: Number(tau) } };
+  }
+  if (px) out = { ...out, pxRound: Number(px) };
+  return out;
+}
+
 export function colonyFromData(c: DataColony, observer: 'tracker' | 'iid' = 'tracker'): StroeymeytColony {
   const col: StroeymeytColony = {
     label: c.colony,

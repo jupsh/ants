@@ -1546,3 +1546,257 @@ result; read together as agreed.**
   and simulation, same selection). Neither separates per-tag slow error
   from thorax movement; (1) excludes or confirms one class of
   measurement error, (2) says what the follow-up would have to produce.
+
+**2026-10-17 ≈ 01:05 UTC — Two track-only checks approved (user); then the
+track-only sequence stops unless they reveal a specific correctable
+problem.** If per-tag error and physical movement stay indistinguishable,
+that limitation is recorded and a **bounded sensitivity comparison across
+the plausible explanations** is chosen instead; the tracks are not
+required to identify what they cannot. The four speed settings failed
+their intended test at the start point: conclusion kept, no further
+tuning of those arms. Committed before these checks: `25e7c23`.
+Design (logged before running; data: 22 fit colonies, 24 h; simulation:
+start-point control, trips in use, as a reference with no camera; one
+code path):
+- **A — common component.** Windows of k = 60 frames (30 s; k = 10
+  secondary), non-overlapping, ending at multiples of k. Eligible ant in
+  a window: in the nest, detected at both ends, every step inside still
+  (< 0.6 mm/frame) with gaps ≤ 3 frames. Spatial thinning: greedy subset
+  with pairwise distance ≥ 10 mm (≈ 3 body lengths); windows with ≥ 4
+  thinned ants. Per window a least-squares rigid motion (translation +
+  small rotation about the subset's centroid) fitted to the ants'
+  displacements; statistics: share of the displacement sum of squares it
+  explains (R², uncentred) and the size of the fitted translation.
+  Baseline: each ant's displacement replaced by its own displacement in a
+  random other eligible window (positions kept; 20 shuffles). Per colony,
+  observed vs shuffled; summary across colonies (colony bootstrap).
+  Reading: R² and translation clearly above the shuffled baseline, with a
+  consistent direction across separated ants → a common component
+  (camera or image shift possible, but shared biological responses can
+  also produce it; described as a common component, not camera movement);
+  ≈ baseline → common drift constrained; per-tag error stays unresolved.
+- **B — displacement across periods.** One value per eligible still
+  period (bounded still run ≥ 60 frames, the MSD selection): squared
+  displacement between the run's first detection pair exactly 60 frames
+  apart, equal weight per period. Per colony quantiles (10/25/50/75/90 %)
+  and the share above the simulated true-rest level (4σ² × 3); summary
+  across colonies (colony bootstrap). Reading: median well above the
+  true-rest level → widespread small displacement; median near it with a
+  long upper tail → a minority of more mobile periods.
+
+**2026-10-17 ≈ 01:20 UTC — Checks A and B results (`logs/t12/ab.txt`,
+`scripts/scratch/abAgg.py`, `commonDrift.ts`; 22 fit colonies vs the
+start-point control). The track-only sequence stops here (user's rule).**
+- **A — no detectable common component.** 30-s windows (≈ 8 thinned
+  resting ants ≥ 10 mm apart, ≈ 2 900 windows per colony): R² of a rigid
+  motion, observed − shuffled, data +0.0002 [−0.0013, +0.0018]; the model,
+  which has no camera, +0.0059 [+0.0044, +0.0076]; direction consistency
+  0.293 vs shuffled 0.285 (model 0.278 / 0.279); share of windows above
+  their own 95 % shuffled R² 0.096 (model 0.109). 5-s windows: data
+  +0.004, model +0.003. Common drift (camera or image shift) is
+  constrained to negligible; per-tag error stays unresolved.
+- **B — displacement is widespread, not a minority.** One squared 30-s
+  displacement per eligible still period (equal weight), nurse, mm²: data
+  q10 / median / q90 0.094 / 1.27 / 9.3, **99 % of periods above 3× the
+  true-rest level** (foragers 99 %); model 0.0006 / 0.073 / 1.6, 64 %
+  (foragers 44 %); model truly at rest 0.0002 / 0.0013 / 0.0046, 6 %.
+  Data's still periods are almost never stationary at the tag level (even
+  q10 ≈ 0.3 mm in 30 s); the model's are mostly true rests plus a mobile
+  minority. (The per-period first-30-s values exceed the all-pairs MSD
+  mean, 0.39 mm² at k 60: displacement is larger early in a still period.)
+- **Measurement detail found:** data positions are whole pixels (1 px =
+  0.0230 mm; noise σ ≈ 0.018 mm); the observer does not round to the
+  grid. Specific and correctable, but negligible at the scales tested
+  (still threshold 26 px; band 0.15–0.6 mm = 6.5–26 px) and it does not
+  explain A or B.
+- **Limitation recorded:** from these tracks, slowly varying per-tag
+  error (e.g. tag tilt as the ant shifts) and real thorax movement during
+  rest are not separable. Established as a target either way: still
+  periods in the data carry widespread slow displacement (MSD and
+  per-period distribution above).
+- **Proposed bounded sensitivity comparison (for the user; not run):**
+  two variants calibrated to the same two data targets (long-still MSD at
+  30 s and the per-period median), both with pixel rounding in the
+  observer: (M) measurement — a slowly varying per-tag position error in
+  the observer (OU, amplitude and τ calibrated); (B) behaviour — resting
+  ants creep (small OU body motion during rest, calibrated). Judged at the
+  start point on the 32 rows (short-still rows especially), persistence,
+  T1a/T1b. Agreement → the identification gap does not matter for the
+  motion fit; disagreement → both carried as a disclosed sensitivity.
+
+**2026-10-17 ≈ 01:30 UTC — Sensitivity comparison approved (user):
+measurement (M) vs behaviour (B) explanations of the slow displacement in
+still periods. Design logged before running.**
+- **Observer options (default off, bit-identical; test):** in
+  `colonyStroeymeyt`, `StroeymeytColony.posDrift = { kind, sd, tau }`: a
+  slowly varying position offset per ant, OU per axis with stationary SD
+  `sd` (mm) and correlation time `tau` (s), updated every frame from its
+  own RNG stream (drawn only when set). `kind 'tag'` (M): runs at all
+  times, a per-tag measurement error. `kind 'rest'` (B): evolves only
+  while the ant is truly in rest mode, starting from 0 deviation at each
+  rest, and is kept afterwards (the ant has moved): creep during rest.
+  B is implemented in the observer as an offset rather than in the body
+  (an approximation: sub-mm creep, no effect on contacts assumed; logged).
+  `pxRound`: observed coordinates rounded to the data's pixel grid
+  (0.0229658793 mm). Both variants use pixel rounding; a rounding-only arm
+  (P) shows its own effect. Scripts take `--obsVariant tag|rest:sd:tau`
+  and `--pxRound mm` (`s2018Lib`).
+- **Calibration (each variant separately, start point, trips in use,
+  `tmpShortSim`, 22 colonies × 4 h):** targets from the data (fit data):
+  long-still MSD at k = 60 (colony mean; nurse 0.386, forager 0.350 mm²)
+  and the per-period median of check B (nurse 1.27, forager 0.98 mm²).
+  Objective: Σ over the 2 roles × 2 targets of (ln sim/data)². Grid sd ∈
+  {0.2, 0.3, 0.45, 0.7} mm × tau ∈ {10, 30, 90} s, one (sd, tau) per
+  variant shared by both roles; the best grid point is taken, no further
+  tuning; if it lies on a grid edge, the grid is extended once in that
+  direction (one step) and the best taken.
+- **Judging at the chosen points (paired with the control):** the 32 rows
+  (`diagS2018 --at start --reps 4`, `reportS2018` vs control), persistence
+  and spread (`tmpTrackerSim` 12 h, `simact.py`), T1a/T1b and checks
+  A/B (`tmpShortSim` at the chosen point). Reading, fixed now:
+  **agreement** if M and B move each short-still row (runStill P2, P10,
+  both roles) in the same direction and their values differ by ≤ 2 SE_data,
+  the loss decomposition by row family has the same ordering, and nurse
+  6-h persistence differs by ≤ 0.05 → the identification gap does not
+  matter for the motion fit (either variant can stand in, disclosed).
+  Otherwise **disagreement** → both carried as a disclosed sensitivity in
+  any later fit and its report.
+
+**2026-10-17 ≈ 01:50 UTC — Parked candidate: colony-coupling "oracle"
+diagnostic (user forwarded a proposal; user agreed to park it with a gate).**
+Agents given a true colony variable (e.g. number of ants moving, recent
+local activity) in a diagnostic fit, to see whether missing colony-level
+coupling explains the misfit; then replaced by a perceivable channel
+(slowly integrated percepts as mind state). Never adopted as such; kept
+out of `src/sim/behavior/`; fit-role targets only. **Safeguard:** a
+placebo arm with the same signal time-shuffled or from another colony;
+only a gain beyond the placebo counts. **Gate (run first, data statistic,
+no fit):** colony-level synchrony, data vs model through the same
+observer: D_w = Σ_bins (Σ_ants dev)² / Σ_bins Σ_ants dev², dev = an ant's
+moving fraction in the bin minus its own mean over the run, bins w = 1
+frame, 1 min, 10 min (≈ 1 under independence across ants, > 1 with
+synchrony); per colony, colony bootstrap. Only if the model clearly lacks
+synchrony the data have is the oracle diagnostic worth its cost, and then
+at the start point with one coupling parameter, not a full fit. Context:
+tonight's checks showed no colony-level signal so far (T2 unchanged by
+removing colony-hour variation; check A: no shared motion of resting
+ants); the main misfits are individual- or observation-level. Not run
+before the sensitivity comparison is read. Gate code prepared
+(`scratch/syncStats.ts`), not run.
+
+**2026-10-17 ≈ 02:20 UTC — Calibration grid result (`logs/t12/cal.txt`):
+no grid point fits both targets; best points on the grid corner, logged
+one-step extension running.** Objective (Σ (ln sim/data)², 4 terms):
+tag 0.7/90 1.74 (best), tag 0.45/30 1.81, tag 0.45/10 1.91, rest 0.7/90
+2.02 (best rest), …; rounding only (P) 42.4. **Structural mismatch:** in
+the data the per-period median of the first 30 s (nurse 1.27 mm²) exceeds
+the all-pairs MSD at 30 s (0.386); every stationary-OU point gives the
+reverse (tag 0.7/90: median 0.58, MSD 0.70). The data's still periods
+move more early than later (front-loaded displacement); a stationary
+offset (M) or creep that is stationary within a rest (B) cannot produce
+that, so the calibrated points will miss each target by ≈ ×1.8 in
+opposite directions. Not acted on beyond the logged rule: extension one
+step past the corner for both variants (sd 1.05, tau 270: points
+1.05/90, 0.7/270, 1.05/270), then the best point is taken and judged as
+logged, with this calibration misfit disclosed in the verdict.
+
+**2026-10-17 ≈ 03:05 UTC — Sensitivity comparison verdict: AGREEMENT under
+the logged rule — by both variants leaving the rows untouched.** Calibrated
+points (best of the grid and the logged extension; objective flat along
+the ridge, extension 1.91 vs 1.74): **M = tag 0.7 mm / 90 s, B = rest 0.7 mm
+/ 90 s**, both with pixel rounding. Judging (`logs/judge/`, paired with the
+control): loss control 21 316, rounding only (P) 21 311, M 21 123, B
+21 171; every short-still row moved ≤ 0.001 (|M − B| 0.00 SE), loss
+ordering by row family identical, nurse 6-h persistence M +0.48, B +0.49
+(control +0.49). `judgeAgg.py`: AGREEMENT.
+- **Reading:** for the 32 rows (steps classified at 0.6 mm/frame) it does
+  not matter whether the slow displacement in still periods is per-tag
+  error or creep: neither reaches the threshold. The identification gap
+  is **closed for the motion fit**; the observer is not revised (pixel
+  rounding negligible: −5 on 21 316); disclosed as a limitation.
+- **Still open, as description only:** neither variant reproduces the
+  *form* of the data's sub-threshold movement: long-still steps nurse
+  0.15–0.3 / 0.3–0.6 mm/frame data 6.3 % / 3.8 %, M and B 16.8 % / 1.2 %;
+  lag-1 data +0.32 (band +0.39), M and B −0.05 (−0.02): the data's
+  sub-threshold steps keep their direction frame to frame (directed or
+  smooth movement), an OU position offset gives near-independent
+  increments; per-period q90 data 9.3 vs 2.5 mm²; front-loading
+  (calibration entry). T1b, T2 and check A unchanged by either variant.
+- **Consequence for the short stills (≈ 90 % of the start-point loss):**
+  not explained by slow measurement error (shown here) nor by
+  frame-scale noise (σ 0.018 mm vs the 0.6 mm threshold); together with
+  T1b (brief-still steps follow the walking heading, cosine +0.44 vs
+  +0.01 for stops) this is the behavioural support the user made the
+  condition for **one bounded speed follow-up** (shorter correlation
+  times, mean nearer the threshold, informed by the observed step
+  distributions). Designed and logged next, before running.
+
+**2026-10-17 ≈ 03:08 UTC — Bounded speed follow-up (the one the user's
+guidance allowed once the controls support a behavioural reading; the
+user left the choice of the next box run to Claude). Logged before
+running.** Observed step distributions (fit data, all 22 colonies; model:
+start-point control): moving-step displacement median nurse / forager
+data 0.88 / 1.03 mm/frame, model 1.03 / 1.48; steps at 0.3–0.6 mm/frame per
+moving step data 1.77 / 0.92, model 0.53 / 0.20. The data's walking is
+slower and straddles the threshold (nurses take more steps just below it
+than above it).
+- **Arms (start point, σ 0.4, C1 candidate otherwise; both groups alike):**
+  nestSpeedFactor × m, m ∈ {0.6, 0.8}, crossed with (SD factor, τ factor) ∈
+  {(1, 1), (2, 0.5), (2, 0.25), (3, 0.5)} (τ 1.24 / 0.62 / 0.31 s): 8 arms.
+  Shorter τ than the rejected arms (which had τ ≥ 1.24 s) so dips last
+  about a frame; lower mean so walking sits near the threshold. Control:
+  `logs/sf/diag-ctl.json`, `sim-s0.4`, `sf-ctl` (bit-identical code
+  path). Same three outputs per arm as the first comparison (rows,
+  persistence, step diagnostic).
+- **Reading, fixed now:** (i) mechanism: brief-still steps at 0.3–0.6
+  mm/frame ≥ 0.40 for nurses (data 0.60, control 0.20); (ii) short-still
+  rows: |z| falls for at least 3 of the 4 (runStill P2, P10, both groups);
+  (iii) nurse 6-h persistence within 0.10 of the control. Reported beside
+  them, as gains or costs: moving-step median and the 0.3–0.6 / moving
+  ratio vs the data, speedMove, moving runs, loss by row family. **An arm
+  meeting (i)–(iii) supports the hypothesis** → a fit with the two speed
+  factors and nestSpeedFactor free becomes a candidate for the user (with
+  the persistence targets); **none** → the speed line stops: the
+  short-still deficit stays a disclosed failure and the 4b motion fit is
+  re-planned without it. Rest parameters stay at the start point (the
+  arms show direction and size, not what a refit would reach). No further
+  speed arms after this one in either case.
+- **Also now (local, cheap, gated on the sensitivity verdict which is in):**
+  the synchrony gate of the parked colony-coupling candidate (data pass
+  and simulated control, `scratch/syncStats.ts`).
+  Launched on the box 03:10 UTC (`logs/sf2/run-sf2.sh`; its header cites
+  this entry as "≈ 03:20", written before the clock check).
+
+**2026-10-17 ≈ 03:30 UTC — Synchrony gate: first output not read
+(confound found in the gate code before interpretation).** `syncStats.ts`
+took each ant's mean over its whole run: 24 h for the data (light and
+dark), 4 h of light for the simulated control. A colony-wide day/night
+activity shift then makes all ants deviate together at any bin width
+and inflates the data's D_w, so data and model were not compared like
+for like. Seen (not read as evidence): data D 2.6 / 4.1 / 6.3 at 5 s / 1 min
+/ 10 min vs model 1.06 / 1.25 / 1.57. **Fix (before any reading):** D_w
+computed within 4-h blocks (the simulated window), each ant's mean taken
+within its block, pooled over blocks; data: the three light blocks
+(06–10, 10–14, 14–18 UTC); model: its single 4-h light window. Same
+reading as logged at 01:50.
+
+**2026-10-17 ≈ 03:50 UTC — Synchrony gate result (block-wise, as fixed at
+03:30): the data show colony-level synchrony the model lacks; the gate
+opens.** `logs/t12/sync-blocks.txt`, `scratch/syncAgg.py`. D_w, all ants,
+light blocks pooled (data) vs the start-point control's 4-h light window:
+5 s 2.63 [2.37, 2.91] vs 1.06 [1.05, 1.08]; 1 min 4.15 [3.70, 4.64] vs 1.25
+[1.19, 1.30]; 10 min 6.28 [5.51, 7.15] vs 1.57 [1.37, 1.75] (nurses alone
+2.28 / 3.67 / 5.12 vs 1.03 / 1.16 / 1.42). The confound fix changed
+nothing material (first output 2.60 / 4.06 / 6.29). **Per clock block**
+(1 min, all): 06 h 5.01 (likely recording start and day-2 partial blocks
+included), 10 h 3.70, 14 h 3.25, 18 h 2.84, 22 h 2.35, 02 h 2.91 — every
+block, settled mid-day and night included, is far above the model.
+Ants in the data move together at 5 s to 10 min; the model's ants are
+nearly independent (local encounters and crowding give it D ≈ 1.1–1.6).
+Not identified: ant-to-ant coupling vs shared external drivers
+(disturbance, vibration); check A excludes a common camera shift of
+resting tags, not shared biological responses. Bears on the disclosed
+"moves clustered in time" failure and possibly on persistence. Per the
+logged plan the colony-coupling diagnostic is now worth its cost: start
+point, one coupling parameter, with a placebo arm; designed and logged
+before any run, after the speed follow-up is read.
