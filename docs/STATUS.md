@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-16 (STATUS cleanup; fit C1 running on the box, phase 1). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-17 ≈ 14:10 UTC (STATUS cleanup; comparisons L and O running on the box). Keep this file current: update it whenever a step starts or finishes._
 
 Earlier history is archived verbatim: up to 2026-10-10 evening (session
 notes, step results, the first decisions log) in
@@ -11,16 +11,20 @@ options A and B, the B diagnostic, choosing Stroeymeyt) in
 ("the night archive"); the Stroeymeyt work from the colony split to the
 frozen candidate C1 (2026-10-10 night to 10-15) in
 [`archive/STATUS-2026-10-10-to-15.md`](archive/STATUS-2026-10-10-to-15.md)
-("the Stroeymeyt archive"). This file keeps the current state, the plan,
-the **rules in force**, the evidence policy and open problems. New
-decisions go in the Decisions log at the end; when this file passes about
-1,000 lines, archive again.
+("the Stroeymeyt archive"); fit C1 and the step-4b diagnostics after it
+(2026-10-15 late evening to 2026-10-17 ≈ 06:38 UTC, with the RESUME and
+Plan sections as they stood before the 2026-10-17 cleanup) in
+[`archive/STATUS-2026-10-15-to-17.md`](archive/STATUS-2026-10-15-to-17.md)
+("the C1 archive"). This file keeps the current state, the plan, the
+**rules in force**, the evidence policy and open problems. New decisions
+go in the Decisions log at the end; when this file passes about 1,000
+lines, archive again.
 
 ## ▶ RESUME HERE
 
-**State (2026-10-16).** Milestone M1, *Lasius niger* as the single
-reference species. Work is on `browser-sim-m1`, merged to `main` (GitHub
-Pages) when the user asks (last merge `e1e6847`, 2026-10-16).
+**State (2026-10-17 ≈ 14:10 UTC).** Milestone M1, *Lasius niger* as the
+single reference species. Work is on `browser-sim-m1`, merged to `main`
+(GitHub Pages) when the user asks (last merge `e1e6847`, 2026-10-16).
 
 - **E1 (walking): paused** (2026-10-09). The fitting procedure is
   validated, but fine-scale turning is still off by z 10–20 for every
@@ -44,163 +48,69 @@ Pages) when the user asks (last merge `e1e6847`, 2026-10-16).
     (`data/reference/stroeymeyt2018-fit-rows.json`); branch rule R ≤ 2.
     In the nest, ants are still ≈ 95 % of the time and move at ≈ 0.27
     cm/s when moving.
-  - **Step 4 (in-nest motion), current work.** The model as it now stands
-    (Stroeymeyt archive): option-B structure refitted in the nest, rest
-    depth (Lomax rests, `restShape`), encounter episodes (τ_on 0.2 s),
-    water as in the experiment, the frozen detection tracker
-    (`data/fits/s2018-tracker.json`), a per-ant walk-on factor σ 0.4
-    (fixed), trip inputs of 2026-10-11. Frozen as **candidate C1**
-    (`fda8ab3`); dt gate (0.05 vs 0.025) and window gate (2 h + 6 h, 4
-    seeds) **pass** (Decisions log). **Disclosed failures going in:**
-    short stops (P2 rows; the data's brief stills are slow steps just
-    under the threshold, the model's are real stops), trip shape (30-s
-    and 2-min survival, trip count), raw detection rate, moves clustered
-    in time (near-movement share 0.29 vs 0.10).
-  - **Fit C1 running** (bounded, exploratory; Rules in force) on the box
-    since ≈ 00:53 UTC 2026-10-16: `/root/ants-w7`,
-    `logs/fitS2018-c1.log`; budget ≈ 25 h / ≈ $8. Check at 01:40 (phase
-    1, start 0 gen 3, start 1 gen 2): ≈ 8–9 min per generation per start.
-    The phase-1 loss rule (< 300) is out of reach, so both starts run the
-    30-generation cap. **Correction (check 04:32, gen 22 both starts):**
-    the two starts run side by side (≈ 8.4 min per generation each, wall
-    clock), not one after the other, so phase 1 ends ≈ 05:35 UTC (≈ 4.7
-    h), not ≈ 09:15. Phase 2: 16.5–20 h at the logged 33–40 min per
-    generation (those figures may assume a shared pool; phase 2 alone has
-    all 62 workers), so **total ≈ 21–25 h, ≈ $6.5–7.7, within the budget**;
-    still read the first phase-2 generations' time. At gen 22 start 0's
-    generation best has hovered at ≈ 6200–7600 since gen 9 with σ ≈ 1.4–1.8
-    (no contraction); start 1 (≈ 36 000, ≈ 6× start 0) sits in a different
-    nurse regime (restToActive ≈ 0.06 vs 0.44, nestPauseFactor ≈ 5.6 vs
-    0.034) with restShape near its upper bound (37 of 50); start 0's
-    restCrowdExp is near 0 (0.03–0.12 of 1.25). The cross-start check will
-    not fire, so the report says "best within this search budget".
-    Phase-1 losses are search tools only, never fit quality.
-    **Check 06:33:** phase 1 ended 05:26, both at the 30-generation cap
-    (start 0 final σ 1.24, not contracted; start 1 σ 0.70).
-    Selection-batch losses at full settings 5196 (start 0) and 31281
-    (start 1), close to their last cheap generation bests (≈ 4800–5400,
-    ≈ 31 000–32 000), so the cheap settings ranked the starts as the full
-    ones do. Phase 2 from start 0 only (start 1 not within 20 %). Its
-    full-settings probe put nurse.nestPauseFactor at the SD cap 0.50 (flat;
-    the value ≈ 0.03 is near the 0.01 floor, pauses almost off), the
-    others at 0.02–0.06. Phase-2 gen 0 at 06:22, 15.8 min (the logged 33–40
-    min overstated it about 2×). **Phase-2 cap raised 30 → 60** (user,
-    decided on run time only; Decisions log 2026-10-16 ≈ 06:45): resumed
-    06:52 at generation 3 from the checkpoint, phase 1 not rerun; **end ≈
-    21:50 UTC, whole fit ≈ 21 h, ≈ $6.5**. Stop at 60 under the existing
-    rules, no further extension.
-    **Check 15:11 (phase 2 gen 36 of 60):** generation best 1158–1517
-    since gen 31 (gen 3: 4774), median rising (1718 → 2598), **σ growing
-    2.5 → 4.0** (still moving, not contracting). Gen-35 mean: nurse
-    restToActive 1.17, activeToRest 1.10, **nestPauseFactor 2.04** (the
-    start-point probes only went to 0.3 and found it inert, so "short stops
-    out of reach of the 11 parameters" may be wrong: check P2 rows in the
-    report); forager restToActive 2.85, activeToRest 1.33, nestPauseFactor
-    0.28; encounterStop 0.89; **restCrowdExp 0.00 (at its bound)**;
-    **restShape 0.66 (< 1: Lomax rests with infinite mean; the window gate
-    passed at 1.4 only — rerun it at the estimate before reading
-    anything)**. Loss reference points (debiased fitZ², 32 targets, light
-    simulation vs light and dark targets): light/dark floor 16.4 (nurse
-    still 6.6, forager still 2.9); a model right up to sampling noise ≈
-    30–50; all targets at 2 SE ≈ 130, at 3 SE ≈ 290; logged generation
-    bests are minima of 11 noisy evaluations and flatter the estimate.
-    **Check 15:58 (gen 39 of 60):** generation bests 849 (gen 37), 989,
-    1240; median 1597–2687; σ still growing (4.20 → 4.54); ≈ 16.5 min per
-    generation, so **end ≈ 21:45 UTC**. Prepared for the end: window gate
-    at the estimate = `checkS2018Window --mode window --fit <estimate>
-    --reps 4 --windows 21600 --warmup 7200 --dt 0.05` (same seeds and rule
-    as the C1 gate).
-    **Check 20:45 (gen 55 of 60):** generation bests 532–654 since gen 52,
-    median 814–1036, **σ now contracting** (3.20 → 2.75); ≈ 17.3 min per
-    generation, so the last generation ends ≈ 21:35 and the selection
-    batch follows; post-fit chain still waiting (pid 62443).
-    **Fit C1 ended 21:39 UTC** (20.8 h, 1389 evaluations; local copy
-    `data/fits/s2018-motion-c1.json`, log `logs/c1/fitS2018-c1.log`):
-    phase 2 stopped at the 60-generation cap, **not converged** (final σ
-    2.07; it contracted only from gen ≈ 50, 4.5 → 2.1). **Selection-batch
-    loss 620.3** (start 21 940). Estimate (mean of the last 20
-    generations): nurse nestSpeedFactor 0.0498, activeToRest 1.74,
-    restToActive 2.00, nestPauseFactor 0.150; forager 0.0720, 1.78, 4.06,
-    0.531; encounterStop 0.982 (**at its bound**, fit rule); restCrowdExp
-    0.148 (off its bound now); restShape 0.698 (< 1). **The mean was still
-    moving across the averaging window** (last − first, box units of 4):
-    restCrowdExp +0.86, nurse.nestPauseFactor −0.44, nurse.restToActive
-    +0.31, forager.nestPauseFactor −0.19 (log); the estimate averages a
-    drifting path. Fit file `provenance.commit` reads `7180735` dirty (the
-    box's own stale HEAD); the code is `c544f6f` (above).
-    **Window gate at the estimate: PASS, 0 of 16 rows** at 6 h vs 12 h
-    (4 seeds, 88 runs, same rule; largest runStill.P10.forager +0.14 SE
-    [−0.05, 0.32], still.nurse −0.13 [−0.25, −0.02]; `logs/c1/window-est.log`,
-    `logs/c1/checkS2018-window-fit-c1est.json`). restShape 0.70 does not
-    break the 6-h window. Read first, before any other output (as agreed). **Code the relaunched fit runs = commit `c544f6f`**
-    (cap-raise change; box `fitS2018.ts`, `lib.ts`, `cmaes.test.ts`
-    md5-identical to it, checked 16:05). All 244 tracked files under
-    `src/`, `scripts/`, `test/`, `data/fits/`, `data/reference/` match
-    `c544f6f` except two comment-only differences (`s2018Lib.ts`,
-    `profS2018.ts` on the box still cite `faster-fit.md`, reworded in
-    `a584559`); no code difference. Box worktree otherwise untouched while
-    the fit runs, except `scripts/calibTrips.ts` (`--check`) and the new
-    `scripts/reportS2018.ts`, copied at 17:14 (the fit does not import
-    either; checked).
-    **Post-fit chain (prepared 17:00, relaunched 17:14 with the trip
-    checks; routine steps of the agreed sequence):** `logs/post-c1.sh` on the box (log `logs/post-c1.log`,
-    end marker `logs/post-c1.done`) waits for the fit process to exit,
-    requires `wrote data/fits/s2018-motion-c1.json`, then runs, writing to
-    `logs/c1/`: (1) the window gate at the estimate (`window-est.log`; read
-    first, before anything else); (2) `diagS2018` at the estimate (`--at
-    start --set <all 11 fitted values>`) and at the start point, 4 'diag'
-    seeds per colony each, paired (`diag-est.json`, `diag-start.json`);
-    (3) per-ant activity through the frozen tracker at the estimate,
-    12 h, seed 4242 as the σ runs (`logs/act/sim-sC1est-c*.log`); (4)
-    trip statistics at both points, `calibTrips --check` (new, judge
-    only: the trip inputs in use, nothing in `data/fits` written; the
-    chain checks `s2018-trips.json` unchanged), 4 seeds, 12 h, dt 0.05,
-    warm-up 7200 (`trips-est.json`, `trips-start.json`). New
-    `scripts/reportS2018.ts` reads (2) and (4) and the fit file: per-row
-    fitZ and combinedZ (SE_sim from seed spread within colonies), the
-    start → estimate trade per row (paired shift), parameters against
-    their bounds; tested on the s3 walkOn07 vs base outputs (reproduces
-    the logged shifts). `scratch/simact.py` now sorts named sets (C1est)
-    after σ values. Dry runs: `diagS2018 --set` with all 11 values,
-    `tmpTrackerSim --set` (1 h).
-    **Stale done file:** `logs/fit-c1.done` (06:52:16) is from the killed
-    first run; the relaunch writes none. Check the process instead:
-    `ps -eo pid,etime,args | grep "[n]ode .*fitS2018.ts --cheap"`; the
-    end is `best selection-batch loss …` / `wrote data/fits/s2018-motion…`
-    in `logs/fitS2018-c1.log`.
-  - **Fit C1 done, report written** (Decisions log, 2026-10-16 night):
-    loss 647 (4 seeds), not adoptable (encounterStop at its bound, 19 of
-    32 targets > 3 SE), not converged (best within budget only). Short
-    stops reachable after all (53 % of the loss, from 92 %), traded
-    against the still-run tail and means; **per-ant persistence collapsed**
-    at the estimate (nurse 6-h lag +0.09 vs data +0.43); trip shape
-    unchanged (fixed give-up time).
-  - **Update 2026-10-17 ≈ 05:15 UTC:** the speed line is closed (no arm
-    of the 8 meets the logged rules; the short-still deficit stays a
-    disclosed failure; Decisions log ≈ 05:08). The oracle colony-coupling
-    diagnostic (design ≈ 05:11, pilot ≈ 05:14) runs on the box
-    (`logs/orc/run-orc.sh`); read it against the pre-registered reading,
-    nothing else. The persistence targets and the trip audit stay on hold.
-  - **Earlier "Now" (user, 2026-10-16 ≈ 23:35; Decisions log):** in-nest speed
-    fluctuation, targeted comparison at the start point (design logged
-    before running), and the compact per-ant persistence targets
-    (proposal logged; implemented in the shared statistics code while the
-    comparison runs). No activity-matched restShape diagnostic (not a
-    prerequisite). Then: entrance-excursion path audit, separate (trips;
-    lognormal give-up implemented, off). **No new fit before both are
-    done**; no Lomax replacement or restShape bound from the diagnostic
-    alone (if a finite mean is required: restShape > 1). Step 5 only once
-    motion is settled; the checks at the optimum (spread rule, crowding,
-    stays) wait for an adoptable motion fit.
-  - **Box (rented 2026-10-15):** vast.ai EPYC 9534, $0.307/h, `ssh -p 46397
-    root@85.218.235.6`; fit worktree `/root/ants-w7`, synced by file copy,
-    checksum-identical to `e168807` at launch (its git HEAD is older and
-    reads dirty). Node via `. /opt/nvm/nvm.sh && nvm use 22.22.1`,
-    **SIM_WORKERS=62** (one per core; 120 threads were slower). Old boxes'
-    files in `logs/box-2026-10-11/`, `logs/box-2026-10-15/`.
+  - **Step 4 (in-nest motion), current work.** Candidate **C1**
+    (`fda8ab3`; model, gates and fit rule in Rules in force). **Fit C1**
+    (box, 2026-10-16, 20.8 h, 1389 evaluations;
+    `data/fits/s2018-motion-c1.json`, `logs/c1/`, report
+    `scripts/reportS2018.ts`): best within this search budget, not
+    converged (stopped at the 60-generation cap), loss 647 (4 seeds);
+    **not adoptable** (encounterStop at its bound, 19 of 32 targets > 3
+    SE). It reached the short stops by compressing the whole still-run
+    distribution, and per-ant persistence collapsed (restShape 0.70 < 1).
+    Not adopted, not extended.
+  - **Diagnostics since** (C1 archive and the entries below; verdicts and
+    closed lines in Rules in force):
+    - The **short-still deficit** (≈ 90 % of the start-point loss) stays a
+      disclosed, unexplained failure: in-nest speed fluctuation (12 arms)
+      and discrete slow episodes (3 arms) fail their logged rules at the
+      settings tried; slowly varying tag error and rest creep, calibrated
+      to the data, leave the 32 rows unchanged (observer not revised).
+    - In the data, still periods carry widespread slow sub-threshold
+      displacement (MSD, check B; no common camera drift); the model's
+      still periods are mostly true rests.
+    - **Colony synchrony:** D_w data 2.6 / 4.2 / 6.3 at 5 s / 1 min / 10
+      min vs model 1.06 / 1.25 / 1.57; global oracle coupling (κ ≤ 1)
+      closes under 40 % of the gap in light.
+    - **Contacts (centre-distance crossings, 4.1 mm): not adequate**;
+      model / data light 0.50, dark 0.64, the deficit in crossings between
+      still ants (0.26 / 0.29). **A blocker for step 5** (user, 13:11).
+    - A **per-ant latent activity state** (independent slow OU walk-on
+      multiplier, the oracle's placebo) improves the nurse rows and moves
+      T2 toward the data, but it also raised the mean walk-on rate: the
+      mean-matched comparison L decides.
+    - **Contact-associated onsets** (test B): the association cannot be
+      attributed to the contact (a comparable elevation precedes it); no
+      contact-activation arm (user, ≈ 14:04).
+    - C-a (periodic bursts): inconclusive, its rule does not
+      discriminate; C-b: no refractory signature in complete still runs.
+  - **Running (box, launched 13:13 UTC, `logs/lo/run-lo.sh`; not checked
+    during the cleanup):** comparison **L** (mean-matched latent state,
+    arms L0–L3) and comparison **O** (contacts under the observer
+    variants M, B, P), readings fixed in the Decisions log (13:11, amended
+    13:15); then the test-B model control through the same code
+    (reference only; 13:53 / 13:54). **Next:** read L, then O, against
+    those readings, nothing else; then the user decides how to address
+    the contact blocker and whether a latent activity state becomes a
+    candidate model element (a mechanistic version, designed then).
+  - **On hold:** the compact per-ant persistence targets (proposal
+    2026-10-16 ≈ 23:35, C1 archive) and the entrance-excursion trip audit.
+    No new fit before the persistence targets and their weights are logged
+    and the rest form is settled; step 5 only once motion is settled; the
+    checks at the optimum (spread rule, crowding, stays) wait for an
+    adoptable motion fit.
+  - **Box (rented 2026-10-15, kept):** vast.ai EPYC 9534, $0.307/h, `ssh -p 46397
+    root@85.218.235.6`; worktree `/root/ants-w7`, synced by file copy (its
+    own git HEAD is older and reads dirty; code checksums are checked
+    against the local files before each launch). Node via `.
+    /opt/nvm/nvm.sh && nvm use 22.22.1`, **SIM_WORKERS=62** (one per core;
+    120 threads were slower). Old boxes' files in `logs/box-2026-10-11/`,
+    `logs/box-2026-10-15/`.
   - Scratch, never commit (excluded locally in `.git/info/exclude`):
-    `scripts/tmp*.ts`, `scripts/scratch/`. Logs: `logs/act/`, `logs/trk*/`,
-    `logs/s3/`, `logs/sp/`, `logs/short/`, `logs/trips/`.
+    `scripts/tmp*.ts`, `scripts/scratch/`. Logs (git-ignored): fit C1
+    `logs/c1/`; diagnostics `logs/sf/`, `logs/sf2/`, `logs/t12/`,
+    `logs/judge/`, `logs/orc/`, `logs/night/`, `logs/latent/`,
+    `logs/extra/`, `logs/spread/`, `logs/lo/`; earlier `logs/act/`,
+    `logs/trk*/`, `logs/s3/`, `logs/sp/`, `logs/short/`, `logs/trips/`.
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
   adequate 1999 fit and the fit-protection checks, or, if the stopping
@@ -227,7 +137,8 @@ any pilot.
    both phases** (`data/reference/stroeymeyt2018-fit-rows.json`); no
    recruiter-specific change before step 5 (branch rule).
 4. **Replace B's in-nest motion** (4a set-up done 2026-10-11; **4b: fit
-   C1 running**, RESUME). Fitted to rows 2–3 (32 fit rows; provenance:
+   C1 done 2026-10-16, not adoptable; diagnostics and the contact
+   blocker**, RESUME). Fitted to rows 2–3 (32 fit rows; provenance:
    fitted, Stroeymeyt fit colonies); row 1 (forager stays) and crowding
    as checks; the spread rule at the optimum. Row 4 (contacts vs density)
    still waits on the contact observer's validation against the
@@ -269,8 +180,8 @@ any pilot.
   from colony and nest size, trophallaxis flow rate for `shareRate`,
   antennation durations), so fewer directions are flat. E6 must not be
   used to fix anything.
-- **Box:** rented 2026-10-15 for step 4b (RESUME); whether it stays for
-  step 5 is the user's call after C1.
+- **Box:** rented 2026-10-15 for step 4b and kept (RESUME); whether it
+  stays for step 5 is the user's call.
 
 ## Rules in force
 
@@ -491,7 +402,8 @@ Stroeymeyt archive; each item traceable to its dated entry there):
   each start's estimate (mean of its last 5 generation means) scored at
   full settings on the selection batch (3 seeds × 22 colonies). (3) Phase
   2, the fit: full settings, CMA-ES from the better estimate, σ 0.5, at
-  most 30 generations for C1, tolX 0.03, estimate = mean of the last 20
+  most 30 generations for C1 (raised to 60 on 2026-10-16 for run time
+  only; C1 archive), tolX 0.03, estimate = mean of the last 20
   generation means, then the selection batch. (4) No IPOP restart; if the
   other start's selection loss is within 20 % and its estimate differs by
   > 0.5 box units in any coordinate, phase 2 also runs from it. (5)
@@ -501,6 +413,51 @@ Stroeymeyt archive; each item traceable to its dated entry there):
   report items as in the Decisions log (2026-10-15 late evening). No new
   behavioural mechanism and no relaxed gate without the user; no further
   model expansion this round (user, 2026-10-15).
+
+Stroeymeyt step 4b after fit C1 (collected 2026-10-17 from the C1
+archive; each item traceable to its dated entry there or below):
+- **C1:** a useful diagnostic fit; not adopted, not extended (guidance,
+  2026-10-16 ≈ 23:30).
+- **Rest form:** no automatic switch away from Lomax and no restShape
+  bound from the persistence diagnostic alone; if a finite mean
+  spontaneous rest is required, the bound is restShape **> 1** (strict),
+  a property of the isolated rest, not of observed rests interrupted by
+  other behaviour (2026-10-16 ≈ 23:30).
+- **Next motion fit:** per-ant persistence among its targets as a compact
+  set with its weighting fixed beforehand (correlated lags never count as
+  independent targets); a four-row proposal (persistence and top-20 %
+  spread per group) logged 2026-10-16 ≈ 23:35, on hold; whether σ becomes
+  free is not decided. No full search budget before this is logged.
+- **Hypotheses are judged on gains and costs together**, persistence
+  included; costs listed by row family, never hidden in a sum
+  (2026-10-16 ≈ 23:30, 23:35).
+- **Closed lines (no further arms):** in-nest speed fluctuation (4 arms
+  with the mean kept, 2026-10-17 ≈ 00:10 / 00:55; 8 with the mean lowered
+  and shorter τ, ≈ 05:08); global oracle coupling (no further κ or τ_c,
+  ≈ 06:20); discrete slow episodes at the tested settings (13:10; this
+  rejects the settings, not the mechanism, 13:11); a contact-based
+  activation arm is not warranted on current evidence (14:02, user).
+- **Measurement:** the track-only measurement checks stopped at checks A
+  and B (2026-10-17 ≈ 01:05 rule); slow per-tag error vs rest creep is
+  not separable from the tracks, recorded as a limitation. For the 32
+  motion rows the difference does not matter (sensitivity verdict
+  AGREEMENT, ≈ 03:05) and the observer is not revised; for contacts it is
+  open (comparison O, 13:11 / 13:15). Observer variants (`posDrift` tag /
+  rest, `pxRound`) are off by default.
+- **What-if switches** (`ColonyOptions.oracle` coupled / placebo / const,
+  `slowEp`) are runner-level, outside `src/sim/behavior/`, off by default
+  (tested bit-identical) and never adoptable; a mechanism one of them
+  suggests is designed separately and logged before acting (≈ 05:11,
+  05:43, 06:22).
+- **Contacts:** contacts from tracks are crossings of tracked centres
+  into 4.1 mm (far again past 5.1 mm), not verified touches; the contact
+  deficit is a **blocker for step 5** (user, 13:11).
+- **Literature-derived structures parked** until the current tests are
+  read (user, 2026-10-16 ≈ 23:58): a two-class or mixed activity trait, a
+  duration-dependent stop hazard, "the more the faster"; an excitable
+  coupling diagnostic (contact-based activation with refractoriness,
+  2026-10-17 ≈ 06:38) needs the user's decision. Literature helps choose
+  tests; it does not expand the model before their results.
 
 E6 (pre-registered 2026-10-09; development benchmark):
 - **Ensemble:** the ranking-check survivors plus the flat-direction
@@ -736,6 +693,16 @@ non-optimum disclosed):
   - **Planckaert et al. 2019** (Sci. Rep. 9:15620): unread; probably the
     same experiments as E6, so treated like E6 development until the
     overlap is checked from its methods alone.
+  - **Napoli, Garnier & Porfiri 2026** (PRX Life 4:033010,
+    doi:10.1103/ghnl-p5c1; `literature/NapoliGarnierPorfiri2026_NestPhaseTransition_PRXLife_DEVELOPMENT.pdf`):
+    **DEVELOPMENT** (user, 2026-10-17 ≈ 06:38 UTC). Theory paper: active /
+    inactive / refractory ants, contact-based activation carried by
+    movement, bursts past a speed–density threshold (*Temnothorax*
+    parameters; no *Lasius*, no tracking data; Stroeymeyt only as a
+    co-author of a cited paper). Read in full except the appendices
+    (2026-10-17 ≈ 06:30 UTC). Source of hypotheses and test choices only
+    (excitable coupling, burst periodicity, refractory signature); no
+    parameter, target or validation claim.
   - **Lenoir & Ataya 1983** (Z. Tierpsychol. 63:213–232): development
     (structure source for in-nest resting); its abstract was seen while
     identifying the scan. **Role confirmed 2026-10-16:** DEVELOPMENT,
@@ -826,7 +793,13 @@ Full results, tables and the history of each step are in the archive
   condenses colonies (bound 1.25); detection gaps are clustered and
   heavy-tailed (frozen tracker); per-ant activity persists for hours
   (walk-on factor σ 0.4); the short-stop deficit is a recorded failure.
-  No valid colony fit yet.
+  Fit C1 (2026-10-16, C1 archive): not adoptable; it reached the short
+  stops only by trading the still-run tail and per-ant persistence. Since
+  (2026-10-17): the short-still deficit is not produced by speed
+  fluctuation or slow episodes at the settings tried and is insensitive
+  to slow measurement error; the data's colony synchrony and contacts
+  between still ants are not reproduced; a per-ant latent activity state
+  is under test. No valid colony fit yet.
 
 ## Open problems and backlog
 - **Colony:** contact-triggered leaving (Table 2b, G3) not modelled;
@@ -835,9 +808,12 @@ Full results, tables and the history of each step are in the archive
   Plan); `leaveCropFrac`'s effect on nestmate departures (sensitivity with
   E6); load-mass constant `LOAD_MG_PER_UL` 1.08 mg/µL (0.6 M sucrose;
   E6's 1 M food ~4 % heavier, negligible).
-- **Stroeymeyt step 4 (beyond C1's disclosed failures):** in-nest walking
-  speed fluctuation (proposal parked until after C1); entrance excursions
-  vs foraging trips; the data's light/dark trip-location difference (×2.5
+- **Stroeymeyt step 4 (beyond C1's disclosed failures):** ~~in-nest walking
+  speed fluctuation (proposal parked until after C1)~~ tested and closed
+  2026-10-17 (Rules in force); colony synchrony and the deficit of
+  contacts between still ants (RESUME); the form of the slow
+  sub-threshold displacement in still periods (not reproduced by the
+  observer variants); entrance excursions vs foraging trips; the data's light/dark trip-location difference (×2.5
   in median) not modelled; contact observer validation and row 4.
 - **Fit speed:** options not taken (colony-subset screening, shared
   warm-up snapshots, fixing flat parameters before phase 2) are in the
@@ -872,1220 +848,392 @@ Full results, tables and the history of each step are in the archive
   aggregation for very large colonies (`docs/DESIGN.md`).
 
 ## Decisions log
-Earlier entries: the archive, the night archive and the Stroeymeyt
-archive. Newest last.
+Earlier entries: the archive, the night archive, the Stroeymeyt archive
+and the C1 archive (2026-10-15 late evening to 2026-10-17 ≈ 06:38 UTC;
+times before 13:10 cited below without a date, such as "05:43" or
+"00:25", are 2026-10-17 entries there). Newest last.
 
-**2026-10-15 (late evening) — User decisions after the diagnostics.**
-1. **No new speed mechanism yet.** In-nest speed fluctuation stays out of
-   the next exploratory fit; the **short-stop deficit is recorded as an
-   explicit failure** (current evidence: brief still steps are mostly
-   just-below-threshold slow steps in the data, noise-level stops in the
-   model; slower walking alone does not reproduce them). Not established
-   that speed fluctuation would resolve it, and estimating two parameters
-   from step speeds carries its own modelling assumptions. **Proposal
-   preserved** for a targeted comparison after the fit shows what the
-   current parameters achieve.
-2. **Trips: the 30-s target is retained;** the failed v2 calibration
-   (`logs/trips/calibTrips2-failed.json`) and the **existing trip inputs**
-   (`data/fits/s2018-trips.json`, 2026-10-11, fixed give-up) are kept; the
-   confirmation also missed trip count and 2-min survival, so dropping
-   the 30-s point would not resolve the inconsistency. "Extra
-   non-foraging excursions" **remains a hypothesis** until a path audit
-   confirms a distinct class of entrance excursions; then one separation
-   rule, applied to data and simulation alike, and genuine foraging trips
-   calibrated. Lognormal give-up stays implemented, off.
-3. **Box kept.**
-4. **Next milestone:** a **frozen candidate**, the numerical (dt) and
-   settling (window) gates, then a **bounded exploratory joint fit** with
-   the trip and short-stop failures disclosed. The fit is diagnostic: its
-   parameter estimates do not support final biological conclusions.
-- **Frozen candidate (C1), committed `fda8ab3`:** model at that commit
-  (water, frozen tracker `data/fits/s2018-tracker.json` md5 ca6f24c2…,
-  walk-on factor σ 0.4, give-up lognormal off), parameters `S2018_START`
-  (k = 11 free in the fit), trip inputs `data/fits/s2018-trips.json` md5
-  6ea0f3ad… (2026-10-11, fixed give-up 2147 s, outRate 1/7271 s), targets
-  `data/reference/stroeymeyt2018-fit-rows.json`. Disclosed failures going
-  in: short stops (P2 rows), trip shape (30-s and 2-min survival, trip
-  count with a lognormal), the raw detection rate, temporal clustering of
-  moves.
-- **Gates on C1 launched (box, `/root/ants-w7` synced to `fda8ab3`):**
-  window (4-h and 6-h prefixes vs 12 h, 2-h warm-up, dt 0.05; 22 workers),
-  dt (0.05 vs 0.025, 36 seeds × 22 colonies × 1 h, 1200-s warm-up; 22
-  workers), and beside them the agreed sensitivity runs at the start point
-  (`diagS2018`, paired 'diag' seeds: base, thirstFrac 0.8 / 0.95,
-  cropWaterRate ×0.2 / ×5, walkOnSd 0.7; 6 workers each, two chains) →
-  `logs/s3/`, `logs/checkS2018-{window,dt}-s3.json`. Gate rule as logged:
-  per row the 90 % bootstrap CI of the paired difference inside ±0.5
-  SE_data; the fit uses the shortest passing window.
-- **Bound for the exploratory fit (logged before launch; applies if the
-  gates pass):** the approved two-phase design with tighter caps: phase 1
-  (cheap search, both starts `S2018_START` and START2) at most **30**
-  generations per start (was 40), phase 2 (full settings) at most **30**
-  generations (was 60), estimate = mean of the last 20 generation means as
-  designed; `--tag c1`. Expected cost ≈ 5 h + 20 h on the box, ≈ $8.
-  Reported as diagnostic: per-row z, parameters at bounds, which rows the
-  fit trades (moving runs and speed against short stops), the persistence /
-  spread diagnostics of per-ant activity, the trip rows; no biological
-  conclusions from the estimates.
-- **User (2026-10-15 late evening):** interpretation confirmed: all 11
-  motion parameters jointly on the 22 colonies, trip inputs fixed,
-  lognormal give-up off for C1. **If both gates pass, launch within the
-  logged ≈ 25 h / ≈ $8 budget.** Report sensitivity shifts; **flag
-  mortality or continuing drift before launch.** If a gate fails, bring
-  back the failed rows and effect sizes before changing settings or
-  thresholds. In the fit report, distinguish "best result within this
-  search budget" from evidence that the model cannot fit the data
-  (agreement across starts, parameter bounds and persistent residual
-  patterns set how strong that conclusion can be).
-- **Mortality / drift under the sensitivity settings (local, scratch
-  `tmpDrift.ts`, start point, current trip inputs, light, 14 h, one seed;
-  colonies 40 / 67 / 143 ants; `logs/sensdrift/summary.txt`):** **no
-  deaths** in any of 18 runs; nurse minimum water ≥ 0.894 (thirst 0.8:
-  0.794, its own threshold), forager minimum ≥ 0.904; nurse water and
-  nurse activity flat between 2–8 h and 8–14 h in every run. Flagged: in
-  the 143-ant colony the largest-cluster share moves between windows
-  (base 0.335 → 0.452, cropWaterRate ×0.2 0.314 → 0.423, thirstFrac 0.95
-  0.380 → 0.282), single seeds, both directions, within the known swings
-  (±0.10, 2026-10-15); the window gate (22 colonies, paired) judges drift.
-  Transfers depend strongly on cropWaterRate (bouts to nurses per h, 143
-  ants: base 115–129, ×0.2 56–63, ×5 240–254) while observed activity does
-  not move: a sensitivity to report beside contact- or transfer-related
-  results later, not a fit-row effect.
-- **Gates on C1 (box; `logs/s3/`, `logs/s3/checkS2018-{window,dt}-s3.json`):**
-  - **dt 0.05 vs 0.025 (36 seeds × 22 colonies × 1 h): PASS, 0 of 16 rows
-    not shown equivalent** (largest |diff| 0.10 SE).
-  - **Window: FAIL, 4 of 16 rows at 6 h vs 12 h** (4 of 16 at 4 h). 6 h:
-    runStill.P2.forager −0.32 SE [−0.59, −0.05]; P10.nurse −0.16 [−0.54,
-    0.20]; P10.forager −0.34 [−0.80, 0.12]; P60.nurse −0.30 [−0.55,
-    −0.07]; the other 12 rows pass (|diff| ≤ 0.15). 4 h: P2.forager −0.26
-    [−0.61, 0.09], P10.forager −0.26 [−0.82, 0.25], P60.nurse −0.53
-    [−0.91, −0.15], P60.forager −0.16 [−0.53, 0.19]. Two of the four 6-h
-    failures are interval width (CI spans 0), two are small shifts (≤ 0.32
-    SE) with the CI past −0.5. Sign: the shorter window has *fewer* long
-    still runs, the direction of edge truncation (runs cut at the window's
-    end are not complete), and P60.nurse shrinks from −0.53 (4 h) to −0.30
-    (6 h). The pre-water drift had the opposite sign (short window *more*
-    long runs) and failed 14 of 16 up to 3.6 SE. One seed per colony.
-  - **Sensitivities (diagS2018, paired seeds; shifts vs base in SE_data;
-    loss base 21 940):** thirstFrac 0.8 / 0.95 and cropWaterRate ×0.2 move
-    no row by more than 0.72 SE (losses 22 083 / 21 799 / 21 980);
-    **cropWaterRate ×5** still.nurse −1.38, still.forager −1.12, others ≤
-    0.73 (21 989); **walkOnSd 0.7** P10.nurse −4.48, P2.nurse −2.16,
-    P2.forager −1.77, P60.forager +1.69, still.forager +0.95 (loss 20 232,
-    lower than at σ 0.4).
-  - Per the user: the window gate failed, so its rows and effect sizes go
-    to the user **before any change of settings or thresholds; fit not
-    launched.** Box idle since ≈ 00:07 UTC.
-- **User (2026-10-16 early):** option 1: **four seeds per colony in total,
-  the 6-h window and the gate unchanged**, original seeds retained, seed
-  list fixed before running, all 16 rows reassessed once. If it still
-  fails: **9 h vs 12 h under the same rule** (the fit's extra runtime and
-  cost approved if 9 h passes). No relaxing the gate. Truncation is
-  plausible (6 h smaller than 4 h) but sign alone does not exclude drift;
-  the state logs are the separate evidence against drift; the gate judges
-  the total window effect whatever its cause. **σ stays 0.4**; the lower
-  loss at 0.7 confirms that colony-average targets can favour a value that
-  worsens individual persistence: report that trade-off explicitly. Water
-  uptake has a material effect: fitted conclusions are conditional on the
-  chosen water parameters. dt pass resolves the numerical question for C1
-  at the tested start point. If the window gate passes, launch the bounded
-  diagnostic fit as agreed.
-- **Window recheck design (fixed before running):** `checkS2018Window
-  --mode window --reps 4 --windows 21600,32400 --warmup 7200 --dt 0.05`;
-  runs = 22 colonies × reps 0–3; seed of colony i, rep r:
-  `seedFor(2018, 'converge', 0x3d, i)` for r = 0 (the original seeds,
-  reproducing the first check), `seedFor(2018, 'converge', 0x3d, i, r)`
-  for r = 1, 2, 3. Units of the bootstrap = the 88 runs (as the dt gate's
-  colony × seed runs); rule unchanged (90 % CI inside ±0.5 SE_data, all
-  16 rows). The 9-h prefix comes from the same runs and is read only if
-  6 h fails. Check: rep 0 reproduces the first run's rows.
-- **Window gate, 4 seeds (box, `logs/s3/window-r4.log`,
-  `logs/s3/checkS2018-window-s3r4.json`): PASS, 0 of 16 rows at 6 h vs
-  12 h** (largest runStill.P2.forager −0.14 SE [−0.28, 0.00]; the four
-  rows that failed on one seed: P10.nurse −0.02, P10.forager −0.04,
-  P60.nurse −0.02, P2.forager −0.14). 9 h also 0 of 16 (not needed).
-  Rep 0 reproduces the first run exactly (mean differences equal to
-  7e-18 SE). Disclosed: bootstrap units are the 88 runs, as pre-logged
-  (the dt gate's convention), not colonies. **6-h window kept; fit
-  launched** as agreed: `fitS2018 --cheap-gens 30 --gens 30 --obs 21600
-  --tag c1` (62 workers) → `logs/fitS2018-c1.log` on the box.
-- **Fit C1 provenance:** the box worktree `/root/ants-w7` is synced by
-  file copy (its own git HEAD is older and shows dirty); at launch its
-  `src/`, `scripts/`, `data/fits/`, `data/reference/` were checksum-identical
-  to commit `e168807` (verified after launch). Read the fit's
-  `provenance.commit` with that in mind.
+**2026-10-17 ≈ 13:10 UTC — Overnight results read against their logged
+rules (box queue finished 10:28 UTC; the hourly watchers had not yet
+fired; read in the logged order).**
 
-**2026-10-16 — STATUS cleanup (user request).**
-- Decisions-log entries from the Stroeymeyt colony split (2026-10-10
-  night) to the short-stop / trip diagnostics (2026-10-15 late evening)
-  moved verbatim to `docs/archive/STATUS-2026-10-10-to-15.md` (checked
-  byte for byte against the previous file); the C1 entry above stays.
-  Rules still in force from them are collected in § Rules in force
-  ("Stroeymeyt step 4b"); the contamination log gains the Stroeymeyt
-  update and Greenwald 2015; RESUME, Plan and Results in brief rewritten
-  around C1. `docs/faster-fit.md` deleted (user; git history at
-  `e1e6847`); two code comments citing it now point to the archive.
-  `side-projects/faster-fit/` still cites it (the user's directory, left
-  alone).
-- Correction to the 2026-10-16 01:40 fit check: the phase-2 estimate was
-  given as ≈ 33 min per generation only; the logged start-point cost is
-  ≈ 40 min, so the total is ≈ 25–29 h (RESUME), at or over the ≈ 25 h
-  budget.
+*Slow-episode what-if (05:43 item 3): no arm supports it.* (i) nurse
+brief-still 0.3–0.6 share 0.223 / 0.242 / 0.252 vs control 0.194 (bar
+0.40); (ii) only forager P2 improves (|z| 51.1 → 50.0–50.5); nurse P2 and
+P10 get worse (P10 59.1 → 61.3–64.3); (iii) persistence kept (nurse 6-h
+0.52, control 0.49). Gains beside: speedMove (nurse |z| 4.7 → 1.8–3.1,
+forager 7.9 → 2.7–5.0) and still.nurse (5.4 → 2.9–4.3); loss rises
+(21 316 → 21 982 / 22 856 / 23 373). Discrete slowing does not produce
+the short stills either; recorded, no further slow-episode arms.
 
-**2026-10-16 ≈ 06:45 UTC — fit C1: phase-2 cap 30 → 60 (user).**
-- Decided on measured run time only, before any phase-2 result after
-  generation 0 was looked at (seen so far: phase-1 ends, both selection
-  losses, the phase-2 probe SDs, phase-2 gen 0's best 5082 / median 5340
-  and its 15.8 min). Phase 2 at ≈ 16 min per generation makes 60
-  generations ≈ 21 h total, ≈ $6.5, within the approved ≈ 25 h / $8; the
-  cap was cut to 30 for budget only, so this restores the design's search
-  allowance. Phase 1 stays at 30 (already done; not rerun).
-- **Stopping:** 60 under the existing rules (tolX 0.03, tolUpSigma), and
-  no further extension to obtain convergence. More generations give the
-  search a better chance to settle, not a guarantee of tolX; σ alone does
-  not describe the search width (the covariance matters: the tolX rule
-  uses σ·max(D)).
-- **Estimate:** the mean of the last 20 generation means is scored itself
-  at the selection settings (`score(r.meanAvg)`, full settings, 3 seeds
-  per colony), never inferred from the losses of the averaged points. Already so in the code; unchanged.
-- **Mechanism:** a validated cap increase, not removing the cap from the
-  checkpoint key: `loadCheckpointRaised` (`scripts/lib.ts`) lets named
-  numeric key fields only grow, all others must match exactly, and
-  `fitS2018.ts` refuses a raise once any phase-2 run has finished and
-  records it (`optimizer.phase2.maxGenerationsRaised`). Optimizer state
-  (mean, C, paths, σ, RNG snapshot, averaging window), completed
-  generations and saved runs come from the checkpoint; `maxGenerations`
-  is only cmaes's loop bound and generation seeds depend only on the
-  generation index, so the resumed run is the run that would have had cap
-  60 from the start (test: `test/cmaes.test.ts`, resume under a raised
-  cap is bit-identical to the long run). The generation in progress when
-  the process is stopped is rerun with the same seeds.
-- **Readings kept in scope:** the cheap/full agreement holds for the two
-  selected candidates only; it supports the start choice, not that the
-  cheap objective preserves rankings across parameter space. The flat
-  nurse.nestPauseFactor direction is a result to report, not a reason to
-  widen this run's model or bounds.
-- **Done 06:52 UTC.** A script on the box (`logs/switch-c1.sh`, log
-  `logs/switch-c1.log`) waited for the generation-2 checkpoint (06:52:14),
-  killed only that run's pids (main, npm, sh, its 62 workers), copied the
-  checkpoint to `logs/fitS2018-c1.ckpt.pre-gens60.json` (not opened) and
-  relaunched `--cheap-gens 30 --gens 60 --obs 21600 --tag c1`, SIM_WORKERS 62,
-  appending to `logs/fitS2018-c1.log` after a `=== resumed` marker. The
-  script's own "left alive" check was broken (malformed `ps` list, counted
-  0 regardless); checked by hand instead: no old pid alive, exactly 62
-  workers, all under the new run. Start-up lines (only these read): cap
-  raised 30 → 60, phase 1 both "done before (checkpoint)" with the same
-  selection losses, phase-2 probe SDs identical, "resuming at generation
-  3"; at most seconds of generation 3 were lost. New tests pass locally
-  (158/158) and on the box. **Provenance:** the box now differs from
-  `e168807` in `scripts/lib.ts`, `scripts/fitS2018.ts`,
-  `test/cmaes.test.ts` (sha256 prefixes 69bd13317d4e, f12ca5e7b5e2,
-  b4bc66512736; uncommitted local changes, same files); simHash unaffected
-  (it does not cover `scripts/`). Expected end ≈ 21:50 UTC 2026-10-16
-  (57 generations × ≈ 15.5 min + scoring), whole fit ≈ 21 h, ≈ $6.5.
+*Contact check (05:43 item 1): contacts NOT adequate.* Model / data
+contacts per ant-hour at 4.1 mm, control: light 0.50 [0.45, 0.56], dark
+0.64 [0.56, 0.74] (6 mm: 0.44, 0.56). The data's contacts involve a moving
+ant in 48 % (light) / 42 % (dark), the model's in 73 %; near share data
+0.95, model 0.80. So the model has ≈ 0.76 of the data's contacts that
+involve a mover but ≈ 0.26 of those between still ants. In-nest motion
+matters downstream. Arms moving contacts toward the data beyond the
+CI half-width: only the latent-state arms with SD 1 (light 0.60 / 0.59,
+dark 0.77 / 0.76); speed and slow-episode arms move away (0.35–0.47),
+C1 0.42 (near share 0.73), oracle arms unchanged. Reading (not a
+criterion): the missing contacts are mainly among non-moving ants, which
+points at the unreproduced slow sub-threshold displacement in still
+periods (00:25 / checks A, B) and at closer packing in the data.
 
-**2026-10-16 night — fit C1: diagnostic report.** Best within this search
-budget, **not** evidence that the model cannot fit: phase 2 ran from start
-0 only (start 1 not within 20 %), stopped at the 60-generation cap without
-converging (σ 2.07, contracting only from gen ≈ 50), and the mean was
-still drifting across the 20 averaged generations (restCrowdExp +0.86 box
-units of 4, nurse.nestPauseFactor −0.44). Outputs `logs/c1/` (box chain
-`logs/post-c1.sh`); report `scripts/reportS2018.ts` (new);
-persistence `scripts/scratch/simact.py` → `logs/c1/simact.txt`.
-- **Window gate at the estimate: PASS** (0 of 16; RESUME). Read first.
-- **Loss:** selection batch 620.3; `diagS2018` at the estimate, 4 fresh
-  'diag' seeds per colony, 646.9 (start 21 316, same seeds). Reference
-  points: floor ≈ 16, sampling noise ≈ 30–50, all rows at 2 SE ≈ 130. 8
-  of 32 targets at combined |z| ≤ 2, 13 ≤ 3, **19 > 3**.
-- **Where the 647 sits:** short stops (runStill P2, P10) 341 (53 %; at
-  the start 92 %), moving runs 110, long stops / still-run means 93,
-  stillness 74, speed 28. Worst rows (z light / dark): runStill.P10.nurse
-  7.2 / 7.2; runStill.P2.forager 6.7 / 7.4; runMove.P2.forager 7.0 / 6.4;
-  runStill.P10.forager 5.1 / 7.7; still.nurse −3.2 / −7.8 (part of it the
-  light/dark floor: the model has no phase dependence); runStill.P2.nurse
-  5.5 / 4.7; runStill.P60.forager −5.0 / −3.5; runStill.mean nurse −3.9 /
-  −3.7, forager −3.9 / −3.0. Within 2: runMove.mean (both groups),
-  runStill.P60.nurse, still.forager (light 2.0).
-- **Short stops are not out of reach of the 11 parameters** (the earlier
-  conclusion, from probes up to nestPauseFactor 0.3 at the start point,
-  was wrong): P10.nurse 59 → 7 SE, P2.forager 51 → 7, P10.forager 50 →
-  6.5, P2.nurse 34 → 5. The means: nurse and forager restToActive ×6 and
-  ×7, nurse nestPauseFactor 0.03 → 0.15, forager 5.0 → 0.53, restShape
-  1.4 → 0.70, **encounterStop 0.70 → 0.98 (at its bound, fails the
-  adoption rule)**: the fit wants more brief stops than encounters can
-  give.
-- **What was traded** (paired shifts start → estimate, in SE_data): the
-  still-run distribution was compressed as a whole. Survival past 2 s
-  and 10 s fell toward the data (−30 to −56 SE: more short stills; the
-  model had too few) and moving runs lengthened (runMove.P2 +14 / +16,
-  means +9.5), but the long tail and the mean went too far:
-  runStill.mean.forager 11.0 → 7.05 s (|z| 1.8 → 3.5; data 9.6),
-  runStill.P60.forager 0.030 → 0.018 (|z| 3.7 → 4.3), runStill.mean.nurse
-  19.7 → 10.0 (data 14.1, now too short, |z| 4.9 → 3.8), still.nurse
-  slightly worse (5.4 → 5.9). The data have more still runs under 2 s
-  (S(2 s) 0.52 vs 0.57 at the estimate, 0.81 at the start) *and* a
-  heavier tail than one rest process plus pauses gives (corrected
-  2026-10-16 night: first written reversed, "fewer under 2 s"); consistent with
-  the parked reading that the data's brief stills are slow steps under
-  the threshold (in-nest speed fluctuation), not tested here.
-- **Per-ant persistence collapsed at the estimate** (frozen tracker, 12-h
-  light block, seed 4242 per colony, Spearman lag correlation across ants,
-  Fisher mean over colonies): nurse moving fraction 1 h / 3 h / 6 h / 11 h
-  data +0.53 / +0.46 / +0.43 / +0.40; start point σ 0.4 +0.55 / +0.50 /
-  +0.49 / +0.49; **estimate +0.31 / +0.12 / +0.09 / +0.10** (below σ 0
-  at the start, +0.20 at 6 h). Near-movement share, nurses: data +0.42 at
-  6 h, estimate +0.00; foragers moving fraction 6 h: data +0.36, estimate
-  +0.08. Spread of per-ant 12-h totals: nurse moving fraction 10 / 50 /
-  90 % 0.0079 / 0.0170 / 0.0305, top-20 % share 0.357 (data 0.0034 /
-  0.0093 / 0.0271, 0.482; σ 0.4 at start 0.367); the near-movement share
-  improved (nurse median 0.146 vs data 0.102, start 0.290; forager 0.232
-  vs 0.278, start 0.447), raw detection 0.766 (data 0.815, start 0.727).
-  Reading (hypothesis, untested): with restShape < 1 and fast walk-on,
-  an ant's hour is dominated by whether it drew a very long rest, not by
-  its walk-on trait, so the colony-average rows were bought with the
-  individual structure the σ 0.4 choice was made to match.
-- **σ 0.4 vs 0.7 trade-off (start point, as agreed to report):** σ 0.7
-  lowered the loss (20 232 vs 21 940) but overshoots persistence (nurse
-  moving fraction +0.67–0.72 vs data +0.40–0.53; σ 0.4 matched). The fit
-  then lost persistence by other parameters at σ 0.4 fixed: colony-average
-  targets alone do not protect individual persistence.
-- **Trips** (`calibTrips --check`, 4 seeds, 12 h, dt 0.05, warm-up 7200;
-  trip inputs in use, unchanged): estimate / start z: trip.n −0.9 / −0.6,
-  foragerIn 0.0 / 0.0, **S(30 s) −8.3 / −10.7, S(120 s) +3.1 / +2.2,
-  S(600 s) +11.2 / +10.1, S(3600 s) −4.7 / −4.7**; trip median 2160 s vs
-  data 283 (mean 1466 vs 1177). The fixed give-up time (2147 s) shapes the
-  trips; motion barely moves them. Trip shape stays a disclosed failure
-  of the trip inputs (lognormal give-up implemented, off;
-  entrance-excursion audit parked).
-- **Conditional on the water parameters:** at the start point
-  cropWaterRate ×5 moved still.nurse −1.38 and still.forager −1.12 SE;
-  all conclusions above hold for the water settings in use only.
-- **Parameters at bounds:** encounterStop (0.982 of [0, 1]); none other
-  within 2 % of a bound (restCrowdExp 0.148, unit 0.12; restShape 0.698,
-  unit 0.23).
-- **Not adoptable** under the adoption rule (encounterStop at a bound;
-  19 targets > 3 combined SE). Next steps go to the user: the parked
-  proposals (in-nest speed fluctuation for short stops; entrance-excursion
-  audit for trips), and the persistence collapse as a new finding against
-  this estimate.
+*Dark-phase oracle synchrony (05:43 item 2, secondary):* data dark blocks
+2.52 / 3.99 (1 / 10 min), control 1.22 / 1.48; κ 0.5 1.43 / 1.93; κ 1 2.07
+/ 3.25 (≈ 70 % of the gap at both, so in dark κ 1 meets the half-gap
+bar); placebos 1.20–1.23 / 1.53–1.55, at the control's level. The
+primary (light) verdict stands (not met); dark adds that the global
+coupling gets closer when the data's own synchrony is weaker.
 
-**2026-10-16 ≈ 23:20 — Next steps after fit C1 (user agreed).** Order:
-persistence diagnostic → in-nest speed fluctuation (targeted comparison,
-not a fit) with the trip path audit locally in parallel → no new fit until
-per-ant persistence is a fit target (fit colonies, data role fit; the σ
-choice already inspected them, logged here) and the rest form is settled.
-- **Persistence diagnostic (logged before running; diagnostic only, no
-  fit, nothing in `data/fits` written).** Two explanations of the
-  collapse: (a) heavy rest tails — at restShape 0.70 the per-rest
-  log-multiplier SD (≈ 1.7) is ≈ 4× the trait's σ 0.4 and rests have
-  infinite mean, so an ant's hours are set by its longest rest; (b) a
-  swamped trait — with walk-on ×6–7 and encounterStop 0.98, still time
-  comes mostly from ant-independent stops (encounters, pauses) and the
-  walk-on trait matters less. Arms: the C1 estimate with restShape 1.4
-  (the start's value) and 50 (≈ no per-rest noise), all else at the
-  estimate; `tmpTrackerSim --mode tracker --obsH 12 --set …`, seed 4242
-  per colony (paired with `sim-sC1est`), 22 colonies × 2 arms, box.
-  Reading, fixed now: persistence climbing with restShape toward the
-  start's level (nurse moving fraction 6 h +0.49) → (a): the next fit
-  bounds restShape ≥ 1 or uses mix2 rests; staying near the estimate's
-  +0.09 at both arms → (b): the trait sits in the wrong place (stopping
-  as well as walk-on). Read only lag correlations, per-ant spread and the
-  long-still audit (complete still runs ≥ 1 h; data: runs ≥ 60 min almost
-  absent, 2026-10-15); the arms' rows are off the fit and not judged.
+*Latent-state follow-up (06:22): the reading is supported in three arms,
+with a design confound disclosed.* Paired nurse T2 arm − control (Fisher
+z): SD 0.53 τ 60 s +0.012 [+0.005, +0.018]; SD 1 τ 60 s +0.033 [+0.023,
++0.041]; SD 0.53 τ 600 s +0.018 [+0.010, +0.025]; SD 1 τ 600 s +0.058
+[+0.051, +0.065] (control +0.068, data +0.121). Loss 18 197 / 14 109 /
+18 248 / 13 901 (control 21 316); nurse P2 and P10 |z| fall in all (SD 1:
+34.3 → 20.3–20.4, 59.1 → 30.3–31.2). Nurse 6-h persistence 0.49 / 0.50 /
+0.43 / **0.32** (control 0.49; the last fails the 0.10 bound). So SD 0.53
+τ 60, SD 1 τ 60 and SD 0.53 τ 600 meet (1)–(3). Foragers: T2 unchanged in
+every arm (−0.004 to +0.005), forager rows unchanged — nurse-only.
+Cost: still.nurse |z| 5.4 → 7.3–13.5. **Confound found at reading, not
+controlled in the design:** the switch multiplies walk-on by exp(x), x
+OU with mean 0, so the mean multiplier is exp(SD²/2) — ×1.15 at SD 0.53,
+×1.65 at SD 1. Part of the row gain (shorter rests, worse still.nurse) can
+come from the raised mean rate alone. T2 is the part a constant rate
+change cannot produce, and it moves; but the size of the row gain
+attributable to variability is not identified. **Candidate model element
+for the user, conditional on a mean-matched check** (x with mean
+−SD²/2, or the control's walk-on scaled by exp(SD²/2)).
 
-**2026-10-16 ≈ 23:30 — Guidance on C1 (pasted by the user) and the
-persistence diagnostic result.** The guidance and the arms' results
-arrived together: `simact.py` had already been run on the arms when the
-guidance was read, so the softened reading below was not fixed blind.
-- **Guidance, adopted:** C1 is a useful diagnostic fit; not adopted,
-  not extended. (1) The diagnostic's two explanations are neither
-  exhaustive nor exclusive: raising restShape changes rest variability
-  *and* typical rest durations (hence activity, encounters, clustering).
-  Recovery implicates the rest distribution; failure would not have
-  shown that the trait belongs on stopping. (2) Per-ant persistence
-  goes into the next fit's targets as a **compact set with its weighting
-  fixed beforehand**: many correlated lags must not count as independent
-  targets. (3) Speed fluctuation and the entrance audit go ahead; speed
-  fluctuation is a specific hypothesis, not yet the solution, judged on
-  improvements **and costs together, persistence included**; the trip
-  audit stays separate (motion barely moved the trips). (4) No automatic
-  switch away from Lomax and no bound from this diagnostic alone; if a
-  finite mean spontaneous rest is required the bound is restShape
-  **> 1** (strict: ≥ 1 includes the infinite-mean case), and that
-  property is of the isolated rest, not of observed rests interrupted by
-  other behaviour. The 2026-10-16 ≈ 23:20 reading rule ("bounds
-  restShape ≥ 1 or uses mix2") is withdrawn accordingly.
-- **Corrections:** the C1 report had the short-still direction reversed
-  (corrected in place: the model has too few still runs under 2 s, not
-  too many). The scarcity of complete hour-long still runs is **not**
-  evidence against biological long rests (the earlier observer audit
-  makes that inference unreliable): the long-still count logged with the
-  diagnostic (`scripts/scratch/longStill.py`) is not used as evidence.
-- **Result (22 colonies per arm, seed 4242, paired; `logs/act/sim-sC1rs*`,
-  `logs/c1/simact-rs.txt`):** lag correlation of per-ant moving fraction
-  at 6 h, nurse / forager: data +0.43 / +0.36; start σ 0.4 +0.49 / +0.46;
-  C1 estimate (restShape 0.70) +0.09 / +0.08; **restShape 1.4 +0.86 /
-  +0.79; restShape 50 +0.99 / +0.95**. Persistence returns, and
-  overshoots the data, as the shape rises. But the activity level moved
-  by an order of magnitude with it: median per-ant moving fraction,
-  nurses, 0.017 at the estimate, **0.157 at 1.4, 0.365 at 50** (data
-  0.009); foragers 0.046 / 0.352 / 0.705 (data 0.054). Reading: the rest
-  distribution is implicated; whether its variability or the typical
-  rest length (and the activity it sets) carries the effect is not
-  separated by these arms. Not tested: an activity-matched arm (walk-on
-  rescaled so the still fraction stays at the estimate's).
-- **Order from here:** speed-fluctuation targeted comparison (with
-  persistence among the judged costs) and the entrance audit; then the
-  persistence target set and weights, logged before any fit; no full
-  search budget before both.
+*Step size (06:23 E2): not an artefact.* dt 0.025, SD 0.53 τ 60 s vs its
+own control: loss 21 299 → 18 201 (dt 0.05: 21 316 → 18 197); nurse P10
+59.1 → 49.3, P2 34.4 → 30.1 (identical to dt 0.05).
 
-**2026-10-16 ≈ 23:35 — User: proceed with the speed-fluctuation
-comparison and the compact persistence targets; no activity-matched
-diagnostic.** User's caveat, recorded: the restShape result shows that
-persistence depends strongly on the rest settings, not which rest family
-or bound is right; even an activity-matched arm would not isolate it
-fully, since more activity gives more movement observations per ant and
-so more reliable activity ranks.
-- **Mechanism (new, comparison only; not in the fit's free set).** The
-  walker already has within-walk speed fluctuation: log speed follows an
-  OU process (E1 walk fit: SD 0.359, τ 1.24 s, mean-preserving). In the
-  nest the walk is only scaled (`nestSpeedFactor`), so the in-nest speed
-  is as steady as arena walking. New `NestParams` factors on the walker's
-  values inside the nest, in the style of `nestSpeedFactor` /
-  `nestPauseFactor`: `nestSpeedSdFactor` (× `speedSdWithin`) and
-  `nestSpeedTauFactor` (× `speedTau`), default 1 (bit-identical; test),
-  per group possible through `forager`; settable by `--set`
-  (`S2018_EXTRA`). The mean walking speed is kept (the OU term is
-  mean-preserving); the median falls as the SD grows.
-- **Arms (start point `S2018_START`, σ 0.4, C1 candidate otherwise; both
-  groups alike):** SD factor 2 and 3 (SD 0.72, 1.08) × τ factor 1 and 4
-  (τ 1.24, 5.0 s), 4 arms; control = factor 1 (the existing
-  `logs/c1/diag-start.json` and `sim-s0.4` runs, valid if the default is
-  bit-identical, checked). Per arm, paired with the control: (1)
-  `diagS2018 --at start --set … --reps 4` (the 32 rows, 'diag' seeds),
-  compared by `reportS2018.ts --est arm --start control` (per-row z,
-  loss by row family); (2) per-ant activity, `tmpTrackerSim --obsH 12`,
-  seed 4242, `simact.py` (lag correlations, spread); (3) the mechanism
-  check, `scratch/tmpShortSim.ts` with `--set` and the trip inputs in use
-  (22 colonies, 4 h), `shortAgg.py`: displacement of steps inside still
-  runs < 2 s (data: 0.3–0.6 mm/frame 0.60, < 0.15 0.14; start 0.19 /
-  0.70) and of all moving steps (data nurse 0.6–0.9 0.55, ≥ 1.5 0.15).
-- **Reading, fixed now (diagnostic; nothing adopted):** improvements and
-  costs reported together. An arm **supports the hypothesis** if (i) its
-  brief stills become near-threshold slow steps (0.3–0.6 share ≥ 0.40
-  for nurses, from 0.19), (ii) the short-still rows (runStill P2, P10,
-  both groups) improve, and (iii) persistence (6-h lag, moving
-  fraction) stays within 0.10 of the control. All other rows' changes,
-  the loss by row family, spread and speed rows are listed as costs or
-  gains, not hidden in a sum. Support → a fit with the two factors free
-  is a candidate for the user's decision (with the persistence targets
-  below); no support → the short-stop deficit stays a disclosed failure
-  and the alternative (an observation-side explanation) is reviewed.
-  The rest parameters stay at the start point: the arms show the
-  mechanism's direction and size, not what a refit would reach.
-- **Compact persistence targets (proposal for the next fit; data role
-  fit, fit colonies — already inspected when σ 0.4 was chosen,
-  2026-10-15 late evening, logged here).** Four rows, two per group,
-  each one ordinary row (z² with SE across colonies, weight 1 like every
-  other row; no lag series): **persistence** = Spearman correlation
-  across ants of the moving fraction in the first vs the second 3 h of a
-  6-h light window (the fit's window), Fisher-z mean over colonies (the
-  data's lag curve is flat from 3 to 11 h, +0.46 → +0.40 for nurses, so
-  one within-window lag carries it); **spread** = the share of the
-  window's moving time carried by the top 20 % of ants. Data and
-  simulation through the same code (the frozen tracker; the activity
-  counts of `scratch/activityStats.ts` promoted to `src/sim/analysis/`),
-  data from the 6-h light windows of each colony. Open for the user: σ
-  is fixed at 0.4, and with a lognormal walk-on trait spread and
-  persistence pull it opposite ways (σ 1.0 matches spread, 0.589 vs
-  0.482, but overshoots persistence, 0.75 vs 0.43); whether σ becomes
-  free in the next fit is not decided here.
+*C-b (06:38): no refractory signature.* Hazard of a movement onset by
+time since the last moving run (per min; light; complete runs): data
+nurses 3.86 / 1.76 / 0.67 / 0.33 / 0.24 / 0.19 / 0.16 (10–20, 20–40,
+40–80, 80–160, 160–320, 320–640, > 640 s), model 3.10 / 2.09 / 1.29 /
+0.83 / 0.52 / 0.34 / 0.21; foragers alike in shape. Both fall
+(bout-clustering, Lomax-like); the data's falls more steeply (×24 vs
+×14), higher at 10–20 s and about half the model's at 40–160 s.
+Description only: a steeper fall is what mixing high- and low-propensity
+states gives, the same direction as the latent-state result.
 
-**2026-10-16 ≈ 23:40 — Three papers read in full (user supplied; other
-species; development literature, contamination log).** What bears on
-step 4b, as candidate structure only (no parameter taken):
-- **Gallotti & Chialvo 2018** (*T. albipennis*, in-nest tracks): bouts of
-  motion and their size–duration scaling are reproduced by a first-order
-  Markov process on speed (autocorrelated speed, a bout ends when speed
-  falls below a threshold), with a mean-reverting shape. Supports the
-  speed-fluctuation comparison now running: stops as threshold crossings
-  of a fluctuating speed, not only discrete mode switches. Also "the
-  more the faster": moving ants walk faster when more ants move (not
-  reproduced by single-ant shuffling) — a collective speed effect our
-  walker lacks; a candidate for the disclosed "moves clustered in time"
-  failure (near-movement share), not acted on.
-- **Crosscombe et al. 2026** (*P. punctatus*, 10 fps, flat arena, no
-  brood or food): dwell time (log time in state) predicts both stops and
-  starts better than neighbour cues (stop AUC 0.64–0.72 vs 0.53–0.60);
-  hazards rise briefly then **decline with time in state for moving as
-  well as resting**. Bearings: (i) our moving runs end at a constant
-  rate (exponential), only rests are heavy-tailed — a duration-dependent
-  stop hazard is a candidate for the moving-run rows (110 of C1's loss);
-  (ii) neighbour cues weakly predict stops, which sits uneasily with
-  encounterStop 0.98 (other species and arena; a question, not
-  evidence); (iii) their population curves do not separate per-ant
-  differences (frailty) from true duration dependence, as they note — the
-  same ambiguity as our restShape vs walk-on trait.
-- **Charbonneau & Dornhaus 2015** (*T. rugatulus*, 5-min scans over 2
-  weeks): inactivity is highly repeatable; day vs night rank correlation
-  of inactivity ρ 0.45 (cf. our data's +0.43 at 6 h); 25 % of workers were
-  never seen active, and hierarchical clustering separates a distinct
-  inactive group. Bearing on the spread vs persistence tension: our data
-  have more near-inactive ants (nurse 10 % quantile 0.0034 vs σ 0.4's
-  0.0076) and a larger top-20 % share; a lognormal walk-on trait cannot
-  give both spread and moderate persistence (σ 1.0 overshoots
-  persistence). A two-class or mixed trait (some ants mostly inactive)
-  is a candidate structure for the persistence-target fit, for the user.
-- Files moved to `literature/` (local only) as
-  `GallottiChialvo2018_…`, `Crosscombe2026_…`,
-  `CharbonneauDornhaus2015_…`; also added `Vaupel1979_Demography16-439_
-  frailty-heterogeneity.pdf` (frailty models; methods for separating
-  per-individual differences from duration dependence; not yet read; no
-  data role). A byte-identical second copy of Charbonneau & Dornhaus was
-  deleted (user).
+*C-a data side (06:38):* light autocorrelation of colony moving
+fraction 0.74 / 0.52 / 0.37 / 0.18 / 0.02 at 1 / 2 / 3 / 5 / 10 min, small
+bumps at 17–28 min (+0.06–0.07, rise ≈ 1.2× the bootstrap half-width);
+dark bumps at 55 and 82 min. The literal rule says "periodic" in both,
+but the rule scans 115 lags for any local maximum, which makes a marginal
+pass likely by chance (a weakness of the rule as written, noted before
+the model side is read). Verdict waits for the control, read through the
+same code (box runs, the model's 12-h activity series was not recorded
+overnight; the 06:38 entry assumed it was).
+Spread analysis (05:57): running (1000 permutations per episode).
 
-**2026-10-16 ≈ 23:55 — Lenoir & Ataya 1983 read in full (role
-development, assigned by the user this night; scanned French text, read
-as page images).** *L. niger*, 5 young lab colonies (29–59 workers, 225
-marked), scan sampling once a minute (7.5 h per colony over 10 days,
-08–20 h) plus provoked tests; 24 acts per ant, correspondence analysis.
-- **Summed activity per ant is lognormal** (Fig. 4: log score
-  approximately normal, χ² p 0.30; scores 1–501, ≈ 500× between the least
-  and most active ant; a few very low scores set aside as possibly
-  injured by marking). Classes against the mean worker: 23.4 %
-  hyperactive, 48.9 % hypoactive, 29.7 % average. Each task's activity
-  across ants is **exponential** (few hyperactive workers do most of it).
-- **Nurses are the least active:** 69 of 94 strict nurses (73 %) score
-  "faible ou nulle"; 20 of 24 polyvalent foragers are hyperactive
-  (Tab. 4). An intermediate "reserve" group (≈ 42 % of workers, often
-  inactive, at the nest periphery).
-- Bearing (development, structure only): in *L. niger* a broad,
-  continuous lognormal activity trait is supported; this **tempers the
-  two-class idea** taken from Charbonneau & Dornhaus (*Temnothorax*):
-  the log spread of their score (≈ 0.3 in log10, ≈ 0.7 in ln, by eye from
-  Fig. 4) is wider than σ 0.4, but it counts acts rather than locomotion
-  and pools nurses with foragers (the role effect inflates it), so it
-  sets no σ. No repeated measures over time: says nothing on persistence.
-  Nothing imported; not a target or test.
+**2026-10-17 ≈ 13:11 UTC — User guidance on the overnight results
+(pasted, adopted), corrections, and the next two comparisons, logged
+before building or running.**
+- **Decisions:** run the mean-matched latent-state check next; the
+  contact deficit is a **blocker** for moving straight to step 5.
+- **Corrections to the 13:10 entry:** (1) "contacts" are distance
+  crossings between tracked centres, not verified touches; physical creep
+  is a hypothesis — slowly varying tag error could make some crossings,
+  and packing changes how many pairs sit near the threshold. The earlier
+  measurement-vs-creep comparison found little difference in the motion
+  rows; it did not establish equivalence for contacts. (2) The 0.76 /
+  0.26 split was light only and came from combined ratios. **Direct
+  counts** (`scratch/contactSplit.py`, 4.1 mm, control / data): light
+  moving-involved 0.78 [0.69, 0.88], still-still **0.26** [0.23, 0.29];
+  dark moving-involved 1.19 [1.01, 1.42], still-still **0.29** [0.27,
+  0.33] (data still-still 123 / 108 per ant-hour). The persistent deficit
+  is in contacts between ants classified as still. (3) "T2 can't come from
+  a higher constant rate" was too strong: a rate change alters crowding,
+  which ants contribute complete runs and their observed sequences, and
+  the model already gives T2 > 0. (4) C-b supports only "no recovery
+  signature in complete observed still runs from 10 s on"; shorter
+  refractoriness and effects hidden by selective censoring are not
+  excluded. (5) The slow-episode result rejects the tested settings, not
+  the mechanism.
+- **Comparison L (mean-matched latent state), SD 1, τ 60 s, paired seeds:**
+  (L0) baseline (existing); (L1) constant walk-on × exp(SD²/2) = ×1.6487
+  (new, `--oracle const:1.6487`); (L2) existing latent multiplier exp(x)
+  (mean ×1.6487; `lat-l1-60`); (L3) mean-one latent exp(x − SD²/2) (new,
+  `--oracle placebo:1:60:unit`). Outputs per arm: rows (`diagS2018`, 4
+  seeds), T2 (4-h light, `t2Paired.py`), persistence (`simact.py`),
+  contacts (lite, light and dark, moving-involved / still-still split)
+  and **realised activity** (stillness rows, moving fraction from
+  `simact.py`). **Reading, fixed now** — judged together: the
+  *variability* part of the latent state is supported if L3 vs L0 has
+  nurse T2 difference CI above 0, nurse P2 and P10 |z| both falling, and
+  nurse 6-h persistence within 0.10, **and** L3's T2 gain exceeds L1's
+  (paired L3 − L1 colony-bootstrap CI above 0). If L1 reproduces L2's row
+  and T2 gains (within their CIs), the gain is a rate effect and the
+  latent state in this form is not supported. Anything between is
+  reported as a decomposition (rate part L1 − L0, variability part L2 −
+  L1, mean-one L3 − L0), with realised activity beside it, since matching
+  the stationary mean does not match realised activity.
+- **Comparison O (contacts under the observation variants):** the
+  calibrated observer variants of 03:05 — M (tag 0.7 mm / 90 s), B (rest
+  0.7 mm / 90 s), both with pixel rounding, and P (rounding only) — through
+  the contact extractor (lite, light and dark, 12 h, seed 4242, paired
+  with the overnight control). **Reading, fixed now:** measurement drift
+  *substantially changes the apparent contact rate* if, for M or B, the
+  paired still-still contact ratio (variant / control, geometric mean)
+  is ≥ 1.25 with its CI excluding 1; then the data's still-still excess
+  may partly be a tracking effect and the contact statistic needs a
+  measurement-robust form before creep is modelled. Otherwise physical
+  creep stays the leading hypothesis, to be tested only by an arm that
+  moves actual bodies and respects geometry (a separate design later;
+  the observer offset cannot test geometric consequences). Moving-
+  involved contacts and near share reported beside it.
+- No other arms. Spread analysis and C-a are still being read under
+  their own entries.
 
-**2026-10-16 ≈ 23:58 — User: priority is measurement error and the
-frailty interpretation, beside the running comparison; the literature
-helps distinguish explanations and choose tests, not expand the model
-before those results.** So: the candidate structures noted from the
-papers this night (two-class trait, duration-dependent stop hazard,
-"the more the faster") are **parked, not to be acted on** before these
-tests and the comparison report. The persistence-target build is on hold
-behind them (design logged above; nothing implemented).
-Two diagnostic tests, fit colonies only (data role fit), one code path for
-data and the simulated observer (`scratch/diagShort.ts` extended), the
-simulation at the start point with the true state recorded. Logged before
-any computation; nothing in the model changes.
-- **T1 — measurement error.** (a) *Noise model:* displacement of steps
-  inside still runs ≥ 10 s (an ant at rest), per colony against the
-  Rayleigh law the observer assumes (scale σ√2, σ = the colony's
-  `noise.x/y`), and the lag-1 correlation of consecutive displacement
-  vectors there (iid position noise gives −0.5; real micro-movement or
-  slowly varying tracking error gives otherwise). Already seen: data 10 %
-  of long-rest steps at 0.15–0.6 mm/frame vs model 2 %. (b) *Brief
-  stills:* for each step inside a still run < 2 s, the cosine between
-  its displacement and the preceding moving step's (heading continuity),
-  data vs simulation; in the simulation the true state of each such step
-  (stopped vs walking) calibrates the statistic. Reading: brief-still
-  steps aligned with the walk (mean cosine clearly > 0, like the
-  simulation's walking-true steps) → slow movement, behaviour, real or
-  noise-pushed below threshold; isotropic (≈ 0) → stops seen through
-  noise. If (a) shows tracking error heavier than the observer's, the
-  observer is revised before any motion conclusion (it is part of the
-  comparison), and the short-stop rows are re-read through it.
-- **T2 — frailty interpretation.** Within-ant rank correlation of
-  consecutive complete still-run durations (runs ≥ 2 s, the rows' runs;
-  Spearman of each run with the next, per ant, minus the same with run
-  order shuffled within the ant, so fixed per-ant differences cancel;
-  Fisher mean over colonies). The model at the start point (per-rest
-  gamma depth drawn independently, a fixed per-ant walk-on factor) gives
-  ≈ 0 beyond crowding. Reading: clearly positive in the data → a latent
-  state varying over minutes to hours (neither per-rest frailty nor a
-  fixed per-ant trait), bearing directly on persistence and on what
-  restShape stood in for in C1; ≈ 0 → per-rest heterogeneity plus fixed
-  per-ant differences suffice. Not identifiable from durations alone (as
-  Vaupel et al. 1979 frame it): per-rest frailty vs a truly decreasing
-  waking hazard; the within-ant heavy tail (2026-10-15 shapes: Lomax
-  within ant, α ≈ 1) already rules out per-ant frailty as the whole tail.
+**2026-10-17 ≈ 13:14 UTC — C-a read: inconclusive by its own rule (the
+rule does not discriminate).** Model control (start point, 22 colonies,
+12 h light and dark, same `activitySeries.ts` / `caAgg.py`): autocorrelation
+of colony moving fraction 0.34 / 0.20 / 0.15 / 0.07 / 0.03 at 1 / 2 / 3 / 5 /
+10 min (data light 0.74 / 0.52 / 0.37 / 0.18 / 0.02), and the logged rule
+fires at many lags in both phases for the control, which has no periodic
+mechanism. So the rule, as written, passes noise; it cannot support
+"periodic". Description only: the data's colony activity is far more
+autocorrelated at 1–5 min (the synchrony again); its light bumps at 17–28
+min (+0.06–0.07) are above the model's (≤ +0.03) but are not established
+as periodicity. No periodic-burst (Temnothorax-type) mechanism is assumed
+for *L. niger* from this; a stronger test (e.g. spectral peak against
+colony-level surrogates) would need its own design if it matters later.
+Comparisons L and O launched 13:13 UTC (`logs/lo/run-lo.sh`; code
+checksums match; 572 reduced duplicates removed from the box's
+`logs/short` first, each verified to have its `cs-` copy on the box and
+locally).
+Clock note: the 13:11 and 13:14 entries were first headed 13:15 and 13:20
+(ahead of the clock) and corrected; the code comments and
+`logs/lo/run-lo.sh` cite "≈ 13:15" for the 13:11 entry and are left as
+they are so the box copies keep matching the local checksums.
 
-**2026-10-17 ≈ 00:10 UTC — Speed-fluctuation comparison, stage 1 (rows):
-the tested arms do not support the hypothesis on the short-still rows.**
-Control rerun with the new code is **bit-identical** to
-`logs/c1/diag-start.json` (88 runs, every row, loss 21 315.8). Reports
-`logs/sf/report-<arm>.txt` (`reportS2018 --est arm --start ctl`, paired):
-| arm (SD ×, τ ×) | loss | runStill.P2 nurse / forager | runStill.P10 nurse / forager | speedMove nurse / forager |z| |
-|---|---|---|---|---|
-| control | 21 316 | 0.806 / 0.702 | 0.399 / 0.261 | 4.7 / 7.9 |
-| 2, 1 | 23 852 | 0.809 / 0.707 | 0.412 / 0.270 | 11.2 / 11.8 |
-| 2, 4 | 23 227 | 0.805 / 0.708 | 0.403 / 0.271 | 11.5 / 11.8 |
-| 3, 1 | 28 552 | 0.811 / 0.715 | 0.426 / 0.288 | 21.7 / 19.3 |
-| 3, 4 | 26 332 | 0.805 / 0.714 | 0.406 / 0.284 | 22.3 / 19.2 |
-(data S(2 s) 0.52 / 0.44, S(10 s) 0.14 / 0.10.) Criterion (ii) fails in
-every arm: survival past 2 s and 10 s stays or rises (fewer brief stills,
-more stills ≥ 10 s), and the measured moving speed rises far above the
-data (slow phases now count as still; the mean walking speed is kept).
-Only still.nurse improves (5.4 → 1.9–3.6). Criteria (i) mechanism and
-(iii) persistence follow from stage 2. Not covered by the logged arms
-(not run): sub-second fluctuation (τ factor < 1) or a lower mean speed
-near the threshold; with τ ≥ 1.24 s the dips last seconds, so they add
-still runs ≥ 2 s rather than brief ones. Any further arm is the user's
-decision (the comparison was logged with these four).
+**2026-10-17 ≈ 13:15 UTC — Readings of L and O amended before any output
+was seen (user guidance, pasted, adopted).** Context first: still–still
+threshold crossings are underproduced in both phases, while
+moving-involved crossings go from a deficit in light (0.78) to an excess
+in dark (1.19): this argues against simply increasing movement
+everywhere.
+- **L — replaces the 13:11 reading.** Two matched contrasts isolate
+  variability at each prescribed mean rate: **(i) L3 mean-one latent vs
+  L0 baseline**, **(ii) L2 original latent vs L1 constant ×1.6487** (rows:
+  `reportS2018 --est L2 --start L1`; T2: `t2Paired` with L1 as control).
+  A *variability effect* is supported if **both** contrasts show the nurse
+  T2 difference CI above 0 and nurse P2 and P10 |z| both falling, with
+  nurse 6-h persistence staying within the agreed 0.10 of the baseline
+  (preserved, not required to improve). The 13:11 condition "L3's T2 gain
+  exceeds L1's" is kept only as an additional, stricter report; failing it
+  while winning both matched contrasts does **not** mean "rate effect
+  only". "Rate effect only" is concluded only if both matched contrasts
+  fail. One contrast passing → reported as partial, by contrast. Realised
+  activity, contacts (moving-involved and still-still) and stillness are
+  reported beside every arm.
+- **O — interpretation narrowed.** A small or null tag-drift effect does
+  not make physical creep the leading explanation: the tested drift
+  model already failed to reproduce parts of the observed displacement
+  structure, so a negative result excludes that approximation only;
+  packing and other measurement structures stay unresolved. A positive
+  result shows the contact statistic is sensitive to observation. The
+  ≥ 1.25 paired change is reported with the **absolute** model / data
+  still-still ratios beside it (e.g. 0.26 → 0.325 would be a substantial
+  observation effect that still leaves most of the deficit).
+- C-a: "inconclusive" stands; short-lag autocorrelation shows temporal
+  persistence of colony activity, which is neither periodicity nor
+  synchrony between ants.
+- No additional arms.
 
-**2026-10-17 ≈ 00:25 UTC — T1/T2 results (data: 22 fit colonies, 24 h;
-simulated control: start point, trips in use, 22 colonies, 4 h, true
-state recorded; `logs/t12/agg-ctl.txt`, `scripts/scratch/t12Agg.py`).**
-User's guidance on reading (pasted, adopted): the four speed arms are
-rejected at the start point (not adopted, not put in a fit); no new arms
-until the controls are read; the −0.5 benchmark assumes a stationary true
-position and independent equal-variance errors on signed displacement
-components, so a positive value argues against that model but does not
-exclude correlated error, smoothing or tag motion; within-ant duration
-correlation is not uniquely diagnostic (local conditions, interactions,
-observation effects); the moving-speed rise in the arms is the
-conditioning on steps above the threshold.
-- **T1a (noise in long rests):** same statistic as the benchmark (signed
-  2-D displacement vectors, Σ v_t·v_{t+1} / mean |v|²; simulated truly
-  resting pairs −0.500). Data, nurse / forager: steps ≥ 0.15 mm/frame
-  10.2 % / 10.5 % (sim 1.9 % / 1.3 %); lag-1 all +0.32 / +0.27 (sim −0.13
-  / −0.24); **bulk d < 0.15 alone +0.13 / +0.11, positive in every colony
-  (+0.07 to +0.17)** where iid error gives −0.5; band 0.15–0.6 +0.39 /
-  +0.33. The data's resting position series fails the observer's iid
-  model in amplitude and in structure. Not identified: correlated
-  tracking error, smoothing, tag (thorax) movement or real slow drift.
-  The tracking methods (supplement, methods section only, role
-  methods-only) report real-time tag detection, position and
-  orientation twice a second, detection 92.7 %; no statement on
-  smoothing either way.
-- **T1b (brief stills):** calibration in the simulation: truly walking
-  steps +0.89 mean cosine with the preceding moving step, truly stopped
-  +0.01. Data +0.44 (nurse) / +0.34 (forager), sim control +0.33 / +0.26.
-  Intermediate: a mixture, not pure slow movement nor pure stops; read as
-  a two-class mix ≈ 0.49 / 0.38 movement-like (model 0.37 / 0.30), with
-  2.5× more brief stills in the data, so the data have more of both
-  kinds. Supports investigating continued slow movement in brief stills;
-  identifies no timescale.
-- **T2 (consecutive still runs within ants, minus within-ant shuffles):**
-  data +0.121 [0.111, 0.132] / +0.121 [0.110, 0.135]; model +0.068 [0.062,
-  0.074] / +0.049 [0.041, 0.056]; unchanged after dividing by the colony
-  1-h median. The model is not 0 (crowding, place); the data exceed it by
-  ≈ +0.05–0.07. Confounded by T1: the data's still runs contain slow
-  movement, which can link consecutive runs. No conclusion that the rest
-  generator needs memory.
-- **Logged rule (a) applies only in part:** tracking error *heavier than
-  the observer's* is not established (the excess may be movement), but
-  the observer's iid assumption is contradicted, so motion conclusions
-  that rest on sub-threshold displacements (the short-still rows) stay
-  provisional until the next measurement test separates the two.
-- **Proposed next measurement test (not run; for the user):** position
-  MSD against lag k = 1…60 frames inside still runs ≥ 30 s, data vs the
-  simulated control (tag orientation beside it if the track stream
-  exposes it; it now passes positions only).
-  iid error: flat at 2σ² from k = 1; correlated error or smoothing: rises
-  to a plateau within its correlation time; real slow drift: keeps
-  growing with k. A plateau → revise the observer's error model (then
-  re-read the short-still rows through it); growth → resting ants move,
-  a behavioural question for the speed follow-up.
+**2026-10-17 ≈ 13:30 UTC — Spread analysis read (05:57 rules; method
+check first).** `logs/spread/`, `scratch/spreadAgg.py` (1000
+permutations per episode; colony bootstrap).
+- **Method check passes for false positives under that particular
+  simulated shared signal** (softened 13:54, user): it does not exclude
+  shared external causes generally — real disturbances could affect ants
+  differently by location or state. Coupled oracle arms show
+  no order beyond null 2 (ρ − null 2 −0.004 to +0.003, every CI spanning
+  0, light and dark) and no test-B effect beyond the control's (MH risk
+  ratio 0.92–0.93 vs control 0.91). Not tested: power to detect local
+  spread (no arm with local, contact-based activation exists). Model
+  episodes are long (≈ 21 participants, mean lag ≈ 36 s at every
+  distance), so the gap-10 episode definition chains many onsets.
+- **Test B (contacts predict onset): positive in the data, both phases.**
+  Still ant contacted by a moving partner vs matched still ants (strata:
+  distance to recent onset × colony onsets in the last 5 s): onset
+  within 2 s, light **2.09 [1.97, 2.22]**, dark **2.18 [2.04, 2.35]**
+  (crude 0.0190 vs 0.0076; 0.0152 vs 0.0058); model control 0.91 [0.89,
+  0.94]. Per the reading: stronger evidence of a social contribution
+  beyond distance and episode timing. **Open alternative, stated now:**
+  an onset is a threshold crossing, so a push or jostle by the moving
+  ant, or tag confusion when two tracked centres come close, could give
+  the same signature without activation. The model's 0.91 shows its
+  contacts do not trigger onsets (its only local channel is walk-on
+  suppression by still contacts).
+- **Test A (spatial order within episodes): weak.** Light: ρ +0.015
+  [+0.005, +0.024]; above null 1 (+0.014 [+0.005, +0.023]) but not null 2
+  (+0.009 [−0.000, +0.017]); partial +0.014 [+0.003, +0.028] → by the
+  rule a *regional order*, not spread from the starting point. Dark: ρ
+  +0.022 [+0.002, +0.054], above both nulls (+0.022, +0.021, CIs from
+  +0.002), so the literal rule reads *spatially structured activation*;
+  but the partial (usual earliness) is −0.021 [−0.102, +0.025] and the
+  CI is lopsided, so it is not robust. Effect sizes are tiny either
+  way. Description: mean lag after the initiator rises with distance in
+  the data (light 12 → 18 s from < 5 mm to 20–40 mm, 25 s beyond 40 mm;
+  dark 9 → 12 s, 18 s), flat in the model; data episodes are shorter
+  (≈ 7 participants).
+- **Summary:** synchrony is real and not reproduced; contact with a
+  moving ant roughly doubles the chance of a movement onset in the data
+  and not at all in the model; spatial ordering within episodes is weak
+  at best. Nothing identifies what starts an episode. A check that
+  separates activation from pushing (e.g. onset direction relative to
+  the partner's motion, or requiring a sustained moving run after the
+  onset) would need its own design.
 
-**2026-10-17 ≈ 00:35 UTC — MSD diagnostic approved, with the user's
-revised reading (logged before running).** Evidence about displacement
-timescales in long still periods, **not a three-way causal classifier**;
-no outcome by itself triggers an observer revision or becomes a
-behavioural input. Readings: flat from lag 1 — iid error around a fixed
-position, or fluctuations faster than the sampling resolves; rise to a
-plateau — correlated error or smoothing, but also confined physical
-movement; growth over the measured lags — physical movement, but also
-measurement drift or slowly varying error.
-- **Softened conclusions (supersede the 00:25 wording):** T1a contradicts
-  *stationary ants observed through the current iid-error model*; it does
-  not isolate which part of that combination is wrong. T1b's
-  intermediate cosine is consistent with a mixture of movement and stops
-  but also with uniformly slower, less directionally persistent
-  movement; the two simulated endpoints do not give a unique
-  decomposition (the "≈ 0.49 / 0.38 movement-like" split is withdrawn).
-- **Design:** bounded still runs ≥ 60 frames (30 s) at the rows' threshold
-  (0.6 mm/frame, gaps ≤ 3 frames bridged, the run selection T1a used),
-  exactly the same selection and code for data and simulation
-  (`scratch/diagShort.ts`). Per colony and role: MSD(k) of position over
-  pairs of detections k = 1…60 frames apart within a run, with the number
-  of pairs and of contributing runs at each k. Summary: per-colony MSD
-  curves, mean over colonies with a colony-bootstrap 95 % interval (pairs
-  overlap; colonies are the units), shape as MSD(k)/MSD(1) beside the
-  absolute values, run counts shown near k = 60. Simulation: the start
-  point control; also, as calibration only, runs truly at rest
-  throughout (expected flat at 4σ²).
-- The speed follow-up is paused until this and stage 2 are read
-  together.
+**2026-10-17 ≈ 13:53 UTC — Test B recheck, design logged before building
+(user guidance, pasted, adopted).** Name for now: **contact-associated
+activation** (the tracks cannot yet separate behavioural activation from
+pushing or tracking errors during overlap). Test A: little evidence for an
+ordered travelling wave, especially after usual timing; its weakness does
+not weigh heavily against local spread (no positive control at 2 fps).
+`scratch/contactOnset.ts` (one code path, data and simulated observers;
+4.1 / 5.1 mm hysteresis as before; moving = step ≥ 0.6 mm/frame between
+consecutive detections).
+- **Stricter definitions:** focal track uninterrupted (detected and in
+  the nest every frame of the window); onset = first moving step after
+  ≥ 20 consecutive still steps, **sustained** = it starts a run of ≥ M
+  consecutive moving steps (primary M = 2, i.e. ≥ 1 s, which removes
+  one-frame displacements; sensitivity M = 1 as before and M = 4); the
+  outcome window starts on the frame **after** the contact crossing (f+1
+  … f+4).
+- **(1) Risk ratio and absolute increase:** units = ant-frames with the
+  focal still for frames f−19 … f and detected through f+4+M; exposed if
+  a moving partner (partner detected at f−1 and f) crosses into 4.1 mm at
+  f; same 12 strata as before; Mantel–Haenszel risk ratio and risk
+  difference, colony bootstrap.
+- **(2) Time course before and after contact:** for each contact event
+  with the focal still and detected for f−30 … f−11 and detected through
+  f+10+M, the hazard of a first sustained onset at offsets −10 … +10
+  frames; an elevation before 0 means movement already beginning before
+  contact.
+- **(3) Close passes:** a moving partner crossing into 7 mm (hysteresis 8
+  mm) with the pair never within 4.1 mm from f−4 to f+4; same time course
+  and risk; contact vs close pass separates the contact threshold from
+  general nearby motion.
+- **(4) Share of onsets:** fraction of all sustained onsets (eligible
+  units) preceded by such a contact within 4 frames, and the excess
+  share exposed × (1 − 1/RR).
+- **(5) Direction, supporting only:** cosine between the focal's first
+  sustained displacement and the partner's motion at contact (contacts
+  and close passes); not a discriminator on its own.
+- **Reading, fixed now:** contact-associated activation **survives** if
+  the M = 2 risk ratio CI stays above 1 in both phases, the time course
+  shows no elevation before contact comparable to the one after
+  (pre-contact offsets −4 … −1 below half the excess at +1 … +4), and
+  contacts exceed close passes (risk ratio of contact vs close-pass
+  events, CI above 1). It is **reduced to mechanical / tracking** if the
+  risk ratio falls to ≈ 1 (CI including 1) once M = 2 and the
+  uninterrupted-track rule apply. Mixed outcomes reported as such. The
+  absolute increase and the share of onsets decide how much of the
+  colony's synchrony it could carry, reported regardless. Model control
+  (start point, light and dark, 12 h) through the same code on the box
+  after L and O. **Then** decide whether a contact-based activation arm
+  is warranted, judged on synchrony, onset timing and contacts together.
 
-**2026-10-17 ≈ 00:55 UTC — Speed comparison complete (stage 2) and MSD
-result; read together as agreed.**
-- **Speed arms, all three logged criteria:** (i) mechanism **fails**:
-  share of brief-still steps at 0.3–0.6 mm/frame, nurse / forager: data
-  0.60 / 0.59; control 0.20 / 0.16; arms 0.16–0.19 / 0.18–0.21 (needed ≥
-  0.40); their brief stills stay noise-level true stops (truly stopped
-  ≈ 60 %), and long still runs keep ≈ 2 % of steps ≥ 0.15 mm/frame (data
-  10 %). (ii) **fails** (stage 1). (iii) passes: persistence at 6 h,
-  nurse, control +0.49, arms +0.42–0.50. **Verdict: the four arms do not
-  support the hypothesis**; not adopted, not put in a fit (user). Outputs
-  `logs/sf/` (reports, `simact-sf.txt`, `t1-arms.txt`); the arms' step
-  files predate the MSD addition (no MSD for arms; not in their criteria).
-- **MSD in still runs ≥ 30 s** (same selection and code for data and the
-  start-point control; colony means, colony bootstrap; `logs/t12/msd.txt`;
-  ≈ 52 000 data / 36 500 simulated runs contribute at every k ≤ 60).
-  MSD mm², nurse data / model: k 1 0.0055 / 0.0037, k 10 0.099 / 0.026,
-  k 30 0.276 / 0.081, k 60 0.386 / 0.155; forager k 60 0.350 / 0.054;
-  intervals disjoint at every k. Truly resting simulated runs stay flat
-  at 4σ² (0.0019; calibration). Data shape MSD(k)/MSD(1): 2.5 at k 2,
-  18 at k 10, 50 / 64 / 70 at k 30 / 45 / 60 (near-linear to ≈ 15 s,
-  sub-linear after). **Reading (user's table):** growth over the measured
-  lags, with no early plateau — consistent with physical movement, or with
-  measurement drift / slowly varying error whose correlation time would be
-  tens of seconds; not separated. The data exceed the model at every lag
-  (≈ 1.5–2× at 0.5 s; 2.5× nurse, 6× forager at 30 s; RMS over 30 s ≈ 0.6
-  mm vs 0.39 / 0.23).
-- **Not known from these means:** whether all long still runs drift
-  (uniform) or a minority carry slow walking (mixture).
-- **Speed follow-up: still paused.** The controls neither establish a
-  behavioural explanation nor exclude slowly varying measurement error.
-- **Proposed next (data-only, cheap; not run, for the user):** (1)
-  *frame-level drift:* correlation of displacement over k frames between
-  ants resting at the same time in the same colony (a camera or image
-  shift moves all tags together; independent movement or per-tag error
-  does not); (2) *uniform vs minority:* per-run distribution of
-  |displacement|² at k = 60 (median and quantiles beside the mean, data
-  and simulation, same selection). Neither separates per-tag slow error
-  from thorax movement; (1) excludes or confirms one class of
-  measurement error, (2) says what the follow-up would have to produce.
+**2026-10-17 ≈ 13:54 UTC — Test B recheck design amended before running
+(user guidance).**
+- **Onset results kept alongside sustained movement:** M = 1 (original
+  onset) and M = 2 are both primary and reported side by side (M = 4
+  sensitivity). An association that survives at M = 2 extends beyond a
+  brief displacement; one that disappears at M = 2 does **not**
+  distinguish a push from a genuine brief behavioural response — the
+  13:53 outcome "reduced to mechanical / tracking" is withdrawn.
+- **Contact vs close pass matched on information available before the
+  outcome only:** strata = recipient's still time before the event
+  (20–39, 40–119, ≥ 120 frames) × local density (tracked ants within 10 mm
+  at the event: 0–2, 3–5, ≥ 6) × partner speed at the event (0.6–1.0,
+  1.0–1.5, ≥ 1.5 mm/frame) × episode timing (colony onsets in the last 10
+  frames: 0, 1–2, ≥ 3); Mantel–Haenszel risk ratio contact / close pass of
+  an onset at f+1 … f+4 (M = 1 and 2), colony bootstrap. Eligibility uses
+  only the past (still for the 20 frames up to the event) plus track
+  continuity through f+8 (detection, not stillness), the same for both.
+- Correction found while building: the time-course null now also
+  requires the recipient still at the reference frame, as contacts and
+  close passes do.
+- Reporting unchanged otherwise: risk ratio and **absolute increase**
+  (exposed vs matched unexposed), the **fraction of onsets preceded by a
+  contact** and the excess share, time course −10 … +10, direction as
+  supporting only. Reading: contact-associated activation is supported
+  beyond overlap errors and pre-contact movement if the M = 1 risk ratio
+  stays above 1 with the uninterrupted-track rule, pre-contact offsets
+  show no comparable elevation, and contacts exceed matched close passes;
+  survival at M = 2 is reported as extending beyond brief displacement.
 
-**2026-10-17 ≈ 01:05 UTC — Two track-only checks approved (user); then the
-track-only sequence stops unless they reveal a specific correctable
-problem.** If per-tag error and physical movement stay indistinguishable,
-that limitation is recorded and a **bounded sensitivity comparison across
-the plausible explanations** is chosen instead; the tracks are not
-required to identify what they cannot. The four speed settings failed
-their intended test at the start point: conclusion kept, no further
-tuning of those arms. Committed before these checks: `25e7c23`.
-Design (logged before running; data: 22 fit colonies, 24 h; simulation:
-start-point control, trips in use, as a reference with no camera; one
-code path):
-- **A — common component.** Windows of k = 60 frames (30 s; k = 10
-  secondary), non-overlapping, ending at multiples of k. Eligible ant in
-  a window: in the nest, detected at both ends, every step inside still
-  (< 0.6 mm/frame) with gaps ≤ 3 frames. Spatial thinning: greedy subset
-  with pairwise distance ≥ 10 mm (≈ 3 body lengths); windows with ≥ 4
-  thinned ants. Per window a least-squares rigid motion (translation +
-  small rotation about the subset's centroid) fitted to the ants'
-  displacements; statistics: share of the displacement sum of squares it
-  explains (R², uncentred) and the size of the fitted translation.
-  Baseline: each ant's displacement replaced by its own displacement in a
-  random other eligible window (positions kept; 20 shuffles). Per colony,
-  observed vs shuffled; summary across colonies (colony bootstrap).
-  Reading: R² and translation clearly above the shuffled baseline, with a
-  consistent direction across separated ants → a common component
-  (camera or image shift possible, but shared biological responses can
-  also produce it; described as a common component, not camera movement);
-  ≈ baseline → common drift constrained; per-tag error stays unresolved.
-- **B — displacement across periods.** One value per eligible still
-  period (bounded still run ≥ 60 frames, the MSD selection): squared
-  displacement between the run's first detection pair exactly 60 frames
-  apart, equal weight per period. Per colony quantiles (10/25/50/75/90 %)
-  and the share above the simulated true-rest level (4σ² × 3); summary
-  across colonies (colony bootstrap). Reading: median well above the
-  true-rest level → widespread small displacement; median near it with a
-  long upper tail → a minority of more mobile periods.
+**2026-10-17 ≈ 14:02 UTC — Test B recheck read (13:53 / 13:54 rules), data:
+the association cannot be attributed to the contact; a smaller
+additional contact effect remains unresolved** (wording softened ≈ 14:04,
+user).
+`scratch/contactOnset.ts`, `contactOnsetData.ts`, `tbAgg.py`; 22 fit
+colonies. Strict tracking cuts the sample: uninterrupted sustained onsets
+are ≈ 8 % of the 05:57 onsets.
+- **(1) exposed vs matched unexposed (onset at f+1 … f+4):** light M = 1
+  RR 2.97 [2.73, 3.29], risk difference **+0.72 pp** [+0.62, +0.81]
+  (1.08 % vs 0.32 %); M = 2 RR 2.23 [2.03, 2.46], +0.10 pp; M = 4 RR 1.83
+  [1.54, 2.14], +0.01 pp. Dark M = 1 3.33 [3.05, 3.67], +0.65 pp; M = 2
+  2.49 [2.24, 2.76]; M = 4 2.32 [1.81, 3.03]. The association survives
+  the uninterrupted-track rule and extends beyond one-frame displacement.
+- **(2) time course (M = 2, hazard per 10⁴ per frame, offsets −1 and 0 are
+  0 by construction):** light contact 2.23 / 1.86 / 2.77 / 3.14 (−10…−5 /
+  −4…−2 / +1…+4 / +5…+10), null 1.22 / 0.92 / 1.46 / 1.45, close pass
+  1.44 / 1.21 / 1.65 / 1.80; dark contact 1.71 / 1.50 / 2.44 / 2.28, null
+  1.09 / 0.68 / 1.04 / 1.20. Contact / null ≈ 1.8–2.2 before and after the
+  contact alike. Excess over null pre (−4…−2) / post (+1…+4): light 0.94 /
+  1.30 = **0.72**, dark 0.82 / 1.40 = **0.58** — above the logged "below
+  half": a comparable elevation precedes the contact. **Fails.**
+- **(3) contact vs matched close pass (pre-outcome strata):** light M = 1
+  1.63 [1.53, 1.79], M = 2 1.30 [1.17, 1.49], M = 4 1.10 [0.91, 1.42];
+  dark 1.91 / 1.47 / 1.35. Passes, but the pre-event hazard already
+  differs (light −10…−5 contact / pass ≈ 1.55 vs post ≈ 1.68), so the
+  matching does not remove the pre-existing difference.
+- **(4) frequency:** sustained onsets preceded by a contact within 2 s:
+  light 5.5 % [4.9, 6.1], dark 4.3 % [3.6, 5.0]; excess share ≈ 3.1 % /
+  2.6 % even taking the risk ratio at face value. These recorded contacts
+  precede only a small fraction of sustained onsets, which limits their
+  direct contribution under this definition; rare initiating events could
+  still have wider consequences, for which there is currently no evidence
+  either way.
+- **(5) direction:** mean cosine with the partner's motion +0.02 / −0.01
+  (contacts), +0.01 / +0.15 (passes); the absent alignment weakens a simple
+  pushing account without excluding every mechanical interaction
+  (supporting only).
+- **Reading:** M = 1 RR above 1 with uninterrupted tracks ✓; contacts above
+  matched passes ✓; no comparable pre-contact elevation ✗. The elevated
+  onset rate before contact is the decisive finding: the original
+  comparison picked up differences that already existed between recipients
+  and controls, so the association cannot be attributed to the contact,
+  and a smaller additional effect remains unresolved (the pre-contact
+  excess undermines the causal reading without proving zero effect). The
+  result is consistent with fluctuating activity states or spatial
+  selection — which makes comparison L particularly relevant — but does
+  not establish either. A contact-based activation arm is **not warranted
+  on this evidence** (user agrees, ≈ 14:04; no contact-activation arms
+  now); the 13:30 "stronger evidence of a social contribution" is
+  superseded by this recheck. Model control through the same code still
+  runs after L and O, as logged (reference only).
 
-**2026-10-17 ≈ 01:20 UTC — Checks A and B results (`logs/t12/ab.txt`,
-`scripts/scratch/abAgg.py`, `commonDrift.ts`; 22 fit colonies vs the
-start-point control). The track-only sequence stops here (user's rule).**
-- **A — no detectable common component.** 30-s windows (≈ 8 thinned
-  resting ants ≥ 10 mm apart, ≈ 2 900 windows per colony): R² of a rigid
-  motion, observed − shuffled, data +0.0002 [−0.0013, +0.0018]; the model,
-  which has no camera, +0.0059 [+0.0044, +0.0076]; direction consistency
-  0.293 vs shuffled 0.285 (model 0.278 / 0.279); share of windows above
-  their own 95 % shuffled R² 0.096 (model 0.109). 5-s windows: data
-  +0.004, model +0.003. Common drift (camera or image shift) is
-  constrained to negligible; per-tag error stays unresolved.
-- **B — displacement is widespread, not a minority.** One squared 30-s
-  displacement per eligible still period (equal weight), nurse, mm²: data
-  q10 / median / q90 0.094 / 1.27 / 9.3, **99 % of periods above 3× the
-  true-rest level** (foragers 99 %); model 0.0006 / 0.073 / 1.6, 64 %
-  (foragers 44 %); model truly at rest 0.0002 / 0.0013 / 0.0046, 6 %.
-  Data's still periods are almost never stationary at the tag level (even
-  q10 ≈ 0.3 mm in 30 s); the model's are mostly true rests plus a mobile
-  minority. (The per-period first-30-s values exceed the all-pairs MSD
-  mean, 0.39 mm² at k 60: displacement is larger early in a still period.)
-- **Measurement detail found:** data positions are whole pixels (1 px =
-  0.0230 mm; noise σ ≈ 0.018 mm); the observer does not round to the
-  grid. Specific and correctable, but negligible at the scales tested
-  (still threshold 26 px; band 0.15–0.6 mm = 6.5–26 px) and it does not
-  explain A or B.
-- **Limitation recorded:** from these tracks, slowly varying per-tag
-  error (e.g. tag tilt as the ant shifts) and real thorax movement during
-  rest are not separable. Established as a target either way: still
-  periods in the data carry widespread slow displacement (MSD and
-  per-period distribution above).
-- **Proposed bounded sensitivity comparison (for the user; not run):**
-  two variants calibrated to the same two data targets (long-still MSD at
-  30 s and the per-period median), both with pixel rounding in the
-  observer: (M) measurement — a slowly varying per-tag position error in
-  the observer (OU, amplitude and τ calibrated); (B) behaviour — resting
-  ants creep (small OU body motion during rest, calibrated). Judged at the
-  start point on the 32 rows (short-still rows especially), persistence,
-  T1a/T1b. Agreement → the identification gap does not matter for the
-  motion fit; disagreement → both carried as a disclosed sensitivity.
-
-**2026-10-17 ≈ 01:30 UTC — Sensitivity comparison approved (user):
-measurement (M) vs behaviour (B) explanations of the slow displacement in
-still periods. Design logged before running.**
-- **Observer options (default off, bit-identical; test):** in
-  `colonyStroeymeyt`, `StroeymeytColony.posDrift = { kind, sd, tau }`: a
-  slowly varying position offset per ant, OU per axis with stationary SD
-  `sd` (mm) and correlation time `tau` (s), updated every frame from its
-  own RNG stream (drawn only when set). `kind 'tag'` (M): runs at all
-  times, a per-tag measurement error. `kind 'rest'` (B): evolves only
-  while the ant is truly in rest mode, starting from 0 deviation at each
-  rest, and is kept afterwards (the ant has moved): creep during rest.
-  B is implemented in the observer as an offset rather than in the body
-  (an approximation: sub-mm creep, no effect on contacts assumed; logged).
-  `pxRound`: observed coordinates rounded to the data's pixel grid
-  (0.0229658793 mm). Both variants use pixel rounding; a rounding-only arm
-  (P) shows its own effect. Scripts take `--obsVariant tag|rest:sd:tau`
-  and `--pxRound mm` (`s2018Lib`).
-- **Calibration (each variant separately, start point, trips in use,
-  `tmpShortSim`, 22 colonies × 4 h):** targets from the data (fit data):
-  long-still MSD at k = 60 (colony mean; nurse 0.386, forager 0.350 mm²)
-  and the per-period median of check B (nurse 1.27, forager 0.98 mm²).
-  Objective: Σ over the 2 roles × 2 targets of (ln sim/data)². Grid sd ∈
-  {0.2, 0.3, 0.45, 0.7} mm × tau ∈ {10, 30, 90} s, one (sd, tau) per
-  variant shared by both roles; the best grid point is taken, no further
-  tuning; if it lies on a grid edge, the grid is extended once in that
-  direction (one step) and the best taken.
-- **Judging at the chosen points (paired with the control):** the 32 rows
-  (`diagS2018 --at start --reps 4`, `reportS2018` vs control), persistence
-  and spread (`tmpTrackerSim` 12 h, `simact.py`), T1a/T1b and checks
-  A/B (`tmpShortSim` at the chosen point). Reading, fixed now:
-  **agreement** if M and B move each short-still row (runStill P2, P10,
-  both roles) in the same direction and their values differ by ≤ 2 SE_data,
-  the loss decomposition by row family has the same ordering, and nurse
-  6-h persistence differs by ≤ 0.05 → the identification gap does not
-  matter for the motion fit (either variant can stand in, disclosed).
-  Otherwise **disagreement** → both carried as a disclosed sensitivity in
-  any later fit and its report.
-
-**2026-10-17 ≈ 01:50 UTC — Parked candidate: colony-coupling "oracle"
-diagnostic (user forwarded a proposal; user agreed to park it with a gate).**
-Agents given a true colony variable (e.g. number of ants moving, recent
-local activity) in a diagnostic fit, to see whether missing colony-level
-coupling explains the misfit; then replaced by a perceivable channel
-(slowly integrated percepts as mind state). Never adopted as such; kept
-out of `src/sim/behavior/`; fit-role targets only. **Safeguard:** a
-placebo arm with the same signal time-shuffled or from another colony;
-only a gain beyond the placebo counts. **Gate (run first, data statistic,
-no fit):** colony-level synchrony, data vs model through the same
-observer: D_w = Σ_bins (Σ_ants dev)² / Σ_bins Σ_ants dev², dev = an ant's
-moving fraction in the bin minus its own mean over the run, bins w = 1
-frame, 1 min, 10 min (≈ 1 under independence across ants, > 1 with
-synchrony); per colony, colony bootstrap. Only if the model clearly lacks
-synchrony the data have is the oracle diagnostic worth its cost, and then
-at the start point with one coupling parameter, not a full fit. Context:
-tonight's checks showed no colony-level signal so far (T2 unchanged by
-removing colony-hour variation; check A: no shared motion of resting
-ants); the main misfits are individual- or observation-level. Not run
-before the sensitivity comparison is read. Gate code prepared
-(`scratch/syncStats.ts`), not run.
-
-**2026-10-17 ≈ 02:20 UTC — Calibration grid result (`logs/t12/cal.txt`):
-no grid point fits both targets; best points on the grid corner, logged
-one-step extension running.** Objective (Σ (ln sim/data)², 4 terms):
-tag 0.7/90 1.74 (best), tag 0.45/30 1.81, tag 0.45/10 1.91, rest 0.7/90
-2.02 (best rest), …; rounding only (P) 42.4. **Structural mismatch:** in
-the data the per-period median of the first 30 s (nurse 1.27 mm²) exceeds
-the all-pairs MSD at 30 s (0.386); every stationary-OU point gives the
-reverse (tag 0.7/90: median 0.58, MSD 0.70). The data's still periods
-move more early than later (front-loaded displacement); a stationary
-offset (M) or creep that is stationary within a rest (B) cannot produce
-that, so the calibrated points will miss each target by ≈ ×1.8 in
-opposite directions. Not acted on beyond the logged rule: extension one
-step past the corner for both variants (sd 1.05, tau 270: points
-1.05/90, 0.7/270, 1.05/270), then the best point is taken and judged as
-logged, with this calibration misfit disclosed in the verdict.
-
-**2026-10-17 ≈ 03:05 UTC — Sensitivity comparison verdict: AGREEMENT under
-the logged rule — by both variants leaving the rows untouched.** Calibrated
-points (best of the grid and the logged extension; objective flat along
-the ridge, extension 1.91 vs 1.74): **M = tag 0.7 mm / 90 s, B = rest 0.7 mm
-/ 90 s**, both with pixel rounding. Judging (`logs/judge/`, paired with the
-control): loss control 21 316, rounding only (P) 21 311, M 21 123, B
-21 171; every short-still row moved ≤ 0.001 (|M − B| 0.00 SE), loss
-ordering by row family identical, nurse 6-h persistence M +0.48, B +0.49
-(control +0.49). `judgeAgg.py`: AGREEMENT.
-- **Reading:** for the 32 rows (steps classified at 0.6 mm/frame) it does
-  not matter whether the slow displacement in still periods is per-tag
-  error or creep: neither reaches the threshold. The identification gap
-  is **closed for the motion fit**; the observer is not revised (pixel
-  rounding negligible: −5 on 21 316); disclosed as a limitation.
-- **Still open, as description only:** neither variant reproduces the
-  *form* of the data's sub-threshold movement: long-still steps nurse
-  0.15–0.3 / 0.3–0.6 mm/frame data 6.3 % / 3.8 %, M and B 16.8 % / 1.2 %;
-  lag-1 data +0.32 (band +0.39), M and B −0.05 (−0.02): the data's
-  sub-threshold steps keep their direction frame to frame (directed or
-  smooth movement), an OU position offset gives near-independent
-  increments; per-period q90 data 9.3 vs 2.5 mm²; front-loading
-  (calibration entry). T1b, T2 and check A unchanged by either variant.
-- **Consequence for the short stills (≈ 90 % of the start-point loss):**
-  not explained by slow measurement error (shown here) nor by
-  frame-scale noise (σ 0.018 mm vs the 0.6 mm threshold); together with
-  T1b (brief-still steps follow the walking heading, cosine +0.44 vs
-  +0.01 for stops) this is the behavioural support the user made the
-  condition for **one bounded speed follow-up** (shorter correlation
-  times, mean nearer the threshold, informed by the observed step
-  distributions). Designed and logged next, before running.
-
-**2026-10-17 ≈ 03:08 UTC — Bounded speed follow-up (the one the user's
-guidance allowed once the controls support a behavioural reading; the
-user left the choice of the next box run to Claude). Logged before
-running.** Observed step distributions (fit data, all 22 colonies; model:
-start-point control): moving-step displacement median nurse / forager
-data 0.88 / 1.03 mm/frame, model 1.03 / 1.48; steps at 0.3–0.6 mm/frame per
-moving step data 1.77 / 0.92, model 0.53 / 0.20. The data's walking is
-slower and straddles the threshold (nurses take more steps just below it
-than above it).
-- **Arms (start point, σ 0.4, C1 candidate otherwise; both groups alike):**
-  nestSpeedFactor × m, m ∈ {0.6, 0.8}, crossed with (SD factor, τ factor) ∈
-  {(1, 1), (2, 0.5), (2, 0.25), (3, 0.5)} (τ 1.24 / 0.62 / 0.31 s): 8 arms.
-  Shorter τ than the rejected arms (which had τ ≥ 1.24 s) so dips last
-  about a frame; lower mean so walking sits near the threshold. Control:
-  `logs/sf/diag-ctl.json`, `sim-s0.4`, `sf-ctl` (bit-identical code
-  path). Same three outputs per arm as the first comparison (rows,
-  persistence, step diagnostic).
-- **Reading, fixed now:** (i) mechanism: brief-still steps at 0.3–0.6
-  mm/frame ≥ 0.40 for nurses (data 0.60, control 0.20); (ii) short-still
-  rows: |z| falls for at least 3 of the 4 (runStill P2, P10, both groups);
-  (iii) nurse 6-h persistence within 0.10 of the control. Reported beside
-  them, as gains or costs: moving-step median and the 0.3–0.6 / moving
-  ratio vs the data, speedMove, moving runs, loss by row family. **An arm
-  meeting (i)–(iii) supports the hypothesis** → a fit with the two speed
-  factors and nestSpeedFactor free becomes a candidate for the user (with
-  the persistence targets); **none** → the speed line stops: the
-  short-still deficit stays a disclosed failure and the 4b motion fit is
-  re-planned without it. Rest parameters stay at the start point (the
-  arms show direction and size, not what a refit would reach). No further
-  speed arms after this one in either case.
-- **Also now (local, cheap, gated on the sensitivity verdict which is in):**
-  the synchrony gate of the parked colony-coupling candidate (data pass
-  and simulated control, `scratch/syncStats.ts`).
-  Launched on the box 03:10 UTC (`logs/sf2/run-sf2.sh`; its header cites
-  this entry as "≈ 03:20", written before the clock check).
-
-**2026-10-17 ≈ 03:30 UTC — Synchrony gate: first output not read
-(confound found in the gate code before interpretation).** `syncStats.ts`
-took each ant's mean over its whole run: 24 h for the data (light and
-dark), 4 h of light for the simulated control. A colony-wide day/night
-activity shift then makes all ants deviate together at any bin width
-and inflates the data's D_w, so data and model were not compared like
-for like. Seen (not read as evidence): data D 2.6 / 4.1 / 6.3 at 5 s / 1 min
-/ 10 min vs model 1.06 / 1.25 / 1.57. **Fix (before any reading):** D_w
-computed within 4-h blocks (the simulated window), each ant's mean taken
-within its block, pooled over blocks; data: the three light blocks
-(06–10, 10–14, 14–18 UTC); model: its single 4-h light window. Same
-reading as logged at 01:50.
-
-**2026-10-17 ≈ 03:50 UTC — Synchrony gate result (block-wise, as fixed at
-03:30): the data show colony-level synchrony the model lacks; the gate
-opens.** `logs/t12/sync-blocks.txt`, `scratch/syncAgg.py`. D_w, all ants,
-light blocks pooled (data) vs the start-point control's 4-h light window:
-5 s 2.63 [2.37, 2.91] vs 1.06 [1.05, 1.08]; 1 min 4.15 [3.70, 4.64] vs 1.25
-[1.19, 1.30]; 10 min 6.28 [5.51, 7.15] vs 1.57 [1.37, 1.75] (nurses alone
-2.28 / 3.67 / 5.12 vs 1.03 / 1.16 / 1.42). The confound fix changed
-nothing material (first output 2.60 / 4.06 / 6.29). **Per clock block**
-(1 min, all): 06 h 5.01 (likely recording start and day-2 partial blocks
-included), 10 h 3.70, 14 h 3.25, 18 h 2.84, 22 h 2.35, 02 h 2.91 — every
-block, settled mid-day and night included, is far above the model.
-Ants in the data move together at 5 s to 10 min; the model's ants are
-nearly independent (local encounters and crowding give it D ≈ 1.1–1.6).
-Not identified: ant-to-ant coupling vs shared external drivers
-(disturbance, vibration); check A excludes a common camera shift of
-resting tags, not shared biological responses. Bears on the disclosed
-"moves clustered in time" failure and possibly on persistence. Per the
-logged plan the colony-coupling diagnostic is now worth its cost: start
-point, one coupling parameter, with a placebo arm; designed and logged
-before any run, after the speed follow-up is read.
-
-**2026-10-17 ≈ 05:08 UTC — Bounded speed follow-up v2 read against the
-03:08 rules: no arm supports the hypothesis; the speed line stops.**
-Eight arms at the start point (σ 0.4), control `logs/sf/diag-ctl.json`,
-`logs/sf2/report-<arm>.txt` (`reportS2018 --est arm --start ctl`), step
-diagnostic `sf2-<arm>` (`scratch/sf2Agg.py`), persistence
-`simact.py` (`SF2<arm>` sets, seed 4242, 22 colonies). Brief-still share
-(i) and 6-h persistence (iii) are on the box (`logs/short`, `logs/act`;
-not fetched, the short files are large); the reports are local.
-- **(ii) fails in every arm.** All four short-still rows get *worse* in
-  all eight arms (survival past 2 s and 10 s rises). Control → arm, nurse
-  P2 0.806 → 0.817–0.837 (data 0.52), nurse P10 0.399 → 0.427–0.490 (data
-  0.14), forager P2 0.702 → 0.704–0.725 (0.44), forager P10 0.261 →
-  0.268–0.314 (0.10). Lower mean walking speed makes it worse, not better
-  (m 0.6 is worse than m 0.8); shorter τ barely moves it. Arms with a
-  larger SD factor also cost speedMove (m 0.8, SD 3: nurse |z| 4.7 → 15.5).
-- **(i) fails in every arm.** Nurse brief-still steps at 0.3–0.6
-  mm/frame: control 0.196, arms 0.208–0.299 (data 0.60; the bar was
-  0.40). Forager control 0.165, arms 0.197–0.299. The arms do move the
-  moving-step median toward the data (nurse 1.03 → 0.83–1.07 vs data
-  0.88) and raise the 0.3–0.6 steps per moving step (nurse 0.51 → 0.69–1.09
-  vs data 1.77), but the extra sub-threshold steps do not turn into brief
-  stills of the right kind.
-- **(iii) passes in every arm** (nurse 6-h persistence 0.49 control, arms
-  0.49–0.58, all within 0.10) — so persistence was not the obstacle.
-- **Beside them (gains and costs):** total loss rises in every arm:
-  control 21 316 → 24 278 (m 0.8, SD 1, τ 1; the best arm) … 38 420 (m
-  0.6, SD 3, τ 0.5). speedMove improves for several arms (nurse/forager
-  |z| 4.7/7.9 → 0.5/0.6 for m 0.6, SD 2, τ 0.25), the cost falls on
-  runStill and long-still families.
-- **Reading.** The four earlier arms (SD and τ varied, mean kept) and
-  these eight (mean also lowered, shorter τ) all fail the short-still rows
-  in the same direction. Slower, more variable walking speed, at the
-  settings tried, does not produce the data's brief stills; this does not
-  show that no speed model could. Together with the observer sensitivity verdict (agreement), the
-  short-still deficit stays a **disclosed failure** of the 4b motion
-  model, unexplained; the speed line stops as logged, with no further
-  speed arms. The 4b motion fit is re-planned without it (persistence
-  targets still on hold).
-- **Next (logged 03:50):** the colony-coupling diagnostic, designed and
-  pre-registered here before any run.
-
-**2026-10-17 ≈ 05:11 UTC — Oracle colony-coupling diagnostic: design and
-reading, logged before any run (the user left the choice of the next box
-run to Claude).** Question only: *if the model's ants shared a slow colony
-signal, would the data's synchrony (D_w 2.6 / 4.2 / 6.3 at 5 s / 1 min /
-10 min vs model 1.06 / 1.25 / 1.57) appear, and would any row or
-persistence statistic move with it?* It is a cheat channel (the signal is
-the colony's true moving state, which no ant could read), not a
-mechanism, not adoptable, not a fit; it says whether coupling of this
-kind is worth modelling at all (Sumpter & Pratt 2003; Feinerman & Korman
-2017 for the logic).
-- **Hook, outside `src/sim/behavior/`:** runner option
-  `ColonyOptions.oracle` (`colonyBles.ts`), carried by
-  `StroeymeytColony.oracle` and set from `--oracle` in `withObsVariant`
-  (cloneable, so it reaches pool workers). Absent: bit-identical (tested).
-  Each step, before the policy call: u = fraction of in-nest ants not
-  resting (true state), smoothed with an exponential of time constant
-  τ_c; ū = the same with 30 min; every in-nest ant's `restToActive` is
-  multiplied for its policy call by g = clamp((u / ū)^κ, 0.25, 4) (set and
-  restored around the call, no behaviour code touched). One coupling
-  parameter, κ; τ_c = 60 s fixed (the middle of the three bin widths);
-  walk-on only, walk-off untouched; u / ū keeps the mean rate.
-- **Arms (start point, σ 0.4, rest of C1 as in the control):** coupled
-  κ = 0.5 and κ = 1 (κ > 1 is unstable by construction: the loop gain
-  κ·r_off exceeds the relaxation; not tried); **placebo** for each: every
-  ant gets its own independent OU log-multiplier with τ_c = 60 s and the SD
-  of log g that the coupled arm produced (same marginal modulation of
-  walk-on, no sharing). Placebo SD is read from a pilot of the coupled arm
-  (4 colonies, one seed, signal variability only — no target statistic is
-  looked at) and logged here before the placebo arms run. Control:
-  `logs/sf/diag-ctl.json`, `sim-s0.4`, `sf-ctl`.
-- **Outputs, as in the speed comparison:** rows (`diagS2018`, 4 seeds,
-  `reportS2018` paired with the control), per-ant activity (`tmpTrackerSim`
-  12 h, `simact.py`), synchrony (`tmpShortSim` → `syncAgg.py`, 4-h light
-  window as the gate).
-- **Reading, fixed now:** (a) *synchrony is reproduced by coupling* if a
-  coupled arm closes at least half of the gap to the data at both 1 min and
-  10 min (D ≥ 2.7 and ≥ 3.9, all ants, light) while the placebo of the same
-  κ stays at the control's level (the CI of the control's D); a placebo that
-  also rises means modulation, not sharing, and the arm shows nothing about
-  coupling. (b) *persistence protected*: nurse and forager 6-h
-  moving-fraction lag correlation within 0.10 of the control (data 0.43 /
-  0.36; control 0.49 / 0.46). (c) rows and spread reported beside them as
-  gains or costs against the control *and* the placebo (loss by family,
-  top-20 % share of moving, the short-still rows), not as a criterion.
-  Outcomes: (a) met and (b) kept → shared coupling reproduces the
-  synchrony; whether it also repairs any row is read from (c) and recorded
-  either way; the next question is external vs ant-to-ant coupling (a
-  design, not a fit). (a) not met at κ ≤ 1 → this formulation cannot
-  produce it; no further κ or τ_c arms. (a) met but (b) broken → the
-  coupling trades persistence for synchrony; record it. Two κ only; no
-  further arms in any case.
-
-**2026-10-17 ≈ 05:14 UTC — Oracle diagnostic: hook built and tested; the
-pilot sets the placebo SD (signal variability only).** `colonyBles.ts`
-(`oracle` option, `oracleStep`, applied around the policy call),
-`colonyStroeymeyt.ts` (`oracle` field, `oracleLogSd` in the run),
-`s2018Lib.ts` (`--oracle coupled:κ:τ_c|placebo:sd:τ_c` in
-`withObsVariant`), `test/oracle.test.ts` (κ = 0 and a placebo of SD 0 are
-bit-identical to no oracle; coupling changes the run; `P.nest` restored).
-Pilot (`scratch/oraclePilot.ts`: colonies 0–3, seed 4242, 2 h + 2 h at the
-start point; prints only the SD of log g, no target statistic): SD of log
-g, κ = 0.5: 0.303 / 0.287 / 0.312 / 0.385 (mean **0.32**); κ = 1: 0.547 /
-0.459 / 0.533 / 0.569 (mean **0.53**). **Placebo SDs fixed at 0.32 and 0.53,
-τ_c 60 s.** Arms: `orc-k0.5`, `orc-k1`, `orc-p0.32`, `orc-p0.53`. Control
-sync: `t12-ctl`.
-
-**2026-10-17 ≈ 05:15 UTC — Oracle run launched on the box**
-(`logs/orc/run-orc.sh`, started 05:14:47 box time; stage 1 rows for the
-four arms with 30 workers each, then stage 2 activity and synchrony;
-roughly 50–60 min). Note on clocks: the three entries above (05:08, 05:11,
-05:14) were first written with times ahead of the clock; corrected to
-the box/local clock here. Nothing read yet.
-
-**2026-10-17 ≈ 05:43 UTC — Overnight plan (user, just before this entry: run more on the
-box overnight; contact check, dark-phase oracle synchrony, and a
-slow-episode what-if in place of the creep what-if). Logged before any of
-it runs.** The creep what-if was dropped before building: observer
-variant B already moved observed positions during rests by the measured
-amount and left the 32 rows unchanged, so true-position creep of that size
-is predicted to do the same for the short stills (it could only show an
-effect on contacts). The user chose the slow-episode what-if instead.
-No fits, no model changes; every arm below is a runner-level switch that
-is off by default (tested bit-identical) and not adoptable.
-
-*1. Contact check (downstream relevance of the motion failures).*
-`scratch/contactStats.ts`, one code path for recorded tracks
-(`contactData.ts`, 22 fit colonies, PreTreatment 24 h, light 06–18 UTC /
-dark) and simulated observers (`tmpShortSim --phase light|dark`, 2 h
-warm-up + 12 h, seed 4242, frozen tracker). Pair of tracked in-nest ants
-both detected: near if centre distance < r, far once > r + 1 mm
-(hysteresis); a contact is a far → near transition (joint gaps ≤ 3
-frames). r = 4.1 mm (one body length, primary) and 6 mm (sensitivity).
-Statistics per colony and phase: contacts per detected ant-hour (×2 per
-event); share of contacts with at least one ant moving (≥ 0.6
-mm/frame); share of ant-frames with a near neighbour. Fit tracks used for
-a new, non-fitted check statistic (contamination log). **Seen before this
-entry:** colony 0's data values only, as a code check (light ≈ 142, dark
-≈ 63 contacts per ant-hour at 4.1 mm; near share ≈ 0.93); no model value.
-- Arms: control (start point σ 0.4), speed arms m0.8-s1-t1 and
-  m0.6-s3-t0.5 (the smallest and largest short-still shifts of v2), the
-  four oracle arms, the C1 estimate, and the three slow-episode arms below;
-  light and dark.
-- **Reading, fixed now:** ratio model / data of contacts per ant-hour at
-  4.1 mm, geometric mean over colonies with a colony bootstrap 95 % CI,
-  per phase. **Contacts adequate** if the control's ratio CI overlaps
-  [0.8, 1.25] in both phases → the motion failures do not compromise
-  contact rates at the precision the colony step needs; this favours
-  accepting the disclosed failures and moving on (the user decides).
-  **Not adequate** → in-nest motion matters downstream; the arms then show
-  which changes move contacts toward the data (|log ratio| falls by more
-  than its CI half-width). The moving share and the 6-mm results are
-  reported beside it, not as criteria. The 25 % tolerance is a judgement
-  (between-colony spread is larger), stated before the result.
-
-*2. Dark-phase oracle synchrony* comes from the same runs (synchrony is
-kept in the lite outputs): coupled and placebo arms in dark, read with
-the 05:11 rule against the data's dark blocks (22, 02 h), only after the
-light result is read. Light-phase reading stays the primary one.
-
-*3. Slow-episode what-if* (`ColonyOptions.slowEp`, `--slowEp
-rate:dur:factor`; `test/oracle.test.ts`). A walking in-nest ant enters, at
-`rate` per walking second, a slow episode of exponential duration (mean
-`dur`) in which its walker's speed is × `factor`; stopping ends it.
-Discrete two-state slowing, unlike the continuous log-speed noise of the
-v1/v2 speed arms. The control's moving-step median is 1.03 / 1.48
-mm/frame (nurse / forager), so factor 0.4 puts nurse episode steps at ≈
-0.41 and factor 0.3 puts forager ones at ≈ 0.44 (the 0.3–0.6 band); dur 1
-s matches the brief stills (< 2 s). Arms (start point, σ 0.4):
-`se-r0.5-f0.4` (0.5/s, 1 s, 0.4), `se-r1-f0.4`, `se-r1-f0.3`. Outputs as
-v2: rows (`diagS2018`, 4 seeds, paired with `logs/sf/diag-ctl.json`),
-persistence (`tmpTrackerSim` 12 h, `simact.py`), step diagnostic
-(`tmpShortSim` light, full output; its control is a fresh control run of
-the same length). **Reading: the 03:08 rules unchanged** — (i) nurse
-brief-still steps at 0.3–0.6 ≥ 0.40; (ii) |z| falls for ≥ 3 of the 4 short
-rows; (iii) nurse 6-h persistence within 0.10 of the control. An arm
-meeting (i)–(iii) → discrete slow episodes become a candidate model
-element for the user (a mechanistic version designed then, not this
-switch); none → the short-still deficit is not produced by discrete
-slowing either, recorded as such; no further slow-episode arms in either
-case. Costs reported beside them (loss by family, speedMove, contacts).
-
-**2026-10-17 ≈ 05:55 UTC — Overnight addition: how fast does activity
-spread? (user's question, just before this entry; logged before any
-reading.)** Bears on the open point of the 03:50 synchrony result:
-ant-to-ant coupling vs a shared external driver. `scratch/wakeStats.ts`,
-one code path for tracks (`contactData.ts`, all 22 fit colonies, light /
-dark by clock) and simulations (`tmpShortSim`, every overnight arm, both
-phases). A wake is an ant's first moving step (≥ 0.6 mm/frame) after ≥ 10
-s still; every pair of wakes of different ants within 5 min is counted by
-distance band between the two wake positions (< 5, 5–10, 10–20, 20–40,
-≥ 40 mm) and |lag| (frames). The overnight script was restarted (it was
-only waiting for the oracle run) to include it; staged code checksums
-match the local files. **Seen before this entry:** colony 0's wake counts
-only (2213 light / 866 dark wakes; pair totals), as a structure check; no
-correlogram looked at.
-- **Reading, fixed now** (pooled over colonies, colony bootstrap; lag
-  bins 0, 1, 2, 3–4, 5–8, 9–16, 17–32 frames; baseline = mean count per
-  frame at 240–600 frames in the same band; excess = count / baseline − 1):
-  - *Spread from ant to ant* if near-lag excess (|lag| ≤ 4 frames, 2 s)
-    falls with distance (< 5 mm at least 2× the 20–40 mm band) **and** the
-    lag bin with the largest excess moves later with distance (later in
-    the 20–40 mm band than in < 5 mm); speed ≈ distance / lag between bands,
-    reported with its bootstrap range.
-  - *Shared driver* if near-lag excess is within a factor 1.5 across bands
-    and peaks in the 0–1 frame bins in every band.
-  - Otherwise *mixed*; described, no claim.
-- **Method check before the data are read:** the coupled oracle arms
-  (one colony-wide signal, no distance) must read *shared driver* or at
-  least show no peak-lag growth with distance; the start-point control
-  (local encounters only) is the other reference. If the coupled arms
-  show a spurious lag gradient, the method does not discriminate and the
-  data reading is not reported as evidence. Caveats stated now: 2 fps
-  limits lag to 0.5 s steps; ≥ 10 s still before a wake selects settled
-  ants; distances are between centres at the two wakes.
-- **Disclosure (contact check):** after the 05:43 entry, a 10-min smoke
-  run of the scripts (colony 0, dark, slow-episode r1-f0.4, 1 min warm-up)
-  printed its contact rate (≈ 78 per ant-hour at 4.1 mm). A code check on
-  a what-if arm, far too short to bear on the reading; noted as seen.
-
-**2026-10-17 ≈ 05:57 UTC — Spread analysis amended before any reading
-(user guidance, just before this entry).** Points taken: (1) detecting
-spatially ordered activation is not identifying its cause, and an
-external trigger plus ant-to-ant spread can coexist (a disturbance
-starts a few ants, they start their neighbours); (2) the 05:55 baseline
-(far-lag level) is a null that destroys both social spread and shared
-triggers: beating it shows synchrony only; the informative null keeps
-the shared activity episode; (3) the event is a **movement onset**
-(a crossing of the 0.6 mm/frame threshold after ≥ 10 s below it), not
-waking; the analysis and reports use that name (the code's JSON key stays
-`wake`/`onsets` as written; the term is fixed here). The overnight batch
-had not started (still waiting on the oracle run), so the recorded output
-was extended; nothing has been read. **Replaces the 05:55 reading:**
-- **Recorded:** every movement onset (frame, ant, position, still time
-  before it) per phase; the far-lag correlogram stays as a description
-  of synchrony only. Online, per frame, every still ant (≥ 10 s below
-  threshold) is a unit at risk: *exposed* if it is contacted (far → near
-  at 4.1 mm, as in the contact check) by a partner that is moving while it
-  is not; outcome: its own movement onset within the next 4 frames (2 s).
-  Strata: distance to the nearest movement onset in the last 4 frames (< 5,
-  5–10, 10–20 mm, farther or none) × colony onsets in the last 10 frames
-  (0, 1–2, ≥ 3), i.e. matched on episode timing and nearness to activity.
-- **Episodes** (offline): onsets in time order, a gap > 10 frames (5 s)
-  ends an episode; episodes with ≥ 3 distinct ants; the first onset is the
-  initiator; each ant's first onset in it.
-- **Test A — spatial order within the episode:** Spearman ρ between each
-  participant's distance from the initiator and its lag after it, mean
-  over episodes. Null 1 (keeps the episode: who took part, where, and the
-  set of onset times): onset times permuted among the participants within
-  each episode (1000 permutations). Null 2 (keeps usual location): the
-  same ρ computed from the initiator position of 20 other episodes of the
-  same colony and phase; a fixed regional order (one part of the nest
-  always first) passes null 1 but not null 2. Usual activity: partial ρ
-  adding each ant's leave-one-episode-out mean normalised rank. Colony
-  bootstrap for every difference.
-- **Test B — contacts predict onset:** Mantel–Haenszel risk ratio
-  (exposed vs unexposed, the strata above), colony bootstrap.
-- **Readings (as the guidance phrased them):** ρ above both nulls (CI of
-  the difference excludes 0) and lag rising with distance → *spatially
-  structured activation*, not yet proof of transmission (speed from
-  distance / lag reported as a description); test B risk ratio CI above 1
-  → *stronger evidence of a social contribution* (contact by a moving ant
-  predicts onset beyond distance and episode timing); neither → *no
-  resolvable travelling wave*; fast or more complex social coupling stays
-  possible (2 fps: 0.5 s resolution). Above null 1 but not null 2 → a
-  regional order, not spread from the starting point. Nothing here
-  identifies what starts an episode.
-- **Method check unchanged in role:** the coupled oracle arms (one
-  colony-wide signal) must show neither ρ above null 2 nor a test-B effect
-  beyond the control's. The control model's only local channel of this
-  kind is weak and indirect (walk-on is suppressed by *still* contacts,
-  `restCrowdExp`, so a neighbour that starts moving releases it; a moving
-  partner's arrival does not raise it): its test-B value is the reference
-  for that channel, not assumed positive. If the coupled arms fail this,
-  the data are not read as evidence.
+**2026-10-17 ≈ 14:10 UTC — STATUS cleanup (user request).**
+- Decisions-log entries from "User decisions after the diagnostics"
+  (2026-10-15 late evening) to the Napoli et al. reading (2026-10-17
+  ≈ 06:38 UTC) moved verbatim to `docs/archive/STATUS-2026-10-15-to-17.md`
+  (checked byte for byte against the previous file), with the previous
+  RESUME and Plan sections appended there verbatim. The entries from the
+  overnight results (≈ 13:10) on stay here: they hold the readings of the
+  running comparisons L and O and the test-B recheck.
+- Rules still in force from the archived entries are collected in § Rules
+  in force ("Stroeymeyt step 4b after fit C1"); the C1 phase-2 cap raise
+  is noted in the two-phase fit rule. RESUME, Plan step 4, Results in
+  brief and Open problems rewritten around the current state; Evidence
+  policy unchanged. Nothing was run and no log or fit output was opened
+  for the cleanup.
