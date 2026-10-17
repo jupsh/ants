@@ -115,6 +115,17 @@ export interface ColonyOptions {
    * its walker's speed is × `factor`; the episode ends early if it stops. Absent: nothing changes.
    */
   slowEp?: { rate: number; dur: number; factor: number };
+  /**
+   * Comparison Q (STATUS 2026-10-17 ≈ 16:19 UTC; diagnostics, not mechanisms, not adoptable). `wall: 'inward'`: in the
+   * nest an ant whose step reaches the edge of the surface takes a uniformly drawn heading that stays on the surface
+   * (own stream per ant) instead of turning along the edge. `aggregate`: each in-nest ant's stop rate (`activeToRest`,
+   * nurse and forager values) × (1 + k·n), n = resting in-nest nestmates within r mm (true state), recounted every 1 s.
+   * `site`: stop rate × (1 + k·w(x, y)), w a map on 1-mm cells from (x0, y0), nx × ny, row-major by y. Absent: nothing
+   * changes.
+   */
+  wall?: 'inward';
+  aggregate?: { k: number; r: number };
+  site?: { k: number; x0: number; y0: number; nx: number; ny: number; w: number[] };
 }
 
 export interface RecruiterEntry {
@@ -221,6 +232,10 @@ export class ColonySim {
   oracleLogSum = 0;
   oracleLogSq = 0;
   oracleLogN = 0;
+  /** Comparison Q state (see `ColonyOptions.wall` / `aggregate`); plain fields so `clone` copies it. */
+  private readonly wallRng: RNG[] = [];
+  private aggN: number[] = [];
+  private aggNext = 0;
   /** Slow-episode what-if: seconds left in each ant's episode, own streams, the slowed walk parameters (nest, forager). */
   private readonly slowLeft: number[] = [];
   private readonly slowRng: RNG[] = [];
@@ -407,6 +422,50 @@ export class ColonySim {
     return () => g;
   }
 
+  /** Comparison Q: each in-nest ant's stop-rate multiplier this step (`aggregate` × `site`). */
+  private stopMultStep(t: number, outside: boolean[]): (i: number) => number {
+    const ants = this.w.ants;
+    const ag = this.o.aggregate;
+    if (ag && t >= this.aggNext - 1e-9) {
+      this.aggNext = t + 1;
+      const r2 = ag.r * ag.r;
+      const rest = ants.map((a, i) => a.body.alive && !outside[i] && a.mind.mode === 'rest');
+      this.aggN = ants.map((a, i) => {
+        if (!a.body.alive || outside[i]) return 0;
+        let n = 0;
+        for (let j = 0; j < ants.length; j++) {
+          if (j === i || !rest[j]) continue;
+          const dx = ants[j].body.x - a.body.x;
+          const dy = ants[j].body.y - a.body.y;
+          if (dx * dx + dy * dy < r2) n++;
+        }
+        return n;
+      });
+    }
+    const st = this.o.site;
+    return (i) => {
+      let g = ag ? 1 + ag.k * (this.aggN[i] ?? 0) : 1;
+      if (st) {
+        const cx = Math.floor(ants[i].body.x - st.x0);
+        const cy = Math.floor(ants[i].body.y - st.y0);
+        if (cx >= 0 && cy >= 0 && cx < st.nx && cy < st.ny) g *= 1 + st.k * st.w[cy * st.nx + cx];
+      }
+      return g;
+    };
+  }
+
+  /** Comparison Q `wall: 'inward'`: a uniformly drawn heading whose next 0.5 mm stays on the surface (else reverse). */
+  private inwardTurn(i: number): (x: number, y: number, h: number, walkable: (x: number, y: number) => boolean) => number {
+    const rng = (this.wallRng[i] ??= RNG.stream(this.o.seed, 0x0e1d, i));
+    return (x, y, h, walkable) => {
+      for (let k = 0; k < 36; k++) {
+        const g = rng.range(0, 2 * Math.PI);
+        if (walkable(x + Math.cos(g) * 0.5, y + Math.sin(g) * 0.5)) return g;
+      }
+      return h + Math.PI;
+    };
+  }
+
   /** A copy of the whole state; with `key`, its random streams are forked (independent continuation). */
   clone(key?: number): ColonySim {
     return deepClone(this, { share: IMMUTABLE, rekey: key });
@@ -460,17 +519,30 @@ export class ColonySim {
     const resting = w.ants.map((a, i) => fast && a.body.alive && !outside[i] && a.mind.mode === 'rest');
     const per: (SurfacePercept | null)[] = w.ants.map((a, i) => (!a.body.alive ? null : resting[i] ? perceiveResting(w, a.body, dt, contacts![i]) : perceive(w, a.body, dt, contacts?.[i])));
     const orc = this.o.oracle ? this.oracleStep(dt, outside) : null;
+    const stopMult = this.o.aggregate || this.o.site ? this.stopMultStep(t, outside) : null;
     const acts: (NestAction | ForagerAction | null)[] = w.ants.map((a, i) => {
       const p = per[i];
       if (!p) return null;
       if (outside[i]) return lasiusForager(p, interocept(a.body), a.mind, this.foragerP, a.body.rng);
-      if (!orc) return lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
+      if (!orc && !stopMult) return lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
+      // The oracle scales the shared walk-on value only (it never reached foragers' own values: STATUS 16:18, kept so
+      // earlier runs reproduce); the comparison-Q multiplier scales the nurse and forager stop rates.
       const base = P.nest.restToActive;
-      P.nest.restToActive = base * orc(i);
+      const baseA = P.nest.activeToRest;
+      const f = P.nest.forager;
+      const fA = f?.activeToRest;
+      if (orc) P.nest.restToActive = base * orc(i);
+      if (stopMult) {
+        const g = stopMult(i);
+        P.nest.activeToRest = baseA * g;
+        if (f && fA !== undefined) f.activeToRest = fA * g;
+      }
       try {
         return lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
       } finally {
         P.nest.restToActive = base;
+        P.nest.activeToRest = baseA;
+        if (f && fA !== undefined) f.activeToRest = fA;
       }
     });
     // A resting ant that walks this step (it woke, or leaves or returns) gets the full percept of the same pre-move state.
@@ -503,7 +575,7 @@ export class ColonySim {
       // A partial step (a rest/walk switch inside it) walks through a percept with the shorter dt.
       const p = per[i]!;
       const wp = this.o.slowEp && p.inNest ? this.slowWalk(i, a, p, !na.stand, dt) : this.walkFor(p, a);
-      if (!na.stand) walked[i] = walkAnt(w, a, na.walkFrac !== undefined ? { ...p, dt: p.dt * na.walkFrac } : p, wp, P.phys, na.motor, this.motor);
+      if (!na.stand) walked[i] = walkAnt(w, a, na.walkFrac !== undefined ? { ...p, dt: p.dt * na.walkFrac } : p, wp, P.phys, na.motor, this.motor, undefined, this.o.wall === 'inward' ? this.inwardTurn(i) : undefined);
     });
     // Food sharing between ants that both agreed, in donor-index order.
     w.ants.forEach((a, i) => {

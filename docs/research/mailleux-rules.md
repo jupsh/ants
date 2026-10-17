@@ -186,7 +186,7 @@ Groups: TL1 laid trail after drop 1. TL2 started laying after drop 2. nTL2 never
 
 ---
 
-## 4. Mailleux, Detrain, Saffre & Deneubourg 1999, Actes Coll. Insectes Sociaux 12:73–79 (header reads "73-104"; full text read, tables checked against page images)
+## 4. Mailleux, Detrain, Saffre & Deneubourg 1999, Actes Coll. Insectes Sociaux 12:73–78 (page range corrected 2026-10-17 by the user from the page-image header; the PDF's text layer reads "73-104", an OCR error, and the earlier "73–79" was off by one; full text read, tables checked against page images)
 
 **This paper is the source of our 1/4/8-day drinking-time data and the in-nest recruiter data.**
 

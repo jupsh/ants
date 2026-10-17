@@ -80,9 +80,11 @@ export function applyForagerAction(w: World, a: Agent, act: ForagerAction, per: 
  * Walk one step with the motor program: edges of the surface turn the ant
  * along them, trail is deposited where the gaster touches, and path
  * integration reads the true self-motion through a biased, noisy compass.
- * Returns the path length walked (mm).
+ * Returns the path length walked (mm). `edgeTurn` (diagnostic, STATUS 2026-10-17 ≈ 16:19 UTC, comparison Q)
+ * replaces the turn along the edge with the heading it returns (e.g. a random inward heading); absent, the ant turns
+ * along the edge.
  */
-export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkParams, phys: PhysParams, mod: MotorMod, motor: MotorFn = walkStep, walkable: (x: number, y: number) => boolean = (x, y) => w.apparatus.inside(x, y)): number {
+export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkParams, phys: PhysParams, mod: MotorMod, motor: MotorFn = walkStep, walkable: (x: number, y: number) => boolean = (x, y) => w.apparatus.inside(x, y), edgeTurn?: (x: number, y: number, heading: number, walkable: (x: number, y: number) => boolean) => number): number {
   const b = a.body;
   const m = a.mind;
   return motor(
@@ -131,6 +133,12 @@ export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkPara
         if (done === pieces) return;
         // Edge of the surface: the ant turns along it (smallest turn whose next 0.5 mm stays on the surface).
         len -= walked;
+        if (edgeTurn) {
+          m.walk.heading = edgeTurn(b.x, b.y, m.walk.heading, walkable);
+          dx = Math.cos(m.walk.heading) * len;
+          dy = Math.sin(m.walk.heading) * len;
+          continue;
+        }
         let turned = false;
         for (let k = 1; k <= 12 && !turned; k++)
           for (const sgn of [1, -1]) {

@@ -6,7 +6,8 @@
 #   starting · running · quiet (log silent past --quiet-after) · ok ·
 #   failed (exit code) · killed (via `kill`) · died (gone without an exit)
 # status never prints log content (blind checks); a script may opt in to a
-# progress column by writing one line to "$RUN_DIR/progress".
+# progress column by writing one line to "$RUN_DIR/progress". With
+# logs/notify.env, the run notifies when it starts and when it ends.
 #
 #   bash scripts/run.sh start <name> [--quiet-after S] -- <cmd…>   # detached
 #   bash scripts/run.sh status [--all] [--box]          # npm run runs [-- --box]
@@ -86,6 +87,7 @@ case $cmd in
       d=$1; shift
       echo $$ > "$d/pid"
       export RUN_DIR=$d
+      timeout 20 bash "$self" notify --start "$d" > "$d/notify-start.log" 2>&1 || true
       "$@" > "$d/log" 2>&1 < /dev/null && code=0 || code=$?
       printf "%s %s\n" "$code" "$(date +%s)" > "$d/exit.tmp" && mv "$d/exit.tmp" "$d/exit"
       bash "$self" notify "$d" > "$d/notify.log" 2>&1 || true
@@ -131,8 +133,9 @@ case $cmd in
     echo "killed $id (process group $(cat "$d/pid"))"
     ;;
   notify)
-    # Called by the wrapper itself when a run ends, so no watcher or Claude
-    # session is needed; `notify --test` checks the channel. RUN_NOTIFY in
+    # Called by the wrapper itself when a run starts (`--start`, ≤ 20 s, never
+    # blocks the run) and when it ends, so no watcher or Claude session is
+    # needed; `notify --test` checks the channel. RUN_NOTIFY in
     # logs/notify.env (per machine, read at the end of the run) is a shell
     # command that sends "$RUN_MSG": host (RUN_HOST, else the hostname), run
     # id, state and duration, never results.
@@ -140,6 +143,7 @@ case $cmd in
     [ -r "$conf" ] || { echo "no $conf: not notifying"; exit 0; }
     . "$conf"; [ -n "${RUN_NOTIFY:-}" ] || { echo "RUN_NOTIFY empty: not notifying"; exit 0; }
     if [ "${1:-}" = --test ]; then msg="${RUN_HOST:-$(hostname -s)}: run.sh test notification"
+    elif [ "${1:-}" = --start ]; then msg="${RUN_HOST:-$(hostname -s)}: $(basename "${2:?}") started"
     else
       d=${1:?}; s=$(state "$d"); t0=$(cat "$d/start")
       msg="${RUN_HOST:-$(hostname -s)}: $(basename "$d") $s after $(dur $(( $(ended "$d" "$s") - t0 )))"

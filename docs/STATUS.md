@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-17 ≈ 15:00 UTC (literature access guard; comparisons L and O running on the box). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-17 ≈ 14:45 UTC (test-B model control read; before that L and O read, next steps and a quick guide for a new agent in RESUME). Keep this file current: update it whenever a step starts or finishes._
 
 Earlier history is archived verbatim: up to 2026-10-10 evening (session
 notes, step results, the first decisions log) in
@@ -22,7 +22,7 @@ lines, archive again.
 
 ## ▶ RESUME HERE
 
-**State (2026-10-17 ≈ 14:10 UTC).** Milestone M1, *Lasius niger* as the
+**State (2026-10-17 ≈ 14:40 UTC).** Milestone M1, *Lasius niger* as the
 single reference species. Work is on `browser-sim-m1`, merged to `main`
 (GitHub Pages) when the user asks (last merge `e1e6847`, 2026-10-16).
 
@@ -70,28 +70,91 @@ single reference species. Work is on `browser-sim-m1`, merged to `main`
       still periods are mostly true rests.
     - **Colony synchrony:** D_w data 2.6 / 4.2 / 6.3 at 5 s / 1 min / 10
       min vs model 1.06 / 1.25 / 1.57; global oracle coupling (κ ≤ 1)
-      closes under 40 % of the gap in light.
+      closes under 40 % of the gap in light. **Comparison X (15:30):**
+      mainly within-nest (external share across simultaneously recorded
+      systems 0.09 [0.00, 0.20] at 1 min); within-nest coupling vs drivers
+      local to one system not yet separated (distance check proposed).
+      Rules (15:25): sensitivity gate in step 5; blocker before the
+      structure freeze for held-out tests.
+      **Y (16:19): mixed** — the data's co-movement decays smoothly over
+      1–4 cm; the model's is contact-range only. **Defect (16:18):** the
+      oracle / latent-state switches modulated nurses only (foragers' own
+      walk-on value was never scaled); the oracle's closed line carries
+      that caveat, reopening is the user's call.
     - **Contacts (centre-distance crossings, 4.1 mm): not adequate**;
       model / data light 0.50, dark 0.64, the deficit in crossings between
-      still ants (0.26 / 0.29). **A blocker for step 5** (user, 13:11).
+      still ants (0.26 / 0.29); moving-involved 0.78 light, 1.19 dark.
+      **A blocker for step 5** (user, 13:11). **Comparison O (14:35):** the
+      statistic is strongly observation-sensitive — slowly varying tag
+      error (variant M) alone raises still–still crossings ×2.4 (0.26 →
+      0.63 light, 0.29 → 0.72 dark) while leaving the rows unchanged;
+      near share (a neighbour within 4.1 mm) is robust to it and shows the
+      model less packed than the data (0.78 vs 0.95). Variant B is not
+      usable for contacts (its offsets accumulate across rests).
     - A **per-ant latent activity state** (independent slow OU walk-on
-      multiplier, the oracle's placebo) improves the nurse rows and moves
-      T2 toward the data, but it also raised the mean walk-on rate: the
-      mean-matched comparison L decides.
+      multiplier, SD 1 on the log scale, τ 60 s): **comparison L (14:35)
+      supports a variability effect in both matched contrasts** — mean-one
+      vs baseline and original vs constant ×1.65 — at matched realised
+      activity: nurse T2 +0.04, nurse P2 / P10 |z| down (mean-one 34 → 27 /
+      59 → 47), stillness not worse, persistence kept (0.44; data 0.43);
+      a constant higher rate alone gives no T2 gain and worsens stillness.
+      Nurse-only (by construction: the switch never reached foragers —
+      defect found 16:18); it does not touch contacts. **Candidate model element
+      for the user** (a mechanistic version to be designed).
     - **Contact-associated onsets** (test B): the association cannot be
       attributed to the contact (a comparable elevation precedes it); no
       contact-activation arm (user, ≈ 14:04).
     - C-a (periodic bursts): inconclusive, its rule does not
       discriminate; C-b: no refractory signature in complete still runs.
-  - **Running (box, launched 13:13 UTC, `logs/lo/run-lo.sh`; not checked
-    during the cleanup):** comparison **L** (mean-matched latent state,
-    arms L0–L3) and comparison **O** (contacts under the observer
-    variants M, B, P), readings fixed in the Decisions log (13:11, amended
-    13:15); then the test-B model control through the same code
-    (reference only; 13:53 / 13:54). **Next:** read L, then O, against
-    those readings, nothing else; then the user decides how to address
-    the contact blocker and whether a latent activity state becomes a
-    candidate model element (a mechanistic version, designed then).
+  - **Test-B model control read (14:45, reference only):** the model
+    shows no contact-associated activation (exposed vs unexposed M = 1 RR
+    0.93 light, 0.88 dark; contact ≈ matched close pass), so the data's
+    RR ≈ 3 is not produced by the shared recorder and observer at the
+    model's motion. Outputs in `logs/tb/`.
+  - **Comparison R (15:34): no measurement-robust crossing statistic
+    exists in the band × dwell family** — still–still contacts stay ×1.8–
+    2.5 under variant M at every cell; moving-involved are robust with a
+    dwell (0.95–0.97). Data side not run; options (a)–(c) for the user in
+    the Decisions log. **Ra (15:51):** moving-involved contacts marginal
+    in light (0.73–0.78), reproduced in dark (1.10–1.19); data light /
+    dark 1.5, model 1.0. **P (15:51): mixed** — median NN matched, near
+    share 0.82 (the model has ~20 % isolated ant-frames), occupancy at
+    walls vs the data's colony-specific site.
+  - **Comparison Q read (18:14):** W+E(1.0) reads "deficit is packing"
+    by the table, but over-compacts (median NN 1.40 vs 2.17) and the
+    M-observed count overshoots (×1.35–1.64); the guard failed (W cuts
+    exits by a third). Qualified reading and options (a)–(c) in the
+    Decisions log. Was: comparison Q, packing / aggregation arms (W wall-neutral; W+E
+    emergent aggregation k 0.25 / 1.0; W+S data-fed site k 3, diagnostic
+    only), control and M observers; design, outcome table and guard in
+    the Decisions log ≈ 16:19. Read with `scripts/scratch/qAgg.py`
+    after fetching `logs/q/cs-q-*`. Wall check (≈ 16:05): the model's
+    edge-following puts ≈ half its ant-frames in a 3-mm wall band; the
+    data's ants sit in a colony-specific cluster.
+  - **Next steps (proposed to the user ≈ 14:38; each is pre-registered in
+    the Decisions log before it runs):**
+    1. **A measurement-robust contact statistic.** Widen the hysteresis
+       (the 1-mm band is narrow next to a 0.7-mm drift) and require a
+       dwell on each side of the crossing; calibrate with variant M — a
+       robust statistic barely moves under M vs the control (bar to be
+       logged, e.g. < 10 %). Recompute data vs model: if the still–still
+       deficit survives, it is real; if it disappears, the contact blocker
+       was largely measurement. Data side local (minutes; `contactData.ts`
+       pattern), model side ≈ 1 h on the box.
+    2. **Packing, from the same runs:** nearest-neighbour distance
+       distributions and occupancy maps, data vs model (near share is
+       already robust and differs: 0.95 vs 0.78).
+    3. **Then the user decides** among a geometry-respecting physical
+       creep arm (moves bodies, not observed positions), a packing /
+       aggregation mechanism, or accepting the contact gap as a disclosed
+       failure for step 5.
+    4. **In parallel (desk work):** design a mechanistic per-ant latent
+       activity state for nurses (slowly varying walk-on trait beside or in
+       place of the fixed σ 0.4 trait), for a later fit together with the
+       compact persistence targets.
+    Parked, not to be run without the user: excitable (contact + refractory)
+    coupling for synchrony (Napoli et al. 2026); any contact-activation
+    arm; further speed, slow-episode, κ or τ_c arms.
   - **On hold:** the compact per-ant persistence targets (proposal
     2026-10-16 ≈ 23:35, C1 archive) and the entrance-excursion trip audit.
     No new fit before the persistence targets and their weights are logged
@@ -109,7 +172,8 @@ single reference species. Work is on `browser-sim-m1`, merged to `main`
     `scripts/tmp*.ts`, `scripts/scratch/`. Logs (git-ignored): fit C1
     `logs/c1/`; diagnostics `logs/sf/`, `logs/sf2/`, `logs/t12/`,
     `logs/judge/`, `logs/orc/`, `logs/night/`, `logs/latent/`,
-    `logs/extra/`, `logs/spread/`, `logs/lo/`; earlier `logs/act/`,
+    `logs/extra/`, `logs/spread/`, `logs/lo/`, `logs/tb/` (box), data-side
+    contacts / onsets / activity / test B in `logs/contacts/`; earlier `logs/act/`,
     `logs/trk*/`, `logs/s3/`, `logs/sp/`, `logs/short/`, `logs/trips/`.
 - **E6 (Bles et al. 2022): development benchmark, not validation.** Its
   judging rule is pre-registered (Rules in force); it runs only after an
@@ -120,6 +184,80 @@ single reference species. Work is on `browser-sim-m1`, merged to `main`
   stress-tested, with failures disclosed*, not "validated". Validating the
   colony model needs independent held-out data; finding it is a work item
   now (Plan, parallel track).
+
+### Quick guide for a new agent on step 4b (written 2026-10-17 ≈ 14:40 UTC)
+- **Read first:** CLAUDE.md; this RESUME block; Rules in force (step-4b
+  verdicts and closed lines); Evidence policy and contamination log; then
+  the Decisions log entries of 2026-10-17 at the end of this file, newest
+  last (each has its design, its fixed reading and its result). Older
+  detail is in the C1 archive.
+- **How this user works:** every comparison is designed and its reading
+  fixed in the Decisions log *before* it runs, then read mechanically
+  against that reading; a weak rule found at reading time is disclosed,
+  not quietly replaced. The user often pastes guidance from a reviewer:
+  log it as "user guidance, pasted, adopted", and correct overstated
+  conclusions in place (dated), never silently. Bounded arm sets, no
+  further arms after a "no further arms" verdict, no fits without the
+  user. Ask before committing; commits carry no Claude attribution;
+  pushing to `main` bypasses a PR rule, so only when asked.
+- **Hygiene that has gone wrong before:** run `date -u` before writing
+  any STATUS timestamp (entries were repeatedly written ahead of the
+  clock); while a pre-registration is open, only check that outputs exist
+  (CLAUDE.md, blind checks); name anything seen early in the entry and
+  the reply.
+- **Literature:** only the cleared papers in `literature/` (pinned in
+  `docs/literature.json`); search their text with `rg -n "…"
+  .cache/papers`. Held PDFs live in `~/ants-literature/held/` behind a
+  hook — never work around it; clearing a paper is the user's decision.
+  Held out: the 10 Stroeymeyt age-experiment colonies and the Stroeymeyt
+  SM beyond its methods.
+- **Tools (all runs at the start point, seed 4242 / 'diag' seeds,
+  paired with the controls):**
+  - rows: `diagS2018.ts --at start [--set …] [--oracle …] [--slowEp …]
+    [--obsVariant …] [--pxRound …] --reps 4 --out f`, compared with
+    `reportS2018.ts --est f --start logs/sf/diag-ctl.json` (paired shifts);
+  - persistence: `tmpTrackerSim.ts --colony c --mode tracker --obsH 12`
+    → `logs/act/sim-s<set>-c*.log`, read by `scratch/simact.py`
+    (control set `0.4`);
+  - step diagnostic, T2, synchrony, contacts, onsets, activity series,
+    test B: `scratch/tmpShortSim.ts --colony c --trips [--phase
+    light|dark] [--obs 43200] [--lite] [--tb] --tag t` (4-h full output
+    for T2 and steps; 12-h `--lite` for contacts / onsets / synchrony);
+    data side `scratch/tmpShortData.ts`, `contactData.ts`,
+    `contactOnsetData.ts`, `activityData.ts` (local, fit tracks);
+  - aggregators (`python3 -I`): `sf2Agg.py` (brief stills),
+    `t12Agg.py` / `t2Paired.py` (T2), `syncAgg.py` (synchrony),
+    `contactAgg.py` / `contactSplit.py` (contacts), `spreadAgg.py`
+    (episodes), `tbAgg.py` (test B), `caAgg.py`, `cbAgg.py`;
+  - controls: rows `logs/sf/diag-ctl.json`, persistence `sim-s0.4`, T2
+    `t12-ctl`, contacts / onsets `night-ctl`.
+  - Diagnostic switches (runner-level, off by default, tested
+    bit-identical, never adoptable): `ColonyOptions.oracle`
+    (coupled / placebo / const, `meanOne`), `slowEp`; observer variants
+    `posDrift`, `pxRound` (`test/oracle.test.ts`, `test/obsVariant.test.ts`).
+- **Box:** copy only the changed files, compare md5 with the local
+  files before launch, and never overwrite a file that running jobs still
+  load — stage it and let the queued script copy it in. Launch with
+  `(setsid nohup bash script > log 2>&1 < /dev/null &)` (a plain
+  background job over ssh hangs). Long runs: `bash scripts/run.sh start
+  <name> -- <cmd…>` (does the detached launch; per-run folder, end
+  notification from the run itself; `npm run runs -- --box`), from
+  2026-10-17 ≈ 14:50 once copied to the box; before that, one hourly
+  watcher on a `.done` file. Big per-colony outputs stay on the box: reduce them there
+  (`cs-*` files) and fetch the reductions; the disk was ≈ 94 % full
+  (2.0 GB free, 2026-10-17 14:42) before the cleanup below. Fetch many small files as one
+  `tar czf -` stream over ssh (an `scp` glob timed out). The box's raw
+  `logs/short` (1,606 files, 29 GB, summaries not positions) is archived
+  locally in `logs/box-2026-10-17/short.tar.zst` (6.6 GB; every file
+  checked against the box's md5 manifest `short-md5.txt`, 2026-10-17);
+  the user deleted the 1,606 verified files on the box (box disk 7 %
+  used, 30 GB free, 2026-10-17).
+- **Pitfalls found the hard way:** observer variant B accumulates offsets
+  across rests (unusable for anything geometric); an `exp(x)` multiplier
+  is not mean-preserving (use `meanOne`); a "local maximum anywhere"
+  periodicity rule passes noise; strict uninterrupted tracking keeps only
+  ≈ 8 % of onsets; contact-onset associations need a pre-contact time
+  course before any causal reading.
 
 ### Plan (agreed 2026-10-10 late night; steps 3–5 revised 2026-10-11)
 Plan 4's pilot steps are done: A failed the adoption rule, and B with
@@ -434,7 +572,8 @@ archive; each item traceable to its dated entry there or below):
 - **Closed lines (no further arms):** in-nest speed fluctuation (4 arms
   with the mean kept, 2026-10-17 ≈ 00:10 / 00:55; 8 with the mean lowered
   and shorter τ, ≈ 05:08); global oracle coupling (no further κ or τ_c,
-  ≈ 06:20); discrete slow episodes at the tested settings (13:10; this
+  ≈ 06:20; **caveat 16:18: it coupled nurses only** — reopening is the
+  user's call); discrete slow episodes at the tested settings (13:10; this
   rejects the settings, not the mechanism, 13:11); a contact-based
   activation arm is not warranted on current evidence (14:02, user).
 - **Measurement:** the track-only measurement checks stopped at checks A
@@ -452,6 +591,19 @@ archive; each item traceable to its dated entry there or below):
 - **Contacts:** contacts from tracks are crossings of tracked centres
   into 4.1 mm (far again past 5.1 mm), not verified touches; the contact
   deficit is a **blocker for step 5** (user, 13:11).
+- **Colony synchrony (user, 2026-10-17 ≈ 15:25):** not a blocker for
+  step 5 as such (no 1999 row measures it, and the rows are recruiter
+  means), but (1) **sensitivity gate in step 5:** before a step-5 fit is
+  adopted, the 1999 rows are re-evaluated at its optimum with the oracle
+  coupling on (κ = 1, τ_c 60 s) and its placebo; if any row moves by
+  more than ≈ 1 combined SE beyond the placebo, or the adoption verdict
+  changes, synchrony becomes a step-5 blocker (a null shows insensitivity
+  to this partial, artificial synchrony only — disclosed as such); (2)
+  **blocker for freezing the model structure** before any held-out
+  colony test (Mailleux et al. 2011: nest exits rise with starvation
+  independently of direct contacts, a colony-level effect): the cause of
+  the synchrony is investigated and either modelled or its absence
+  argued and disclosed before the freeze.
 - **Literature-derived structures parked** until the current tests are
   read (user, 2026-10-16 ≈ 23:58): a two-class or mixed activity trait, a
   duration-dependent stop hazard, "the more the faster"; an excitable
@@ -1298,7 +1450,8 @@ within 0.10 of the baseline (L3 0.44, data 0.43). Stricter extra report:
 L3 − L1 T2 +0.050 [+0.042, +0.058] (passes too). Decomposition: a higher
 constant rate buys row gains with no T2 gain and a large stillness cost;
 the variability part moves T2 and the short-still rows at matched
-realised activity, with no stillness cost when mean-one. Nurse-only:
+realised activity, with no stillness cost when mean-one. Nurse-only
+(*by construction*, corrected 16:18: the switch never reached foragers):
 forager T2 and rows unchanged in every arm (−0.005 to +0.008). Contacts:
 L3 leaves them as the baseline (light moving-involved 0.78, still-still
 0.25; dark 1.18 / 0.28); the higher-rate arms raise both a little (light
@@ -1332,6 +1485,40 @@ Paired variant / control (r 4.1 mm), and absolute model / data:
   error); packing (data near share 0.95 vs model 0.78) is unresolved and
   untouched by M. The contact deficit stays a blocker for step 5, now
   with the measurement question in front of the creep question.
+
+**2026-10-17 ≈ 14:45 UTC — Test-B model control read (reference only,
+13:53 / 13:54 design; no reading rule was fixed for it).** Box run
+14:29–≈ 14:40 UTC, `logs/tb/run-tb.sh`, start point, 22 colonies, light
+and dark, 12 h, same `scratch/contactOnset.ts` recorder and simulated
+observer as the data; `python3 -I scripts/scratch/tbAgg.py
+'logs/tb/tb-ctl-*-c*.json'`. Data figures (14:02) rerun with the same
+aggregator for like-for-like units.
+- **(1) exposed vs matched unexposed:** light M = 1 RR **0.93** [0.89,
+  0.96], −0.12 pp; M = 2 0.93 [0.87, 0.97]; M = 4 0.94 [0.80, 1.06]. Dark
+  M = 1 **0.88** [0.84, 0.91], −0.20 pp; M = 2 0.87; M = 4 0.89. Data:
+  2.97 / 3.33 at M = 1.
+- **(3) contact vs matched close pass:** light 1.00 / 1.08 / 1.13 (M = 1
+  / 2 / 4), dark 0.97 / 1.02 / 1.18. Data 1.63 / 1.30 / 1.10 and 1.91 /
+  1.47 / 1.35.
+- **(2) time course (M = 2, per 1000 at risk; the 14:02 entry's per-10⁴
+  figures are the same quantity):** contact and pass hazards sit at or
+  below the null on both sides of the event (light −4…−2 ≈ 0.6–0.8,
+  +1…+4 ≈ 1.0–1.1; null 0.7–1.0 / 1.2–1.3). The model's hazard level is
+  ≈ 4–5× the data's (data ≈ 0.1–0.3), and it has ≈ 5× as many eligible
+  sustained onsets (123 292 vs 23 918 light): the same direction as the
+  known stillness mismatch, not read further here.
+- **(4)** sustained onsets preceded by a contact within 2 s: 2.1 % light,
+  2.0 % dark (data 5.5 / 4.3 %); excess share ≈ 0. **(5)** direction:
+  contact mean cos −0.05 / −0.13, pass +0.15 / +0.12 (supporting only).
+- **Reading (descriptive):** the recorder and observer applied to the
+  model's motion give no association (RR slightly below 1), so the data's
+  RR ≈ 3 is not an artefact of the shared code path at this geometry.
+  This does not change the 14:02 reading: the data's pre-contact
+  elevation still prevents a causal reading, and a model with no
+  fluctuating activity state is expected to show none. Not repeated with
+  the latent-state arm (L3): that would be a new comparison and needs the
+  user. No arm follows from this.
+
 
 **2026-10-17 ≈ 14:50 UTC — Run wrapper for long jobs (user decision,
 logged before building; tooling only, no simulation code touched).**
@@ -1379,3 +1566,678 @@ logged before building; tooling only, no simulation code touched).**
   logged here; the box file sets `RUN_HOST=box`). Tests sent from both;
   a real box run (`notify-check-…`, sleep 2) notified on its own end.
   `run.sh` re-copied after adding `RUN_HOST` (md5 93b3638a… both sides).
+
+**2026-10-17 ≈ 15:10 UTC — Comparison R (measurement-robust contact
+statistic, next step 1), design and reading logged before building.**
+Bar approved by the user (just before this entry): a robust statistic moves by less
+than 10 % under variant M.
+- **Statistic family (one code path for data and simulated observers,
+  `scripts/scratch/robustContacts.ts`).** Pairs of tracked ants both
+  detected in the nest, as `contactStats.ts`; entry radius **r = 4.1 mm
+  fixed** (the contact definition, one body length). Grid: exit radius
+  **rOut ∈ {5.1, 6.1, 7.1} mm** (band 1 / 2 / 3 mm; the relative offset
+  of two tags under M has SD ≈ 0.7·√2 ≈ 1.0 mm) × **dwell D ∈ {0, 2, 4,
+  10} frames** (0 / 1 / 2 / 5 s): a contact is a crossing into < r by a
+  pair whose last D joint detections were all > rOut, confirmed when its
+  next D joint detections all stay < rOut (counted then, classified by
+  the moving flags at the crossing frame, as now). A joint gap > 3 frames
+  forgets the pair, as now. The cell (5.1, 0) is the current statistic
+  and must reproduce `ContactStats` counts exactly (check before the
+  box run).
+- **Calibration, model only (paired, seed 4242):** start point, 22
+  colonies × light / dark × 12 h, `--lite`; control (observer unchanged,
+  as `night-ctl`) and **M** (`--obsVariant tag:0.7:90 --pxRound
+  0.0229658793`, as in O): 88 runs on the box. Per cell and phase, ratio
+  M / control of pooled counts, still–still and moving-involved, colony
+  bootstrap 2000. **A cell passes** if both ratios lie in [0.90, 1.10]
+  in both phases (point estimates; CIs reported). **Choice:** the
+  passing cell with the narrowest band, then the shortest dwell (closest
+  to the established definition, keeps most events). Retention vs the
+  current statistic reported, no rule. None passes → reported, no wider
+  grid without the user.
+- **Then data vs model on the chosen cell only** (data side computed
+  after the choice; 22 fit colonies, PreTreatment, light / dark by UTC as
+  before): model / data ratio of contacts per detected ant-frame,
+  still–still and moving-involved, colony bootstrap as `contactAgg.py`.
+  **Reading, fixed now (still–still):** the deficit **survives** (real
+  at this geometry) if the ratio's 95 % CI upper bound is < 0.8 in both
+  phases; it is **largely measurement** if the point ratio is ≥ 0.8 in
+  both phases; otherwise **mixed**, reported as such. Moving-involved
+  reported with the same thresholds, descriptive. The other cells' data /
+  model ratios are reported afterwards as sensitivity, not used for the
+  reading. Limit, stated in advance: insensitivity to M shows robustness
+  to slow per-tag drift only, not to other tracking errors (jumps, swaps).
+- **Packing recorded in the same runs (next step 2), not read:**
+  nearest-neighbour distance histograms (tracked ants detected in the
+  nest, 0–30 mm in 0.25 mm bins + overflow, per role and phase) and
+  occupancy (observed positions in 1 mm cells, per colony, role and
+  phase), control, M and later data. Their reading is logged separately
+  before any packing output is opened (blind checks until then).
+- **Amended ≈ 15:13, before any box run (found building).** Check 1
+  passed: cell (5.1, 0) reproduces `ContactStats` exactly (colony 0,
+  light, 300 s warm-up + 30 min: 388 / 288 control, 447 / 277 M, still
+  the case after the amendment). Defect: "its last D joint detections
+  were all > rOut" breaks the run on every frame in the band, so a slow
+  approach (≈ 1.3 mm/frame through a 2–3 mm band) can never count — the
+  wider bands kept 1–4 % of contacts. **Amended pre-crossing dwell: ≥ D
+  joint detections > rOut since the pair was last near or first seen**
+  (band frames neither add nor reset; a > 3-frame joint gap still
+  forgets the pair, so re-acquisition inside the band needs a fresh D
+  beyond rOut). Confirmation after the crossing unchanged. Choice rule,
+  bar and data reading unchanged. **Seen while checking (disclosed):**
+  the 12 cells' counts for that one colony / 30 min, control and M
+  (e.g. dwell 0: 388 → 447, i.e. +15 % under M at every band — at
+  dwell 0 the wider bands do little, apparently because gaps re-acquire
+  pairs inside the band as far). Not used for the choice; the rule above
+  stands.
+- **Launched ≈ 15:14 on the box** (`run.sh` run
+  `robust-20261017T151427Z`, script `scripts/scratch/box/run-robust.sh`,
+  88 runs, `xargs -P 62`). Copied only `tmpShortSim.ts` (adds
+  `--robust`, otherwise identical to the box copy) and
+  `robustContacts.ts`; md5 checked both sides. Other differences found
+  in the full checksum sweep, none loaded by this run's recorder:
+  `scripts/lib.ts` (local adds `runProgress`), `syncStats.ts` (local
+  adds 4-h blocks; synchrony is not read here), data-side scripts absent
+  on the box. Reductions in `logs/robust/cs-rob-*`; calibration read
+  with `scripts/scratch/robustAgg.py` (cells only, packing not opened).
+
+**2026-10-17 ≈ 15:25 UTC — Synchrony: two rules adopted (user) and
+comparison X (cross-colony synchrony) designed before building.** User
+agreed (≈ 15:24) that synchrony is not a step-5 blocker as such, with a
+sensitivity gate in step 5 and a blocker before the structure freeze for
+held-out tests (both now in Rules in force, under Contacts), and asked
+for a check that separates shared external drivers from within-nest
+coupling.
+- **Metadata (looked at before the design; not a result):** the 22 fit
+  colonies' PreTreatment recordings (24.0 h each, `info_dat.txt`, Unix
+  times) include **7 simultaneous pairs**, each started minutes apart in
+  different experimental systems ('box'): 020/112 (61/71), 215/213
+  (92/102), 250/241 (51/52), 224/204 (71/61), 261/260 (62/52), 226/220
+  (81/91), 265/276 (92/102); 8 further pairs overlap by < 20 h (adjacent
+  days). Whether the systems share a room is not in the dataset README;
+  the Stroeymeyt paper is not cleared (not looked up).
+- **Recorder** (`scripts/scratch/xsyncData.ts`, data only, fit tracks):
+  per tracked ant (nurse or forager, in the nest), per 5-s clock bin
+  (floor(t / 5)), moving steps and steps (moving step as the rows:
+  ≤ 3-frame gap, ≥ 0.6 mm/frame), as `ActivitySeries`.
+- **Statistic** (`scripts/scratch/xsyncAgg.py`): an ant's deviation in a
+  bin = its moving fraction minus its own mean in that 4-h clock block
+  (blocks as `syncStats`: 06, 10, 14, 18, 22, 02 UTC), at bin widths 5 s,
+  1 min (primary) and 10 min; a series = mean deviation over the ants of
+  one random half of a colony detected in the bin. **r_within:** Pearson
+  correlation between the two halves of one colony (100 random splits).
+  **r_sim:** between a random half of A and a random half of B for the 7
+  simultaneous pairs, on common clock bins (100 draws). **r_non (null):**
+  the same for all clock-aligned pairs never recorded together (time of
+  day, floor((t mod 86400) / w)); they share the light schedule and daily
+  rhythm but not room events. The 8 partly overlapping pairs are left
+  out. **External share E = (r_sim − r_non) / (r_within − r_non)**,
+  r_within over the 14 colonies of the simultaneous pairs; bootstrap 2000
+  over the 7 pairs (with their colonies' r_within) and, independently,
+  over the non-simultaneous pairs (colony clustering of the null ignored,
+  disclosed).
+- **Reading, fixed now (1 min; 5 s and 10 min reported beside):**
+  **mainly within-nest** if E's 95 % upper bound < 0.25; **mainly shared
+  external** if E ≥ 0.5 and its lower bound > 0.25; otherwise
+  **undetermined / mixed**, reported as such. Separately, r_sim − r_non
+  with its CI says whether any shared external component exists.
+  Supporting only: the cross-correlation of the two series of each
+  simultaneous pair at lags −5 … +5 min (the systems' clocks may differ).
+- **Limits, stated now:** different systems, possibly different rooms,
+  so a "within-nest" result cannot exclude drivers local to one system
+  (its camera, lighting, handling); a positive result shows drivers
+  shared across systems. 7 pairs: the CI may well be too wide to decide.
+  The data were inspected before (C-a, activity series): this is a
+  diagnostic on development-role use of the fit colonies, not a fit
+  target. Runs locally (fit tracks, minutes); no box.
+- **Amended ≈ 15:26, before any output (tooling only):** the aggregator
+  is `scripts/scratch/xsyncAgg.ts` (no numpy here; pure Python too slow
+  at 5-s bins), method as above; splits from `RNG.stream(7301, colony,
+  split)`, bootstrap `RNG.stream(7302, w)`. Pair classes are computed
+  from the recordings' bin spans (≥ 20 h simultaneous, ≤ 0 never
+  together).
+
+**2026-10-17 ≈ 15:30 UTC — Comparison X read (15:25 rules): the colony
+synchrony is mainly within-nest; a small component is shared across
+simultaneously recorded systems.** `logs/xsync/agg.txt`
+(`xsyncAgg.ts`), recorder outputs `logs/xsync/data-c*.json` (22 fit
+colonies). Pair classes from the data: 7 simultaneous pairs as listed,
+216 never-together pairs.
+
+| bin | r_within (halves, 14 col.) | r_sim | r_non (null) | r_sim − r_non | **E** |
+|---|---|---|---|---|---|
+| 5 s | 0.369 | 0.064 | 0.038 | +0.026 [+0.002, +0.054] | 0.079 [0.004, 0.169] |
+| **1 min** | 0.519 | 0.101 | 0.060 | +0.042 [−0.000, +0.087] | **0.091 [−0.000, 0.197]** |
+| 10 min | 0.566 | 0.176 | 0.113 | +0.063 [−0.026, +0.140] | 0.139 [−0.056, 0.311] |
+
+- **Reading (1 min): E's upper bound 0.197 < 0.25 → mainly within-nest.**
+  Halves of one colony co-move strongly (r 0.52 at 1 min); halves of two
+  colonies recorded at the same time in different systems barely more
+  than colonies recorded on different days at the same clock time. At 5
+  s the shared excess excludes 0 (a small shared component exists —
+  **tentative**, corrected ≈ 15:45: the null's bootstrap ignores that its
+  216 pairs share colonies, so its CI is probably too narrow; the
+  headline reading errs on the conservative side, this claim does not);
+  at 10 min E is undetermined (CI −0.06 to 0.31).
+- **Per pair (1 min):** 112/020 0.21 (strongest), 224/204 0.15, 250/241
+  0.14, the other four 0.04–0.06. Supporting, full-colony cross-
+  correlation at lags −5 … +5 min: 112/020, 250/241 and 261/260 peak at
+  +1 to +3 min (B after A), 224/204 flat, 213/215, 226/220, 265/276 at
+  or before 0 and small. Consistent with occasional shared events and
+  clock offsets of a minute or two between systems; not read further.
+- **What it leaves:** within-nest coupling between ants, **or** drivers
+  local to one experimental system (its own camera, lighting, handling,
+  vibration). It does not separate those. A system-wide position shift
+  of resting tags was already excluded by check A (2026-10-16/17), so a
+  pure camera artefact is unlikely, but box-level biological drivers are
+  not excluded. Next discriminating check, proposed (not designed or
+  run): synchrony against distance between ants within a colony (local
+  coupling decays with distance; a box-level driver acts at all
+  distances).
+
+**2026-10-17 ≈ 15:34 UTC — Comparison R calibration read (15:10 / 15:13
+rules): no cell passes; the data side is not run.** Box run
+`robust-20261017T151427Z` ok (19 min, 88 runs); reductions
+`logs/robust/cs-rob-*`, `logs/robust/calib.txt` (`robustAgg.py calib`;
+cells only, packing not opened). M / control, pooled counts, light
+(dark within 0.03):
+
+| rOut \ dwell | 0 | 2 | 4 | 10 |
+|---|---|---|---|---|
+| 5.1 still–still | **2.51** | 2.41 | 2.39 | 2.38 |
+| 6.1 still–still | 2.37 | 1.94 | 1.95 | 1.97 |
+| 7.1 still–still | 2.36 | 1.81 | 1.82 | 1.85 |
+| moving-involved (all bands) | 0.90–0.92 | 0.95–0.97 | 0.95–0.96 | 0.93–0.94 |
+
+Retention vs the current statistic 0.97–1.00 at dwell 0, 0.45–0.65 at
+dwell 2, 0.29–0.40 at dwell 10. Cell (5.1, 0) vs comparison O's ×2.43:
+**checked ≈ 15:45** — O's and R's raw counts are identical in all 22
+colonies, both phases, control and M; pooled still–still M / control
+is 2.505 (light) / 2.534 (dark) from either run. O's ×2.43 is the
+geometric mean of per-colony ratios (`contactSplit.py`), R's the pooled
+ratio; aggregation only.
+- **Reading:** no cell has both ratios in [0.90, 1.10]; per the rule,
+  reported, no wider grid without the user, and the data-vs-model step is
+  not run. Moving-involved contacts are robust with any dwell ≥ 2 (0.95–
+  0.97, inside the bar); still–still contacts stay ×1.8–2.5 throughout.
+- **Why (interpretation, not a criterion):** for two still ants, any
+  change in observed distance is either real creep or measurement error.
+  M's error varies on τ 90 s with a relative SD ≈ 1 mm, so dwells of ≤
+  5 s are far shorter than its time scale and a band of ≤ 3 mm is ≤ 3
+  SD: pairs resting 4–7 mm apart still cross. A crossing count between
+  still ants is in effect a measure of distance fluctuation, which is
+  what M adds; no band × dwell choice of this family separates it.
+- **Consequence for the contact blocker:** the still–still deficit
+  (model / data 0.26 light, 0.29 dark) cannot be shown real or
+  measurement with an event statistic of this kind. Options for the user
+  (none taken): (a) judge contacts on the moving-involved part with a
+  robust cell (e.g. 5.1 / 2, ratios 0.97) — a new comparison, needs its
+  own reading; (b) move the still–still question to state measures
+  robust to M — near share (0.77 vs 0.78 under M, comparison O) and the
+  packing statistics already recorded in these runs (next step 2);
+  (c) a much wider dwell (minutes, at τ's scale) — would mostly count
+  arrivals, not contacts.
+
+**2026-10-17 ≈ 15:36 UTC — Comparisons Ra (moving-involved contacts), P
+(packing) and Y (synchrony vs distance): designs and readings logged
+before any data-side output or packing output exists** (user ≈ 15:35,
+"sure" to (a) and (b); Y proposed at ≈ 15:31, taken as included).
+Data side: `robustData.ts` on the 22 fit colonies (PreTreatment, light /
+dark by UTC as before); model side: the R runs already on disk
+(`logs/robust/cs-rob-{ctl,M}-*`). Packing parts of those files have not
+been opened.
+
+*Ra — contacts involving a moving ant.* **Cell fixed now: rOut 5.1 mm,
+dwell 2** (moving ratio under M 0.972 / 0.970, closest to 1; the
+narrowest-band rule would give (5.1, 0) at 0.917 / 0.914, near the
+edge — reported as sensitivity with every other cell). Model control /
+data, moving-involved contacts per detected ant-frame, geometric mean of
+per-colony ratios, colony bootstrap 2000 (`robustAgg.py data`).
+**Reading:** *reproduced* if the point ratio lies in [0.8, 1.25] in both
+phases; *deficit* (*excess*) in a phase if its CI lies entirely below
+0.8 (above 1.25); otherwise marginal. The data's light / dark contrast
+is reported beside (old statistic: model / data 0.78 light, 1.19 dark).
+If reproduced, the step-5 relevance argument (the 1999 contact rows are
+the recruiter's, a moving ant's) is put to the user; the blocker stays
+the user's call.
+
+*P — packing (robust state measures).* From the recorded nearest-
+neighbour (NN) histograms (tracked ants detected in the nest; 0.25-mm
+bins) and 1-mm occupancy maps, per colony, role group and phase:
+statistics **S1** median NN distance, **S2** share with NN < 4.1 mm
+(near share), **S3** share with NN < 8.2 mm (two body lengths), **S4**
+A50 = area (mm²) of the fewest 1-mm cells holding 50 % of ant-frames.
+**Robustness filter first (model only):** M / control per statistic,
+pooled per phase; only statistics within [0.90, 1.10] in both phases
+are judged, the others reported only. **Then data vs model** (control),
+per colony ratio model / data, geometric mean, colony bootstrap, all
+ants (nurses and foragers beside, descriptive). **Reading:** the model
+is *less packed* if S1 and S4 ratios have CIs entirely above 1.1 (or
+S2 / S3 entirely below 0.9) for every judged statistic, in both phases;
+*matched* if every judged statistic's point ratio is within [0.9, 1.1];
+otherwise mixed. Descriptive beside: correlation of data and model
+occupancy maps per colony (5-mm cells), i.e. whether the ants are in
+the same places (the model has no brood or brood-pile attraction).
+
+*Y — synchrony against distance between ants (comparison X follow-up).*
+Recorder `scripts/scratch/ydistData.ts` (data, fit tracks): per tracked
+ant per 1-min clock bin, moving steps, steps and mean observed position.
+Deviation = moving fraction minus the ant's 4-h clock-block mean (as X).
+For every pair of ants both detected in a bin, the product of their
+deviations is accumulated by the pair's distance in that bin (distance
+of mean positions; classes < 5, 5–10, 10–20, 20–40, ≥ 40 mm);
+C(class) = Σ dev_i·dev_j / √(Σ dev_i² · Σ dev_j²) over the class's
+pair-bins; per colony, then mean over colonies with colony bootstrap.
+**Decay ratio D = C(< 10 mm) / C(≥ 40 mm)** (pair-bins < 5 and 5–10
+pooled). **Reading:** *local coupling supported* if D's 95 % lower bound
+> 1.5; *box-wide driver supported* if D's upper bound < 1.25 and C(≥ 40)
+> 0 (CI); otherwise mixed. Limits, stated now: ants close together share
+a micro-environment (brood pile, entrance region), so decay can also
+come from region-specific drivers; nurses on the brood are both close and
+mostly still. Reported beside: C by class for nurse–nurse,
+nurse–forager and forager–forager pairs; the share of pair-bins per
+class.
+- **Y amended ≈ 15:43, before any Y data output exists** (`logs/ydist/`
+  empty; user agreed ≈ 15:40 to model reference runs for Y in the 4-h
+  gap). **Seen while smoke-testing the model hook (disclosed):** colony 0,
+  model control, light, 300 s + 30 min: C(< 5) 0.13, C(5–10) 0.03,
+  C(≥ 40) −0.006, so D = −11.6. Encounter mechanics alone give close ants
+  correlated activity, and D is unstable when C(≥ 40) ≈ 0. **Amended
+  reading:** primary statistics **L = C(< 10) − C(≥ 40)** (local excess)
+  and C(≥ 40) (co-movement at a distance), data (24 h) vs **model
+  references** through the same recorder (`ydistStats.ts`, also wired
+  into `tmpShortSim --ydist`): control (no coupling), oracle coupled κ =
+  1 (`coupled:1:60`, a box-wide driver) and its placebo (`placebo:0.53:
+  60`); start point, 22 colonies, light and dark 12 h pooled per colony
+  (blocks from the first frame), seed 4242. Comparisons pair colonies by
+  label, bootstrap over colonies jointly (2000). *Local coupling
+  supported* if data L − control L > 0 (95 % CI) and data D's lower
+  bound > 1.5; *box-wide driver supported* if data C(≥ 40) > 0 (CI) and
+  data L − control L includes 0; otherwise mixed. **Method check:** κ = 1
+  must raise C(≥ 40) above the control's (CI of the difference > 0) and
+  leave L − control L including 0; the placebo must leave both at the
+  control's level. A failed check is reported and makes the matching
+  outcome uninformative. Role-pair rows descriptive. Box run prepared
+  for launch ≈ 16:40 (user).
+
+**2026-10-17 ≈ 15:45 UTC — Review of the 15:10–15:43 entries (user
+guidance, pasted, adopted); corrections and amendments before any Ra, P
+or Y output is read.** The Ra / P data recorder is running (12 of 22
+files written, none opened); `logs/ydist/` is empty.
+1. **Ra's cell is a post-hoc deviation, labelled as such.** The written
+   R choice rule (narrowest band, then shortest dwell) applied to the
+   moving-involved ratios gives (5.1, 0) at 0.917 / 0.914; the 15:36
+   entry chose (5.1, 2) (0.972 / 0.970) *after seeing the calibration
+   table* — a deviation from that rule, not a rule followed (the
+   review's point: log it as a deviation). **Claude's addition, not the
+   reviewer's** (attribution corrected ≈ 15:58): both cells are read with
+   equal weight under the 15:36 thresholds; if their verdicts differ,
+   Ra's verdict is "depends on the cell" and is reported as such.
+2. **O vs R closed** (≈ 15:45, check in the 15:34 entry): identical raw
+   counts; ×2.43 vs ×2.51 is geometric mean of per-colony ratios vs
+   pooled counts.
+3. **X's 5-s shared component is tentative** (corrected in place in the
+   15:30 entry): the null CI ignores colony clustering, which makes
+   r_sim − r_non look more significant than it is. A colony-clustered
+   null bootstrap would settle it (not run).
+4. **Y's reading is asymmetric; role pairs promoted.** A "box-wide"
+   outcome would be informative; "local coupling" much less so, because
+   nurses on the brood are close, mostly still and share a micro-
+   environment. Amended: *local coupling supported* additionally
+   requires ΔL (data − control) > 0 (CI) in at least one of the
+   forager–nurse or forager–forager rows, not only overall or among
+   nurses; a local excess confined to nurse–nurse pairs is reported as
+   "local, consistent with a shared brood micro-environment". The
+   aggregator prints ΔL per role pair for this (to be added before the
+   data run).
+5. **P may rest on few statistics.** Stated before opening: the verdict
+   names the judged statistics; with one judged statistic it is
+   reported as provisional, with none P is descriptive only.
+6. **Ra's scope.** Dwell 2 keeps 0.45–0.65 of contacts, so Ra speaks to a
+   dwell-filtered subset, not the established contact definition; this
+   is said plainly when the step-5 relevance argument is put to the
+   user.
+
+**2026-10-17 ≈ 15:47 UTC — `run.sh` notifies at start too (user
+request; tooling only).** The wrapper calls `run.sh notify --start` just
+before the command ("<host>: <run id> started"; `timeout 20`, failures
+ignored, so it never blocks or fails a run); the end notification is
+unchanged. Tested locally with a dummy channel (start and end messages
+both sent); copied to the box (idle), md5 98cb82bc… both sides.
+
+**2026-10-17 ≈ 15:48 UTC — Y model references launched on the box**
+(earlier than the planned ≈ 16:40: box idle, ≈ 30–45 min, so results
+are in before the user's 4-h gap and the gap stays free for step-3 arms
+if the user decides). `run.sh` run `ydist-20261017T154748Z`, script
+`scripts/scratch/box/run-ydist.sh`: control, `coupled:1:60`,
+`placebo:0.53:60` × 22 colonies × light / dark × 12 h, `--lite --ydist`,
+132 runs, `xargs -P 62`. Copied `tmpShortSim.ts` (adds `--ydist`),
+`ydistStats.ts`, the script; md5 both sides. Start notification sent
+(first use). Reductions `logs/ydist/cs-yd-*`; read with `ydistAgg.ts
+--sets data=data-c,ctl=cs-yd-ctl-,k1=cs-yd-k1-,p=cs-yd-p-` once the data
+side (`ydistData.ts`, local, after the Ra / P recorder) exists.
+
+**2026-10-17 ≈ 15:51 UTC — Comparisons Ra and P read (15:36 rules as
+amended 15:45).** Data side `logs/robust/data-c*.json` (22 fit
+colonies, `robustData.ts`); model control `logs/robust/cs-rob-ctl-*`.
+
+*Ra — moving-involved contacts: marginal in light, reproduced in dark;
+the model lacks the data's light / dark contrast.* Only the moving lines
+of `robustAgg.py data` were read (`logs/robust/ra.txt`); the aggregator's
+"mixed" label is R's wording, the Ra rule was applied by hand.
+
+| cell | light model / data | dark model / data | verdict |
+|---|---|---|---|
+| 5.1 / dwell 2 | 0.73 [0.65, 0.85] | 1.10 [0.93, 1.32] | marginal (light), reproduced (dark) |
+| 5.1 / dwell 0 | 0.78 [0.69, 0.89] | 1.19 [1.00, 1.42] | marginal (light), reproduced (dark) |
+
+Both cells agree (Claude's 15:45 equal-weight rule does not bite). Light /
+dark rate ratio (geometric mean over colonies): **data 1.51 / 1.53,
+model 1.01 / 1.01**. ~~So the model is not short of contacts with movers
+overall~~ (overstated, corrected ≈ 15:58, user guidance: the level is
+about right *on average*, partly a coincidence of averaging a flat model
+against a 1.5× contrast — not reproduction); the model sits between the
+data's phases because it has no light / dark modulation of them (related open item: the data's light / dark
+trip-location difference, not modelled). Scope (15:45 item 6): dwell 2
+keeps 0.45–0.65 of contacts; dwell 0 is the established definition.
+
+*P — packing: mixed by the rule; same density where the ants are, but
+the model has more isolated ants and puts them in different places.*
+`logs/robust/pack.txt` (`packAgg.py`).
+- Robustness (M / control): S1 1.05, S2 0.99, S3 1.00 → judged; **S4
+  (A50) 1.69 → not robust** (drift spreads occupancy), reported only.
+  Three judged statistics (15:45 item 5).
+- Model / data, all ants (light; dark within 0.01): **S1 median NN 0.98
+  [0.90, 1.09]** (data 2.17 mm, model 2.10) — matched; **S2 NN < 4.1 mm
+  0.82 [0.77, 0.86]** (data 0.96, model 0.80) — less packed; **S3 NN <
+  8.2 mm 0.95 [0.93, 0.97]** (0.997 vs 0.965) — matched by the [0.9,
+  1.1] rule. **Verdict: mixed** (S1, S3 matched; S2 less packed). Nurses
+  carry the S2 gap (0.80; foragers 0.86).
+- Reading in words: the typical neighbour distance is the same, but in
+  the data almost every ant has a neighbour within a body length (96 %),
+  in the model one ant-frame in five has none — the model's distribution
+  has a heavier upper tail of isolated ants.
+- Beside (descriptive): occupancy maps correlate **negatively** with the
+  data's (median r −0.14, range −0.25 … 0.15, 5-mm cells). Checked ≈
+  15:51 that both use the same frame (≈ 0–70 × 0–40 mm): the model's
+  most-occupied cells are at walls and corners and its centroid at the
+  nest centre; the data's are at a colony-specific site (e.g. colony 112
+  near y ≈ 8 mm), presumably the brood pile. The model has no brood or
+  aggregation mechanism (Evidence policy note on the held-out spatial
+  papers).
+- **Bearing on the still–still contact question (interpretation):** a
+  model with ~20 % isolated ant-frames and no shared resting site
+  should have fewer still–still crossings, whatever the measurement
+  error. This points at aggregation / a resting site (step-3 option
+  "packing / aggregation mechanism") over physical creep, without
+  deciding it.
+
+**2026-10-17 ≈ 16:16 UTC — Mailleux et al. 1999: lighting not stated
+(user read the paper; pasted, adopted).** Asked for the step-5 phase
+question (Ra: light 0.73–0.78, dark 1.10–1.19). The user checked the
+1999 paper (fit data; Claude saw only the user's summary):
+- **Lighting, photoperiod and time of day: not stated.** Methods give
+  1000–2000 workers, Janet plaster nests, 22 ± 3 °C, "sufficient"
+  humidity, diet (1 M sucrose, *Periplaneta*). In-nest behaviour was
+  filmed for 20 min at 2× from the first recruiter, with an overhead
+  camera (Fig. 1) — light enough to film, not evidence for a light phase
+  (red or dim light possible). **The step-5 argument reports both phase
+  ratios; it cannot pick one.**
+- **Caveats for the step-5 argument (user):** (1) Table 2a contacts are
+  per recruiter stay, and stays differ: 6.1 in 113 s (1 d), 3.3 in 80 s
+  (4 d), 3.3 in 82 s (8 d) — about 0.054, 0.041, 0.040 /s (ratio of
+  means, approximate; figures match `mailleux-rules.md` §4). The
+  starvation effect is ≈ 2× in counts but ≈ 1.3× in rates, so the
+  duration difference does most of the work. (2) Observer-scored
+  antennal contacts with no distance threshold: comparable to a 4.1-mm
+  crossing at the level of rate, not definition. (3) Context: returning
+  fed scouts in 1000–2000-worker lab colonies with starvation
+  manipulated; which starvation row matches the Stroeymeyt fit colonies'
+  state is not obvious.
+- **Citation corrected:** pages 73–78 (page-image header; the text layer's
+  "73-104" is an OCR error, our "73–79" was off by one), fixed in
+  `docs/research/mailleux-rules.md` §4; archived STATUS files left as
+  they were.
+
+**2026-10-17 ≈ 16:18 UTC — Defect found: the oracle / latent-state
+switches only ever modulated nurses** (found while building the
+aggregation arms; logged before Y's output is opened). `ColonySim.step`
+scales `P.nest.restToActive` around the policy call, but
+`nestParamsOf` (`lasiusNestWorker.ts:134`) overlays `P.nest.forager`,
+and at the start point foragers have their own `restToActive` (0.6).
+Verified (`chkForager.ts` in the scratchpad): ×4 on `P.nest.restToActive`
+moves nurses 0.345 → 1.38, foragers stay 0.6. `test/oracle.test.ts`
+uses `forager: {}` and could not catch it. Consequences (corrections,
+dated, in place below this entry; nothing re-run yet):
+- **Oracle coupling (06:20, "closed line"):** only nurses were coupled
+  (the signal u counted all in-nest ants). The all-ants verdict "(a) not
+  met" is partly by construction. Nurses alone (logged then): κ = 1 2.28
+  / 3.56 vs data 3.67 / 5.12, control 1.16 / 1.42 — half-gap bars for
+  nurses would be 2.42 / 3.27: just under at 1 min, past at 10 min. The
+  closed line is **not** reopened here; that is the user's call.
+- **Comparison L (14:35):** "Nurse-only: forager T2 and rows unchanged in
+  every arm" was by construction, not a finding; the latent state was
+  never given to foragers.
+- **Y references (k1, p, 15:48):** a nurse-only box-wide driver;
+  Y's method check reads it as such.
+- **New switches (E, S) scale the role-specific values** (nurse and
+  `P.nest.forager`), with a test using a forager overlay.
+
+**2026-10-17 ≈ 16:19 UTC — Comparison Y read (15:36 / 15:43 / 15:45
+rules): mixed; the data's co-movement is graded over 1–4 cm.**
+`logs/ydist/agg.txt` (`ydistAgg.ts`, 22 colonies per set).
+- **Method check passes** (with the 16:18 caveat: the κ = 1 driver
+  reaches nurses only): κ = 1 − control ΔC(≥ 40) +0.0089 [+0.0060,
+  +0.0122], ΔL +0.0010 [−0.0061, +0.0078]; placebo ΔL +0.0021 [−0.0034,
+  +0.0078], ΔC(≥ 40) −0.0005 [−0.0022, +0.0010].
+- **Data vs control:** ΔL **−0.045 [−0.061, −0.030]** (negative in every
+  role pair: nurse–nurse −0.033, forager–nurse −0.069, forager–forager
+  −0.067) → *local coupling* not supported. Data C(≥ 40) 0.0034 [−0.0071,
+  0.0150] (CI includes 0; only 2 % of the data's pair-bins are ≥ 40 mm
+  apart vs 37 % in the model) → *box-wide* not supported. **Verdict:
+  mixed.**
+- **Shape (descriptive):** C by distance (all ants), data 0.092 / 0.054 /
+  0.028 / 0.012 / 0.003 (< 5 / 5–10 / 10–20 / 20–40 / ≥ 40 mm); control
+  0.190 / 0.048 / 0.005 / −0.010 / −0.009. The model's co-movement is
+  contact-range only (encounter mechanics); the data's is weaker at
+  contact range and extends smoothly over 1–4 cm. Neither a flat
+  box-wide driver nor contact-range coupling; consistent with
+  propagation through the cluster or region-specific drivers (not
+  separated). The distance classes are confounded with the packing
+  difference (comparison P), so the ≥ 40-mm class is thin in the data.
+
+**2026-10-17 ≈ 16:19 UTC — Comparison Q (packing / aggregation arms,
+step-3 option "packing / aggregation"), design and reading logged
+before building** (user go-ahead ≈ 16:17 with amendments, pasted
+guidance adopted; "aggregation rather than creep" is a hypothesis under
+test, not a conclusion). Mailleux 1999: lighting not stated (16:16), so
+the step-5 argument reports both phase ratios; nothing here "settles" it.
+**The fit colonies are used in a development role** (as in X and Y).
+- **Switches** (runner-level, off by default, tested bit-identical,
+  diagnostic, **not adoptable**; outside `src/sim/behavior/`): **W**
+  wall-neutral edge: in the nest, an ant whose step reaches the edge of
+  the surface takes a new heading drawn uniformly among directions whose
+  next 0.5 mm stays on the surface (≤ 36 draws, else reverse), from its
+  own stream `RNG.stream(seed, 0x0e1d, i)`, instead of turning along the
+  wall. **E** (emergent aggregation, what-if with true state): each
+  in-nest ant's stop rate (`activeToRest`, nurse and forager values) ×
+  (1 + k_E·n), n = resting in-nest nestmates within 8 mm (true positions
+  and modes), recounted every 1 s; **k_E = 0.25 and 1.0** (fixed now). A
+  percept-based mechanism is designed only if E is informative. **S**
+  (data-fed site, **diagnostic only**: uses the fit colony's own
+  occupancy as input, so it cannot predict held-out colonies' sites):
+  stop rate × (1 + k_S·w(x, y)), w = the colony's data occupancy in the
+  same phase (tracked ants, 1-mm cells, 5 × 5-mm box smoothing, divided
+  by its maximum); **k_S = 3** (fixed now). The multipliers scale the
+  role-specific values (16:18 defect).
+- **Arms** (start point, 22 colonies × light / dark × 12 h, seed 4242,
+  `--lite --robust`): **W**, **W+E(0.25)**, **W+E(1.0)**, **W+S(3)**, each
+  with the control observer **and** variant M (`--obsVariant tag:0.7:90
+  --pxRound 0.0229658793`); baseline (no switch) rerun with the control
+  observer for the guard (its M counts are the R run's, same seeds).
+  396 runs; an exits counter (observed in → out transitions of tracked
+  ants) is added to `tmpShortSim --lite`.
+- **Measures:** packing on control-observer output (robust under M,
+  15:51): S1 median NN, S2 near share (NN < 4.1 mm), S3 NN < 8.2 mm,
+  all ants; occupancy correlation with the data (5-mm cells); wall-band
+  share (3 mm, descriptive). Still–still crossings (cell 5.1 / dwell 0,
+  the established definition) **from the M-observed output** for the
+  outcome table (the data carry their tracker's error; M is the
+  calibrated stand-in); control-observer counts reported beside.
+  Model / data per colony, geometric mean, colony bootstrap 2000.
+- **Comparisons:** W+E and W+S **against W** (paired by colony) for their
+  packing effect; **W against the baseline only** for wall share and the
+  shifts in S1–S3 and occupancy correlation. **Guard:** W / baseline
+  within [0.90, 1.10] for the moving fraction (each phase), exits per
+  ant-hour (each phase), and the light / dark ratios of moving fraction
+  and of moving-involved contacts; any outside → reported as "W shifts
+  matched quantities", and the arm readings carry that caveat.
+- **Outcome table, fixed now (per arm W+E(0.25), W+E(1.0), W+S(3);
+  both phases):** *packing reached* = S2 ≥ 0.92 (data 0.96 / 0.955).
+  r_ss = M-observed model / data still–still crossings per detected
+  ant-frame. (i) packing reached and r_ss ≥ 0.8 → **the still–still
+  deficit is packing**; (ii) packing reached and r_ss < 0.5 → **the
+  deficit is not about packing** (falsifier); (iii) packing reached,
+  0.5 ≤ r_ss < 0.8 → **mixed**; (iv) packing not reached → **not tested
+  by this arm** (levels reported). For W+S, occupancy correlation ≥ 0.5
+  is a **manipulation check, not evidence** (the site is the input).
+  Data ceiling for occupancy: a colony's light vs dark maps correlate
+  0.96 (median; 0.85–0.99).
+- No further arms or strengths without the user; still–still contacts
+  are never a target.
+- **Built and launched ≈ 16:23** (`run.sh` run `q-20261017T162344Z`,
+  `scripts/scratch/box/run-q.sh`, 396 runs, `xargs -P 62`; user approved
+  the run ≈ 16:20). Code: `walkAnt` optional `edgeTurn`
+  (`antPhysics.ts`); `ColonyOptions.wall` / `aggregate` / `site` with
+  `stopMultStep` and `inwardTurn` (`colonyBles.ts`); threaded through
+  `colonyStroeymeyt.ts`; `--wall inward`, `--agg k:r` (`s2018Lib.ts`);
+  `--site k` and an exits counter (`tmpShortSim.ts`); site maps
+  `logs/robust/sites.json` (from the data occupancy as logged). Tests
+  `test/packingArms.test.ts` (k = 0 and empty maps bit-identical; each
+  switch changes the run; nurse and forager stop rates restored; a
+  uniform k = 1 site equals doubling both role values, so foragers are
+  reached); `npm test` 173 / 173. Local smoke runs (colony 0, 30 min):
+  the baseline reproduces 388 / 288 exactly; every arm runs (only
+  completion and field presence were printed, no measure). md5 of the
+  copied files checked; full sweep shows only the known `lib.ts` and
+  `paperText.ts` differences. Reductions `logs/q/cs-q-*`.
+
+**2026-10-17 ≈ 16:05 UTC (logged late, ≈ 16:25) — Wall and occupancy
+checks before designing Q (descriptive; user guidance ≈ 16:00 asked for
+them).** `logs/robust/walls.txt` plus edge profiles printed in the
+session (colonies 0, 5, 12). The model's edge rule (`walkAnt`: at an
+edge the ant turns along it and walks on) puts ≈ half of model
+ant-frames in a 3-mm wall band covering ≈ 21 % of the area (enrichment
+≈ 2.45, corners ≈ 2.2), with 6–14 % of all ant-frames in the outermost
+1-mm column or row at each wall; ant centres reach the wall line. The
+data's ants form a colony-specific cluster that touches a wall only where
+it abuts one; band shares computed with the model's bounds understate
+the data's wall contact by ≈ 1–2 mm of offset (the data's walls sit
+slightly inside), so the data's "enrichment 0.02" is not a reliable
+number, but the contrast is not in doubt. Occupancy: same frame in both
+(≈ 0–70 × 0–40 mm); the data's own light vs dark maps correlate 0.96
+(median, 0.85–0.99), the ceiling for occupancy agreement.
+
+**2026-10-17 ≈ 16:25 UTC — Step-4 desk work: latent activity state
+design drafted** (proposal for the user, not adopted):
+`docs/research/latent-activity-design.md`. Stage 1: per-ant OU drive in
+the mind (mean one, both roles with role-specific σ, shared τ; σ = 0
+bit-identical), replacing the runner switch, to be fitted with the
+compact persistence targets. Stage 2 (optional): local coupling of the
+drive through percepts, aimed at the Y shape (co-movement over 1–4 cm),
+distinct from the parked excitable coupling. Open questions listed
+there.
+
+**2026-10-17 ≈ 18:14 UTC — Comparison Q read (16:19 rules): by the
+table, W+E(1.0) reads "the still–still deficit is packing", the other
+two arms "not tested"; the guard failed; three qualifications are
+reported beside the verdict, not in place of it.** Run
+`q-20261017T162344Z` ok (1 h 50 min, 396 runs); `logs/q/agg.txt`
+(`qAgg.py`). Medians over colonies, light (dark within ≈ 0.04 unless
+given).
+
+| arm (control observer) | S1 median NN (mm) | S2 near share | S3 | occupancy r | wall band |
+|---|---|---|---|---|---|
+| data | 2.17 | 0.962 | 0.997 | (ceiling 0.96) | — |
+| baseline | 2.10 | 0.803 | 0.965 | −0.14 | 0.53 |
+| W | 2.54 | 0.788 | 0.977 | +0.29 | 0.16 |
+| W+E(0.25) | 1.25 | 0.900 | 0.958 | +0.23 | 0.10 |
+| W+E(1.0) | 1.40 | 0.937 | 0.981 | +0.29 | 0.07 |
+| W+S(3) | 2.07 | 0.834 | 0.964 | +0.90 | 0.07 |
+
+- **Effects (paired ratios):** W / baseline: S1 1.21, S2 0.98, occupancy
+  r +0.43, wall band ×0.30. Against W: E(0.25) S1 0.51, S2 1.14; E(1.0)
+  S1 0.52, S2 1.22; S(3) S1 0.80, S2 1.06, occupancy r +0.59. E leaves
+  occupancy r unchanged (Δ −0.08 … −0.01, CIs include 0).
+- **Guard: failed.** W / baseline: exits per ant-hour **0.68** [0.66,
+  0.71] (light and dark), moving fraction 1.10 [1.09, 1.12] (just
+  outside); light / dark ratios unchanged (1.00, 1.00). The wall-neutral
+  edge cuts nest exits by a third (exits are presumably found by
+  following walls) — W shifts matched quantities, a caveat on every arm.
+- **Outcome table** (S2 ≥ 0.92 = packing reached; r_ss from M-observed
+  output): W+E(0.25) S2 0.900 / 0.911 → **not tested** (r_ss(M) 1.64 /
+  1.84); **W+E(1.0) S2 0.937 / 0.936, r_ss(M) 1.35 [1.22, 1.50] / 1.64
+  [1.45, 1.88] → (i) "the still–still deficit is packing"**; W+S(3) S2
+  0.834 / 0.833 → **not tested** (r_ss(M) 0.84 / 1.00; manipulation check
+  passed, occupancy r 0.90 / 0.92, not evidence).
+- **Qualifications (found at reading time, disclosed; the rule's verdict
+  stands as written):** (1) **W+E(1.0) reaches the near-share threshold
+  by over-compacting**: its median NN is 1.40 mm against the data's 2.17
+  (ratio ≈ 0.65); the table used S2 alone for "packing reached", a weak
+  rule (S1 was a judged statistic in P and should have entered it). (2)
+  **The M-observed count overshoots** (×1.35–1.64 of the data), while
+  the **control-observer still–still ratio falls** with aggregation
+  (baseline 0.26 / 0.29 → W+E(1.0) 0.23 / 0.27): in this model, still
+  ants in a cluster do not move relative to each other, so still–still
+  crossings are produced by measurement error, in proportion to how many
+  still pairs sit near 4.1 mm. The verdict therefore says that packing
+  plus M-sized error can produce (and here overshoot) the data's count —
+  not that the data's crossings are real creep, nor that they are not;
+  as R showed, the tracks cannot separate the two. (3) Guard failure
+  above. Taken together: **packing is a sufficient explanation of the
+  still–still deficit under M-sized measurement error, with the caveat
+  that this arm overshoots both compaction and the count**; the
+  data-like configuration (S1 ≈ 2.2 mm with S2 ≈ 0.96) was not reached by
+  any arm.
+- **Other findings (descriptive):** a data-fed site alone (W+S) puts the
+  ants in the right place (r 0.90) without the data's packing (S2 0.83),
+  so location is not packing. W removes most of the wall excess (0.53 →
+  0.16) and turns occupancy r positive, at the cost of exits.
+- No further arms without the user (rule). Options for the user, none
+  taken: (a) accept "packing is sufficient under M-sized error" as the
+  answer to the contact blocker, with the qualifications; (b) one
+  bounded follow-up aimed at the data-like configuration (S1 and S2
+  together, e.g. aggregation with a minimum spacing), with S1 in the
+  "packing reached" rule; (c) a wall rule that keeps exit rates (e.g.
+  edge-following only near the entrance) before any adoption.
+
+**2026-10-17 ≈ 21:15 UTC — User decisions after Q (pasted, adopted).**
+1. **Contact blocker: (c) then (b).** First a wall rule that preserves
+   exits and passes the existing guard; then **one** bounded packing
+   comparison whose success requires **median NN distance and near share
+   together, in both phases**, tolerances and arms pre-registered before
+   running; still–still crossings remain an outcome, never a tuning
+   target. Q's table verdict and its qualifications stand; the
+   defensible conclusion is that **an over-packed model plus M-sized
+   error can exceed the observed crossing count** — conditional
+   sufficiency, not a resolution of the blocker at data-like packing,
+   and no identification of creep vs error.
+2. **Oracle coupling reopened narrowly, as a correction of the
+   implementation defect (16:18):** include foragers, add a regression
+   test with their actual parameter overlay, rerun the previously
+   specified coupling / control / placebo comparison with the original
+   settings and decision rule (05:11; κ 0.5 and 1, τ_c 60 s, placebos at
+   the logged SDs), no expanded κ or τ search; report all-ant and
+   role-specific results; **original geometry** (no wall change). A pass
+   would establish diagnostic capacity only; Y leaves the spatial
+   mechanism unresolved.
+3. **Commit today's work as a diagnostic checkpoint** after reviewing
+   the diff and passing tests and the typecheck: code, tests, STATUS and
+   research notes; scratch scripts and logs stay local; the message
+   names Q's guard failure and the nurse-only defect and keeps the
+   switches labelled unadopted. Commit before further changes.
+4. **Activity state:** shared τ initially, role-specific σ, both roles;
+   stage 1 proceeds as the candidate mechanism; stage 2 deferred and
+   unresolved synchrony disclosed; wall behaviour and packing settled
+   before any spatial coupling; the persistence-target prerequisites
+   stay before any fit.

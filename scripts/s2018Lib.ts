@@ -81,6 +81,18 @@ export function withObsVariant(c: StroeymeytColony, argv = process.argv): Stroey
     const [rate, dur, factor] = se.split(':').map(Number);
     out = { ...out, slowEp: { rate, dur, factor } };
   }
+  // Comparison Q (STATUS 2026-10-17 ≈ 16:19 UTC): `--wall inward`, `--agg k:r` (the site map is phase-specific: set by
+  // the caller, e.g. `tmpShortSim --site k`).
+  const wall = at('--wall');
+  if (wall) {
+    if (wall !== 'inward') throw new Error(`--wall ${wall}: only 'inward'`);
+    out = { ...out, wall };
+  }
+  const ag = at('--agg');
+  if (ag) {
+    const [k, r] = ag.split(':').map(Number);
+    out = { ...out, aggregate: { k, r } };
+  }
   return out;
 }
 

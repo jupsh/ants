@@ -56,6 +56,10 @@ export interface StroeymeytColony {
   oracle?: ColonyOptions['oracle'];
   /** Slow-episode what-if (STATUS 2026-10-17, overnight; see `ColonyOptions.slowEp`). Unset: none. */
   slowEp?: ColonyOptions['slowEp'];
+  /** Comparison Q switches (STATUS 2026-10-17 ≈ 16:19 UTC; see `ColonyOptions.wall` / `aggregate` / `site`). Unset: none. */
+  wall?: ColonyOptions['wall'];
+  aggregate?: ColonyOptions['aggregate'];
+  site?: ColonyOptions['site'];
 }
 
 export interface StroeymeytRunOptions {
@@ -136,6 +140,9 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     exploreOutside: true,
     oracle: c.oracle,
     slowEp: c.slowEp,
+    wall: c.wall,
+    aggregate: c.aggregate,
+    site: c.site,
     starvationDays: 0,
     walkSpeedFactor: 1,
     tempC: STROEYMEYT_TEMP[o.phase],
