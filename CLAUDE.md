@@ -48,6 +48,12 @@ when a step starts or finishes, and log decisions there before acting on them.
   - Finished one-off studies and superseded fits (`fitE2.ts`, `compareE2.ts`,
     `identifyE2.ts`, `scanE1.ts`, `selectE1.ts`, …) are in `scripts/archive/`
     (index in its README); they still run.
+  - Long runs (box or local): `bash scripts/run.sh start <name> -- <cmd…>`
+    launches detached into `logs/runs/<name>-<stamp>/`; `npm run runs [--
+    --box]` shows every run's state (from files, never log content);
+    `run.sh kill <id>` kills only that run; the run itself sends the end
+    notification (`logs/notify.env`, per machine), so no watcher is needed.
+    Opt-in progress: `runProgress()` in `scripts/lib.ts`.
   - Profiling: `node --cpu-prof node_modules/.bin/vite-node <script>` and sum
     self time per function from the `.cpuprofile`.
 - Pages open on **precomputed results** for their default settings

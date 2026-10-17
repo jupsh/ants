@@ -122,3 +122,13 @@ export function loadKhuongPools(k: number, frame: SectorFrame, file = 'data/refe
   });
   return buildPools(tracks, frame);
 }
+
+/**
+ * Opt-in progress line for `scripts/run.sh status` (STATUS 2026-10-17 ≈ 14:50):
+ * counts only, never results (blind checks), e.g. `runProgress(`gen ${g}/${n}`)`.
+ * A no-op unless the script was started with run.sh.
+ */
+export function runProgress(text: string): void {
+  const dir = process.env.RUN_DIR;
+  if (dir) fs.writeFileSync(`${dir}/progress`, `${text}\n`);
+}

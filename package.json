@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:full": "FULL=1 vitest run",
     "test:watch": "vitest",
+    "runs": "bash scripts/run.sh status",
     "params": "vite-node scripts/genParams.ts"
   },
   "dependencies": {
