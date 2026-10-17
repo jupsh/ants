@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-17 ≈ 14:10 UTC (STATUS cleanup; comparisons L and O running on the box). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-17 ≈ 15:00 UTC (literature access guard; comparisons L and O running on the box). Keep this file current: update it whenever a step starts or finishes._
 
 Earlier history is archived verbatim: up to 2026-10-10 evening (session
 notes, step results, the first decisions log) in
@@ -694,7 +694,8 @@ non-optimum disclosed):
     same experiments as E6, so treated like E6 development until the
     overlap is checked from its methods alone.
   - **Napoli, Garnier & Porfiri 2026** (PRX Life 4:033010,
-    doi:10.1103/ghnl-p5c1; `literature/NapoliGarnierPorfiri2026_NestPhaseTransition_PRXLife_DEVELOPMENT.pdf`):
+    doi:10.1103/ghnl-p5c1; `~/ants-literature/held/NapoliGarnierPorfiri2026_NestPhaseTransition_PRXLife_DEVELOPMENT.pdf`,
+    moved 2026-10-17 ≈ 14:30):
     **DEVELOPMENT** (user, 2026-10-17 ≈ 06:38 UTC). Theory paper: active /
     inactive / refractory ants, contact-based activation carried by
     movement, bursts past a speed–density threshold (*Temnothorax*
@@ -1237,3 +1238,97 @@ are ≈ 8 % of the 05:57 onsets.
   brief and Open problems rewritten around the current state; Evidence
   policy unchanged. Nothing was run and no log or fit output was opened
   for the cleanup.
+
+**2026-10-17 ≈ 14:30 UTC — Literature access: held papers moved out of
+the repo; ranked search dropped (user decision, logged before acting).**
+- **Why.** An uncommitted SQLite full-text search tool
+  (`scripts/research_search.py`, `docs/SEARCH.md`, PDF allowlist
+  `docs/search-sources.json`) was evaluated with the user. For Markdown it
+  added little over `rg` (corpus ≈ 850 KB; word matching without stemming
+  fails on the same wording mismatches as `rg`). Its value was the PDF
+  allowlist, but that was advisory only: nothing stopped a direct
+  `pdftotext` or a Read of a held PDF. The user chose the guardrail without
+  the search tool.
+- **Decision.** (1) `literature/` keeps only the 11 papers cleared for
+  full-text reading (Auger/Hansen 2005, Sakamoto/Akimoto 2017, Carrella
+  2021, Charbonneau/Dornhaus 2015, Crosscombe 2026, Gallotti/Chialvo 2018,
+  Buffin 2011, Nicolis 2005, Depickère 2004, Greenwald 2015, Mailleux
+  2000; roles unchanged, § Evidence policy). The other 18 (held-out,
+  unread, role-pending, methods-only, results-restricted, partially read)
+  move to `~/ants-literature/held/`, outside the repo; new PDFs go there
+  first and move into `literature/` only after a logged decision clears
+  the whole paper. (2) Claude Code settings deny reading that folder, with
+  the file tools and with shell commands. (3) `scripts/paperText.ts`
+  extracts the cleared papers to `.cache/papers/<paper>/pNN.txt` (one file
+  per PDF page, gitignored) for `rg`; each paper is pinned by SHA-256 in
+  `docs/literature.json`, with the decision that cleared it, and a paper
+  whose bytes changed is refused. (4) The search tool, its docs,
+  evaluation and tests are deleted (never committed).
+- **Exposure.** During the evaluation only cleared papers were opened
+  (Crosscombe pp. 3, 10, 12; Charbonneau/Dornhaus pp. 7, 10; via the tool
+  and one direct `pdftotext` of Charbonneau p. 10). No held paper was
+  opened. Paper roles and the evidence policy are unchanged.
+- **Done (≈ 15:00).** 18 PDFs moved; the 11 cleared ones match their
+  pinned hashes. `scripts/paperText.ts` tested (extraction, skip when
+  unchanged, refusal on a changed hash, warning for an unlisted PDF).
+  Guard: `.claude/settings.local.json` denies Read of `~/ants-literature/**`
+  and runs `.claude/hooks/sealed.py` before Bash/Read/Grep/Glob, refusing
+  any call whose text names a path in `.claude/sealed-paths.txt` (local
+  only, not committed; it can also seal pending outputs during a blind
+  check). Verified live: a Read and a `cat` of a harmless test file in the
+  held folder were both refused. Side effect: any shell command or search
+  that merely mentions the folder name is refused too (edit such text with
+  the editor tools).
+
+**2026-10-17 ≈ 14:35 UTC — Comparisons L and O read (rules of 13:15,
+amending 13:11).** Box run 13:13–14:28 UTC; `logs/lo/`, contacts in
+`logs/night/cs-night-{latconst,latunit,obs*}-*`.
+
+*L — the variability effect is supported in both matched contrasts
+(nurses; realised activity matched).*
+
+| contrast | nurse T2 (Fisher z) | nurse P2 / P10 \|z\| | still.nurse \|z\| | loss | nurse 6-h persistence | nurse moving fraction (median) |
+|---|---|---|---|---|---|---|
+| (i) L3 mean-one vs L0 baseline | +0.041 [+0.032, +0.050] | 34.3 → 26.9 / 59.1 → 46.7 | 5.4 → 5.0 | 21 316 → 17 713 | 0.49 → 0.44 | 0.0159 → 0.0157 |
+| (ii) L2 original vs L1 constant ×1.6487 | +0.042 [+0.034, +0.050] | 27.0 → 20.4 / 38.4 → 31.2 | 14.7 → 13.5 | 15 788 → 14 109 | 0.57 → 0.50 | 0.0251 → 0.0247 |
+| rate only: L1 vs L0 | −0.008 [−0.015, −0.001] | 34.3 → 27.0 / 59.1 → 38.4 | **5.4 → 14.7** | 21 316 → 15 788 | 0.49 → 0.57 | 0.0159 → 0.0251 |
+
+Both contrasts: T2 CI above 0, nurse P2 and P10 |z| fall, persistence
+within 0.10 of the baseline (L3 0.44, data 0.43). Stricter extra report:
+L3 − L1 T2 +0.050 [+0.042, +0.058] (passes too). Decomposition: a higher
+constant rate buys row gains with no T2 gain and a large stillness cost;
+the variability part moves T2 and the short-still rows at matched
+realised activity, with no stillness cost when mean-one. Nurse-only:
+forager T2 and rows unchanged in every arm (−0.005 to +0.008). Contacts:
+L3 leaves them as the baseline (light moving-involved 0.78, still-still
+0.25; dark 1.18 / 0.28); the higher-rate arms raise both a little (light
+0.94–0.95 / 0.31–0.33). So a per-ant latent activity state (slowly
+varying walk-on, SD 1, τ 60 s on the log scale) is a **candidate model
+element for the user**, for nurses, addressing T2 and short stills; it
+does not address the contact deficit. A mechanistic form (e.g. a slowly
+varying walk-on trait beside or in place of the fixed σ 0.4 trait) would
+be designed then, not this switch.
+
+*O — the contact statistic is strongly sensitive to observation.*
+Paired variant / control (r 4.1 mm), and absolute model / data:
+- **M (tag drift 0.7 mm / 90 s, with rounding):** still-still ×2.43
+  [2.32, 2.56] light, ×2.43 [2.32, 2.57] dark → absolute **0.26 → 0.63**
+  (light), **0.29 → 0.72** (dark); moving-involved ×0.92; near share
+  0.768 vs 0.781. Above the ≥ 1.25 bar: a per-tag slowly varying
+  measurement error of the size calibrated to the data's still-period
+  displacement — which left the motion rows unchanged (03:05) — produces
+  roughly half of the still-still deficit in absolute terms.
+- **P (rounding only):** ×1.01 — nothing.
+- **B (rest drift): not readable for contacts.** Its offsets are kept
+  after each rest (by design), so they accumulate across rests and move
+  observed ants away from their true neighbours: near share 0.49 vs
+  0.78, moving-involved ×0.57. This is the geometric distortion that an
+  observer offset cannot avoid; its still-still ×1.10 / ×1.07 is not
+  interpreted.
+- **Reading (13:15):** positive → the data's still-still excess may
+  partly be a tracking effect; the contact statistic needs a
+  measurement-robust form before creep is modelled. Physical creep is
+  not excluded (M shows sensitivity, not that the data's excess is
+  error); packing (data near share 0.95 vs model 0.78) is unresolved and
+  untouched by M. The contact deficit stays a blocker for step 5, now
+  with the measurement question in front of the creep question.

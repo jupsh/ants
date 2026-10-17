@@ -15,6 +15,15 @@ describe('oracle colony coupling', () => {
   it('κ = 0 and a placebo of SD 0 leave the run bit-identical', () => {
     expect(rows({ ...base, oracle: { kind: 'coupled', kappa: 0, tauC: 60 } })).toBe(none);
     expect(rows({ ...base, oracle: { kind: 'placebo', sd: 0, tauC: 60 } })).toBe(none);
+    expect(rows({ ...base, oracle: { kind: 'placebo', sd: 0, tauC: 60, meanOne: true } })).toBe(none);
+    expect(rows({ ...base, oracle: { kind: 'const', factor: 1 } })).toBe(none);
+  });
+  it('a constant factor and a mean-one placebo change the run; mean-one differs from the raw placebo', () => {
+    expect(rows({ ...base, oracle: { kind: 'const', factor: 1.65 } })).not.toBe(none);
+    const raw = rows({ ...base, oracle: { kind: 'placebo', sd: 1, tauC: 60 } });
+    const unit = rows({ ...base, oracle: { kind: 'placebo', sd: 1, tauC: 60, meanOne: true } });
+    expect(unit).not.toBe(none);
+    expect(unit).not.toBe(raw);
   });
   it('coupling and placebo change the run, and the shared parameter is restored', () => {
     const before = P.nest.restToActive;

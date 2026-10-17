@@ -51,7 +51,7 @@ let frozenTracker: ReturnType<typeof loadTracker> | undefined;
 /**
  * Observer sensitivity variants from the command line (STATUS 2026-10-17 ≈
  * 01:30 UTC): `--obsVariant tag|rest:sd:tau` (slow position offset per ant)
- * and `--pxRound mm` (pixel rounding), and the oracle colony-coupling diagnostic `--oracle coupled:kappa:tauC|placebo:sd:tauC`.
+ * and `--pxRound mm` (pixel rounding), and the oracle colony-coupling diagnostic `--oracle coupled:kappa:tauC|placebo:sd:tauC[:unit]|const:factor`.
  * None given: the colony unchanged.
  */
 export function withObsVariant(c: StroeymeytColony, argv = process.argv): StroeymeytColony {
@@ -68,9 +68,12 @@ export function withObsVariant(c: StroeymeytColony, argv = process.argv): Stroey
   // Oracle colony coupling (STATUS 2026-10-17 ≈ 05:11 UTC): `--oracle coupled:kappa:tauC` or `placebo:sd:tauC`.
   const orc = at('--oracle');
   if (orc) {
-    const [kind, v, tauC] = orc.split(':');
-    if (kind !== 'coupled' && kind !== 'placebo') throw new Error(`--oracle ${orc}: kind must be coupled or placebo`);
-    out = { ...out, oracle: kind === 'coupled' ? { kind, kappa: Number(v), tauC: Number(tauC) } : { kind, sd: Number(v), tauC: Number(tauC) } };
+    // ≈ 13:15 UTC: `const:factor` and `placebo:sd:tauC:unit` (mean-one multiplier) for the mean-matched comparison.
+    const [kind, v, tauC, mode] = orc.split(':');
+    if (kind === 'const') out = { ...out, oracle: { kind, factor: Number(v) } };
+    else if (kind === 'coupled') out = { ...out, oracle: { kind, kappa: Number(v), tauC: Number(tauC) } };
+    else if (kind === 'placebo') out = { ...out, oracle: mode === 'unit' ? { kind, sd: Number(v), tauC: Number(tauC), meanOne: true } : { kind, sd: Number(v), tauC: Number(tauC) } };
+    else throw new Error(`--oracle ${orc}: kind must be coupled, placebo or const`);
   }
   // Slow-episode what-if (STATUS 2026-10-17, overnight): `--slowEp rate:dur:factor`.
   const se = at('--slowEp');

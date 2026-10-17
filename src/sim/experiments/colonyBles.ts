@@ -104,9 +104,11 @@ export interface ColonyOptions {
    * in-nest ant's walk-on rate (`restToActive`) is multiplied for its policy call by g. `coupled`: g = clamp((u / ū)^κ,
    * 0.25, 4), u the fraction of in-nest ants not resting (true state) smoothed over `tauC` s, ū the same over 30 min.
    * `placebo`: g = exp(x_i), x_i an independent OU process per ant (time constant `tauC`, stationary SD `sd`): the same
-   * modulation without sharing. Absent: nothing changes.
+   * modulation without sharing; with `meanOne`, g = exp(x_i − sd²/2), stationary mean 1 (STATUS 2026-10-17 ≈ 13:15 UTC).
+   * `const`: g = `factor` for every ant at every step (the rate-only arm of the mean-matched comparison). Absent: nothing
+   * changes.
    */
-  oracle?: { kind: 'coupled'; kappa: number; tauC: number } | { kind: 'placebo'; sd: number; tauC: number };
+  oracle?: { kind: 'coupled'; kappa: number; tauC: number } | { kind: 'placebo'; sd: number; tauC: number; meanOne?: boolean } | { kind: 'const'; factor: number };
   /**
    * Slow-episode what-if (STATUS 2026-10-17, overnight; a diagnostic, not a mechanism, not adoptable). An in-nest ant
    * that walks enters, at `rate` per walking second, a slow episode of exponential duration (mean `dur` s) during which
@@ -370,6 +372,7 @@ export class ColonySim {
   private oracleStep(dt: number, outside: boolean[]): (i: number) => number {
     const o = this.o.oracle!;
     const ants = this.w.ants;
+    if (o.kind === 'const') return () => o.factor;
     if (o.kind === 'placebo') {
       if (!this.oracleRng.length) {
         for (let i = 0; i < ants.length; i++) {
@@ -380,7 +383,8 @@ export class ColonySim {
       const k = Math.exp(-dt / o.tauC);
       const sd = o.sd * Math.sqrt(1 - k * k);
       for (let i = 0; i < ants.length; i++) this.oracleOu[i] = this.oracleOu[i] * k + sd * this.oracleRng[i].gauss();
-      return (i) => Math.exp(this.oracleOu[i]);
+      const shift = o.meanOne ? (o.sd * o.sd) / 2 : 0;
+      return (i) => Math.exp(this.oracleOu[i] - shift);
     }
     let n = 0;
     let moving = 0;
