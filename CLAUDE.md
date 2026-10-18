@@ -7,10 +7,18 @@ agents**: the user gives them the most control, and this file adds the
 duties that come with it.
 
 ## Lead-agent duties
-- **Keep `docs/STATUS.md` current**: update it when a step starts or
-  finishes, and log decisions and pre-registrations there before acting on
-  them. Other agents report to you; you log what matters from their reports
-  (including contamination-log entries).
+- **Keep `docs/STATUS.md` current** (state, plan, rules): update it when a
+  step starts or finishes. **Log decisions and pre-registrations in
+  `docs/log/` before acting on them**: `node docs/records.mjs log new
+  "<title>" --kind k` stamps the real UTC time (never type a time by hand);
+  amend an entry with a dated line in its own file. Exposures go in
+  `docs/contamination/` (`contamination new`). Other agents report to you;
+  you log what matters from their reports. `node docs/records.mjs check`
+  must pass (it flags dated entries written into STATUS).
+- **Keep `findings/` current** (one file per empirical claim; `node
+  findings/findings.mjs` regenerates the index, `check` validates references):
+  add or update a finding in the same step as the log entry that reads a
+  result, or when a backlog item closes; supersede rather than delete.
 - **Long runs** are yours to start (`scripts/run.sh`), after `npm run runs`
   shows nothing that would write the same files or starve a main-line run.
 - **Sealed paths** are enforced for you by `.claude/hooks/sealed.py`. While a

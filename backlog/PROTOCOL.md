@@ -25,7 +25,7 @@ Bulky outputs go in the item's `out/` (git-ignored), with a summary in
 an item.
 
 **Isolation.** Every write of a backlog item stays in its folder (plus the
-STATUS entries named below). Read the main tree freely (except sealed
+log, contamination and findings records named below). Read the main tree freely (except sealed
 paths) and import from `../../src`, but never edit it from a backlog item.
 `side-projects/` holds the user's own projects: read them when an item
 builds on one, never write to them.
@@ -55,7 +55,7 @@ after your task). Never instead of an open main-line task.
 - **State the reading before you run**: a Progress entry saying what you
   will run and what each outcome would mean. If the result could change a
   main-line decision, this is not enough: stop and ask for a full
-  pre-registration in STATUS.
+  pre-registration in `docs/log/`.
 - **Code** lives in the item's folder: scripts, wrappers, modified copies of
   modules. Imports from `../../src` see the live working tree, which the
   main line may change during the item. If that could change your results,
@@ -78,7 +78,7 @@ after your task). Never instead of an open main-line task.
   command whose outputs land in the item's folder.
 - **Data**: comparing with targets already designated fit or development
   is fine (say which in Data and roles). Data with no role yet becomes
-  development once looked at: log it in the STATUS contamination log first.
+  development once looked at: log it in `docs/contamination/` first.
   Held-out data: never.
 - **Keep it small**: Progress entries are a few lines each, added with
   `backlog.mjs log Bnnn "…"` (what, the command, the numbers). Long output goes
@@ -96,7 +96,8 @@ after your task). Never instead of an open main-line task.
 - Set `outcome:` (one line), then `backlog.mjs release Bnnn --status done`
   (answered) or `--status dropped` (moot or not worth it; say why).
 - If it bears on the main line: tell the user in your reply and add a dated
-  one-line entry to the STATUS Decisions log pointing to the item. Never
+  entry in `docs/log/` pointing to the item (`node docs/records.mjs log new`),
+  and add or update its finding in `findings/`. Never
   change the Plan, RESUME's next steps, adopted fits or rules from a
   backlog item; propose, and the user decides.
 - Questions you notice along the way become new items:

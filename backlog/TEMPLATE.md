@@ -34,8 +34,8 @@ dirty in the working tree.>
 
 ## Data and roles
 <Each data set touched and its role (STATUS § Evidence policy). Held-out: none.
-Development data inspected → say so here and get a contamination-log entry in
-STATUS.>
+Development data inspected → say so here and get a contamination-log entry
+(`docs/contamination/`).>
 
 ## Compute
 <What runs where, roughly how long, how many workers; niced; never slowing a

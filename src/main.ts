@@ -1,4 +1,6 @@
+import logIndex from '../docs/log/README.md?raw';
 import statusMd from '../docs/STATUS.md?raw';
+import findingsIndex from '../findings/README.md?raw';
 import { renderColony } from './ui/colonyPage';
 import { renderE1 } from './ui/e1Page';
 import { renderE2 } from './ui/e2Page';
@@ -20,7 +22,8 @@ function renderStatus(root: HTMLElement): void {
   const wrap = document.createElement('div');
   wrap.className = 'status-doc';
   const pre = document.createElement('pre');
-  pre.textContent = statusMd;
+  // STATUS, then the generated indexes of the findings register and the Decisions log (STATUS 2026-10-18 ≈ 16:32).
+  pre.textContent = [statusMd, findingsIndex, logIndex].join('\n\n---\n\n');
   wrap.appendChild(pre);
   root.appendChild(wrap);
 }
