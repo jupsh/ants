@@ -1,0 +1,571 @@
+{
+  "source": "Stroeymeyt et al. 2018, main experiment, PreTreatment (fit colonies); Zenodo 10.5281/zenodo.1480665, CC BY 4.0",
+  "definitions": "docs/STATUS.md, 2026-10-18 ≈ 01:46 UTC: activity rows of candidate C2 (src/sim/analysis/activity.ts)",
+  "eligibility": {
+    "stepFramesPerHour": 1800,
+    "minAnts": 8
+  },
+  "windows": "longest contiguous light block (UTC hour keys), complete 6-h windows from its start; [first hour key, end) per colony",
+  "provenance": {
+    "simHash": "f17917f38a2488bb",
+    "commit": "9b3987d492e300fe76f025166f289056f711c65f",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [],
+    "date": "2026-10-18T01:53:58.634Z"
+  },
+  "colonies": [
+    {
+      "colony": "colony112",
+      "windows": [
+        [
+          393102,
+          393108
+        ],
+        [
+          393108,
+          393114
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.6684759509099297,
+        "top20.nurse.light": 0.5393308915584836,
+        "persist.nurse.n": 43,
+        "top20.nurse.n": 46,
+        "persist.forager.light": null,
+        "top20.forager.light": null,
+        "persist.forager.n": 0,
+        "top20.forager.n": 0
+      }
+    },
+    {
+      "colony": "colony020",
+      "windows": [
+        [
+          393102,
+          393108
+        ],
+        [
+          393108,
+          393114
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.3050257783135578,
+        "top20.nurse.light": 0.47567184520398686,
+        "persist.nurse.n": 78,
+        "top20.nurse.n": 78,
+        "persist.forager.light": 0.25239058544339726,
+        "top20.forager.light": 0.4092530198346306,
+        "persist.forager.n": 45,
+        "top20.forager.n": 45
+      }
+    },
+    {
+      "colony": "colony114",
+      "windows": [
+        [
+          393126,
+          393132
+        ],
+        [
+          393132,
+          393138
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.6486590896227207,
+        "top20.nurse.light": 0.4621482248627615,
+        "persist.nurse.n": 116,
+        "top20.nurse.n": 117,
+        "persist.forager.light": 0.980527243014985,
+        "top20.forager.light": 0.5473941258374373,
+        "persist.forager.n": 81,
+        "top20.forager.n": 86
+      }
+    },
+    {
+      "colony": "colony122",
+      "windows": [
+        [
+          393366,
+          393372
+        ],
+        [
+          393372,
+          393378
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.8355687685108933,
+        "top20.nurse.light": 0.439721194711725,
+        "persist.nurse.n": 204,
+        "top20.nurse.n": 204,
+        "persist.forager.light": 0.629242972450979,
+        "top20.forager.light": 0.32995769427289867,
+        "persist.forager.n": 89,
+        "top20.forager.n": 92
+      }
+    },
+    {
+      "colony": "colony209",
+      "windows": [
+        [
+          393414,
+          393420
+        ],
+        [
+          393420,
+          393426
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.975076878797183,
+        "top20.nurse.light": 0.554005354742241,
+        "persist.nurse.n": 144,
+        "top20.nurse.n": 144,
+        "persist.forager.light": 0.709232864194426,
+        "top20.forager.light": 0.3671135248964445,
+        "persist.forager.n": 45,
+        "top20.forager.n": 48
+      }
+    },
+    {
+      "colony": "colony208",
+      "windows": [
+        [
+          393511,
+          393517
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.6730591681645811,
+        "top20.nurse.light": 0.639761570675516,
+        "persist.nurse.n": 71,
+        "top20.nurse.n": 71,
+        "persist.forager.light": 0.9066807956925128,
+        "top20.forager.light": 0.440409868315101,
+        "persist.forager.n": 37,
+        "top20.forager.n": 41
+      }
+    },
+    {
+      "colony": "colony201",
+      "windows": [
+        [
+          393606,
+          393612
+        ],
+        [
+          393612,
+          393618
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 1.164140567230804,
+        "top20.nurse.light": 0.5549808700351764,
+        "persist.nurse.n": 201,
+        "top20.nurse.n": 202,
+        "persist.forager.light": 0.6891208385982345,
+        "top20.forager.light": 0.37251349739377004,
+        "persist.forager.n": 81,
+        "top20.forager.n": 83
+      }
+    },
+    {
+      "colony": "colony213",
+      "windows": [
+        [
+          393630,
+          393636
+        ],
+        [
+          393636,
+          393642
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.6381925306855658,
+        "top20.nurse.light": 0.43110501939474066,
+        "persist.nurse.n": 142,
+        "top20.nurse.n": 142,
+        "persist.forager.light": 0.7392184362100052,
+        "top20.forager.light": 0.3943248941883868,
+        "persist.forager.n": 57,
+        "top20.forager.n": 58
+      }
+    },
+    {
+      "colony": "colony215",
+      "windows": [
+        [
+          393630,
+          393636
+        ],
+        [
+          393636,
+          393642
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.7030805656561279,
+        "top20.nurse.light": 0.5199975595534656,
+        "persist.nurse.n": 124,
+        "top20.nurse.n": 126,
+        "persist.forager.light": 0.7576811517990749,
+        "top20.forager.light": 0.36249600509992264,
+        "persist.forager.n": 22,
+        "top20.forager.n": 24
+      }
+    },
+    {
+      "colony": "colony248",
+      "windows": [
+        [
+          393702,
+          393708
+        ],
+        [
+          393708,
+          393714
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.6676462618588691,
+        "top20.nurse.light": 0.5245055240961649,
+        "persist.nurse.n": 156,
+        "top20.nurse.n": 156,
+        "persist.forager.light": 0.9858755945178701,
+        "top20.forager.light": 0.48856691913055583,
+        "persist.forager.n": 48,
+        "top20.forager.n": 48
+      }
+    },
+    {
+      "colony": "colony250",
+      "windows": [
+        [
+          393726,
+          393732
+        ],
+        [
+          393732,
+          393738
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.6456684782556057,
+        "top20.nurse.light": 0.4653874926621011,
+        "persist.nurse.n": 154,
+        "top20.nurse.n": 156,
+        "persist.forager.light": 0.7568059493390225,
+        "top20.forager.light": 0.41208317265537886,
+        "persist.forager.n": 60,
+        "top20.forager.n": 63
+      }
+    },
+    {
+      "colony": "colony241",
+      "windows": [
+        [
+          393726,
+          393732
+        ],
+        [
+          393732,
+          393738
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.6295532113640376,
+        "top20.nurse.light": 0.44070320346943037,
+        "persist.nurse.n": 70,
+        "top20.nurse.n": 70,
+        "persist.forager.light": 0.7966141144527116,
+        "top20.forager.light": 0.4317619731792466,
+        "persist.forager.n": 118,
+        "top20.forager.n": 130
+      }
+    },
+    {
+      "colony": "colony224",
+      "windows": [
+        [
+          393918,
+          393924
+        ],
+        [
+          393924,
+          393930
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.8401306919395374,
+        "top20.nurse.light": 0.6174274628237262,
+        "persist.nurse.n": 118,
+        "top20.nurse.n": 118,
+        "persist.forager.light": 1.0729195985066124,
+        "top20.forager.light": 0.4699940719004234,
+        "persist.forager.n": 65,
+        "top20.forager.n": 65
+      }
+    },
+    {
+      "colony": "colony204",
+      "windows": [
+        [
+          393918,
+          393924
+        ],
+        [
+          393924,
+          393930
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.8233019647262501,
+        "top20.nurse.light": 0.4793798232509983,
+        "persist.nurse.n": 109,
+        "top20.nurse.n": 110,
+        "persist.forager.light": 0.5502556561498319,
+        "top20.forager.light": 0.37834139691177693,
+        "persist.forager.n": 65,
+        "top20.forager.n": 66
+      }
+    },
+    {
+      "colony": "colony253",
+      "windows": [
+        [
+          393942,
+          393948
+        ],
+        [
+          393948,
+          393954
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.8248455879248551,
+        "top20.nurse.light": 0.46198871499856997,
+        "persist.nurse.n": 74,
+        "top20.nurse.n": 74,
+        "persist.forager.light": 1.1235519172461093,
+        "top20.forager.light": 0.4643857773613198,
+        "persist.forager.n": 104,
+        "top20.forager.n": 111
+      }
+    },
+    {
+      "colony": "colony237",
+      "windows": [
+        [
+          394878,
+          394884
+        ],
+        [
+          394884,
+          394890
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 1.1022772893415693,
+        "top20.nurse.light": 0.5415237210667551,
+        "persist.nurse.n": 239,
+        "top20.nurse.n": 240,
+        "persist.forager.light": 0.4967203001972429,
+        "top20.forager.light": 0.38058563440395904,
+        "persist.forager.n": 26,
+        "top20.forager.n": 26
+      }
+    },
+    {
+      "colony": "colony261",
+      "windows": [
+        [
+          394902,
+          394908
+        ],
+        [
+          394908,
+          394914
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 1.077317183073302,
+        "top20.nurse.light": 0.5737330429677113,
+        "persist.nurse.n": 156,
+        "top20.nurse.n": 158,
+        "persist.forager.light": 0.24963220752778173,
+        "top20.forager.light": 0.3006844748423,
+        "persist.forager.n": 18,
+        "top20.forager.n": 18
+      }
+    },
+    {
+      "colony": "colony260",
+      "windows": [
+        [
+          394902,
+          394908
+        ],
+        [
+          394908,
+          394914
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.8572128785788257,
+        "top20.nurse.light": 0.4815251123782798,
+        "persist.nurse.n": 90,
+        "top20.nurse.n": 90,
+        "persist.forager.light": 0.514276338956579,
+        "top20.forager.light": 0.3189147879185522,
+        "persist.forager.n": 32,
+        "top20.forager.n": 33
+      }
+    },
+    {
+      "colony": "colony226",
+      "windows": [
+        [
+          394926,
+          394932
+        ],
+        [
+          394932,
+          394938
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.6825510839643188,
+        "top20.nurse.light": 0.48075418996876684,
+        "persist.nurse.n": 188,
+        "top20.nurse.n": 188,
+        "persist.forager.light": 0.6434556713904952,
+        "top20.forager.light": 0.37090186276204284,
+        "persist.forager.n": 48,
+        "top20.forager.n": 53
+      }
+    },
+    {
+      "colony": "colony220",
+      "windows": [
+        [
+          394926,
+          394932
+        ],
+        [
+          394932,
+          394938
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.8747101968899764,
+        "top20.nurse.light": 0.5447450000582921,
+        "persist.nurse.n": 208,
+        "top20.nurse.n": 208,
+        "persist.forager.light": null,
+        "top20.forager.light": 0.42521388621748807,
+        "persist.forager.n": 0,
+        "top20.forager.n": 16
+      }
+    },
+    {
+      "colony": "colony265",
+      "windows": [
+        [
+          394950,
+          394956
+        ],
+        [
+          394956,
+          394962
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 1.0474672181346,
+        "top20.nurse.light": 0.5453725320741631,
+        "persist.nurse.n": 143,
+        "top20.nurse.n": 144,
+        "persist.forager.light": 1.2031428567947673,
+        "top20.forager.light": 0.403165462731511,
+        "persist.forager.n": 24,
+        "top20.forager.n": 24
+      }
+    },
+    {
+      "colony": "colony276",
+      "windows": [
+        [
+          394950,
+          394956
+        ],
+        [
+          394956,
+          394962
+        ]
+      ],
+      "rows": {
+        "persist.nurse.light": 0.7364153117024987,
+        "top20.nurse.light": 0.5319656823921055,
+        "persist.nurse.n": 146,
+        "top20.nurse.n": 146,
+        "persist.forager.light": 0.5452241249661963,
+        "top20.forager.light": 0.3517759188703839,
+        "persist.forager.n": 46,
+        "top20.forager.n": 50
+      }
+    }
+  ],
+  "across": {
+    "persist.nurse.light": {
+      "mean": 0.7918353025293459,
+      "sd": 0.19872296527104,
+      "n": 22,
+      "se": 0.04236787855209682
+    },
+    "top20.nurse.light": {
+      "mean": 0.5138970014975074,
+      "sd": 0.05669655237975238,
+      "n": 22,
+      "se": 0.012087745582256596
+    },
+    "persist.nurse.n": {
+      "mean": 135.1818181818182,
+      "sd": 52.032623798862375,
+      "n": 22,
+      "se": 11.093392667779442
+    },
+    "top20.nurse.n": {
+      "mean": 135.8181818181818,
+      "sd": 51.96027453613125,
+      "n": 22,
+      "se": 11.077967753137367
+    },
+    "persist.forager.light": {
+      "mean": 0.7301284608724415,
+      "sd": 0.26235922148221896,
+      "n": 20,
+      "se": 0.05866530537581647
+    },
+    "top20.forager.light": {
+      "mean": 0.4009446651773109,
+      "sd": 0.05947798680190493,
+      "n": 21,
+      "se": 0.012979160795395893
+    },
+    "persist.forager.n": {
+      "mean": 50.5,
+      "sd": 31.01727629195427,
+      "n": 22,
+      "se": 6.6129055248445425
+    },
+    "top20.forager.n": {
+      "mean": 53.63636363636363,
+      "sd": 32.1551972464283,
+      "n": 22,
+      "se": 6.855511087494466
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import type { RNG } from '../core/rng';
+import { driveFactor } from '../mind/drive';
 import { newStay, setMode, type Mind, type Stay } from '../mind/mind';
 import type { MotorMod } from '../models/walk';
 import type { ContactPercept, Interoception, SurfacePercept } from '../perception/types';
@@ -50,6 +51,9 @@ import type { ContactPercept, Interoception, SurfacePercept } from '../perceptio
  *     probability `restDeepFrac`, its walk-on rate divided by
  *     `restDeepRatio`; lone rests are then a mixture of two exponentials.
  *     Composes with the gamma depth; `restDeepFrac` 0: off, no draw.
+ *   - Latent activity drive (STATUS 2026-10-18, candidate C2): the walk-on
+ *     rate is also multiplied by exp(σ z − σ²/2), z the ant's unit OU drive
+ *     (`m.drive`, advanced by the runner), σ `driveSd` of its role; 0: off.
  *   - Persistent walk-on factor (STATUS 2026-10-15 late evening, under
  *     test): each ant's walk-on rate is multiplied by its own lognormal
  *     factor (mean 1, SD of log `walkOnSd`), drawn at set-up; 0: off.
@@ -115,6 +119,12 @@ export interface NestParams {
   restShape: number;
   /** SD of log of each ant's persistent walk-on factor (lognormal, mean 1; 0: off, no draw; STATUS 2026-10-15 late evening, under test). */
   walkOnSd: number;
+  /** SD of the ant's latent activity drive (OU on the log walk-on rate, mean one; 0: off; STATUS 2026-10-18 ≈ 01:43, candidate C2). */
+  driveSd: number;
+  /** Correlation time of the drive (s; shared by both roles; advanced by the runner, `stepDrive`). */
+  driveTau: number;
+  /** Wall response of a walking in-nest ant (runner): 'follow' turns along the edge, 'specular' reflects the heading. */
+  wallRule: 'follow' | 'specular';
   /** Probability that a rest is deep (two-state rests; 0: off, no draw). */
   restDeepFrac: number;
   /** A deep rest's walk-on rate is the plain rate divided by this (used only when `restDeepFrac` > 0). */
@@ -128,7 +138,7 @@ export interface NestParams {
 }
 
 /** Stop and walking values that differ between foragers and nest workers (Depickère et al. 2004). */
-export type ForagerMotion = Partial<Pick<NestParams, 'restToActive' | 'activeToRest' | 'restCrowdExp' | 'nestSpeedFactor' | 'nestPauseFactor' | 'nestSpeedSdFactor' | 'nestSpeedTauFactor' | 'outRate'>>;
+export type ForagerMotion = Partial<Pick<NestParams, 'restToActive' | 'activeToRest' | 'restCrowdExp' | 'nestSpeedFactor' | 'nestPauseFactor' | 'nestSpeedSdFactor' | 'nestSpeedTauFactor' | 'outRate' | 'driveSd'>>;
 
 /** The nest parameters this ant uses: the forager values for an ant with the forager trait. */
 export const nestParamsOf = (p: NestParams, forager: boolean | undefined): NestParams => (forager && p.forager ? { ...p, ...p.forager } : p);
@@ -244,8 +254,8 @@ function returning(m: Mind, p: NestParams, carrying: boolean, dt: number, rng: R
  */
 function switchWithin(m: Mind, p: NestParams, per: SurfacePercept, rng: RNG): NestAction {
   // Walk-on rate falls with the number of ants in the stop (Depickère et al. 2004: a·N^−b); constant within the step.
-  // The ant's persistent walk-on factor (1 when off) scales the spontaneous rate.
-  const base = p.restToActive * (m.traits.walkOnFactor ?? 1);
+  // The ant's persistent walk-on factor and its latent drive (1 when off) scale the spontaneous rate.
+  const base = p.restToActive * (m.traits.walkOnFactor ?? 1) * driveFactor(m, p.driveSd);
   const walkOn = !p.restCrowdExp ? base : base * Math.pow(1 + per.contacts.filter((c) => !c.moving).length, -p.restCrowdExp);
   let left = per.dt;
   let walked = 0;
@@ -284,18 +294,32 @@ export function lasiusNestWorker(per: SurfacePercept, io: Interoception, m: Mind
  * since first sighting + dt, reaches `encounterMin`). An episode ends once its estimated gap, time unseen − dt,
  * exceeds `encounterGap`.
  */
+/** Whether a contact with nestmate `id` is in the list (a plain loop: this runs for every ant every step). */
+function inContact(contacts: ContactPercept[], id: number): boolean {
+  for (let k = 0; k < contacts.length; k++) if (contacts[k].id === id) return true;
+  return false;
+}
+
 function meet(stay: Stay, per: SurfacePercept, p: NestParams): boolean {
   const dt = per.dt;
   const met = stay.met;
   let n = 0;
   for (const e of met) {
-    e.unseen = per.contacts.some((c) => c.id === e.id) ? 0 : e.unseen + dt;
+    e.unseen = inContact(per.contacts, e.id) ? 0 : e.unseen + dt;
     if (e.unseen - dt > p.encounterGap + 1e-9) continue;
     e.age += dt;
     met[n++] = e;
   }
   met.length = n;
-  for (const c of per.contacts) if (!met.some((e) => e.id === c.id)) met.push({ id: c.id, age: 0, unseen: 0, counted: false });
+  for (const c of per.contacts) {
+    let known = false;
+    for (let k = 0; k < met.length; k++)
+      if (met[k].id === c.id) {
+        known = true;
+        break;
+      }
+    if (!known) met.push({ id: c.id, age: 0, unseen: 0, counted: false });
+  }
   let encounter = false;
   for (const e of met)
     if (!e.counted && e.unseen === 0 && e.age + dt >= p.encounterMin - 1e-9) {

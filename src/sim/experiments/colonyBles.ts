@@ -4,6 +4,7 @@ import { lasiusForager, drawTraits, startTrip, type ForagerAction, type ForagerP
 import { drawNestTraits, enterNest, lasiusNestWorker, type NestAction, type NestParams } from '../behavior/lasiusNestWorker';
 import { deepClone } from '../core/clone';
 import { RNG } from '../core/rng';
+import { stepDrive } from '../mind/drive';
 import { newMind, newTrip } from '../mind/mind';
 import { walkStep, type WalkParams } from '../models/walk';
 import { ContactPairCache, senseAllContacts } from '../perception/contactPairs';
@@ -248,6 +249,8 @@ export class ColonySim {
   oracleLogN = 0;
   /** Comparison Q state (see `ColonyOptions.wall` / `aggregate`); plain fields so `clone` copies it. */
   private readonly wallRng: RNG[] = [];
+  /** Latent-drive streams, one per ant (created on first use; STATUS 2026-10-18, candidate C2). */
+  private readonly driveRng: RNG[] = [];
   private aggN: number[] = [];
   private aggNext = 0;
   private taxisGoal: number[] = [];
@@ -570,6 +573,11 @@ export class ColonySim {
     // Fast path: a nest worker resting at the start of the step decides from what its rest mode reads.
     const resting = w.ants.map((a, i) => fast && a.body.alive && !outside[i] && a.mind.mode === 'rest');
     const per: (SurfacePercept | null)[] = w.ants.map((a, i) => (!a.body.alive ? null : resting[i] ? perceiveResting(w, a.body, dt, contacts![i]) : perceive(w, a.body, dt, contacts?.[i])));
+    // The latent activity drive runs for every ant wherever it is (drawn only when some role uses it).
+    if (P.nest.driveSd > 0 || (P.nest.forager?.driveSd ?? 0) > 0)
+      w.ants.forEach((a, i) => {
+        if (a.body.alive) stepDrive(a.mind, P.nest.driveTau, dt, (this.driveRng[i] ??= RNG.stream(this.o.seed, 0xd21e, i)));
+      });
     const orc = this.o.oracle ? this.oracleStep(dt, outside) : null;
     const stopMult = this.o.aggregate || this.o.site ? this.stopMultStep(t, outside) : null;
     const acts: (NestAction | ForagerAction | null)[] = w.ants.map((a, i) => {
@@ -619,6 +627,8 @@ export class ColonySim {
     // Move (and, outside, drink and metabolise as in E2). Mouth flow is re-sensed from here on.
     for (const a of w.ants) a.body.mouthFlow = 0;
     const walked = new Array<number>(w.ants.length).fill(0);
+    // The diagnostic switch, else the model's wall rule (candidate C2: specular).
+    const wall = this.o.wall ?? (P.nest.wallRule === 'specular' ? 'specular' : undefined);
     w.ants.forEach((a, i) => {
       const act = acts[i];
       // The offering and sharing signals nestmates sense next step (STATUS 2026-10-10); foragers show neither.
@@ -642,7 +652,7 @@ export class ColonySim {
       // A partial step (a rest/walk switch inside it) walks through a percept with the shorter dt.
       const p = per[i]!;
       const wp = this.o.slowEp && p.inNest ? this.slowWalk(i, a, p, !na.stand, dt) : this.walkFor(p, a);
-      if (!na.stand) walked[i] = walkAnt(w, a, na.walkFrac !== undefined ? { ...p, dt: p.dt * na.walkFrac } : p, wp, P.phys, na.motor, this.motor, undefined, this.o.wall === 'inward' ? this.inwardTurn(i) : this.o.wall === 'specular' ? ColonySim.specularTurn : undefined);
+      if (!na.stand) walked[i] = walkAnt(w, a, na.walkFrac !== undefined ? { ...p, dt: p.dt * na.walkFrac } : p, wp, P.phys, na.motor, this.motor, undefined, wall === 'inward' ? this.inwardTurn(i) : wall === 'specular' ? ColonySim.specularTurn : undefined);
     });
     // Food sharing between ants that both agreed, in donor-index order.
     w.ants.forEach((a, i) => {

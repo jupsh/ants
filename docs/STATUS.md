@@ -2713,3 +2713,240 @@ positions and modes (diagnostic, **not adoptable**), all arms on the
     **whole C2 candidate** (walls and the rest constraint change alongside the activity state).
   - **Step 5:** κ = 1 stays labelled an **overshooting stress test**, not a calibrated representation of synchrony.
     Its consequences for adoption are decided before step 5; this does not delay C2 preparation.
+- **2026-10-18 ≈ 01:46 UTC — C2 preparation: activity-row definitions fixed (before any recomputation) and one
+  design deviation.** Committed checkpoint `9b3987d` first.
+  - **The four activity rows** (`persist.<group>.light`, `top20.<group>.light`; groups nurse and forager, queen
+    excluded). Code is shared by data and simulation in `src/sim/analysis/activity.ts`, promoted from
+    `scratch/activityStats.ts` with the same observed-history definitions: still = step < 0.6 mm per frame, gaps of
+    ≤ 3 frames bridged, in-nest steps only; per ant and hour, stepF and moveF.
+    - **Windows.** Data: each colony's longest contiguous light block, split from its start into consecutive
+      **complete** 6-h windows (06–12, 12–18 UTC; an 11-h block gives one). Simulation: the 6-h observation window
+      after the warm-up (one per colony and seed), labelled light as for the other rows.
+    - **Per-ant statistic:** moving fraction = Σ moveF / Σ stepF over the hours of a period.
+    - **Eligibility** (the persistence diagnostic's 1800 step-frames per hour, kept). Persistence: stepF ≥ 5400 in
+      **each** 3-h half. Spread: stepF ≥ 10 800 over the 6 h. A window needs **≥ 8 eligible ants** (both rows),
+      else it is missing.
+    - **Persistence:** Spearman across eligible ants, first vs second 3-h half, with ties at average ranks; r clipped
+      to ±0.999, Fisher z. Undefined (no rank variance on a side) → window missing. Colony value: the (n − 3)-weighted
+      mean of z over its valid windows.
+    - **Spread:** the share of the summed per-ant moving fraction carried by the top k = max(1, round(0.2 n)) ants
+      (ties do not affect it); total 0 → window missing. Colony value: the mean over valid windows.
+      - The 23:35 proposal said "moving time". **Moving fraction** is used because the σ-selection evidence that
+        inspected spread used it, and it does not mix activity with time spent in the nest (foragers' trips).
+        **Flagged to the user.**
+    - **Row:** mean of colony values; SE = SD across colonies / √n (the existing estimator). Persistence is in Fisher
+      z units, reported back-transformed beside.
+    - **Missing / incomplete tracking:**
+      - No imputation. The observer (the recorded detections; the frozen tracker in simulation) and the eligibility
+        thresholds carry incomplete tracking.
+      - A colony without a valid value is left out of that row, on each side by the same rule; the counts are
+        reported.
+      - A simulated batch with < 2 valid colonies for a row makes the loss infinite (existing rule); when judging,
+        such a row is missing and the candidate unjudgeable (existing policy).
+  - **Deviation from the design note:** the drive is advanced by the runner for every ant every step (exact OU
+    update, k = e^(−dt/τ), held constant within the step), wherever the ant is. It is not advanced by the nest policy.
+    Two reasons:
+    - an ant returning from a trip carries a correctly aged drive;
+    - the unit process uses the ant's own stream (`RNG.stream(seed, 0xd21e, i)`), and its draws do not depend on σ,
+      so the fit keeps common random numbers across σ.
+
+    The policy only reads it: walk-on × exp(σ_role · z − σ_role²/2). The state lives in the mind (`m.drive`, `src/sim/mind/`).
+- **2026-10-18 ≈ 01:59 UTC — C2 preparation: built, data rows, feasibility, gate and benchmark design (fixed before
+  running).**
+  - **Built (tests 188 / 188, tsc clean; uncommitted):**
+    - the drive (`src/sim/mind/drive.ts`, `NestParams.driveSd` / `driveTau`, the forager overlay's `driveSd`);
+    - the wall-rule parameter (`NestParams.wallRule`, default 'follow');
+    - the activity rows (`src/sim/analysis/activity.ts`, `activityHours` in `simulateStroeymeyt`);
+    - C2 in `stroeymeytTargets.ts` (`S2018_FREE_C2`, `S2018_C2_FIXED`, `s2018BoundReading`);
+    - `--candidate C2` in `fitS2018` (refuses a cap raise on resume), `checkS2018Window` and `diagS2018`
+      (`--rows 36`, `--fit`, `--seeds judge`, purpose unused for 2018 before), and `reportS2018` on 36 rows.
+
+    Tests:
+    - σ = 0 bit-identical (any τ); either role alone changes the run;
+    - stationarity, unit variance, lag correlation e^(−1) at τ and a mean-one multiplier;
+    - each role reached through its own σ (rest-length ratio exp(σ − σ²/2) at z = 1);
+    - specular parameter = the diagnostic switch;
+    - the activity definitions (ties, eligibility, ≥ 8 ants, top 20 %, windows).
+
+    The promoted `ActivityStats` reproduces the scratch class's output exactly (colony112, 24 h).
+  - **Data activity rows** (`data/reference/stroeymeyt2018-activity-rows.json`; 22 colonies, colony208 one window,
+    the others two):
+
+    | Row | Mean ± SE | Colonies |
+    |---|---|---|
+    | `persist.nurse` | z 0.792 ± 0.042 (r 0.66) | 22 |
+    | `persist.forager` | z 0.730 ± 0.059 (r 0.62) | 20 |
+    | `top20.nurse` | 0.514 ± 0.012 | 22 |
+    | `top20.forager` | 0.401 ± 0.013 | 21 |
+
+  - **Feasibility of the shared light / dark prediction:** for every motion row pair, the best single prediction
+    reaches max |z| ≤ 2 in both phases even at SE_sim = 0. The tightest pair is `still.nurse` (1.82), then
+    `still.forager` (1.21). No pair is forced above 2, so the phase mismatch does not make the adequacy rule
+    impossible; it is the loss floor (≈ 16), not a threshold failure. The activity rows are light only.
+  - **C2 start points:** C1's two starts (restShape 1.4 lies inside (1.001, 50]), with drive SD 1.0 per role (start
+    0, comparison L's level) or 0.3 (start 1).
+  - **Gates at C2's start 0, on the box (rules unchanged: per row the 90 % bootstrap CI of the paired difference
+    inside ±0.5 SE_data, the smaller SE of the two phases; a failure goes to the user before any setting changes):**
+    1. **dt, motion rows:** C1's gate as run (`--mode dt --dts 0.05,0.025 --reps 36 --obs 3600`, warm-up 1200 s),
+       with `--candidate C2`; the 32 motion rows (16 simulated).
+    2. **dt, activity rows:** `--mode dt --dts 0.05,0.025 --reps 6 --obs 21600 --only activity`. Six seeds × 6 h
+       is the same simulated time per colony as 36 × 1 h; each run's 6-h window is the row's own definition.
+    3. **Window:** C1's recheck design (`--mode window --reps 4 --windows 21600,32400 --warmup 7200 --dt 0.05`),
+       with `--candidate C2`. Motion rows: 6-h prefix vs 12 h (9 h read only if 6 h fails). Activity rows: the 6-h
+       window right after the 2-h warm-up vs the next 6 h of the same runs (elapsed 2–8 h vs 8–14 h). Bootstrap
+       units are the 88 runs, as before.
+  - **Benchmark (the 21-h estimate no longer holds):** one generation's load at each phase, `diagS2018 --candidate
+    C2 --at start --reps 11` (242 colony runs, λ = 11) at dt 0.1 and at dt 0.05, 2 h + 6 h, 62 workers. The
+    projected fit time (probes, 2 × 30 phase-1 generations side by side, selection batches, ≤ 60 phase-2
+    generations) goes to the user with the gate results before any launch.
+- **2026-10-18 ≈ 02:05 UTC — User on the activity rows (pasted, adopted); colony-set correction made before
+  fitting; smoke run.**
+  - **Spread definition confirmed: moving fraction.** It matches the evidence used to choose the fixed trait and
+    measures differences in activity while ants are observed in the nest. **Label: "top-20 % share of summed
+    individual moving fractions"**; it is not the share of total work or moving time. The dated change from the
+    2026-10-16 ≈ 23:35 proposal ("moving time" → moving fraction, 2026-10-18 ≈ 01:46) stays visible.
+  - **Persistence label: "Spearman correlation across ants between two consecutive 3-h averages of moving
+    fraction within a 6-h light window."** It is a different statistic from the hourly lag correlation at a 6-h lag
+    (≈ 0.43 for nurses, 2026-10-16). Averaging over 3 h reduces noise, so the higher value (r ≈ 0.66) is not
+    contradictory. C1 and C2 are judged on this shared definition.
+  - **Window timing confirmed:** the activity window gate compares elapsed hours 2–8 with 8–14, after the 2-h
+    warm-up.
+  - **Correction (user): data and simulation could average different colony sets.** The forager targets use 20
+    colonies (persistence) and 21 (spread); the simulation averaged whichever values were finite.
+    - **Fixed:** every target carries its data colony set (`S2018Target.colonies`, from the per-colony data rows;
+      checked against the estimate's n). The simulation averages exactly the runs of those colonies (other colonies'
+      runs are left out).
+    - **Missing simulated values are explicit, never a smaller set:**
+      - **fit:** a missing value for any colony of a target's set, or a colony without a run, makes the loss
+        infinite (ranked last);
+      - **`diagS2018` / `reportS2018`:** the cases are listed and the row is unjudgeable;
+      - **gates:** a row with a missing pair is listed and not passed.
+    - The motion rows' sets are all 22 colonies, so only the forager activity rows change. Now stricter for every
+      row: a non-finite simulated motion row for a colony is no longer dropped silently.
+    - The dt gate now saves its raw rows (`rowsA`, `rowsB`) for re-aggregation. Tests 190 / 190.
+  - **Smoke run (local, C2 start 0, dt 0.1, warm-up 30 min + 6 h, before the correction; development look at fit
+    data):**
+    - All four activity rows are finite in all 22 simulated colonies.
+    - The only non-finite rows are ones the fit never uses: `.dark` rows of the light-labelled window, and
+      `staySpeed.300.light` in 9 colonies (not a fit row; also missing in one data colony).
+    - At the start point the spread rows are low: top-20 % share nurse 0.342 vs 0.514, forager 0.308 vs 0.401.
+      Persistence is near the data: z 0.81 vs 0.79 and 0.79 vs 0.73. Described, not used for any choice.
+    - Local timing (8 workers): slowest colony 4.5 min (colony122, 151 ants), median 1.8 min.
+    - `logs/c2/smoke-start.{log,json}`.
+  - **Next:** the approved gates and benchmark on the box (01:59 design), launched with the corrected aggregation.
+- **C2 gates and benchmark launched ≈ 02:06 UTC** on the box: `run.sh` run `c2gates-20261018T020646Z`,
+  `scripts/scratch/box/run-c2gates.sh` (01:59 design, corrected aggregation). Box idle at launch. `src/` and the
+  scripts, references, tracker and trip files are checksum-identical to the local working tree (uncommitted C2
+  code).
+- **Agent instructions split; exploratory backlog (user, 2026-10-18 ≈ 02:50 UTC; backlog moved
+  from `side-projects/` to a committed `backlog/` and given a generated index ≈ 03:00, user).**
+  `AGENTS.md` holds the instructions for every agent (any vendor): run, conventions, gotchas, code map,
+  and who decides what (non-Claude agents work on their given task: no STATUS edits, long runs, fits,
+  frozen files or commits; sealed paths are on trust for them). `CLAUDE.md` imports it and adds the
+  lead-agent duties and a pointer to the backlog protocol (`backlog/PROTOCOL.md`, moved out of CLAUDE.md
+  ≈ 03:10 so sessions that never touch the backlog do not load it). Backlog: one folder per item `backlog/Bnnn-slug/`, whose
+  README frontmatter is the item's state; `backlog/README.md` (open, by priority) and `CLOSED.md` are
+  generated by `node backlog/backlog.mjs` (also `new`, `claim` as an atomic `mkdir .claim/`,
+  `release`). All writes in the item's folder; main-code changes only as `proposal.patch`; bulky
+  outputs in git-ignored `out/`, claims git-ignored. Seeded B001–B013 from Open problems (B010
+  blocked: E1 paused). Not in `tsc`/vitest scope. No simulation code touched.
+- **Backlog B009 done (Codex; lead review 2026-10-18 ≈ 03:05 UTC):** the E2 observer's zero clamp on volume
+  estimates, at the fixed L0S1c fit (paired, observer replay): clamped 10.6 % / 25.3 % of drop-1 / drop-2
+  estimates; shifts drop-2 intake (fit row) by +2.17 data SE, total intake (development) +2.01, pooled slope
+  (development) −1.58; Spearman rows unchanged. No direct source for the clamp found (Mailleux 2000 Methods,
+  2009 extraction). Observer sensitivity only: not an E2 reopening trigger, nothing adopted.
+  `backlog/B009-e2-volume-estimate-clipping-at-zero/`.
+- **2026-10-18 ≈ 03:47 UTC — C2 gates and benchmark read (run `c2gates-20261018T020646Z`, ok, 1 h 39 m; box code
+  checksums equal to the local files; outputs in `logs/c2/`, `logs/checkS2018-{dt,window}-c2-*.json`).** Rule as
+  logged: per row, the 90 % bootstrap CI of the paired difference inside ±0.5 SE_data. A failing gate's rows and
+  effect sizes go to the user **before any setting changes. Nothing is changed.** **No missing-value cases** in any
+  gate or benchmark batch (every colony of every target's set estimable).
+  - **Gate 1, dt 0.05 vs 0.025, motion rows (36 seeds × 22 × 1 h): 15 of 16 pass.**
+    - FAIL: `runStill.P10.forager` +0.14 SE [−0.25, 0.53], on width, not shift. C1 at its start point: +0.11
+      [−0.11, 0.35], pass.
+  - **Gate 2, dt 0.05 vs 0.025, activity rows (6 seeds × 22 × 6 h): 2 of 4 pass** (`top20.nurse`, `top20.forager`).
+    - FAIL `persist.nurse` +0.51 SE [−0.10, 1.15]: the point estimate is just past the bound.
+    - FAIL `persist.forager` +0.31 SE [−0.43, 1.03].
+  - **Gate 3, window (4 seeds, 2-h warm-up, 88 runs).**
+    - Motion rows: 6 h vs 12 h **0 of 16 fail**; 9 h vs 12 h 0 of 16.
+    - Activity rows, 6 h right after the warm-up vs the next 6 h (elapsed 2–8 vs 8–14 h): **2 of 4 pass** (both
+      spread rows).
+      - FAIL `persist.nurse` −0.21 SE [−0.94, 0.61];
+      - FAIL `persist.forager` −0.09 SE [−1.06, 0.86].
+  - **Reading:** the persistence failures are mainly precision. One colony-run's Fisher z varies far more than the
+    target's SE_data (nurse 0.042), and the dt arms decorrelate within a run. Only the dt nurse point estimate lies
+    outside ±0.5.
+    - Approximate power, assuming the means stay: the window gate would need ≈ 5–7 × its runs to resolve the
+      persistence rows, the dt gate ≈ 15 × for forager persistence; dt nurse persistence cannot pass at its present
+      point estimate at any power.
+    - Options for the user, none taken:
+      - more seeds for the persistence gates (precision only, no setting change);
+      - a finer dt comparison for nurse persistence;
+      - another decision on how the persistence rows enter.
+  - **Benchmark (242 colony runs = one generation's load, 62 workers):** dt 0.1, 2 h + 6 h: 623 s wall (628
+    CPU-min, slowest colony 4.7 min). dt 0.05: 1192 s (1204 CPU-min, slowest 9.6 min). CPU-bound: wall ≈
+    CPU / 62.
+    - **Projected fit time at the caps:**
+
+      | Stage | Load | Time |
+      |---|---|---|
+      | Phase-1 probes | 2 starts × 27 evaluations | ≈ 50 min |
+      | Phase 1 | 30 generations, both starts side by side (484 runs each) | ≈ 20 min each, ≈ 10.1 h |
+      | Selection batches | 2 × 66 runs | ≈ 15 min |
+      | Phase-2 probe | 27 evaluations | ≈ 50 min |
+      | Phase 2 | 60 generations | ≈ 20 min each, ≈ 19.9 h |
+      | Final selection | | ≈ 10 min |
+      | **Total** | | **≈ 32 h (≈ $10 of box time)** |
+
+    - Phase 1 may stop earlier by its own rule. C1 took 20.8 h with phase 1 at 2 h.
+  - **The fit stays pending** (user's go-ahead, and the gate decision above).
+- **2026-10-18 ≈ 03:49 UTC — User: option 1, more seeds for the persistence gates (no setting change).
+  Pre-registered before running.**
+  - **Window gate:** the same command at `--reps 28` (616 runs; 7 × the 88). Reps 0–3 are the earlier seeds, so the
+    runs are a superset of the first gate.
+  - **dt gate, activity rows:** the same command at `--reps 24` (528 paired runs; 4 × the 132). Reps 0–5 are the
+    earlier seeds.
+  - **Rule unchanged:** per row, the 90 % bootstrap CI of the paired difference inside ±0.5 SE_data; units are the
+    runs, colony-set aggregation and the missing-value rule as at 02:05.
+  - **Verdicts:** these runs decide the two persistence rows in each gate. The spread rows' earlier passes stand;
+    their new values are reported beside. The window gate's motion rows come from the same runs and are reported
+    beside (they passed at 4 seeds).
+  - **No automatic escalation.** If a persistence row still fails, its effect size and CI go to the user:
+    - forager persistence on width in the dt gate is expected to need ≈ 15 × (02:05 power note);
+    - a nurse dt shift whose CI excludes 0 would point to option 2 (finer dt), the user's call.
+  - Estimated ≈ 3 h on the box (window ≈ 1.5 h, dt ≈ 1.6 h, run one after the other with all 62 workers).
+  Launched ≈ 03:49 as `run.sh` run `c2gates2-20261018T034927Z` (`scripts/scratch/box/run-c2gates2.sh`); box idle at launch, code unchanged since the first gates.
+- **2026-10-18 ≈ 04:09 UTC — Speed-up attempt (user request), bit-identical; local only, the box keeps the code its
+  gates started with.**
+  - **Profile** (colony122, 151 ants, C2 start, dt 0.05, 30 min + 1 h): `senseAllContacts` 27 % of self time, the
+    nest policy's `meet` 9.5 %, `metabolise` 6 %, `decide` 6 %; the rest spread thinly.
+  - **Changes:**
+    - **Incremental contact sensing** (`ContactPairCache.last` / `adj`): only pairs with an ant whose position,
+      heading or life changed bit for bit are recomputed, by the same geometry code (`pairGeometry`). The others keep
+      their recorded result; each ant's partners are kept in ascending index, and percepts are built fresh each step
+      from current signals. The uncached full scan stays as the reference path.
+    - **`meet`:** closure lookups replaced by plain loops, same logic.
+    - Not changed: `nestParamsOf` (the diagnostic switches mutate the nest parameters in place, so a memo could go
+      stale) and `metabolise` (ledger arithmetic; any reordering could change results).
+  - **Checks:**
+    - tests 190 / 190, including the fast-path vs full-scan equivalence tests (`contactGrid.test.ts`);
+    - rows byte-identical to the previous code for C2 1 h (colony122), C2 6 h with activity rows (colony250) and the
+      C1 model 1 h (colony112).
+  - **Gain** (back-to-back A/B, alone on the machine): 37.2 → 32.3 s, **≈ 13 %** (contact sensing 27 % → 17 % of
+    the profile; `meet` gave ≈ 1 %). Projected fit ≈ 32 h → ≈ 28 h.
+  - Not deployed mid-gate: the dt gate starts later in the same run, and new code would give it a different simHash
+    in its provenance for ≈ 12 min saved. For the fit, after the gates.
+- **2026-10-18 ≈ 04:21 UTC — Backlog B014 filed (user request): event-driven resting ants in the colony runner.**
+  - An opt-in switch, off by default and bit-identical when off, for the step-5 Mailleux colonies. Expected
+    1.5–2× on colony runs. **Not needed for C2's step-4 fit** (stepped code). Size L, status open, priority
+    for the user.
+  - Scope in `backlog/B014-…/README.md`, technical background in `GUIDE.md` there: the per-step processes of a
+    resting ant and their event treatments; the C2 drive makes the wake rate change every step, so an exact skip
+    is impossible and a drive tick (≈ 1 s) would be a **model change for the user**; metabolism stays stepped at
+    first; the equivalence gate (event-driven vs stepped, 36 rows and trip statistics) is pre-registered with the
+    user; and the results that depend on the stepping path (trip calibration; C1's judging run).
+  - Correction (in the reply, not logged before): the earlier remark that Mailleux, E6 and C1 results would need
+    reruns overstated it. E1, the E2 fits, the E6 TEC reference and the tracker don't use the colony runner; the
+    Mailleux pilots are unadopted tools. Only the trip calibration and C1's judging run would.
+  - Also seen: commit `154055d` (AGENTS.md split, `backlog/`) landed on this branch after `9b3987d`. Another
+    session's B012 files are modified in this checkout; left untouched.

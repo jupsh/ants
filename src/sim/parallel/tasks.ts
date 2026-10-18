@@ -35,11 +35,11 @@ export const TASKS = {
   /** Mailleux 1999, shared warm-ups: nests [first, first + count), perNest recruiters each, in nest then recruiter order. */
   m1999Nests: (P: ColonyParams, o: M1999Options, first: number, count: number, perNest: number): M1999Recruiter[] => runNests1999(P, o, first, count, perNest),
   /** Stroeymeyt 2018 set-up: one colony, one window; rows only (and per sub-window with `windows`). */
-  s2018Colony: (P: ColonyParams, c: StroeymeytColony, o: StroeymeytRunOptions): { rows: Record<string, number>; windowRows: Record<string, number>[]; foragersIn: number; trips: { trips: number[]; open: number[] } } => {
+  s2018Colony: (P: ColonyParams, c: StroeymeytColony, o: StroeymeytRunOptions): { rows: Record<string, number>; windowRows: Record<string, number>[]; activityWindowRows: Record<string, number>[]; foragersIn: number; trips: { trips: number[]; open: number[] } } => {
     const r = simulateStroeymeyt(P, c, o);
     // Complete and open trips of the run's phase (trip-duration distribution, STATUS 2026-10-15).
     const st = r.colony.stays[0][o.phase];
-    return { rows: r.rows, windowRows: r.windowRows, foragersIn: r.foragersIn, trips: { trips: st.trips, open: st.tripsOpen } };
+    return { rows: r.rows, windowRows: r.windowRows, activityWindowRows: r.activityWindowRows, foragersIn: r.foragersIn, trips: { trips: st.trips, open: st.tripsOpen } };
   },
 };
 

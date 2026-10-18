@@ -18,36 +18,53 @@
  */
 import fs from 'node:fs';
 import { combinedZ, fitZ } from '../src/sim/analysis/compare';
-import { S2018_FREE } from '../src/sim/experiments/stroeymeytTargets';
+import { s2018Free } from '../src/sim/experiments/stroeymeytTargets';
 import { arg, readJson } from './lib';
-import { s2018TargetsFromData } from './s2018Lib';
+import { s2018TargetsFor } from './s2018Lib';
 
-interface Diag { source: string; values: Record<string, number>; reps: number; loss: number; window: { warmup: number; obs: number; dt: number }; perColony: { colony: string; rows: Record<string, number> }[] }
+interface Diag { source: string; candidate?: 'C1' | 'C2'; rowSet?: '32' | '36'; values: Record<string, number>; reps: number; loss: number; window: { warmup: number; obs: number; dt: number }; perColony: { colony: string; rows: Record<string, number> }[] }
 const est = readJson<Diag>(arg('--est', 'logs/c1/diag-est.json'));
 const start = readJson<Diag>(arg('--start', 'logs/c1/diag-start.json'));
 const FIT = arg('--fit', '');
 if (JSON.stringify(est.window) !== JSON.stringify(start.window) || est.reps !== start.reps || est.perColony.length !== start.perColony.length)
   throw new Error('estimate and start diagnostics differ in window, reps or runs: not paired');
-const targets = s2018TargetsFromData();
+// Both diagnostics must use the same row set (C1 and C2 are judged on the same 36 definitions; STATUS 2026-10-18).
+if ((est.rowSet ?? '32') !== (start.rowSet ?? '32')) throw new Error('estimate and start diagnostics use different row sets');
+const targets = s2018TargetsFor(est.rowSet === '36' ? 'C2' : 'C1');
+const S2018_FREE = s2018Free(est.candidate ?? 'C1');
 
-/** Mean over runs, SE_sim from the within-colony spread across seeds (NaN with one seed), runs kept for pairing. */
-function summary(d: Diag, simId: string) {
+/**
+ * Mean over runs of the target's data colonies (STATUS 2026-10-18 colony-set correction), SE_sim from the
+ * within-colony spread across seeds (NaN with one seed), runs kept for pairing. A missing value on the set is
+ * listed and makes the row unjudgeable (mean NaN), never a smaller set.
+ */
+const missingCases: string[] = [];
+function summary(d: Diag, simId: string, label: string) {
+  const t = targets.find((x) => x.simId === simId)!;
+  const set = new Set(t.colonies);
   const byColony = new Map<string, number[]>();
+  let miss = 0;
   for (const p of d.perColony) {
+    if (!set.has(p.colony)) continue;
     const v = p.rows[simId];
     if (Number.isFinite(v)) byColony.set(p.colony, [...(byColony.get(p.colony) ?? []), v]);
+    else {
+      miss++;
+      missingCases.push(`${label} ${simId}: ${p.colony}`);
+    }
   }
+  if (miss) return { mean: NaN, se: NaN, runs: d.perColony.map((p) => (set.has(p.colony) ? p.rows[simId] : NaN)) };
   const all = [...byColony.values()].flat();
   const mean = all.reduce((a, b) => a + b, 0) / all.length;
   let varSum = 0;
   let C = 0;
   for (const v of byColony.values()) {
     C++;
-    if (v.length < 2) return { mean, se: NaN, runs: d.perColony.map((p) => p.rows[simId]) };
+    if (v.length < 2) return { mean, se: NaN, runs: d.perColony.map((p) => (set.has(p.colony) ? p.rows[simId] : NaN)) };
     const m = v.reduce((a, b) => a + b, 0) / v.length;
     varSum += v.reduce((a, b) => a + (b - m) ** 2, 0) / (v.length - 1) / v.length;
   }
-  return { mean, se: Math.sqrt(varSum) / C, runs: d.perColony.map((p) => p.rows[simId]) };
+  return { mean, se: Math.sqrt(varSum) / C, runs: d.perColony.map((p) => (set.has(p.colony) ? p.rows[simId] : NaN)) };
 }
 
 const f = (x: number, d = 3) => (Number.isFinite(x) ? (Math.abs(x) >= 100 ? x.toFixed(0) : x.toPrecision(d)) : '—');
@@ -59,8 +76,8 @@ console.log(`loss (debiased fitZ², ${targets.length} targets): estimate ${est.l
 console.log('reference points: light/dark floor ≈ 16; right up to sampling noise ≈ 30–50; every target at 2 SE ≈ 130, at 3 SE ≈ 290\n');
 
 const rows = [...new Set(targets.map((t) => t.simId))].map((simId) => {
-  const e = summary(est, simId);
-  const s = summary(start, simId);
+  const e = summary(est, simId, 'estimate');
+  const s = summary(start, simId, 'start');
   const ts = targets.filter((t) => t.simId === simId);
   const per = ts.map((t) => ({
     phase: t.id.endsWith('.dark') ? 'dark' : 'light',
@@ -84,10 +101,12 @@ console.log('Per row at the estimate (z = fitZ, SE_data only; zc = combined, SE_
 console.log(['row'.padEnd(22), 'data L ± SE'.padEnd(18), 'data D ± SE'.padEnd(18), 'sim ± SE_sim'.padEnd(18), 'z L', 'zc L', 'z D', 'zc D'].join('  '));
 for (const r of [...rows].sort((a, b) => b.rmsZ - a.rmsZ)) {
   const L = r.per.find((p) => p.phase === 'light')!;
-  const D = r.per.find((p) => p.phase === 'dark')!;
+  // Activity rows are light only.
+  const D = r.per.find((p) => p.phase === 'dark') ?? { data: NaN, seData: NaN, zFit: NaN, zComb: NaN };
   console.log([r.row.padEnd(22), `${f(L.data)} ± ${f(L.seData, 2)}`.padEnd(18), `${f(D.data)} ± ${f(D.seData, 2)}`.padEnd(18), `${f(r.sim)} ± ${f(r.seSim, 2)}`.padEnd(18), z1(L.zFit).padStart(5), z1(L.zComb).padStart(5), z1(D.zFit).padStart(5), z1(D.zComb).padStart(5)].join('  '));
 }
 const zc = rows.flatMap((r) => r.per.map((p) => Math.abs(p.zComb))).filter(Number.isFinite);
+if (missingCases.length) console.log(`MISSING simulated values on the targets' colony sets (rows unjudgeable): ${missingCases.join('; ')}`);
 console.log(zc.length ? `combined |z| ≤ 2: ${zc.filter((z) => z <= 2).length} of ${zc.length}; ≤ 3: ${zc.filter((z) => z <= 3).length}; > 3: ${zc.filter((z) => z > 3).length}\n` : 'combined z: needs ≥ 2 seeds per colony\n');
 
 console.log('Trade, start → estimate (rms fitZ over the two phases; shift = estimate − start in the smaller SE_data, paired over runs, ± 1.645 SE)');

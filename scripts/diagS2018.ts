@@ -12,15 +12,30 @@
  * checkpoint from before restShape existed; a free parameter the checkpoint
  * lacks and `--set` does not give keeps its base value, i.e. off).
  *
- *   npx vite-node scripts/diagS2018.ts [--ckpt f] [--at mean|best|start]
+ * C2 (STATUS 2026-10-18): `--candidate C2` uses C2's model and free set;
+ * `--rows 36` adds the four activity rows (default for C2; C1 on the same
+ * 36 definitions with `--candidate C1 --rows 36`); `--fit f` takes the point
+ * from a fit file's `free`; `--seeds judge` uses the judging purpose (fresh
+ * seeds, used by no fit or diagnostic) instead of 'diag'.
+ *
+ *   npx vite-node scripts/diagS2018.ts [--candidate C1|C2] [--rows 32|36] [--fit f] [--seeds diag|judge] [--ckpt f] [--at mean|best|start]
  *     [--set k=v,…] [--dt 0.05] [--warmup 7200] [--obs 21600] [--reps 1] [--out f] [--masks f] [--observer tracker|iid]
  */
 import fs from 'node:fs';
 import zlib from 'node:zlib';
-import { S2018_FREE, S2018_SETTABLE, s2018AtBound, s2018Loss } from '../src/sim/experiments/stroeymeytTargets';
+import { S2018_SETTABLE, s2018AtBound, s2018Free, s2018Loss, s2018Missing, s2018TargetValues } from '../src/sim/experiments/stroeymeytTargets';
 import { arg, numArg, provenance, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
-import { colonyFromData, loadS2018, loadTrips, S2018_START, s2018Params, s2018TargetsFromData, simulateAll, S2018_WATER_KEYS, withObsVariant } from './s2018Lib';
+import { C2_DRIVE_START, colonyFromData, loadS2018, loadTrips, s2018RunExtras, S2018_START, s2018Params, s2018TargetsFor, simulateAll, S2018_WATER_KEYS, withObsVariant } from './s2018Lib';
+
+const CAND = arg('--candidate', 'C1') as 'C1' | 'C2';
+if (CAND !== 'C1' && CAND !== 'C2') throw new Error(`--candidate ${CAND}: C1 or C2`);
+const ROWS = arg('--rows', CAND === 'C2' ? '36' : '32');
+if (ROWS !== '32' && ROWS !== '36') throw new Error(`--rows ${ROWS}: 32 or 36`);
+const S2018_FREE = s2018Free(CAND);
+const FIT = arg('--fit', '');
+const SEEDS = arg('--seeds', 'diag');
+if (SEEDS !== 'diag' && SEEDS !== 'judge') throw new Error(`--seeds ${SEEDS}: diag or judge`);
 
 const CKPT = arg('--ckpt', 'logs/box-2026-10-15/logs/fitS2018-s0.ckpt.json');
 const AT = arg('--at', 'mean');
@@ -39,9 +54,12 @@ const decode = (x: number[]) => Object.fromEntries(S2018_FREE.slice(0, x.length)
 
 let values: Record<string, number>;
 let source: string;
-if (AT === 'start') {
-  values = S2018_START;
-  source = 'S2018_START';
+if (FIT) {
+  values = JSON.parse(fs.readFileSync(FIT, 'utf8')).free;
+  source = `${FIT} (free)`;
+} else if (AT === 'start') {
+  values = CAND === 'C2' ? { ...S2018_START, ...C2_DRIVE_START[0] } : S2018_START;
+  source = CAND === 'C2' ? 'S2018_START + C2_DRIVE_START[0]' : 'S2018_START';
 } else {
   const c = JSON.parse(fs.readFileSync(CKPT, 'utf8'));
   const cma = c.state.current?.cma;
@@ -65,34 +83,41 @@ const colonies = loadS2018().colonies.map((c) => withObsVariant(colonyFromData(c
 const VARIANT = { posDrift: colonies[0].posDrift ?? null, pxRound: colonies[0].pxRound ?? null };
 console.log(`observer: ${maskData ? 'recorded masks' : OBSERVER === 'tracker' ? 'frozen tracker' : 'independent misses'}${VARIANT.posDrift || VARIANT.pxRound ? `, variant ${JSON.stringify(VARIANT)}` : ''}`);
 if (maskData) console.log(`detection: recorded masks from ${MASKS}`);
-const targets = s2018TargetsFromData();
-const P = s2018Params(values, outRate);
+// The 36 rows are the same definitions whatever the model (C1 and C2 judged alike; user 2026-10-18).
+const targets = s2018TargetsFor(ROWS === '36' ? 'C2' : 'C1');
+const P = s2018Params(values, outRate, CAND);
 const pool = await SimPool.create();
 const t0 = Date.now();
-console.log(`diagS2018 at ${source}`);
+console.log(`diagS2018 (${CAND} model, ${targets.length} rows, ${SEEDS} seeds) at ${source}`);
 console.log(Object.entries(values).map(([k, v]) => `${k} ${v.toPrecision(3)}`).join(', '));
-const atBound = s2018AtBound(P.nest);
+const atBound = s2018AtBound(P.nest, S2018_FREE);
 if (atBound.length) console.log(`at a bound: ${atBound.join(', ')}`);
 console.log(`${colonies.length} colonies × ${REPS}, window ${WARMUP} + ${OBS} s, dt ${DT}, ${pool.size} workers`);
 
 const cols = Array.from({ length: REPS }, () => colonies).flat();
-const runs = await simulateAll(pool, P, cols, { phase: 'light', warmupS: WARMUP, obsS: OBS, dt: DT, exploreGiveUp, exploreGiveUpSd }, (i) => seedFor(2018, 'diag', 0xd1a9, i));
+const seedOf = (i: number) => (SEEDS === 'judge' ? seedFor(2018, 'judge', 0x1d6e, i) : seedFor(2018, 'diag', 0xd1a9, i));
+const runs = await simulateAll(pool, P, cols, { phase: 'light', warmupS: WARMUP, obsS: OBS, dt: DT, exploreGiveUp, exploreGiveUpSd, ...s2018RunExtras(ROWS === '36' ? 'C2' : 'C1') }, seedOf);
 pool.close();
 const sims = runs.map((r) => r.rows);
-const loss = s2018Loss(sims, targets);
+const labels = cols.map((c) => c.label);
+const loss = s2018Loss(sims, targets, labels);
+// Missing simulated values on the targets' colony sets (STATUS 2026-10-18): listed, never dropped.
+const missing = s2018Missing(sims, labels, targets);
+if (missing.length) console.log(`MISSING simulated values (loss infinite): ${missing.map((m) => `${m.id}: ${m.cases.join(', ')}`).join('; ')}`);
 
 // Per simulated row: both phases' data against one simulated mean (the model has no phase dependence).
 const bySim = new Map<string, typeof targets>();
 for (const t of targets) bySim.set(t.simId, [...(bySim.get(t.simId) ?? []), t]);
 const rows = [...bySim].map(([simId, ts]) => {
-  const v = sims.map((r) => r[simId]).filter(Number.isFinite);
+  // The light target's colony set (the motion rows' light and dark sets are the same 22 colonies).
+  const v = s2018TargetValues(sims, labels, ts.find((t) => t.id.endsWith('.light'))!).values;
   const m = v.reduce((a, b) => a + b, 0) / v.length;
   const sd = Math.sqrt(v.reduce((a, b) => a + (b - m) ** 2, 0) / (v.length - 1));
-  const z = ts.map((t) => (m - t.mean) / t.se);
   const part = ts.reduce((a, t) => a + ((m - t.mean) ** 2 - sd ** 2 / v.length) / t.se ** 2, 0);
   const light = ts.find((t) => t.id.endsWith('.light'))!;
-  const dark = ts.find((t) => t.id.endsWith('.dark'))!;
-  return { row: simId.replace(/\.light$/, ''), dataLight: light.mean, seLight: light.se, dataDark: dark.mean, seDark: dark.se, sim: m, simSd: sd, n: v.length, zLight: z[0], zDark: z[1], loss: part };
+  // Activity rows are light only (no dark target).
+  const dark = ts.find((t) => t.id.endsWith('.dark'));
+  return { row: simId.replace(/\.light$/, ''), dataLight: light.mean, seLight: light.se, dataDark: dark?.mean ?? NaN, seDark: dark?.se ?? NaN, sim: m, simSd: sd, n: v.length, zLight: (m - light.mean) / light.se, zDark: dark ? (m - dark.mean) / dark.se : NaN, loss: part };
 });
 rows.sort((a, b) => b.loss - a.loss);
 
@@ -114,15 +139,18 @@ console.log(byTime.map((b) => `${b.colony} ${b.ants} ${b.min.toFixed(1)}`).join(
 writeJson(OUT, {
   ...(VARIANT.posDrift || VARIANT.pxRound ? { observerVariant: VARIANT } : {}),
   study: 'Step 4b diagnosis: per-row loss at one point (STATUS 2026-10-14)',
+  candidate: CAND,
+  rowSet: ROWS,
   source,
   values,
   atBound,
   window: { warmup: WARMUP, obs: OBS, dt: DT },
   reps: REPS,
   loss,
+  missing,
   rows,
   perColony: runs.map((r, i) => ({ colony: cols[i].label, ants: cols[i].nurses + cols[i].foragers, ms: r.ms, rows: r.rows, foragersIn: r.foragersIn })),
-  seeds: "seedFor(2018, 'diag', 0xd1a9, colony index)",
+  seeds: SEEDS === 'judge' ? "seedFor(2018, 'judge', 0x1d6e, colony index)" : "seedFor(2018, 'diag', 0xd1a9, colony index)",
   seconds: (Date.now() - t0) / 1000,
   provenance: provenance(),
 });

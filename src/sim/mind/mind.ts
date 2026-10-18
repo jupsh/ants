@@ -102,6 +102,8 @@ export interface Mind {
   trip: Trip;
   /** The current stay in the nest (meaningful in the nest modes). */
   stay: Stay;
+  /** Latent activity drive: unit-variance OU state (absent: not started; `stepDrive`, STATUS 2026-10-18). */
+  drive?: number;
   /** Event counters for experiments (observational, not used by behaviour). */
   log: { foundFoodAt?: number; drinkStart?: number; drinkEnd?: number; drinks: { id: number; start: number; end: number; ul: number; satisfiedAfter: boolean }[]; layingFrom?: number };
 }

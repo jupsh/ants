@@ -24,7 +24,15 @@
  * No IPOP restart. Checkpointed every generation (rerun the same command to
  * resume).
  *
- *   npx vite-node scripts/fitS2018.ts [--gens 60] [--warmup 7200] [--obs 21600] [--dt 0.05]
+ * `--candidate C2` (user decisions D1–D6, STATUS 2026-10-18 ≈ 01:43): k = 13
+ * (S2018_FREE_C2: restShape ≥ 1.001, drive SD per role), 36 rows (the 32 plus
+ * the four activity rows), τ 60 s and specular walls fixed. Phase 1 observes
+ * 6 h (the activity rows need a 6-h window) at dt 0.1, at most 30
+ * generations per start; phase 2 at most 60 generations from the better
+ * selected start only (C1's conditional second full fit removed). No
+ * extension or restart. Writes data/fits/s2018-motion-c2.json by default.
+ *
+ *   npx vite-node scripts/fitS2018.ts [--candidate C1|C2] [--gens 60] [--warmup 7200] [--obs 21600] [--dt 0.05]
  *     [--cheap-dt 0.1] [--cheap-warmup 7200] [--cheap-obs 7200] [--cheap-loss 300] [--cheap-gens 40]
  *     [--runs 0,1] [--tag t] [--name n]
  * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts).
@@ -34,11 +42,15 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import { cmaes, type CmaState } from '../src/sim/analysis/cmaes';
 import type { StroeymeytRunOptions } from '../src/sim/experiments/colonyStroeymeyt';
-import { S2018_FREE, s2018AtBound, s2018Loss, s2018Values, type S2018Free } from '../src/sim/experiments/stroeymeytTargets';
+import { S2018_C2_FIXED, s2018AtBound, s2018BoundReading, s2018Free, s2018Loss, s2018Values, type S2018Free } from '../src/sim/experiments/stroeymeytTargets';
 import { arg, loadCheckpointRaised, numArg, provenance, saveCheckpoint, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
-import { colonyFromData, loadS2018, loadTrips, S2018_START, S2018_TRACKER, s2018Params, s2018TargetsFromData, simulateAll } from './s2018Lib';
+import { C2_DRIVE_START, colonyFromData, loadS2018, loadTrips, s2018RunExtras, S2018_START, S2018_TRACKER, s2018Params, s2018TargetsFor, simulateAll } from './s2018Lib';
 
+const CAND = arg('--candidate', 'C1') as 'C1' | 'C2';
+if (CAND !== 'C1' && CAND !== 'C2') throw new Error(`--candidate ${CAND}: C1 or C2`);
+const C2 = CAND === 'C2';
+const S2018_FREE = s2018Free(CAND);
 // Phase 2 (the fit): the gated settings.
 const GENS = numArg('--gens', 60);
 const WARMUP = numArg('--warmup', 7200);
@@ -47,9 +59,9 @@ const DT = numArg('--dt', 0.05);
 // Phase 1 (search only; STATUS 2026-10-15).
 const C_DT = numArg('--cheap-dt', 0.1);
 const C_WARMUP = numArg('--cheap-warmup', 7200);
-const C_OBS = numArg('--cheap-obs', 7200);
+const C_OBS = numArg('--cheap-obs', C2 ? 21600 : 7200);
 const C_LOSS = numArg('--cheap-loss', 300);
-const C_GENS = numArg('--cheap-gens', 40);
+const C_GENS = numArg('--cheap-gens', C2 ? 30 : 40);
 const C_AXIS = 0.25;
 const C_AVERAGE = 5;
 const P2_SIGMA = 0.5;
@@ -60,7 +72,7 @@ const { outRate: OUT_RATE, exploreGiveUp: EXPLORE, exploreGiveUpSd: EXPLORE_SD }
 const TAG = arg('--tag', '');
 // Which starts to run (seeds are keyed by start index).
 const RUNS = (arg('--runs', '0,1') as string).split(',').map(Number);
-const NAME = arg('--name', TAG) as string;
+const NAME = arg('--name', C2 ? 'c2' : TAG) as string;
 const OUT = `data/fits/s2018-motion${NAME ? `-${NAME}` : ''}.json`;
 const TAG_KEY = [...TAG].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0, 0x5018);
 const sf = (p: Parameters<typeof seedFor>[1], ...k: number[]) => seedFor(2018, p, TAG_KEY, ...k);
@@ -69,21 +81,21 @@ const AVERAGE_LAST = 20;
 const BOX = 4;
 
 const colonies = loadS2018().colonies.map((c) => colonyFromData(c));
-const targets = s2018TargetsFromData();
+const targets = s2018TargetsFor(CAND);
 const unit = (v: number, f: S2018Free) => (f.log ? Math.log(v / f.lo) / Math.log(f.hi / f.lo) : (v - f.lo) / (f.hi - f.lo));
 const ofUnit = (u: number, f: S2018Free) => (f.log ? f.lo * (f.hi / f.lo) ** u : f.lo + (f.hi - f.lo) * u);
 const encode = (v: Record<string, number>) => S2018_FREE.map((f) => BOX * unit(v[f.key], f));
 const decode = (x: number[]) => Object.fromEntries(S2018_FREE.map((f, i) => [f.key, ofUnit(Math.min(1, Math.max(0, x[i] / BOX)), f)]));
 
 type Settings = Omit<StroeymeytRunOptions, 'seed'>;
-const FULL: Settings = { phase: 'light', warmupS: WARMUP, obsS: OBS, dt: DT, exploreGiveUp: EXPLORE, exploreGiveUpSd: EXPLORE_SD };
-const CHEAP: Settings = { phase: 'light', warmupS: C_WARMUP, obsS: C_OBS, dt: C_DT, exploreGiveUp: EXPLORE, exploreGiveUpSd: EXPLORE_SD };
+const FULL: Settings = { phase: 'light', warmupS: WARMUP, obsS: OBS, dt: DT, exploreGiveUp: EXPLORE, exploreGiveUpSd: EXPLORE_SD, ...s2018RunExtras(CAND) };
+const CHEAP: Settings = { phase: 'light', warmupS: C_WARMUP, obsS: C_OBS, dt: C_DT, exploreGiveUp: EXPLORE, exploreGiveUpSd: EXPLORE_SD, ...s2018RunExtras(CAND) };
 
 const PROVENANCE = provenance();
 const CKPT = `logs/fitS2018${NAME ? `-${NAME}` : ''}.ckpt.json`;
 // The observer (frozen tracker file) is part of the key: simHash covers src/sim only.
 const TRACKER_SHA = createHash('sha256').update(fs.readFileSync(S2018_TRACKER)).digest('hex');
-const CKPT_KEY = { simHash: PROVENANCE.simHash, tracker: TRACKER_SHA, design: 'two-phase 2026-10-15', GENS, WARMUP, OBS, DT, C_DT, C_WARMUP, C_OBS, C_LOSS, C_GENS, OUT_RATE, EXPLORE, EXPLORE_SD, RUNS, TAG };
+const CKPT_KEY = { simHash: PROVENANCE.simHash, tracker: TRACKER_SHA, design: 'two-phase 2026-10-15', GENS, WARMUP, OBS, DT, C_DT, C_WARMUP, C_OBS, C_LOSS, C_GENS, OUT_RATE, EXPLORE, EXPLORE_SD, RUNS, TAG, ...(C2 ? { candidate: 'C2 2026-10-18' } : {}) };
 interface Run { key: string; label: string; phase: 1 | 2; start: number; x0: number[]; initialSds: number[]; sigma0: number; generations: number; evals: number; finalSigma: number; avgWindow: number; meanDrift: number[]; stopReason: string; converged: boolean; gamma: number[] | null; x: number[]; f: number; estimate: Record<string, number> }
 interface Ckpt { done: Run[]; current: Record<string, { stds: number[]; cma: CmaState | null }>; evals: number; seconds: number; gensRaised?: { from: number; to: number; at: string }[] }
 // The phase-2 cap may be raised on resume (C1: 30 → 60, user 2026-10-16), never lowered, and only before
@@ -93,6 +105,7 @@ const loaded = loadCheckpointRaised<Ckpt>(CKPT, CKPT_KEY, ['GENS']);
 const ck: Ckpt = loaded?.state ?? { done: [], current: {}, evals: 0, seconds: 0 };
 if (loaded?.raised.GENS) {
   const [from, to] = loaded.raised.GENS;
+  if (C2) throw new Error(`${CKPT}: C2 has no extension (user D6, 2026-10-18): phase-2 cap ${from} → ${to} refused`);
   const finished = ck.done.filter((d) => d.phase === 2).map((d) => d.key);
   if (finished.length) throw new Error(`${CKPT}: phase-2 cap ${from} → ${to} refused: ${finished.join(', ')} already finished at the old cap`);
   ck.gensRaised = [...(ck.gensRaised ?? []), { from, to, at: new Date().toISOString() }];
@@ -103,8 +116,9 @@ const pool = await SimPool.create();
 /** One evaluation: all colonies at the given settings; `reps` seeds each (the selection batch uses 3). */
 const evalAt = async (v: Record<string, number>, o: Settings, seed: (i: number) => number, reps = 1) => {
   const cols = Array.from({ length: reps }, () => colonies).flat();
-  const runs = await simulateAll(pool, s2018Params(v, OUT_RATE), cols, o, seed);
-  return s2018Loss(runs.map((r) => r.rows), targets);
+  const runs = await simulateAll(pool, s2018Params(v, OUT_RATE, CAND), cols, o, seed);
+  // Colony-set correction (STATUS 2026-10-18): each target averages its data colonies; a missing value is infinite loss.
+  return s2018Loss(runs.map((r) => r.rows), targets, cols.map((c) => c.label));
 };
 
 let evals = ck.evals;
@@ -180,14 +194,15 @@ console.log(`Stroeymeyt 2018 in-nest motion: k = ${S2018_FREE.length}, ${targets
 if (ck.done.length || Object.keys(ck.current).length) console.log(`resuming from ${CKPT}: done ${ck.done.map((d) => d.key).join(', ') || 'none'}; running ${Object.keys(ck.current).join(', ') || 'none'}`);
 
 // Phase 1: the starts side by side.
-const starts = [S2018_START, START2];
+const starts = C2 ? [{ ...S2018_START, ...C2_DRIVE_START[0] }, { ...START2, ...C2_DRIVE_START[1] }] : [S2018_START, START2];
 const p1 = await Promise.all(RUNS.map((k) => one(1, k, encode(starts[k]))));
 const order = [...p1].sort((a, b) => a.f - b.f);
 const lead = order[0];
 // Phase 2: from the better phase-1 estimate; also from the other if close in loss but far in parameters.
 const p2: Run[] = [await one(2, lead.start, lead.x)];
 const other = order[1];
-if (other) {
+// C2: one full fit only (user D6, 2026-10-18).
+if (other && !C2) {
   const close = other.f <= lead.f * (1 + SECOND_WITHIN);
   const far = other.x.some((v, i) => Math.abs(v - lead.x[i]) > SECOND_DIST);
   console.log(`phase 2 from start ${other.start} too: ${close && far ? 'yes' : 'no'} (selection loss ${other.f.toFixed(1)} vs ${lead.f.toFixed(1)}, max coordinate distance ${Math.max(...other.x.map((v, i) => Math.abs(v - lead.x[i]))).toFixed(2)})`);
@@ -195,13 +210,17 @@ if (other) {
 }
 const best = p2.reduce((a, b) => (b.f < a.f ? b : a));
 const free = decode(best.x);
-const nest = s2018Params(free, OUT_RATE).nest;
-const atBound = s2018AtBound(nest);
+const nest = s2018Params(free, OUT_RATE, CAND).nest;
+const atBound = s2018AtBound(nest, S2018_FREE);
+const boundReading = C2 ? s2018BoundReading(nest, S2018_FREE) : undefined;
 console.log(`best selection-batch loss ${best.f.toFixed(2)} (phase 2 runs ${p2.map((r) => r.f.toFixed(1)).join(', ')})`);
-console.log(Object.entries(s2018Values(nest)).map(([k, v]) => `${k} = ${v.toPrecision(3)}`).join(', '));
+console.log(Object.entries(s2018Values(nest, S2018_FREE)).map(([k, v]) => `${k} = ${v.toPrecision(3)}`).join(', '));
 if (atBound.length) console.log(`at a bound: ${atBound.join(', ')}`);
+if (boundReading?.littleDrive.length) console.log(`little or no drive required by this fit: ${boundReading.littleDrive.join(', ')}`);
 writeJson(OUT, {
   experiment: 'Step 4b: in-nest motion, Stroeymeyt et al. 2018 fit colonies (main experiment, PreTreatment)',
+  candidate: CAND,
+  ...(C2 ? { fixed: S2018_C2_FIXED, decisions: 'STATUS 2026-10-18 ≈ 01:43 (D1–D6), rows 01:46' } : {}),
   fittedOn: targets.map((t) => t.id),
   window: { warmup: WARMUP, obs: OBS, dt: DT },
   outRate: OUT_RATE,
@@ -210,7 +229,7 @@ writeJson(OUT, {
   optimizer: {
     method: 'CMA-ES, two phases (STATUS 2026-10-15)',
     phase1: { window: { warmup: C_WARMUP, obs: C_OBS, dt: C_DT }, stop: `best < ${C_LOSS}, largest axis < ${C_AXIS}, ${C_GENS} generations or tolX`, averageLast: C_AVERAGE, starts: RUNS, note: 'search only; never reported as fit quality' },
-    phase2: { sigma: P2_SIGMA, maxGenerations: GENS, ...(ck.gensRaised ? { maxGenerationsRaised: ck.gensRaised } : {}), tolX: TOLX, averageLast: AVERAGE_LAST, second: `other start if selection loss within ${SECOND_WITHIN * 100} % and > ${SECOND_DIST} box units apart` },
+    phase2: { sigma: P2_SIGMA, maxGenerations: GENS, ...(ck.gensRaised ? { maxGenerationsRaised: ck.gensRaised } : {}), tolX: TOLX, averageLast: AVERAGE_LAST, second: C2 ? 'none (user D6)' : `other start if selection loss within ${SECOND_WITHIN * 100} % and > ${SECOND_DIST} box units apart` },
     boundHandling: `Mod-BCH, box [0, ${BOX}], tolUpSigma 20`,
   },
   evals,
@@ -223,6 +242,7 @@ writeJson(OUT, {
   k: S2018_FREE.length,
   free,
   atBound,
+  ...(boundReading ? { boundReading } : {}),
   nest,
 });
 console.log(`wrote ${OUT}`);

@@ -8,11 +8,13 @@ import type { RowEstimate } from '../src/sim/analysis/inNest';
 import type { ColonyParams } from '../src/sim/experiments/colonyBles';
 import type { DetectionTracker } from '../src/sim/analysis/detection';
 import type { StroeymeytColony, StroeymeytRunOptions } from '../src/sim/experiments/colonyStroeymeyt';
-import { s2018Apply, s2018Base, s2018Targets, S2018_WATER } from '../src/sim/experiments/stroeymeytTargets';
+import { s2018ActivityTargets, s2018Apply, s2018Base, s2018Targets, S2018_C2_FIXED, S2018_WATER } from '../src/sim/experiments/stroeymeytTargets';
 import { LASIUS_NEST_B, LASIUS_PARAMS } from '../src/sim/species/lasiusM1';
 import type { SimPool } from './pool';
 
 export const S2018_ROWS = 'data/reference/stroeymeyt2018-fit-rows.json';
+/** C2's activity rows on the fit colonies (`scripts/stroeymeytActivityRows.ts`; STATUS 2026-10-18 ≈ 01:46). */
+export const S2018_ACTIVITY = 'data/reference/stroeymeyt2018-activity-rows.json';
 export const S2018_TRIPS = 'data/fits/s2018-trips.json';
 /** The frozen detection tracker (STATUS 2026-10-15 late evening; its `meta` records conditioning, estimator and validation). */
 export const S2018_TRACKER = 'data/fits/s2018-tracker.json';
@@ -119,7 +121,30 @@ export function colonyFromData(c: DataColony, observer: 'tracker' | 'iid' = 'tra
   return { ...col, tracker: t };
 }
 
-export const s2018TargetsFromData = () => s2018Targets(loadS2018().across);
+export const s2018TargetsFromData = () => {
+  const d = loadS2018();
+  return s2018Targets(d.across, d.colonies);
+};
+
+/** A candidate's targets: C1 the 32 motion rows; C2 those plus the four activity rows (36, user D5 2026-10-18). */
+export const s2018TargetsFor = (candidate: 'C1' | 'C2') =>
+  candidate === 'C2' ? [...s2018TargetsFromData(), ...activityTargets()] : s2018TargetsFromData();
+const activityTargets = () => {
+  const a = JSON.parse(fs.readFileSync(S2018_ACTIVITY, 'utf8'));
+  return s2018ActivityTargets(a.across, a.colonies);
+};
+
+/** Observation settings a candidate needs: C2's activity rows from the 6-h window starting at the end of the warm-up. */
+export const s2018RunExtras = (candidate: 'C1' | 'C2'): Partial<StroeymeytRunOptions> => (candidate === 'C2' ? { activityHours: [0] } : {});
+
+/**
+ * C2's start points (STATUS 2026-10-18): C1's two starts (restShape 1.4 is inside C2's (1.001, 50] box) with the
+ * drive SD per role at 1.0 (start 0; comparison L's level) and 0.3 (start 1), a strong and a weak drive.
+ */
+export const C2_DRIVE_START = [
+  { 'nurse.driveSd': 1.0, 'forager.driveSd': 1.0 },
+  { 'nurse.driveSd': 0.3, 'forager.driveSd': 0.3 },
+];
 
 /**
  * Start point, revised 2026-10-15 for the rest-depth model (STATUS
@@ -154,10 +179,11 @@ export const S2018_START: Record<string, number> = {
 export const S2018_WATER_KEYS = ['water.thirstFrac', 'water.cropWaterRate'];
 
 /** Base: option B's nest model (encounter stops, crowd-dependent walk-on, walker pauses off are overridden by the free set); water from S2018_WATER unless `values` override it. */
-export function s2018Params(values: Record<string, number>, outRate: number): ColonyParams {
+export function s2018Params(values: Record<string, number>, outRate: number, candidate: 'C1' | 'C2' = 'C1'): ColonyParams {
   const water = { thirstFrac: values['water.thirstFrac'] ?? S2018_WATER.thirstFrac, cropWaterRate: values['water.cropWaterRate'] ?? S2018_WATER.cropWaterRate };
   const base = s2018Base({ ...LASIUS_PARAMS, nest: { ...LASIUS_NEST_B, forager: {} } }, outRate, water);
-  return s2018Apply(base, values);
+  // C2's fixed choices (τ 60 s, specular walls; user D1 / D4, 2026-10-18).
+  return s2018Apply(candidate === 'C2' ? { ...base, nest: { ...base.nest, ...S2018_C2_FIXED } } : base, values);
 }
 
 /**

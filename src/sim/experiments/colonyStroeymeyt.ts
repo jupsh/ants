@@ -1,4 +1,5 @@
-import { colonyRows, InNestAccumulator, STROEYMEYT_CFG, type AntRole, type InNestColony, type Phase } from '../analysis/inNest';
+import { ACT_WINDOW_H, ActivityStats, activityRows } from '../analysis/activity';
+import { colonyRows, GROUPS, InNestAccumulator, STROEYMEYT_CFG, type AntRole, type InNestColony, type Phase } from '../analysis/inNest';
 import { RNG } from '../core/rng';
 import { DET_D_EDGES, DET_TSB_EDGES, ObservedState, type DetectionTracker } from '../analysis/detection';
 import { stroeymeytApparatus } from '../world/apparatus';
@@ -75,6 +76,12 @@ export interface StroeymeytRunOptions {
   dt?: number;
   /** Also report rows for the first w seconds of the observed time, for each w here (window check; each ≤ obsS). */
   windows?: number[];
+  /**
+   * Activity rows (candidate C2, STATUS 2026-10-18 ≈ 01:46): one 6-h window from each start hour here (observed
+   * hours since the end of the warm-up; each start + 6 ≤ obsS / 3600). The first window's rows join `rows`; every
+   * window's rows are in `activityWindowRows` (window check: equivalent 6-h windows at different elapsed times).
+   */
+  activityHours?: number[];
   /** Seconds a forager explores the foraging area on a trip before heading home (an input, STATUS 2026-10-11); with `exploreGiveUpSd` the median of a per-trip lognormal (STATUS 2026-10-15). */
   exploreGiveUp: number;
   exploreGiveUpSd?: number;
@@ -87,6 +94,8 @@ export interface StroeymeytRun {
   foragersIn: number;
   /** Rows of the first w observed seconds, per `windows` entry. */
   windowRows: Record<string, number>[];
+  /** Activity rows per `activityHours` entry (empty without it). */
+  activityWindowRows: Record<string, number>[];
   /** Oracle (coupled): SD of the log multiplier over the steps after 30 min, NaN if none. */
   oracleLogSd?: number;
 }
@@ -157,6 +166,9 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
   const wins = (o.windows ?? []).map((w) => ({ end: w, acc: new InNestAccumulator(roles, STROEYMEYT_CFG) }));
   const obs = roles.map((_, i) => RNG.stream(o.seed, 0x0b5e, i));
   const frameDt = STROEYMEYT_CFG.frameDt;
+  const actH = o.activityHours ?? [];
+  for (const h of actH) if (!(h >= 0 && (h + ACT_WINDOW_H) * 3600 <= o.obsS + 1e-6)) throw new Error(`activity window from hour ${h} exceeds the observed time`);
+  const act = actH.length ? GROUPS.map((g) => new ActivityStats(roles.map((r) => r === g), (t) => Math.floor(t / 3600))) : [];
   const app = sim.w.apparatus;
   const ids: number[] = [];
   const xs: number[] = [];
@@ -254,6 +266,7 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
       ins.push(r.kind === 'nest');
     });
     acc.frame(frame, PHASE_HOUR[o.phase], ids.length, ids, xs, ys, ins);
+    for (const a of act) a.frame(frame, frame * frameDt, ids, xs, ys, ins);
     for (const w of wins) if (frame * frameDt < w.end - 1e-9) w.acc.frame(frame, PHASE_HOUR[o.phase], ids.length, ids, xs, ys, ins);
     frame++;
     for (const i of foragers) {
@@ -264,7 +277,15 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
   };
   while (sim.stepIndex < sim.steps) sim.step(onStep);
   const colony = acc.result();
-  const res: StroeymeytRun = { rows: colonyRows(colony, STROEYMEYT_CFG), colony, foragersIn: fN ? fIn / fN : NaN, windowRows: wins.map((w) => colonyRows(w.acc.result(), STROEYMEYT_CFG)) };
+  const byGroup = act.length ? { nurse: act[0].out(), forager: act[1].out() } : null;
+  const activityWindowRows = actH.map((h) => activityRows(byGroup!, [Array.from({ length: ACT_WINDOW_H }, (_, k) => h + k)]));
+  const res: StroeymeytRun = {
+    rows: { ...colonyRows(colony, STROEYMEYT_CFG), ...(activityWindowRows[0] ?? {}) },
+    colony,
+    foragersIn: fN ? fIn / fN : NaN,
+    windowRows: wins.map((w) => colonyRows(w.acc.result(), STROEYMEYT_CFG)),
+    activityWindowRows,
+  };
   if (c.oracle?.kind === 'coupled') {
     const m = sim.oracleLogSum / sim.oracleLogN;
     res.oracleLogSd = sim.oracleLogN ? Math.sqrt(sim.oracleLogSq / sim.oracleLogN - m * m) : NaN;
