@@ -1,0 +1,24 @@
+# B006 mechanism note
+
+The observed light/dark changes in moving fraction and moving-involved contacts travel together across the 22 fit colonies (log-ratio Pearson r 0.968, Spearman ρ 0.967). Moving contacts are counted per detected ant-frame, so extra movement itself can raise their rate; this correlation does not identify a contact-specific cause. The trip-duration contrast is less aligned with either (Spearman ρ 0.230 / 0.202). Its Pearson correlations (0.453 / 0.522) fall to 0.093 / 0.095 when colony112 is left out. All colonies have at least 25 complete trips in each phase, so trip sparsity is not the explanation for this sensitivity.
+
+## What the phase contrast could represent
+
+The Stroeymeyt set-up pairs 12 h of light at **26 °C** with 12 h of dark at **22 °C** (`STROEYMEYT_TEMP` in `colonyStroeymeyt.ts`). The nest has an IR-pass cover and is dark to the ants in both phases. Observed moving-only speed is **0.275 / 0.275 cm/s for foragers** and **0.221 / 0.216 cm/s for nurses** (light/dark, Stroeymeyt archive), so a thermal explanation of the activity contrast would primarily act through switching or resting rates rather than walking speed. For scale only, a 0.47 eV Arrhenius rate over 22→26 °C gives about ×1.28, and Q10 = 2 gives about ×1.32, beside the observed ×1.37 moving-fraction ratio. Neither calculation measures the ants' switching-rate temperature response, and a moving-fraction ratio is not a hazard ratio.
+
+Candidate causes of the in-nest phase contrast remain distinct: **temperature** could change walk-on or stop hazards; **entrainment to the 12-h cycle** could change activity at the same current temperature; **light reaching the entrance** or cues carried by **returning foragers** could change activity locally despite the dark nest. The existing model sets phase temperature and uses it in physiology, but has no explicit temperature or phase response in the nest switching rates. The cross-colony correlations do not distinguish these causes.
+
+The smallest *phenomenological* proposal consistent with this audit has **two behavioral controls** to test, without yet choosing their causes:
+
+| Phase control | Direct effect expected | Rows/checks it would move | Limitation |
+|---|---|---|---|
+| Increase nurses' and foragers' in-nest `restToActive` (walk-on) rates in the warmer/light phase, conditional on a causal test | More moving ant-frames and encounters involving a mover | Still fractions, still-run distributions, moving fraction, moving-involved contact rate; possibly per-ant persistence and crowding | Contact rate also depends on spatial packing and the contact observer. A hazard factor of 1.37 is *not* implied by a 1.37 moving-fraction ratio. |
+| Lengthen foragers' outside-trip give-up time in the dark phase (`exploreGiveUp`, maintaining the chosen per-trip form) | Longer completed trips | Trip median and tail, open/censored trips, outside fraction and return timing | The 2.37 duration ratio does not directly set the give-up-time factor because homing and censoring intervene. |
+
+The second control also lacks an identified cause. Depickère et al. 2004 (*J. Insect Physiol.*, [doi:10.1016/j.jinsphys.2004.04.009](https://doi.org/10.1016/j.jinsphys.2004.04.009), cleared source) found that *L. niger* foragers aggregate more in darkness and disperse under red light. Stroeymeyt's outside arena is dark in its dark phase, so a darkness-related change in outside residence is a candidate explanation of longer trips, **not evidence that aggregation sets trip give-up time**. Temperature and circadian state may also affect outside behavior.
+
+An `outRate` phase factor changes **trip starts**, outside occupancy and in-nest forager availability. It does not directly set the duration of a trip once started, so it is not a substitute for the give-up control. It might be needed if phase-specific exit rates or outside fractions remain wrong after the two direct controls; inspect those already defined checks first. Applying both walk-on and `outRate` as a single multiplier could also change the in-nest population and contact denominator, obscuring the activity mechanism.
+
+For step 5, Mailleux 1999 ran at **22 ± 3 °C** and did not state lighting. If temperature drives the in-nest contrast, its motion conditions would be closer to Stroeymeyt's 22 °C dark phase; if entrainment or entrance light drives it, that mapping does not follow. This is a reason to keep the cause unresolved when transferring motion, not to select a phase here.
+
+These are structural suggestions for work after M1, not adopted parameters or a request to change the running C2 fit. This descriptive cross-colony association cannot establish causality or a unique mechanism. A later test would need a logged fit/development rule, the existing observer applied equally to both phases, and a design that separates temperature from the light cycle or entrance cues.

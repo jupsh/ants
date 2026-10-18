@@ -1,11 +1,11 @@
 ---
 id: B015
 title: Literature values for the step-5 free parameters
-status: open
+status: done
 size: S
 priority: 30
 note:
-outcome:
+outcome: No step-5 free input is fixed by the checked cleared papers; related nest set-ups give only a density prior.
 depends: docs/literature.json
 ---
 # B015 — Literature values for the step-5 free parameters
@@ -51,7 +51,8 @@ parameters and inputs?
    user's clearing decision. Not fetched, not read.
 
 ## Base
-<At claim: commit; desk work only.>
+`ecbb918` at claim (2026-10-18 15:23 UTC). Desk work only;
+`docs/literature.json` and `docs/research/mailleux-rules.md` are clean.
 
 ## Data and roles
 - **Literature:** cleared papers only (`docs/literature.json`), searched with `rg -n "terms" .cache/papers`.
@@ -71,8 +72,30 @@ Changing parameters or fits, clearing papers, web searches for new papers.
 what was done, the command, and the result in numbers. Long output goes in results/ and is linked. Before each run, state
 what each outcome would mean. Past ~300 lines in this file, move older entries
 to LOG.md (same format); Findings stay here. -->
+- 2026-10-18 15:23 UTC · Codex B015 · Claimed B015. Search only pinned
+  cleared page text and the existing 1999 extraction. A parameter is fixable
+  only if its measured definition and conditions transfer to the 1999 setup;
+  otherwise report a prior range or no value. Record exact pages and missing
+  conditions, including negative findings; do not use E6 or inspect uncleared
+  papers.
+- 2026-10-18 15:25 UTC · Codex B015 · Searched the pinned Lasius page text and the 1999 extraction. Wrote results/literature-table.md with 8 evidence rows and 5 reference-list leads. Verdict: density prior only; no directly fixable shareRate, receiveReserve, reserveSd or returnRate. No source or fit changed; findings complete, pending freshness check and release.
+- 2026-10-18 15:25 UTC · Codex B015 · Source table complete; git diff --check passed. backlog.mjs check B015 failed in cmdCheck while parsing empty captured output from currentHashes.ts; running that helper directly returned simHash baf4cb0b4b513531. This item has a Markdown result only and no JSON result to stamp. Ready for release; no parameter change proposed.
 
 ## Findings
-<When done: the answer in a few sentences; evidence (paths in this folder);
-confidence and caveats; what it implies; suggested next steps or new items. A
-change the main code needs goes in this folder as `proposal.patch`.>
+The [source table](results/literature-table.md) gives a page citation,
+conditions, derivation and transfer assessment for each candidate. **None of
+the five step-5 free inputs is directly fixable** from the cleared papers.
+Mailleux 2000 and Buffin 2011 supply nominal nest densities of order a few
+ants/cm², but neither measures the 1999 chamber's area or its local occupancy;
+this is a **prior range only**, not a value to fix. Buffin 2011 measures
+*Lasius niger* trophallaxis durations and shows fed/starved differences, but
+not volume transferred per second, a reserve threshold, a reserve
+distribution or the wait to depart after unloading. The duration values
+can check bout timing, not set `shareRate`. No antennation-only duration was
+found. The table also lists five uncleared titles from Buffin's references
+for a possible user clearing decision; none was opened.
+
+Confidence is high in these negative findings **within the pinned cleared
+set** and low about the wider literature. The 1999 source remains uncleared;
+its existing extraction supplies colony size and fit targets but no nest
+dimensions. Fixing or constraining a parameter remains the user's decision.
