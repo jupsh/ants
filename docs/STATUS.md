@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-18 ≈ 12:40 UTC (C2 persistence gates with more seeds read; C2 bullet in RESUME). Earlier: 2026-10-17 ≈ 14:45 UTC (test-B model control read; L and O read, next steps and a quick guide for a new agent in RESUME). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-18 ≈ 15:18 UTC (C2 gates all pass after the last seed batch; fit awaits the go-ahead). Earlier: 2026-10-17 ≈ 14:45 UTC (test-B model control read; L and O read, next steps and a quick guide for a new agent in RESUME). Keep this file current: update it whenever a step starts or finishes._
 
 Earlier history is archived verbatim: up to 2026-10-10 evening (session
 notes, step results, the first decisions log) in
@@ -24,7 +24,7 @@ lines, archive again.
 
 **State (2026-10-17 ≈ 14:40 UTC).** Milestone M1, *Lasius niger* as the
 single reference species. Work is on `browser-sim-m1`, merged to `main`
-(GitHub Pages) when the user asks (last merge `e1e6847`, 2026-10-16).
+(GitHub Pages) when the user asks (last merge: fast-forward to `84846a3`, 2026-10-18 ≈ 12:48 UTC).
 
 - **E1 (walking): paused** (2026-10-09). The fitting procedure is
   validated, but fine-scale turning is still off by z 10–20 for every
@@ -102,15 +102,13 @@ single reference species. Work is on `browser-sim-m1`, merged to `main`
       step 5; the packing deficit is a disclosed limitation. Next: one
       motion candidate, C2 (proposal in the Decisions log, awaiting the
       user's decisions), then step 5 with motion fixed.
-  - **C2 (current, 2026-10-18; Decisions log 01:41–12:40):** C1 + a
+  - **C2 (current, 2026-10-18; Decisions log 01:41–15:18):** C1 + a
     per-ant OU activity drive (τ 60 s, free σ per role), restShape ≥
     1.001, specular walls; 36 rows (32 + four activity rows); k 13.
     Implemented and committed (`3a98e86`). Gates at the start point: window
-    all pass (28 seeds); dt fails only on width, `runStill.P10.forager`
-    +0.14 [−0.25, 0.53] and `persist.forager` +0.17 [−0.19, 0.55]; a
-    last doubled-seed batch for those two rows is running (`c2gates3`,
-    12:46, ≈ 2 h). Fit (≈ 28 h on the box) waits for that reading and the
-    user's go-ahead.
+    all pass (28 seeds); dt all pass after a last doubled-seed batch for
+    `runStill.P10.forager` and `persist.forager` (15:18). **Fit (≈ 28 h on
+    the box) waits for the user's go-ahead.**
     - A **per-ant latent activity state** (independent slow OU walk-on
       multiplier, SD 1 on the log scale, τ 60 s): **comparison L (14:35)
       supports a variability effect in both matched contrasts** — mean-one
@@ -3055,3 +3053,16 @@ positions and modes (diagnostic, **not adoptable**), all arms on the
   Launched ≈ 12:46 as `run.sh` run `c2gates3-20261018T124606Z` (`scripts/scratch/box/run-c2gates3.sh`); box idle
   at launch; all simulation code, scripts, references, tracker and trip files checksum-identical to the local tree
   (copied: the speed-up's `lasiusNestWorker.ts`, `contactPairs.ts`, the gate script, `lib.ts`'s `runProgress`).
+- **2026-10-18 ≈ 15:18 UTC — C2 last dt seed batch read (12:45 pre-registration; run `c2gates3-20261018T124606Z`, ok,
+  2 h 31 m; outputs `logs/c2/gate-dt-{motion-r72,activity-r48}.log`, `logs/checkS2018-dt-c2-c2-{motion-r72,
+  activity-r48}.json`).** Rule unchanged. No missing-value cases.
+  - **Bit-identity on the box:** the recomputed overlapping rep (motion rep 35, activity rep 23) equals the earlier
+    files in all 22 colonies, both arms. The 04:09 speed-up reproduces the gates' code exactly at this scale.
+  - **Verdicts: both rows pass.**
+    - `runStill.P10.forager` (72 seeds): +0.20 SE [−0.06, 0.47], **pass**.
+    - `persist.forager` (48 seeds): −0.12 SE [−0.36, 0.14], **pass** (the 24-seed +0.17 was noise).
+  - Beside (earlier passes stand): every other motion row passes at 72 seeds (largest `runMove.P2.forager` −0.25
+    [−0.33, −0.17]); the other activity rows pass at 48 seeds.
+  - **All C2 numerical gates now pass at the start point** (dt 0.05 vs 0.025 on 36 rows; window: motion 6 h and
+    activity 2–8 h vs 8–14 h). Settings unchanged: phase 1 dt 0.1, phase 2 and judging dt 0.05.
+  - **Next: the C2 fit (≈ 28 h on the box, 01:59 / 03:47 budget), on the user's go-ahead only.**
