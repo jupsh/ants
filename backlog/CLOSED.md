@@ -4,3 +4,4 @@
 | id | status | title | outcome |
 |---|---|---|---|
 | [B009](B009-e2-volume-estimate-clipping-at-zero/README.md) | done | E2 volume-estimate clipping at zero | At the fixed main fit, zero clipping raises drop-2 intake by 0.055 µL (2.17 data SE); no direct source for this rule was found. |
+| [B012](B012-pheromone-field-grid-convergence/README.md) | done | Pheromone field grid convergence | Mass is conserved, but point-sampled signal does not converge with grid refinement; sub-cell deposits also leave gaps. |
