@@ -15,7 +15,7 @@
  *     next 6 h of the same run (equivalent windows at different elapsed times). Dt mode: the activity rows only
  *     when --obs ≥ 6 h (each run's first 6 h); with a shorter --obs only the motion rows are compared.
  *
- *   npx vite-node scripts/checkS2018Window.ts --mode window|dt [--candidate C1|C2] [--fit f] [--set k=v,...] [--tag t] [--warmup 1200] [--dt 0.1] [--windows 1800,7200] (window) [--obs 1800] [--reps 2] [--only motion|activity]
+ *   npx vite-node scripts/checkS2018Window.ts --mode window|dt [--candidate C1|C2] [--fit f] [--set k=v,...] [--tag t] [--warmup 1200] [--dt 0.1] [--windows 1800,7200] (window) [--obs 1800] [--reps 2] [--repFrom r --merge f] (dt) [--only motion|activity]
  * Trip inputs from data/fits/s2018-trips.json (scripts/calibTrips.ts), or --explore s --outRate r.
  */
 import fs from 'node:fs';
@@ -124,8 +124,14 @@ if (MODE === 'window') {
 } else if (MODE === 'dt') {
   const REPS = numArg('--reps', 2);
   const OBS = numArg('--obs', 1800);
-  const seeds = (i: number) => seedFor(2018, 'converge', 0xd7, i % colonies.length, Math.floor(i / colonies.length));
-  const cols = Array.from({ length: REPS }, () => colonies).flat();
+  // --repFrom r --merge f (STATUS 2026-10-18 ≈ 12:45): simulate only reps r..REPS-1 and take reps 0..r-1 from an earlier
+  // run of the same command (f); rep r must also be in f and is recomputed as a bit-identity check of the code.
+  const R0 = numArg('--repFrom', 0);
+  const MERGE = arg('--merge', '');
+  if (R0 > 0 !== Boolean(MERGE)) throw new Error('--repFrom and --merge go together');
+  const n = colonies.length;
+  const seeds = (i: number) => seedFor(2018, 'converge', 0xd7, (i + R0 * n) % n, Math.floor((i + R0 * n) / n));
+  const cols = Array.from({ length: REPS - R0 }, () => colonies).flat();
   const withAct = C2 && OBS >= 6 * 3600;
   const o = { phase: 'light' as const, warmupS: WARMUP, obsS: OBS, exploreGiveUp, exploreGiveUpSd, ...(withAct ? { activityHours: [0] } : {}) };
   const rowsIn = (id: string) => (isAct(id) ? withAct && ONLY !== 'motion' : ONLY !== 'activity');
@@ -133,10 +139,28 @@ if (MODE === 'window') {
   const [d1, d2] = arg('--dts', '0.1,0.05').split(',').map(Number);
   const [a, b] = await Promise.all([simulateAll(pool, P, cols, { ...o, dt: d1 }, seeds), simulateAll(pool, P, cols, { ...o, dt: d2 }, seeds)]);
   result.dts = [d1, d2];
+  let rowsA = a.map((r) => r.rows);
+  let rowsB = b.map((r) => r.rows);
+  if (MERGE) {
+    const prev = JSON.parse(fs.readFileSync(MERGE, 'utf8'));
+    const same = prev.mode === 'dt' && prev.candidate === CAND && prev.warmup === WARMUP && prev.dts?.join() === [d1, d2].join() && JSON.stringify(prev.values) === JSON.stringify(values);
+    if (!same || prev.rowsA.length <= R0 * n) throw new Error(`--merge ${MERGE}: not the same command, or fewer than ${R0 + 1} reps`);
+    // Rep R0 recomputed: every row of both arms must equal the earlier run's bit for bit.
+    const key = (r: Record<string, number>) => JSON.stringify(Object.entries(r).sort(([x], [y]) => (x < y ? -1 : 1)));
+    for (let j = 0; j < n; j++) {
+      if (key(rowsA[j]) !== key(prev.rowsA[R0 * n + j]) || key(rowsB[j]) !== key(prev.rowsB[R0 * n + j])) throw new Error(`rep ${R0}, ${colonies[j].label}: rows differ from ${MERGE}`);
+    }
+    console.log(`rep ${R0} recomputed: all ${n} colonies bit-identical to ${MERGE}`);
+    rowsA = [...prev.rowsA.slice(0, R0 * n), ...rowsA];
+    rowsB = [...prev.rowsB.slice(0, R0 * n), ...rowsB];
+    result.merged = { from: MERGE, repFrom: R0, provenance: prev.provenance };
+  }
   // Raw rows kept, so the comparison can be re-aggregated.
-  result.rowsA = a.map((r) => r.rows);
-  result.rowsB = b.map((r) => r.rows);
-  result.dt = compare(a.map((r) => r.rows), b.map((r) => r.rows), `dt ${d1} vs ${d2}`, rowsIn);
+  result.reps = REPS;
+  result.obs = OBS;
+  result.rowsA = rowsA;
+  result.rowsB = rowsB;
+  result.dt = compare(rowsA, rowsB, `dt ${d1} vs ${d2}`, rowsIn);
 } else throw new Error('--mode window|dt');
 result.seconds = (Date.now() - t0) / 1000;
 const out = `logs/checkS2018-${MODE}${C2 ? '-c2' : ''}${fit ? '-fit' : ''}${arg('--tag', '') ? `-${arg('--tag', '')}` : ''}.json`;

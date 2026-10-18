@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-17 ≈ 14:45 UTC (test-B model control read; before that L and O read, next steps and a quick guide for a new agent in RESUME). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-18 ≈ 12:40 UTC (C2 persistence gates with more seeds read; C2 bullet in RESUME). Earlier: 2026-10-17 ≈ 14:45 UTC (test-B model control read; L and O read, next steps and a quick guide for a new agent in RESUME). Keep this file current: update it whenever a step starts or finishes._
 
 Earlier history is archived verbatim: up to 2026-10-10 evening (session
 notes, step results, the first decisions log) in
@@ -102,6 +102,15 @@ single reference species. Work is on `browser-sim-m1`, merged to `main`
       step 5; the packing deficit is a disclosed limitation. Next: one
       motion candidate, C2 (proposal in the Decisions log, awaiting the
       user's decisions), then step 5 with motion fixed.
+  - **C2 (current, 2026-10-18; Decisions log 01:41–12:40):** C1 + a
+    per-ant OU activity drive (τ 60 s, free σ per role), restShape ≥
+    1.001, specular walls; 36 rows (32 + four activity rows); k 13.
+    Implemented and committed (`3a98e86`). Gates at the start point: window
+    all pass (28 seeds); dt fails only on width, `runStill.P10.forager`
+    +0.14 [−0.25, 0.53] and `persist.forager` +0.17 [−0.19, 0.55]; a
+    last doubled-seed batch for those two rows is running (`c2gates3`,
+    12:46, ≈ 2 h). Fit (≈ 28 h on the box) waits for that reading and the
+    user's go-ahead.
     - A **per-ant latent activity state** (independent slow OU walk-on
       multiplier, SD 1 on the log scale, τ 60 s): **comparison L (14:35)
       supports a variability effect in both matched contrasts** — mean-one
@@ -982,6 +991,10 @@ Full results, tables and the history of each step are in the archive
   is under test. No valid colony fit yet.
 
 ## Open problems and backlog
+- **Exploratory backlog:** the questions below that are off the main line are
+  also items in `backlog/` (B001–B013 seeded 2026-10-18, B014–B017 added since;
+  index `backlog/README.md`, protocol `backlog/PROTOCOL.md`; priorities set
+  2026-10-18 ≈ 04:40). Trimming this list waits for the user.
 - **Colony:** contact-triggered leaving (Table 2b, G3) not modelled;
   the dt dependence of contacts and timeInNest (late-signal test);
   encounters are geometric overlaps (ants brush past; redesign in the
@@ -2950,3 +2963,95 @@ positions and modes (diagnostic, **not adoptable**), all arms on the
     Mailleux pilots are unadopted tools. Only the trip calibration and C1's judging run would.
   - Also seen: commit `154055d` (AGENTS.md split, `backlog/`) landed on this branch after `9b3987d`. Another
     session's B012 files are modified in this checkout; left untouched.
+- **2026-10-18 ≈ 04:40 UTC — Backlog review (user request: set priorities, scope, titles; add gaps).** Lead
+  agent; desk only, nothing run. Items scoped (Question, Done when, Data and roles, Compute, Out of scope),
+  retitled where the seed was vague. Priorities favour what feeds the step-5 design:
+  - **10 B008** fit-speed options, now for the step-5 Mailleux fit; **20 B014** event-driven resting ants;
+    **30 B015 (new)** cleared-literature values for the step-5 free parameters (Plan parallel track b);
+    **40 B001** contacted-nestmate departures (Table 2b, G3): `leaveCropFrac` scan, then a design note if needed.
+  - **Blocked on the user:**
+    - **50 B005**, the excursion audit: on hold in RESUME.
+    - **60 B016 (new)**, held-out data survey (Plan parallel track a): exposure rules and web search first.
+    - **70 B007**, contact observer: the observer is **not yet written**, although it was approved 2026-10-11.
+      Stroeymeyt 2018 is not cleared; the GPL tool set-up and the agreement criterion are still to be logged.
+    - **140 B010**: E1 paused.
+  - **Later:** 80 B013 save / restore across processes (after B008); 90 B006, widened to the three
+    light/dark contrasts the model lacks; 100 B004; 110 B011 (no E6 data compared); **130 B017 (new)**, B012's
+    footprint follow-up.
+  - **Dropped:** B002 (superseded: the pilot nest model it measured is being replaced; Plan step 6 gates dt) and
+    B003 (merged into B001; E6's `leaveCropFrac` sensitivity is Plan step 9).
+  - `backlog.mjs check`: B009's results are stale on simHash (computed before the C2 code), and B012's
+    `results.json` is unstamped and outside `results/`. Both are expected to reproduce (neither uses the colony
+    runner); not rerun.
+- **Backlog B008 done (another session, 2026-10-18 ≈ 04:47 UTC; logged by the lead agent ≈ 12:46):** fit-speed
+  options for the step-5 Mailleux fit, measured at the pilot nest motion (absolute times indicative only). Warm-up
+  is 53–68 % of an independent recruiter run, so the already-implemented shared warm-ups (`fitM1999 --perNest 4`)
+  are the biggest certain saving (1.6–2.2× measured). Then dt 0.2 for screening (0.55–0.62× of dt 0.1) and halved
+  recruiters (0.50×); snapshots (needs B013) cap at ≈ 1.5× more; no profile hotspot worth a refactor (top 8.8 %).
+  No main-tree change proposed. Bears on the step-5 design: start from `--perNest`, an identifiability run and
+  B015. `backlog/B008-fit-speed-options-not-taken/results/recommendation.md`.
+- **2026-10-18 ≈ 12:40 UTC — C2 persistence gates with more seeds read (03:49 pre-registration; run
+  `c2gates2-20261018T034927Z`, ok, 3 h 25 m; box md5 of `activity.ts`, `stroeymeytTargets.ts`,
+  `checkS2018Window.ts` equal to the local files; outputs `logs/c2/gate-{window-r28,dt-activity-r24}.log`,
+  `logs/checkS2018-window-c2-c2r28.json`, `logs/checkS2018-dt-c2-c2-activity-r24.json`).** Rule unchanged (90 %
+  bootstrap CI of the paired difference inside ±0.5 SE_data). No missing-value cases.
+  - **Window gate (28 seeds, 616 runs): all rows pass.**
+    - Activity, elapsed 2–8 h vs 8–14 h: `persist.nurse` +0.01 SE [−0.28, 0.31], `persist.forager` +0.05
+      [−0.31, 0.43] (the verdicts); spread rows +0.01 [−0.09, 0.10] and +0.02 [−0.07, 0.12] (beside).
+    - Motion rows (beside): 6 h vs 12 h 0 of 16 fail, 9 h vs 12 h 0 of 16; largest 6-h shift
+      `runStill.P60.nurse` −0.14 [−0.19, −0.09].
+  - **dt gate, activity rows (24 seeds, 528 paired runs): 3 of 4 pass.**
+    - `persist.nurse` −0.02 SE [−0.33, 0.30], **pass**: the 6-seed point estimate (+0.51) was noise, not a dt
+      shift, so option 2 (finer dt) is not indicated.
+    - **FAIL `persist.forager` +0.17 SE [−0.19, 0.55]**, on width (upper end 0.05 past the bound), as the 02:05
+      power note expected. Spread rows (beside): +0.05 [−0.04, 0.13], +0.04 [−0.06, 0.14].
+  - **Open gate failures for the user (no automatic escalation; nothing changed), both on width with small point
+    estimates:**
+    - dt motion gate: `runStill.P10.forager` +0.14 SE [−0.25, 0.53] (03:47, not yet decided);
+    - dt activity gate: `persist.forager` +0.17 SE [−0.19, 0.55].
+  - **The fit stays pending** (the user's decision on these two rows, then the go-ahead). Before launch: deploy the
+    04:09 speed-up (bit-identical) to the box and check checksums.
+- **2026-10-18 ≈ 12:41 UTC — Persistence gates with more seeds, read (run `c2gates2-20261018T034927Z`, ok, 3 h 25 m;
+  03:49 design; box code checksums as the first gates; no missing-value cases).**
+  - **Window, 28 seeds (616 runs): all 4 activity rows pass.**
+
+    | Row | Shift (SE) | 90 % CI |
+    |---|---|---|
+    | `persist.nurse` | +0.01 | [−0.28, 0.31] |
+    | `persist.forager` | +0.05 | [−0.31, 0.43] |
+    | `top20.nurse` | +0.01 | [−0.09, 0.10] |
+    | `top20.forager` | +0.02 | [−0.07, 0.12] |
+
+    Beside: motion rows 0 of 16 fail at 6 h and at 9 h. **The window gate passes for all 36 rows.**
+  - **dt 0.05 vs 0.025, 24 seeds (528 paired runs):**
+    - `persist.nurse` −0.02 [−0.33, 0.30], **pass**. The 6-seed +0.51 was noise.
+    - `persist.forager` +0.17 [−0.19, 0.55], **FAIL on width** (upper bound 0.05 past the bound).
+    - Beside: `top20.nurse` +0.05 [−0.04, 0.13], `top20.forager` +0.04 [−0.06, 0.14].
+  - **Still open from gate 1 (01:59 design):** `runStill.P10.forager` +0.14 [−0.25, 0.53], also width (not part of
+    the 03:49 rerun).
+  - **Gate status for C2 at dt 0.05:**
+    - window: pass, 36 of 36;
+    - dt: 34 of 36 pass; two forager rows fail on width with small point estimates (+0.14 and +0.17 SE).
+  - **Per the 03:49 rule: no automatic escalation; to the user.** Approximate power for the two rows, if the means
+    stay: about 1.2–1.3 × their current runs would resolve them (P10 forager 36 → ≈ 44 seeds × 1 h, ≈ 40 min;
+    forager persistence 24 → ≈ 32 seeds × 6 h, ≈ 2.3 h).
+- **2026-10-18 ≈ 12:45 UTC — User: option 1 for the two open dt-gate rows (one more seed batch, the last).
+  Pre-registered before running.**
+  - **Seeds doubled, only new seeds simulated:** new `--repFrom r --merge f` in `checkS2018Window.ts` dt mode
+    simulates reps r..REPS−1 and takes reps 0..r−1 from the earlier file; rep r is recomputed and must equal the
+    earlier file bit for bit (else the run stops). Local smoke test: a merged 3-rep run equals a full 3-rep run
+    exactly.
+    - **Motion:** the 03:47 command (`--dts 0.05,0.025 --obs 3600`, warm-up 1200) at `--reps 72 --repFrom 35
+      --merge logs/checkS2018-dt-c2-c2-motion.json` (reps 0–35 earlier, 36–71 new).
+    - **Activity:** the 03:49 command at `--reps 48 --repFrom 23 --merge
+      logs/checkS2018-dt-c2-c2-activity-r24.json` (reps 0–23 earlier, 24–47 new).
+  - **Verdicts:** these runs decide `runStill.P10.forager` (motion) and `persist.forager` (activity), by the
+    unchanged rule (90 % bootstrap CI of the paired difference inside ±0.5 SE_data; units the runs). The other rows'
+    earlier passes stand; their new values are reported beside.
+  - **This is the last batch.** A row that still fails goes to the user as a precision limit, with its effect size
+    and CI, never as a reason to change settings; no further seeds without the user.
+  - **Code:** the 04:09 speed-up (bit-identical) is deployed with this run; the overlapping rep checks it on the box.
+    Estimated ≈ 2.1 h (motion ≈ 0.5 h, activity ≈ 1.6 h).
+  Launched ≈ 12:46 as `run.sh` run `c2gates3-20261018T124606Z` (`scripts/scratch/box/run-c2gates3.sh`); box idle
+  at launch; all simulation code, scripts, references, tracker and trip files checksum-identical to the local tree
+  (copied: the speed-up's `lasiusNestWorker.ts`, `contactPairs.ts`, the gate script, `lib.ts`'s `runProgress`).
