@@ -62,6 +62,8 @@ export interface StroeymeytColony {
   wall?: ColonyOptions['wall'];
   aggregate?: ColonyOptions['aggregate'];
   site?: ColonyOptions['site'];
+  /** Comparison T taxis (STATUS 2026-10-17 ≈ 22:59 UTC; see `ColonyOptions.taxis`). Unset: none. */
+  taxis?: ColonyOptions['taxis'];
 }
 
 export interface StroeymeytRunOptions {
@@ -146,6 +148,7 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     wall: c.wall,
     aggregate: c.aggregate,
     site: c.site,
+    taxis: c.taxis,
     starvationDays: 0,
     walkSpeedFactor: 1,
     tempC: STROEYMEYT_TEMP[o.phase],

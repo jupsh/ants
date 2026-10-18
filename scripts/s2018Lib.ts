@@ -90,6 +90,12 @@ export function withObsVariant(c: StroeymeytColony, argv = process.argv): Stroey
     if (wall !== 'inward' && wall !== 'specular') throw new Error(`--wall ${wall}: 'inward' or 'specular'`);
     out = { ...out, wall };
   }
+  // Comparison T (≈ 22:59): `--taxis gain:r`.
+  const tx = at('--taxis');
+  if (tx) {
+    const [gain, r] = tx.split(':').map(Number);
+    out = { ...out, taxis: { gain, r } };
+  }
   const ag = at('--agg');
   if (ag) {
     const [k, r] = ag.split(':').map(Number);

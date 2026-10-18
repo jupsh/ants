@@ -132,6 +132,12 @@ export interface ColonyOptions {
    * changes.
    */
   wall?: 'inward' | 'specular';
+  /**
+   * Comparison T (STATUS 2026-10-17 ≈ 22:59 UTC; diagnostic, not adoptable): an in-nest ant walking in the `active` mode
+   * whose action has no motor goal steers (first-order, `gain` 1/s) toward atan2(v), v = Σ unit vectors toward resting
+   * in-nest nestmates within `r` mm (true state), recomputed every 1 s; no steering if |v| < 0.5. Rates unchanged.
+   */
+  taxis?: { gain: number; r: number };
   aggregate?: { k: number; r: number };
   site?: { k: number; x0: number; y0: number; nx: number; ny: number; w: number[] };
 }
@@ -244,6 +250,8 @@ export class ColonySim {
   private readonly wallRng: RNG[] = [];
   private aggN: number[] = [];
   private aggNext = 0;
+  private taxisGoal: number[] = [];
+  private taxisNext = 0;
   /** Slow-episode what-if: seconds left in each ant's episode, own streams, the slowed walk parameters (nest, forager). */
   private readonly slowLeft: number[] = [];
   private readonly slowRng: RNG[] = [];
@@ -474,6 +482,34 @@ export class ColonySim {
     };
   }
 
+  /** Comparison T: each ant's taxis goal heading (NaN: none), recomputed every 1 s. */
+  private taxisStep(t: number, outside: boolean[]): number[] {
+    const tx = this.o.taxis!;
+    if (t >= this.taxisNext - 1e-9) {
+      this.taxisNext = t + 1;
+      const ants = this.w.ants;
+      const r2 = tx.r * tx.r;
+      const rest = ants.map((a, i) => a.body.alive && !outside[i] && a.mind.mode === 'rest');
+      this.taxisGoal = ants.map((a, i) => {
+        if (!a.body.alive || outside[i]) return NaN;
+        let vx = 0;
+        let vy = 0;
+        for (let j = 0; j < ants.length; j++) {
+          if (j === i || !rest[j]) continue;
+          const dx = ants[j].body.x - a.body.x;
+          const dy = ants[j].body.y - a.body.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 >= r2 || d2 === 0) continue;
+          const d = Math.sqrt(d2);
+          vx += dx / d;
+          vy += dy / d;
+        }
+        return Math.hypot(vx, vy) < 0.5 ? NaN : Math.atan2(vy, vx);
+      });
+    }
+    return this.taxisGoal;
+  }
+
   /** Comparison WR `wall: 'specular'`: the mirrored heading that stays on the surface (else reverse). */
   private static specularTurn(x: number, y: number, h: number, walkable: (x: number, y: number) => boolean): number {
     const turn = (g: number) => Math.abs(Math.atan2(Math.sin(g - h), Math.cos(g - h)));
@@ -567,6 +603,15 @@ export class ColonySim {
         if (f && fR !== undefined) f.restToActive = fR;
       }
     });
+    // Comparison T: walking in-nest ants without a motor goal steer toward resting nestmates (what-if, true state).
+    if (this.o.taxis) {
+      const goal = this.taxisStep(t, outside);
+      w.ants.forEach((a, i) => {
+        const na = acts[i] as NestAction | null;
+        if (!na || outside[i] || na.stand || a.mind.mode !== 'active' || na.motor?.goal !== undefined || Number.isNaN(goal[i])) return;
+        acts[i] = { ...na, motor: { ...na.motor, goal: goal[i], goalGain: this.o.taxis!.gain } };
+      });
+    }
     // A resting ant that walks this step (it woke, or leaves or returns) gets the full percept of the same pre-move state.
     w.ants.forEach((a, i) => {
       if (resting[i] && acts[i] && !(acts[i] as NestAction).stand) per[i] = perceive(w, a.body, dt, contacts![i]);

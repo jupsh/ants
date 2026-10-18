@@ -39,3 +39,14 @@ describe('comparison Q switches', () => {
     expect(rows({ ...base, site: { k: 1, ...map(1) } })).toBe(doubled);
   });
 });
+
+// Comparison T (STATUS 2026-10-17 ≈ 22:59 UTC): taxis toward resting nestmates.
+describe('comparison T taxis', () => {
+  const none = rows(base);
+  it('gain 0 leaves the run bit-identical; a positive gain changes it, also on the specular walls', () => {
+    expect(rows({ ...base, taxis: { gain: 0, r: 8 } })).toBe(none);
+    expect(rows({ ...base, taxis: { gain: 1, r: 8 } })).not.toBe(none);
+    const spec = rows({ ...base, wall: 'specular' });
+    expect(rows({ ...base, wall: 'specular', taxis: { gain: 0.3, r: 8 } })).not.toBe(spec);
+  });
+});

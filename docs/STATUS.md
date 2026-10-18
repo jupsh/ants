@@ -91,6 +91,17 @@ single reference species. Work is on `browser-sim-m1`, merged to `main`
       near share (a neighbour within 4.1 mm) is robust to it and shows the
       model less packed than the data (0.78 vs 0.95). Variant B is not
       usable for contacts (its offsets accumulate across rests).
+      **Packing follow-ups (2026-10-17/18):** Q (aggregation arms nearly
+      freeze the colony; a narrow demonstration of possibility only), WR
+      (W-spec is the wall control, its light-activity pass uncertain), and
+      **T (read 2026-10-18 ≈ 01:33): this bounded test did not establish the
+      explanation.** Taxis toward resting nestmates (gain 0.3 and 1.0 / s,
+      8 mm) over-compacts (median NN ≈ 0.4 × data) and fails the guards at
+      both strengths (still runs, light activity). **Packing round closed
+      (user, 2026-10-18 ≈ 01:41):** still–still crossings no longer block
+      step 5; the packing deficit is a disclosed limitation. Next: one
+      motion candidate, C2 (proposal in the Decisions log, awaiting the
+      user's decisions), then step 5 with motion fixed.
     - A **per-ant latent activity state** (independent slow OU walk-on
       multiplier, SD 1 on the log scale, τ 60 s): **comparison L (14:35)
       supports a variability effect in both matched contrasts** — mean-one
@@ -598,8 +609,15 @@ archive; each item traceable to its dated entry there or below):
   suggests is designed separately and logged before acting (≈ 05:11,
   05:43, 06:22).
 - **Contacts:** contacts from tracks are crossings of tracked centres
-  into 4.1 mm (far again past 5.1 mm), not verified touches; the contact
-  deficit is a **blocker for step 5** (user, 13:11).
+  into 4.1 mm (far again past 5.1 mm), not verified touches. ~~The contact
+  deficit is a blocker for step 5 (user, 13:11).~~ **Changed 2026-10-18 ≈
+  01:41 (user):** the still–still crossing deficit is not a step-5 blocker
+  (measurement-ambiguous, disclosed). The packing deficit (near share,
+  isolated ants) is a disclosed limitation carried into step 5's
+  interpretation. Closed implementations, no further arms: Q's aggregation /
+  site arms and T's taxis arms (aggregation as such not rejected; attraction
+  with a spacing mechanism would be a new design question). W-spec remains
+  the selected diagnostic wall control, not a validated wall response.
 - **Colony synchrony (user, 2026-10-17 ≈ 15:25):** not a blocker for
   step 5 as such (no 1999 row measures it, and the rows are recruiter
   means), but (1) **sensitivity gate in step 5:** before a step-5 fit is
@@ -2481,3 +2499,217 @@ both observers reported beside, never used to choose strengths; W-spec's
 uncertain light-activity pass stays attached. No further κ or τ arms;
 after the two strengths, read against the fixed table before deciding
 anything else.
+
+**2026-10-17 ≈ 22:59 UTC — Comparison T (taxis toward resting
+nestmates), design and reading logged before building.** Second
+checkpoint committed first (`5c3e4dd`; tests 176 / 176, tsc clean).
+Fit colonies in a development role. Runner-level what-if with true
+positions and modes (diagnostic, **not adoptable**), all arms on the
+**W-spec** wall rule; W-spec's uncertain light-activity pass (WR,
+22:55) stays attached to this comparison.
+- **Heading rule (fixed):** applies to in-nest ants walking in the
+  `active` mode whose action carries no motor goal (leaving and
+  returning goals are never overridden). Every 1 s each ant's target
+  vector is recomputed: v = Σ of unit vectors toward resting in-nest
+  nestmates within **8 mm** (centre distance). If |v| < 0.5 — no resting
+  neighbours, or opposing directions cancelling to less than half of
+  one neighbour's pull — no steering. Otherwise the walker steers toward
+  atan2(v) through the motor's existing first-order goal steering with
+  gain **g = 0.3 /s (T0.3) or 1.0 /s (T1.0)** (the leaving gain is 1.5
+  /s). No rate is changed.
+- **Runs:** start point, 22 colonies × light / dark × 12 h, seed 4242,
+  `--lite --robust`: W-spec (control observer: WR's runs reused; M: new),
+  T0.3 and T1.0 each under the control observer and variant M (220 new
+  runs); rows `diagS2018 --at start --reps 4` for W-spec, T0.3 and T1.0
+  (still-run summaries).
+- **Joint packing criterion (both phases; neither statistic
+  compensates for the other):** S1 median NN, geometric mean of per-
+  colony model / data ratios in **[0.90, 1.10]**; S2 near share (NN < 4.1
+  mm), median over colonies within **data median ± 0.02** (data 0.962
+  light, 0.955 dark). Point estimates decide; colony-bootstrap 95 % CIs
+  reported, a pass whose CI crosses a bound labelled "uncertain".
+  *Packing reached* = S1 and S2 pass in both phases.
+- **Guards (every arm, data-relative, against the W-spec control):** m =
+  max(model / data, data / model); pass if m_arm ≤ 1.10 × m_Wspec, each
+  separately: exits per in-nest ant-hour (light, dark), moving fraction
+  (light, dark), light / dark moving-fraction ratio, light / dark
+  moving-involved-contact ratio (as WR; colony bootstrap, "uncertain" if
+  the 95 % upper bound of m_arm / m_Wspec exceeds 1.10), and **still-run
+  summaries** from the rows: runStill.mean and runStill.P10 for nurses
+  and foragers (data = the fit rows; uncertainty from the rows' SE_sim:
+  "uncertain" if m_arm / m_Wspec computed at the arm's estimate ± 1.96
+  SE_sim crosses 1.10).
+- **Reading (per strength):** packing reached **and every guard passed**
+  → a **usable result**; packing reached with any guard failed → a
+  **failed candidate**; packing not reached → not reached. Overall: if
+  neither strength reaches packing, **this bounded test did not establish
+  the explanation**. Reported beside, never used to choose: still–still
+  and moving-involved crossings (cell 5.1 / 0) under the control
+  observer and M, model / data; occupancy correlation; wall-band share.
+- Two strengths only; after them, read against this table before deciding
+  anything else (user).
+- **T built and launched ≈ 23:02.** `ColonyOptions.taxis` (`taxisStep`,
+  applied to the actions after the policy call; leaving / returning
+  goals untouched), `--taxis gain:r`; test: gain 0 bit-identical, a
+  positive gain changes the run on both wall rules (`npm test` 177 /
+  177, tsc clean); local smoke run on the specular walls completes.
+  Aggregator `scripts/scratch/tAgg.py` written to the table above (not
+  run). `run.sh` run `t-20261017T230244Z`, `scripts/scratch/box/run-t.sh`:
+  rows for W-spec, T0.3, T1.0, then 220 lite runs. md5 sweep: only the
+  known `lib.ts` / `paperText.ts` differences.
+- **2026-10-18 ≈ 00:48 UTC — T aggregator dry run (no T output read).** `tAgg.py` was run end to end on stand-in
+  inputs: the W-spec control files from WR copied in for every T arm and observer, and earlier `logs/oc` diag files
+  for the rows (all read before). The verdict logic, guards and the still-run rows parse. One omission was fixed: the
+  3-mm wall-band share, listed among the "beside" statistics at 22:59, was not printed. It is now printed per arm
+  beside W-spec, with wall bounds from the W-spec light occupancy. It does not enter the reading. Box status
+  checked only by file counts and timestamps (138 / 220 lite runs at 00:46).
+- **2026-10-18 ≈ 01:33 UTC — comparison T read against the fixed table (22:59).** Run `t-20261017T230244Z`
+  finished ok (2 h 14 m): 3 row files and 220 reductions, fetched by tar stream (a first fetch mixed the ssh banner
+  into the stream and was discarded unread). `python3 -I scripts/scratch/tAgg.py`, output in `logs/t/tAgg.out`; 22
+  colonies.
+  - **T0.3: packing not reached.** S1 median-NN ratio 0.425 light / 0.432 dark (bar 0.90–1.10; CIs 0.40–0.47), FAIL in
+    both phases. S2 0.945 / 0.941 vs data 0.962 / 0.955 ± 0.02, pass (light uncertain). Guards FAIL: moving fraction
+    light (ratio to W-spec 1.59); all 8 still-run rows (nurse mean 2.29, forager mean 1.50, nurse P10 1.33, forager
+    P10 1.28; SE_sim intervals all above 1.10). Exits L/D and dark moving fraction pass (uncertain); both light/dark
+    ratios pass.
+  - **T1.0: packing not reached.** S1 0.358 / 0.372, FAIL. S2 0.993 / 0.991, FAIL (overshoots the + 0.02 bound). Guards
+    FAIL: moving fraction light 3.05 and dark 1.56; all 8 still-run rows (1.74–3.49). Exits pass (uncertain), the
+    light/dark moving-fraction ratio passes (uncertain), and the moving-contact ratio passes.
+  - **Reading (mechanical): neither strength reaches the joint packing criterion → "this bounded test did not
+    establish the explanation".** Both strengths also fail the guards on their own, so neither would have been usable
+    had packing been reached.
+  - **Beside (not used, not for choosing strengths):**
+    - crossings model / data, still–still: control observer 0.87 / 0.96 (T0.3) and 0.64 / 0.67 (T1.0); M observer
+      3.36 / 3.73 and 2.42 / 2.49. Moving-involved: control observer 1.23 / 1.78 and 0.82 / 1.19; M observer
+      1.03 / 1.49 and 0.67 / 0.99.
+    - W-spec for comparison: still–still control observer 0.27 / 0.31, M observer 0.63 / 0.72; moving-involved
+      control observer 0.87 / 1.33, M observer 0.81 / 1.24.
+    - occupancy r +0.30 / +0.19 (T0.3) and +0.23 / +0.22 (T1.0).
+    - wall-band share 0.020 (T0.3) and 0.026 (T1.0), vs W-spec 0.108.
+  - **Description, not a reading:** taxis draws the ants into clumps much tighter than the data (median NN about 0.4 ×
+    the data's) and away from the walls. Without any rate change, it lengthens observed still runs by 1.3–3.5× in
+    mismatch. The W-spec control's uncertain light-activity pass (WR, 22:55) stays attached. Per the user's
+    instruction, nothing further is decided or run until the user has seen this.
+- **2026-10-18 ≈ 01:41 UTC — User guidance after T (adopted): close the packing round, finish one motion
+  candidate, bounded route to step 5.**
+  - **Three problems, accepted separately.**
+    - *Still–still crossing count:* a weak reason to keep the project blocked. It moves substantially under plausible
+      tracking error, and the tracks cannot separate that error from slow real movement. Requiring it could reward the
+      wrong behaviour: Q and T moved it toward or past the data while producing clearly unrealistic colonies.
+    - *Packing failure: real.* Near share is relatively robust to the observer, and the model has too many isolated
+      ants. Q and T reject the tested implementations, not aggregation generally. Attraction with an adequate spacing
+      mechanism is a new model-design question, with no evidence yet that it deserves priority over the other
+      failures.
+    - *Motion fit: the larger unfinished job.* C1 missed 19 of 32 targets by > 3 SE and lost per-ant persistence;
+      disclosing the contact gap cannot make C1 adoptable. The independent activity state has the stronger positive
+      evidence (short-still gains at matched activity, persistence kept), but the gains were partial and the
+      mean-matched comparison reached nurses only. It gets a bounded evaluation, not an assumption that it solves the
+      fit.
+  - **Plan.**
+    1. Close this round of packing diagnostics and keep the failures explicit. W-spec stays the selected diagnostic
+       wall control; its guard pass is not proof of a correct biological wall response.
+    2. Finish one clearly specified motion candidate: activity-state design, persistence targets and weights, the
+       rest-form decision, and the wall rule it actually uses. Its evaluation budget and stopping decision are fixed
+       before fitting.
+    3. Judge the resulting motion model as a whole. If it is inadequate, report that and make an explicit decision
+       about proceeding provisionally; no automatic chain of mechanisms.
+    4. Step 5 (Mailleux) with the selected motion fixed, carrying the spatial / contact limitations into the
+       interpretation, the synchrony sensitivity check retained.
+  - **Why downstream doesn't diagnose.** Step 5 can show whether the deficiencies matter for the quantities we want
+    to predict, not their cause: Mailleux differs in colony size, feeding and contact measurement, and trophallaxis
+    parameters and density could compensate for bad motion. A successful fit would not erase the present failures.
+  - **Correction (user):** a Mailleux contact failure does not automatically reopen motion development. The plan's
+    stopping rule stands (Plan step 5): step 5 is the last revision round driven by those data in M1. Such a failure
+    is a recorded transfer failure and a future research question, unless the stopping rule is deliberately changed.
+  - **Rules changed accordingly (Rules in force, Contacts):**
+    - The still–still crossing deficit is no longer a step-5 blocker; it is disclosed as measurement-ambiguous.
+    - The packing deficit (near share, isolated ants) is a disclosed limitation carried into step 5.
+    - Packing implementations closed: Q's aggregation / site arms and T's taxis arms. Aggregation as such is not
+      rejected.
+  - **Motion candidate C2: proposal entry below; nothing is implemented or run before the user's decisions on it.**
+- **2026-10-18 ≈ 01:41 UTC — Motion candidate C2: proposal (not adopted; decisions D1–D6 are the user's).** One
+  candidate, specified in full before any implementation run or fit.
+  - **Structure:** C1 (k = 11, Rules in force) plus:
+    - **Stage-1 latent drive** (`docs/research/latent-activity-design.md`): a per-ant OU drive on the log walk-on
+      rate, mean one, in `src/sim/mind/`, read by the nest worker. It reaches both roles, with role-specific σ and a
+      shared τ, and replaces the runner-level latent switch. Stage 2 (coupling) is out of C2: synchrony stays a
+      disclosed limitation with the step-5 sensitivity gate and the structure-freeze blocker unchanged.
+    - **The wall rule C2 uses (D4).**
+    - The fixed walk-on trait (σ 0.4) stays unless D2 frees it.
+  - **D1, drive parameters:** free σ_nurse [0, 2], σ_forager [0, 2] and τ log [10, 1800] s → k = 14 (λ stays 11).
+    Alternative: τ fixed at 60 s (comparison L), k = 13.
+  - **D2, walk-on trait σ:** fixed at 0.4 (proposed: with the drive free, a free trait σ is the main identifiability
+    risk) or free [0, 1.5]. The new spread and persistence rows pull it opposite ways (23:35 note).
+  - **D3, rest form:** Lomax kept. Either restShape [0.2, 50] as in C1 (infinite-mean rests allowed), or (1, 50]
+    (a finite-mean isolated rest, the 2026-10-16 ≈ 23:30 rule). Proposed: (1, 50]. With the drive free, heavy-tailed
+    observed rests no longer need an infinite-mean isolated rest, and an infinite mean makes the window gate and the
+    step-5 transfer (longer 1999 runs) depend on the tail. Cost: a fit that pins near 1 fails the adoption rule's
+    box-end condition, which is itself informative.
+  - **D4, wall rule:** specular (W-spec), promoted from the runner switch to a model parameter of the nest walls
+    (tests: the default edge-following stays bit-identical), or C1's edge-following. Proposed: specular, disclosed
+    as a geometric rule chosen by a diagnostic guard and not a validated biological wall response. Edge-following
+    puts ≈ half the ant-frames in a 3-mm wall band, unlike the data.
+  - **Targets (D5):** the 32 rows plus the four compact persistence rows (2026-10-16 ≈ 23:35 proposal): per group,
+    persistence (Spearman across ants of moving fraction, first vs second 3 h of the 6-h light window, Fisher-z mean
+    over colonies) and spread (moving-time share of the top 20 % of ants). Each is an ordinary row with weight 1
+    and SE across colonies; no lag series. Both are computed through the frozen tracker with shared code promoted
+    to `src/sim/analysis/`. Data role: fit (inspected when σ 0.4 was chosen; logged). 36 rows in total.
+  - **Before fitting:**
+    - tests: σ = 0 bit-identical; mean one; both roles reached; wall-parameter defaults;
+    - rows computed on the data and the start point;
+    - the dt and window gates rerun at the start point under their unchanged rule (a failing gate goes to the user
+      before any setting changes).
+  - **Budget and stopping (D6):** C1's two-phase rule unchanged. Phase 1: dt 0.1, 2 + 2 h, both starts, cap 30
+    generations. Selection batch. Phase 2: full settings, σ 0.5, cap 60 generations, tolX 0.03. Estimate:
+    mean of the last 20 generation means. No restart, no extension; the cap ends it (C1 took 20.8 h on the box at the
+    same λ). Launch only on the user's go.
+  - **Whole-model judgment (fixed now):**
+    - Fresh seeds, combinedZ, rows reported by family beside C1.
+    - **Adequate** = the existing form applied to the 36 rows: no row |z| > 3, at most 2 in (2, 3], no free parameter
+      at or within 5 % of a box end. The irreducible phase floor is disclosed beside, not subtracted.
+    - Exception proposed for the user: σ_drive at its lower bound 0 is read as "the drive is not supported for that
+      role", not as a bound failure.
+    - Checks at the optimum: the spread rule, crowding, stays and trips, packing and contacts (disclosed, not
+      judged).
+    - **Outcome:** adequate → step 5 with C2's motion fixed. Not adequate → failing rows and the comparison with C1
+      reported, then an explicit user decision: proceed provisionally (with C2 or C1) or stop step 4. No further
+      mechanism is added automatically.
+  - **Out of C2:** stage-2 coupling, packing / aggregation, speed fluctuation, the parked literature structures.
+  - **Also flagged for step 5:** the synchrony sensitivity gate specifies κ = 1, set when the oracle reached nurses
+    only. With foragers coupled, κ = 1 overshoots the data's synchrony (22:56). The gate's setting needs a decision
+    before step 5 (not now).
+- **2026-10-18 ≈ 01:43 UTC — User decisions on C2 (pasted, adopted).** Commit the third diagnostic checkpoint, then
+  implement C2. Preparation and gates approved; **the fit waits for a separate go-ahead.**
+  - **D1:** τ fixed at 60 s, the timescale with direct supporting evidence; it limits overlap with the fixed trait
+    and rest-depth variation. Free σ_nurse and σ_forager on [0, 2] → **k = 13**. A failure applies to this
+    candidate, not to every activity timescale.
+  - **D2:** walk-on trait σ 0.4 fixed, recorded as a data-informed choice, not as independently known.
+  - **D3:** restShape > 1, **explicit lower bound 1.001**, log scale and the ordinary 5 % boundary rule kept. This is a
+    modelling constraint for finite-mean baseline rests, not a conclusion from the activity-state results.
+    - The gamma rest-depth mechanism stays. Described precisely: with a varying walk-on multiplier the resulting rest
+      distribution is no longer simply the original Lomax.
+    - restShape > 1 avoids the original infinite-mean case; it does **not** guarantee quick equilibration. The window
+      gate remains essential.
+  - **D4:** specular reflection as a fixed C2 model choice. The existing default is preserved for other
+    configurations, and the diagnostic-selection caveat is kept.
+  - **D5:** all 36 rows, each with weight 1 after its existing SE standardisation. Eligibility, ties, incomplete
+    tracking and missing-row handling are fixed **before** the rows are recomputed.
+  - **D6:** two search starts, ≤ 30 generations each, then one full fit of ≤ 60 generations from the better selected
+    start. No extension or restart. **C1's conditional second full fit is removed.**
+  - **Two changes to the preparation.**
+    - **Phase 1 uses 6 observation hours** (not 2), keeping its coarser dt (0.1), because the persistence target
+      compares the first and second 3 h of a 6-h window. Selection and fitting then use the same target definitions.
+      The revised evaluation cost is benchmarked; the 21-h estimate no longer holds.
+    - **The numerical gates cover the four new summaries,** keeping their 6-h definitions. The window gate compares
+      equivalent 6-h measurement windows after the relevant warm-up or at different elapsed times, never a different
+      lag or a 12-h top-20 % share.
+  - **Lower-bound exception for activity σ accepted,** including its lower 5 % neighbourhood. It is reported as
+    "little or no drive required for this role by this fit"; a boundary estimate does not establish that the
+    biological activity state is absent. Upper-bound σ estimates keep the usual failure rule.
+  - **Adequacy and stopping rules otherwise stand.** Before launch, check whether the shared light / dark prediction
+    can satisfy the row thresholds at the declared judging precision. If the known irreducible phase mismatch makes
+    the criterion impossible, that is resolved before the search budget is spent.
+  - **Reporting:** C1 and C2 on the same 36 definitions with fresh judging seeds. Any improvement belongs to the
+    **whole C2 candidate** (walls and the rest constraint change alongside the activity state).
+  - **Step 5:** κ = 1 stays labelled an **overshooting stress test**, not a calibrated representation of synchrony.
+    Its consequences for adoption are decided before step 5; this does not delay C2 preparation.
