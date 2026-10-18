@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-18 ≈ 15:18 UTC (C2 gates all pass after the last seed batch; fit awaits the go-ahead). Earlier: 2026-10-17 ≈ 14:45 UTC (test-B model control read; L and O read, next steps and a quick guide for a new agent in RESUME). Keep this file current: update it whenever a step starts or finishes._
+_Last updated: 2026-10-18 ≈ 15:20 UTC (C2 fit launched on the box, ≈ 28 h). Earlier: 2026-10-17 ≈ 14:45 UTC (test-B model control read; L and O read, next steps and a quick guide for a new agent in RESUME). Keep this file current: update it whenever a step starts or finishes._
 
 Earlier history is archived verbatim: up to 2026-10-10 evening (session
 notes, step results, the first decisions log) in
@@ -107,8 +107,8 @@ single reference species. Work is on `browser-sim-m1`, merged to `main`
     1.001, specular walls; 36 rows (32 + four activity rows); k 13.
     Implemented and committed (`3a98e86`). Gates at the start point: window
     all pass (28 seeds); dt all pass after a last doubled-seed batch for
-    `runStill.P10.forager` and `persist.forager` (15:18). **Fit (≈ 28 h on
-    the box) waits for the user's go-ahead.**
+    `runStill.P10.forager` and `persist.forager` (15:18). **Fit running** on the box
+    since 15:20 (`c2fit-20261018T152000Z`, ≈ 28 h; user's go-ahead).
     - A **per-ant latent activity state** (independent slow OU walk-on
       multiplier, SD 1 on the log scale, τ 60 s): **comparison L (14:35)
       supports a variability effect in both matched contrasts** — mean-one
@@ -3066,3 +3066,14 @@ positions and modes (diagnostic, **not adoptable**), all arms on the
   - **All C2 numerical gates now pass at the start point** (dt 0.05 vs 0.025 on 36 rows; window: motion 6 h and
     activity 2–8 h vs 8–14 h). Settings unchanged: phase 1 dt 0.1, phase 2 and judging dt 0.05.
   - **Next: the C2 fit (≈ 28 h on the box, 01:59 / 03:47 budget), on the user's go-ahead only.**
+- **2026-10-18 ≈ 15:20 UTC — User: go-ahead for the C2 fit; launched.** `npx vite-node scripts/fitS2018.ts
+  --candidate C2` (defaults = the approved design: phase 1 dt 0.1, 2 h + 6 h, both starts side by side, ≤ 30
+  generations each, C1's switching rule otherwise; selection batch; phase 2 dt 0.05, 2 h + 6 h, σ 0.5, ≤ 60
+  generations, tolX 0.03, from the better selected start only; estimate = mean of the last 20 generation means; no
+  extension or restart, enforced by the script). Writes `data/fits/s2018-motion-c2.json`, checkpoint
+  `logs/fitS2018-c2.ckpt.json`, log `logs/c2/fit.log` (box). `run.sh` run `c2fit-20261018T152000Z`
+  (`scripts/scratch/box/run-c2fit.sh`); box idle; all 209 simulation, script, fit and reference files
+  checksum-identical to the local tree at `544e823`; no earlier C2 checkpoint or output. Projected ≈ 28 h.
+  - Monitoring: run state only (`npm run runs -- --box`), hourly. The fit's log is fit-role data; judging stays
+    the fixed whole-model judgment (01:41 / 01:43) on fresh seeds after the fit, nothing read from the log is used
+    for any choice.
