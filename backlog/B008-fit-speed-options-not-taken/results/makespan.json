@@ -1,0 +1,125 @@
+{
+  "provenance": {
+    "simHash": "baf4cb0b4b513531",
+    "commit": "06fef626e92e182ce54915dca8f84ff99f3ecf8c",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [],
+    "date": "2026-10-18T04:41:44.992Z",
+    "item": "B008-fit-speed-options-not-taken",
+    "depends": {
+      "scripts/fitM1999.ts": "be3b5bd7ba4fa05d",
+      "scripts/m1999Points.ts": "d184a9463ee8f158",
+      "scripts/pool.ts": "d7247ddcbdd5f087",
+      "src/sim/parallel/tasks.ts": "8c31dfd02efe5aae",
+      "src/sim/experiments/colonyMailleux1999.ts": "19efb7bc6d147332"
+    }
+  },
+  "assumptions": {
+    "workers": 62,
+    "lambda": 9,
+    "recruitersPerDayPerEval": 80,
+    "days": 3,
+    "note": "Local single-core task times; a slower box core scales all designs equally. Pilot nest motion: indicative only."
+  },
+  "warmupShares": [
+    {
+      "point": "start 1",
+      "day": "1",
+      "nestmates": 23,
+      "warmupShareOfIndependent": 0.6057851239669422,
+      "loadMs": 49,
+      "sharedSavingVsIndependent": 1.5936779716825813
+    },
+    {
+      "point": "start 1",
+      "day": "8",
+      "nestmates": 23,
+      "warmupShareOfIndependent": 0.5407407407407407,
+      "loadMs": 4.666666666666667,
+      "sharedSavingVsIndependent": 1.6090584028605481
+    },
+    {
+      "point": "start 2",
+      "day": "1",
+      "nestmates": 53,
+      "warmupShareOfIndependent": 0.5325946445060019,
+      "loadMs": 25,
+      "sharedSavingVsIndependent": 2.180829641562626
+    },
+    {
+      "point": "start 2",
+      "day": "8",
+      "nestmates": 53,
+      "warmupShareOfIndependent": 0.6752622377622378,
+      "loadMs": 4,
+      "sharedSavingVsIndependent": 2.067781292363308
+    }
+  ],
+  "dtScaling": [
+    {
+      "label": "start 1",
+      "dt02vs01": 0.6175781250000001,
+      "dt005vs01": 1.9042968750000002
+    },
+    {
+      "label": "start 2",
+      "dt02vs01": 0.5506956260634571,
+      "dt005vs01": 2.3258933039735763
+    }
+  ],
+  "designs": {
+    "independent": {
+      "tasksPerEval": 240,
+      "tasksPerGen": 2160,
+      "medianMakespanS": 22.494689132836182,
+      "meanWorkS": 22.491112951921146,
+      "meanTaskMs": 629.625,
+      "totalWorkPerGenS": 1359.99,
+      "lowerBound62S": 21.93532258064516
+    },
+    "sharedPerNest4": {
+      "tasksPerEval": 60,
+      "tasksPerGen": 540,
+      "medianMakespanS": 12.774154149685288,
+      "meanWorkS": 12.775465148618254,
+      "meanTaskMs": 1315.4166666666665,
+      "totalWorkPerGenS": 710.3249999999999,
+      "lowerBound62S": 11.456854838709676
+    },
+    "screenHalfRecruiters": {
+      "tasksPerEval": 120,
+      "tasksPerGen": 1080,
+      "medianMakespanS": 11.581014036930167,
+      "meanWorkS": 11.577226556218031,
+      "meanTaskMs": 629.625,
+      "totalWorkPerGenS": 679.995,
+      "lowerBound62S": 10.96766129032258
+    },
+    "screenTwoDays": {
+      "tasksPerEval": 160,
+      "tasksPerGen": 1440,
+      "medianMakespanS": 15.22891374484892,
+      "meanWorkS": 15.225847543086577,
+      "meanTaskMs": 629.625,
+      "totalWorkPerGenS": 906.66,
+      "lowerBound62S": 14.623548387096774
+    },
+    "screenHalfShared": {
+      "tasksPerEval": 30,
+      "tasksPerGen": 270,
+      "medianMakespanS": 6.894997774438933,
+      "meanWorkS": 6.89051300436425,
+      "meanTaskMs": 1315.4166666666665,
+      "totalWorkPerGenS": 355.16249999999997,
+      "lowerBound62S": 5.728427419354838
+    }
+  },
+  "multiFidelity": {
+    "dt02Factor": [
+      0.6175781250000001,
+      0.5506956260634571
+    ],
+    "comment": "dt 0.2 task time / dt 0.1 task time, measured; combining dt 0.2 with half recruiters multiplies the factors."
+  }
+}

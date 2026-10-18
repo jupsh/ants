@@ -1,0 +1,264 @@
+{
+  "provenance": {
+    "simHash": "baf4cb0b4b513531",
+    "commit": "06fef626e92e182ce54915dca8f84ff99f3ecf8c",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [],
+    "date": "2026-10-18T04:38:15.345Z",
+    "item": "B008-fit-speed-options-not-taken",
+    "depends": {
+      "scripts/fitM1999.ts": "be3b5bd7ba4fa05d",
+      "scripts/m1999Points.ts": "d184a9463ee8f158",
+      "scripts/pool.ts": "d7247ddcbdd5f087",
+      "src/sim/parallel/tasks.ts": "8c31dfd02efe5aae",
+      "src/sim/experiments/colonyMailleux1999.ts": "19efb7bc6d147332"
+    }
+  },
+  "base": {
+    "commitNote": "see provenance",
+    "warmup": 300,
+    "dt": 0.1,
+    "seedBase": 806058058
+  },
+  "points": [
+    {
+      "label": "start 1",
+      "density": 1,
+      "nestmates": 23,
+      "days": {
+        "1": {
+          "warmupAlone": {
+            "n": 3,
+            "mean": 244.33333333333334,
+            "median": 217,
+            "min": 211,
+            "max": 305,
+            "sum": 733
+          },
+          "recruiterLoad": {
+            "n": 3,
+            "mean": 49,
+            "median": 31,
+            "min": 10,
+            "max": 106,
+            "sum": 147
+          },
+          "independent": {
+            "n": 6,
+            "mean": 403.3333333333333,
+            "median": 420,
+            "min": 351,
+            "max": 445,
+            "sum": 2420
+          },
+          "sharedNest4": {
+            "n": 3,
+            "mean": 1012.3333333333334,
+            "median": 926,
+            "min": 921,
+            "max": 1190,
+            "sum": 3037
+          },
+          "sharedPerRecruiterMs": [
+            230.25,
+            231.5,
+            297.5
+          ],
+          "staySeconds": {
+            "n": 6,
+            "mean": 170.83333333333334,
+            "median": 192.70000000000005,
+            "min": 105.30000000000001,
+            "max": 231.39999999999998,
+            "sum": 1025
+          }
+        },
+        "8": {
+          "warmupAlone": {
+            "n": 3,
+            "mean": 243.33333333333334,
+            "median": 226,
+            "min": 225,
+            "max": 279,
+            "sum": 730
+          },
+          "recruiterLoad": {
+            "n": 3,
+            "mean": 4.666666666666667,
+            "median": 5,
+            "min": 4,
+            "max": 5,
+            "sum": 14
+          },
+          "independent": {
+            "n": 6,
+            "mean": 450,
+            "median": 468,
+            "min": 367,
+            "max": 551,
+            "sum": 2700
+          },
+          "sharedNest4": {
+            "n": 3,
+            "mean": 1118.6666666666667,
+            "median": 961,
+            "min": 883,
+            "max": 1512,
+            "sum": 3356
+          },
+          "sharedPerRecruiterMs": [
+            240.25,
+            378,
+            220.75
+          ],
+          "staySeconds": {
+            "n": 6,
+            "mean": 187.45000000000002,
+            "median": 192.40000000000003,
+            "min": 116.20000000000005,
+            "max": 284.20000000000005,
+            "sum": 1124.7
+          }
+        }
+      },
+      "dtScaling": {
+        "0.2": {
+          "n": 2,
+          "mean": 263.5,
+          "median": 278,
+          "min": 249,
+          "max": 278,
+          "sum": 527
+        },
+        "0.05": {
+          "n": 2,
+          "mean": 812.5,
+          "median": 822,
+          "min": 803,
+          "max": 822,
+          "sum": 1625
+        }
+      }
+    },
+    {
+      "label": "start 2",
+      "density": 2.3,
+      "nestmates": 53,
+      "days": {
+        "1": {
+          "warmupAlone": {
+            "n": 3,
+            "mean": 480.6666666666667,
+            "median": 466,
+            "min": 457,
+            "max": 519,
+            "sum": 1442
+          },
+          "recruiterLoad": {
+            "n": 3,
+            "mean": 25,
+            "median": 9,
+            "min": 2,
+            "max": 64,
+            "sum": 75
+          },
+          "independent": {
+            "n": 6,
+            "mean": 902.5,
+            "median": 969,
+            "min": 589,
+            "max": 1208,
+            "sum": 5415
+          },
+          "sharedNest4": {
+            "n": 3,
+            "mean": 1655.3333333333333,
+            "median": 1680,
+            "min": 1372,
+            "max": 1914,
+            "sum": 4966
+          },
+          "sharedPerRecruiterMs": [
+            343,
+            478.5,
+            420
+          ],
+          "staySeconds": {
+            "n": 6,
+            "mean": 185.4333333333333,
+            "median": 216.80000000000007,
+            "min": 24.100000000000023,
+            "max": 387.5,
+            "sum": 1112.6
+          }
+        },
+        "8": {
+          "warmupAlone": {
+            "n": 3,
+            "mean": 515,
+            "median": 510,
+            "min": 494,
+            "max": 541,
+            "sum": 1545
+          },
+          "recruiterLoad": {
+            "n": 3,
+            "mean": 4,
+            "median": 4,
+            "min": 4,
+            "max": 4,
+            "sum": 12
+          },
+          "independent": {
+            "n": 6,
+            "mean": 762.6666666666666,
+            "median": 794,
+            "min": 642,
+            "max": 859,
+            "sum": 4576
+          },
+          "sharedNest4": {
+            "n": 3,
+            "mean": 1475.3333333333333,
+            "median": 1370,
+            "min": 1368,
+            "max": 1688,
+            "sum": 4426
+          },
+          "sharedPerRecruiterMs": [
+            342.5,
+            342,
+            422
+          ],
+          "staySeconds": {
+            "n": 6,
+            "mean": 91.9666666666667,
+            "median": 96.60000000000002,
+            "min": 52.60000000000002,
+            "max": 134.70000000000005,
+            "sum": 551.8000000000002
+          }
+        }
+      },
+      "dtScaling": {
+        "0.2": {
+          "n": 2,
+          "mean": 458.5,
+          "median": 475,
+          "min": 442,
+          "max": 475,
+          "sum": 917
+        },
+        "0.05": {
+          "n": 2,
+          "mean": 1936.5,
+          "median": 2388,
+          "min": 1485,
+          "max": 2388,
+          "sum": 3873
+        }
+      }
+    }
+  ]
+}
