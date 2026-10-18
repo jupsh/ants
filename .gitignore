@@ -10,6 +10,8 @@ data/stroeymeyt2018/
 logs/
 
 .cache/papers/
+.cache/paper-img/
+.cache/tessdata/
 
 # Backlog: claims are per-checkout locks; bulky outputs stay local (see CLAUDE.md)
 backlog/*/.claim/

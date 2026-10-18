@@ -2,10 +2,22 @@
   "about": "Papers cleared for full-text reading. Only these live in literature/; every other PDF stays in ~/ants-literature/held/ (outside the repo, blocked for agents) until a logged decision clears the whole paper. Roles are defined by STATUS.md § Evidence policy; this file only pins the reviewed bytes. Never update a hash to silence a mismatch.",
   "papers": [
     {
+      "file": "Ame2006_PNAS103-5835_shelter-choice-social-amplification.pdf",
+      "sha256": "0774f5a24a95506dd240f19d958f4f27f4d8fc492c29a79e97c648470672eb2d",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
+    },
+    {
       "file": "AugerHansen2005_CEC2005-1769_IPOP-CMA-ES.pdf",
       "sha256": "67e91cca499d21c7fbd757f857aca24742788392b77abfa26a3d9c5b61a157b3",
       "role": "methods",
       "cleared": "docs/archive/STATUS-2026-10-10-night.md: 2026-10-10 night — papers supplied; read in full, methods only (no ant data)."
+    },
+    {
+      "file": "Boi1999_ProcRSocB266-371_activity-waves.pdf",
+      "sha256": "1a246126bf188768680cac2a76fbe2b6fcfbe91ab01474d320dc7fc556799734",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
     },
     {
       "file": "Buffin2011_InsectSoc58-177_trophallaxis-frequency-duration.pdf",
@@ -26,6 +38,12 @@
       "cleared": "docs/STATUS.md: Evidence policy, literature check 2026-10-16 — read in full; hypotheses only, no parameters imported."
     },
     {
+      "file": "Cole1991_AmNat137-244_short-term-activity-cycles.pdf",
+      "sha256": "eae37a622e3759ead62ad352af1e2bd14a97615f987825229423c914209eb131",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
+    },
+    {
       "file": "Crosscombe2026_Entropy28-451_dwell-time-transitions.pdf",
       "sha256": "b544e1387ab8f30ed76165b244dcfd50761132363384f3808ad223ab11833956",
       "role": "development-other-species",
@@ -36,6 +54,30 @@
       "sha256": "28c0c2d001e2aba66059338977d1ee677ff722f5e356653335c24a8ecf5fd9b5",
       "role": "parameter-and-structure-source",
       "cleared": "docs/research/encounters-aggregation.md: user decision 2026-10-10 night; read in full, not a test."
+    },
+    {
+      "file": "Depickere2004jib_JInsectBehav17-81_aggregation-dynamics-mechanisms.pdf",
+      "sha256": "2f753a8fbf4d7527e4a50642093bfde48321174cdb2cd4f8f824f3c6af494bcc",
+      "role": "parameter-and-structure-source",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); L. niger; read in full, never a test."
+    },
+    {
+      "file": "Depickere2004light_JInsectPhysiol50-629_red-light-aggregation.pdf",
+      "sha256": "30ad854eda7afd13d1cf2edaef101ac4ed87c60970918dd2e93b88d4ef4058db",
+      "role": "parameter-and-structure-source",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); L. niger; read in full, never a test."
+    },
+    {
+      "file": "Depickere2004mark_InsectSoc51-243_resting-site-marking.pdf",
+      "sha256": "75e1e5be451e75f3c316fc38035b875477ca81dc85f389bb4cc9900b8c82f4c5",
+      "role": "parameter-and-structure-source",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); L. niger; read in full, never a test."
+    },
+    {
+      "file": "FranksSendovaFranks1992_BehavEcolSociobiol30-109_brood-sorting.pdf",
+      "sha256": "bfe32b0fbb1a26a9e1c5050137c9a6ef5fa397914f20760abbaba86cf2177be2",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
     },
     {
       "file": "GallottiChialvo2018_JRSocInterface15-20180223_how-ants-move.pdf",
@@ -50,10 +92,34 @@
       "cleared": "docs/STATUS.md: Evidence policy, user 2026-10-11 — read in full; never a target or test; E6 choices limited to logged step-5 priors."
     },
     {
+      "file": "Heyman2017_NatCommun8-15414_chemical-road-signs.pdf",
+      "sha256": "f36d2be3e975382db85a55a1344972d9f37e190d4e51f7b7a3e79f64827987de",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
+    },
+    {
+      "file": "Jeanson2005_AnimBehav69-169_cockroach-aggregation.pdf",
+      "sha256": "ba56da40d3aba1d8eff29f3fc3ea43ddb722327adafe6fe0777247bd622a47ff",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
+    },
+    {
+      "file": "LenoirAtaya1983_ZTierpsychol63-213_polyethism-activity-levels.pdf",
+      "sha256": "734441d90df63326a39c500b1972bb46117458c879aa42a74d020d419edd4383",
+      "role": "development",
+      "cleared": "docs/STATUS.md: Evidence policy, Lenoir & Ataya 1983 role confirmed 2026-10-16 (DEVELOPMENT; full reading for hypotheses and mechanisms, no calibration target or validation claim); moved in 2026-10-18 ≈ 16:00. Scanned, no text layer."
+    },
+    {
       "file": "Mailleux2000_AnimBehav59-1061_how-do-ants-assess-food-volume.pdf",
       "sha256": "95c943468294af19a518e45426cc3c76a9911ede74f89fef7be61dfa8edf3f0e",
       "role": "development",
       "cleared": "docs/STATUS.md: Evidence policy, E2 — read in full 2026-10-09; no longer held-out."
+    },
+    {
+      "file": "Mersch2013_Science340-1090_spatial-fidelity.pdf",
+      "sha256": "1cab75ef76791db875429bb90c0ab68633898f7a56103060fe9924ac7a43619c",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
     },
     {
       "file": "Nicolis2005_AnimBehav69-535_aggregates-interaction-rate.pdf",
@@ -66,6 +132,12 @@
       "sha256": "fe63af7468a20a40ef76ef4e6afa10adb3775cfeb4c9ef996b7e6dfa735d8f70",
       "role": "methods",
       "cleared": "docs/archive/STATUS-2026-10-10-night.md: 2026-10-10 night — papers supplied; read in full, methods only (no ant data)."
+    },
+    {
+      "file": "SendovaFranksFranks1995_AnimBehav50-121_spatial-relationships-in-nests.pdf",
+      "sha256": "7aff33ac370d05c47aa0af987470c2ac518274bf8abde957de0dd8aa7887af59",
+      "role": "development-other-species",
+      "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
     }
   ]
 }
