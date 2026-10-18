@@ -3,5 +3,8 @@
 
 | id | status | title | outcome |
 |---|---|---|---|
+| [B002](B002-dt-dependence-of-contacts-and-stay/README.md) | dropped | dt dependence of contacts and stay | Superseded: measured on the pilot nest model, which step 4/5 replace; Plan step 6 gates dt at the step-5 optimum. |
+| [B003](B003-leavecropfrac-and-nestmate-departures/README.md) | dropped | leaveCropFrac and nestmate departures | Merged: the 1999 side (Table 2b, G3) into B001; E6's leaveCropFrac sensitivity is Plan step 9, not backlog. |
+| [B008](B008-fit-speed-options-not-taken/README.md) | done | Fit-speed options for the step-5 Mailleux fit | Shared warm-ups (--perNest 4) are the biggest certain saving (measured 1.6-2.2x; warm-up is 53-68% of a recruiter run); multi-fidelity and screening are second-round, snapshots need B013. |
 | [B009](B009-e2-volume-estimate-clipping-at-zero/README.md) | done | E2 volume-estimate clipping at zero | At the fixed main fit, zero clipping raises drop-2 intake by 0.055 µL (2.17 data SE); no direct source for this rule was found. |
 | [B012](B012-pheromone-field-grid-convergence/README.md) | done | Pheromone field grid convergence | Mass is conserved, but point-sampled signal does not converge with grid refinement; sub-cell deposits also leave gaps. |

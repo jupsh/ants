@@ -3,7 +3,7 @@ id: B014
 title: Event-driven resting ants in the colony runner
 status: open
 size: L
-priority: 140
+priority: 20
 note:
 outcome:
 depends: data/fits/s2018-tracker.json, data/fits/s2018-trips.json, data/reference/stroeymeyt2018-fit-rows.json, data/reference/stroeymeyt2018-activity-rows.json
@@ -40,8 +40,8 @@ Can in-nest ants that are resting be consulted only at events (a constant-rate w
    on the user's go-ahead.
 
 ## Base
-<At claim: the commit that holds the C2 preparation (ask the user; the C2 code was uncommitted on 2026-10-18
-≈ 04:20), and whether the main-tree files below are dirty: `src/sim/experiments/colonyBles.ts`,
+<At claim: the commit that holds the C2 preparation (committed in `3a98e86`; check that nothing newer is needed),
+and whether the main-tree files below are dirty: `src/sim/experiments/colonyBles.ts`,
 `src/sim/behavior/lasiusNestWorker.ts`, `src/sim/perception/contactPairs.ts`, `src/sim/mind/drive.ts`,
 `src/sim/experiments/colonyStroeymeyt.ts`.>
 

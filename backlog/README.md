@@ -9,15 +9,15 @@ A claim with no progress for 24 h is stale and may be taken over.
 
 | pri | id | status | size | title | claim | last progress |
 |---|---|---|---|---|---|---|
-| 10 | [B001](B001-contact-triggered-leaving-mailleux/README.md) | unscoped | ? | Contact-triggered leaving in the Mailleux colony |  |  |
-| 20 | [B002](B002-dt-dependence-of-contacts-and-stay/README.md) | unscoped | ? | dt dependence of contacts and stay |  |  |
-| 30 | [B003](B003-leavecropfrac-and-nestmate-departures/README.md) | unscoped | ? | leaveCropFrac and nestmate departures |  |  |
-| 40 | [B004](B004-slow-displacement-in-still-periods/README.md) | unscoped | ? | Slow displacement in still periods |  |  |
-| 50 | [B005](B005-entrance-excursions-vs-foraging-trips/README.md) | unscoped | ? | Entrance excursions vs foraging trips |  |  |
-| 60 | [B006](B006-light-dark-trip-location-difference/README.md) | unscoped | ? | Light-dark trip location difference |  |  |
-| 70 | [B007](B007-contact-observer-validation-and-row-4/README.md) | unscoped | ? | Contact observer validation and row 4 |  |  |
-| 80 | [B008](B008-fit-speed-options-not-taken/README.md) | unscoped | ? | Fit speed options not taken |  |  |
-| 100 | [B010](B010-e1-data-orientation-and-axis-tilt/README.md) | blocked | ? | E1 data orientation and axis tilt — *E1 is paused (STATUS); not before it resumes* |  |  |
-| 110 | [B011](B011-e6-bout-end-vs-observed-contact/README.md) | unscoped | ? | E6 bout end vs observed contact |  |  |
-| 130 | [B013](B013-general-save-and-restore-of-sim-state/README.md) | unscoped | ? | General save and restore of sim state |  |  |
-| 140 | [B014](B014-event-driven-resting-ants-in-the-colony/README.md) | open | L | Event-driven resting ants in the colony runner |  |  |
+| 20 | [B014](B014-event-driven-resting-ants-in-the-colony/README.md) | open | L | Event-driven resting ants in the colony runner |  |  |
+| 30 | [B015](B015-literature-values-for-the-step-5-free/README.md) | open | S | Literature values for the step-5 free parameters |  |  |
+| 40 | [B001](B001-contact-triggered-leaving-mailleux/README.md) | open | M | Contacted-nestmate departures (Mailleux 1999 Table 2b, G3) |  |  |
+| 50 | [B005](B005-entrance-excursions-vs-foraging-trips/README.md) | blocked | M | Entrance excursions vs foraging trips (path audit) — *RESUME has the entrance-excursion trip audit on hold; needs the user's go* |  |  |
+| 60 | [B016](B016-candidate-held-out-colony-data-sets/README.md) | blocked | S | Candidate held-out colony data sets — *the user sets the survey's exposure rules (what may be read) and approves web search first* |  |  |
+| 70 | [B007](B007-contact-observer-validation-and-row-4/README.md) | blocked | L | Stroeymeyt contact observer: write it and validate it against the authors' tool — *needs the user: paper not cleared, GPL tool set-up, agreement criterion in STATUS* |  |  |
+| 80 | [B013](B013-general-save-and-restore-of-sim-state/README.md) | open | M | Save and restore of colony state across processes |  |  |
+| 90 | [B006](B006-light-dark-trip-location-difference/README.md) | open | S | Light/dark contrasts the nest model lacks |  |  |
+| 100 | [B004](B004-slow-displacement-in-still-periods/README.md) | open | M | Form of the slow displacement in still periods |  |  |
+| 110 | [B011](B011-e6-bout-end-vs-observed-contact/README.md) | open | M | E6 bout end vs observed contact |  |  |
+| 130 | [B017](B017-pheromone-field-with-a-physical-sampling/README.md) | open | M | Pheromone field with a physical sampling footprint |  |  |
+| 140 | [B010](B010-e1-data-orientation-and-axis-tilt/README.md) | blocked | S | E1 data orientation and axis tilt — *E1 is paused (STATUS); not before it resumes* |  |  |

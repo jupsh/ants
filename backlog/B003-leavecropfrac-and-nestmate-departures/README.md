@@ -1,53 +1,33 @@
 ---
 id: B003
 title: leaveCropFrac and nestmate departures
-status: unscoped
-size: ?
-priority: 30
+status: dropped
+size: S
+priority: 900
 note:
-outcome:
+outcome: Merged: the 1999 side (Table 2b, G3) into B001; E6's leaveCropFrac sensitivity is Plan step 9, not backlog.
+depends:
 ---
 # B003 — leaveCropFrac and nestmate departures
 
 <!-- Frontmatter is the item's state; README.md (open index) and CLOSED.md are generated
 from it (`node backlog/backlog.mjs`). size: S | M | L. note: one line
 shown in the index (e.g. why blocked). outcome: one line, when done/dropped.
+depends: comma-separated paths the results depend on beyond simHash's inputs
+(e.g. data/fits/s2018-tracker.json); see _lib/stamp.ts.
 The claim is the `.claim/` folder, made by `backlog.mjs claim`. -->
 
-Source: STATUS § Open problems and backlog (seeded 2026-10-18)
+Source: STATUS § Open problems and backlog (seeded 2026-10-18).
 
 ## Question
 What is leaveCropFrac's effect on nestmate departures (sensitivity, with E6)?
 
-## Why it matters
-<What would change, for which part of the project, depending on the answer.>
-
-## Done when
-<A concrete end point: a number, a comparison, a yes/no.>
-
-## Base
-<At claim: commit, and whether the main-tree files this item depends on are
-dirty in the working tree.>
-
-## Data and roles
-<Each data set touched and its role (STATUS § Evidence policy). Held-out: none.
-Development data inspected → say so here and get a contamination-log entry in
-STATUS.>
-
-## Compute
-<What runs where, roughly how long, how many workers; niced; never slowing a
-main-line run.>
-
-## Out of scope
-<What this item will not do, so it stays small.>
-
 ## Progress log
-<!-- Newest last, a few lines each: what was done, the command, and the result
-in numbers. Long output goes in results/ and is linked. Before each run, state
-what each outcome would mean. Past ~300 lines in this file, move older entries
-to LOG.md (same format); Findings stay here. -->
 
 ## Findings
-<When done: the answer in a few sentences; evidence (paths in this folder);
-confidence and caveats; what it implies; suggested next steps or new items. A
-change the main code needs goes in this folder as `proposal.patch`.>
+Dropped without a run by the lead agent on 2026-10-18, as a duplicate.
+- **The 1999 side.** `leaveCropFrac` largely explains why contacted nestmates almost never leave after receiving
+  food (G3, STATUS 2026-10-10). That is the same question as B001, which now covers it: a `leaveCropFrac` scan
+  against Table 2b (development) and Table 2a (fit).
+- **The E6 side.** The sensitivity "with E6" is Plan step 9 (E6 preparation, `leaveCropFrac` sensitivity), so it
+  is not backlog (PROTOCOL: steps of the Plan). Running it earlier would look at E6 before its pre-registered run.
