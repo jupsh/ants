@@ -29,7 +29,9 @@
  * the four activity rows), τ 60 s and specular walls fixed. Phase 1 observes
  * 6 h (the activity rows need a 6-h window) at dt 0.1, at most 30
  * generations per start; phase 2 at most 60 generations from the better
- * selected start only (C1's conditional second full fit removed). No
+ * selected start only (C1's conditional second full fit removed). In both
+ * phases the probe's SDs are rescaled so the largest is at the cap (D070:
+ * C2's probes had none there, so the axis switch held at generation 0). No
  * extension or restart. Writes data/fits/s2018-motion-c2.json by default.
  *
  *   npx vite-node scripts/fitS2018.ts [--candidate C1|C2] [--gens 60] [--warmup 7200] [--obs 21600] [--dt 0.05]
@@ -45,7 +47,7 @@ import type { StroeymeytRunOptions } from '../src/sim/experiments/colonyStroeyme
 import { S2018_C2_FIXED, s2018AtBound, s2018BoundReading, s2018Free, s2018Loss, s2018Values, type S2018Free } from '../src/sim/experiments/stroeymeytTargets';
 import { arg, loadCheckpointRaised, numArg, provenance, saveCheckpoint, seedFor, writeJson } from './lib';
 import { SimPool } from './pool';
-import { C2_DRIVE_START, colonyFromData, loadS2018, loadTrips, s2018RunExtras, S2018_START, S2018_TRACKER, s2018Params, s2018TargetsFor, simulateAll } from './s2018Lib';
+import { C2_DRIVE_START, colonyFromData, loadS2018, loadTrips, s2018RunExtras, S2018_START, S2018_TRACKER, s2018Params, s2018TargetsFor, scaleProbeToCap, simulateAll } from './s2018Lib';
 
 const CAND = arg('--candidate', 'C1') as 'C1' | 'C2';
 if (CAND !== 'C1' && CAND !== 'C2') throw new Error(`--candidate ${CAND}: C1 or C2`);
@@ -95,9 +97,9 @@ const PROVENANCE = provenance();
 const CKPT = `logs/fitS2018${NAME ? `-${NAME}` : ''}.ckpt.json`;
 // The observer (frozen tracker file) is part of the key: simHash covers src/sim only.
 const TRACKER_SHA = createHash('sha256').update(fs.readFileSync(S2018_TRACKER)).digest('hex');
-const CKPT_KEY = { simHash: PROVENANCE.simHash, tracker: TRACKER_SHA, design: 'two-phase 2026-10-15', GENS, WARMUP, OBS, DT, C_DT, C_WARMUP, C_OBS, C_LOSS, C_GENS, OUT_RATE, EXPLORE, EXPLORE_SD, RUNS, TAG, ...(C2 ? { candidate: 'C2 2026-10-18' } : {}) };
-interface Run { key: string; label: string; phase: 1 | 2; start: number; x0: number[]; initialSds: number[]; sigma0: number; generations: number; evals: number; finalSigma: number; avgWindow: number; meanDrift: number[]; stopReason: string; converged: boolean; gamma: number[] | null; x: number[]; f: number; estimate: Record<string, number> }
-interface Ckpt { done: Run[]; current: Record<string, { stds: number[]; cma: CmaState | null }>; evals: number; seconds: number; gensRaised?: { from: number; to: number; at: string }[] }
+const CKPT_KEY = { simHash: PROVENANCE.simHash, tracker: TRACKER_SHA, design: 'two-phase 2026-10-15', GENS, WARMUP, OBS, DT, C_DT, C_WARMUP, C_OBS, C_LOSS, C_GENS, OUT_RATE, EXPLORE, EXPLORE_SD, RUNS, TAG, ...(C2 ? { candidate: 'C2 2026-10-18', probeScale: 'largest SD at the cap (D070)' } : {}) };
+interface Run { key: string; label: string; phase: 1 | 2; start: number; x0: number[]; initialSds: number[]; probeSds?: number[]; sigma0: number; generations: number; evals: number; finalSigma: number; avgWindow: number; meanDrift: number[]; stopReason: string; converged: boolean; gamma: number[] | null; x: number[]; f: number; estimate: Record<string, number> }
+interface Ckpt { done: Run[]; current: Record<string, { stds: number[]; probeSds?: number[]; cma: CmaState | null }>; evals: number; seconds: number; gensRaised?: { from: number; to: number; at: string }[] }
 // The phase-2 cap may be raised on resume (C1: 30 → 60, user 2026-10-16), never lowered, and only before
 // any phase-2 run has finished; everything else in the key must match. maxGenerations is only cmaes's loop
 // bound, so the resumed run is the run it would have been with the higher cap from the start.
@@ -148,13 +150,15 @@ const one = async (phase: 1 | 2, start: number, x0: number[]): Promise<Run> => {
   }
   const o = phase === 1 ? CHEAP : FULL;
   const cur = ck.current[key];
-  const stds = cur?.stds ?? (await probe(x0, o, (i) => sf('probe', phase, start, i)));
+  // C2: the probe's SDs rescaled so the largest is at the cap (D070); C1 uses them as probed.
+  const probeSds = cur ? (cur.probeSds ?? cur.stds) : await probe(x0, o, (i) => sf('probe', phase, start, i));
+  const stds = cur?.stds ?? (C2 ? scaleProbeToCap(probeSds, PROBE_CAP) : probeSds);
   if (!cur) {
-    ck.current[key] = { stds, cma: null };
+    ck.current[key] = { stds, ...(C2 ? { probeSds } : {}), cma: null };
     save();
   }
   const sigma0 = phase === 1 ? 1 : P2_SIGMA;
-  console.log(`${label}: initial SDs ${stds.map((v) => v.toFixed(2)).join(' ')}, σ ${sigma0}${cur ? ` (checkpoint; resuming at generation ${cur.cma?.generation ?? 0})` : ''}`);
+  console.log(`${label}: initial SDs ${stds.map((v) => v.toFixed(2)).join(' ')}, σ ${sigma0}${C2 ? ` (probe's largest ${Math.max(...probeSds).toFixed(3)}, scaled to the cap ${PROBE_CAP})` : ''}${cur ? ` (checkpoint; resuming at generation ${cur.cma?.generation ?? 0})` : ''}`);
   let tg = Date.now();
   const r = await cmaes((x, g) => evalAt(decode(x), o, (i) => sf('fit', phase, start, g, i)), x0, {
     sigma: sigma0,
@@ -180,7 +184,7 @@ const one = async (phase: 1 | 2, start: number, x0: number[]): Promise<Run> => {
   evals += r.evals;
   const f = await score(r.meanAvg);
   console.log(`${label}: ${r.generations} generations, ${r.evals} evaluations, stop ${r.stopReason}, final σ ${r.sigma.toFixed(3)}; selection-batch loss ${f.toFixed(2)}`);
-  const out: Run = { key, label, phase, start, x0, initialSds: stds, sigma0, generations: r.generations, evals: r.evals, finalSigma: r.sigma, avgWindow: r.avgWindow, meanDrift: r.meanDrift, stopReason: r.stopReason, converged: r.stopReason === 'tolX', gamma: r.gamma ?? null, x: r.meanAvg, f, estimate: decode(r.meanAvg) };
+  const out: Run = { key, label, phase, start, x0, initialSds: stds, ...(C2 ? { probeSds } : {}), sigma0, generations: r.generations, evals: r.evals, finalSigma: r.sigma, avgWindow: r.avgWindow, meanDrift: r.meanDrift, stopReason: r.stopReason, converged: r.stopReason === 'tolX', gamma: r.gamma ?? null, x: r.meanAvg, f, estimate: decode(r.meanAvg) };
   ck.done.push(out);
   delete ck.current[key];
   save();
@@ -230,6 +234,7 @@ writeJson(OUT, {
     method: 'CMA-ES, two phases (STATUS 2026-10-15)',
     phase1: { window: { warmup: C_WARMUP, obs: C_OBS, dt: C_DT }, stop: `best < ${C_LOSS}, largest axis < ${C_AXIS}, ${C_GENS} generations or tolX`, averageLast: C_AVERAGE, starts: RUNS, note: 'search only; never reported as fit quality' },
     phase2: { sigma: P2_SIGMA, maxGenerations: GENS, ...(ck.gensRaised ? { maxGenerationsRaised: ck.gensRaised } : {}), tolX: TOLX, averageLast: AVERAGE_LAST, second: C2 ? 'none (user D6)' : `other start if selection loss within ${SECOND_WITHIN * 100} % and > ${SECOND_DIST} box units apart` },
+    ...(C2 ? { probeScale: `probe SDs rescaled so the largest is ${PROBE_CAP}, both phases (D070); raw in runDetails[].probeSds` } : {}),
     boundHandling: `Mod-BCH, box [0, ${BOX}], tolUpSigma 20`,
   },
   evals,

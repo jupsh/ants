@@ -31,9 +31,15 @@ Keep this file to the current state; past about 1,000 lines, trim RESUME rather 
 2026-10-18 ≈ 12:48 UTC). What is known, with its evidence: `findings/README.md`. Why and when:
 `docs/log/README.md`. This block holds only the state, what happens next and the open decisions.
 
-- **Now: the C2 motion fit is running** on the box (`c2fit-20261018T152000Z`, since 2026-10-18 15:20 UTC,
-  ≈ 28 h, so until about 2026-10-19 19:00; D055). Monitor run state only (`npm run runs -- --box`), hourly;
-  nothing read from its log is used for any choice.
+- **Now: the C2 fit is running again** (`c2fit-20261018T210632Z`, since 2026-10-18 21:06 UTC, ≈ 28 h, so until
+  about 2026-10-20 01:00; D070 approved, D071). `run.sh` shows it `quiet` (the wrapper's log is silent): use
+  the D068 counts-only check. The first run
+  (`c2fit-20261018T152000Z`, D055) was killed after ≈ 5.7 h (D069): phase 1 did no search, both starts stopping
+  after 1 generation on the axis switch (σ × largest probe SD ≈ 0.06 / 0.04 < 0.25, met from the start; D068,
+  user-requested blind checks). D070: C2's probe SDs rescaled so the largest is at the 0.5 cap, both phases (the
+  identity on C1's probes); everything else as D055; fresh start. Monitor run state and the D068 counts only,
+  hourly; nothing read from its log is used for any choice. D070's reproduction check passed (largest raw
+  probe SD 0.068 / 0.039, as before; D071).
   - **C2** = C1 + a per-ant OU activity drive (τ 60 s, free σ per role), restShape ≥ 1.001, specular walls; 36
     rows (32 motion + 4 activity), k 13 (D041–D045; F006, F032). All numerical gates pass at the start point
     (F010).

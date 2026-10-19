@@ -138,6 +138,15 @@ const activityTargets = () => {
 export const s2018RunExtras = (candidate: 'C1' | 'C2'): Partial<StroeymeytRunOptions> => (candidate === 'C2' ? { activityHours: [0] } : {});
 
 /**
+ * C2's probe scale (D070): the probe's SDs rescaled so the largest equals the cap, keeping their ratios; unchanged
+ * when the largest is already at the cap (all three of C1's probes). The axis switch and tolX assume that scale.
+ */
+export function scaleProbeToCap(sds: number[], cap: number): number[] {
+  const m = Math.max(...sds);
+  return m >= cap ? sds : sds.map((v) => (v * cap) / m);
+}
+
+/**
  * C2's start points (STATUS 2026-10-18): C1's two starts (restShape 1.4 is inside C2's (1.001, 50] box) with the
  * drive SD per role at 1.0 (start 0; comparison L's level) and 0.3 (start 1), a strong and a weak drive.
  */

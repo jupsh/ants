@@ -9,6 +9,10 @@ Kinds: **decision** a decision (the user's, or delegated); **design** a design o
 
 | id | date | time | kind | entry |
 |---|---|---|---|---|
+| D071 | 2026-10-18 | 21:03 | decision | [User: D070 approved; C2 relaunched on the box](2026-10-18-2103-user-d070-approved-c2-relaunched-on-the.md) |
+| D070 | 2026-10-18 | 21:00 | design | [C2 relaunch design: probe SDs rescaled so the largest is the 0.5 cap, both phases (amendment to D055, for approval)](2026-10-18-2100-c2-relaunch-design-probe-sds-rescaled-so.md) |
+| D069 | 2026-10-18 | 20:59 | decision | [User: stop the C2 fit; fix the phase-1 switch; relaunch after the amended design is approved](2026-10-18-2059-user-stop-the-c2-fit-fix-the-phase-1.md) |
+| D068 | 2026-10-18 | 20:51 | decision | [User: blind health check of the C2 fit (counts only)](2026-10-18-2051-user-blind-health-check-of-the-c2-fit.md) |
 | D067 | 2026-10-18 | 16:42 | note | [RESUME trimmed to state, next steps and open decisions (user: "RESUME looks good")](2026-10-18-1642-resume-trimmed-to-state-next-steps-and.md) |
 | D066 | 2026-10-18 | 16:41 | run | [Record checks in npm test; where-the-record-lives block in STATUS; RESUME trim drafted for the user](2026-10-18-1641-record-checks-in-npm-test-where-the.md) |
 | D065 | 2026-10-18 | 16:36 | run | [STATUS step 2 done: Decisions log and contamination log moved to records](2026-10-18-1636-status-step-2-done-decisions-log-and.md) |
