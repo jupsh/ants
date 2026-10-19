@@ -1,0 +1,180 @@
+/**
+ * B013 prototype: serialise a ColonySim to a JSON string and restore it in
+ * another process so the continuation is bit-identical.
+ *
+ * Generic object-graph encoding, modelled on src/sim/core/clone.ts:
+ * shared references and cycles are preserved (numeric ids), class
+ * instances are restored with their prototype from the registry below,
+ * typed arrays are carried as base64 of their bytes, Maps/Sets as entry
+ * lists, and non-finite numbers / undefined explicitly (JSON loses them).
+ * Anything outside that set fails closed: an unknown class, a symbol key,
+ * an accessor property, a DataView, or a function other than the known
+ * motor (`walkStep`) throws instead of silently dropping state.
+ */
+import { Body } from '../../src/sim/agent/body';
+import { RNG } from '../../src/sim/core/rng';
+import { ColonySim } from '../../src/sim/experiments/colonyBles';
+import { walkStep } from '../../src/sim/models/walk';
+import { Ledger } from '../../src/sim/physics/ledger';
+import { ContactPairCache } from '../../src/sim/perception/contactPairs';
+import { Apparatus } from '../../src/sim/world/apparatus';
+import { ContactGrid } from '../../src/sim/world/contactGrid';
+import { PheromoneField } from '../../src/sim/world/field';
+import { SugarDroplet } from '../../src/sim/world/food';
+import { PathField } from '../../src/sim/world/pathField';
+import { PlaneSurface } from '../../src/sim/world/surface';
+import { World } from '../../src/sim/world/world';
+
+/** Prototypes a snapshot may contain, by constructor name. */
+const PROTOTYPES = new Map<string, object>(
+  [ColonySim, World, Body, RNG, Ledger, SugarDroplet, Apparatus, PlaneSurface, PathField, PheromoneField, ContactGrid, ContactPairCache].map((c) => [c.name, c.prototype]),
+);
+
+/** Functions a snapshot may contain, by name (only the default motor occurs). */
+const FUNCTIONS = new Map<string, (...args: never[]) => unknown>([['walkStep', walkStep as (...args: never[]) => unknown]]);
+
+type Enc =
+  | { t: 'v'; v: null | boolean | string | number }
+  | { t: 'n'; v: 'NaN' | 'Inf' | '-Inf' | '-0' }
+  | { t: 'u' }
+  | { t: 'r'; id: number }
+  | { t: 'a'; id: number; items: Enc[] }
+  | { t: 'o'; id: number; proto: string | null; props: [string, Enc][] }
+  | { t: 'm'; id: number; entries: [Enc, Enc][] }
+  | { t: 's'; id: number; items: Enc[] }
+  | { t: 'ta'; id: number; ctor: string; b64: string }
+  | { t: 'f'; name: string };
+
+function b64encode(bytes: Uint8Array): string {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 8192) s += String.fromCharCode(...bytes.subarray(i, i + 8192));
+  return btoa(s);
+}
+
+function b64decode(b64: string): Uint8Array {
+  const s = atob(b64);
+  const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+  return out;
+}
+
+export function serializeSim(sim: ColonySim): string {
+  const ids = new Map<object, number>();
+  const enc = (v: unknown): Enc => {
+    if (v === undefined) return { t: 'u' };
+    if (v === null || typeof v === 'boolean' || typeof v === 'string') return { t: 'v', v };
+    if (typeof v === 'number') {
+      if (Number.isNaN(v)) return { t: 'n', v: 'NaN' };
+      if (v === Infinity) return { t: 'n', v: 'Inf' };
+      if (v === -Infinity) return { t: 'n', v: '-Inf' };
+      if (Object.is(v, -0)) return { t: 'n', v: '-0' };
+      return { t: 'v', v };
+    }
+    if (typeof v === 'function') {
+      for (const [name, f] of FUNCTIONS) if (v === f) return { t: 'f', name };
+      throw new Error(`serializeSim: unsupported function ${(v as { name?: string }).name ?? 'anonymous'}`);
+    }
+    if (typeof v !== 'object') throw new Error(`serializeSim: unsupported type ${typeof v}`);
+    const seen = ids.get(v);
+    if (seen !== undefined) return { t: 'r', id: seen };
+    const id = ids.size;
+    ids.set(v, id);
+    if (ArrayBuffer.isView(v)) {
+      if (v instanceof DataView) throw new Error('serializeSim: DataView not supported');
+      const ta = v as unknown as { constructor: { name: string }; buffer: ArrayBuffer; byteOffset: number; byteLength: number };
+      return { t: 'ta', id, ctor: ta.constructor.name, b64: b64encode(new Uint8Array(ta.buffer, ta.byteOffset, ta.byteLength)) };
+    }
+    // Index by position, not map: sparse arrays (the contact cache) keep
+    // their length, with holes encoded as undefined (reads are identical).
+    if (Array.isArray(v)) return { t: 'a', id, items: Array.from({ length: v.length }, (_, i) => enc(v[i])) };
+    if (v instanceof Map) return { t: 'm', id, entries: [...v].map(([k, val]) => [enc(k), enc(val)] as [Enc, Enc]) };
+    if (v instanceof Set) return { t: 's', id, items: [...v].map(enc) };
+    const proto = Object.getPrototypeOf(v) as object | null;
+    let protoName: string | null = null;
+    if (proto !== Object.prototype && proto !== null) {
+      protoName = (v as { constructor: { name: string } }).constructor.name;
+      if (!PROTOTYPES.has(protoName)) throw new Error(`serializeSim: unregistered class ${protoName}`);
+    }
+    const props: [string, Enc][] = [];
+    for (const k of Reflect.ownKeys(v)) {
+      if (typeof k !== 'string') throw new Error('serializeSim: symbol key not supported');
+      const d = Object.getOwnPropertyDescriptor(v, k)!;
+      if (!('value' in d)) throw new Error(`serializeSim: accessor property ${k} not supported`);
+      props.push([k, enc(d.value)]);
+    }
+    return { t: 'o', id, proto: protoName, props };
+  };
+  return JSON.stringify({ format: 'b013-colony-v1', root: enc(sim) });
+}
+
+export function restoreSim(json: string): ColonySim {
+  const parsed = JSON.parse(json) as { format: string; root: Enc };
+  if (parsed.format !== 'b013-colony-v1') throw new Error(`restoreSim: bad format ${parsed.format}`);
+  const shells = new Map<number, unknown>();
+  const alloc = (e: Enc): unknown => {
+    switch (e.t) {
+      case 'v':
+        return e.v;
+      case 'n':
+        return e.v === 'NaN' ? NaN : e.v === 'Inf' ? Infinity : e.v === '-Inf' ? -Infinity : -0;
+      case 'u':
+        return undefined;
+      case 'f': {
+        const f = FUNCTIONS.get(e.name);
+        if (!f) throw new Error(`restoreSim: unknown function ${e.name}`);
+        return f;
+      }
+      case 'r': {
+        if (!shells.has(e.id)) throw new Error(`restoreSim: forward reference ${e.id}`);
+        return shells.get(e.id);
+      }
+      case 'ta': {
+        const ctor = (globalThis as Record<string, unknown>)[e.ctor] as new (b: ArrayBuffer) => unknown;
+        if (typeof ctor !== 'function') throw new Error(`restoreSim: unknown typed array ${e.ctor}`);
+        const bytes = b64decode(e.b64);
+        const buf = new ArrayBuffer(bytes.length);
+        new Uint8Array(buf).set(bytes);
+        const ta = new ctor(buf);
+        shells.set(e.id, ta);
+        return ta;
+      }
+      case 'a': {
+        const a: unknown[] = [];
+        shells.set(e.id, a);
+        return a;
+      }
+      case 'm': {
+        const m = new Map();
+        shells.set(e.id, m);
+        return m;
+      }
+      case 's': {
+        const s = new Set();
+        shells.set(e.id, s);
+        return s;
+      }
+      case 'o': {
+        let obj: object;
+        if (e.proto === null) obj = {};
+        else {
+          const p = PROTOTYPES.get(e.proto);
+          if (!p) throw new Error(`restoreSim: unregistered class ${e.proto}`);
+          obj = Object.create(p);
+        }
+        shells.set(e.id, obj);
+        return obj;
+      }
+    }
+  };
+  const fill = (e: Enc): unknown => {
+    const self = alloc(e);
+    if (e.t === 'a') (self as unknown[]).push(...e.items.map(fill));
+    else if (e.t === 'm') for (const [k, val] of e.entries) (self as Map<unknown, unknown>).set(fill(k), fill(val));
+    else if (e.t === 's') for (const item of e.items) (self as Set<unknown>).add(fill(item));
+    else if (e.t === 'o') for (const [k, val] of e.props) Object.defineProperty(self, k, { value: fill(val), enumerable: true, writable: true, configurable: true });
+    return self;
+  };
+  const out = fill(parsed.root) as ColonySim;
+  if (!(out instanceof ColonySim)) throw new Error('restoreSim: root is not a ColonySim');
+  return out;
+}

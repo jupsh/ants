@@ -9,7 +9,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | status | meaning | n |
 |---|---|---|
 | established | a pre-registered reading, read mechanically against its rule | 19 |
-| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 20 |
+| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 27 |
 | literature | reported by a cleared source; not tested here | 8 |
 | hypothesis | our reasoning; untested | 3 |
 | closed | a tested line with no further arms (a negative result) | 6 |
@@ -47,6 +47,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F025](F025-global-coupling-closed.md) | closed | Global (oracle) coupling does not reproduce the synchrony in a usable way; no further κ or τ arms | 2026-10-17 |
 | [F026](F026-weak-spatial-order.md) | indicated | Within activation episodes, spatial ordering from the initiator is weak at best | 2026-10-17 |
 | [F056](F056-waves-from-brood-pile.md) | literature | In Leptothorax, activity waves start at the brood pile (≈ 0.01 cm/s) and returning foragers disrupt the entrance group | 2026-10-18 |
+| [F064](F064-local-co-movement-measured-higher-at-the.md) | indicated | Local co-movement measured higher at the periphery and the entrance than at the resting site, but zones were classed per minute (endogenous to activity): not yet usable | 2026-10-19 |
 
 ## Packing, walls and resting sites
 
@@ -64,6 +65,10 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F052](F052-neighbour-rest-amplification.md) | literature | Rest length grows with the number of neighbours (L. niger brood-tenders: leaving rate a·A^−b) | 2026-10-18 |
 | [F053](F053-red-light-foragers.md) | literature | L. niger foragers aggregate poorly under red light but like brood-tenders in darkness (≈ 80 %) | 2026-10-18 |
 | [F055](F055-jeanson-mixture.md) | literature | Rest durations can be a short/long mixture whose mix depends on neighbours, and moving animals can set resting ones moving (cockroaches) | 2026-10-18 |
+| [F060](F060-the-data-s-resting-region-is-broad-half.md) | indicated | The data's resting region is broad (half-mass radius ≈ 12 mm), colony-specific and fixed over 24 h and light/dark; the queen lies inside it, not at its centre | 2026-10-19 |
+| [F061](F061-in-the-data-neighbours-and-the-site.md) | indicated | In the data, neighbours and the site retain resting ants independently: leaving falls with neighbours (b ≈ 1.07, saturating, mostly by longer rests) and stopping rises with them; bodies keep ≈ 1.5 mm apart with a shell at 2.4 mm | 2026-10-19 |
+| [F062](F062-no-taxis-toward-resting-neighbours.md) | indicated | No taxis toward resting neighbours (moving ants turn slightly away) and no collision-triggered departures once rest age is stratified; site-directed turning is weak | 2026-10-19 |
+| [F063](F063-resting-ants-avoid-the-walls-still-steps.md) | indicated | Resting ants avoid the walls: still steps within 3 mm of the walls are 0.18 [0.10, 0.27] of the area share (the model's wall band ≈ 2.45) | 2026-10-19 |
 
 ## Contacts
 
@@ -108,6 +113,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F042](F042-mailleux-1999-lighting.md) | literature | Mailleux 1999 states no lighting, photoperiod or time of day (22 ± 3 °C) | 2026-10-17 |
 | [F043](F043-step5-nothing-fixable.md) | literature | No step-5 free input is fixable from the cleared literature; density has only a prior range | 2026-10-18 |
 | [F054](F054-option-b-forager-values-wrong-condition.md) | hypothesis | Option B's forager stop values were measured under red light, the wrong condition for a nest that is dark to the ants | 2026-10-18 |
+| [F058](F058-relaxing-leavecropfrac-cannot-give.md) | indicated | Relaxing leaveCropFrac cannot give Mailleux 1999 Table 2b: after-trophallaxis leaving saturates at 13–19 % (data 44–86 %) with no starvation rise; a contact-triggered rule is needed for G3 | 2026-10-19 |
 
 ## E2 (drinking, trail laying)
 
@@ -130,6 +136,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F010](F010-c2-gates-pass.md) | established | All C2 numerical gates pass at the start point (dt 0.05 vs 0.025 on 36 rows; 6-h window) | 2026-10-18 |
 | [F048](F048-fit-speed-shared-warmups.md) | indicated | Shared warm-ups (4 recruiters per nest) are the biggest certain saving for the step-5 fit: 1.6–2.2× | 2026-10-18 |
 | [F049](F049-pheromone-grid-nonconvergence.md) | indicated | The pheromone field conserves mass, but its point-sampled signal does not converge with grid refinement | 2026-10-18 |
+| [F059](F059-a-colonysim-can-be-saved-to-disk-and.md) | indicated | A ColonySim can be saved to disk and restored in another process bit-identically (0.7–1.3 MB, 10–40 ms) | 2026-10-19 |
 
 ## Superseded
 

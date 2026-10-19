@@ -9,6 +9,7 @@ Kinds: **decision** a decision (the user's, or delegated); **design** a design o
 
 | id | date | time | kind | entry |
 |---|---|---|---|---|
+| D072 | 2026-10-19 | 17:01 | review | [Lead review of backlog B001, B013, B018; findings F058–F064; follow-ups B019–B021](2026-10-19-1701-lead-review-of-backlog-b001-b013-b018.md) |
 | D071 | 2026-10-18 | 21:03 | decision | [User: D070 approved; C2 relaunched on the box](2026-10-18-2103-user-d070-approved-c2-relaunched-on-the.md) |
 | D070 | 2026-10-18 | 21:00 | design | [C2 relaunch design: probe SDs rescaled so the largest is the 0.5 cap, both phases (amendment to D055, for approval)](2026-10-18-2100-c2-relaunch-design-probe-sds-rescaled-so.md) |
 | D069 | 2026-10-18 | 20:59 | decision | [User: stop the C2 fit; fix the phase-1 switch; relaunch after the amended design is approved](2026-10-18-2059-user-stop-the-c2-fit-fix-the-phase-1.md) |

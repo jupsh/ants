@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-18 (where-the-record-lives block; record checks in `npm test`). Every change is
+_Last updated: 2026-10-19 (backlog B001, B013, B018 reviewed, D072). Every change is
 dated in `docs/log/`._
 
 **Where the record lives.** One file per record, plain text; `npm test` fails if the record is
@@ -61,9 +61,14 @@ Keep this file to the current state; past about 1,000 lines, trim RESUME rather 
   - the synchrony gate's κ (κ = 1 overshoots the data with foragers coupled, F025);
   - which phase's motion transfers to Mailleux 1999 (lighting not stated, 22 ± 3 °C: F042; temperature
     hypothesis F037);
-  - density: a literature prior only (F043).
-- **Backlog in flight** (`backlog/README.md`): B018 resting site (data side, another agent), B001
-  contacted-nestmate departures (Muse), B006 light/dark (findings written; a lead review note is open).
+  - density: a literature prior only (F043);
+  - nestmate departures (G3): accept or reject B001's contact-triggered leaving rule (`design-note.md`; F058)
+    before the step-5 structure is fixed.
+- **Proposals awaiting the user** (not blocking): B013's `proposal.patch` (colony snapshots across processes,
+  F059; for step-7 warm-ups and checkpoints).
+- **Backlog** (`backlog/README.md`): B001, B013 and B018 done and reviewed (D072; F058–F064). B006 light/dark:
+  findings written, open for the user's phase/cause decision. New, unscoped: B019 (B018's co-movement with zones
+  fixed per ant), B020 (nestmate-only crop gate), B021 (B018's tables on the model, after the C2 reading).
 - **Experiments:**
   - **E1 (walking): paused** since 2026-10-09 (F047); does not block M1.
   - **E2 (drinking, trail laying): provisional.** L0S1c main (`e2-3d-L0S1c.json`), L0S1 alternative

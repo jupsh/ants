@@ -1,0 +1,1092 @@
+{
+  "provenance": {
+    "simHash": "baf4cb0b4b513531",
+    "commit": "ecbb918ce309d3ff3265769a064104776c0dd6b4",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [
+      "--n",
+      "240"
+    ],
+    "date": "2026-10-18T16:29:46.006Z",
+    "item": "B001-contact-triggered-leaving-mailleux",
+    "depends": {
+      "scripts/m1999Points.ts": "d184a9463ee8f158"
+    }
+  },
+  "question": "B001 leaveCropFrac sweep at the pilot optimum",
+  "fit": "data/fits/colony-m1999-main-shared-pilot.json",
+  "seed": 2039978842,
+  "nPerDay": 240,
+  "perNest": 4,
+  "warmup": 900,
+  "dt": 0.025,
+  "density": 0.49510385870165696,
+  "levels": [
+    {
+      "leaveCropFrac": 0.05,
+      "days": {
+        "1": {
+          "seconds": 93.353,
+          "rows": [
+            {
+              "id": "timeInNest.d1",
+              "stat": "timeInNest",
+              "mean": 327.46020833333347,
+              "sd": 338.2800583102333,
+              "n": 240,
+              "seData": 11.17861970287649,
+              "dataMean": 113
+            },
+            {
+              "id": "distance.d1",
+              "stat": "distance",
+              "mean": 10.974073760401414,
+              "sd": 12.856768745284512,
+              "n": 240,
+              "seData": 1.608152308133109,
+              "dataMean": 9.1
+            },
+            {
+              "id": "contacts.d1",
+              "stat": "contacts",
+              "mean": 12.070833333333333,
+              "sd": 12.947883275308678,
+              "n": 240,
+              "seData": 0.9413574486632834,
+              "dataMean": 6.1
+            },
+            {
+              "id": "trophTotal.d1",
+              "stat": "trophTotal",
+              "mean": 253.41541666666788,
+              "sd": 323.56046476449086,
+              "n": 240,
+              "seData": 5.2951356487309695,
+              "dataMean": 57
+            },
+            {
+              "id": "contactsBefore.d1",
+              "stat": "contactsBefore",
+              "mean": 0.9949238578680203,
+              "sd": 1.624108741235164,
+              "n": 197,
+              "seData": 0.5773502691896257,
+              "dataMean": 3
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 330,
+              "left": 23,
+              "prop": 0.0696969696969697
+            },
+            "other": {
+              "n": 989,
+              "left": 266,
+              "prop": 0.268958543983822
+            },
+            "data": {
+              "afterTroph": 0.44,
+              "afterOther": 0.69
+            }
+          }
+        },
+        "4": {
+          "seconds": 122.843,
+          "rows": [
+            {
+              "id": "timeInNest.d4",
+              "stat": "timeInNest",
+              "mean": 519.2321875,
+              "sd": 398.96575131152196,
+              "n": 240,
+              "seData": 5.2,
+              "dataMean": 80
+            },
+            {
+              "id": "distance.d4",
+              "stat": "distance",
+              "mean": 10.790166411341769,
+              "sd": 14.897677841690735,
+              "n": 240,
+              "seData": 0.9800177460682515,
+              "dataMean": 5.9
+            },
+            {
+              "id": "contacts.d4",
+              "stat": "contacts",
+              "mean": 18.825,
+              "sd": 14.576970718012966,
+              "n": 240,
+              "seData": 0.38,
+              "dataMean": 3.3
+            },
+            {
+              "id": "trophTotal.d4",
+              "stat": "trophTotal",
+              "mean": 447.72010416666825,
+              "sd": 391.71843738017685,
+              "n": 240,
+              "seData": 5.4,
+              "dataMean": 66
+            },
+            {
+              "id": "contactsBefore.d4",
+              "stat": "contactsBefore",
+              "mean": 0.7757847533632287,
+              "sd": 1.2888804375460963,
+              "n": 223,
+              "seData": 0.1889822365046136,
+              "dataMean": 1
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 426,
+              "left": 26,
+              "prop": 0.06103286384976526
+            },
+            "other": {
+              "n": 1362,
+              "left": 484,
+              "prop": 0.355359765051395
+            },
+            "data": {
+              "afterTroph": 0.56,
+              "afterOther": 0.89
+            }
+          }
+        },
+        "8": {
+          "seconds": 117.896,
+          "rows": [
+            {
+              "id": "timeInNest.d8",
+              "stat": "timeInNest",
+              "mean": 494.5972916666668,
+              "sd": 396.18251261672793,
+              "n": 240,
+              "seData": 8.126236169698386,
+              "dataMean": 82
+            },
+            {
+              "id": "distance.d8",
+              "stat": "distance",
+              "mean": 12.106221361741298,
+              "sd": 13.771924833197005,
+              "n": 240,
+              "seData": 1.2551432648843779,
+              "dataMean": 5.4
+            },
+            {
+              "id": "contacts.d8",
+              "stat": "contacts",
+              "mean": 18.941666666666666,
+              "sd": 16.676491525363986,
+              "n": 240,
+              "seData": 0.6047431568147635,
+              "dataMean": 3.3
+            },
+            {
+              "id": "trophTotal.d8",
+              "stat": "trophTotal",
+              "mean": 413.69135416666785,
+              "sd": 393.5705780101602,
+              "n": 240,
+              "seData": 4.157609203101499,
+              "dataMean": 56
+            },
+            {
+              "id": "contactsBefore.d8",
+              "stat": "contactsBefore",
+              "mean": 0.5848214285714286,
+              "sd": 1.109252551754843,
+              "n": 224,
+              "seData": 0.3779644730092272,
+              "dataMean": 1
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 410,
+              "left": 25,
+              "prop": 0.06097560975609756
+            },
+            "other": {
+              "n": 1322,
+              "left": 500,
+              "prop": 0.37821482602118
+            },
+            "data": {
+              "afterTroph": 0.86,
+              "afterOther": 0.93
+            }
+          }
+        }
+      },
+      "maxAbsShiftSeData": 0,
+      "shifts": [
+        {
+          "id": "timeInNest.d1",
+          "shiftSeData": 0
+        },
+        {
+          "id": "distance.d1",
+          "shiftSeData": 0
+        },
+        {
+          "id": "contacts.d1",
+          "shiftSeData": 0
+        },
+        {
+          "id": "trophTotal.d1",
+          "shiftSeData": 0
+        },
+        {
+          "id": "contactsBefore.d1",
+          "shiftSeData": 0
+        },
+        {
+          "id": "timeInNest.d4",
+          "shiftSeData": 0
+        },
+        {
+          "id": "distance.d4",
+          "shiftSeData": 0
+        },
+        {
+          "id": "contacts.d4",
+          "shiftSeData": 0
+        },
+        {
+          "id": "trophTotal.d4",
+          "shiftSeData": 0
+        },
+        {
+          "id": "contactsBefore.d4",
+          "shiftSeData": 0
+        },
+        {
+          "id": "timeInNest.d8",
+          "shiftSeData": 0
+        },
+        {
+          "id": "distance.d8",
+          "shiftSeData": 0
+        },
+        {
+          "id": "contacts.d8",
+          "shiftSeData": 0
+        },
+        {
+          "id": "trophTotal.d8",
+          "shiftSeData": 0
+        },
+        {
+          "id": "contactsBefore.d8",
+          "shiftSeData": 0
+        }
+      ]
+    },
+    {
+      "leaveCropFrac": 0.25,
+      "days": {
+        "1": {
+          "seconds": 95.616,
+          "rows": [
+            {
+              "id": "timeInNest.d1",
+              "stat": "timeInNest",
+              "mean": 324.03229166666677,
+              "sd": 334.0403360411237,
+              "n": 240,
+              "seData": 11.17861970287649,
+              "dataMean": 113
+            },
+            {
+              "id": "distance.d1",
+              "stat": "distance",
+              "mean": 11.478863947164577,
+              "sd": 13.382073097079061,
+              "n": 240,
+              "seData": 1.608152308133109,
+              "dataMean": 9.1
+            },
+            {
+              "id": "contacts.d1",
+              "stat": "contacts",
+              "mean": 11.9625,
+              "sd": 12.957391147744541,
+              "n": 240,
+              "seData": 0.9413574486632834,
+              "dataMean": 6.1
+            },
+            {
+              "id": "trophTotal.d1",
+              "stat": "trophTotal",
+              "mean": 250.92604166666814,
+              "sd": 319.783007910822,
+              "n": 240,
+              "seData": 5.2951356487309695,
+              "dataMean": 57
+            },
+            {
+              "id": "contactsBefore.d1",
+              "stat": "contactsBefore",
+              "mean": 1.015228426395939,
+              "sd": 1.6365629656118665,
+              "n": 197,
+              "seData": 0.5773502691896257,
+              "dataMean": 3
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 326,
+              "left": 55,
+              "prop": 0.1687116564417178
+            },
+            "other": {
+              "n": 973,
+              "left": 265,
+              "prop": 0.2723535457348407
+            },
+            "data": {
+              "afterTroph": 0.44,
+              "afterOther": 0.69
+            }
+          }
+        },
+        "4": {
+          "seconds": 121.732,
+          "rows": [
+            {
+              "id": "timeInNest.d4",
+              "stat": "timeInNest",
+              "mean": 522.3823958333337,
+              "sd": 398.9383281607839,
+              "n": 240,
+              "seData": 5.2,
+              "dataMean": 80
+            },
+            {
+              "id": "distance.d4",
+              "stat": "distance",
+              "mean": 10.80658226696728,
+              "sd": 14.462181981912035,
+              "n": 240,
+              "seData": 0.9800177460682515,
+              "dataMean": 5.9
+            },
+            {
+              "id": "contacts.d4",
+              "stat": "contacts",
+              "mean": 19.066666666666666,
+              "sd": 14.692515575863837,
+              "n": 240,
+              "seData": 0.38,
+              "dataMean": 3.3
+            },
+            {
+              "id": "trophTotal.d4",
+              "stat": "trophTotal",
+              "mean": 451.65000000000146,
+              "sd": 391.955354620512,
+              "n": 240,
+              "seData": 5.4,
+              "dataMean": 66
+            },
+            {
+              "id": "contactsBefore.d4",
+              "stat": "contactsBefore",
+              "mean": 0.7892376681614349,
+              "sd": 1.3474937871183175,
+              "n": 223,
+              "seData": 0.1889822365046136,
+              "dataMean": 1
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 431,
+              "left": 57,
+              "prop": 0.13225058004640372
+            },
+            "other": {
+              "n": 1357,
+              "left": 498,
+              "prop": 0.36698599852616065
+            },
+            "data": {
+              "afterTroph": 0.56,
+              "afterOther": 0.89
+            }
+          }
+        },
+        "8": {
+          "seconds": 157.822,
+          "rows": [
+            {
+              "id": "timeInNest.d8",
+              "stat": "timeInNest",
+              "mean": 491.6136458333334,
+              "sd": 397.20665521147566,
+              "n": 240,
+              "seData": 8.126236169698386,
+              "dataMean": 82
+            },
+            {
+              "id": "distance.d8",
+              "stat": "distance",
+              "mean": 11.753407276251608,
+              "sd": 13.77779312822557,
+              "n": 240,
+              "seData": 1.2551432648843779,
+              "dataMean": 5.4
+            },
+            {
+              "id": "contacts.d8",
+              "stat": "contacts",
+              "mean": 18.645833333333332,
+              "sd": 16.041381610972376,
+              "n": 240,
+              "seData": 0.6047431568147635,
+              "dataMean": 3.3
+            },
+            {
+              "id": "trophTotal.d8",
+              "stat": "trophTotal",
+              "mean": 416.7795833333344,
+              "sd": 396.15375242379065,
+              "n": 240,
+              "seData": 4.157609203101499,
+              "dataMean": 56
+            },
+            {
+              "id": "contactsBefore.d8",
+              "stat": "contactsBefore",
+              "mean": 0.5866666666666667,
+              "sd": 1.1111448407578803,
+              "n": 225,
+              "seData": 0.3779644730092272,
+              "dataMean": 1
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 406,
+              "left": 54,
+              "prop": 0.1330049261083744
+            },
+            "other": {
+              "n": 1335,
+              "left": 516,
+              "prop": 0.3865168539325843
+            },
+            "data": {
+              "afterTroph": 0.86,
+              "afterOther": 0.93
+            }
+          }
+        }
+      },
+      "maxAbsShiftSeData": 0.7427896696887248,
+      "shifts": [
+        {
+          "id": "timeInNest.d1",
+          "shiftSeData": -0.30664936797023606
+        },
+        {
+          "id": "distance.d1",
+          "shiftSeData": 0.3138945137287213
+        },
+        {
+          "id": "contacts.d1",
+          "shiftSeData": -0.1150820376331696
+        },
+        {
+          "id": "trophTotal.d1",
+          "shiftSeData": -0.4701248778388411
+        },
+        {
+          "id": "contactsBefore.d1",
+          "shiftSeData": 0.03516854431611925
+        },
+        {
+          "id": "timeInNest.d4",
+          "shiftSeData": 0.6058092948718642
+        },
+        {
+          "id": "distance.d4",
+          "shiftSeData": 0.01675056976403855
+        },
+        {
+          "id": "contacts.d4",
+          "shiftSeData": 0.635964912280703
+        },
+        {
+          "id": "trophTotal.d4",
+          "shiftSeData": 0.7277584876542972
+        },
+        {
+          "id": "contactsBefore.d4",
+          "shiftSeData": 0.07118613392998861
+        },
+        {
+          "id": "timeInNest.d8",
+          "shiftSeData": -0.36716208722298965
+        },
+        {
+          "id": "distance.d8",
+          "shiftSeData": -0.28109467290348816
+        },
+        {
+          "id": "contacts.d8",
+          "shiftSeData": -0.4891883934520483
+        },
+        {
+          "id": "trophTotal.d8",
+          "shiftSeData": 0.7427896696887248
+        },
+        {
+          "id": "contactsBefore.d8",
+          "shiftSeData": 0.004882041109702443
+        }
+      ]
+    },
+    {
+      "leaveCropFrac": 0.5,
+      "days": {
+        "1": {
+          "seconds": 114.318,
+          "rows": [
+            {
+              "id": "timeInNest.d1",
+              "stat": "timeInNest",
+              "mean": 317.2209375000002,
+              "sd": 347.305258866693,
+              "n": 240,
+              "seData": 11.17861970287649,
+              "dataMean": 113
+            },
+            {
+              "id": "distance.d1",
+              "stat": "distance",
+              "mean": 11.31543145976334,
+              "sd": 14.642812989269396,
+              "n": 240,
+              "seData": 1.608152308133109,
+              "dataMean": 9.1
+            },
+            {
+              "id": "contacts.d1",
+              "stat": "contacts",
+              "mean": 11.529166666666667,
+              "sd": 12.737089752749476,
+              "n": 240,
+              "seData": 0.9413574486632834,
+              "dataMean": 6.1
+            },
+            {
+              "id": "trophTotal.d1",
+              "stat": "trophTotal",
+              "mean": 249.5661458333346,
+              "sd": 332.1837819912859,
+              "n": 240,
+              "seData": 5.2951356487309695,
+              "dataMean": 57
+            },
+            {
+              "id": "contactsBefore.d1",
+              "stat": "contactsBefore",
+              "mean": 0.9365079365079365,
+              "sd": 1.4165400146019846,
+              "n": 189,
+              "seData": 0.5773502691896257,
+              "dataMean": 3
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 317,
+              "left": 59,
+              "prop": 0.1861198738170347
+            },
+            "other": {
+              "n": 945,
+              "left": 242,
+              "prop": 0.2560846560846561
+            },
+            "data": {
+              "afterTroph": 0.44,
+              "afterOther": 0.69
+            }
+          }
+        },
+        "4": {
+          "seconds": 109.093,
+          "rows": [
+            {
+              "id": "timeInNest.d4",
+              "stat": "timeInNest",
+              "mean": 478.33802083333364,
+              "sd": 387.5403652275334,
+              "n": 240,
+              "seData": 5.2,
+              "dataMean": 80
+            },
+            {
+              "id": "distance.d4",
+              "stat": "distance",
+              "mean": 10.368962707949407,
+              "sd": 14.457889490075765,
+              "n": 240,
+              "seData": 0.9800177460682515,
+              "dataMean": 5.9
+            },
+            {
+              "id": "contacts.d4",
+              "stat": "contacts",
+              "mean": 17.591666666666665,
+              "sd": 14.327897026216487,
+              "n": 240,
+              "seData": 0.38,
+              "dataMean": 3.3
+            },
+            {
+              "id": "trophTotal.d4",
+              "stat": "trophTotal",
+              "mean": 411.1566666666682,
+              "sd": 381.4607175445964,
+              "n": 240,
+              "seData": 5.4,
+              "dataMean": 66
+            },
+            {
+              "id": "contactsBefore.d4",
+              "stat": "contactsBefore",
+              "mean": 0.7663551401869159,
+              "sd": 1.3397458889626173,
+              "n": 214,
+              "seData": 0.1889822365046136,
+              "dataMean": 1
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 411,
+              "left": 61,
+              "prop": 0.14841849148418493
+            },
+            "other": {
+              "n": 1292,
+              "left": 482,
+              "prop": 0.37306501547987614
+            },
+            "data": {
+              "afterTroph": 0.56,
+              "afterOther": 0.89
+            }
+          }
+        },
+        "8": {
+          "seconds": 155.575,
+          "rows": [
+            {
+              "id": "timeInNest.d8",
+              "stat": "timeInNest",
+              "mean": 481.20822916666685,
+              "sd": 411.56679265256514,
+              "n": 240,
+              "seData": 8.126236169698386,
+              "dataMean": 82
+            },
+            {
+              "id": "distance.d8",
+              "stat": "distance",
+              "mean": 11.297152772842686,
+              "sd": 17.37935406781905,
+              "n": 240,
+              "seData": 1.2551432648843779,
+              "dataMean": 5.4
+            },
+            {
+              "id": "contacts.d8",
+              "stat": "contacts",
+              "mean": 17.8625,
+              "sd": 16.12275899902326,
+              "n": 240,
+              "seData": 0.6047431568147635,
+              "dataMean": 3.3
+            },
+            {
+              "id": "trophTotal.d8",
+              "stat": "trophTotal",
+              "mean": 411.063437500001,
+              "sd": 408.62656775683763,
+              "n": 240,
+              "seData": 4.157609203101499,
+              "dataMean": 56
+            },
+            {
+              "id": "contactsBefore.d8",
+              "stat": "contactsBefore",
+              "mean": 0.591743119266055,
+              "sd": 1.1126941141988274,
+              "n": 218,
+              "seData": 0.3779644730092272,
+              "dataMean": 1
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 392,
+              "left": 53,
+              "prop": 0.13520408163265307
+            },
+            "other": {
+              "n": 1279,
+              "left": 493,
+              "prop": 0.3854573885848319
+            },
+            "data": {
+              "afterTroph": 0.86,
+              "afterOther": 0.93
+            }
+          }
+        }
+      },
+      "maxAbsShiftSeData": 7.864262820512762,
+      "shifts": [
+        {
+          "id": "timeInNest.d1",
+          "shiftSeData": -0.9159691541075035
+        },
+        {
+          "id": "distance.d1",
+          "shiftSeData": 0.21226702075141524
+        },
+        {
+          "id": "contacts.d1",
+          "shiftSeData": -0.5754101881658518
+        },
+        {
+          "id": "trophTotal.d1",
+          "shiftSeData": -0.7269447071211118
+        },
+        {
+          "id": "contactsBefore.d1",
+          "shiftSeData": -0.10117934376661314
+        },
+        {
+          "id": "timeInNest.d4",
+          "shiftSeData": -7.864262820512762
+        },
+        {
+          "id": "distance.d4",
+          "shiftSeData": -0.4297919145670526
+        },
+        {
+          "id": "contacts.d4",
+          "shiftSeData": -3.245614035087722
+        },
+        {
+          "id": "trophTotal.d4",
+          "shiftSeData": -6.7710069444444585
+        },
+        {
+          "id": "contactsBefore.d4",
+          "shiftSeData": -0.049896822848123364
+        },
+        {
+          "id": "timeInNest.d8",
+          "shiftSeData": -1.6476339378279374
+        },
+        {
+          "id": "distance.d8",
+          "shiftSeData": -0.6446025816607811
+        },
+        {
+          "id": "contacts.d8",
+          "shiftSeData": -1.7845041394940844
+        },
+        {
+          "id": "trophTotal.d8",
+          "shiftSeData": -0.6320739969274857
+        },
+        {
+          "id": "contactsBefore.d8",
+          "shiftSeData": 0.0183130722300915
+        }
+      ]
+    },
+    {
+      "leaveCropFrac": 1,
+      "days": {
+        "1": {
+          "seconds": 102.889,
+          "rows": [
+            {
+              "id": "timeInNest.d1",
+              "stat": "timeInNest",
+              "mean": 315.5626041666668,
+              "sd": 343.07996134205536,
+              "n": 240,
+              "seData": 11.17861970287649,
+              "dataMean": 113
+            },
+            {
+              "id": "distance.d1",
+              "stat": "distance",
+              "mean": 11.213072353111441,
+              "sd": 14.568602831180158,
+              "n": 240,
+              "seData": 1.608152308133109,
+              "dataMean": 9.1
+            },
+            {
+              "id": "contacts.d1",
+              "stat": "contacts",
+              "mean": 11.433333333333334,
+              "sd": 12.461645480804723,
+              "n": 240,
+              "seData": 0.9413574486632834,
+              "dataMean": 6.1
+            },
+            {
+              "id": "trophTotal.d1",
+              "stat": "trophTotal",
+              "mean": 249.2746875000013,
+              "sd": 328.7354156642276,
+              "n": 240,
+              "seData": 5.2951356487309695,
+              "dataMean": 57
+            },
+            {
+              "id": "contactsBefore.d1",
+              "stat": "contactsBefore",
+              "mean": 0.9,
+              "sd": 1.36684087159185,
+              "n": 190,
+              "seData": 0.5773502691896257,
+              "dataMean": 3
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 314,
+              "left": 59,
+              "prop": 0.18789808917197454
+            },
+            "other": {
+              "n": 952,
+              "left": 247,
+              "prop": 0.25945378151260506
+            },
+            "data": {
+              "afterTroph": 0.44,
+              "afterOther": 0.69
+            }
+          }
+        },
+        "4": {
+          "seconds": 108.445,
+          "rows": [
+            {
+              "id": "timeInNest.d4",
+              "stat": "timeInNest",
+              "mean": 472.1859375000002,
+              "sd": 390.4922981358353,
+              "n": 240,
+              "seData": 5.2,
+              "dataMean": 80
+            },
+            {
+              "id": "distance.d4",
+              "stat": "distance",
+              "mean": 10.854594983695126,
+              "sd": 15.421549693942564,
+              "n": 240,
+              "seData": 0.9800177460682515,
+              "dataMean": 5.9
+            },
+            {
+              "id": "contacts.d4",
+              "stat": "contacts",
+              "mean": 17.608333333333334,
+              "sd": 14.660621456076887,
+              "n": 240,
+              "seData": 0.38,
+              "dataMean": 3.3
+            },
+            {
+              "id": "trophTotal.d4",
+              "stat": "trophTotal",
+              "mean": 403.0779166666682,
+              "sd": 379.35097782862505,
+              "n": 240,
+              "seData": 5.4,
+              "dataMean": 66
+            },
+            {
+              "id": "contactsBefore.d4",
+              "stat": "contactsBefore",
+              "mean": 0.7298578199052133,
+              "sd": 1.1621037895918724,
+              "n": 211,
+              "seData": 0.1889822365046136,
+              "dataMean": 1
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 414,
+              "left": 66,
+              "prop": 0.15942028985507245
+            },
+            "other": {
+              "n": 1259,
+              "left": 467,
+              "prop": 0.3709293089753773
+            },
+            "data": {
+              "afterTroph": 0.56,
+              "afterOther": 0.89
+            }
+          }
+        },
+        "8": {
+          "seconds": 118.761,
+          "rows": [
+            {
+              "id": "timeInNest.d8",
+              "stat": "timeInNest",
+              "mean": 468.1328125000001,
+              "sd": 403.5042482833944,
+              "n": 240,
+              "seData": 8.126236169698386,
+              "dataMean": 82
+            },
+            {
+              "id": "distance.d8",
+              "stat": "distance",
+              "mean": 11.571020128640761,
+              "sd": 17.85514452193003,
+              "n": 240,
+              "seData": 1.2551432648843779,
+              "dataMean": 5.4
+            },
+            {
+              "id": "contacts.d8",
+              "stat": "contacts",
+              "mean": 17.629166666666666,
+              "sd": 15.991629064590951,
+              "n": 240,
+              "seData": 0.6047431568147635,
+              "dataMean": 3.3
+            },
+            {
+              "id": "trophTotal.d8",
+              "stat": "trophTotal",
+              "mean": 398.91468750000087,
+              "sd": 401.50780752503925,
+              "n": 240,
+              "seData": 4.157609203101499,
+              "dataMean": 56
+            },
+            {
+              "id": "contactsBefore.d8",
+              "stat": "contactsBefore",
+              "mean": 0.5734597156398105,
+              "sd": 1.0681790789928503,
+              "n": 211,
+              "seData": 0.3779644730092272,
+              "dataMean": 1
+            }
+          ],
+          "table2b": {
+            "troph": {
+              "n": 386,
+              "left": 51,
+              "prop": 0.13212435233160622
+            },
+            "other": {
+              "n": 1277,
+              "left": 480,
+              "prop": 0.37588097102584184
+            },
+            "data": {
+              "afterTroph": 0.86,
+              "afterOther": 0.93
+            }
+          }
+        }
+      },
+      "maxAbsShiftSeData": 9.047355769230734,
+      "shifts": [
+        {
+          "id": "timeInNest.d1",
+          "shiftSeData": -1.0643178212427395
+        },
+        {
+          "id": "distance.d1",
+          "shiftSeData": 0.14861688877434678
+        },
+        {
+          "id": "contacts.d1",
+          "shiftSeData": -0.677213529149041
+        },
+        {
+          "id": "trophTotal.d1",
+          "shiftSeData": -0.7819873637531722
+        },
+        {
+          "id": "contactsBefore.d1",
+          "shiftSeData": -0.16441294467785783
+        },
+        {
+          "id": "timeInNest.d4",
+          "shiftSeData": -9.047355769230734
+        },
+        {
+          "id": "distance.d4",
+          "shiftSeData": 0.06574225070090728
+        },
+        {
+          "id": "contacts.d4",
+          "shiftSeData": -3.201754385964908
+        },
+        {
+          "id": "trophTotal.d4",
+          "shiftSeData": -8.267071759259265
+        },
+        {
+          "id": "contactsBefore.d4",
+          "shiftSeData": -0.24302248881944125
+        },
+        {
+          "id": "timeInNest.d8",
+          "shiftSeData": -3.2566711838069757
+        },
+        {
+          "id": "distance.d8",
+          "shiftSeData": -0.4264064892622747
+        },
+        {
+          "id": "contacts.d8",
+          "shiftSeData": -2.170342872357672
+        },
+        {
+          "id": "trophTotal.d8",
+          "shiftSeData": -3.55412592786351
+        },
+        {
+          "id": "contactsBefore.d8",
+          "shiftSeData": -0.03006026688476821
+        }
+      ]
+    }
+  ],
+  "note": "Per-recruiter records removed by the lead agent 2026-10-19 (bulky; full file in out/sweep-full.json, git-ignored). Everything else as written by sweep.ts."
+}

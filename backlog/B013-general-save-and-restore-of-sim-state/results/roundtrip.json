@@ -1,0 +1,73 @@
+{
+  "provenance": {
+    "simHash": "baf4cb0b4b513531",
+    "commit": "784f21d8ff8a843ffa52d4ed2c0a098f5a0600ad",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [],
+    "date": "2026-10-19T14:59:09.940Z",
+    "item": "B013-general-save-and-restore-of-sim-state",
+    "depends": {}
+  },
+  "T": 1500,
+  "results": [
+    {
+      "kind": "stroeymeyt",
+      "pass": true,
+      "full": {
+        "kind": "stroeymeyt",
+        "mode": "full",
+        "stepIndex": 3000,
+        "state": "e8d822d5301878504b531180caa0eaccca8f41b98c85a3e4358b53756f297739",
+        "observable": "a995df1941011a3e75fab0747f2eb26ec443d5f6b705830fec3f0831cd0c0fdd"
+      },
+      "write": {
+        "kind": "stroeymeyt",
+        "mode": "write",
+        "stepIndex": 1500,
+        "state": "e6d2111e6bf1b0603ae15c25f2d0eb8b96bc67eaec41ab07f6495745e2092200",
+        "observable": "8a54850c5d9b38fa8ea3af3438198811c8770430f07c3b344bfcbc7bc0e55a4a",
+        "serializeMs": 38.5,
+        "snapshotBytes": 1336496
+      },
+      "read": {
+        "kind": "stroeymeyt",
+        "mode": "read",
+        "stepIndex": 3000,
+        "state": "e8d822d5301878504b531180caa0eaccca8f41b98c85a3e4358b53756f297739",
+        "observable": "a995df1941011a3e75fab0747f2eb26ec443d5f6b705830fec3f0831cd0c0fdd",
+        "restoreMs": 32.1,
+        "snapshotBytes": 1336496
+      }
+    },
+    {
+      "kind": "mailleux",
+      "pass": true,
+      "full": {
+        "kind": "mailleux",
+        "mode": "full",
+        "stepIndex": 3000,
+        "state": "4c834d820793e3c46219371d8686d8f5c5114ff1bcb7d0d0f5fdb200e18fb23e",
+        "observable": "50423bb0391afb408cc4067f533b1e8e27c8980edeafed80a67934c75744e0d4"
+      },
+      "write": {
+        "kind": "mailleux",
+        "mode": "write",
+        "stepIndex": 1500,
+        "state": "b06ebba879e226516339b2f574a005612215505f99874e213e1851fac15b8e70",
+        "observable": "3b0342c6df0b53e11d79e3dbb69d3ff42fa36991cfab3604fedb79a367361ab5",
+        "serializeMs": 22.1,
+        "snapshotBytes": 742759
+      },
+      "read": {
+        "kind": "mailleux",
+        "mode": "read",
+        "stepIndex": 3000,
+        "state": "4c834d820793e3c46219371d8686d8f5c5114ff1bcb7d0d0f5fdb200e18fb23e",
+        "observable": "50423bb0391afb408cc4067f533b1e8e27c8980edeafed80a67934c75744e0d4",
+        "restoreMs": 11.4,
+        "snapshotBytes": 742759
+      }
+    }
+  ]
+}

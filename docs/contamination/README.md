@@ -28,3 +28,4 @@ with a dated line rather than adding a second one.
 | X019 | development | [Lenoir & Ataya 1983](X019-lenoir-ataya-1983.md) | 2026-10-16 |
 | X020 | development / held-out | [Buffin et al. 2011 and Mailleux et al. 2011](X020-buffin-et-al-2011-and-mailleux-et-al.md) | 2026-10-10 |
 | X021 | source / development | [Resting-site / aggregation literature (2026-10-18 ≈ 15:52 UTC; the user supplied 11 PDFs in the repo root and delegated the roles to Claude)](X021-resting-site-aggregation-literature-2026.md) | 2026-10-18 |
+| X022 | fit (development use) | [Stroeymeyt 2018 queen tracks, first analysis (B018)](X022-stroeymeyt-2018-queen-tracks-first.md) | 2026-10-19 |
