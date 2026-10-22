@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-22 (C2 fit finished, D075; D076 approved, data side read, D077–D079; C2 judged not adequate, D080–D081; guidance D082, diagnostic round D083–D086, read D087; C2 provisionally, D088; checks D089–D091, read D092; step-5 choices D093; step-5 design D094; B014 applied D095–D096; benchmark D097; gates D098, read D100; full fit at dt 0.025 D102, finished, bound hits D103; judge now D104, judging run D105, read D106: transfer failure; closed D107; synchrony design D108, amended D109, approved D110, Part B run D111, read D112–D113; step 9 held, Part C D114–D115, amended D116, confirmed D117, built D118, S5 amendment 2 D119). Every change is
+_Last updated: 2026-10-22 (C2 fit finished, D075; D076 approved, data side read, D077–D079; C2 judged not adequate, D080–D081; guidance D082, diagnostic round D083–D086, read D087; C2 provisionally, D088; checks D089–D091, read D092; step-5 choices D093; step-5 design D094; B014 applied D095–D096; benchmark D097; gates D098, read D100; full fit at dt 0.025 D102, finished, bound hits D103; judge now D104, judging run D105, read D106: transfer failure; closed D107; synchrony design D108, amended D109, approved D110, Part B run D111, read D112–D113; step 9 held, Part C D114–D115, amended D116, confirmed D117, built D118, S5 amendment 2 D119; CI simHash fix D120). Every change is
 dated in `docs/log/`._
 
 **Where the record lives.** One file per record, plain text; `npm test` fails if the record is
@@ -67,7 +67,8 @@ Keep this file to the current state; past about 1,000 lines, trim RESUME rather 
   sufficiency, a non-circular separation check, fixed S5 / S6. Values confirmed (D117). **Built and tested (D118):** all
   diagnostics off by default, tests 258 / 258; S5 as fixed is unestimable on simulated colonies (≈ 0.7 % of bins isolated at
   10 mm), so **amendment 2: radius 4.1 mm, approved (D119)**: contact-range neighbours only; unestimable in any comparison ⇒
-  reported so, no further adjustment. Next: local timing for the estimate, then a new box (the old one is closed).
+  reported so, no further adjustment. **Calibration running on a rented box** (D119; box tooling `scripts/box.mjs`,
+  docs/BOX.md); `partc-finish` fetches the outputs and destroys the box when the run ends; then the screen, locally.
   - **C2 judged not adequate** (D081; F068–F070). On fresh `judge` seeds (22 runs × 22 colonies, D080): 15 of 36
     rows |z| > 3, both drive SDs at their upper bound, restShape at 1.001, restCrowdExp near 1.25. C1 beside: 24 of
     36 above 3. C2 gains persistence and short stops; it loses nurse still fraction and nurse still-run tails. The

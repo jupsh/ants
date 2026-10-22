@@ -9,6 +9,7 @@ Kinds: **decision** a decision (the user's, or delegated); **design** a design o
 
 | id | date | time | kind | entry |
 |---|---|---|---|---|
+| D120 | 2026-10-22 | 22:12 | correction | [CI failure after the D119 push: simHash counted a local-only file and the findings check treated absent local-only inputs as changed; both fixed, 9 results re-stamped](2026-10-22-2212-ci-failure-after-the-d119-push-simhash.md) |
 | D119 | 2026-10-22 | 20:28 | decision | [User: S5 amendment 2 approved (radius 4.1 mm, every other definition and eligibility rule fixed) with three qualifications; resume guard for an interruptible box](2026-10-22-2028-user-s5-amendment-2-approved-radius-4-1.md) |
 | D118 | 2026-10-22 | 20:14 | run | [Part C built and tested (D115 amendment 1, D117); build notes fixed before any run; S5 as fixed (10 mm) found unestimable on simulated colonies, amendment 2 proposed (4.1 mm) for the user](2026-10-22-2014-part-c-built-and-tested-d115-amendment-1.md) |
 | D117 | 2026-10-22 | 19:48 | decision | [User: the five D115 amendment-1 values confirmed (grid, verification 4.15 ± 0.30 frozen before verifying, ±20 % synchrony, ±0.015 distance profile with the full profile reported, 4 × 2 cells); two implementation details fixed; build approved, box after tests](2026-10-22-1948-user-the-five-d115-amendment-1-values.md) |

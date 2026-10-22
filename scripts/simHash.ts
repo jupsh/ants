@@ -10,6 +10,9 @@ import path from 'node:path';
  * it matches, so a stale file is never shown as the current model's output.
  */
 // Only the fits the pages use: candidate and recovery fits elsewhere in data/fits must not mark the pages stale.
+// Local-only files (.git/info/exclude: licence terms keep them out of the repo) are not hashed, so a checkout without
+// them (CI, a rented box) gets the same hash. No simulation imports them (D120).
+const LOCAL_ONLY = new Set(['src/sim/reference/khuongSegmentation.ts']);
 const ROOTS = ['src/sim', 'src/worker', 'data/fits/e1-walk.json', 'data/fits/e2-drinking.json', 'data/fits/e2-3d-L0S1c.json', 'data/fits/e2-3d-L0S1.json', 'data/fits/e6-tec.json', 'data/khuong2013', 'data/bles2022'];
 
 export function simHash(root = process.cwd()): string {
@@ -18,7 +21,7 @@ export function simHash(root = process.cwd()): string {
     for (const e of fs.readdirSync(d, { withFileTypes: true })) {
       const p = path.join(d, e.name);
       if (e.isDirectory()) walk(p);
-      else files.push(p);
+      else if (!LOCAL_ONLY.has(path.relative(root, p).split(path.sep).join('/'))) files.push(p);
     }
   };
   for (const r of ROOTS) {

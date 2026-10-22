@@ -142,7 +142,7 @@
     }
   },
   "provenance": {
-    "simHash": "f57a833f31cc3b4f",
+    "simHash": "b88c50268eb43f61",
     "commit": "f0a05a045aae071482bf432a30ae1b3be08ad655",
     "dirty": true,
     "node": "v22.22.1",
@@ -201,6 +201,13 @@
         "date": "2026-10-22",
         "by": "lead-claude",
         "reason": "D118 (Part C build, D115 amendment 1, D117): new oracle kinds coupledX, local, driverShared, driverLocal (+ driverLocalTable), all off by default; test/oracle.test.ts: strength 0 bit-identical for every kind, local r = ∞ equals coupledX, a vanishing range leaves rows unchanged; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+      },
+      {
+        "from": "f57a833f31cc3b4f",
+        "to": "b88c50268eb43f61",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D120: simHash no longer counts the local-only CeCILL port src/sim/reference/khuongSegmentation.ts, which no simulation imports"
       }
     ]
   },

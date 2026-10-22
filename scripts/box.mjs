@@ -6,6 +6,8 @@
 //   node scripts/box.mjs offers  --runs N [--run-s 270] [--min-vcpu 32] [--max-dph 1] [--limit 15] [--interruptible]
 //   node scripts/box.mjs rent    <offer id> --yes [--disk 20]
 //   node scripts/box.mjs setup   [--node 22.22.1]          copy run files, Node, npm ci, checksums, job count
+//   node scripts/box.mjs bench   [--jobs n]                 time one standard run (colony 1, 6 h, C2) in every job slot
+//        at once → this host's speed (hosts with the same CPU name differ up to 2×, 2026-10-22)
 //   node scripts/box.mjs ssh     -- <command…>              run in the box's worktree (Node on PATH)
 //   node scripts/box.mjs status                            instance state, cost so far, run.sh status --box
 //   node scripts/box.mjs pace    <glob> [--window 20] [--jobs n] [--ref-s 270]   completions → seconds per run
@@ -14,8 +16,10 @@
 //   node scripts/box.mjs push    <path…>                   copy local files onto the box (e.g. outputs when switching), md5-checked
 //   node scripts/box.mjs destroy --yes [--force]           refuses while a run.sh run is still running
 //   node scripts/box.mjs switch  <offer id> --yes --run <run id> --carry <path> [--carry <path>…] [--relaunch '<cmd>']
+//        [--min-speed s]
 //        rent + set up the new box, stop the run on the current one, carry its outputs over (md5-checked), relaunch the
 //        run's own command (or --relaunch) there, destroy the old box. Only for work that resumes from its outputs.
+//        The new box is benched first: below --min-speed (default 1.2 × the current box's) it is destroyed, the old kept.
 //   node scripts/box.mjs finish  --run <run id> --fetch <path> [--fetch <path>…] [--destroy]
 //        end-of-run step, started locally with run.sh at launch: wait for the run, then if it exited 0 fetch the paths
 //        and the run's logs (md5-checked) and, with --destroy, destroy the box. Any failure keeps the box.
@@ -165,6 +169,20 @@ if (cmd === 'offers') {
   const [quota, period] = q[0].split(' ');
   const cpus = quota === 'max' ? NaN : Number(quota) / Number(period);
   console.log(`CPU quota ${cpus.toFixed(1)} (${q[1]}), ${q[2]} GB free → jobs ${Math.floor(cpus) - 1} (one slot spare; SIM_WORKERS the same for pooled scripts)`);
+} else if (cmd === 'bench') {
+  // Standard run: colony 1 (≈ 170 s on the EPYC 7742 at 0.77, so ≈ 132 s on the reference box), C2's fit, 2 + 4 h,
+  // light, seed 4242, observation only. Outputs are deleted afterwards.
+  const e = readEnv();
+  const q = onBox(e, `if [ -r /sys/fs/cgroup/cpu.max ]; then cat /sys/fs/cgroup/cpu.max; else echo "$(cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us) $(cat /sys/fs/cgroup/cpu/cpu.cfs_period_us)"; fi`).out.trim().split(' ');
+  const jobs = num('--jobs', q[0] === 'max' ? 8 : Math.floor(Number(q[0]) / Number(q[1])) - 1);
+  const run = `npx vite-node scripts/scratch/tmpShortSim.ts --colony 1 --seed 4242 --trips --candidate C2 --fit data/fits/s2018-motion-c2.json --lite --noActivity`;
+  const r = onBox(e, `${NODE_ENV(opt('--node', '22.22.1'))}; for i in $(seq 1 ${jobs}); do ( s=$(date +%s.%N); ${run} --tag bench-$i >/dev/null 2>&1 && echo "$s $(date +%s.%N)" ) & done; wait; rm -f logs/short/bench-*-c1.json`);
+  const t = r.out.split('\n').filter((l) => /^\d/.test(l)).map((l) => { const [a, b] = l.split(' ').map(Number); return b - a; }).sort((a, b) => a - b);
+  if (t.length < jobs) die(`bench: only ${t.length} of ${jobs} runs finished (${r.err.trim().slice(0, 200)})`);
+  const med = t[Math.floor(t.length / 2)];
+  const speed = 132 / med;
+  console.log(`bench: ${jobs} runs at once, median ${med.toFixed(0)} s (min ${t[0].toFixed(0)}, max ${t[t.length - 1].toFixed(0)}) → speed ≈ ${speed.toFixed(2)} (EPYC 7742 = 0.77)`);
+  if (opt('--out')) fs.writeFileSync(opt('--out'), String(speed));
 } else if (cmd === 'ssh') {
   const e = readEnv();
   const i = argv.indexOf('--');
@@ -303,6 +321,14 @@ if (cmd === 'offers') {
   const t0 = Date.now();
   step(`rent ${offer}`, 'rent', offer, '--yes', '--env', NEXT, ...(opt('--disk') ? ['--disk', opt('--disk')] : []));
   step('set up the new box', 'setup', '--env', NEXT);
+  const minSpeed = num('--min-speed', 1.2 * cpuOf(old.BOX_CPU).speed);
+  const sf = `logs/box-bench-${Date.now()}.txt`;
+  step('bench the new box', 'bench', '--env', NEXT, '--out', sf);
+  const sp = Number(fs.readFileSync(sf, 'utf8'));
+  if (!(sp >= minSpeed)) {
+    spawnSync('node', ['scripts/box.mjs', 'destroy', '--yes', '--force', '--env', NEXT], { stdio: 'inherit' });
+    die(`new box benched at speed ${sp.toFixed(2)} < ${minSpeed.toFixed(2)}: destroyed it; the old box and its run are untouched`);
+  }
   console.log(`— stop ${run} on the old box`);
   const k = onBox(old, `bash scripts/run.sh kill ${run}`);
   console.log(k.out.trim());
@@ -318,6 +344,6 @@ if (cmd === 'offers') {
   fs.renameSync(NEXT, OLD);
   console.log(`switched in ${((Date.now() - t0) / 60000).toFixed(1)} min: ${next.BOX_CPU}, $${Number(next.BOX_PRICE).toFixed(3)}/h; ${OLD} now names it. Start pace windows after the relaunch (carried files keep their times).`);
 } else {
-  console.log(fs.readFileSync(new URL(import.meta.url), 'utf8').split('\n').slice(1, 24).map((l) => l.replace(/^\/\/ ?/, '')).join('\n'));
+  console.log(fs.readFileSync(new URL(import.meta.url), 'utf8').split('\n').slice(1, 28).map((l) => l.replace(/^\/\/ ?/, '')).join('\n'));
   if (cmd) process.exit(1);
 }

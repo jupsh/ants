@@ -232,6 +232,7 @@ function cmdCheck() {
       else stamped.push({ f, rel, prov });
     }
   let stale = 0;
+  const unchecked = new Set();
   if (stamped.length) {
     const deps = [...new Set(stamped.flatMap((s) => Object.keys(s.prov.depends ?? {})))];
     const now = JSON.parse(
@@ -247,13 +248,17 @@ function cmdCheck() {
     for (const { f, rel, prov } of stamped) {
       const why = [];
       if (prov.simHash !== now.simHash) why.push(`simHash ${prov.simHash} → ${now.simHash}`);
-      for (const [p, h] of Object.entries(prov.depends ?? {})) if (now.depends[p] !== h) why.push(`${p} changed`);
+      // An input absent from this checkout (local-only data, e.g. data/stroeymeyt2018/ in CI) can't be checked here.
+      for (const [p, h] of Object.entries(prov.depends ?? {}))
+        if (now.depends[p] === 'missing' && h !== 'missing') unchecked.add(p);
+        else if (now.depends[p] !== h) why.push(`${p} changed`);
       if (why.length) {
         stale++;
         console.log(`STALE ${f.id} ${rel}: ${why.join('; ')}`);
       }
     }
   }
+  if (unchecked.size) console.log(`not checked here (absent from this checkout): ${[...unchecked].join(', ')}`);
   const idx = path.join(DIR, 'README.md');
   if (!fs.existsSync(idx) || fs.readFileSync(idx, 'utf8') !== renderIndex().text) problems.push('README.md is out of date: run `node findings/findings.mjs`');
   for (const p of problems) console.log(`problem: ${p}`);
