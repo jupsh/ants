@@ -225,9 +225,9 @@ function endBout(m: Mind): void {
 }
 
 /** Holds food to give: the one predicate behind both offering (the signal) and giving (STATUS 2026-10-10). */
-const hasFoodToGive = (io: Interoception, p: NestParams) => io.cropUl > p.giveFrac * io.cropCapacity;
+export const hasFoodToGive = (io: Interoception, p: NestParams) => io.cropUl > p.giveFrac * io.cropCapacity;
 /** Accepts food (hungry, or thirsty: STATUS 2026-10-15): the one predicate behind both soliciting (the signal) and receiving. */
-const acceptsFood = (io: Interoception, p: NestParams) => (io.reserve < p.receiveReserve || io.water < p.thirstFrac) && !io.cropFull;
+export const acceptsFood = (io: Interoception, p: NestParams) => (io.reserve < p.receiveReserve || io.water < p.thirstFrac) && !io.cropFull;
 
 /**
  * An ant that fed on its last trip leaves for the source at hazard

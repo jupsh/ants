@@ -1,0 +1,97 @@
+{
+  "about": "Per-job speed of rented CPUs for scripts/box.mjs, relative to the EPYC 9534 box with every job slot busy (1.0 = a 6-h simulated colony in about 270 s). 'measured' rows come from real runs at full load (see 'from'); 'guess' rows are by CPU generation and carry a wider range. Update a row with `box.mjs pace` after a run on a new CPU. First match wins.",
+  "cpus": [
+    {
+      "match": "EPYC 9534",
+      "arch": "Zen 4",
+      "speed": 1.0,
+      "source": "measured",
+      "from": "B1 rerun 2026-10-22: 66 runs on 64 vCPU, about 270 s each (D111)"
+    },
+    {
+      "match": "EPYC 7742",
+      "arch": "Zen 2",
+      "speed": 0.77,
+      "source": "measured",
+      "from": "Part C calibration 2026-10-22 (D119): 82 P4 runs in 8 min at 60 jobs, about 351 s per run on average (window overlapping the end of the first wave)"
+    },
+    {
+      "match": "EPYC 9[0-9]{2}5",
+      "arch": "Zen 5",
+      "speed": 1.05,
+      "source": "guess"
+    },
+    {
+      "match": "EPYC 97[0-9]4",
+      "arch": "Zen 4c",
+      "speed": 0.85,
+      "source": "guess"
+    },
+    {
+      "match": "EPYC 9[0-9]{2}4|EPYC 9J14|EPYC 8[0-9]{2}4",
+      "arch": "Zen 4",
+      "speed": 0.95,
+      "source": "guess"
+    },
+    {
+      "match": "EPYC 7[0-9]{2}3|EPYC 7R13|EPYC 7B13|Threadripper PRO 5[0-9]{3}WX|Ryzen 9 5",
+      "arch": "Zen 3",
+      "speed": 0.85,
+      "source": "guess"
+    },
+    {
+      "match": "Threadripper PRO 7[0-9]{3}WX|Threadripper 7[0-9]{3}|Ryzen 9 7",
+      "arch": "Zen 4",
+      "speed": 1.0,
+      "source": "guess"
+    },
+    {
+      "match": "Ryzen 9 9|Threadripper PRO 9[0-9]{3}WX",
+      "arch": "Zen 5",
+      "speed": 1.1,
+      "source": "guess"
+    },
+    {
+      "match": "EPYC 7[0-9]{2}2|EPYC 7[A-Z][0-9]2|EPYC 7H12|Threadripper 3[0-9]{3}|Threadripper PRO 3[0-9]{3}WX",
+      "arch": "Zen 2",
+      "speed": 0.7,
+      "source": "guess"
+    },
+    {
+      "match": "EPYC 7[0-9]{2}1|Threadripper 2[0-9]{3}",
+      "arch": "Zen / Zen+",
+      "speed": 0.5,
+      "source": "guess"
+    },
+    {
+      "match": "Xeon® 6|Xeon 6",
+      "arch": "Granite Rapids",
+      "speed": 0.9,
+      "source": "guess"
+    },
+    {
+      "match": "PLATINUM 85|Platinum 85|PLATINUM 84|Platinum 84|Gold 64|Gold 65|Gold 54|Gold 55",
+      "arch": "Sapphire / Emerald Rapids",
+      "speed": 0.8,
+      "source": "guess"
+    },
+    {
+      "match": "Platinum 83|Gold 63|Gold 53",
+      "arch": "Ice Lake",
+      "speed": 0.65,
+      "source": "guess"
+    },
+    {
+      "match": "Platinum 81|Platinum 82|Gold 61|Gold 62|Gold 51|Gold 52|Silver 4",
+      "arch": "Skylake / Cascade Lake",
+      "speed": 0.55,
+      "source": "guess"
+    },
+    {
+      "match": "E5-2[0-9]{3} v4|E7-[0-9]{4} v4|E5-2[0-9]{3} v3",
+      "arch": "Broadwell / Haswell",
+      "speed": 0.5,
+      "source": "guess"
+    }
+  ]
+}

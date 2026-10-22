@@ -17,7 +17,7 @@
 # the environment or logs/box.env (e.g. BOX_SSH="-p 46397 root@1.2.3.4").
 set -euo pipefail
 RUNS=${RUNS_DIR:-logs/runs}
-[ -r logs/box.env ] && . logs/box.env
+[ -z "${BOX_SSH:-}" ] && [ -r logs/box.env ] && . logs/box.env  # BOX_SSH from the environment wins (box.mjs --env)
 
 die() { echo "run.sh: $*" >&2; exit 2; }
 dur() { local s=$1; if [ "$s" -ge 3600 ]; then printf '%dh%02dm' $((s / 3600)) $((s % 3600 / 60)); else printf '%dm%02ds' $((s / 60)) $((s % 60)); fi; }

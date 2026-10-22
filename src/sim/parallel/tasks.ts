@@ -1,4 +1,5 @@
 import type { Track } from '../analysis/trajectory';
+import type { OracleStats } from '../analysis/oracleStats';
 import type { ObserverRule } from '../analysis/trophallaxis';
 import { summarizeTrack, type Acc } from '../experiments/e1Compare';
 import { runE1, type E1Options } from '../experiments/e1Exploration';
@@ -6,7 +7,8 @@ import { runScout, type LasiusParams, type ScoutOptions, type ScoutResult } from
 import type { ColonyParams } from '../experiments/colonyBles';
 import { runNests1999, runRecruiters1999, type M1999Options, type M1999Recruiter } from '../experiments/colonyMailleux1999';
 import { simulateColonies, type E6Metrics } from '../experiments/e6Bles';
-import { simulateStroeymeyt, type StroeymeytColony, type StroeymeytRunOptions } from '../experiments/colonyStroeymeyt';
+import type { NbTables } from '../analysis/neighbourRates';
+import { simulateStroeymeyt, type RestWindowData, type StroeymeytColony, type StroeymeytRunOptions } from '../experiments/colonyStroeymeyt';
 import type { WalkParams } from '../models/walk';
 import { runBles, type BlesParams } from '../reference/blesTEC';
 import { runSectored, type SectoredOptions, type SectorPools } from '../reference/sectoredWalker';
@@ -35,11 +37,11 @@ export const TASKS = {
   /** Mailleux 1999, shared warm-ups: nests [first, first + count), perNest recruiters each, in nest then recruiter order. */
   m1999Nests: (P: ColonyParams, o: M1999Options, first: number, count: number, perNest: number): M1999Recruiter[] => runNests1999(P, o, first, count, perNest),
   /** Stroeymeyt 2018 set-up: one colony, one window; rows only (and per sub-window with `windows`). */
-  s2018Colony: (P: ColonyParams, c: StroeymeytColony, o: StroeymeytRunOptions): { rows: Record<string, number>; windowRows: Record<string, number>[]; activityWindowRows: Record<string, number>[]; foragersIn: number; trips: { trips: number[]; open: number[] } } => {
+  s2018Colony: (P: ColonyParams, c: StroeymeytColony, o: StroeymeytRunOptions): { rows: Record<string, number>; windowRows: Record<string, number>[]; activityWindowRows: Record<string, number>[]; restWindows?: RestWindowData[]; nbTables?: NbTables; oracleStats?: OracleStats; foragersIn: number; trips: { trips: number[]; open: number[] } } => {
     const r = simulateStroeymeyt(P, c, o);
     // Complete and open trips of the run's phase (trip-duration distribution, STATUS 2026-10-15).
     const st = r.colony.stays[0][o.phase];
-    return { rows: r.rows, windowRows: r.windowRows, activityWindowRows: r.activityWindowRows, foragersIn: r.foragersIn, trips: { trips: st.trips, open: st.tripsOpen } };
+    return { rows: r.rows, windowRows: r.windowRows, activityWindowRows: r.activityWindowRows, ...(r.restWindows ? { restWindows: r.restWindows } : {}), ...(r.nbTables ? { nbTables: r.nbTables } : {}), ...(r.oracleStats ? { oracleStats: r.oracleStats } : {}), foragersIn: r.foragersIn, trips: { trips: st.trips, open: st.tripsOpen } };
   },
 };
 

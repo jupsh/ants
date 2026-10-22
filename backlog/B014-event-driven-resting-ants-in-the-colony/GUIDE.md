@@ -8,7 +8,8 @@ the technical background). A work item, not adopted. Context: STATUS Decisions l
 
 Make colony runs faster by not doing per-step work for in-nest ants that are resting. About 95 % of in-nest ants
 are still at any time. The aim is a switch that is **off by default**. It is needed before the Mailleux 1999 step-5
-fit, whose colonies are about 10× the Stroeymeyt ones; C2's step-4 fit runs on the stepped code and is not
+fit, whose colonies are about 10× the Stroeymeyt ones (**corrected 2026-10-19:** the real 1999 colonies were; the simulated 1999 nests hold 23–138
+nestmates, so the step-5 saving is small: `DESIGN.md` § 3); C2's step-4 fit runs on the stepped code and is not
 waiting for this.
 
 Expected gain: **≈ 1.5–2×** on Stroeymeyt colony runs, possibly more with the drive tick below. The per-step work

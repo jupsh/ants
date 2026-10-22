@@ -9,7 +9,6 @@ A claim with no progress for 24 h is stale and may be taken over.
 
 | pri | id | status | size | title | claim | last progress |
 |---|---|---|---|---|---|---|
-| 20 | [B014](B014-event-driven-resting-ants-in-the-colony/README.md) | open | L | Event-driven resting ants in the colony runner |  |  |
 | 50 | [B005](B005-entrance-excursions-vs-foraging-trips/README.md) | blocked | M | Entrance excursions vs foraging trips (path audit) — *RESUME has the entrance-excursion trip audit on hold; needs the user's go* |  |  |
 | 60 | [B016](B016-candidate-held-out-colony-data-sets/README.md) | blocked | S | Candidate held-out colony data sets — *the user sets the survey's exposure rules (what may be read) and approves web search first* |  |  |
 | 70 | [B007](B007-contact-observer-validation-and-row-4/README.md) | blocked | L | Stroeymeyt contact observer: write it and validate it against the authors' tool — *needs the user: paper not cleared, GPL tool set-up, agreement criterion in STATUS* |  |  |
@@ -18,6 +17,6 @@ A claim with no progress for 24 h is stale and may be taken over.
 | 110 | [B011](B011-e6-bout-end-vs-observed-contact/README.md) | open | M | E6 bout end vs observed contact |  |  |
 | 130 | [B017](B017-pheromone-field-with-a-physical-sampling/README.md) | open | M | Pheromone field with a physical sampling footprint |  |  |
 | 140 | [B010](B010-e1-data-orientation-and-axis-tilt/README.md) | blocked | S | E1 data orientation and axis tilt — *E1 is paused (STATUS); not before it resumes* |  |  |
-| 910 | [B019](B019-co-movement-by-zone-with-zones-fixed-per/README.md) | unscoped | ? | Co-movement by zone with zones fixed per ant |  |  |
 | 920 | [B020](B020-nestmate-only-crop-gate-in-the-mailleux/README.md) | unscoped | ? | Nestmate-only crop gate in the Mailleux runner |  |  |
 | 930 | [B021](B021-b018-rate-tables-on-the-model-through/README.md) | unscoped | ? | B018 rate tables on the model through the observer |  |  |
+| 940 | [B022](B022-v8-pretenuring-and-bimodal-colony-run/README.md) | unscoped | ? | V8 pretenuring and bimodal colony-run times |  |  |

@@ -1,0 +1,1054 @@
+{
+  "provenance": {
+    "simHash": "f57a833f31cc3b4f",
+    "commit": "f0a05a045aae071482bf432a30ae1b3be08ad655",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [],
+    "date": "2026-10-19T18:06:07.300Z",
+    "item": "B019-co-movement-by-zone-with-zones-fixed-per",
+    "depends": {
+      "backlog/B018-resting-site-and-aggregation-in-the/out": "58d63ad29bbc641a"
+    },
+    "restamped": [
+      {
+        "from": "baf4cb0b4b513531",
+        "to": "88f9271e1dc0755a",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D078: observation-only change for D076 (opt-in restMaps / ActivityStats still-cell recorder, new src/sim/analysis/restPosition.ts); with it off, outputs bit-identical to the old code (one Stroeymeyt colony, 6 h, activity window: identical JSON); B018/B019 import none of the changed files"
+      },
+      {
+        "from": "88f9271e1dc0755a",
+        "to": "286c87ca9157d928",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D085: observation-only change for D083 Part B (opt-in neighbourStats recorder, new src/sim/analysis/neighbourRates.ts); with it off, outputs bit-identical to HEAD f0a05a0 (one Stroeymeyt colony, 6 h, activity window: identical JSON); no stamped result imports the new module"
+      },
+      {
+        "from": "286c87ca9157d928",
+        "to": "3c4d7e2b18d7f147",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D096: B014 lazyRest applied (proposal.rebased.patch, sha256 55e224a0…), off by default; with it off, outputs hash-equal to the unpatched tree (D095: identity.ts 9 cases, 22 pooled colonies, the fitted C2 / C1 points with restMaps and neighbourStats); scripts/m1999Points.ts gained a 'c2' branch only (model-A points unchanged)"
+      },
+      {
+        "from": "3c4d7e2b18d7f147",
+        "to": "1388de91d25b0ca4",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D104: step-5 judging code: the oracle diagnostic passed through the 1999 runner (M1999Options.oracle, off by default; oracleLog only with a coupled oracle) and placebo streams for ants added after the first step; with the oracle off, 1999 shared-nest outputs hash-equal to the code before (scripts/scratch/identM1999Oracle.ts: 3 days × 4 recruiters at the step-5 optimum, stepped and lazy); the placebo path is unchanged when no ant is added (test/oracle.test.ts)"
+      },
+      {
+        "from": "1388de91d25b0ca4",
+        "to": "72e05b8102168b4b",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D110 (D108 amendments 1–2): oracle placebo log shift and an opt-in realised-signal recorder (ColonyOptions.oracleTrace, Stroeymeyt runner over the observed window, oracleStats in the s2018Colony task), all off by default; test/oracle.test.ts shows shift 0 = raw placebo, shift −sd²/2 = mean-one placebo, rows identical with the recorder on and off; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+      },
+      {
+        "from": "72e05b8102168b4b",
+        "to": "f57a833f31cc3b4f",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D118 (Part C build, D115 amendment 1, D117): new oracle kinds coupledX, local, driverShared, driverLocal (+ driverLocalTable), all off by default; test/oracle.test.ts: strength 0 bit-identical for every kind, local r = ∞ equals coupledX, a vanishing range leaves rows unchanged; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+      }
+    ]
+  },
+  "reps": 20,
+  "colonies": [
+    "colony112",
+    "colony020",
+    "colony114",
+    "colony122",
+    "colony209",
+    "colony208",
+    "colony201",
+    "colony213",
+    "colony215",
+    "colony248",
+    "colony250",
+    "colony241",
+    "colony224",
+    "colony204",
+    "colony253",
+    "colony237",
+    "colony261",
+    "colony260",
+    "colony226",
+    "colony220",
+    "colony265",
+    "colony276"
+  ],
+  "R1": {
+    "maxAbsDiff": 0,
+    "pass": true
+  },
+  "R2": {
+    "observedContrast_perMinusCore": {
+      "est": 0.1979722180601617,
+      "lo": 0.1447867538010956,
+      "hi": 0.2574923248282792,
+      "n": 22
+    },
+    "nullContrast_perMinusCore": {
+      "est": 0.13421121929556248,
+      "lo": 0.07783029000058213,
+      "hi": 0.20133155287564583,
+      "n": 22
+    },
+    "artefactShare": {
+      "est": 0.6779295631005008,
+      "lo": 0.47518439712001326,
+      "hi": 0.8572354149823931,
+      "n": 22
+    },
+    "verdict": "mostly artefact"
+  },
+  "R3": {
+    "site": "no zone difference",
+    "entrance": "entrance below periphery",
+    "couplingPresent": {
+      "core": true,
+      "entrance": false,
+      "periphery": false
+    }
+  },
+  "R4": {
+    "F24": {
+      "site": "centred on the site",
+      "entrance": "no entrance difference",
+      "couplingPresent": {
+        "core": true,
+        "entrance": true,
+        "periphery": false
+      }
+    },
+    "agreesWithF4": false
+  },
+  "tables": {
+    "M": {
+      "lt10": {
+        "byZone": {
+          "core": {
+            "obs": 0.06219078455930092,
+            "null": 0.009654032166574978,
+            "delta": {
+              "est": 0.05253675239272592,
+              "lo": 0.045111159385588864,
+              "hi": 0.060849411178476975,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 22304318
+          },
+          "entrance": {
+            "obs": 0.2552200517363969,
+            "null": 0.1864605518240846,
+            "delta": {
+              "est": 0.09843027118204122,
+              "lo": 0.058969048778860375,
+              "hi": 0.14138434107486655,
+              "n": 20
+            },
+            "colonies": 20,
+            "pairMinutes": 146160
+          },
+          "periphery": {
+            "obs": 0.26016300261946257,
+            "null": 0.14386525146213747,
+            "delta": {
+              "est": 0.1162977511573251,
+              "lo": 0.08142935639771343,
+              "hi": 0.15575148352394555,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 29454
+          },
+          "mid": {
+            "obs": 0.09330246846843862,
+            "null": 0.014239442317462785,
+            "delta": {
+              "est": 0.07906302615097585,
+              "lo": 0.07182674053128947,
+              "hi": 0.08705501101749617,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 2559091
+          },
+          "mixed": {
+            "obs": 0.061108328972556074,
+            "null": 0.007833137444275926,
+            "delta": {
+              "est": 0.053275191528280155,
+              "lo": 0.04649596135558143,
+              "hi": 0.06011912148478448,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 6559364
+          }
+        },
+        "delta_coreMinusPer": {
+          "est": -0.06376099876459917,
+          "lo": -0.10461100382625453,
+          "hi": -0.0292844850552195,
+          "n": 22
+        },
+        "delta_entMinusPer": {
+          "est": -0.022966366792992497,
+          "lo": -0.08183394978919709,
+          "hi": 0.038091181007053686,
+          "n": 20
+        },
+        "delta_entMinusCore": {
+          "est": 0.046257402524028386,
+          "lo": 0.0035012883493921996,
+          "hi": 0.09102661908970246,
+          "n": 20
+        },
+        "obs_coreMinusPer": {
+          "est": -0.1979722180601617,
+          "lo": -0.25743367363677033,
+          "hi": -0.14467927319808754,
+          "n": 22
+        },
+        "null_coreMinusPer": {
+          "est": -0.13421121929556248,
+          "lo": -0.2013224111063988,
+          "hi": -0.07773266035895603,
+          "n": 22
+        }
+      },
+      "10to20": {
+        "byZone": {
+          "core": {
+            "obs": 0.03135823593889053,
+            "null": 0.004876408740105759,
+            "delta": {
+              "est": 0.02648182719878477,
+              "lo": 0.02216347616497118,
+              "hi": 0.030938658299138635,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 30850738
+          },
+          "entrance": {
+            "obs": 0.17703838849961112,
+            "null": 0.13049850838608923,
+            "delta": {
+              "est": 0.09274787250012578,
+              "lo": 0.01586191923028689,
+              "hi": 0.1809782458211049,
+              "n": 18
+            },
+            "colonies": 18,
+            "pairMinutes": 10960
+          },
+          "periphery": {
+            "obs": 0.15210566607122222,
+            "null": 0.08852250552927753,
+            "delta": {
+              "est": 0.06358316054194464,
+              "lo": 0.034960722870752574,
+              "hi": 0.09171148501889279,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 21689
+          },
+          "mid": {
+            "obs": 0.03317217061691823,
+            "null": -0.0001961080555742882,
+            "delta": {
+              "est": 0.03336827867249253,
+              "lo": 0.024111221986387103,
+              "hi": 0.04172907809690951,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 4203016
+          },
+          "mixed": {
+            "obs": 0.025597404926689295,
+            "null": -0.0007637811684233535,
+            "delta": {
+              "est": 0.026361186095112645,
+              "lo": 0.022810314354217123,
+              "hi": 0.03012138661684756,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 18552501
+          }
+        },
+        "delta_coreMinusPer": {
+          "est": -0.03710133334315986,
+          "lo": -0.06528897501103036,
+          "hi": -0.008896852356254375,
+          "n": 22
+        },
+        "delta_entMinusPer": {
+          "est": 0.019351657196038336,
+          "lo": -0.06526134031482289,
+          "hi": 0.10934638442697765,
+          "n": 18
+        },
+        "delta_entMinusCore": {
+          "est": 0.06724700397055099,
+          "lo": -0.010469931011501647,
+          "hi": 0.15602377757396566,
+          "n": 18
+        },
+        "obs_coreMinusPer": {
+          "est": -0.12074743013233165,
+          "lo": -0.16745922361870438,
+          "hi": -0.07701471185479408,
+          "n": 22
+        },
+        "null_coreMinusPer": {
+          "est": -0.08364609678917179,
+          "lo": -0.1389899238200916,
+          "hi": -0.037756357970285086,
+          "n": 22
+        }
+      }
+    },
+    "F4": {
+      "lt10": {
+        "byZone": {
+          "core": {
+            "obs": 0.03430815636441813,
+            "null": -0.000042483125472488187,
+            "delta": {
+              "est": 0.03435063948989062,
+              "lo": 0.029863347857336943,
+              "hi": 0.0393484877269301,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 49299473
+          },
+          "entrance": {
+            "obs": 0.00509126435147258,
+            "null": -0.05493114637550038,
+            "delta": {
+              "est": 0.24168195997474834,
+              "lo": -0.001137889458445028,
+              "hi": 0.6392197762673368,
+              "n": 9
+            },
+            "colonies": 9,
+            "pairMinutes": 19343
+          },
+          "periphery": {
+            "obs": -0.21061053956559714,
+            "null": -0.3020730202005983,
+            "delta": {
+              "est": 0.11818565800012676,
+              "lo": -0.18219639186463352,
+              "hi": 0.5669694853957952,
+              "n": 3
+            },
+            "colonies": 3,
+            "pairMinutes": 1557
+          },
+          "mid": {
+            "obs": 0.048636132606001484,
+            "null": 0.0343593864294932,
+            "delta": {
+              "est": 0.014276746176508287,
+              "lo": -0.07489437302084033,
+              "hi": 0.08406621913029508,
+              "n": 20
+            },
+            "colonies": 20,
+            "pairMinutes": 4023841
+          },
+          "mixed": {
+            "obs": 0.031089648087081288,
+            "null": 0.0004838541631708288,
+            "delta": {
+              "est": 0.03060579392391046,
+              "lo": 0.019461432280629312,
+              "hi": 0.039857801444939264,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 6217696
+          }
+        },
+        "delta_coreMinusPer": {
+          "est": -0.08625934462738588,
+          "lo": -0.5472129749702129,
+          "hi": 0.22154966935467568,
+          "n": 3
+        },
+        "delta_entMinusPer": {
+          "est": -0.11301255172300925,
+          "lo": -0.11301255172300925,
+          "hi": -0.11301255172300925,
+          "n": 1
+        },
+        "delta_entMinusCore": {
+          "est": 0.20875254293212536,
+          "lo": -0.03326327971895649,
+          "hi": 0.6086323237150063,
+          "n": 9
+        },
+        "obs_coreMinusPer": {
+          "est": 0.24588058119205738,
+          "lo": 0.06322543009514273,
+          "hi": 0.43752989032103545,
+          "n": 5
+        },
+        "null_coreMinusPer": {
+          "est": 0.30198310015783,
+          "lo": -0.09525818279047821,
+          "hi": 0.9998166718845302,
+          "n": 3
+        }
+      },
+      "10to20": {
+        "byZone": {
+          "core": {
+            "obs": 0.022447529277173202,
+            "null": -0.000050189414896032864,
+            "delta": {
+              "est": 0.02249771869206924,
+              "lo": 0.019439056697138895,
+              "hi": 0.02580880762441444,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 38283501
+          },
+          "entrance": {
+            "obs": 0.08850462814971559,
+            "null": 0.13638070820839585,
+            "delta": {
+              "est": 0.10020019578057039,
+              "lo": 0.014548846377429175,
+              "hi": 0.1858515451837116,
+              "n": 2
+            },
+            "colonies": 2,
+            "pairMinutes": 2760
+          },
+          "periphery": {
+            "obs": -0.21294889104393402,
+            "null": 0.22213469995115956,
+            "delta": {
+              "est": -0.5048544348325468,
+              "lo": -0.5048544348325468,
+              "hi": -0.5048544348325468,
+              "n": 1
+            },
+            "colonies": 1,
+            "pairMinutes": 22
+          },
+          "mid": {
+            "obs": 0.029245404016455694,
+            "null": -0.017374485053360207,
+            "delta": {
+              "est": 0.0466198890698159,
+              "lo": 0.014697507900281421,
+              "hi": 0.08763942915951485,
+              "n": 20
+            },
+            "colonies": 20,
+            "pairMinutes": 4516917
+          },
+          "mixed": {
+            "obs": 0.021699687599105916,
+            "null": 0.0003352232800106095,
+            "delta": {
+              "est": 0.021364464319095305,
+              "lo": 0.010672272836089408,
+              "hi": 0.02975049450661192,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 12838958
+          }
+        },
+        "delta_coreMinusPer": {
+          "est": 0.5280530765841512,
+          "lo": 0.5280530765841512,
+          "hi": 0.5280530765841512,
+          "n": 1
+        },
+        "delta_entMinusPer": {
+          "est": null,
+          "n": 0
+        },
+        "delta_entMinusCore": {
+          "est": 0.0806261410723581,
+          "lo": -0.004429295542455188,
+          "hi": 0.1656815776871714,
+          "n": 2
+        },
+        "obs_coreMinusPer": {
+          "est": 0.23374963009375543,
+          "lo": 0.20889211333405208,
+          "hi": 0.2586071468534588,
+          "n": 2
+        },
+        "null_coreMinusPer": {
+          "est": -0.2217701914152238,
+          "lo": -0.3933892944322645,
+          "hi": 0.04723968343669213,
+          "n": 3
+        }
+      }
+    },
+    "F24": {
+      "lt10": {
+        "byZone": {
+          "core": {
+            "obs": 0.0315900314890158,
+            "null": -0.000029760265466352727,
+            "delta": {
+              "est": 0.03161979175448215,
+              "lo": 0.0275634094997552,
+              "hi": 0.03595539127980297,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 72660561
+          },
+          "entrance": {
+            "obs": 0.11699121279568653,
+            "null": -0.00019449118847821834,
+            "delta": {
+              "est": 0.11718570398416477,
+              "lo": 0.05308971506569294,
+              "hi": 0.22703006422697494,
+              "n": 3
+            },
+            "colonies": 3,
+            "pairMinutes": 2913
+          },
+          "periphery": {
+            "obs": -0.5035002782355821,
+            "null": -0.4886049198385628,
+            "delta": {
+              "est": -0.014895358397019276,
+              "lo": -0.014895358397019276,
+              "hi": -0.014895358397019276,
+              "n": 1
+            },
+            "colonies": 1,
+            "pairMinutes": 4
+          },
+          "mid": {
+            "obs": 0.03017778313675032,
+            "null": 0.0009028468747560651,
+            "delta": {
+              "est": 0.029274936261994258,
+              "lo": 0.02048322545906558,
+              "hi": 0.036797420533392154,
+              "n": 12
+            },
+            "colonies": 12,
+            "pairMinutes": 8037749
+          },
+          "mixed": {
+            "obs": 0.040622076542079735,
+            "null": 0.00017017903740865775,
+            "delta": {
+              "est": 0.04045189750467108,
+              "lo": 0.02270375004953773,
+              "hi": 0.06802727101359102,
+              "n": 17
+            },
+            "colonies": 17,
+            "pairMinutes": 11720082
+          }
+        },
+        "delta_coreMinusPer": {
+          "est": 0.06455136065620024,
+          "lo": 0.06455136065620024,
+          "hi": 0.06455136065620024,
+          "n": 1
+        },
+        "delta_entMinusPer": {
+          "est": null,
+          "n": 0
+        },
+        "delta_entMinusCore": {
+          "est": 0.09161623893672073,
+          "lo": 0.03121569336481479,
+          "hi": 0.19800596415711355,
+          "n": 3
+        },
+        "obs_coreMinusPer": {
+          "est": 0.5530702188655333,
+          "lo": 0.5530702188655333,
+          "hi": 0.5530702188655333,
+          "n": 1
+        },
+        "null_coreMinusPer": {
+          "est": 0.4885188582093331,
+          "lo": 0.4885188582093331,
+          "hi": 0.4885188582093331,
+          "n": 1
+        }
+      },
+      "10to20": {
+        "byZone": {
+          "core": {
+            "obs": 0.024363666962907014,
+            "null": 0.0006336458296442706,
+            "delta": {
+              "est": 0.023730021133262738,
+              "lo": 0.018385351432143697,
+              "hi": 0.031623698414491384,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 21191068
+          },
+          "entrance": {
+            "obs": null,
+            "null": null,
+            "delta": {
+              "est": null,
+              "n": 0
+            },
+            "colonies": 0,
+            "pairMinutes": 0
+          },
+          "periphery": {
+            "obs": null,
+            "null": null,
+            "delta": {
+              "est": null,
+              "n": 0
+            },
+            "colonies": 0,
+            "pairMinutes": 0
+          },
+          "mid": {
+            "obs": 0.01747709854291094,
+            "null": -0.0005039499112380569,
+            "delta": {
+              "est": 0.017981048454148992,
+              "lo": 0.011687535529061046,
+              "hi": 0.024593136491198465,
+              "n": 9
+            },
+            "colonies": 9,
+            "pairMinutes": 4096810
+          },
+          "mixed": {
+            "obs": 0.018805677375951377,
+            "null": 0.00004407417114143018,
+            "delta": {
+              "est": 0.01876160320480994,
+              "lo": 0.01036769794454939,
+              "hi": 0.026894813013848964,
+              "n": 17
+            },
+            "colonies": 17,
+            "pairMinutes": 10918765
+          }
+        },
+        "delta_coreMinusPer": {
+          "est": null,
+          "n": 0
+        },
+        "delta_entMinusPer": {
+          "est": null,
+          "n": 0
+        },
+        "delta_entMinusCore": {
+          "est": null,
+          "n": 0
+        },
+        "obs_coreMinusPer": {
+          "est": null,
+          "n": 0
+        },
+        "null_coreMinusPer": {
+          "est": null,
+          "n": 0
+        }
+      }
+    }
+  },
+  "posthoc": {
+    "note": "post hoc: colonies with ≥ 1000 pair-minutes in each compared zone",
+    "F4": {
+      "lt10": {
+        "byZone": {
+          "core": {
+            "obs": 0.03430815636441813,
+            "null": -0.000042483125472488187,
+            "delta": {
+              "est": 0.03435063948989062,
+              "lo": 0.029863347857336943,
+              "hi": 0.0393484877269301,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 49299473
+          },
+          "entrance": {
+            "obs": 0.047164839311534056,
+            "null": -0.0024458673304356983,
+            "delta": {
+              "est": 0.04961070664196976,
+              "lo": 0.022822628571977827,
+              "hi": 0.09544003638702366,
+              "n": 3
+            },
+            "colonies": 3,
+            "pairMinutes": 17826
+          },
+          "periphery": {
+            "obs": -0.03195943294888764,
+            "null": -0.0017433134181062363,
+            "delta": {
+              "est": -0.0302161195307814,
+              "lo": -0.0302161195307814,
+              "hi": -0.0302161195307814,
+              "n": 1
+            },
+            "colonies": 1,
+            "pairMinutes": 1525
+          },
+          "mid": {
+            "obs": 0.048429238123166,
+            "null": -0.0006119630659380187,
+            "delta": {
+              "est": 0.04904120118910402,
+              "lo": 0.02959490213441296,
+              "hi": 0.07665303417200953,
+              "n": 12
+            },
+            "colonies": 12,
+            "pairMinutes": 4021220
+          },
+          "mixed": {
+            "obs": 0.034764718994763334,
+            "null": 0.00022985117859134326,
+            "delta": {
+              "est": 0.034534867816171995,
+              "lo": 0.028125180195856265,
+              "hi": 0.04160726004583475,
+              "n": 21
+            },
+            "colonies": 21,
+            "pairMinutes": 6217423
+          }
+        },
+        "delta_coreMinusPer": {
+          "est": 0.06688527173337959,
+          "lo": 0.06688527173337959,
+          "hi": 0.06688527173337959,
+          "n": 1
+        },
+        "delta_entMinusPer": {
+          "est": null,
+          "n": 0
+        },
+        "delta_entMinusCore": {
+          "est": 0.021345023703689032,
+          "lo": -0.0006842246882204119,
+          "hi": 0.0631767356219799,
+          "n": 3
+        },
+        "obs_coreMinusPer": {
+          "est": 0.06827608311281758,
+          "lo": 0.06827608311281758,
+          "hi": 0.06827608311281758,
+          "n": 1
+        },
+        "null_coreMinusPer": {
+          "est": 0.0013908113794379865,
+          "lo": 0.0013908113794379865,
+          "hi": 0.0013908113794379865,
+          "n": 1
+        }
+      },
+      "10to20": {
+        "byZone": {
+          "core": {
+            "obs": 0.022447529277173202,
+            "null": -0.000050189414896032864,
+            "delta": {
+              "est": 0.02249771869206924,
+              "lo": 0.019439056697138895,
+              "hi": 0.02580880762441444,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 38283501
+          },
+          "entrance": {
+            "obs": 0.01901429489097584,
+            "null": 0.004465448513546665,
+            "delta": {
+              "est": 0.014548846377429175,
+              "lo": 0.014548846377429175,
+              "hi": 0.014548846377429175,
+              "n": 1
+            },
+            "colonies": 1,
+            "pairMinutes": 2259
+          },
+          "periphery": {
+            "obs": null,
+            "null": null,
+            "delta": {
+              "est": null,
+              "n": 0
+            },
+            "colonies": 0,
+            "pairMinutes": 0
+          },
+          "mid": {
+            "obs": 0.0377146013142857,
+            "null": 0.000048908892611731674,
+            "delta": {
+              "est": 0.03766569242167397,
+              "lo": 0.022306905947774548,
+              "hi": 0.056239728889376187,
+              "n": 13
+            },
+            "colonies": 13,
+            "pairMinutes": 4514257
+          },
+          "mixed": {
+            "obs": 0.021699687599105916,
+            "null": 0.0003352232800106095,
+            "delta": {
+              "est": 0.021364464319095305,
+              "lo": 0.010672272836089408,
+              "hi": 0.02975049450661192,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 12838958
+          }
+        },
+        "delta_coreMinusPer": {
+          "est": null,
+          "n": 0
+        },
+        "delta_entMinusPer": {
+          "est": null,
+          "n": 0
+        },
+        "delta_entMinusCore": {
+          "est": -0.004429295542455188,
+          "lo": -0.004429295542455188,
+          "hi": -0.004429295542455188,
+          "n": 1
+        },
+        "obs_coreMinusPer": {
+          "est": null,
+          "n": 0
+        },
+        "null_coreMinusPer": {
+          "est": null,
+          "n": 0
+        }
+      }
+    },
+    "M": {
+      "lt10": {
+        "byZone": {
+          "core": {
+            "obs": 0.06219078455930092,
+            "null": 0.009654032166574978,
+            "delta": {
+              "est": 0.05253675239272592,
+              "lo": 0.045111159385588864,
+              "hi": 0.060849411178476975,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 22304318
+          },
+          "entrance": {
+            "obs": 0.08786618216284794,
+            "null": 0.016633161620664937,
+            "delta": {
+              "est": 0.07123302054218297,
+              "lo": 0.04665119930202073,
+              "hi": 0.10201521269367135,
+              "n": 10
+            },
+            "colonies": 10,
+            "pairMinutes": 144126
+          },
+          "periphery": {
+            "obs": 0.24794721508475068,
+            "null": 0.11603899203314968,
+            "delta": {
+              "est": 0.131908223051601,
+              "lo": 0.09295813601947339,
+              "hi": 0.1708848097733557,
+              "n": 9
+            },
+            "colonies": 9,
+            "pairMinutes": 23230
+          },
+          "mid": {
+            "obs": 0.0937534682010074,
+            "null": 0.013174636569313992,
+            "delta": {
+              "est": 0.08057883163169341,
+              "lo": 0.07344733556193671,
+              "hi": 0.08800206422147065,
+              "n": 21
+            },
+            "colonies": 21,
+            "pairMinutes": 2558659
+          },
+          "mixed": {
+            "obs": 0.061108328972556074,
+            "null": 0.007833137444275926,
+            "delta": {
+              "est": 0.053275191528280155,
+              "lo": 0.04649596135558143,
+              "hi": 0.06011912148478448,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 6559364
+          }
+        },
+        "delta_coreMinusPer": {
+          "est": -0.08201757724259137,
+          "lo": -0.11990154461982855,
+          "hi": -0.04191990340931875,
+          "n": 9
+        },
+        "delta_entMinusPer": {
+          "est": -0.04319173180608498,
+          "lo": -0.06319649762975367,
+          "hi": -0.01844732017707255,
+          "n": 6
+        },
+        "delta_entMinusCore": {
+          "est": 0.018004188568949107,
+          "lo": -0.016689566406854213,
+          "hi": 0.055137563420641064,
+          "n": 10
+        },
+        "obs_coreMinusPer": {
+          "est": -0.18151835858976428,
+          "lo": -0.23892896245904482,
+          "hi": -0.12023566225916846,
+          "n": 9
+        },
+        "null_coreMinusPer": {
+          "est": -0.09950078134717294,
+          "lo": -0.15320575343456289,
+          "hi": -0.038335768285248296,
+          "n": 9
+        }
+      },
+      "10to20": {
+        "byZone": {
+          "core": {
+            "obs": 0.03135823593889053,
+            "null": 0.004876408740105759,
+            "delta": {
+              "est": 0.02648182719878477,
+              "lo": 0.02216347616497118,
+              "hi": 0.030938658299138635,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 30850738
+          },
+          "entrance": {
+            "obs": 0.019582764097783728,
+            "null": -0.009032065621360982,
+            "delta": {
+              "est": 0.02861482971914471,
+              "lo": -0.007719907635261707,
+              "hi": 0.07402014878253604,
+              "n": 4
+            },
+            "colonies": 4,
+            "pairMinutes": 9096
+          },
+          "periphery": {
+            "obs": 0.12877133713744937,
+            "null": 0.06260781725108101,
+            "delta": {
+              "est": 0.06616351988636837,
+              "lo": 0.02624141009614672,
+              "hi": 0.10761457461137491,
+              "n": 8
+            },
+            "colonies": 8,
+            "pairMinutes": 16887
+          },
+          "mid": {
+            "obs": 0.03873876221561349,
+            "null": 0.0022027816424450577,
+            "delta": {
+              "est": 0.036535980573168446,
+              "lo": 0.030285141406957674,
+              "hi": 0.043323930268782375,
+              "n": 21
+            },
+            "colonies": 21,
+            "pairMinutes": 4202868
+          },
+          "mixed": {
+            "obs": 0.025597404926689295,
+            "null": -0.0007637811684233535,
+            "delta": {
+              "est": 0.026361186095112645,
+              "lo": 0.022810314354217123,
+              "hi": 0.03012138661684756,
+              "n": 22
+            },
+            "colonies": 22,
+            "pairMinutes": 18552501
+          }
+        },
+        "delta_coreMinusPer": {
+          "est": -0.04121343070130505,
+          "lo": -0.08031311805297599,
+          "hi": -0.002280132761080862,
+          "n": 8
+        },
+        "delta_entMinusPer": {
+          "est": 0.011805421959318309,
+          "lo": -0.028612631510423585,
+          "hi": 0.0411310702741473,
+          "n": 4
+        },
+        "delta_entMinusCore": {
+          "est": 0.008903372786266753,
+          "lo": -0.0277016938193939,
+          "hi": 0.0581489020475172,
+          "n": 4
+        },
+        "obs_coreMinusPer": {
+          "est": -0.09240074637898447,
+          "lo": -0.14343907533666939,
+          "hi": -0.03629663110825974,
+          "n": 8
+        },
+        "null_coreMinusPer": {
+          "est": -0.05118731567767942,
+          "lo": -0.10261090334614846,
+          "hi": 0.0031359345670948302,
+          "n": 8
+        }
+      }
+    }
+  }
+}

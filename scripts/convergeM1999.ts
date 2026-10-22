@@ -16,11 +16,15 @@
  * printed: the no-bout fraction at each level. Not compared with the 1999
  * data (only SE_data is used, as the unit); the means are not printed.
  *
- * Usage: npx vite-node scripts/convergeM1999.ts [--vary dt|warmup] [--fit data/fits/colony-m1999-<layer>-shared.json] [--n 1600]
+ * Step 5 (D094, D098): `--fit c2` takes C2's two start points (`m1999Points('c2')`); `--dt` sets the dt of a warm-up
+ * comparison (default 0.1) and `--warmup` the warm-up of a dt comparison (default 300); `--lazy` runs with B014's
+ * lazy resting ants (bit-identical, faster).
+ *
+ * Usage: npx vite-node scripts/convergeM1999.ts [--vary dt|warmup] [--fit data/fits/colony-m1999-<layer>-shared.json|c2] [--n 1600] [--dt s] [--warmup s] [--lazy]
  */
 import { RNG } from '../src/sim/core/rng';
 import { M1999_DAYS, M1999_TARGETS, m1999NoBout, type M1999Day, type M1999Recruiter, type M1999Stat } from '../src/sim/experiments/colonyMailleux1999';
-import { arg, numArg, seedFor } from './lib';
+import { arg, flag, numArg, seedFor } from './lib';
 import { m1999Points } from './m1999Points';
 import { SimPool } from './pool';
 
@@ -30,6 +34,10 @@ if (VARY !== 'dt' && VARY !== 'warmup') throw new Error('--vary dt|warmup');
 // The value in use first, the reference second.
 const LEVELS = arg('--levels', '') ? arg('--levels', '').split(',').map(Number) : VARY === 'dt' ? [0.1, 0.025] : [300, 900];
 const TOL = 0.5;
+// The other knob's value (D098): defaults as before (warm-up 300 s for a dt comparison, dt 0.1 for a warm-up one).
+const FIXED_WARMUP = numArg('--warmup', 300);
+const FIXED_DT = numArg('--dt', 0.1);
+const LAZY = flag('--lazy') ? { lazyRest: {} } : {};
 // --contactGap g: merge contact episodes separated by ≤ g s (diagnostic, STATUS 2026-10-10 night).
 const GAP = numArg('--contactGap', 0);
 const B = 2000;
@@ -56,8 +64,8 @@ for (const [p, pt] of POINTS.entries()) {
   const runs: Record<M1999Day, M1999Recruiter[]>[] = [];
   for (const level of LEVELS) {
     const t0 = Date.now();
-    const knob = VARY === 'dt' ? { warmup: 300, dt: level } : { warmup: level, dt: 0.1 };
-    runs.push(Object.fromEntries(await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999(pt.P, { seed: seedOf(p), starvationDays: d, density: pt.density, pipetteAccessible: pt.accessible, contactGap: GAP, contactMin: pt.contactMin, ...knob }, N)] as const))) as Record<M1999Day, M1999Recruiter[]>);
+    const knob = VARY === 'dt' ? { warmup: FIXED_WARMUP, dt: level } : { warmup: level, dt: FIXED_DT };
+    runs.push(Object.fromEntries(await Promise.all(M1999_DAYS.map(async (d) => [d, await pool.m1999(pt.P, { seed: seedOf(p), starvationDays: d, density: pt.density, pipetteAccessible: pt.accessible, contactGap: GAP, contactMin: pt.contactMin, ...knob, ...LAZY }, N)] as const))) as Record<M1999Day, M1999Recruiter[]>);
     console.log(`${pt.label}, ${VARY} ${level}: ${((Date.now() - t0) / 1000).toFixed(0)} s`);
   }
   const [a, c] = runs;

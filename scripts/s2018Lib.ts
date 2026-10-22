@@ -53,7 +53,7 @@ let frozenTracker: ReturnType<typeof loadTracker> | undefined;
 /**
  * Observer sensitivity variants from the command line (STATUS 2026-10-17 ≈
  * 01:30 UTC): `--obsVariant tag|rest:sd:tau` (slow position offset per ant)
- * and `--pxRound mm` (pixel rounding), and the oracle colony-coupling diagnostic `--oracle coupled:kappa:tauC|placebo:sd:tauC[:unit]|const:factor`.
+ * and `--pxRound mm` (pixel rounding), and the oracle colony-coupling diagnostic `--oracle coupled:kappa:tauC|placebo:sd:tauC[:unit|:shift=m]|const:factor` (`--oracleTrace` records its realised signal).
  * None given: the colony unchanged.
  */
 export function withObsVariant(c: StroeymeytColony, argv = process.argv): StroeymeytColony {
@@ -74,9 +74,18 @@ export function withObsVariant(c: StroeymeytColony, argv = process.argv): Stroey
     const [kind, v, tauC, mode] = orc.split(':');
     if (kind === 'const') out = { ...out, oracle: { kind, factor: Number(v) } };
     else if (kind === 'coupled') out = { ...out, oracle: { kind, kappa: Number(v), tauC: Number(tauC) } };
-    else if (kind === 'placebo') out = { ...out, oracle: mode === 'unit' ? { kind, sd: Number(v), tauC: Number(tauC), meanOne: true } : { kind, sd: Number(v), tauC: Number(tauC) } };
-    else throw new Error(`--oracle ${orc}: kind must be coupled, placebo or const`);
+    // D108 amendment 1: `placebo:sd:tauC:shift=m`, multiplier exp(x + m) (the matched placebo).
+    else if (kind === 'placebo')
+      out = { ...out, oracle: mode === 'unit' ? { kind, sd: Number(v), tauC: Number(tauC), meanOne: true } : mode?.startsWith('shift=') ? { kind, sd: Number(v), tauC: Number(tauC), shift: Number(mode.slice(6)) } : { kind, sd: Number(v), tauC: Number(tauC) } };
+    // Part C (D115 amendment 1): `coupledX:κ:τ_c`, `local:κ:r:τ_c`, `driverShared:A:τ`, `driverLocal:A:σ`.
+    else if (kind === 'coupledX') out = { ...out, oracle: { kind, kappa: Number(v), tauC: Number(tauC) } };
+    else if (kind === 'local') out = { ...out, oracle: { kind, kappa: Number(v), r: Number(tauC), tauC: Number(mode) } };
+    else if (kind === 'driverShared') out = { ...out, oracle: { kind, amp: Number(v), tau: Number(tauC) } };
+    else if (kind === 'driverLocal') out = { ...out, oracle: { kind, amp: Number(v), sigma: Number(tauC) } };
+    else throw new Error(`--oracle ${orc}: kind must be coupled, placebo, const, coupledX, local, driverShared or driverLocal`);
   }
+  // `--oracleTrace`: record the realised oracle signal every 10 s (D108 amendment 1), reduced to `oracleStats` per run.
+  if (argv.includes('--oracleTrace')) out = { ...out, oracleTrace: { every: 10 } };
   // `--oracleNurseOnly`: the pre-fix oracle (nurses only; STATUS 2026-10-17 ≈ 16:18 / 21:17 UTC), to reproduce earlier runs.
   if (argv.includes('--oracleNurseOnly')) out = { ...out, oracleNurseOnly: true };
   // Slow-episode what-if (STATUS 2026-10-17, overnight): `--slowEp rate:dur:factor`.

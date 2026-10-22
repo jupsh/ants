@@ -8,12 +8,12 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 
 | status | meaning | n |
 |---|---|---|
-| established | a pre-registered reading, read mechanically against its rule | 19 |
-| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 27 |
+| established | a pre-registered reading, read mechanically against its rule | 26 |
+| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 39 |
 | literature | reported by a cleared source; not tested here | 8 |
 | hypothesis | our reasoning; untested | 3 |
 | closed | a tested line with no further arms (a negative result) | 6 |
-| superseded | replaced by a later finding (superseded_by) | 1 |
+| superseded | replaced by a later finding (superseded_by) | 2 |
 
 ## In-nest motion (step 4)
 
@@ -24,6 +24,9 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F004](F004-speed-fluctuation-closed.md) | closed | In-nest speed fluctuation does not produce the brief stills (12 arms); line closed | 2026-10-17 |
 | [F005](F005-slow-episodes-closed.md) | closed | Discrete slow episodes at the tested settings do not produce the brief stills; settings rejected, not the mechanism | 2026-10-17 |
 | [F011](F011-phase-feasibility.md) | established | One shared light/dark prediction can meet \|z\| ≤ 2 for every motion row pair; the phase mismatch is a loss floor (≈ 16), not a threshold failure | 2026-10-18 |
+| [F068](F068-c2-is-not-adequate-on-fresh-seeds-15-of.md) | established | C2 is not adequate on fresh seeds: 15 of 36 rows beyond \|z\| 3, and four parameters at box ends (both drive SDs at the upper bound, restShape at 1.001, restCrowdExp near 1.25) | 2026-10-20 |
+| [F069](F069-c1-judged-on-fresh-seeds-on-the-36-rows.md) | established | C1 judged on fresh seeds on the 36 rows: 24 beyond \|z\| 3; C2 improves persistence and short stops over it but loses nurse still fraction and nurse still-run tails | 2026-10-20 |
+| [F076](F076-the-model-s-moving-run-lengths-fall-with.md) | indicated | The model's moving-run lengths are far more consistently rank-associated with colony density than the data's (Spearman −0.87 to −0.97 vs −0.28 to −0.56), in C2 and C1; slope and sensitivity untested | 2026-10-20 |
 
 ## Per-ant activity and persistence
 
@@ -35,6 +38,13 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F008](F008-walkon-trait-sigma.md) | indicated | A fixed lognormal per-ant walk-on trait with σ 0.4 matches per-ant persistence at the start point; σ 0.7 overshoots | 2026-10-16 |
 | [F009](F009-no-refractory-signature.md) | indicated | No refractory signature: the hazard of a movement onset falls with time since the last run, more steeply in the data | 2026-10-17 |
 | [F057](F057-lognormal-activity-lenoir.md) | literature | L. niger total activity per ant is lognormal (≈ 500-fold range) and nurses are the most immobile | 2026-10-16 |
+| [F067](F067-per-ant-activity-persistence-in-the.md) | indicated | Per-ant activity persistence in the Stroeymeyt nests is mostly not spatial: rest position carries about 5 % (nurses) and 9 % (foragers) of it; more active ants rest in less occupied places | 2026-10-20 |
+| [F070](F070-in-c1-and-c2-per-ant-activity-is.md) | indicated | In C1 and C2 per-ant activity is placeless: rest position carries none of the persistence and activity level is unrelated to where an ant rests, unlike the data | 2026-10-20 |
+| [F071](F071-at-c2-s-fitted-settings-a-wider-stable.md) | established | At C2's fitted settings, a wider stable trait (walkOnSd 1.0) brings both top-20 % rows within \|z\| 2 but overshoots persistence in both groups and shifts the still fraction > 2 SE_data: responds, with a tradeoff | 2026-10-20 |
+| [F072](F072-at-c2-s-fitted-settings-lowering-the.md) | established | At C2's fitted settings, lowering the activity drive to σ 0.5 does not reduce the nurse rest tails as a pair (P10 up slightly, P60 down) and does not worsen spread; it makes ants far more active | 2026-10-20 |
+| [F073](F073-neighbourhood-decomposition-of-c2-s-gaps.md) | established | Neighbourhood decomposition of C2's gaps (D083 Part B): leaving and nurse P(still ≥ 10 s) read counteracting components, nurse stop and forager survival no resolved aggregate gap; no row is dominated by either component | 2026-10-20 |
+| [F074](F074-in-c2-ants-rest-and-move-in-sparser.md) | indicated | In C2 ants rest and move in sparser neighbourhoods than in the data, and leaving, stopping and rest survival change less with neighbourhood size | 2026-10-20 |
+| [F075](F075-at-the-fitted-settings-foragers-per-ant.md) | indicated | At the fitted settings, foragers' per-ant spread of still fraction is about a third of the data's in C2 and C1 (spread rule z ≈ −10); C2's nurse spread matches | 2026-10-20 |
 
 ## Colony synchrony
 
@@ -47,7 +57,10 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F025](F025-global-coupling-closed.md) | closed | Global (oracle) coupling does not reproduce the synchrony in a usable way; no further κ or τ arms | 2026-10-17 |
 | [F026](F026-weak-spatial-order.md) | indicated | Within activation episodes, spatial ordering from the initiator is weak at best | 2026-10-17 |
 | [F056](F056-waves-from-brood-pile.md) | literature | In Leptothorax, activity waves start at the brood pile (≈ 0.01 cm/s) and returning foragers disrupt the entrance group | 2026-10-18 |
-| [F064](F064-local-co-movement-measured-higher-at-the.md) | indicated | Local co-movement measured higher at the periphery and the entrance than at the resting site, but zones were classed per minute (endogenous to activity): not yet usable | 2026-10-19 |
+| [F065](F065-b018-s-peripheral-co-movement-is-about.md) | indicated | B018's peripheral co-movement is about two-thirds a classing artefact; ants are not based in the periphery, so where coupling sits cannot be tested by zone; ants based at the site co-move beyond chance | 2026-10-19 |
+| [F082](F082-step-5-synchrony-gate-fails-narrowly-2.md) | indicated | Step-5 synchrony gate fails narrowly: 2 of 15 rows (time and distance, 4 d) differ by 1.18 / 1.24 combined SE between the κ = 1 coupled and placebo shifts; verdicts unchanged | 2026-10-22 |
+| [F083](F083-synchrony-stress-test-at-c2-s-fit-oracle.md) | indicated | Synchrony stress test at C2's fit (oracle κ 1 vs a placebo matched on E[g] and log-SD, not on autocorrelation): the contrast is equivalent within ±0.5 SE_data for 24 of 36 Stroeymeyt rows; the still-run tails are unresolved or sensitive | 2026-10-22 |
+| [F084](F084-at-c2-s-fit-colony-synchrony-stays-near.md) | established | At C2's fit, colony synchrony stays near independence (D_w 1.02–1.16 vs data 1.58–6.28), and the κ = 1 oracle reaches only 23–56 % of the gap, so it is not an overshooting stress test there | 2026-10-22 |
 
 ## Packing, walls and resting sites
 
@@ -69,6 +82,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F061](F061-in-the-data-neighbours-and-the-site.md) | indicated | In the data, neighbours and the site retain resting ants independently: leaving falls with neighbours (b ≈ 1.07, saturating, mostly by longer rests) and stopping rises with them; bodies keep ≈ 1.5 mm apart with a shell at 2.4 mm | 2026-10-19 |
 | [F062](F062-no-taxis-toward-resting-neighbours.md) | indicated | No taxis toward resting neighbours (moving ants turn slightly away) and no collision-triggered departures once rest age is stratified; site-directed turning is weak | 2026-10-19 |
 | [F063](F063-resting-ants-avoid-the-walls-still-steps.md) | indicated | Resting ants avoid the walls: still steps within 3 mm of the walls are 0.18 [0.10, 0.27] of the area share (the model's wall band ≈ 2.45) | 2026-10-19 |
+| [F078](F078-c2-is-less-packed-than-the-data-near.md) | indicated | C2 is less packed than the data (near share 0.81×, median NN 1.17×) but closer than C1; its occupancy correlates with the data's (median r +0.44, C1 −0.04) while spread over about twice the area | 2026-10-20 |
 
 ## Contacts
 
@@ -78,6 +92,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F018](F018-moving-contacts-phase.md) | established | Moving-involved contacts: marginal in light (0.73–0.78), reproduced in dark (1.10–1.19); the data's light/dark ratio 1.5, the model's 1.0 | 2026-10-17 |
 | [F019](F019-contact-onsets-not-causal.md) | established | The data's contact-associated movement onsets (RR ≈ 3) cannot be attributed to the contact: a comparable elevation precedes it | 2026-10-17 |
 | [F021](F021-model-no-contact-activation.md) | indicated | The model shows no contact-associated activation through the same recorder (RR 0.93 / 0.88), so the data's RR is not a code artefact | 2026-10-17 |
+| [F079](F079-c2-s-crossing-rate-is-0-63-0-81-of-the.md) | indicated | C2's crossing rate is 0.63 / 0.81 of the data's (still–still about a third, moving-involved matched or above) and is positively rank-associated with density across colonies, which the data's is not clearly do | 2026-10-20 |
 
 ## Measurement and observers
 
@@ -102,6 +117,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | id | status | finding | date |
 |---|---|---|---|
 | [F038](F038-trip-shape-not-reproduced.md) | indicated | Trip durations are not reproduced: the fixed give-up time shapes the trips (median 2160 s vs data 283 s) | 2026-10-16 |
+| [F077](F077-c2-s-foragers-move-too-slowly-within.md) | indicated | C2's foragers move too slowly within short stays (V_stay 0.44 vs 1.22–1.30 mm/s) and stay too long (median ≈ 3200 vs 500–770 s); trips stay shaped by the fixed give-up time | 2026-10-20 |
 
 ## Colony (Mailleux 1999, step 5)
 
@@ -114,6 +130,8 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F043](F043-step5-nothing-fixable.md) | literature | No step-5 free input is fixable from the cleared literature; density has only a prior range | 2026-10-18 |
 | [F054](F054-option-b-forager-values-wrong-condition.md) | hypothesis | Option B's forager stop values were measured under red light, the wrong condition for a nest that is dark to the ants | 2026-10-18 |
 | [F058](F058-relaxing-leavecropfrac-cannot-give.md) | indicated | Relaxing leaveCropFrac cannot give Mailleux 1999 Table 2b: after-trophallaxis leaving saturates at 13–19 % (data 44–86 %) with no starvation rise; a contact-triggered rule is needed for G3 | 2026-10-19 |
+| [F080](F080-step-5-fit-with-c2-s-motion-transferred.md) | indicated | Step-5 fit with C2's motion transferred: the search runs into density's lower end (2 /cm²) and returnRate's upper end; no run converged in the default budget | 2026-10-22 |
+| [F081](F081-step-5-judgment-with-c2-s-motion.md) | established | Step-5 judgment: with C2's motion transferred, the fitted candidate is not adequate and not adoptable; trophallaxis totals far too short and later-day contacts too many in every sensitivity arm; transfer failure within the allotted search | 2026-10-22 |
 
 ## E2 (drinking, trail laying)
 
@@ -137,9 +155,11 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F048](F048-fit-speed-shared-warmups.md) | indicated | Shared warm-ups (4 recruiters per nest) are the biggest certain saving for the step-5 fit: 1.6–2.2× | 2026-10-18 |
 | [F049](F049-pheromone-grid-nonconvergence.md) | indicated | The pheromone field conserves mass, but its point-sampled signal does not converge with grid refinement | 2026-10-18 |
 | [F059](F059-a-colonysim-can-be-saved-to-disk-and.md) | indicated | A ColonySim can be saved to disk and restored in another process bit-identically (0.7–1.3 MB, 10–40 ms) | 2026-10-19 |
+| [F066](F066-lazy-resting-ants-are-bit-identical-to.md) | indicated | Lazy resting ants are bit-identical to stepping and give ≈1.4× on Stroeymeyt-scale colonies, ≈1.15× on Mailleux nests at density 2.3 | 2026-10-19 |
 
 ## Superseded
 
 | id | finding | replaced by |
 |---|---|---|
 | [F020](F020-contact-doubles-onsets.md) | Contact with a moving ant roughly doubles the chance of a movement onset (a social contribution) | F019 |
+| [F064](F064-local-co-movement-measured-higher-at-the.md) | Local co-movement measured higher at the periphery and the entrance than at the resting site, but zones were classed per minute (endogenous to activity): not yet usable | F065 |

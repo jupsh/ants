@@ -24,8 +24,13 @@
  * episodes ≥ 0.04 s (spec B3; --contactMin overrides, e.g. 1 for the
  * sensitivity check). Default A: the current model, contacts ≥ 1 s.
  *
- * Usage: npx vite-node scripts/fitM1999.ts --layer main|alt [--gens 120] [--n 80] [--perNest 8] [--dt 0.1] [--warmup 300] [--tag pilot] [--bch] [--fix shareEnd] [--model A|B] [--contactMin s]
- * Writes data/fits/colony-m1999-<layer>.json (with --perNest: colony-m1999-<layer>-shared.json).
+ * --model C2: step 5 (D094): C2's in-nest motion transferred unchanged (`scripts/m1999C2.ts`), motion fixed
+ * (nestSpeedFactor not free), shareEnd derived (not free), density on its full-footprint box 2–4 / cm² (Mailleux
+ * 2000, F043), B3 contacts (≥ 0.04 s), dt 0.05 unless given; --roles mix (default) | nurse.
+ *
+ * Usage: npx vite-node scripts/fitM1999.ts --layer main|alt [--gens 120] [--n 80] [--perNest 8] [--dt 0.1] [--warmup 300] [--tag pilot] [--bch] [--fix shareEnd] [--model A|B|C2] [--contactMin s]
+ * Writes data/fits/colony-m1999-<layer>.json (with --perNest: colony-m1999-<layer>-shared.json; --model C2:
+ * colony-m1999-c2-<layer>….json).
  */
 import { cmaes } from '../src/sim/analysis/cmaes';
 import type { ColonyParams } from '../src/sim/experiments/colonyBles';
@@ -33,6 +38,7 @@ import { M1999_CONTACT_MIN, M1999_DAYS, M1999_DEGENERATE, M1999_FREE, M1999_NO_B
 import { fromX, toX } from '../src/sim/experiments/e2Variants';
 import { LASIUS_NEST, LASIUS_NEST_B, LASIUS_PARAMS, LASIUS_PARAMS_E2_ALT, MAILLEUX_SETUP, MAILLEUX_SETUP_E2_ALT } from '../src/sim/species/lasiusM1';
 import { arg, flag, numArg, provenance, seedFor, writeJson } from './lib';
+import { m1999C2Params } from './m1999C2';
 import { SimPool } from './pool';
 
 const LAYER = arg('--layer', '');
@@ -49,18 +55,25 @@ const STUDY = 1999;
 // Shared warm-ups, 4 recruiters per nest by default (STATUS 2026-10-10); --perNest 0 = independent design.
 const PER_NEST = numArg('--perNest', 4);
 // --dt: simulation step (default 0.1); --tag t: a separate run (pilot, STATUS 2026-10-10 night): output name and seed namespace.
-const DT = numArg('--dt', 0.1);
+const MODEL = arg('--model', 'A');
+if (MODEL !== 'A' && MODEL !== 'B' && MODEL !== 'C2') throw new Error('--model A|B|C2');
+// --roles (C2; D094 open choice 1): mix (nestmates foragers at the fit colonies' share, default) or nurse (sensitivity).
+const ROLES = arg('--roles', 'mix');
+if (ROLES !== 'mix' && ROLES !== 'nurse') throw new Error('--roles mix|nurse');
+// C2 was fitted and gated at dt 0.05 (D094).
+const DT = numArg('--dt', MODEL === 'C2' ? 0.05 : 0.1);
 const TAG = arg('--tag', '');
-const OUT = `data/fits/colony-m1999-${LAYER}${PER_NEST ? '-shared' : ''}${TAG ? `-${TAG}` : ''}.json`;
+// --lazy: B014's lazy resting ants (bit-identical, faster; D096).
+const LAZY = flag('--lazy') ? { lazyRest: {} } : {};
+// C2 (step 5) writes its own files, never over the earlier model-A / B fits.
+const OUT = `data/fits/colony-m1999-${MODEL === 'C2' ? `c2${ROLES === 'nurse' ? '-nurse' : ''}-` : ''}${LAYER}${PER_NEST ? '-shared' : ''}${TAG ? `-${TAG}` : ''}.json`;
 // A tagged run takes its own seeds: a leading key after the purpose, 0x9170 for 'pilot' (as run), else a hash of the tag.
 const TAG_KEY = TAG === 'pilot' ? 0x9170 : [...TAG].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0, 0x9171);
 const sf = (p: Parameters<typeof seedFor>[1], ...k: number[]) => (TAG ? seedFor(STUDY, p, TAG_KEY, ...k) : seedFor(STUDY, p, ...k));
 
 // --model: A (the current nest model) or B (option B: sourced stops and speeds, encounter observer; STATUS 2026-10-10 night).
-const MODEL = arg('--model', 'A');
-if (MODEL !== 'A' && MODEL !== 'B') throw new Error('--model A|B');
-const CONTACT_MIN = numArg('--contactMin', MODEL === 'B' ? 0.04 : M1999_CONTACT_MIN);
-const P0: ColonyParams = { ...(LAYER === 'main' ? LASIUS_PARAMS : LASIUS_PARAMS_E2_ALT), nest: MODEL === 'B' ? LASIUS_NEST_B : LASIUS_NEST };
+const CONTACT_MIN = numArg('--contactMin', MODEL === 'A' ? M1999_CONTACT_MIN : 0.04);
+const P0: ColonyParams = MODEL === 'C2' ? m1999C2Params(LAYER as 'main' | 'alt', ROLES) : { ...(LAYER === 'main' ? LASIUS_PARAMS : LASIUS_PARAMS_E2_ALT), nest: MODEL === 'B' ? LASIUS_NEST_B : LASIUS_NEST };
 const ACCESSIBLE = (LAYER === 'main' ? MAILLEUX_SETUP : MAILLEUX_SETUP_E2_ALT).accessible;
 
 // --fix a,b: parameters left out of the free set at their species values (e.g. shareEnd from Buffin 2011; STATUS
@@ -68,29 +81,35 @@ const ACCESSIBLE = (LAYER === 'main' ? MAILLEUX_SETUP : MAILLEUX_SETUP_E2_ALT).a
 // parameter mapped linearly, in log for log-scaled ones, onto [0, BOX]; BOX = 4 matches the logistic's slope at the
 // centre, so the probe step, initial SDs and tolX keep their meaning).
 // Under B the in-nest speed is sourced (Depickère et al. 2004), not free.
-const FIX = [...new Set([...arg('--fix', '').split(',').filter(Boolean), ...(MODEL === 'B' ? ['nestSpeedFactor'] : [])])];
+const FIX = [...new Set([...arg('--fix', '').split(',').filter(Boolean), ...(MODEL === 'B' ? ['nestSpeedFactor'] : []), ...(MODEL === 'C2' ? ['nestSpeedFactor', 'shareEnd'] : [])])];
+// Under C2 density lives on its full-footprint box 2–4 / cm² (D094, open choice 2; Mailleux 2000, F043).
+const DENSITY_TF_C2 = { lo: 2, hi: 4, log: true };
 const BCH = flag('--bch');
 const BOX = 4;
-const FREE = M1999_FREE.filter((f) => !FIX.includes(f.key) && !FIX.includes(f.key.replace('nest.', '')));
+const FREE = M1999_FREE.filter((f) => !FIX.includes(f.key) && !FIX.includes(f.key.replace('nest.', ''))).map((f) => (MODEL === 'C2' && f.key === 'density' ? { ...f, tf: DENSITY_TF_C2 } : f));
 if (FREE.length + FIX.length !== M1999_FREE.length) throw new Error(`--fix ${FIX.join(',')}: unknown parameter`);
 const unitOf = (v: number, tf: { lo: number; hi: number; log?: boolean }) => (tf.log ? Math.log(v / tf.lo) / Math.log(tf.hi / tf.lo) : (v - tf.lo) / (tf.hi - tf.lo));
 const ofUnit = (u: number, tf: { lo: number; hi: number; log?: boolean }) => (tf.log ? tf.lo * (tf.hi / tf.lo) ** u : tf.lo + (tf.hi - tf.lo) * u);
 const encode = (m: M1999Model) => FREE.map((f) => (BCH ? BOX * unitOf(f.get(m), f.tf as any) : toX(f.get(m), f.tf)));
 const decode = (x: number[]): M1999Model => FREE.reduce((m, f, i) => f.set(m, BCH ? ofUnit(Math.min(1, Math.max(0, x[i] / BOX)), f.tf as any) : fromX(x[i], f.tf)), { P: P0, density: 1 } as M1999Model);
 const values = (m: M1999Model) => m1999Values(m);
-const atBound = (m: M1999Model) => m1999AtBound(m).filter((k) => FREE.some((f) => f.key === k));
+// The fit's own bound flag (unit < 0.01 or > 0.99, as m1999AtBound) on the boxes actually used (C2's density box included).
+const atBound = (m: M1999Model) =>
+  MODEL === 'C2' ? FREE.filter((f) => ((u) => u < 0.01 || u > 0.99)(unitOf(f.get(m), f.tf as any))).map((f) => f.key) : m1999AtBound(m).filter((k) => FREE.some((f) => f.key === k));
 type Model = M1999Model;
 
 // Start 1: the provisional values at density 1 / cm². Start 2: E6 density, a slow nest walker, faster return and bout ending.
-const start1: Model = { P: P0, density: 1 };
-const start2: Model = { P: { ...P0, nest: { ...P0.nest, nestSpeedFactor: 0.2, returnRate: 1 / 30, shareEnd: 1 / 30 } }, density: 2.3 };
+// C2 (D094): motion and shareEnd fixed, so start 1 = the provisional trophallaxis values at density 3 (mid-box) and
+// start 2 = start 2's faster return at the E6 density 2.3.
+const start1: Model = MODEL === 'C2' ? { P: P0, density: 3 } : { P: P0, density: 1 };
+const start2: Model = MODEL === 'C2' ? { P: { ...P0, nest: { ...P0.nest, returnRate: 1 / 30 } }, density: 2.3 } : { P: { ...P0, nest: { ...P0.nest, nestSpeedFactor: 0.2, returnRate: 1 / 30, shareEnd: 1 / 30 } }, density: 2.3 };
 
 // Provenance taken at launch (code and commit the run actually used; the sources may change before the fit ends).
 const PROVENANCE = provenance();
 const pool = await SimPool.create();
 const simulate = async (m: Model, seed: number, n = N): Promise<Record<M1999Day, M1999Recruiter[]>> => {
   const run = (day: M1999Day) => {
-    const o = { seed, starvationDays: day, density: m.density, pipetteAccessible: ACCESSIBLE, warmup: WARMUP, dt: DT, contactMin: CONTACT_MIN };
+    const o = { seed, starvationDays: day, density: m.density, pipetteAccessible: ACCESSIBLE, warmup: WARMUP, dt: DT, contactMin: CONTACT_MIN, ...LAZY };
     return PER_NEST ? pool.m1999Shared(m.P, o, n, PER_NEST) : pool.m1999(m.P, o, n);
   };
   const per = await Promise.all(M1999_DAYS.map(run));
@@ -159,9 +178,11 @@ writeJson(OUT, {
   dt: DT,
   tag: TAG || null,
   model: MODEL,
+  lazyRest: flag('--lazy'),
+  ...(MODEL === 'C2' ? { motion: 'C2 transferred unchanged (scripts/m1999C2.ts, data/fits/s2018-motion-c2.json; D094)', roles: ROLES, foragerFrac: P0.nest.foragerFrac, densityBox: DENSITY_TF_C2 } : {}),
   contactMin: CONTACT_MIN,
   optimizer: { method: 'CMA-ES', starts: 2, restarts: RESTARTS, maxGenerations: GENS, tolX: TOLX, averageLast: AVERAGE_LAST, boundHandling: BCH ? `Mod-BCH (Sakamoto & Akimoto 2017), box [0, ${BOX}], tolUpSigma 20` : 'logistic transform' },
-  fixed: Object.fromEntries(M1999_FREE.filter((f) => !FREE.includes(f)).map((f) => [f.key, f.get({ P: P0, density: 1 })])),
+  fixed: Object.fromEntries(M1999_FREE.filter((f) => !FREE.some((g) => g.key === f.key)).map((f) => [f.key, f.get({ P: P0, density: 1 })])),
   evals,
   seconds: (Date.now() - t0) / 1000,
   selectionLoss: best.f,

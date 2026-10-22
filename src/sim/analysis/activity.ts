@@ -18,13 +18,17 @@ import { GROUPS, type Group } from './inNest';
  */
 export class ActivityStats {
   readonly ants: Map<number, number[]>[];
+  /** With `recordRest`: per ant and hour key, observed still in-nest steps per 1-mm cell (`restCell`; D076). */
+  readonly rest: Map<number, Map<number, number>>[] | null;
   private readonly obs: ObservedState[];
   private readonly prevIn: boolean[];
   constructor(
     readonly tracked: boolean[],
     readonly hourOf: (t: number) => number,
+    recordRest = false,
   ) {
     this.ants = tracked.map(() => new Map());
+    this.rest = recordRest ? tracked.map(() => new Map()) : null;
     this.obs = tracked.map(() => new ObservedState());
     this.prevIn = tracked.map(() => false);
   }
@@ -56,6 +60,12 @@ export class ActivityStats {
       if (stepIn) {
         r[3] += g;
         if (o.state === 0) r[4] += g;
+        else if (this.rest) {
+          let m = this.rest[i].get(h);
+          if (!m) this.rest[i].set(h, (m = new Map()));
+          const q = restCell(xs[k], ys[k]);
+          m.set(q, (m.get(q) ?? 0) + 1);
+        }
       }
     }
   }
@@ -63,7 +73,21 @@ export class ActivityStats {
   out(): Record<number, number[]>[] {
     return this.ants.filter((_, i) => this.tracked[i]).map((m) => Object.fromEntries(m));
   }
+  /** With `recordRest`: tracked ants only (same order as `out()`), as { hourKey: { cell: still steps } }. */
+  restOut(): AntRest[] {
+    if (!this.rest) throw new Error('ActivityStats: constructed without recordRest');
+    return this.rest.filter((_, i) => this.tracked[i]).map((m) => Object.fromEntries([...m].map(([h, c]) => [h, Object.fromEntries(c)])));
+  }
 }
+
+/** Rest-position grid (D076, B018's): 1-mm cells over x 0–72, y 0–48 mm, positions clamped to the grid. */
+export const REST_W = 72;
+export const REST_H = 48;
+export const restCell = (x: number, y: number): number =>
+  Math.max(0, Math.min(REST_H - 1, Math.floor(y))) * REST_W + Math.max(0, Math.min(REST_W - 1, Math.floor(x)));
+
+/** Per-ant still cells by hour ({ hourKey: { cell: observed still in-nest steps } }), as `ActivityStats.restOut()`. */
+export type AntRest = Record<number, Record<number, number>>;
 
 /** Per-ant hourly records ({ hourKey: [det, known, near, stepF, moveF] }), as `ActivityStats.out()`. */
 export type AntHours = Record<number, number[]>;

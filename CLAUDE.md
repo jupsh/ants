@@ -21,6 +21,9 @@ duties that come with it.
   result, or when a backlog item closes; supersede rather than delete.
 - **Long runs** are yours to start (`scripts/run.sh`), after `npm run runs`
   shows nothing that would write the same files or starve a main-line run.
+- **Rented boxes:** follow `docs/BOX.md` (`scripts/box.mjs`: offers, rent,
+  setup, pace, market, fetch, destroy). Rent only after the user approves the
+  offer and its estimate; destroy the box once its outputs are fetched.
 - **Sealed paths** are enforced for you by `.claude/hooks/sealed.py`. While a
   pre-registration is open, add its output paths to
   `.claude/sealed-paths.txt`; remove them once the reading is frozen.

@@ -1,0 +1,213 @@
+{
+  "workloads": {
+    "main": {
+      "cases": {
+        "c2-colony122-1h": {
+          "hash": "926f84c37d30ebc7",
+          "ms": 28669
+        },
+        "c2-colony250-6h-activity": {
+          "hash": "3041a3f7b723c94c",
+          "ms": 108840
+        },
+        "c1-colony112-1h": {
+          "hash": "be1c8937c0d3f139",
+          "ms": 6514
+        },
+        "m1999-pilot-d1": {
+          "hash": "d68b00e5ce9334b7",
+          "ms": 10369
+        },
+        "m1999-pilot-d4": {
+          "hash": "e515272fd4983734",
+          "ms": 12080
+        },
+        "m1999-pilot-d8": {
+          "hash": "dc416f74565556fd",
+          "ms": 11079
+        },
+        "m1999-c2-d1": {
+          "hash": "7069ad05fab4b6ae",
+          "ms": 5237
+        },
+        "m1999-c2-d4": {
+          "hash": "f9bc254739f7e886",
+          "ms": 6258
+        },
+        "m1999-c2-d8": {
+          "hash": "3111b91029e24509",
+          "ms": 6398
+        }
+      }
+    },
+    "off": {
+      "cases": {
+        "c2-colony122-1h": {
+          "hash": "926f84c37d30ebc7",
+          "ms": 30780
+        },
+        "c2-colony250-6h-activity": {
+          "hash": "3041a3f7b723c94c",
+          "ms": 112116
+        },
+        "c1-colony112-1h": {
+          "hash": "be1c8937c0d3f139",
+          "ms": 6864
+        },
+        "m1999-pilot-d1": {
+          "hash": "d68b00e5ce9334b7",
+          "ms": 10380
+        },
+        "m1999-pilot-d4": {
+          "hash": "e515272fd4983734",
+          "ms": 11070
+        },
+        "m1999-pilot-d8": {
+          "hash": "dc416f74565556fd",
+          "ms": 11958
+        },
+        "m1999-c2-d1": {
+          "hash": "7069ad05fab4b6ae",
+          "ms": 5951
+        },
+        "m1999-c2-d4": {
+          "hash": "f9bc254739f7e886",
+          "ms": 6844
+        },
+        "m1999-c2-d8": {
+          "hash": "3111b91029e24509",
+          "ms": 7158
+        },
+        "pooled-22-colonies": {
+          "hash": "3cef2f2801580921",
+          "ms": 48592
+        }
+      }
+    },
+    "on": {
+      "cases": {
+        "c2-colony122-1h": {
+          "hash": "926f84c37d30ebc7",
+          "ms": 20430
+        },
+        "c2-colony250-6h-activity": {
+          "hash": "3041a3f7b723c94c",
+          "ms": 79503
+        },
+        "c1-colony112-1h": {
+          "hash": "be1c8937c0d3f139",
+          "ms": 6125
+        },
+        "m1999-pilot-d1": {
+          "hash": "d68b00e5ce9334b7",
+          "ms": 11347
+        },
+        "m1999-pilot-d4": {
+          "hash": "e515272fd4983734",
+          "ms": 11795
+        },
+        "m1999-pilot-d8": {
+          "hash": "dc416f74565556fd",
+          "ms": 12271
+        },
+        "m1999-c2-d1": {
+          "hash": "7069ad05fab4b6ae",
+          "ms": 4456
+        },
+        "m1999-c2-d4": {
+          "hash": "f9bc254739f7e886",
+          "ms": 5001
+        },
+        "m1999-c2-d8": {
+          "hash": "3111b91029e24509",
+          "ms": 5059
+        },
+        "pooled-22-colonies": {
+          "hash": "3cef2f2801580921",
+          "ms": 36959
+        }
+      }
+    },
+    "verify": {
+      "cases": {
+        "c2-colony122-10min": {
+          "hash": "69b7eb780ef5ace1",
+          "ms": 142165
+        },
+        "m1999-c2-nest-d8": {
+          "hash": "8e45ad7bfb1e3e7a",
+          "ms": 40525
+        }
+      }
+    }
+  },
+  "provenance": {
+    "simHash": "f57a833f31cc3b4f",
+    "commit": "f0a05a045aae071482bf432a30ae1b3be08ad655",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [
+      "--patchedSimHash",
+      "0f558145f2949217",
+      "results/identity.json"
+    ],
+    "date": "2026-10-19T22:24:41.458Z",
+    "item": "B014-event-driven-resting-ants-in-the-colony",
+    "depends": {
+      "data/fits/s2018-tracker.json": "37387f23bedea16a",
+      "data/fits/s2018-trips.json": "dd62a3cdc0be51c5",
+      "data/reference/stroeymeyt2018-fit-rows.json": "5d8098cb6be4df50",
+      "data/reference/stroeymeyt2018-activity-rows.json": "d3f784b51d07f6f5"
+    },
+    "restamped": [
+      {
+        "from": "baf4cb0b4b513531",
+        "to": "88f9271e1dc0755a",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D078: observation-only change for D076 (opt-in restMaps / ActivityStats still-cell recorder, new src/sim/analysis/restPosition.ts); with it off, outputs bit-identical to the old code (one Stroeymeyt colony, 6 h, activity window: identical JSON); B018/B019 import none of the changed files"
+      },
+      {
+        "from": "88f9271e1dc0755a",
+        "to": "286c87ca9157d928",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D085: observation-only change for D083 Part B (opt-in neighbourStats recorder, new src/sim/analysis/neighbourRates.ts); with it off, outputs bit-identical to HEAD f0a05a0 (one Stroeymeyt colony, 6 h, activity window: identical JSON); no stamped result imports the new module"
+      },
+      {
+        "from": "286c87ca9157d928",
+        "to": "3c4d7e2b18d7f147",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D096: B014 lazyRest applied (proposal.rebased.patch, sha256 55e224a0…), off by default; with it off, outputs hash-equal to the unpatched tree (D095: identity.ts 9 cases, 22 pooled colonies, the fitted C2 / C1 points with restMaps and neighbourStats); scripts/m1999Points.ts gained a 'c2' branch only (model-A points unchanged)"
+      },
+      {
+        "from": "3c4d7e2b18d7f147",
+        "to": "1388de91d25b0ca4",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D104: step-5 judging code: the oracle diagnostic passed through the 1999 runner (M1999Options.oracle, off by default; oracleLog only with a coupled oracle) and placebo streams for ants added after the first step; with the oracle off, 1999 shared-nest outputs hash-equal to the code before (scripts/scratch/identM1999Oracle.ts: 3 days × 4 recruiters at the step-5 optimum, stepped and lazy); the placebo path is unchanged when no ant is added (test/oracle.test.ts)"
+      },
+      {
+        "from": "1388de91d25b0ca4",
+        "to": "72e05b8102168b4b",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D110 (D108 amendments 1–2): oracle placebo log shift and an opt-in realised-signal recorder (ColonyOptions.oracleTrace, Stroeymeyt runner over the observed window, oracleStats in the s2018Colony task), all off by default; test/oracle.test.ts shows shift 0 = raw placebo, shift −sd²/2 = mean-one placebo, rows identical with the recorder on and off; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+      },
+      {
+        "from": "72e05b8102168b4b",
+        "to": "f57a833f31cc3b4f",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D118 (Part C build, D115 amendment 1, D117): new oracle kinds coupledX, local, driverShared, driverLocal (+ driverLocalTable), all off by default; test/oracle.test.ts: strength 0 bit-identical for every kind, local r = ∞ equals coupledX, a vanishing range leaves rows unchanged; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+      }
+    ]
+  },
+  "measuredOn": {
+    "patchSha256": "eccf2028e7dfd659",
+    "patchedSimHash": "0f558145f2949217",
+    "base": "f0a05a0",
+    "worktree": "../ants-b014 (branch b014-lazy-rest)"
+  }
+}

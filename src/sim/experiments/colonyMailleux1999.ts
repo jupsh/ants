@@ -2,7 +2,8 @@ import { blockEstimate, combinedZ, fitZ, type Comparison } from '../analysis/com
 import { RNG } from '../core/rng';
 import { blesApparatus } from '../world/apparatus';
 import type { World } from '../world/world';
-import { ColonySim, type ColonyOptions, type ColonyParams, type ColonyStepInfo } from './colonyBles';
+import type { ColonyOptions, ColonyParams, ColonyStepInfo, ColonySim } from './colonyBles';
+import { newColonySim } from './colonyLazy';
 import { runScoutWorld } from './e2Mailleux';
 import { fromX, toX, type FreeParam } from './e2Variants';
 
@@ -80,6 +81,10 @@ export interface M1999Options {
   /** Also measure the distance from positions sampled every Δ s, for each Δ given (`distanceSampled`; the 1999 tracking interval is unreported; diagnostics). */
   distanceSamples?: number[];
   dt?: number;
+  /** Lazy resting ants (`ColonyOptions.lazyRest`, B014; bit-identical, faster); the recruiter's percept is always built. */
+  lazyRest?: { verify?: boolean };
+  /** Oracle colony coupling (`ColonyOptions.oracle`; step-5 synchrony gate, D093 / D094). Diagnostics only; refuses `lazyRest`. */
+  oracle?: ColonyOptions['oracle'];
 }
 
 /** Parts of a recruiter's stay (s), pre-registered for the dt decomposition (STATUS 2026-10-10 night). */
@@ -115,6 +120,8 @@ export interface M1999Recruiter {
   parts?: M1999Parts;
   /** With `distanceSamples`: path length (cm) through positions sampled every Δ s from entry, plus the exit position. */
   distanceSampled?: number[];
+  /** With a coupled `oracle`: the colony's sums of log g over the steps after its first 30 min (`ColonySim.oracleLog*`). */
+  oracleLog?: { sum: number; sq: number; n: number };
 }
 
 const OBSERVE = 20 * 60;
@@ -151,7 +158,8 @@ function nestmates(density: number): number {
 
 /** Colony options for a 1999 run (no food; long enough for the observation window). */
 function colonyOptions(o: M1999Options, seed: number, n: number, enterAt: number): ColonyOptions {
-  return { seed, ants: n, dt: o.dt, minutes: (enterAt + OBSERVE + (o.followNestmates ? FOLLOW : 0)) / 60 + 0.01, foodMinute: Infinity, starvationDays: o.starvationDays };
+  const lazyRest = o.lazyRest ? { ...o.lazyRest, observe: [n] } : undefined;
+  return { seed, ants: n, dt: o.dt, minutes: (enterAt + OBSERVE + (o.followNestmates ? FOLLOW : 0)) / 60 + 0.01, foodMinute: Infinity, starvationDays: o.starvationDays, lazyRest, ...(o.oracle ? { oracle: o.oracle } : {}) };
 }
 
 /**
@@ -271,7 +279,7 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
     }
   }
   const left = exitAt < OBSERVE;
-  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: observed.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other, ...(parts ? { parts } : {}), ...(samp.length ? { distanceSampled: samp.map((q) => q.len / 10) } : {}) };
+  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: observed.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other, ...(parts ? { parts } : {}), ...(samp.length ? { distanceSampled: samp.map((q) => q.len / 10) } : {}), ...(sim.oracleLogN ? { oracleLog: { sum: sim.oracleLogSum, sq: sim.oracleLogSq, n: sim.oracleLogN } } : {}) };
 }
 
 /** One recruiter in its own freshly warmed nest (independent design). */
@@ -279,7 +287,7 @@ export function runRecruiter1999(P: ColonyParams, o: M1999Options): M1999Recruit
   const load = recruiterLoad(P, o);
   const n = nestmates(o.density);
   const enterAt = o.warmup ?? 600;
-  const sim = new ColonySim(P, { ...colonyOptions(o, o.seed, n, enterAt), recruiter: { enterAt, ...load } });
+  const sim = newColonySim(P, { ...colonyOptions(o, o.seed, n, enterAt), recruiter: { enterAt, ...load } });
   return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose, o.distanceSamples);
 }
 
@@ -299,7 +307,7 @@ export function runRecruiters1999(P: ColonyParams, o: Omit<M1999Options, 'seed'>
 export function runNest1999(P: ColonyParams, o: M1999Options, nest: number, perNest: number): M1999Recruiter[] {
   const n = nestmates(o.density);
   const enterAt = o.warmup ?? 600;
-  const warm = new ColonySim(P, colonyOptions(o, RNG.stream(o.seed, o.starvationDays, 0x2e57, nest).int(2 ** 31), n, enterAt));
+  const warm = newColonySim(P, colonyOptions(o, RNG.stream(o.seed, o.starvationDays, 0x2e57, nest).int(2 ** 31), n, enterAt));
   // Stop just before the step at which the recruiter enters (as in the independent design).
   while (warm.stepIndex * warm.dt < enterAt - 1e-9) warm.step();
   return Array.from({ length: perNest }, (_, k) => {

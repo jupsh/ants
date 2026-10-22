@@ -3,7 +3,7 @@ import type { World } from '../world/world';
 import type { ContactPercept } from './types';
 
 /** One pair's geometry, valid while both bodies keep the recorded positions and headings. */
-interface PairGeometry {
+export interface PairGeometry {
   ax: number;
   ay: number;
   ah: number;
@@ -35,7 +35,7 @@ export class ContactPairCache {
 }
 
 /** Insert v into the ascending array a (no duplicates). */
-function insertSorted(a: number[], v: number): void {
+export function insertSorted(a: number[], v: number): void {
   let k = a.length;
   while (k > 0 && a[k - 1] > v) k--;
   if (a[k - 1] !== v) a.splice(k, 0, v);
@@ -55,7 +55,7 @@ export function senseAllContacts(w: World, cache?: ContactPairCache): ContactPer
 }
 
 /** The geometry of pair (i, j), i < j, as recorded for bodies a (ant i) and b (ant j). */
-function pairGeometry(a: World['ants'][number]['body'], b: World['ants'][number]['body'], g?: PairGeometry): PairGeometry {
+export function pairGeometry(a: World['ants'][number]['body'], b: World['ants'][number]['body'], g?: PairGeometry): PairGeometry {
   const ox = b.x - a.x;
   const oy = b.y - a.y;
   // Cheap bound first: no antennal contact beyond the larger reach plus both head offsets.

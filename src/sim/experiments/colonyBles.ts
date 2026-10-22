@@ -106,10 +106,35 @@ export interface ColonyOptions {
    * 0.25, 4), u the fraction of in-nest ants not resting (true state) smoothed over `tauC` s, ū the same over 30 min.
    * `placebo`: g = exp(x_i), x_i an independent OU process per ant (time constant `tauC`, stationary SD `sd`): the same
    * modulation without sharing; with `meanOne`, g = exp(x_i − sd²/2), stationary mean 1 (STATUS 2026-10-17 ≈ 13:15 UTC).
-   * `const`: g = `factor` for every ant at every step (the rate-only arm of the mean-matched comparison). Absent: nothing
-   * changes.
+   * `shift` (placebo): g = exp(x_i + shift), added to `meanOne`'s −sd²/2 if both are set; set from the coupled arm's
+   * realised E[g] for the matched placebo (D108 amendment 1). `const`: g = `factor` for every ant at every step (the
+   * rate-only arm of the mean-matched comparison). Absent: nothing changes.
    */
-  oracle?: { kind: 'coupled'; kappa: number; tauC: number } | { kind: 'placebo'; sd: number; tauC: number; meanOne?: boolean } | { kind: 'const'; factor: number };
+  oracle?:
+    | { kind: 'coupled'; kappa: number; tauC: number }
+    | { kind: 'placebo'; sd: number; tauC: number; meanOne?: boolean; shift?: number }
+    | { kind: 'const'; factor: number }
+    | { kind: 'coupledX'; kappa: number; tauC: number }
+    | { kind: 'local'; kappa: number; r: number; tauC: number }
+    | { kind: 'driverShared'; amp: number; tau: number }
+    | { kind: 'driverLocal'; amp: number; sigma: number; mu?: number; dur?: number };
+  /*
+   * Part C (D115 amendment 1, D117; diagnostics, never adoptable):
+   * - `coupledX`: the global coupling with the focal ant excluded. Ant i's input m_i is the moving fraction of the other
+   *   in-nest ants; u_i relaxes toward it with τ_c from ū; g_i = clamp((u_i / ū)^κ, 0.25, 4), ū the colony's slow
+   *   (1800 s) moving fraction. With no other in-nest ant, g_i = 1 and u_i is reset to ū.
+   * - `local`: the same with only the other in-nest ants within `r` mm (true positions); r = ∞ is `coupledX`.
+   * - `driverShared`: g = exp(A·z − A²/2) for every in-nest ant, z a unit OU process (τ `tau` s) on its own stream.
+   * - `driverLocal`: disturbance events (Poisson, mean active count `mu` (1), each `dur` s (60) at a uniform nest
+   *   position); g_i = exp(A·S_i − c(x_i)), S_i = Σ exp(−d² / 2σ²), c(x) = μ·(E_Y[exp(A·w(|x − Y|))] − 1) over Y uniform
+   *   in the nest (tabulated on a 1-mm grid), so E[g | x] = 1 under the prescribed process.
+   */
+  /**
+   * Realised-signal recorder for the oracle (D108 amendments 1–2; observation only): every `every` s in [`from`, `to`)
+   * (defaults 1800 s and the end), log g is appended to `ColonySim.oracleTrace`. The coupled arm gives one series (the colony's g). The placebo
+   * gives one per ant: NaN while the ant is outside or dead. Needs `oracle` coupled or placebo. Absent: nothing recorded.
+   */
+  oracleTrace?: { every: number; from?: number; to?: number };
   /**
    * The oracle's multiplier reaches nurses and foragers (their own `P.nest.forager` walk-on value too; fixed 2026-10-17
    * ≈ 21:17 UTC). `oracleNurseOnly`: the earlier behaviour, nurses only (STATUS 16:18 defect), to reproduce runs logged
@@ -141,6 +166,18 @@ export interface ColonyOptions {
   taxis?: { gain: number; r: number };
   aggregate?: { k: number; r: number };
   site?: { k: number; x0: number; y0: number; nx: number; ny: number; w: number[] };
+  /**
+   * Lazy resting ants (backlog B014, DESIGN rev 2; a speed-up, bit-identical to the stepped runs). An in-nest ant
+   * whose last full policy call left it standing in rest is advanced by the policy's `restTick` instead, without a
+   * percept, while its contact set, its partners' signals and its own position are unchanged; the tick hands any
+   * step on which the full call could do anything else back to it. `observe`: ants whose percept is always built
+   * (`ColonyStepInfo.per`); otherwise a ticked ant's percept is null. `verify`: on every tick, also run the full
+   * policy on a copy and throw at the first difference (checks only; slow). Needs the fast path; refuses the
+   * diagnostics that change rates per call or steer from full percepts (oracle, aggregate, site, taxis, slowEp).
+   * Honoured by `LazyColonySim` (`newColonySim`, experiments/colonyLazy.ts); `ColonySim` itself ignores it (same
+   * results, stepped speed). Absent: nothing changes.
+   */
+  lazyRest?: { observe?: number[]; verify?: boolean };
 }
 
 export interface RecruiterEntry {
@@ -159,6 +196,8 @@ export interface ColonyStepInfo {
   per: readonly (SurfacePercept | null)[];
   /** Ants under the forager policy (outside the nest, or on their way in). */
   outside: readonly boolean[];
+  /** With `lazyRest`: ants advanced by the policy's rest tick this step (their percept is null unless observed). */
+  lazy?: readonly boolean[];
 }
 
 /** Behaviour codes in frames. */
@@ -237,7 +276,7 @@ export class ColonySim {
   /** Seed for the recruiter's own streams (default the colony seed). */
   recruiterSeed: number;
   recruiterIn = false;
-  private foodAdded = false;
+  protected foodAdded = false;
   /** Oracle diagnostic state (see `ColonyOptions.oracle`); plain fields so `clone` copies it. */
   private oracleU = NaN;
   private oracleSlow = NaN;
@@ -247,10 +286,19 @@ export class ColonySim {
   oracleLogSum = 0;
   oracleLogSq = 0;
   oracleLogN = 0;
+  /** Part C oracle state: per-ant filters (`coupledX`, `local`), the shared driver's z, the local driver's events. */
+  private readonly oracleUi: number[] = [];
+  private oracleZ = NaN;
+  private readonly oracleEvents: { x: number; y: number; left: number }[] = [];
+  private oracleCTable: number[] | null = null;
+  private oracleEventsInit = false;
+  /** With `oracleTrace`: log g samples, one series per signal (see `ColonyOptions.oracleTrace`). */
+  oracleTrace: number[][] = [];
+  private oracleNextSample = NaN;
   /** Comparison Q state (see `ColonyOptions.wall` / `aggregate`); plain fields so `clone` copies it. */
   private readonly wallRng: RNG[] = [];
   /** Latent-drive streams, one per ant (created on first use; STATUS 2026-10-18, candidate C2). */
-  private readonly driveRng: RNG[] = [];
+  protected readonly driveRng: RNG[] = [];
   private aggN: number[] = [];
   private aggNext = 0;
   private taxisGoal: number[] = [];
@@ -260,20 +308,20 @@ export class ColonySim {
   private readonly slowRng: RNG[] = [];
   private slowP: [WalkParams, WalkParams] | null = null;
   /** Ad-libitum sources (topped up every step). */
-  private readonly adLib: SugarDroplet[] = [];
-  private nextFrame = 0;
+  protected readonly adLib: SugarDroplet[] = [];
+  protected nextFrame = 0;
   private readonly walkP: WalkParams;
   private readonly walkNestP: WalkParams;
   /** In-nest walking for ants with the forager trait (option B: their own speed factor). */
   private readonly walkNestForagerP: WalkParams;
-  private readonly foragerP: ForagerParams;
-  private readonly pairCache?: ContactPairCache;
-  private readonly motor: MotorFn;
+  protected readonly foragerP: ForagerParams;
+  protected readonly pairCache?: ContactPairCache;
+  protected readonly motor: MotorFn;
   private readonly reserveMax: number;
   private readonly reserveFrac: number;
   private readonly deficit: number;
-  private readonly entrance: [number, number];
-  private readonly feeder: [number, number];
+  protected readonly entrance: [number, number];
+  protected readonly feeder: [number, number];
 
   constructor(
     readonly P: ColonyParams,
@@ -335,7 +383,7 @@ export class ColonySim {
     this.recruiterSeed = o.seed;
   }
 
-  private addAnt(i: number, x: number, y: number, heading: number, rest: boolean, seed: number): Agent {
+  protected addAnt(i: number, x: number, y: number, heading: number, rest: boolean, seed: number): Agent {
     const { P, w } = this;
     const m = P.morph;
     // Nestmates differ in reserve (STATUS 2026-10-10): deficit × a lognormal factor (mean 1) from their own stream; the
@@ -384,7 +432,7 @@ export class ColonySim {
     return agent;
   }
 
-  private walkFor(p: SurfacePercept, a: Agent): WalkParams {
+  protected walkFor(p: SurfacePercept, a: Agent): WalkParams {
     return !p.inNest ? this.walkP : a.mind.traits.forager ? this.walkNestForagerP : this.walkNestP;
   }
 
@@ -402,24 +450,133 @@ export class ColonySim {
     return this.slowLeft[i] > 0 ? this.slowP[a.mind.traits.forager ? 1 : 0] : this.walkFor(p, a);
   }
 
+  /** With `oracleTrace`: whether this step takes a sample (and advance the sample clock). */
+  private oracleSampleDue(dt: number): boolean {
+    const tr = this.o.oracleTrace;
+    if (!tr) return false;
+    if (Number.isNaN(this.oracleNextSample)) this.oracleNextSample = tr.from ?? 1800;
+    const t = this.stepIndex * dt;
+    if (t < this.oracleNextSample - 1e-9 || t >= (tr.to ?? Infinity) - 1e-9) return false;
+    this.oracleNextSample += tr.every;
+    return true;
+  }
+
+  /** Part C kinds (see `ColonyOptions.oracle`): per-ant multipliers, recorded per ant with `oracleTrace`. */
+  private oracleStepC(dt: number, outside: boolean[]): (i: number) => number {
+    const o = this.o.oracle!;
+    const ants = this.w.ants;
+    const inNest = ants.map((a, i) => a.body.alive && !outside[i]);
+    const logG = new Array<number>(ants.length).fill(0);
+    if (o.kind === 'coupledX' || o.kind === 'local') {
+      let n = 0;
+      let moving = 0;
+      const mov = ants.map((a, i) => inNest[i] && a.mind.mode !== 'rest');
+      for (let i = 0; i < ants.length; i++) if (inNest[i]) (n++, mov[i] && moving++);
+      const u = n ? moving / n : 0;
+      if (Number.isNaN(this.oracleSlow)) this.oracleSlow = u;
+      this.oracleSlow += (u - this.oracleSlow) * (1 - Math.exp(-dt / 1800));
+      const slow = this.oracleSlow;
+      // Other in-nest ants (and how many move) within r of each in-nest ant; all others for coupledX.
+      const cnt = new Array<number>(ants.length).fill(0);
+      const cm = new Array<number>(ants.length).fill(0);
+      if (o.kind === 'coupledX') {
+        for (let i = 0; i < ants.length; i++) if (inNest[i]) ((cnt[i] = n - 1), (cm[i] = moving - (mov[i] ? 1 : 0)));
+      } else {
+        const r2 = o.r * o.r;
+        for (let i = 0; i < ants.length; i++) {
+          if (!inNest[i]) continue;
+          const bi = ants[i].body;
+          for (let j = i + 1; j < ants.length; j++) {
+            if (!inNest[j]) continue;
+            const bj = ants[j].body;
+            const dx = bi.x - bj.x;
+            const dy = bi.y - bj.y;
+            if (dx * dx + dy * dy < r2) {
+              cnt[i]++;
+              cnt[j]++;
+              if (mov[j]) cm[i]++;
+              if (mov[i]) cm[j]++;
+            }
+          }
+        }
+      }
+      const k = 1 - Math.exp(-dt / o.tauC);
+      for (let i = 0; i < ants.length; i++) {
+        // Outside the nest (or dead): reset like an isolated ant, so no coupling carries over a trip (D118 build note).
+        if (!inNest[i]) {
+          if (i < this.oracleUi.length) this.oracleUi[i] = NaN;
+          continue;
+        }
+        if (cnt[i] === 0) {
+          // Isolated: no coupling at this step, and none carried over (D115 amendment 1).
+          this.oracleUi[i] = slow;
+          continue;
+        }
+        const ui = Number.isNaN(this.oracleUi[i] ?? NaN) ? slow : this.oracleUi[i];
+        this.oracleUi[i] = ui + (cm[i] / cnt[i] - ui) * k;
+        logG[i] = slow > 0 ? Math.min(Math.log(4), Math.max(-Math.log(4), o.kappa * Math.log(this.oracleUi[i] / slow))) : 0;
+      }
+    } else if (o.kind === 'driverShared') {
+      const rng = (this.oracleRng[0] ??= RNG.stream(this.o.seed, 0x0c0b));
+      if (Number.isNaN(this.oracleZ)) this.oracleZ = rng.gauss();
+      const k = Math.exp(-dt / o.tau);
+      this.oracleZ = this.oracleZ * k + Math.sqrt(1 - k * k) * rng.gauss();
+      const l = o.amp * this.oracleZ - (o.amp * o.amp) / 2;
+      for (let i = 0; i < ants.length; i++) if (inNest[i]) logG[i] = l;
+    } else if (o.kind === 'driverLocal') {
+      const nest = this.w.apparatus.regions.find((r) => r.kind === 'nest')!;
+      const mu = o.mu ?? 1;
+      const dur = o.dur ?? 60;
+      const rng = (this.oracleRng[0] ??= RNG.stream(this.o.seed, 0x0c0c));
+      const place = (left: number) => this.oracleEvents.push({ x: rng.range(nest.x0, nest.x1), y: rng.range(nest.y0, nest.y1), left });
+      if (!this.oracleEventsInit) {
+        // Stationary start: a Poisson number of active events with uniform remaining lives.
+        this.oracleEventsInit = true;
+        for (let e = rng.poisson(mu); e > 0; e--) place(rng.range(0, dur));
+        this.oracleCTable = driverLocalTable(nest, o.amp, o.sigma, mu);
+      }
+      for (const e of this.oracleEvents) e.left -= dt;
+      for (let e = this.oracleEvents.length - 1; e >= 0; e--) if (this.oracleEvents[e].left <= 0) this.oracleEvents.splice(e, 1);
+      for (let e = rng.poisson((mu / dur) * dt); e > 0; e--) place(dur);
+      const c = this.oracleCTable!;
+      const nx = Math.round(nest.x1 - nest.x0);
+      const ny = Math.round(nest.y1 - nest.y0);
+      const s2 = 2 * o.sigma * o.sigma;
+      for (let i = 0; i < ants.length; i++) {
+        if (!inNest[i]) continue;
+        const b = ants[i].body;
+        let S = 0;
+        for (const e of this.oracleEvents) S += Math.exp(-((b.x - e.x) ** 2 + (b.y - e.y) ** 2) / s2);
+        const cx = Math.min(nx - 1, Math.max(0, Math.floor(b.x - nest.x0)));
+        const cy = Math.min(ny - 1, Math.max(0, Math.floor(b.y - nest.y0)));
+        logG[i] = o.amp * S - c[cy * nx + cx];
+      }
+    }
+    if (this.oracleSampleDue(dt)) for (let i = 0; i < ants.length; i++) (this.oracleTrace[i] ??= []).push(inNest[i] ? logG[i] : NaN);
+    return (i) => Math.exp(logG[i]);
+  }
+
   /** Advance the oracle signal one step; returns each ant's walk-on multiplier. */
   private oracleStep(dt: number, outside: boolean[]): (i: number) => number {
     const o = this.o.oracle!;
     const ants = this.w.ants;
     if (o.kind === 'const') return () => o.factor;
     if (o.kind === 'placebo') {
-      if (!this.oracleRng.length) {
-        for (let i = 0; i < ants.length; i++) {
-          this.oracleRng.push(RNG.stream(this.o.seed, 0x0c0a, i));
-          this.oracleOu.push(o.sd * this.oracleRng[i].gauss());
-        }
+      // Ants added after the first step (the 1999 recruiter) get their own stream when they appear (D104).
+      for (let i = this.oracleRng.length; i < ants.length; i++) {
+        this.oracleRng.push(RNG.stream(this.o.seed, 0x0c0a, i));
+        this.oracleOu.push(o.sd * this.oracleRng[i].gauss());
       }
       const k = Math.exp(-dt / o.tauC);
       const sd = o.sd * Math.sqrt(1 - k * k);
       for (let i = 0; i < ants.length; i++) this.oracleOu[i] = this.oracleOu[i] * k + sd * this.oracleRng[i].gauss();
-      const shift = o.meanOne ? (o.sd * o.sd) / 2 : 0;
-      return (i) => Math.exp(this.oracleOu[i] - shift);
+      const shift = (o.shift ?? 0) - (o.meanOne ? (o.sd * o.sd) / 2 : 0);
+      if (this.oracleSampleDue(dt)) {
+        for (let i = 0; i < ants.length; i++) (this.oracleTrace[i] ??= []).push(ants[i].body.alive && !outside[i] ? this.oracleOu[i] + shift : NaN);
+      }
+      return (i) => Math.exp(this.oracleOu[i] + shift);
     }
+    if (o.kind !== 'coupled') return this.oracleStepC(dt, outside);
     let n = 0;
     let moving = 0;
     for (let i = 0; i < ants.length; i++) {
@@ -437,6 +594,9 @@ export class ColonySim {
       this.oracleLogSum += l;
       this.oracleLogSq += l * l;
       this.oracleLogN++;
+      if (this.oracleSampleDue(dt)) {
+        (this.oracleTrace[0] ??= []).push(l);
+      }
     }
     return () => g;
   }
@@ -474,7 +634,7 @@ export class ColonySim {
   }
 
   /** Comparison Q `wall: 'inward'`: a uniformly drawn heading whose next 0.5 mm stays on the surface (else reverse). */
-  private inwardTurn(i: number): (x: number, y: number, h: number, walkable: (x: number, y: number) => boolean) => number {
+  protected inwardTurn(i: number): (x: number, y: number, h: number, walkable: (x: number, y: number) => boolean) => number {
     const rng = (this.wallRng[i] ??= RNG.stream(this.o.seed, 0x0e1d, i));
     return (x, y, h, walkable) => {
       for (let k = 0; k < 36; k++) {
@@ -514,7 +674,7 @@ export class ColonySim {
   }
 
   /** Comparison WR `wall: 'specular'`: the mirrored heading that stays on the surface (else reverse). */
-  private static specularTurn(x: number, y: number, h: number, walkable: (x: number, y: number) => boolean): number {
+  protected static specularTurn(x: number, y: number, h: number, walkable: (x: number, y: number) => boolean): number {
     const turn = (g: number) => Math.abs(Math.atan2(Math.sin(g - h), Math.cos(g - h)));
     const ok = [Math.PI - h, -h].filter((g) => walkable(x + Math.cos(g) * 0.5, y + Math.sin(g) * 0.5));
     if (!ok.length) return h + Math.PI;
@@ -714,7 +874,7 @@ export class ColonySim {
   }
 }
 
-function frame(w: World, t: number, bounds: { x0: number; y0: number; x1: number; y1: number }): ColonyFrame {
+export function frame(w: World, t: number, bounds: { x0: number; y0: number; x1: number; y1: number }): ColonyFrame {
   const n = w.ants.length;
   const f: ColonyFrame = {
     t,
@@ -741,4 +901,23 @@ function frame(w: World, t: number, bounds: { x0: number; y0: number; x1: number
     f.partner[i] = a.mind.stay.bout?.partner ?? -1;
   });
   return f;
+}
+
+/**
+ * `driverLocal`'s normalisation (D115 amendment 1): c(x) = μ·(mean over Y of exp(A·exp(−|x − Y|² / 2σ²)) − 1), Y over the
+ * 1-mm cell centres of the nest, for every cell x (row-major, y then x). E[exp(A·S(x) − c(x))] = 1 for Poisson events
+ * with mean active count μ at uniform positions (the log Laplace functional).
+ */
+export function driverLocalTable(nest: { x0: number; x1: number; y0: number; y1: number }, amp: number, sigma: number, mu: number): number[] {
+  const nx = Math.round(nest.x1 - nest.x0);
+  const ny = Math.round(nest.y1 - nest.y0);
+  const s2 = 2 * sigma * sigma;
+  const out = new Array<number>(nx * ny);
+  for (let cy = 0; cy < ny; cy++)
+    for (let cx = 0; cx < nx; cx++) {
+      let sum = 0;
+      for (let yy = 0; yy < ny; yy++) for (let xx = 0; xx < nx; xx++) sum += Math.exp(amp * Math.exp(-((cx - xx) ** 2 + (cy - yy) ** 2) / s2));
+      out[cy * nx + cx] = mu * (sum / (nx * ny) - 1);
+    }
+  return out;
 }

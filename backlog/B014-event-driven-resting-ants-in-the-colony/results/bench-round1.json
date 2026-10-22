@@ -1,0 +1,1095 @@
+{
+  "workloads": {
+    "s2018-colony122-c2s0|main|r1": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "ms": 28642,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|main|r1": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 9523,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|main|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 5229,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|main|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 13799,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|off|r1": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "ms": 35612,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|off|r1": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10195,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|off|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4990,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|off|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 14371,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|on|r1": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": true,
+        "ms": 22601,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|on|r1": {
+      "run": {
+        "motion": "pilot",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10376,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|on|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4251,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|on|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 10000,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|main|r2": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "ms": 30745,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|main|r2": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 9597,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|main|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 5133,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|main|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 17105,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|off|r2": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "ms": 35640,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|off|r2": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 9439,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|off|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 5088,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|off|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 13647,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|on|r2": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": true,
+        "ms": 20144,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|on|r2": {
+      "run": {
+        "motion": "pilot",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10720,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|on|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4252,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|on|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 10096,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|main|r3": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "ms": 29991,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|main|r3": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 9381,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|main|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4871,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|main|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 14153,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|off|r3": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "ms": 30230,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|off|r3": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 11279,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|off|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 5781,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|off|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 15395,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|on|r3": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": true,
+        "ms": 21724,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|on|r3": {
+      "run": {
+        "motion": "pilot",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10843,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|on|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4623,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|on|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 10567,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "summary": {
+      "s2018-colony122-c2s0": {
+        "msMedian": {
+          "main": 29991,
+          "off": 35612,
+          "on": 21724
+        },
+        "runs": {
+          "main": [
+            28642,
+            30745,
+            29991
+          ],
+          "off": [
+            35612,
+            35640,
+            30230
+          ],
+          "on": [
+            22601,
+            20144,
+            21724
+          ]
+        },
+        "speedup": {
+          "mainOverOn": 1.381,
+          "offOverOn": 1.639,
+          "mainOverOff": 0.842
+        }
+      },
+      "m1999-pilot-d2.3": {
+        "msMedian": {
+          "main": 9523,
+          "off": 10195,
+          "on": 10720
+        },
+        "runs": {
+          "main": [
+            9523,
+            9597,
+            9381
+          ],
+          "off": [
+            10195,
+            9439,
+            11279
+          ],
+          "on": [
+            10376,
+            10720,
+            10843
+          ]
+        },
+        "speedup": {
+          "mainOverOn": 0.888,
+          "offOverOn": 0.951,
+          "mainOverOff": 0.934
+        }
+      },
+      "m1999-c2-d2.3": {
+        "msMedian": {
+          "main": 5133,
+          "off": 5088,
+          "on": 4252
+        },
+        "runs": {
+          "main": [
+            5229,
+            5133,
+            4871
+          ],
+          "off": [
+            4990,
+            5088,
+            5781
+          ],
+          "on": [
+            4251,
+            4252,
+            4623
+          ]
+        },
+        "speedup": {
+          "mainOverOn": 1.207,
+          "offOverOn": 1.197,
+          "mainOverOff": 1.009
+        }
+      },
+      "m1999-c2-d6": {
+        "msMedian": {
+          "main": 14153,
+          "off": 14371,
+          "on": 10096
+        },
+        "runs": {
+          "main": [
+            13799,
+            17105,
+            14153
+          ],
+          "off": [
+            14371,
+            13647,
+            15395
+          ],
+          "on": [
+            10000,
+            10096,
+            10567
+          ]
+        },
+        "speedup": {
+          "mainOverOn": 1.402,
+          "offOverOn": 1.423,
+          "mainOverOff": 0.985
+        }
+      }
+    }
+  },
+  "provenance": {
+    "simHash": "baf4cb0b4b513531",
+    "commit": "f0a05a045aae071482bf432a30ae1b3be08ad655",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [
+      "--patchedSimHash",
+      "(first layout, not recorded)",
+      "--note",
+      "round 1, before the restructuring into LazyColonySim; superseded by bench.json; kept for the switch-off regression it showed",
+      "results/bench-round1.json"
+    ],
+    "date": "2026-10-19T22:24:43.711Z",
+    "item": "B014-event-driven-resting-ants-in-the-colony",
+    "depends": {
+      "data/fits/s2018-tracker.json": "37387f23bedea16a",
+      "data/fits/s2018-trips.json": "dd62a3cdc0be51c5",
+      "data/reference/stroeymeyt2018-fit-rows.json": "5d8098cb6be4df50",
+      "data/reference/stroeymeyt2018-activity-rows.json": "d3f784b51d07f6f5"
+    }
+  },
+  "measuredOn": {
+    "patchSha256": "eccf2028e7dfd659",
+    "patchedSimHash": "(first layout, not recorded)",
+    "base": "f0a05a0",
+    "worktree": "../ants-b014 (branch b014-lazy-rest)",
+    "note": "round 1, before the restructuring into LazyColonySim; superseded by bench.json; kept for the switch-off regression it showed"
+  }
+}

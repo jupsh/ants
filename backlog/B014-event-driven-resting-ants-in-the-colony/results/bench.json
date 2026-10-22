@@ -1,0 +1,1851 @@
+{
+  "workloads": {
+    "s2018-colony122-c2s0|main|r1": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 29185,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|main|r1": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10389,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|main|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4843,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|main|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 14287,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|off|r1": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 31664,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|off|r1": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10736,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|off|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 5451,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|off|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 13944,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|on|r1": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": true,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 22631,
+        "restShare": null,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|on|r1": {
+      "run": {
+        "motion": "pilot",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10358,
+        "restShare": null,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|on|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4289,
+        "restShare": null,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|on|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 10138,
+        "restShare": null,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|main-np|r1": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 29203,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|main-np|r1": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 9762,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|main-np|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 5093,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|main-np|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 14164,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|on-np|r1": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": true,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 19955,
+        "restShare": null,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|on-np|r1": {
+      "run": {
+        "motion": "pilot",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10119,
+        "restShare": null,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|on-np|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4598,
+        "restShare": null,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|on-np|r1": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 11168,
+        "restShare": null,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|main|r2": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 29755,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|main|r2": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10532,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|main|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4901,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|main|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 16701,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|off|r2": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 29653,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|off|r2": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10656,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|off|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 5397,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|off|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 15209,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|on|r2": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": true,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 21673,
+        "restShare": null,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|on|r2": {
+      "run": {
+        "motion": "pilot",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10246,
+        "restShare": null,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|on|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4226,
+        "restShare": null,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|on|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 10180,
+        "restShare": null,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|main-np|r2": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 29578,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|main-np|r2": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 9750,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|main-np|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4910,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|main-np|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 14365,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|on-np|r2": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": true,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 20094,
+        "restShare": null,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|on-np|r2": {
+      "run": {
+        "motion": "pilot",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 11131,
+        "restShare": null,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|on-np|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4526,
+        "restShare": null,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|on-np|r2": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 9802,
+        "restShare": null,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|main|r3": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 30246,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|main|r3": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10509,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|main|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 5231,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|main|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 14001,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|off|r3": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 30922,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|off|r3": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10402,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|off|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4907,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|off|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 14467,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|on|r3": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": true,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 21054,
+        "restShare": null,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|on|r3": {
+      "run": {
+        "motion": "pilot",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 11318,
+        "restShare": null,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|on|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4261,
+        "restShare": null,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|on|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 10567,
+        "restShare": null,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|main-np|r3": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": false,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 29248,
+        "restShare": 0.975260848177384,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|main-np|r3": {
+      "run": {
+        "motion": "pilot",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10401,
+        "restShare": 0.4000490148814482,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|main-np|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4872,
+        "restShare": 0.9655327555927814,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|main-np|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": false,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 14470,
+        "restShare": 0.9791930761400934,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "s2018-colony122-c2s0|on-np|r3": {
+      "run": {
+        "colony": "colony122",
+        "ants": 152,
+        "drive": 1,
+        "lazy": true,
+        "prealloc": 0,
+        "retain": 0,
+        "ms": 19991,
+        "restShare": null,
+        "foragersIn": 0.7258685726755638
+      },
+      "cpuProf": false
+    },
+    "m1999-pilot-d2.3|on-np|r3": {
+      "run": {
+        "motion": "pilot",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 10940,
+        "restShare": null,
+        "stays": [
+          205,
+          193,
+          5,
+          145,
+          131,
+          185,
+          142,
+          148,
+          212,
+          179,
+          138,
+          135,
+          138,
+          224,
+          129,
+          141
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d2.3|on-np|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 2.3,
+        "ms": 4662,
+        "restShare": null,
+        "stays": [
+          170,
+          122,
+          16,
+          175,
+          167,
+          137,
+          170,
+          137,
+          140,
+          166,
+          87,
+          137,
+          129,
+          143,
+          133,
+          162
+        ]
+      },
+      "cpuProf": false
+    },
+    "m1999-c2-d6|on-np|r3": {
+      "run": {
+        "motion": "c2",
+        "lazy": true,
+        "dt": 0.1,
+        "warmup": 300,
+        "recruiters": 16,
+        "density": 6,
+        "ms": 10235,
+        "restShare": null,
+        "stays": [
+          139,
+          141,
+          7,
+          135,
+          136,
+          148,
+          141,
+          151,
+          168,
+          133,
+          258,
+          142,
+          138,
+          171,
+          129,
+          149
+        ]
+      },
+      "cpuProf": false
+    },
+    "summary": {
+      "s2018-colony122-c2s0": {
+        "msMedian": {
+          "main": 29755,
+          "off": 30922,
+          "on": 21673,
+          "main-np": 29248,
+          "on-np": 19991
+        },
+        "runs": {
+          "main": [
+            29185,
+            29755,
+            30246
+          ],
+          "off": [
+            31664,
+            29653,
+            30922
+          ],
+          "on": [
+            22631,
+            21673,
+            21054
+          ],
+          "main-np": [
+            29203,
+            29578,
+            29248
+          ],
+          "on-np": [
+            19955,
+            20094,
+            19991
+          ]
+        },
+        "speedup": {
+          "mainOverOn": 1.373,
+          "offOverOn": 1.427,
+          "mainOverOff": 0.962,
+          "mainNpOverOnNp": 1.463
+        }
+      },
+      "m1999-pilot-d2.3": {
+        "msMedian": {
+          "main": 10509,
+          "off": 10656,
+          "on": 10358,
+          "main-np": 9762,
+          "on-np": 10940
+        },
+        "runs": {
+          "main": [
+            10389,
+            10532,
+            10509
+          ],
+          "off": [
+            10736,
+            10656,
+            10402
+          ],
+          "on": [
+            10358,
+            10246,
+            11318
+          ],
+          "main-np": [
+            9762,
+            9750,
+            10401
+          ],
+          "on-np": [
+            10119,
+            11131,
+            10940
+          ]
+        },
+        "speedup": {
+          "mainOverOn": 1.015,
+          "offOverOn": 1.029,
+          "mainOverOff": 0.986,
+          "mainNpOverOnNp": 0.892
+        }
+      },
+      "m1999-c2-d2.3": {
+        "msMedian": {
+          "main": 4901,
+          "off": 5397,
+          "on": 4261,
+          "main-np": 4910,
+          "on-np": 4598
+        },
+        "runs": {
+          "main": [
+            4843,
+            4901,
+            5231
+          ],
+          "off": [
+            5451,
+            5397,
+            4907
+          ],
+          "on": [
+            4289,
+            4226,
+            4261
+          ],
+          "main-np": [
+            5093,
+            4910,
+            4872
+          ],
+          "on-np": [
+            4598,
+            4526,
+            4662
+          ]
+        },
+        "speedup": {
+          "mainOverOn": 1.15,
+          "offOverOn": 1.267,
+          "mainOverOff": 0.908,
+          "mainNpOverOnNp": 1.068
+        }
+      },
+      "m1999-c2-d6": {
+        "msMedian": {
+          "main": 14287,
+          "off": 14467,
+          "on": 10180,
+          "main-np": 14365,
+          "on-np": 10235
+        },
+        "runs": {
+          "main": [
+            14287,
+            16701,
+            14001
+          ],
+          "off": [
+            13944,
+            15209,
+            14467
+          ],
+          "on": [
+            10138,
+            10180,
+            10567
+          ],
+          "main-np": [
+            14164,
+            14365,
+            14470
+          ],
+          "on-np": [
+            11168,
+            9802,
+            10235
+          ]
+        },
+        "speedup": {
+          "mainOverOn": 1.403,
+          "offOverOn": 1.421,
+          "mainOverOff": 0.988,
+          "mainNpOverOnNp": 1.404
+        }
+      }
+    }
+  },
+  "provenance": {
+    "simHash": "f57a833f31cc3b4f",
+    "commit": "f0a05a045aae071482bf432a30ae1b3be08ad655",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [
+      "--patchedSimHash",
+      "db94f55aa1bac8d0",
+      "--note",
+      "the final patch less one doc-comment fix in lasiusNestRest.ts (identical runtime code)",
+      "results/bench.json"
+    ],
+    "date": "2026-10-19T22:24:42.521Z",
+    "item": "B014-event-driven-resting-ants-in-the-colony",
+    "depends": {
+      "data/fits/s2018-tracker.json": "37387f23bedea16a",
+      "data/fits/s2018-trips.json": "dd62a3cdc0be51c5",
+      "data/reference/stroeymeyt2018-fit-rows.json": "5d8098cb6be4df50",
+      "data/reference/stroeymeyt2018-activity-rows.json": "d3f784b51d07f6f5"
+    },
+    "restamped": [
+      {
+        "from": "baf4cb0b4b513531",
+        "to": "88f9271e1dc0755a",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D078: observation-only change for D076 (opt-in restMaps / ActivityStats still-cell recorder, new src/sim/analysis/restPosition.ts); with it off, outputs bit-identical to the old code (one Stroeymeyt colony, 6 h, activity window: identical JSON); B018/B019 import none of the changed files"
+      },
+      {
+        "from": "88f9271e1dc0755a",
+        "to": "286c87ca9157d928",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D085: observation-only change for D083 Part B (opt-in neighbourStats recorder, new src/sim/analysis/neighbourRates.ts); with it off, outputs bit-identical to HEAD f0a05a0 (one Stroeymeyt colony, 6 h, activity window: identical JSON); no stamped result imports the new module"
+      },
+      {
+        "from": "286c87ca9157d928",
+        "to": "3c4d7e2b18d7f147",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D096: B014 lazyRest applied (proposal.rebased.patch, sha256 55e224a0…), off by default; with it off, outputs hash-equal to the unpatched tree (D095: identity.ts 9 cases, 22 pooled colonies, the fitted C2 / C1 points with restMaps and neighbourStats); scripts/m1999Points.ts gained a 'c2' branch only (model-A points unchanged)"
+      },
+      {
+        "from": "3c4d7e2b18d7f147",
+        "to": "1388de91d25b0ca4",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D104: step-5 judging code: the oracle diagnostic passed through the 1999 runner (M1999Options.oracle, off by default; oracleLog only with a coupled oracle) and placebo streams for ants added after the first step; with the oracle off, 1999 shared-nest outputs hash-equal to the code before (scripts/scratch/identM1999Oracle.ts: 3 days × 4 recruiters at the step-5 optimum, stepped and lazy); the placebo path is unchanged when no ant is added (test/oracle.test.ts)"
+      },
+      {
+        "from": "1388de91d25b0ca4",
+        "to": "72e05b8102168b4b",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D110 (D108 amendments 1–2): oracle placebo log shift and an opt-in realised-signal recorder (ColonyOptions.oracleTrace, Stroeymeyt runner over the observed window, oracleStats in the s2018Colony task), all off by default; test/oracle.test.ts shows shift 0 = raw placebo, shift −sd²/2 = mean-one placebo, rows identical with the recorder on and off; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+      },
+      {
+        "from": "72e05b8102168b4b",
+        "to": "f57a833f31cc3b4f",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D118 (Part C build, D115 amendment 1, D117): new oracle kinds coupledX, local, driverShared, driverLocal (+ driverLocalTable), all off by default; test/oracle.test.ts: strength 0 bit-identical for every kind, local r = ∞ equals coupledX, a vanishing range leaves rows unchanged; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+      }
+    ]
+  },
+  "measuredOn": {
+    "patchSha256": "eccf2028e7dfd659",
+    "patchedSimHash": "db94f55aa1bac8d0",
+    "base": "f0a05a0",
+    "worktree": "../ants-b014 (branch b014-lazy-rest)",
+    "note": "the final patch less one doc-comment fix in lasiusNestRest.ts (identical runtime code)"
+  }
+}

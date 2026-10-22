@@ -1,9 +1,12 @@
-import { ACT_WINDOW_H, ActivityStats, activityRows } from '../analysis/activity';
-import { colonyRows, GROUPS, InNestAccumulator, STROEYMEYT_CFG, type AntRole, type InNestColony, type Phase } from '../analysis/inNest';
+import { ACT_WINDOW_H, ActivityStats, activityRows, type AntHours } from '../analysis/activity';
+import { oracleStats, type OracleStats } from '../analysis/oracleStats';
+import { colonyRows, GROUPS, InNestAccumulator, STROEYMEYT_CFG, type AntRole, type Group, type InNestColony, type Phase } from '../analysis/inNest';
 import { RNG } from '../core/rng';
 import { DET_D_EDGES, DET_TSB_EDGES, ObservedState, type DetectionTracker } from '../analysis/detection';
+import { NeighbourStats, type NbTables } from '../analysis/neighbourRates';
 import { stroeymeytApparatus } from '../world/apparatus';
-import { ColonySim, type ColonyOptions, type ColonyParams } from './colonyBles';
+import type { ColonyOptions, ColonyParams } from './colonyBles';
+import { newColonySim } from './colonyLazy';
 import { S2018_WATER } from './stroeymeytTargets';
 
 /**
@@ -57,6 +60,8 @@ export interface StroeymeytColony {
   oracle?: ColonyOptions['oracle'];
   /** Pre-fix oracle behaviour, nurses only (see `ColonyOptions.oracleNurseOnly`). */
   oracleNurseOnly?: boolean;
+  /** Realised oracle signal recorder (D108 amendments 1–2; see `ColonyOptions.oracleTrace`) over the observed window, reduced to `oracleStats`. Unset: none. */
+  oracleTrace?: ColonyOptions['oracleTrace'];
   /** Slow-episode what-if (STATUS 2026-10-17, overnight; see `ColonyOptions.slowEp`). Unset: none. */
   slowEp?: ColonyOptions['slowEp'];
   /** Comparison Q switches (STATUS 2026-10-17 ≈ 16:19 UTC; see `ColonyOptions.wall` / `aggregate` / `site`). Unset: none. */
@@ -82,9 +87,24 @@ export interface StroeymeytRunOptions {
    * window's rows are in `activityWindowRows` (window check: equivalent 6-h windows at different elapsed times).
    */
   activityHours?: number[];
+  /**
+   * Per-ant activity vs rest position (D076): also return, per activity window, each tracked ant's hourly counts and
+   * its still steps per 1-mm cell over the window (`restWindows`). Observation only; rows unchanged.
+   */
+  restMaps?: boolean;
+  /** D083 Part B: also return neighbour-conditioned stop / leave / rest-survival tables over the observed time (`nbTables`). Observation only. */
+  neighbourStats?: boolean;
   /** Seconds a forager explores the foraging area on a trip before heading home (an input, STATUS 2026-10-11); with `exploreGiveUpSd` the median of a per-trip lognormal (STATUS 2026-10-15). */
   exploreGiveUp: number;
   exploreGiveUpSd?: number;
+  /** Lazy resting ants (`ColonyOptions.lazyRest`, B014; bit-identical, faster). The observer reads positions and modes only. */
+  lazyRest?: { verify?: boolean };
+}
+
+/** One activity window's per-ant data for the rest-position analysis (D076): window hours, and per group each ant's hourly counts and window still cells. */
+export interface RestWindowData {
+  hours: number[];
+  groups: Record<Group, { act: AntHours; rest: Record<number, number> }[]>;
 }
 
 export interface StroeymeytRun {
@@ -96,8 +116,14 @@ export interface StroeymeytRun {
   windowRows: Record<string, number>[];
   /** Activity rows per `activityHours` entry (empty without it). */
   activityWindowRows: Record<string, number>[];
+  /** With `restMaps`: per `activityHours` entry, per group, per tracked ant (in role order). */
+  restWindows?: RestWindowData[];
+  /** With `neighbourStats`: the observed time's tables (`NeighbourStats`). */
+  nbTables?: NbTables;
   /** Oracle (coupled): SD of the log multiplier over the steps after 30 min, NaN if none. */
   oracleLogSd?: number;
+  /** With `oracleTrace`: the run's realised-signal sums at lags of 1, 6 and 60 samples (`oracleStats`). */
+  oracleStats?: OracleStats;
 }
 
 /**
@@ -135,7 +161,7 @@ export function stroeymeytRoles(c: StroeymeytColony): AntRole[] {
 export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: StroeymeytRunOptions): StroeymeytRun {
   const roles = stroeymeytRoles(c);
   const dt = o.dt ?? 0.1;
-  const sim = new ColonySim(P, {
+  const sim = newColonySim(P, {
     seed: o.seed,
     ants: roles.length,
     roles,
@@ -153,6 +179,8 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     exploreOutside: true,
     oracle: c.oracle,
     oracleNurseOnly: c.oracleNurseOnly,
+    // The recorder covers the observed window only (D108 amendment 2): the rows' window, not the warm-up's transient.
+    oracleTrace: c.oracleTrace ? { ...c.oracleTrace, from: o.warmupS, to: o.warmupS + o.obsS } : undefined,
     slowEp: c.slowEp,
     wall: c.wall,
     aggregate: c.aggregate,
@@ -161,6 +189,7 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     starvationDays: 0,
     walkSpeedFactor: 1,
     tempC: STROEYMEYT_TEMP[o.phase],
+    lazyRest: o.lazyRest,
   });
   const acc = new InNestAccumulator(roles, STROEYMEYT_CFG);
   const wins = (o.windows ?? []).map((w) => ({ end: w, acc: new InNestAccumulator(roles, STROEYMEYT_CFG) }));
@@ -168,7 +197,8 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
   const frameDt = STROEYMEYT_CFG.frameDt;
   const actH = o.activityHours ?? [];
   for (const h of actH) if (!(h >= 0 && (h + ACT_WINDOW_H) * 3600 <= o.obsS + 1e-6)) throw new Error(`activity window from hour ${h} exceeds the observed time`);
-  const act = actH.length ? GROUPS.map((g) => new ActivityStats(roles.map((r) => r === g), (t) => Math.floor(t / 3600))) : [];
+  const act = actH.length ? GROUPS.map((g) => new ActivityStats(roles.map((r) => r === g), (t) => Math.floor(t / 3600), !!o.restMaps)) : [];
+  const nb = o.neighbourStats ? new NeighbourStats(roles.map((r) => (r === 'nurse' ? 0 : r === 'forager' ? 1 : 2)), frameDt) : null;
   const app = sim.w.apparatus;
   const ids: number[] = [];
   const xs: number[] = [];
@@ -267,6 +297,7 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     });
     acc.frame(frame, PHASE_HOUR[o.phase], ids.length, ids, xs, ys, ins);
     for (const a of act) a.frame(frame, frame * frameDt, ids, xs, ys, ins);
+    nb?.frame(frame, frame * frameDt, ids, xs, ys, ins);
     for (const w of wins) if (frame * frameDt < w.end - 1e-9) w.acc.frame(frame, PHASE_HOUR[o.phase], ids.length, ids, xs, ys, ins);
     frame++;
     for (const i of foragers) {
@@ -286,9 +317,29 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     windowRows: wins.map((w) => colonyRows(w.acc.result(), STROEYMEYT_CFG)),
     activityWindowRows,
   };
+  if (nb) res.nbTables = nb.finish();
+  if (o.restMaps && act.length) {
+    const rest = { nurse: act[0].restOut(), forager: act[1].restOut() };
+    res.restWindows = actH.map((h0) => {
+      const hours = Array.from({ length: ACT_WINDOW_H }, (_, k) => h0 + k);
+      const groups = {} as RestWindowData['groups'];
+      for (const g of GROUPS)
+        groups[g] = byGroup![g].map((a, i) => {
+          const act: AntHours = {};
+          const cells: Record<number, number> = {};
+          for (const h of hours) {
+            if (a[h]) act[h] = a[h];
+            for (const [q, n] of Object.entries(rest[g][i][h] ?? {})) cells[Number(q)] = (cells[Number(q)] ?? 0) + n;
+          }
+          return { act, rest: cells };
+        });
+      return { hours, groups };
+    });
+  }
   if (c.oracle?.kind === 'coupled') {
     const m = sim.oracleLogSum / sim.oracleLogN;
     res.oracleLogSd = sim.oracleLogN ? Math.sqrt(sim.oracleLogSq / sim.oracleLogN - m * m) : NaN;
   }
+  if (c.oracleTrace) res.oracleStats = oracleStats(sim.oracleTrace, [1, 6, 60]);
   return res;
 }

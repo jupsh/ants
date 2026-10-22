@@ -1,0 +1,1846 @@
+{
+  "source": "Stroeymeyt et al. 2018, main experiment, PreTreatment (fit colonies, development use); Zenodo 10.5281/zenodo.1480665, CC BY 4.0",
+  "definitions": "docs/log D076 (pre-registration, approved D077), D078 (code); src/sim/analysis/restPosition.ts",
+  "field": "dark-hour still occupancy of all workers, focal ant left out, 5 × 5-mm box sum over its mean on DATA_NEST",
+  "provenance": {
+    "simHash": "f57a833f31cc3b4f",
+    "commit": "f0a05a045aae071482bf432a30ae1b3be08ad655",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [],
+    "date": "2026-10-20T14:33:24.929Z",
+    "restamped": [
+      {
+        "from": "88f9271e1dc0755a",
+        "to": "286c87ca9157d928",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D085: observation-only change for D083 Part B (opt-in neighbourStats recorder, new src/sim/analysis/neighbourRates.ts); with it off, outputs bit-identical to HEAD f0a05a0 (one Stroeymeyt colony, 6 h, activity window: identical JSON); no stamped result imports the new module"
+      },
+      {
+        "from": "286c87ca9157d928",
+        "to": "3c4d7e2b18d7f147",
+        "date": "2026-10-20",
+        "by": "lead-claude",
+        "reason": "D096: B014 lazyRest applied (proposal.rebased.patch, sha256 55e224a0…), off by default; with it off, outputs hash-equal to the unpatched tree (D095: identity.ts 9 cases, 22 pooled colonies, the fitted C2 / C1 points with restMaps and neighbourStats); scripts/m1999Points.ts gained a 'c2' branch only (model-A points unchanged)"
+      },
+      {
+        "from": "3c4d7e2b18d7f147",
+        "to": "1388de91d25b0ca4",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D104: step-5 judging code: the oracle diagnostic passed through the 1999 runner (M1999Options.oracle, off by default; oracleLog only with a coupled oracle) and placebo streams for ants added after the first step; with the oracle off, 1999 shared-nest outputs hash-equal to the code before (scripts/scratch/identM1999Oracle.ts: 3 days × 4 recruiters at the step-5 optimum, stepped and lazy); the placebo path is unchanged when no ant is added (test/oracle.test.ts)"
+      },
+      {
+        "from": "1388de91d25b0ca4",
+        "to": "72e05b8102168b4b",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D110 (D108 amendments 1–2): oracle placebo log shift and an opt-in realised-signal recorder (ColonyOptions.oracleTrace, Stroeymeyt runner over the observed window, oracleStats in the s2018Colony task), all off by default; test/oracle.test.ts shows shift 0 = raw placebo, shift −sd²/2 = mean-one placebo, rows identical with the recorder on and off; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+      },
+      {
+        "from": "72e05b8102168b4b",
+        "to": "f57a833f31cc3b4f",
+        "date": "2026-10-22",
+        "by": "lead-claude",
+        "reason": "D118 (Part C build, D115 amendment 1, D117): new oracle kinds coupledX, local, driverShared, driverLocal (+ driverLocalTable), all off by default; test/oracle.test.ts: strength 0 bit-identical for every kind, local r = ∞ equals coupledX, a vanishing range leaves rows unchanged; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+      }
+    ]
+  },
+  "colonies": [
+    {
+      "colony": "colony112",
+      "windows": [
+        [
+          393102,
+          393108
+        ],
+        [
+          393108,
+          393114
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.6684759509099297,
+          "zPart": 0.6843512123053219,
+          "zE": -0.11812553399631136,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 43,
+          "nZNoR": 0,
+          "nE": 46,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": null,
+          "zPart": null,
+          "zE": null,
+          "wZ": 0,
+          "wE": 0,
+          "nZ": 0,
+          "nZNoR": 0,
+          "nE": 0,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.547576038801607,
+            "zPart": 0.5647751873930935,
+            "nZ": 21,
+            "nZNoR": 0,
+            "zE": -0.05341041337746465,
+            "nE": 23,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.7830127097493935,
+            "zPart": 0.7972841247224265,
+            "nZ": 22,
+            "nZNoR": 0,
+            "zE": -0.18284065461515805,
+            "nE": 23,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": null,
+            "zPart": null,
+            "nZ": 7,
+            "nZNoR": 0,
+            "zE": null,
+            "nE": 7,
+            "nENoR": 0
+          },
+          {
+            "zFull": null,
+            "zPart": null,
+            "nZ": 7,
+            "nZNoR": 0,
+            "zE": null,
+            "nE": 7,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony020",
+      "windows": [
+        [
+          393102,
+          393108
+        ],
+        [
+          393108,
+          393114
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.3050257783135578,
+          "zPart": 0.31321292220462216,
+          "zE": 0.010141015410586639,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 78,
+          "nZNoR": 0,
+          "nE": 78,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.25239058544339726,
+          "zPart": 0.24948414641074299,
+          "zE": -0.10049644415096709,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 45,
+          "nZNoR": 0,
+          "nE": 45,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.09236705159966926,
+            "zPart": 0.08575820328494997,
+            "nZ": 39,
+            "nZNoR": 0,
+            "zE": 0.05369526966314094,
+            "nE": 39,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.5176845050274463,
+            "zPart": 0.5406676411242943,
+            "nZ": 39,
+            "nZNoR": 0,
+            "zE": -0.03341323884196766,
+            "nE": 39,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.08419044735468754,
+            "zPart": 0.08797228553500926,
+            "nZ": 23,
+            "nZNoR": 0,
+            "zE": -0.04944737556808882,
+            "nE": 23,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.4294433623788812,
+            "zPart": 0.4199688884462397,
+            "nZ": 22,
+            "nZNoR": 0,
+            "zE": -0.15423230581715472,
+            "nE": 22,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony114",
+      "windows": [
+        [
+          393126,
+          393132
+        ],
+        [
+          393132,
+          393138
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.6486590896227207,
+          "zPart": 0.6460201828728542,
+          "zE": 0.11901400040704153,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 116,
+          "nZNoR": 0,
+          "nE": 117,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.980527243014985,
+          "zPart": 0.960235314428206,
+          "zE": 0.24246812904071674,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 81,
+          "nZNoR": 0,
+          "nE": 86,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.43721108239161444,
+            "zPart": 0.43044842465807764,
+            "nZ": 57,
+            "nZNoR": 0,
+            "zE": 0.09363142342126808,
+            "nE": 58,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.852555382309859,
+            "zPart": 0.8537529680616389,
+            "nZ": 59,
+            "nZNoR": 0,
+            "zE": 0.14394331708949762,
+            "nE": 59,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.9333177546214206,
+            "zPart": 0.8995368370228751,
+            "nZ": 38,
+            "nZNoR": 0,
+            "zE": 0.24315481445201476,
+            "nE": 42,
+            "nENoR": 0
+          },
+          {
+            "zFull": 1.0218355453593535,
+            "zPart": 1.01315193575593,
+            "nZ": 43,
+            "nZNoR": 0,
+            "zE": 0.24181494047875035,
+            "nE": 44,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony122",
+      "windows": [
+        [
+          393366,
+          393372
+        ],
+        [
+          393372,
+          393378
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.8355687685108933,
+          "zPart": 0.6629663612086986,
+          "zE": -0.5964470857639452,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 204,
+          "nZNoR": 0,
+          "nE": 204,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.629242972450979,
+          "zPart": 0.5643036196956511,
+          "zE": -0.3829391507783502,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 89,
+          "nZNoR": 0,
+          "nE": 92,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.8478241999139843,
+            "zPart": 0.6583040362308817,
+            "nZ": 102,
+            "nZNoR": 0,
+            "zE": -0.6204179911446625,
+            "nE": 102,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.8233133371078024,
+            "zPart": 0.6676286861865152,
+            "nZ": 102,
+            "nZNoR": 0,
+            "zE": -0.572476180383228,
+            "nE": 102,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.5932175802420128,
+            "zPart": 0.5821097249535053,
+            "nZ": 44,
+            "nZNoR": 0,
+            "zE": -0.26357020453417723,
+            "nE": 47,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.6644106172263985,
+            "zPart": 0.5469318096879885,
+            "nZ": 45,
+            "nZNoR": 0,
+            "zE": -0.5079923325579601,
+            "nE": 45,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony209",
+      "windows": [
+        [
+          393414,
+          393420
+        ],
+        [
+          393420,
+          393426
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.975076878797183,
+          "zPart": 0.8992940838542405,
+          "zE": -0.4261649043889302,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 144,
+          "nZNoR": 0,
+          "nE": 144,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.709232864194426,
+          "zPart": 0.6257749156553745,
+          "zE": -0.42573184163848155,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 45,
+          "nZNoR": 0,
+          "nE": 48,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 1.0291985989421744,
+            "zPart": 0.8907914464351017,
+            "nZ": 72,
+            "nZNoR": 0,
+            "zE": -0.6089378547474638,
+            "nE": 72,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.9209551586521918,
+            "zPart": 0.9077967212733793,
+            "nZ": 72,
+            "nZNoR": 0,
+            "zE": -0.24339195403039654,
+            "nE": 72,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.6589132809212149,
+            "zPart": 0.5744798423630653,
+            "nZ": 22,
+            "nZNoR": 0,
+            "zE": -0.4205471832738047,
+            "nE": 24,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.7570364683039764,
+            "zPart": 0.6743702482480883,
+            "nZ": 23,
+            "nZNoR": 0,
+            "zE": -0.4309165000031584,
+            "nE": 24,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony208",
+      "windows": [
+        [
+          393511,
+          393517
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.6730591681645811,
+          "zPart": 0.6218436077057912,
+          "zE": -0.34653586439622597,
+          "wZ": 1,
+          "wE": 1,
+          "nZ": 71,
+          "nZNoR": 0,
+          "nE": 71,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.9066807956925128,
+          "zPart": 0.8400135184768406,
+          "zE": -0.5069889517637002,
+          "wZ": 1,
+          "wE": 1,
+          "nZ": 37,
+          "nZNoR": 0,
+          "nE": 41,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.6730591681645811,
+            "zPart": 0.6218436077057912,
+            "nZ": 71,
+            "nZNoR": 0,
+            "zE": -0.34653586439622597,
+            "nE": 71,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.9066807956925128,
+            "zPart": 0.8400135184768406,
+            "nZ": 37,
+            "nZNoR": 0,
+            "zE": -0.5069889517637002,
+            "nE": 41,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony201",
+      "windows": [
+        [
+          393606,
+          393612
+        ],
+        [
+          393612,
+          393618
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 1.164140567230804,
+          "zPart": 0.9962462754300266,
+          "zE": -0.6189784057321696,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 201,
+          "nZNoR": 0,
+          "nE": 202,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.6891208385982345,
+          "zPart": 0.6010430996803691,
+          "zE": -0.4315859492257708,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 81,
+          "nZNoR": 0,
+          "nE": 83,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 1.182045500852834,
+            "zPart": 1.042131022004127,
+            "nZ": 101,
+            "nZNoR": 0,
+            "zE": -0.6036460100795462,
+            "nE": 101,
+            "nENoR": 0
+          },
+          {
+            "zFull": 1.146051046664217,
+            "zPart": 0.9498835627457796,
+            "nZ": 100,
+            "nZNoR": 0,
+            "zE": -0.6343108013847929,
+            "nE": 101,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.35150668174049954,
+            "zPart": 0.2790362706421496,
+            "nZ": 40,
+            "nZNoR": 0,
+            "zE": -0.31469672560031664,
+            "nE": 41,
+            "nENoR": 0
+          },
+          {
+            "zFull": 1.017850412380766,
+            "zPart": 0.9143470414472852,
+            "nZ": 41,
+            "nZNoR": 0,
+            "zE": -0.5454780132710852,
+            "nE": 42,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony213",
+      "windows": [
+        [
+          393630,
+          393636
+        ],
+        [
+          393636,
+          393642
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.6381925306855658,
+          "zPart": 0.6407138385407289,
+          "zE": -0.016709120981941026,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 142,
+          "nZNoR": 0,
+          "nE": 142,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.7392184362100052,
+          "zPart": 0.4190076208560868,
+          "zE": -0.7808901099494387,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 57,
+          "nZNoR": 0,
+          "nE": 58,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.8493781601948112,
+            "zPart": 0.849395606762213,
+            "nZ": 71,
+            "nZNoR": 0,
+            "zE": -0.03771068952045118,
+            "nE": 71,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.42700690117632023,
+            "zPart": 0.43203207031924473,
+            "nZ": 71,
+            "nZNoR": 0,
+            "zE": 0.004292447556569131,
+            "nE": 71,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.9235791243089216,
+            "zPart": 0.3874668644816752,
+            "nZ": 29,
+            "nZNoR": 0,
+            "zE": -1.113848924709815,
+            "nE": 29,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.547483320587132,
+            "zPart": 0.45186257541276553,
+            "nZ": 28,
+            "nZNoR": 0,
+            "zE": -0.4479312951890627,
+            "nE": 29,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony215",
+      "windows": [
+        [
+          393630,
+          393636
+        ],
+        [
+          393636,
+          393642
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.7030805656561279,
+          "zPart": 0.7195250818992014,
+          "zE": -0.12928215061837467,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 124,
+          "nZNoR": 0,
+          "nE": 126,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.7576811517990749,
+          "zPart": 0.7674277780646808,
+          "zE": -0.02175583751135051,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 22,
+          "nZNoR": 0,
+          "nE": 24,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.5510998682308828,
+            "zPart": 0.5712633409870236,
+            "nZ": 63,
+            "nZNoR": 0,
+            "zE": -0.032942018325614025,
+            "nE": 63,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.8603019767856919,
+            "zPart": 0.8729889891591747,
+            "nZ": 61,
+            "nZNoR": 0,
+            "zE": -0.22562228291113534,
+            "nE": 63,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.5539790755431737,
+            "zPart": 0.5388783810164538,
+            "nZ": 12,
+            "nZNoR": 0,
+            "zE": 0.13823649395853052,
+            "nE": 13,
+            "nENoR": 0
+          },
+          {
+            "zFull": 1.0195838212709478,
+            "zPart": 1.0721603074623167,
+            "nZ": 10,
+            "nZNoR": 0,
+            "zE": -0.2217462518487018,
+            "nE": 11,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony248",
+      "windows": [
+        [
+          393702,
+          393708
+        ],
+        [
+          393708,
+          393714
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.6676462618588691,
+          "zPart": 0.6727295468215949,
+          "zE": -0.05835478324332377,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 156,
+          "nZNoR": 0,
+          "nE": 156,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.9858755945178701,
+          "zPart": 0.894504715154207,
+          "zE": -0.5527070374369666,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 48,
+          "nZNoR": 0,
+          "nE": 48,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.7343029015199188,
+            "zPart": 0.7396958310472609,
+            "nZ": 78,
+            "nZNoR": 0,
+            "zE": -0.08124914373082187,
+            "nE": 78,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.6009896221978192,
+            "zPart": 0.6057632625959289,
+            "nZ": 78,
+            "nZNoR": 0,
+            "zE": -0.035460422755825664,
+            "nE": 78,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.8707187601150682,
+            "zPart": 0.9334577447010904,
+            "nZ": 24,
+            "nZNoR": 0,
+            "zE": -0.353109631063649,
+            "nE": 24,
+            "nENoR": 0
+          },
+          {
+            "zFull": 1.101032428920672,
+            "zPart": 0.8555516856073234,
+            "nZ": 24,
+            "nZNoR": 0,
+            "zE": -0.7523044438102843,
+            "nE": 24,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony250",
+      "windows": [
+        [
+          393726,
+          393732
+        ],
+        [
+          393732,
+          393738
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.6456684782556057,
+          "zPart": 0.6200730201830709,
+          "zE": -0.19271086851484673,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 154,
+          "nZNoR": 0,
+          "nE": 156,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.7568059493390225,
+          "zPart": 0.7389039530849737,
+          "zE": -0.2840880443143962,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 60,
+          "nZNoR": 0,
+          "nE": 63,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.6537922684446981,
+            "zPart": 0.5870962746918289,
+            "nZ": 76,
+            "nZNoR": 0,
+            "zE": -0.3898856572195231,
+            "nE": 78,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.6377613224715558,
+            "zPart": 0.6521585022826576,
+            "nZ": 78,
+            "nZNoR": 0,
+            "zE": 0.004463920189829653,
+            "nE": 78,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.6301101806234264,
+            "zPart": 0.5914694207461354,
+            "nZ": 29,
+            "nZNoR": 0,
+            "zE": -0.41408475181770854,
+            "nE": 31,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.8744520202892188,
+            "zPart": 0.8754174089542685,
+            "nZ": 31,
+            "nZNoR": 0,
+            "zE": -0.15857398189740504,
+            "nE": 32,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony241",
+      "windows": [
+        [
+          393726,
+          393732
+        ],
+        [
+          393732,
+          393738
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.6295532113640376,
+          "zPart": 0.4863799617520299,
+          "zE": -0.4774149086898262,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 70,
+          "nZNoR": 0,
+          "nE": 70,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.7966141144527116,
+          "zPart": 0.7933890209252699,
+          "zE": -0.1153607249038659,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 118,
+          "nZNoR": 0,
+          "nE": 130,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.7257334531569879,
+            "zPart": 0.5344890300254044,
+            "nZ": 35,
+            "nZNoR": 0,
+            "zE": -0.5275073467501525,
+            "nE": 35,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.5333729695710873,
+            "zPart": 0.43827089347865544,
+            "nZ": 35,
+            "nZNoR": 0,
+            "zE": -0.4273224706294999,
+            "nE": 35,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.7345592695907093,
+            "zPart": 0.7308422289320851,
+            "nZ": 62,
+            "nZNoR": 0,
+            "zE": -0.17179570482698542,
+            "nE": 67,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.8656940360915445,
+            "zPart": 0.8631527504561299,
+            "nZ": 56,
+            "nZNoR": 0,
+            "zE": -0.05516341298587176,
+            "nE": 63,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony224",
+      "windows": [
+        [
+          393918,
+          393924
+        ],
+        [
+          393924,
+          393930
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.8401306919395374,
+          "zPart": 0.8254450399440819,
+          "zE": -0.21388674820172926,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 118,
+          "nZNoR": 0,
+          "nE": 118,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 1.0729195985066124,
+          "zPart": 0.984870823142196,
+          "zE": -0.4229286245647735,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 65,
+          "nZNoR": 0,
+          "nE": 65,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.8734002695883343,
+            "zPart": 0.8789367070496938,
+            "nZ": 59,
+            "nZNoR": 0,
+            "zE": -0.10198862242306228,
+            "nE": 59,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.8068611142907406,
+            "zPart": 0.7719533728384703,
+            "nZ": 59,
+            "nZNoR": 0,
+            "zE": -0.32578487398039624,
+            "nE": 59,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 1.2433475129117566,
+            "zPart": 1.083977970814064,
+            "nZ": 32,
+            "nZNoR": 0,
+            "zE": -0.6551797702176217,
+            "nE": 32,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.9081726145816396,
+            "zPart": 0.889181163321082,
+            "nZ": 33,
+            "nZNoR": 0,
+            "zE": -0.19841918376702014,
+            "nE": 33,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony204",
+      "windows": [
+        [
+          393918,
+          393924
+        ],
+        [
+          393924,
+          393930
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.8233019647262501,
+          "zPart": 0.8341079550006916,
+          "zE": -0.0931599851282955,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 109,
+          "nZNoR": 0,
+          "nE": 110,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.5502556561498319,
+          "zPart": 0.4521472347225553,
+          "zE": -0.4612451559245146,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 65,
+          "nZNoR": 0,
+          "nE": 66,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.8682915100816745,
+            "zPart": 0.8764417540397571,
+            "nZ": 55,
+            "nZNoR": 0,
+            "zE": -0.13251630899615735,
+            "nE": 55,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.7774302714226801,
+            "zPart": 0.7909274799808448,
+            "nZ": 54,
+            "nZNoR": 0,
+            "zE": -0.05380366126043364,
+            "nE": 55,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.48304677717898664,
+            "zPart": 0.26895737195029257,
+            "nZ": 32,
+            "nZNoR": 0,
+            "zE": -0.5677476319753104,
+            "nE": 33,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.615224239154982,
+            "zPart": 0.6290202056750849,
+            "nZ": 33,
+            "nZNoR": 0,
+            "zE": -0.35474267987371877,
+            "nE": 33,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony253",
+      "windows": [
+        [
+          393942,
+          393948
+        ],
+        [
+          393948,
+          393954
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.8248455879248551,
+          "zPart": 0.8136282575014812,
+          "zE": -0.12312066516085707,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 74,
+          "nZNoR": 0,
+          "nE": 74,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 1.1235519172461093,
+          "zPart": 1.1299696950913025,
+          "zE": -0.25649382257566095,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 104,
+          "nZNoR": 0,
+          "nE": 111,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.8202419045484599,
+            "zPart": 0.8252367238695637,
+            "nZ": 37,
+            "nZNoR": 0,
+            "zE": 0.05149164294322242,
+            "nE": 37,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.8294492713012501,
+            "zPart": 0.8020197911333985,
+            "nZ": 37,
+            "nZNoR": 0,
+            "zE": -0.29773297326493653,
+            "nE": 37,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 1.0571895573405248,
+            "zPart": 1.0724576754572326,
+            "nZ": 50,
+            "nZNoR": 0,
+            "zE": -0.1980021498019677,
+            "nE": 55,
+            "nENoR": 0
+          },
+          {
+            "zFull": 1.1847093861787064,
+            "zPart": 1.1828807531546466,
+            "nZ": 54,
+            "nZNoR": 0,
+            "zE": -0.31388187888192604,
+            "nE": 56,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony237",
+      "windows": [
+        [
+          394878,
+          394884
+        ],
+        [
+          394884,
+          394890
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 1.1022772893415693,
+          "zPart": 1.09925656518915,
+          "zE": -0.044748794560408964,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 239,
+          "nZNoR": 0,
+          "nE": 240,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.4967203001972429,
+          "zPart": 0.4648650745255336,
+          "zE": -0.5330888557582825,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 26,
+          "nZNoR": 0,
+          "nE": 26,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 1.0688485479796936,
+            "zPart": 1.063565611452108,
+            "nZ": 120,
+            "nZNoR": 0,
+            "zE": -0.14051757428324685,
+            "nE": 120,
+            "nENoR": 0
+          },
+          {
+            "zFull": 1.135994209508289,
+            "zPart": 1.1352578750456443,
+            "nZ": 119,
+            "nZNoR": 0,
+            "zE": 0.0510199851624289,
+            "nE": 120,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.5420067446234785,
+            "zPart": 0.6560354847748171,
+            "nZ": 13,
+            "nZNoR": 0,
+            "zE": -0.3486354488719036,
+            "nE": 13,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.4514338557710072,
+            "zPart": 0.2736946642762501,
+            "nZ": 13,
+            "nZNoR": 0,
+            "zE": -0.7175422626446614,
+            "nE": 13,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony261",
+      "windows": [
+        [
+          394902,
+          394908
+        ],
+        [
+          394908,
+          394914
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 1.077317183073302,
+          "zPart": 1.1043882792710995,
+          "zE": -0.05269264312820624,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 156,
+          "nZNoR": 0,
+          "nE": 158,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.24963220752778173,
+          "zPart": 0.11941636975822598,
+          "zE": -0.42600448948560277,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 18,
+          "nZNoR": 0,
+          "nE": 18,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 1.0232883983662975,
+            "zPart": 1.0341708169116468,
+            "nZ": 79,
+            "nZNoR": 0,
+            "zE": -0.02997489435432333,
+            "nE": 79,
+            "nENoR": 0
+          },
+          {
+            "zFull": 1.13280620520482,
+            "zPart": 1.1765295077225921,
+            "nZ": 77,
+            "nZNoR": 0,
+            "zE": -0.07541039190208916,
+            "nE": 79,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": -0.05004172927849127,
+            "zPart": 0.2307483067459931,
+            "nZ": 9,
+            "nZNoR": 0,
+            "zE": -0.0166682101337959,
+            "nE": 9,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.5493061443340548,
+            "zPart": 0.008084432770458878,
+            "nZ": 9,
+            "nZNoR": 0,
+            "zE": -0.8353407688374095,
+            "nE": 9,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony260",
+      "windows": [
+        [
+          394902,
+          394908
+        ],
+        [
+          394908,
+          394914
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.8572128785788257,
+          "zPart": 0.7457603747901123,
+          "zE": -0.4713465141510951,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 90,
+          "nZNoR": 0,
+          "nE": 90,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.514276338956579,
+          "zPart": 0.38539878593524035,
+          "zE": -0.4899932234281587,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 32,
+          "nZNoR": 0,
+          "nE": 33,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.8779719025116415,
+            "zPart": 0.7349683448423598,
+            "nZ": 45,
+            "nZNoR": 0,
+            "zE": -0.5329269465123874,
+            "nE": 45,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.8364538546460099,
+            "zPart": 0.7565524047378647,
+            "nZ": 45,
+            "nZNoR": 0,
+            "zE": -0.40976608178980295,
+            "nE": 45,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.8465936349186747,
+            "zPart": 0.9328695464740611,
+            "nZ": 15,
+            "nZNoR": 0,
+            "zE": -0.21501818441933485,
+            "nE": 16,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.2294329424176398,
+            "zPart": -0.07784570375145404,
+            "nZ": 17,
+            "nZNoR": 0,
+            "zE": -0.7453271882220667,
+            "nE": 17,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony226",
+      "windows": [
+        [
+          394926,
+          394932
+        ],
+        [
+          394932,
+          394938
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.6825510839643188,
+          "zPart": 0.68328565125315,
+          "zE": -0.04331702576401435,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 188,
+          "nZNoR": 0,
+          "nE": 188,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.6434556713904952,
+          "zPart": 0.6303443923443603,
+          "zE": -0.24642849421388777,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 48,
+          "nZNoR": 0,
+          "nE": 53,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.7466509356927695,
+            "zPart": 0.7516228534566377,
+            "nZ": 94,
+            "nZNoR": 0,
+            "zE": 0.08735805580412626,
+            "nE": 94,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.6184512322358681,
+            "zPart": 0.6149484490496624,
+            "nZ": 94,
+            "nZNoR": 0,
+            "zE": -0.17399210733215495,
+            "nE": 94,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.5633175690507073,
+            "zPart": 0.5204977259358574,
+            "nZ": 24,
+            "nZNoR": 0,
+            "zE": -0.2751130237927918,
+            "nE": 26,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.7235937737302831,
+            "zPart": 0.7401910587528634,
+            "nZ": 24,
+            "nZNoR": 0,
+            "zE": -0.21893915336743808,
+            "nE": 27,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony220",
+      "windows": [
+        [
+          394926,
+          394932
+        ],
+        [
+          394932,
+          394938
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.8747101968899764,
+          "zPart": 0.8831466047697856,
+          "zE": 0.0747117215869963,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 208,
+          "nZNoR": 0,
+          "nE": 208,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": null,
+          "zPart": null,
+          "zE": -0.1588536784728434,
+          "wZ": 0,
+          "wE": 2,
+          "nZ": 0,
+          "nZNoR": 0,
+          "nE": 16,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.817118259449222,
+            "zPart": 0.8161135990481768,
+            "nZ": 104,
+            "nZNoR": 0,
+            "zE": 0.05154458663900322,
+            "nE": 104,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.9323021343307308,
+            "zPart": 0.9501796104913943,
+            "nZ": 104,
+            "nZNoR": 0,
+            "zE": 0.09787885653498937,
+            "nE": 104,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": null,
+            "zPart": null,
+            "nZ": 7,
+            "nZNoR": 0,
+            "zE": -0.2938933324510595,
+            "nE": 8,
+            "nENoR": 0
+          },
+          {
+            "zFull": null,
+            "zPart": null,
+            "nZ": 6,
+            "nZNoR": 0,
+            "zE": -0.023814024494627307,
+            "nE": 8,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony265",
+      "windows": [
+        [
+          394950,
+          394956
+        ],
+        [
+          394956,
+          394962
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 1.0474672181346,
+          "zPart": 0.9942789736054463,
+          "zE": -0.35177567613833727,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 143,
+          "nZNoR": 0,
+          "nE": 144,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 1.2031428567947673,
+          "zPart": 1.21431120777227,
+          "zE": -0.31865684421498297,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 24,
+          "nZNoR": 0,
+          "nE": 24,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 1.0696019543232778,
+            "zPart": 1.0362135342145906,
+            "nZ": 72,
+            "nZNoR": 0,
+            "zE": -0.2869341458546997,
+            "nE": 72,
+            "nENoR": 0
+          },
+          {
+            "zFull": 1.0250069711196184,
+            "zPart": 0.9517185240319863,
+            "nZ": 71,
+            "nZNoR": 0,
+            "zE": -0.41661720642197486,
+            "nE": 72,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 1.4833723683403692,
+            "zPart": 1.4907299839068202,
+            "nZ": 12,
+            "nZNoR": 0,
+            "zE": -0.3650453478758148,
+            "nE": 12,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.9229133452491655,
+            "zPart": 0.9378924316377197,
+            "nZ": 12,
+            "nZNoR": 0,
+            "zE": -0.27226834055415117,
+            "nE": 12,
+            "nENoR": 0
+          }
+        ]
+      }
+    },
+    {
+      "colony": "colony276",
+      "windows": [
+        [
+          394950,
+          394956
+        ],
+        [
+          394956,
+          394962
+        ]
+      ],
+      "groups": {
+        "nurse": {
+          "zFull": 0.7364153117024987,
+          "zPart": 0.6538255842120837,
+          "zE": -0.481450958647863,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 146,
+          "nZNoR": 0,
+          "nE": 146,
+          "nENoR": 0
+        },
+        "forager": {
+          "zFull": 0.5452241249661963,
+          "zPart": 0.4939774979060316,
+          "zE": -0.37020737742215926,
+          "wZ": 2,
+          "wE": 2,
+          "nZ": 46,
+          "nZNoR": 0,
+          "nE": 50,
+          "nENoR": 0
+        }
+      },
+      "perWindow": {
+        "nurse": [
+          {
+            "zFull": 0.6675005333661701,
+            "zPart": 0.5761226580816768,
+            "nZ": 73,
+            "nZNoR": 0,
+            "zE": -0.5554130904810239,
+            "nE": 73,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.8053300900388275,
+            "zPart": 0.7315285103424904,
+            "nZ": 73,
+            "nZNoR": 0,
+            "zE": -0.4074888268147021,
+            "nE": 73,
+            "nENoR": 0
+          }
+        ],
+        "forager": [
+          {
+            "zFull": 0.6215033967750017,
+            "zPart": 0.5536706067490157,
+            "nZ": 24,
+            "nZNoR": 0,
+            "zE": -0.41816641912293767,
+            "nE": 25,
+            "nENoR": 0
+          },
+          {
+            "zFull": 0.4609154561248852,
+            "zPart": 0.427651821413827,
+            "nZ": 22,
+            "nZNoR": 0,
+            "zE": -0.3222483357213809,
+            "nE": 25,
+            "nENoR": 0
+          }
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "nurse": {
+      "S": {
+        "est": 0.047065416066341625,
+        "lo": 0.016119837900454348,
+        "hi": 0.08046400979149204,
+        "se": 0.01621641937214998,
+        "n": 22
+      },
+      "zFull": {
+        "est": 0.7918353025293459,
+        "lo": 0.7106768589537772,
+        "hi": 0.8743474323412279,
+        "se": 0.04159515536104835,
+        "n": 22
+      },
+      "zPart": {
+        "est": 0.7545672445597847,
+        "lo": 0.6758794972163801,
+        "hi": 0.8339304901395104,
+        "se": 0.04023630771591665,
+        "n": 22
+      },
+      "zE": {
+        "est": -0.21147072271827624,
+        "lo": -0.30640001055967164,
+        "hi": -0.12141624464436282,
+        "se": 0.047215203330185126,
+        "n": 22
+      },
+      "coloniesZ": 22,
+      "coloniesE": 22,
+      "droppedZ": 0,
+      "droppedE": 0,
+      "reading": {
+        "persistence": "persistence mostly not spatial",
+        "level": "activity level varies with rest position"
+      }
+    },
+    "forager": {
+      "S": {
+        "est": 0.08718879635902477,
+        "lo": 0.04632674975198148,
+        "hi": 0.14315533445284434,
+        "se": 0.025418251578024135,
+        "n": 20
+      },
+      "zFull": {
+        "est": 0.7301284608724415,
+        "lo": 0.61980319542955,
+        "hi": 0.8463535925047573,
+        "se": 0.05725779143268953,
+        "n": 20
+      },
+      "zPart": {
+        "est": 0.666469439181506,
+        "lo": 0.5462726703733259,
+        "hi": 0.7958053963659465,
+        "se": 0.0628748749212386,
+        "n": 20
+      },
+      "zE": {
+        "est": -0.3354274537473066,
+        "lo": -0.42016853712405694,
+        "hi": -0.23988589798528012,
+        "se": 0.04663246536168788,
+        "n": 21
+      },
+      "coloniesZ": 20,
+      "coloniesE": 21,
+      "droppedZ": 0,
+      "droppedE": 0,
+      "reading": {
+        "persistence": "persistence mostly not spatial",
+        "level": "activity level varies with rest position"
+      }
+    }
+  }
+}
