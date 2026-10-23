@@ -13,7 +13,7 @@
       "arch": "Zen 2",
       "speed": 0.77,
       "source": "measured",
-      "from": "Part C calibration 2026-10-22 (D119): 82 P4 runs in 8 min at 60 jobs, about 351 s per run on average (window overlapping the end of the first wave)"
+      "from": "Part C calibration 2026-10-22 (D119): 82 P4 runs in 8 min at 60 jobs, about 351 s per run on average (window overlapping the end of the first wave); Kenya host (offer 55801155, 48 vCPU, quota 46): bench 0.47 (median 284 s for colony 1 at 45 jobs), so hosts differ"
     },
     {
       "match": "EPYC 7713",

@@ -75,3 +75,16 @@ title: User: S5 amendment 2 approved (radius 4.1 mm, every other definition and 
     failing one kept the box and fetched nothing; a good one fetched and kept the box without `--destroy`. Started
     for Part C: `partc-finish-20261022T220208Z` (local), fetching logs/short and logs/partc, then destroying the box.
     `switch` is untested as a whole; its steps are the commands used in the hand switch.
+  - **The EPYC 7713 host measured slow (stop rule triggered):** colonies 1 and 17 took 350–374 s vs 169–173 s on the
+    Michigan 7742, with each process at ≈ 100 % CPU, so the host itself is slow (speed ≈ 0.36). Reported; **user: switch.**
+    The Belgium 7662 was taken while being rented (destroyed at once by the tool). **User: the Kenya EPYC 7742**
+    ($0.417/h, 48 vCPU, quota 46). `box.mjs switch` (first use) took 9.8 min: bench 0.47 (gate 0.43), 421 files carried
+    md5-checked, relaunched, 7713 destroyed after 0.59 h (≈ $0.24). The relaunch reused `run-partC.sh 60` on a 46-CPU quota.
+    Fixed at once with `auto` jobs: relaunched with 45 jobs as `partC-20261022T222313Z` at 22:23 UTC. New
+    `partc-finish` started for it.
+  - **2026-10-23 ≈ 04:00 UTC, estimate missed (found when the user asked):** 5.6 h on the Kenya box (≈ $2.39), still
+    in calibration: grid and refinement 945 runs, verification 130 of ≤ 264 (P4 and P10 verified), separation not
+    started. Runs average 900–1300 s here (max ≈ 3300 s), against the bench's 284 s for colony 1 at base: run cost
+    rises steeply with oracle strength, and the selected strengths are costly. The estimate was built from base
+    and strength-1 runs on one colony. I also skipped the hourly checks. Remaining ≈ 3.5 h ≈ $1.46 on this box.
+    `market` now uses the benched host speed (BOX_SPEED); the switch gate compares throughput (jobs × speed).

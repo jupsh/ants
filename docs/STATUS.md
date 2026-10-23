@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-22 (C2 fit finished, D075; D076 approved, data side read, D077–D079; C2 judged not adequate, D080–D081; guidance D082, diagnostic round D083–D086, read D087; C2 provisionally, D088; checks D089–D091, read D092; step-5 choices D093; step-5 design D094; B014 applied D095–D096; benchmark D097; gates D098, read D100; full fit at dt 0.025 D102, finished, bound hits D103; judge now D104, judging run D105, read D106: transfer failure; closed D107; synchrony design D108, amended D109, approved D110, Part B run D111, read D112–D113; step 9 held, Part C D114–D115, amended D116, confirmed D117, built D118, S5 amendment 2 D119; CI simHash fix D120). Every change is
+_Last updated: 2026-10-22 (C2 fit finished, D075; D076 approved, data side read, D077–D079; C2 judged not adequate, D080–D081; guidance D082, diagnostic round D083–D086, read D087; C2 provisionally, D088; checks D089–D091, read D092; step-5 choices D093; step-5 design D094; B014 applied D095–D096; benchmark D097; gates D098, read D100; full fit at dt 0.025 D102, finished, bound hits D103; judge now D104, judging run D105, read D106: transfer failure; closed D107; synchrony design D108, amended D109, approved D110, Part B run D111, read D112–D113; step 9 held, Part C D114–D115, amended D116, confirmed D117, built D118, S5 amendment 2 D119; CI simHash fix D120; calibration read D121; screen D122; data side and placement D123–D124). Every change is
 dated in `docs/log/`._
 
 **Where the record lives.** One file per record, plain text; `npm test` fails if the record is
@@ -67,8 +67,15 @@ Keep this file to the current state; past about 1,000 lines, trim RESUME rather 
   sufficiency, a non-circular separation check, fixed S5 / S6. Values confirmed (D117). **Built and tested (D118):** all
   diagnostics off by default, tests 258 / 258; S5 as fixed is unestimable on simulated colonies (≈ 0.7 % of bins isolated at
   10 mm), so **amendment 2: radius 4.1 mm, approved (D119)**: contact-range neighbours only; unestimable in any comparison ⇒
-  reported so, no further adjustment. **Calibration running on a rented box** (D119; box tooling `scripts/box.mjs`,
-  docs/BOX.md); `partc-finish` fetches the outputs and destroys the box when the run ends; then the screen, locally.
+  reported so, no further adjustment. **Calibration read (D121; F085):** no P variant calibrated (P4 / P10 / El10 plateau
+  at the grid top, P20 verified 3.80 vs 4.15 ± 0.30), so the **separation screen is not evaluable**; Eu and El20 calibrated.
+  Box run closed (≈ $3.85 in all; tooling `scripts/box.mjs`, docs/BOX.md). **Screen read (D122; F086):** neither calibrated driver is sufficient
+  (Eu: flat co-movement beyond 10 mm; El20: 10-min synchrony too low). **Data side and placement read (user, D123;
+  D124; F087, F088), descriptive only:** S5 resolves no neighbour dependence (−0.16 [−0.45, 0.08]); S6 is positive (0.59),
+  as in every arm including base, so neither discriminates. The data's onset lag rises with distance (+11 frames, < 5 to
+  20–40 mm), where base and both drivers stay near +1.2. **Part C ends without answering D114 in this pipeline.** The
+  distance patterns (S2, S3) are what neither driver reproduces. Next: the user's call on a follow-up built around
+  them (needs a new design first).
   - **C2 judged not adequate** (D081; F068–F070). On fresh `judge` seeds (22 runs × 22 colonies, D080): 15 of 36
     rows |z| > 3, both drive SDs at their upper bound, restShape at 1.001, restCrowdExp near 1.25. C1 beside: 24 of
     36 above 3. C2 gains persistence and short stops; it loses nurse still fraction and nurse still-run tails. The

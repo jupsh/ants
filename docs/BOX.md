@@ -72,9 +72,15 @@ the switch is finished by hand with `--env logs/box.next.env`.
   seed, the same Node version.
 - Carried files keep their old times, so start `pace` windows after the relaunch.
 - A `finish` step waiting on the old run stops when that run is killed. Start a new one for the relaunched run.
+- Launch scripts should take their job count from the quota (`auto`, as in `run-partC.sh`). The relaunch reuses the
+  old command, and a hard-coded count can oversubscribe a smaller box (2026-10-22: 60 jobs on a 46-CPU quota,
+  relaunched at once).
+- The new box is benched before the switch touches the old one (`box.mjs bench`: colony 1, one run per job slot).
+  Below `--min-speed` (default 1.2 × the current box's speed), it is destroyed. The same CPU model varies by host:
+  EPYC 7742 0.77 (Michigan) vs 0.47 (Kenya); EPYC 7713 0.36 (Thailand).
 
-The first switch (2026-10-22, EPYC 7742 to 7713, done by hand) took about 5 min of the old box's time, and the runs
-in flight were redone.
+Switches on 2026-10-22: EPYC 7742 to 7713 by hand (about 5 min of the old box's time); 7713 to 7742 (Kenya) with
+`switch` in 9.8 min, including a 5-min bench.
 
 ## Finish (automatic)
 

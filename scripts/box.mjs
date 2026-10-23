@@ -4,7 +4,7 @@
 // Needs the `vastai` CLI with the user's API key (~/.config/vastai). The current box lives in logs/box.env (also read
 // by `scripts/run.sh --box`).
 //   node scripts/box.mjs offers  --runs N [--run-s 270] [--min-vcpu 32] [--max-dph 1] [--limit 15] [--interruptible]
-//   node scripts/box.mjs rent    <offer id> --yes [--disk 20]
+//   node scripts/box.mjs rent    <offer id>[,<id>…] --yes [--disk 20]   tries the listed offers in order
 //   node scripts/box.mjs setup   [--node 22.22.1]          copy run files, Node, npm ci, checksums, job count
 //   node scripts/box.mjs bench   [--jobs n]                 time one standard run (colony 1, 6 h, C2) in every job slot
 //        at once → this host's speed (hosts with the same CPU name differ up to 2×, 2026-10-22)
@@ -16,10 +16,14 @@
 //   node scripts/box.mjs push    <path…>                   copy local files onto the box (e.g. outputs when switching), md5-checked
 //   node scripts/box.mjs destroy --yes [--force]           refuses while a run.sh run is still running
 //   node scripts/box.mjs switch  <offer id> --yes --run <run id> --carry <path> [--carry <path>…] [--relaunch '<cmd>']
-//        [--min-speed s]
+//        [--min-throughput t] [--finish '<finish args>'] [--watch '<watch args>']   (restarted for the new run)
 //        rent + set up the new box, stop the run on the current one, carry its outputs over (md5-checked), relaunch the
 //        run's own command (or --relaunch) there, destroy the old box. Only for work that resumes from its outputs.
-//        The new box is benched first: below --min-speed (default 1.2 × the current box's) it is destroyed, the old kept.
+//        The new box is benched first: below --min-throughput (jobs × speed; default 1.2 × the current box's) it is
+//        destroyed and the old one kept.
+//   node scripts/box.mjs watch   --run <run id> --glob '<outputs>' --total N [--every 60] [--budget 5]
+//        hourly check, started locally with run.sh at launch: done / rate / ETA / cost, and a market check; notifies
+//        (logs/notify.env) when an offer is worth a switch or the projected total passes --budget ($). Never acts.
 //   node scripts/box.mjs finish  --run <run id> --fetch <path> [--fetch <path>…] [--destroy]
 //        end-of-run step, started locally with run.sh at launch: wait for the run, then if it exited 0 fetch the paths
 //        and the run's logs (md5-checked) and, with --destroy, destroy the box. Any failure keeps the box.
@@ -111,26 +115,35 @@ if (cmd === 'offers') {
   console.log(`${offers.length} offers (on ${flag('--interruptible') ? 'interruptible' : 'on-demand'} terms, ${disk} GB disk), cheapest estimated total first:`);
   table(rows, runs, runS);
 } else if (cmd === 'rent') {
-  const id = argv[1];
-  if (!id || !/^\d+$/.test(id)) die('rent <offer id> --yes');
+  // A comma-separated list (all approved by the user) is tried in order: offers are often taken while being rented.
+  const ids = (argv[1] ?? '').split(',');
+  if (!ids[0] || ids.some((x) => !/^\d+$/.test(x))) die('rent <offer id>[,<offer id>…] --yes');
   if (!flag('--yes')) die('renting spends the user\'s money: pass --yes only after the user approved this offer and its estimate');
   if (fs.existsSync(ENV) && /BOX_ID=/.test(fs.readFileSync(ENV, 'utf8'))) die(`${ENV} already names a box (BOX_ID); destroy it first or move the file`);
-  const r = vast('create', 'instance', id, '--template_hash', TEMPLATE, '--disk', opt('--disk', '20'), '--ssh', '--direct');
-  const iid = r.new_contract;
-  if (!iid) die(`create failed: ${JSON.stringify(r)}`);
-  console.log(`instance ${iid} created (success ${r.success}); waiting for it to run…`);
-  let inst;
-  for (let i = 0; i < 60; i++) {
-    inst = vast('show', 'instance', String(iid));
-    inst = Array.isArray(inst) ? inst[0] : inst;
-    if (inst.actual_status === 'running') break;
-    if (inst.intended_status === 'stopped' || /unavailable/i.test(inst.status_msg ?? '')) {
-      spawnSync('vastai', ['destroy', 'instance', String(iid), '-y']);
-      die(`offer ${id} could not start (${inst.status_msg ?? inst.intended_status}); instance ${iid} destroyed; pick another offer`);
+  let inst, iid, id;
+  for (id of ids) {
+    const r = vast('create', 'instance', id, '--template_hash', TEMPLATE, '--disk', opt('--disk', '20'), '--ssh', '--direct');
+    iid = r.new_contract;
+    if (!iid) { console.log(`offer ${id}: create failed (${JSON.stringify(r).slice(0, 200)})`); continue; }
+    console.log(`offer ${id}: instance ${iid} created (success ${r.success}); waiting for it to run…`);
+    let gone = false;
+    for (let i = 0; i < 60; i++) {
+      inst = vast('show', 'instance', String(iid));
+      inst = Array.isArray(inst) ? inst[0] : inst;
+      if (inst.actual_status === 'running') break;
+      if (inst.intended_status === 'stopped' || /unavailable/i.test(inst.status_msg ?? '')) {
+        spawnSync('vastai', ['destroy', 'instance', String(iid), '-y']);
+        console.log(`offer ${id} could not start (${inst.status_msg ?? inst.intended_status}); instance ${iid} destroyed`);
+        gone = true;
+        break;
+      }
+      execFileSync('sleep', ['10']);
     }
-    execFileSync('sleep', ['10']);
+    if (gone) continue;
+    if (inst.actual_status !== 'running') die(`instance ${iid} not running after 10 min (${inst.status_msg}); check it, or destroy it: vastai destroy instance ${iid} -y`);
+    break;
   }
-  if (inst.actual_status !== 'running') die(`instance ${iid} not running after 10 min (${inst.status_msg}); check it, or destroy it: vastai destroy instance ${iid} -y`);
+  if (inst?.actual_status !== 'running') die(`none of the offers ${ids.join(', ')} could be rented; pick others`);
   const direct = inst.ports?.['22/tcp']?.[0]?.HostPort;
   const ssh = direct ? `-p ${direct} root@${inst.public_ipaddr}` : `-p ${inst.ssh_port} root@${inst.ssh_host}`;
   fs.mkdirSync('logs', { recursive: true });
@@ -182,7 +195,9 @@ if (cmd === 'offers') {
   const med = t[Math.floor(t.length / 2)];
   const speed = 132 / med;
   console.log(`bench: ${jobs} runs at once, median ${med.toFixed(0)} s (min ${t[0].toFixed(0)}, max ${t[t.length - 1].toFixed(0)}) → speed ≈ ${speed.toFixed(2)} (EPYC 7742 = 0.77)`);
-  if (opt('--out')) fs.writeFileSync(opt('--out'), String(speed));
+  if (opt('--out')) fs.writeFileSync(opt('--out'), `${speed} ${jobs}`);
+  // This host's own speed (the same CPU model varies by host): market and switch use it before the table.
+  fs.writeFileSync(ENV, fs.readFileSync(ENV, 'utf8').replace(/^BOX_(SPEED|JOBS)=.*\n/gm, '') + `BOX_SPEED=${speed.toFixed(3)}\nBOX_JOBS=${jobs}\n`);
 } else if (cmd === 'ssh') {
   const e = readEnv();
   const i = argv.indexOf('--');
@@ -221,7 +236,7 @@ if (cmd === 'offers') {
   if (!Number.isFinite(left)) die('--runs-left N is required (runs still to do, in --run-s reference units)');
   const runS = num('--run-s', 270);
   const price = Number(e.BOX_PRICE);
-  const cur = cpuOf(e.BOX_CPU);
+  const cur = e.BOX_SPEED ? { speed: Number(e.BOX_SPEED), source: 'benched' } : cpuOf(e.BOX_CPU);
   const curJobs = num('--jobs', 60);
   const curH = (left * runS) / (curJobs * cur.speed) / 3600 * TAIL;
   const curCost = curH * price;
@@ -284,6 +299,46 @@ if (cmd === 'offers') {
   const h = (Date.now() - Date.parse(e.BOX_RENTED)) / 3.6e6;
   fs.renameSync(ENV, `logs/box.env.${e.BOX_ID}.destroyed`);
   console.log(`destroyed instance ${e.BOX_ID} after ${h.toFixed(2)} h ≈ $${(h * e.BOX_PRICE).toFixed(2)}; ${ENV} → logs/box.env.${e.BOX_ID}.destroyed${ENV !== 'logs/box.env' ? ' (move the next box\'s file to logs/box.env for run.sh --box)' : ''}`);
+} else if (cmd === 'watch') {
+  // Reads file times and run states only, never outputs. Ends when the run is no longer running.
+  const run = opt('--run');
+  const glob = opt('--glob');
+  const total = num('--total', NaN);
+  if (!run || !glob || !Number.isFinite(total)) die("watch --run <run id> --glob '<outputs>' --total N [--every 60] [--budget 5]");
+  const every = num('--every', 60);
+  const budget = num('--budget', Infinity);
+  const notify = (msg) => {
+    if (!fs.existsSync('logs/notify.env')) return;
+    spawnSync('bash', ['-c', '. logs/notify.env; [ -n "${RUN_NOTIFY:-}" ] && bash -c "$RUN_NOTIFY"'], { env: { ...process.env, RUN_MSG: `box ${readEnv().BOX_ID}: ${msg}` } });
+  };
+  let warned = false;
+  for (;;) {
+    execFileSync('sleep', [String(every * 60)]);
+    // `finish` destroys the box and renames the env file: that ends the watch too.
+    if (!fs.existsSync(ENV)) { console.log(`${new Date().toISOString()} ${ENV} gone (box destroyed); watch stops`); break; }
+    const e = readEnv();
+    const st = onBox(e, `test -e logs/runs/${run}/exit -o -e logs/runs/${run}/killed && echo ended; stat -c '%Y' ${glob} 2>/dev/null | wc -l; stat -c '%Y' ${glob} 2>/dev/null | awk -v t=$(( $(date +%s) - ${every * 60} )) '$1 > t' | wc -l; ps -eo args | grep -c '^node.*[t]mpShortSim\\|^node.*[p]oolWorker'`);
+    if (st.code === 255) { console.log(`${new Date().toISOString()} box unreachable`); continue; }
+    const out = st.out.trim().split('\n');
+    if (out[0] === 'ended') { console.log(`${new Date().toISOString()} ${run} ended; watch stops`); break; }
+    const [done, recent, jobs] = out.slice(-3).map(Number);
+    const rate = (recent / every) * 60;
+    const h = (Date.now() - Date.parse(e.BOX_RENTED)) / 3.6e6;
+    const etaH = rate ? (total - done) / rate : Infinity;
+    const spent = h * e.BOX_PRICE;
+    const proj = spent + etaH * e.BOX_PRICE;
+    console.log(`${new Date().toISOString()} ${done}/${total} done, ${rate.toFixed(0)}/h with ${jobs} jobs → ≤ ${etaH.toFixed(1)} h left; $${spent.toFixed(2)} so far, ≤ $${proj.toFixed(2)} projected on this box`);
+    if (proj > budget && !warned) { notify(`projected $${proj.toFixed(2)} passes the $${budget} budget (≤ ${etaH.toFixed(1)} h left)`); warned = true; }
+    if (rate && Number.isFinite(etaH)) {
+      // Remaining work in reference runs, from this box's own pace and benched speed.
+      const sPerRun = (jobs * 3600) / rate;
+      const left = Math.ceil(((total - done) * sPerRun * Number(e.BOX_SPEED ?? cpuOf(e.BOX_CPU).speed)) / 270);
+      const m = spawnSync('node', ['scripts/box.mjs', 'market', '--runs-left', String(left), '--jobs', String(jobs)], { encoding: 'utf8' });
+      const lines = m.stdout.trim().split('\n');
+      console.log(lines.map((l) => `  ${l}`).join('\n'));
+      if (/worth considering/.test(m.stdout)) notify(`a cheaper or faster offer is worth a switch (≤ ${etaH.toFixed(1)} h, ≤ $${proj.toFixed(2)} left here); see the watch log`);
+    }
+  }
 } else if (cmd === 'finish') {
   const e = readEnv();
   const run = opt('--run');
@@ -303,7 +358,7 @@ if (cmd === 'offers') {
 } else if (cmd === 'switch') {
   // Each step is this script's own command in a child process, so a failing step stops the switch with its message.
   const offer = argv[1];
-  if (!offer || !/^\d+$/.test(offer)) die('switch <offer id> --yes --run <run id> --carry <path> …');
+  if (!offer || !/^\d+(,\d+)*$/.test(offer)) die('switch <offer id>[,<offer id>…] --yes --run <run id> --carry <path> …');
   if (!flag('--yes')) die('switching rents a box: pass --yes only after the user approved this offer and its estimate');
   const OLD = 'logs/box.env';
   const NEXT = 'logs/box.next.env';
@@ -321,14 +376,17 @@ if (cmd === 'offers') {
   const t0 = Date.now();
   step(`rent ${offer}`, 'rent', offer, '--yes', '--env', NEXT, ...(opt('--disk') ? ['--disk', opt('--disk')] : []));
   step('set up the new box', 'setup', '--env', NEXT);
-  const minSpeed = num('--min-speed', 1.2 * cpuOf(old.BOX_CPU).speed);
+  // Gate on throughput (job slots × per-job speed): a host with more, slower slots can still be faster.
+  const oldJobs = Number(old.BOX_JOBS ?? num('--old-jobs', 60));
+  const minThroughput = num('--min-throughput', 1.2 * oldJobs * (old.BOX_SPEED ? Number(old.BOX_SPEED) : cpuOf(old.BOX_CPU).speed));
   const sf = `logs/box-bench-${Date.now()}.txt`;
   step('bench the new box', 'bench', '--env', NEXT, '--out', sf);
-  const sp = Number(fs.readFileSync(sf, 'utf8'));
-  if (!(sp >= minSpeed)) {
+  const [sp, nj] = fs.readFileSync(sf, 'utf8').split(' ').map(Number);
+  if (!(sp * nj >= minThroughput)) {
     spawnSync('node', ['scripts/box.mjs', 'destroy', '--yes', '--force', '--env', NEXT], { stdio: 'inherit' });
-    die(`new box benched at speed ${sp.toFixed(2)} < ${minSpeed.toFixed(2)}: destroyed it; the old box and its run are untouched`);
+    die(`new box benched at ${nj} jobs × ${sp.toFixed(2)} = ${(sp * nj).toFixed(1)} < ${minThroughput.toFixed(1)}: destroyed it; the old box and its run are untouched`);
   }
+  console.log(`throughput ${nj} × ${sp.toFixed(2)} = ${(sp * nj).toFixed(1)} ≥ ${minThroughput.toFixed(1)} (1.2 × the current box): switching`);
   console.log(`— stop ${run} on the old box`);
   const k = onBox(old, `bash scripts/run.sh kill ${run}`);
   console.log(k.out.trim());
@@ -340,6 +398,14 @@ if (cmd === 'offers') {
   const st = onBox(next, `bash scripts/run.sh start ${name} -- ${relaunch}`);
   console.log(st.out.trim());
   if (st.code !== 0) die(`relaunch failed (${st.err.trim()}); the old box is kept: finish by hand`);
+  const newRun = (st.out.match(/started (\S+)/) ?? [])[1];
+  const last = relaunch.trim().split(/\s+/).pop();
+  if (/^\d+$/.test(last) && Number(last) !== nj) console.log(`WARNING: the relaunch command ends in ${last}, but the new box has ${nj} job slots: if that is a job count, relaunch with the right one (or 'auto')`);
+  for (const [k, sub] of [['--finish', 'finish'], ['--watch', 'watch']]) {
+    if (!opt(k) || !newRun) continue;
+    const r = spawnSync('bash', ['scripts/run.sh', 'start', `${name}-${sub}`, '--', 'node', 'scripts/box.mjs', sub, '--run', newRun, ...opt(k).split(/\s+/).filter(Boolean)], { encoding: 'utf8' });
+    console.log(r.stdout.trim() || r.stderr.trim());
+  }
   step('destroy the old box', 'destroy', '--yes');
   fs.renameSync(NEXT, OLD);
   console.log(`switched in ${((Date.now() - t0) / 60000).toFixed(1)} min: ${next.BOX_CPU}, $${Number(next.BOX_PRICE).toFixed(3)}/h; ${OLD} now names it. Start pace windows after the relaunch (carried files keep their times).`);

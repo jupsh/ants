@@ -8,8 +8,8 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 
 | status | meaning | n |
 |---|---|---|
-| established | a pre-registered reading, read mechanically against its rule | 26 |
-| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 39 |
+| established | a pre-registered reading, read mechanically against its rule | 28 |
+| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 41 |
 | literature | reported by a cleared source; not tested here | 8 |
 | hypothesis | our reasoning; untested | 3 |
 | closed | a tested line with no further arms (a negative result) | 6 |
@@ -61,6 +61,10 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F082](F082-step-5-synchrony-gate-fails-narrowly-2.md) | indicated | Step-5 synchrony gate fails narrowly: 2 of 15 rows (time and distance, 4 d) differ by 1.18 / 1.24 combined SE between the κ = 1 coupled and placebo shifts; verdicts unchanged | 2026-10-22 |
 | [F083](F083-synchrony-stress-test-at-c2-s-fit-oracle.md) | indicated | Synchrony stress test at C2's fit (oracle κ 1 vs a placebo matched on E[g] and log-SD, not on autocorrelation): the contrast is equivalent within ±0.5 SE_data for 24 of 36 Stroeymeyt rows; the still-run tails are unresolved or sensitive | 2026-10-22 |
 | [F084](F084-at-c2-s-fit-colony-synchrony-stays-near.md) | established | At C2's fit, colony synchrony stays near independence (D_w 1.02–1.16 vs data 1.58–6.28), and the κ = 1 oracle reaches only 23–56 % of the gap, so it is not an overshooting stress test there | 2026-10-22 |
+| [F085](F085-part-c-no-propagation-variant-reaches-colony.md) | established | "Part C calibration: no local-propagation variant (P4, P10, P20) reaches the data's 1-min colony synchrony within the bounded search (best verified 3.80 vs 4.15 ± 0.30); the shared driver Eu and the 20-mm local driver El20 do (4.42, 4.39)" | 2026-10-23 |
+| [F086](F086-part-c-neither-calibrated-driver-is.md) | established | "Part C: neither calibrated within-system driver is sufficient. The shared driver Eu keeps co-movement flat beyond 10 mm (0.038 at ≥ 40 mm vs data 0.003); the local driver El20 under-produces 10-min synchrony (3.79 vs 6.28); both match 5-s synchrony" | 2026-10-23 |
+| [F087](F087-part-c-data-side-s5-resolves-no.md) | indicated | "Part C data side: S5 resolves no neighbour dependence in the data (Δβ −0.16 [−0.45, 0.08]); S6 is positive (0.59) but every simulated arm, base included, shows the same, so neither statistic discriminates here" | 2026-10-23 |
+| [F088](F088-the-data-s-movement-onsets-lag-more-with.md) | indicated | The data's movement onsets lag more with distance from an episode's initiator (+11 frames, < 5 mm to 20–40 mm); C2 base and both calibrated drivers (Eu, El20) stay near +1.2 | 2026-10-23 |
 
 ## Packing, walls and resting sites
 
