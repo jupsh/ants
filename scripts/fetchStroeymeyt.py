@@ -8,11 +8,17 @@ docs/STATUS.md (colony split). Tracks are stored as <member>.csv.gz.
 
     python3 -I scripts/fetchStroeymeyt.py [--list] [--jobs 6] [--out data/stroeymeyt2018]
 
+Brood coordinates (D134: development only, main-experiment PreTreatment, by a filename allowlist frozen before any
+extraction): `--brood-allowlist F` writes the candidate member names (under main_experiment/original_data/
+brood_coordinates/, containing "PreTreatment", not "PostTreatment") to F and prints only counts for the rest of that
+folder; `--brood F --sha256 H` fetches exactly the names in F, refusing if F's SHA-256 is not H (the frozen value).
+Use `--out data/stroeymeyt2018-brood` for both (development data kept apart from the fit tree; D137).
+
 Zenodo throttles each connection (~10 MB/min), so members are fetched in
 parallel, one connection each. Existing files are skipped.
 Data: CC BY 4.0, Zenodo 10.5281/zenodo.1480665.
 """
-import argparse, gzip, io, os, re, shutil, sys, time, urllib.request, zipfile
+import argparse, gzip, hashlib, io, os, re, shutil, sys, time, urllib.request, zipfile
 from concurrent.futures import ProcessPoolExecutor
 
 URL = "https://zenodo.org/api/records/1480665/files/data.zip/content"
@@ -23,6 +29,7 @@ META = re.compile(
     r"info\.txt|info_dat\.txt|info_plume\.txt|task_groups\.txt|treated_worker_list\.txt"
     r"|tag_files/.+|retagged_ants/.+|plume_files/.+|time_aggregation_info/.+PreTreatment.*)$")
 TRACK = re.compile(r"^main_experiment/original_data/tracking/.+_PreTreatment\.csv$")
+BROOD_DIR = "main_experiment/original_data/brood_coordinates/"
 
 
 class RangeFile(io.RawIOBase):
@@ -101,8 +108,30 @@ def main():
     ap.add_argument("--out", default="data/stroeymeyt2018")
     ap.add_argument("--jobs", type=int, default=6)
     ap.add_argument("--list", action="store_true", help="print size, compressed size, name of every member")
+    ap.add_argument("--brood-allowlist", help="write the brood-coordinate candidate names to this file (names only)")
+    ap.add_argument("--brood", help="fetch exactly the member names in this allowlist file")
+    ap.add_argument("--sha256", help="the allowlist's frozen SHA-256 (required with --brood)")
     a = ap.parse_args()
+    if a.brood:
+        raw = open(a.brood, "rb").read()
+        if hashlib.sha256(raw).hexdigest() != a.sha256:
+            sys.exit(f"{a.brood}: SHA-256 {hashlib.sha256(raw).hexdigest()} is not the frozen {a.sha256}; refusing")
+        names = raw.decode().split()
+        bad = [n for n in names if not n.startswith(BROOD_DIR) or "PreTreatment" not in n or "PostTreatment" in n]
+        if bad:
+            sys.exit(f"{len(bad)} allowlist names outside the rule; refusing")
+        for name in names:
+            print(fetch(a.out, name), flush=True)
+        return
     infos = open_zip().infolist()
+    if a.brood_allowlist:
+        inside = [i for i in infos if i.filename.startswith(BROOD_DIR) and not i.is_dir()]
+        keep = [i for i in inside if "PreTreatment" in i.filename and "PostTreatment" not in i.filename]
+        with open(a.brood_allowlist, "w") as f:
+            f.write("".join(i.filename + "\n" for i in sorted(keep, key=lambda i: i.filename)))
+        print(f"{len(keep)} candidates written ({sum(i.file_size for i in keep)} bytes); "
+              f"{len(inside) - len(keep)} other files in {BROOD_DIR} (names not printed)")
+        return
     if a.list:
         for i in infos:
             print(f"{i.file_size}\t{i.compress_size}\t{i.filename}")

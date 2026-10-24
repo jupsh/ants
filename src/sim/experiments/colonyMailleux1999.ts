@@ -78,6 +78,8 @@ export interface M1999Options {
   contactGap?: number;
   /** Record the parts of the stay (`parts`; STATUS 2026-10-10 night, dt decomposition; diagnostics). */
   decompose?: boolean;
+  /** Return every contact episode and bout of the stay (`contactLog`; D135 contact split; diagnostics, output only). */
+  contactLog?: boolean;
   /** Also measure the distance from positions sampled every Δ s, for each Δ given (`distanceSampled`; the 1999 tracking interval is unreported; diagnostics). */
   distanceSamples?: number[];
   dt?: number;
@@ -118,6 +120,9 @@ export interface M1999Recruiter {
   other: { n: number; left: number };
   /** With `decompose`. */
   parts?: M1999Parts;
+  /** With `contactLog`: all contact episodes (no duration cut; after any contactGap merge), the bouts as counted in
+   * trophTotal (partner = the other ant), and the exit time; times from entry. */
+  contactLog?: { episodes: { id: number; start: number; end: number }[]; bouts: { start: number; end: number; partner: number }[]; exitAt: number };
   /** With `distanceSamples`: path length (cm) through positions sampled every Δ s from entry, plus the exit position. */
   distanceSampled?: number[];
   /** With a coupled `oracle`: the colony's sums of log g over the steps after its first 30 min (`ColonySim.oracleLog*`). */
@@ -167,7 +172,7 @@ function colonyOptions(o: M1999Options, seed: number, n: number, enterAt: number
  * the observation and summarise the recruiter as the paper defines its
  * measures.
  */
-function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean, contactMin = M1999_CONTACT_MIN, contactGap = 0, decompose = false, distanceSamples: number[] = []): M1999Recruiter {
+function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntry: number, followNestmates: boolean, contactMin = M1999_CONTACT_MIN, contactGap = 0, decompose = false, distanceSamples: number[] = [], contactLog = false): M1999Recruiter {
   const r = n;
   let exitAt = NaN;
   // End of the step at which the observation ended (absolute time, as bout ends): bouts are clipped to it, so a
@@ -279,7 +284,8 @@ function observeRecruiter(sim: ColonySim, n: number, enterAt: number, cropAtEntr
     }
   }
   const left = exitAt < OBSERVE;
-  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: observed.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other, ...(parts ? { parts } : {}), ...(samp.length ? { distanceSampled: samp.map((q) => q.len / 10) } : {}), ...(sim.oracleLogN ? { oracleLog: { sum: sim.oracleLogSum, sq: sim.oracleLogSq, n: sim.oracleLogN } } : {}) };
+  const log = contactLog ? { contactLog: { episodes: [...episodes].sort((p, q) => p.start - q.start || p.id - q.id), bouts: bouts.map((b) => ({ start: b.start, end: b.end, partner: b.donor === r ? b.receiver : b.donor })), exitAt } } : {};
+  return { timeInNest: left ? exitAt : OBSERVE, left, distance: dist / 10, contacts: observed.length, trophTotal, contactsBefore, cropAtEntry, cropAtExit, troph, other, ...(parts ? { parts } : {}), ...(samp.length ? { distanceSampled: samp.map((q) => q.len / 10) } : {}), ...(sim.oracleLogN ? { oracleLog: { sum: sim.oracleLogSum, sq: sim.oracleLogSq, n: sim.oracleLogN } } : {}), ...log };
 }
 
 /** One recruiter in its own freshly warmed nest (independent design). */
@@ -288,7 +294,7 @@ export function runRecruiter1999(P: ColonyParams, o: M1999Options): M1999Recruit
   const n = nestmates(o.density);
   const enterAt = o.warmup ?? 600;
   const sim = newColonySim(P, { ...colonyOptions(o, o.seed, n, enterAt), recruiter: { enterAt, ...load } });
-  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose, o.distanceSamples);
+  return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose, o.distanceSamples, !!o.contactLog);
 }
 
 /** Recruiters [first, first + count) for one starvation day; recruiter k uses the stream (seed, day, k). */
@@ -316,7 +322,7 @@ export function runNest1999(P: ColonyParams, o: M1999Options, nest: number, perN
     const sim = warm.clone(k + 1);
     sim.recruiter = { enterAt, ...load };
     sim.recruiterSeed = seed;
-    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose, o.distanceSamples);
+    return observeRecruiter(sim, n, enterAt, load.cropUl, !!o.followNestmates, o.contactMin, o.contactGap, !!o.decompose, o.distanceSamples, !!o.contactLog);
   });
 }
 

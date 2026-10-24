@@ -1,0 +1,12 @@
+---
+id: T035
+title: Forager-entry and queen triggers
+parent: T023
+status: open
+backlog: B023
+links: [D134]
+---
+Draft label: T3.3.7 (docs/threads-draft.md revision 2). The design separates activity before the event from activity after it, with matched control times (D134 §4).
+
+## History
+- 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)

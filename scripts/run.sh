@@ -9,12 +9,16 @@
 # progress column by writing one line to "$RUN_DIR/progress". With
 # logs/notify.env, the run notifies when it starts and when it ends.
 #
-#   bash scripts/run.sh start <name> [--quiet-after S] -- <cmd…>   # detached
+#   bash scripts/run.sh start <name> [--quiet-after S] [--node T0nn[,T0nn]] -- <cmd…>   # detached
 #   bash scripts/run.sh status [--all] [--box]          # npm run runs [-- --box]
 #   bash scripts/run.sh wait [--box] <id|name>          # block until it ends
 #   bash scripts/run.sh kill <id>                       # exactly that run's processes
 # --box runs the same command on the box over ssh: BOX_SSH and BOX_DIR from
 # the environment or logs/box.env (e.g. BOX_SSH="-p 46397 root@1.2.3.4").
+# --node names the plied thread(s) the run serves: the run starts only once
+# `plied review <nodes> --action run:<name> --gate` passes, i.e. every
+# commitment that applies has a disposition for this action (D142); the
+# nodes are kept in the run folder (`node`).
 set -euo pipefail
 RUNS=${RUNS_DIR:-logs/runs}
 [ -z "${BOX_SSH:-}" ] && [ -r logs/box.env ] && . logs/box.env  # BOX_SSH from the environment wins (box.mjs --env)
@@ -71,18 +75,24 @@ case $cmd in
   start)
     name=${1:-}; shift || true
     [[ $name =~ ^[A-Za-z0-9._-]+$ ]] || die "start needs a name of letters, digits, . _ -"
-    quiet=7200
+    quiet=7200; nodes=
     while [ $# -gt 0 ] && [ "$1" != -- ]; do
-      case $1 in --quiet-after) quiet=$2; shift 2 ;; *) die "unknown option $1" ;; esac
+      case $1 in --quiet-after) quiet=$2; shift 2 ;; --node) nodes=$2; shift 2 ;; *) die "unknown option $1" ;; esac
     done
     [ "${1:-}" = -- ] && shift
     [ $# -gt 0 ] || die "start needs a command after --"
     [ $box = 0 ] || die "start the run on the box itself (launch rules, STATUS § Box)"
+    if [ -n "$nodes" ]; then
+      command -v plied >/dev/null || die "--node needs plied on PATH"
+      # shellcheck disable=SC2086  # one argument per node
+      plied review ${nodes//,/ } --action "run:$name" --gate >&2 || die "commitment gate closed for run:$name on $nodes (plied dispose …, then start again)"
+    fi
     mkdir -p "$RUNS"
     id="$name-$(date -u +%Y%m%dT%H%M%SZ)"; d="$(cd "$RUNS" && pwd)/$id"
     mkdir "$d" || die "$id exists; wait a second"
     printf '%q ' "$@" > "$d/cmd"; echo >> "$d/cmd"
     date +%s > "$d/start"; echo "$quiet" > "$d/quiet"
+    [ -z "$nodes" ] || echo "$nodes" > "$d/node"
     self="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")" setsid -f nohup bash -c '
       d=$1; shift
       echo $$ > "$d/pid"

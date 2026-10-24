@@ -38,6 +38,19 @@ describe('Mailleux 1999 recruiter (mechanics)', () => {
     expect(parts!.bout + parts!.rest).toBeLessThanOrEqual(dec.timeInNest + 1e-9);
   });
 
+  it('the contact log (contactLog) changes nothing else and reproduces the contact and trophallaxis rows', () => {
+    const o = { ...base, seed: 9, warmup: 120, density: 2.5, contactMin: 0.04 };
+    const plain = runRecruiter1999(P, o);
+    const logged = runRecruiter1999(P, { ...o, contactLog: true });
+    const { contactLog, ...rest } = logged;
+    expect(rest).toEqual(plain);
+    expect(plain.contacts).toBeGreaterThan(0);
+    expect(contactLog!.bouts.length).toBeGreaterThan(0);
+    expect(contactLog!.episodes.filter((e) => e.end - e.start >= 0.04 - 1e-9).length).toBe(plain.contacts);
+    expect(contactLog!.bouts.reduce((s, b) => s + b.end - b.start, 0)).toBeCloseTo(plain.trophTotal, 9);
+    expect(contactLog!.episodes.every((e) => e.start <= e.end && e.end <= contactLog!.exitAt + 1e-9)).toBe(true);
+  });
+
   it('sampled-position distances (distanceSamples) change nothing else and shrink as the interval grows', () => {
     const plain = runRecruiter1999(P, { ...base, seed: 9 });
     const smp = runRecruiter1999(P, { ...base, seed: 9, distanceSamples: [0.1, 1, 10] });

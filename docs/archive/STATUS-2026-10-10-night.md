@@ -1,3 +1,7 @@
+---
+id: A002
+title: Decisions log, 2026-10-10 night ("the night archive")
+---
 # Decisions log, 2026-10-10 night (archived 2026-10-11)
 
 Moved verbatim from `docs/STATUS.md` on 2026-10-11 (STATUS cleanup). These

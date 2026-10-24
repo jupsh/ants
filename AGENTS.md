@@ -6,13 +6,29 @@ lead-agent duties and the exploratory backlog protocol.
 
 Research-grade, browser-based simulation of ant colonies. Milestone M1:
 *Lasius niger* as the single validated reference species. **Start with
-`docs/STATUS.md` (▶ RESUME HERE)**: the current state, the plan, the rules in
-force and the evidence policy. Read RESUME and the sections your task touches.
-The dated record is outside it, one file per record: decisions, designs and
-readings in `docs/log/` (index newest first), exposures in `docs/contamination/`,
-findings by topic in `findings/`; query them with `node docs/records.mjs log find
-'<MongoDB-style JSON>'` (or `contamination find`, `node findings/findings.mjs
-find`). Read a whole entry before acting on it.
+`docs/STATUS.md` (▶ RESUME HERE) and `plied frontier`.** Read RESUME and the
+sections your task touches.
+
+**How the record is divided.** Each kind of fact has one home, and the other
+records point to it rather than restate it, so nothing drifts out of step:
+- `docs/STATUS.md`: the current state, the plan, the rules in force and the
+  evidence policy. RESUME holds the state and pointers only; its earlier text
+  is in `docs/archive/`.
+- plied (`plied/`, view `plied/README.md`): the open work and its order
+  (threads), the commitments made along the way ("if X, then Y", quoted word
+  for word), and the decisions waiting on the user (questions). A closed
+  thread records its outcome as a quotation and names the findings it leaves
+  unresolved (`carries`).
+- The dated record, one file per record: decisions, designs and readings in
+  `docs/log/` (index newest first), exposures in `docs/contamination/`,
+  findings by topic in `findings/`, side questions in `backlog/`. Query them
+  with `node docs/records.mjs log find '<MongoDB-style JSON>'` (or
+  `contamination find`, `node findings/findings.mjs find`), or across
+  everything with `plied find` / `plied search`.
+
+These dated records are authoritative. When plied or STATUS disagrees with
+one, the record wins and the summary is corrected. Read a whole entry before
+acting on it.
 
 ## Who decides what
 - **The user decides** model adoption, changes to the plan, pre-registrations
@@ -26,6 +42,11 @@ find`). Read a whole entry before acting on it.
   - you may read code and docs (never sealed paths, below), edit code inside
     the task's scope, and run `npm test`, `npx tsc --noEmit -p .` and the
     quick judging scripts (seconds to a few minutes);
+  - you may read plied's records (`plied frontier`, `tree`, `show`, `find`,
+    `search`, `check`) and use its messages with `--as <you>` (`plied claim`
+    the thread you were given, `inbox`, `send`, `ack`; an acknowledgement is
+    receipt, never approval). You may not write its records (`new`, `set`,
+    `note`, `replace`, `dispose`) or edit `plied/` by hand;
   - you may not edit `docs/STATUS.md`, `docs/log/`, `docs/contamination/` or
     `findings/` (read them; report decisions, exposures and findings in your
     reply), start fits or long runs (anything via
@@ -74,6 +95,10 @@ find`). Read a whole entry before acting on it.
 - Results are reported faithfully, failures included.
 
 ## Run
+- Open work, its order, commitments and the decisions waiting on the user:
+  `plied frontier` (view `plied/README.md`; configuration `plied.toml`).
+  plied honours `.claude/sealed-paths.txt`. Its git pre-commit guard refuses
+  hand edits of `plied/`.
 - Dev server: the user runs `npx vite` (http://localhost:5173; pages `#e1`,
   `#e2`, `#e6`, `#status`). Never start a second one.
 - `npm test` (fast tier, ~10 s; `npm run test:full` adds `test/slow/`) · `npx tsc --noEmit -p .` · `npm run build` (GitHub Pages

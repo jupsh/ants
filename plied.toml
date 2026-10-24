@@ -1,0 +1,77 @@
+# plied configuration. See https://github.com/jupsh/plied#configuration-reference
+# The work tree, commitments and open questions live in plied/ (written only by plied). The records below stay
+# authoritative and are linked, never restated (CLAUDE.md, lead-agent duties).
+[plied]
+format = 1
+requires = ">=0.2.0"   # 0.2.0: `scanned` (scan reviews, plied#3)
+root = "plied"
+canonical_branch = "browser-sim-m1"
+
+# Decisions, designs and readings (docs/records.mjs). `authority` / `scope` are set on new decision entries that
+# approve, answer or waive something (`log new … --authority user --scope "T034 Q02"`).
+[[sources]]
+name = "decisions"
+glob = "docs/log/2026-*.md"
+id = "^D\\d{3}$"
+date = "date"
+time = "time"
+authority = "authority"
+scope = "scope"
+scan_commitments = true
+
+[[sources]]
+name = "contamination"
+glob = "docs/contamination/X*.md"
+id = "^X\\d{3}$"
+date = "date"
+
+[[sources]]
+name = "findings"
+glob = "findings/F*.md"
+id = "^F\\d{3}$"
+date = "date"
+status = "status"
+
+[[sources]]
+name = "backlog"
+glob = "backlog/B*/README.md"
+id = "^B\\d{3}$"
+status = "status"
+
+# STATUS (Rules in force, Plan) and its archives: commitments made there are quoted from them.
+[[sources]]
+name = "status"
+glob = "docs/STATUS.md"
+id = "^S\\d{3}$"
+
+[[sources]]
+name = "archive"
+glob = "docs/archive/STATUS-*.md"
+id = "^A\\d{3}$"
+
+[access]
+sealed_file = ".claude/sealed-paths.txt"
+sealed = []
+
+[search]
+include = ["plied/**/*.md", "docs/**/*.md", "findings/**/*.md", "backlog/**/*.md", "AGENTS.md", "CLAUDE.md"]
+exclude = ["logs/**", "side-projects/**", "attic/**", "node_modules/**", "docs/preprint/**"]
+
+[literature]
+manifest = "docs/literature.json"
+id_from_file = "^([^_]+)_"
+pdf_dir = "literature"
+text_dir = ".cache/papers/{id}"
+page_file = "p{page:02d}.txt"
+ocr_marker = "[OCR"
+image_command = ["npx", "vite-node", "scripts/paperPage.ts", "{id}", "{page}"]
+image_path = ".cache/paper-img/{id}/p{page:02d}-150dpi.png"
+
+[checks]
+approve_authorities = ["user", "delegated"]
+actors = ["lead", "user", "agent"]
+commitments_since = "2026-10-17"
+action_kinds = ["run", "fit", "fetch", "rent", "commit", "merge", "publish"]
+
+[messages]
+lease_minutes = 30

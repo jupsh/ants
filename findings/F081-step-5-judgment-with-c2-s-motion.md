@@ -7,7 +7,7 @@ date: 2026-10-22
 data: Mailleux 1999 Table 2a (fit); Buffin 2011 Table 2 (check)
 evidence: docs/log/2026-10-22-1357-step-5-judgment-read-d105-step5judge.md
 bears_on: stopping rule (step 5 ends as a transfer failure); step 9; E6 on the best step-5 fit
-related: F058, F077, F080, F082
+related: F058, F077, F080, F082, F093
 supersedes:
 superseded_by:
 depends:

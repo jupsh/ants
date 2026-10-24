@@ -9,11 +9,11 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | status | meaning | n |
 |---|---|---|
 | established | a pre-registered reading, read mechanically against its rule | 28 |
-| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 41 |
-| literature | reported by a cleared source; not tested here | 8 |
+| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 43 |
+| literature | reported by a cleared source; not tested here | 10 |
 | hypothesis | our reasoning; untested | 3 |
 | closed | a tested line with no further arms (a negative result) | 6 |
-| superseded | replaced by a later finding (superseded_by) | 2 |
+| superseded | replaced by a later finding (superseded_by) | 3 |
 
 ## In-nest motion (step 4)
 
@@ -27,6 +27,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F068](F068-c2-is-not-adequate-on-fresh-seeds-15-of.md) | established | C2 is not adequate on fresh seeds: 15 of 36 rows beyond \|z\| 3, and four parameters at box ends (both drive SDs at the upper bound, restShape at 1.001, restCrowdExp near 1.25) | 2026-10-20 |
 | [F069](F069-c1-judged-on-fresh-seeds-on-the-36-rows.md) | established | C1 judged on fresh seeds on the 36 rows: 24 beyond \|z\| 3; C2 improves persistence and short stops over it but loses nurse still fraction and nurse still-run tails | 2026-10-20 |
 | [F076](F076-the-model-s-moving-run-lengths-fall-with.md) | indicated | The model's moving-run lengths are far more consistently rank-associated with colony density than the data's (Spearman −0.87 to −0.97 vs −0.28 to −0.56), in C2 and C1; slope and sensitivity untested | 2026-10-20 |
+| [F089](F089-within-each-ant-in-nest-still-runs-are.md) | indicated | "Within each ant, in-nest still runs are heavy-tailed: exponential rests are rejected in every group × phase cell, and per-ant rates leave the within-ant tail (Lomax shape 0.87–1.06)" | 2026-10-23 |
 
 ## Per-ant activity and persistence
 
@@ -45,6 +46,8 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F073](F073-neighbourhood-decomposition-of-c2-s-gaps.md) | established | Neighbourhood decomposition of C2's gaps (D083 Part B): leaving and nurse P(still ≥ 10 s) read counteracting components, nurse stop and forager survival no resolved aggregate gap; no row is dominated by either component | 2026-10-20 |
 | [F074](F074-in-c2-ants-rest-and-move-in-sparser.md) | indicated | In C2 ants rest and move in sparser neighbourhoods than in the data, and leaving, stopping and rest survival change less with neighbourhood size | 2026-10-20 |
 | [F075](F075-at-the-fitted-settings-foragers-per-ant.md) | indicated | At the fitted settings, foragers' per-ant spread of still fraction is about a third of the data's in C2 and C1 (spread rule z ≈ −10); C2's nurse spread matches | 2026-10-20 |
+| [F090](F090-ant-transition-timing-is-dominated-by.md) | literature | Ant transition timing is dominated by time already spent in the current state (hazard falls about log-linearly with dwell time); neighbour and pheromone cues predict it weakly (Pristomyrmex punctatus, 3 colonies) | 2026-10-23 |
+| [F091](F091-worker-inactivity-is-individually.md) | literature | Worker inactivity is individually consistent and as repeatable as specialised tasks such as foraging and brood care (Temnothorax rugatulus, scans over two weeks) | 2026-10-23 |
 
 ## Colony synchrony
 
@@ -64,7 +67,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F085](F085-part-c-no-propagation-variant-reaches-colony.md) | established | "Part C calibration: no local-propagation variant (P4, P10, P20) reaches the data's 1-min colony synchrony within the bounded search (best verified 3.80 vs 4.15 ± 0.30); the shared driver Eu and the 20-mm local driver El20 do (4.42, 4.39)" | 2026-10-23 |
 | [F086](F086-part-c-neither-calibrated-driver-is.md) | established | "Part C: neither calibrated within-system driver is sufficient. The shared driver Eu keeps co-movement flat beyond 10 mm (0.038 at ≥ 40 mm vs data 0.003); the local driver El20 under-produces 10-min synchrony (3.79 vs 6.28); both match 5-s synchrony" | 2026-10-23 |
 | [F087](F087-part-c-data-side-s5-resolves-no.md) | indicated | "Part C data side: S5 resolves no neighbour dependence in the data (Δβ −0.16 [−0.45, 0.08]); S6 is positive (0.59) but every simulated arm, base included, shows the same, so neither statistic discriminates here" | 2026-10-23 |
-| [F088](F088-the-data-s-movement-onsets-lag-more-with.md) | indicated | The data's movement onsets lag more with distance from an episode's initiator (+11 frames, < 5 mm to 20–40 mm); C2 base and both calibrated drivers (Eu, El20) stay near +1.2 | 2026-10-23 |
+| [F092](F092-the-data-s-11-frame-onset-lag-contrast.md) | indicated | "The data's 11-frame onset-lag contrast by distance is mostly episode composition (null 1 expects 8.8 frames); the per-episode excess slope is small (S3₂ +0.19 frames per 10 mm) and not separated from C2 base (difference +0.10 [−0.06, 0.28]), so gate G did not establish positive excess ordering" | 2026-10-23 |
 
 ## Packing, walls and resting sites
 
@@ -136,6 +139,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F058](F058-relaxing-leavecropfrac-cannot-give.md) | indicated | Relaxing leaveCropFrac cannot give Mailleux 1999 Table 2b: after-trophallaxis leaving saturates at 13–19 % (data 44–86 %) with no starvation rise; a contact-triggered rule is needed for G3 | 2026-10-19 |
 | [F080](F080-step-5-fit-with-c2-s-motion-transferred.md) | indicated | Step-5 fit with C2's motion transferred: the search runs into density's lower end (2 /cm²) and returnRate's upper end; no run converged in the default budget | 2026-10-22 |
 | [F081](F081-step-5-judgment-with-c2-s-motion.md) | established | Step-5 judgment: with C2's motion transferred, the fitted candidate is not adequate and not adoptable; trophallaxis totals far too short and later-day contacts too many in every sensitivity arm; transfer failure within the allotted search | 2026-10-22 |
+| [F093](F093-at-the-step-5-optimum-buffin-dish-bouts.md) | indicated | At the step-5 optimum, Buffin-dish bouts are capped by donor volume (the longest bout and the 90th percentile are both 31.1 s, the time to empty 0.9 µL to the giveFrac floor at shareRate 0.0225 µL/s; 53 % end with the donor empty), the mechanism pilot2 showed before step 4 | 2026-10-24 |
 
 ## E2 (drinking, trail laying)
 
@@ -167,3 +171,4 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 |---|---|---|
 | [F020](F020-contact-doubles-onsets.md) | Contact with a moving ant roughly doubles the chance of a movement onset (a social contribution) | F019 |
 | [F064](F064-local-co-movement-measured-higher-at-the.md) | Local co-movement measured higher at the periphery and the entrance than at the resting site, but zones were classed per minute (endogenous to activity): not yet usable | F065 |
+| [F088](F088-the-data-s-movement-onsets-lag-more-with.md) | The data's movement onsets lag more with distance from an episode's initiator (+11 frames, < 5 mm to 20–40 mm); C2 base and both calibrated drivers (Eu, El20) stay near +1.2 | F092 |

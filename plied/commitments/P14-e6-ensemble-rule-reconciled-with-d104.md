@@ -1,0 +1,20 @@
+---
+id: P14
+title: E6 ensemble rule reconciled with D104 before any E6 run
+wording: >-
+  the ranking-check survivors plus the flat-direction profile ends, both layers … E6 reruns on the
+  widened ensemble and both are reported
+summary: >-
+  D104 skipped Plan steps 6-8, so neither ranking-check survivors nor profile ends exist; D104: E6
+  runs on the best step-5 fit. No amendment reconciling the two was found; one is due before any E6
+  run.
+made: S001
+state: open
+nodes: [T041, T038]
+links: [D104]
+---
+Draft label: P14 (docs/threads-draft.md revision 2).
+
+## History
+- 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
+- 2026-10-24 22:11 UTC lead (session 104e7640): set nodes=["T041","T038"] — attached to its nodes (D142)

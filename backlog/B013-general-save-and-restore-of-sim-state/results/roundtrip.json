@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "simHash": "b88c50268eb43f61",
+    "simHash": "27482bdb0cdab4cc",
     "commit": "784f21d8ff8a843ffa52d4ed2c0a098f5a0600ad",
     "dirty": true,
     "node": "v22.22.1",
@@ -57,6 +57,13 @@
         "date": "2026-10-22",
         "by": "lead-claude",
         "reason": "D120: simHash no longer counts the local-only CeCILL port src/sim/reference/khuongSegmentation.ts, which no simulation imports"
+      },
+      {
+        "from": "b88c50268eb43f61",
+        "to": "27482bdb0cdab4cc",
+        "date": "2026-10-24",
+        "by": "lead-claude",
+        "reason": "D135 (step-5 contact split): new diagnostic option contactLog in colonyMailleux1999.ts, output only and off by default; test/m1999.test.ts: with it on every other field is equal; 1999 identity hash dddbafeb… unchanged"
       }
     ]
   },

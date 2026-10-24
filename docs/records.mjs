@@ -7,6 +7,8 @@
 //
 //   node docs/records.mjs                                  regenerate both indexes
 //   node docs/records.mjs log new "<title>" --kind k       new entry, stamped with the current UTC time
+//     [--authority user|"delegated by Dnnn" --scope "T034 Q02"]   a decision that approves, answers or waives the
+//     plied records in its scope (plied checks approval.by / answered_by / resolved_by against these; D140 item 9)
 //   node docs/records.mjs contamination new "<title>" --role r
 //   node docs/records.mjs log find '<MongoDB-style JSON query>' [--sort [-]field] [--fields a,b] [--json]
 //     e.g. log find '{"kind":"reading","date":{"$gte":"2026-10-18"}}'   ·   log find '{"body":{"$regex":"C2"}}'
@@ -40,6 +42,9 @@ const CON = {
 };
 // A dated entry header as the Decisions log wrote them (for the STATUS check).
 const ENTRY = /^(- )?\*\*20\d\d-\d\d-\d\d (≈ \d|night|evening|late|morning)/;
+// Authority of a decision over the plied records in its scope (plied.toml `authority` / `scope`).
+const AUTHORITY = /^(user|delegated by D\d{3})$/;
+const SCOPE = /^[A-Z]\d{2,}( [A-Z]\d{2,})*$/;
 
 function read(c) {
   const { records, problems } = readFolder(c.dir, c.re);
@@ -54,6 +59,10 @@ function read(c) {
       if (!KINDS.some(([k]) => k === r.kind)) problems.push(`${r.name}: unknown kind "${r.kind}"`);
       const m = r.name.match(c.re);
       if (m && (m[1] !== r.date || m[2] !== (r.time ?? '').replace(':', ''))) problems.push(`${r.name}: file name does not match date ${r.date} / time ${r.time}`);
+      if (r.authority !== undefined || r.scope !== undefined) {
+        if (!AUTHORITY.test(r.authority ?? '')) problems.push(`${r.name}: authority "${r.authority ?? ''}" is not user or "delegated by Dnnn"`);
+        if (!SCOPE.test(r.scope ?? '')) problems.push(`${r.name}: scope "${r.scope ?? ''}" is not a space-separated list of ids`);
+      }
     } else if (!r.role) problems.push(`${r.name}: no role`);
   }
   return { records: records.sort((a, b) => a.id.localeCompare(b.id)), problems };
@@ -127,8 +136,14 @@ function cmdNew(c, pos, opt) {
   const time = now.toISOString().slice(11, 16);
   if (c === LOG) {
     if (!KINDS.some(([k]) => k === opt.kind)) die(`--kind must be one of ${KINDS.map(([k]) => k).join(', ')}`);
+    const fields = [['id', id], ['date', date], ['time', time], ['kind', opt.kind], ['title', title]];
+    if (opt.authority !== undefined || opt.scope !== undefined) {
+      if (!AUTHORITY.test(opt.authority ?? '')) die('--authority must be user or "delegated by Dnnn"');
+      if (!SCOPE.test(opt.scope ?? '')) die('--scope must be the ids it covers, space-separated: "T034 Q02"');
+      fields.push(['authority', opt.authority], ['scope', opt.scope]);
+    }
     const file = path.join(c.dir, `${date}-${time.replace(':', '')}-${slugify(title)}.md`);
-    writeRecord(file, [['id', id], ['date', date], ['time', time], ['kind', opt.kind], ['title', title]],
+    writeRecord(file, fields,
       `- **${date} ≈ ${time} UTC — ${title}.**\n  <The entry: what, why, the rule or reading, the numbers.>`);
     console.log(`created ${path.relative(ROOT, file)}`);
   } else {
