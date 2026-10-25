@@ -9,6 +9,7 @@ Kinds: **decision** a decision (the user's, or delegated); **design** a design o
 
 | id | date | time | kind | entry |
 |---|---|---|---|---|
+| D144 | 2026-10-25 | 00:28 | review | [T049 scan review: the 44 flagged log entries read; six commitments recorded (D030 ×2, S001's per-ant spread rule, D126 ×2, D138's B001 revisit), the other entries scanned as descriptive, discharged by later entries, or covered by existing commitments](2026-10-25-0028-t049-scan-review-the-44-flagged-log.md) |
 | D143 | 2026-10-24 | 22:45 | run | [plied 0.2.0 installed: the two issues filed during adoption are fixed (plied#2 broken-pipe panic, plied#3 scan reviews); requires raised to 0.2.0; STATUS RESUME reduced to state and pointers, with open work, commitments and questions in plied](2026-10-24-2245-plied-0-2-0-installed-the-two-issues.md) |
 | D142 | 2026-10-24 | 22:05 | decision | [User: adopt plied in this repo (D140's deferred adoption decision): plied.toml linking the log, findings, backlog, contamination, STATUS and its archives; the thread draft migrated into plied records; records.mjs authority and scope fields; hooks, git guards and the check in npm test](2026-10-24-2205-user-adopt-plied-in-this-repo-d140-s.md) |
 | D141 | 2026-10-24 | 17:44 | run | [plied 0.1.0 built (D140): checked writes, registers, tree and queries, messaging with presence, literature, search, commitment review, git guards; 73 tests pass on Python 3.11-3.13; read-only trial on this repo's records](2026-10-24-1744-plied-0-1-0-built-d140-checked-writes.md) |

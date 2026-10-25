@@ -13,3 +13,4 @@ Draft label: T3.1 (docs/threads-draft.md revision 2). C3 deferred (D088).
 
 ## History
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
+- 2026-10-25 00:31 UTC lead (session 7c2d50fd): D144 (T049 scan review): P26 (D030, persistence-target prerequisites before any fit) recorded as fulfilled, resolved by D055; attached here

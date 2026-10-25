@@ -10,3 +10,4 @@ Draft label: T3.1b (docs/threads-draft.md revision 2).
 
 ## History
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
+- 2026-10-25 00:31 UTC lead (session 7c2d50fd): D144 (T049 scan review): P27, S001's per-ant spread rule, recorded open and attached here: its condition held at D092, its action deferred with C3 (D088); revisit with C3 (D138 §3)

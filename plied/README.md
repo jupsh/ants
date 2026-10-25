@@ -4,10 +4,7 @@
 
 ## Frontier
 
-**lead**
-
-1. [T049](threads/T049-review-the-decisions-that-plied-check.md) Review the decisions that plied check flags as possibly unrecorded commitments
-
+Nothing scheduled.
 
 **Open, not scheduled:** T001, T013, T022, T023, T030, T034, T035, T040, T041, T043, T046, T047, T048, T052
 
@@ -56,6 +53,12 @@
 | [P22](commitments/P22-s2-audit-output-sealed-on-approval.md) | On approval, add logs/s2audit/ to .claude/sealed-paths.txt (CLAUDE.md). | D136 | open | T032 |
 | [P23](commitments/P23-paper-1-reopening-condition.md) | Paper 1 reopening condition | D127 | open | T051 |
 | [P24](commitments/P24-rest-splitting-misread-audit-design-before.md) | Carried to paper 3 (D127 amendment 2). | D127 | open | T053 |
+| [P25](commitments/P25-wall-behaviour-and-packing-settled-before.md) | Applies at Stages 1-3's gate (transmission members are a spatial coupling); whether wall and packing are settled (T009 closed, S001) is for that review. | D030 | open | T023, T033 |
+| [P26](commitments/P26-persistence-target-prerequisites-before-any-fit.md) | Rows fixed in D043 and gated in D044-D054 before the user's go-ahead for the C2 fit (D055); read from the sequence, not re-audited. | D030 | fulfilled | T006 |
+| [P27](commitments/P27-per-ant-spread-rule-z-3.md) | Condition held at C2's fitted settings (D092); action not applied: C2 already has a trait and C3 was deferred (D088, user). Revisit with C3 (D138 §3). | S001 | open | T008 |
+| [P28](commitments/P28-part-d-unattainable-rows-listed-before.md) | Part D: unattainable rows listed before any model run | D126 | open | T033 |
+| [P29](commitments/P29-part-d-2-d-rule-specified.md) | Part D 2-D rule specified before Stage 2 runs, after its calibration | D126 | open | T033 |
+| [P30](commitments/P30-b001-stays-parked-revisited-after-m1.md) | B001 stays parked, revisited after M1 | D138 | open | T021 |
 
 ## Held or parked
 
@@ -123,7 +126,7 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │   ├── T046  Pheromone field with a physical sampling footprint                     open, [B017: open]
 │   ├── T047  B018 rate tables on the model                                          open, [B021: unscoped]
 │   ├── T048  V8 pretenuring and bimodal run times                                   open, [B022: unscoped]
-│   └── T049  Review the decisions that plied check flags as possibly unrecor…       open, next 1, lead
+│   └── T049  Review the decisions that plied check flags as possibly unrecor…       closed, outcome D144
 └── T050  Publication plan                                                           (group)
     ├── T051  Paper 1: in-nest movement                                              closed, outcome D127
     ├── T052  Paper 2: synchrony, with the individual baseline                       open, ⇠ T023
