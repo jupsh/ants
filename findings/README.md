@@ -9,7 +9,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | status | meaning | n |
 |---|---|---|
 | established | a pre-registered reading, read mechanically against its rule | 28 |
-| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 43 |
+| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 45 |
 | literature | reported by a cleared source; not tested here | 10 |
 | hypothesis | our reasoning; untested | 3 |
 | closed | a tested line with no further arms (a negative result) | 6 |
@@ -68,6 +68,8 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F086](F086-part-c-neither-calibrated-driver-is.md) | established | "Part C: neither calibrated within-system driver is sufficient. The shared driver Eu keeps co-movement flat beyond 10 mm (0.038 at ≥ 40 mm vs data 0.003); the local driver El20 under-produces 10-min synchrony (3.79 vs 6.28); both match 5-s synchrony" | 2026-10-23 |
 | [F087](F087-part-c-data-side-s5-resolves-no.md) | indicated | "Part C data side: S5 resolves no neighbour dependence in the data (Δβ −0.16 [−0.45, 0.08]); S6 is positive (0.59) but every simulated arm, base included, shows the same, so neither statistic discriminates here" | 2026-10-23 |
 | [F092](F092-the-data-s-11-frame-onset-lag-contrast.md) | indicated | "The data's 11-frame onset-lag contrast by distance is mostly episode composition (null 1 expects 8.8 frames); the per-episode excess slope is small (S3₂ +0.19 frames per 10 mm) and not separated from C2 base (difference +0.10 [−0.06, 0.28]), so gate G did not establish positive excess ordering" | 2026-10-23 |
+| [F094](F094-on-synthetic-colonies-the-s2-joint-shift.md) | indicated | On synthetic colonies, the S2 joint-shift null J removes place–activity artefacts (moving paths, stable rest sites) and a homogeneous shared driver (S2_J within ±0.002) and recovers planted local spatial dependence at 97–100 % for latent bout lengths 2–30 bins, but passes a spatially structured shared driver as decay (S2_J ≈ 0.16), so S2_J > 0 names no mechanism | 2026-10-25 |
+| [F095](F095-in-the-stroeymeyt-data-s-light-phase-s2.md) | indicated | In the Stroeymeyt data's light phase, S2's distance decay exceeds the joint-shift null J and C2 base (data S2_J 0.052, lower bound 0.039; data − base 0.035, lower bound 0.021; 20 colonies), so S2 survives the same-bin classing audit as a spatial row; it does not tell local dependence from a spatially varying response to a shared signal | 2026-10-25 |
 
 ## Packing, walls and resting sites
 

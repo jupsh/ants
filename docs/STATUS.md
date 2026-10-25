@@ -4,8 +4,8 @@ title: Project status (current state, plan, rules in force, evidence policy)
 ---
 # Project status
 
-_Last updated: 2026-10-24 (through D143: plied adopted D142, 0.2.0 D143; RESUME reduced to the state and
-pointers, its earlier text in the RESUME archive). Every change is dated in `docs/log/`._
+_Last updated: 2026-10-25 (through D161: the S2 audit read, the Stages 1–3 redesign approved, the Q03 recheck
+design approved as amended). Every change is dated in `docs/log/`._
 
 **Where the record lives.** One file per record, plain text; `npm test` fails if the record is
 inconsistent (`node findings/findings.mjs check`, `node docs/records.mjs check`, `plied check`). The lead agent
@@ -54,14 +54,17 @@ in the RESUME archive (A005).
     - Part B: a stress test only (F083, F084).
     - Part C: no answer in this pipeline (F085–F087).
     - Part D Stage 0: gate G not passed (D130; F092).
-    - Next: the S2 audit, designed (D136) and waiting on the user's approval (Q02). Stages 1–3 are held and not
-      approved (D134).
+    - S2 audit (T032, closed): pass. S2's decay exceeds the joint-shift null and C2 base in the light phase (D156;
+      F095). It names no mechanism: a spatially varying response to a shared signal passes J too (F094).
+    - Next: the Stages 1–3 redesign (D158), approved with amendments for Stage 1 build and synthetic checks (D159;
+      T033). Stage 2a waits on the Q03 warm-up recheck at C2 settings (T015), whose design is approved as amended
+      (D160, D161) and is frozen before it runs. The capability rule and the box budget keep their own approvals.
   - **Step 9** (the held-out test) and **E6** are on hold (D114).
 - **Disclosed limitations:** the `carries` of closed threads (`plied tree`) and the findings they name. Among them:
   - C2's failing rows (F068), the forager per-ant spread (F075), packing (F027, F078) and still–still contacts
     (F017, F079);
   - forager stays and trips (F077, F038), light/dark contrasts (F034), colony synchrony (F022–F026, F084, F086,
-    F092);
+    F092, F094);
   - the step-5 transfer failure (F081, F093).
 - **Experiments:**
   - **E1 (walking): paused** since 2026-10-09 (F047); does not block M1.

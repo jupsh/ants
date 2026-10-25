@@ -11,3 +11,4 @@ Draft label: T7.3 (docs/threads-draft.md revision 2). Carries step 5, the held-o
 
 ## History
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
+- 2026-10-25 03:11 UTC lead (session 0bcdd30b): reviewed D147: its 'P20' names the Part C simulated set, not commitment P20. No change.
