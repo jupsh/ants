@@ -11,8 +11,14 @@ summary: >-
   (c) is not evaluable as things stand: step 5 was fitted and judged on L0S1c only (D094).
 made: S001
 state: open
-nodes: [T039]
+nodes: [T039, T057]
 links: [A001, D094]
+reviews:
+  - action: commit:20261029
+    disposition: not-applicable
+    because: No layer comparison is run or read by committing.
+    by: lead (session 20261029)
+    at: "2026-10-29 21:24 UTC"
 ---
 Draft label: P6 (docs/threads-draft.md revision 2).
 
@@ -20,3 +26,5 @@ Draft label: P6 (docs/threads-draft.md revision 2).
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
 - 2026-10-24 22:11 UTC lead (session 104e7640): set nodes=["T039"] — attached to its nodes (D142)
 - 2026-10-25 00:31 UTC lead (session 7c2d50fd): D144 (T049 scan review) cites this record's links; reviewed, nothing here changes (the cited promises are covered or discharged as D144 lists)
+- 2026-10-29 20:06 UTC lead (session 7f762276): added T057 to nodes — D181 (Q04): (c) is evaluated on T057; P06 stays open, not waived
+- 2026-10-29 21:24 UTC lead (session 20261029): review for commit:20261029: not-applicable — No layer comparison is run or read by committing.

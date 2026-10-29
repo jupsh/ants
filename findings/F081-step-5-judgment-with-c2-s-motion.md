@@ -17,4 +17,6 @@ z −7.3 / −6.6 / −5.6 (17–32 s vs 56–66 s); contacts 4 / 8 d +7.7 / +5.
 and contacts-before-bout within |z| 1.4; time in nest 1 / 4 d marginal. Condition 4 max |fitZ| 9.3. Buffin dish: bouts end at
 0.078 /s vs 0.039 (z +8.0), SD/mean 0.61 vs 0.97 (z −3.45). Not adequate under contacts ≥ 1 s, giveUpTime 60 / 300 s or
 all-nurse nestmates. The candidate failed within the allotted search (not converged); this does not show the model cannot
-reproduce the rows anywhere within its ranges (corrected 2026-10-22, user, D107). No causal reading.
+reproduce the rows anywhere within its ranges (corrected 2026-10-22, user, D107). The Buffin fed → starved joint-fit row
+promised by the adopted Buffin review was omitted from the fit (P01, missed; D133); the closure stands (added 2026-10-29,
+user, D181). No causal reading.

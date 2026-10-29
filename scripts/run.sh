@@ -18,7 +18,9 @@
 # --node names the plied thread(s) the run serves: the run starts only once
 # `plied review <nodes> --action run:<name> --gate` passes, i.e. every
 # commitment that applies has a disposition for this action (D142); the
-# nodes are kept in the run folder (`node`).
+# nodes are kept in the run folder (`node`). <name> is the action's instance,
+# so gate and start with the same name: dispositions recorded for
+# run:fit-20261024 open `start fit-20261024`, not `start fit`.
 set -euo pipefail
 RUNS=${RUNS_DIR:-logs/runs}
 [ -z "${BOX_SSH:-}" ] && [ -r logs/box.env ] && . logs/box.env  # BOX_SSH from the environment wins (box.mjs --env)
@@ -85,7 +87,7 @@ case $cmd in
     if [ -n "$nodes" ]; then
       command -v plied >/dev/null || die "--node needs plied on PATH"
       # shellcheck disable=SC2086  # one argument per node
-      plied review ${nodes//,/ } --action "run:$name" --gate >&2 || die "commitment gate closed for run:$name on $nodes (plied dispose …, then start again)"
+      plied review ${nodes//,/ } --action "run:$name" --gate >&2 || die "commitment gate closed for run:$name on $nodes: the gate checks exactly this action name, so start with the <name> the dispositions were recorded for, or dispose each commitment for run:$name, then start again"
     fi
     mkdir -p "$RUNS"
     id="$name-$(date -u +%Y%m%dT%H%M%SZ)"; d="$(cd "$RUNS" && pwd)/$id"

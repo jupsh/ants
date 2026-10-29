@@ -15,3 +15,5 @@ depends: backlog/B013-general-save-and-restore-of-sim-state/results/roundtrip.js
 Stroeymeyt (86 ants) and Mailleux (24) colonies, snapshot at 1500 of 3000 steps and continued in a fresh process: final state and
 observable hashes byte-identical. Generic graph encoder with a 12-class registry; fails closed. Not covered: observer state in
 wrapper closures (simulateStroeymeyt, observeRecruiter). proposal.patch unapplied (user's decision).
+
+2026-10-26 (D171): roundtrip.json regenerated under Stage 1 code. Still a pass with identical observable hashes; the serialised-state hashes and snapshot sizes (+519 bytes) changed because ColonySim gained fields (oracleG, oracle caches). The previous hashes are kept in its provenance.

@@ -17,3 +17,4 @@ Draft label: P12 (docs/threads-draft.md revision 2).
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
 - 2026-10-24 22:11 UTC lead (session 104e7640): set nodes=["T014"] — attached to its nodes (D142)
 - 2026-10-25 00:31 UTC lead (session 7c2d50fd): D144 (T049 scan review) cites this record's links; reviewed, nothing here changes (the cited promises are covered or discharged as D144 lists)
+- 2026-10-29 20:16 UTC lead (session 7f762276): reviewed D182: it cites D138 only for item 1 (what makes a contact mismatch a bug); clearing Mailleux 1999 does not touch the parked literature-derived structures or D138 item 3's revisit triggers

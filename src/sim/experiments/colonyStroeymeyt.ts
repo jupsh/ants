@@ -99,6 +99,12 @@ export interface StroeymeytRunOptions {
   exploreGiveUpSd?: number;
   /** Lazy resting ants (`ColonyOptions.lazyRest`, B014; bit-identical, faster). The observer reads positions and modes only. */
   lazyRest?: { verify?: boolean };
+  /**
+   * Q03 recheck (D160, D161; diagnostic switch, off by default): `original` starts every ant at body water
+   * U(thirst, 1) with an empty crop (`STROEYMEYT_WATER_INIT_ORIGINAL`, the start before STATUS 2026-10-15) instead
+   * of `STROEYMEYT_WATER_INIT`. Absent: the production start.
+   */
+  waterStart?: 'original';
 }
 
 /** One activity window's per-ant data for the rest-position analysis (D076): window hours, and per group each ant's hourly counts and window still cells. */
@@ -124,6 +130,8 @@ export interface StroeymeytRun {
   oracleLogSd?: number;
   /** With `oracleTrace`: the run's realised-signal sums at lags of 1, 6 and 60 samples (`oracleStats`). */
   oracleStats?: OracleStats;
+  /** With `oracleTrace` (Part C / D kinds): g before and after clipping, and 1 / g, summed at the trace's samples (P21). */
+  oracleG?: { n: number; sumPre: number; sumPost: number; sumInvPost: number; clipped: number };
 }
 
 /**
@@ -148,6 +156,12 @@ export const STROEYMEYT_WATER_INIT = (thirst: number) => ({
   foragerCrop: [1.4, 2.0] as [number, number],
 });
 
+/** The original start (Q03 recheck, D161): body water U(thirst, 1) for every ant, all crops empty. */
+export const STROEYMEYT_WATER_INIT_ORIGINAL = (thirst: number) => ({
+  nurse: [thirst, 1] as [number, number],
+  forager: [thirst, 1] as [number, number],
+});
+
 /** Temperature per phase (Stroeymeyt et al. 2018: 12 h light at 26 °C, 12 h dark at 22 °C). */
 export const STROEYMEYT_TEMP: Record<Phase, number> = { light: 26, dark: 22 };
 /** UTC hour handed to the accumulator so the frames fall in the wanted phase. */
@@ -158,10 +172,12 @@ export function stroeymeytRoles(c: StroeymeytColony): AntRole[] {
   return [...Array<AntRole>(c.nurses).fill('nurse'), ...Array<AntRole>(c.foragers).fill('forager'), 'queen'];
 }
 
-export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: StroeymeytRunOptions): StroeymeytRun {
+/** The colony simulation's options for one Stroeymeyt run (shared by `simulateStroeymeyt` and the Q03 recheck runner). */
+export function stroeymeytColonyOptions(P: ColonyParams, c: StroeymeytColony, o: StroeymeytRunOptions): ColonyOptions {
   const roles = stroeymeytRoles(c);
   const dt = o.dt ?? 0.1;
-  const sim = newColonySim(P, {
+  const thirst = P.nest.thirstFrac > 0 ? P.nest.thirstFrac : S2018_WATER.thirstFrac;
+  return {
     seed: o.seed,
     ants: roles.length,
     roles,
@@ -173,7 +189,7 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     sources: STROEYMEYT_SOURCES,
     // Near the water economy's steady state (STATUS 2026-10-15: from full, empty-crop starts it took ≈ 8–14 h to settle).
     // With thirst off, the same initial state at the default threshold, so paired runs start matched.
-    waterInit: STROEYMEYT_WATER_INIT(P.nest.thirstFrac > 0 ? P.nest.thirstFrac : S2018_WATER.thirstFrac),
+    waterInit: o.waterStart === 'original' ? STROEYMEYT_WATER_INIT_ORIGINAL(thirst) : STROEYMEYT_WATER_INIT(thirst),
     exploreGiveUp: o.exploreGiveUp,
     exploreGiveUpSd: o.exploreGiveUpSd,
     exploreOutside: true,
@@ -190,7 +206,13 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     walkSpeedFactor: 1,
     tempC: STROEYMEYT_TEMP[o.phase],
     lazyRest: o.lazyRest,
-  });
+  };
+}
+
+export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: StroeymeytRunOptions): StroeymeytRun {
+  const roles = stroeymeytRoles(c);
+  const dt = o.dt ?? 0.1;
+  const sim = newColonySim(P, stroeymeytColonyOptions(P, c, o));
   const acc = new InNestAccumulator(roles, STROEYMEYT_CFG);
   const wins = (o.windows ?? []).map((w) => ({ end: w, acc: new InNestAccumulator(roles, STROEYMEYT_CFG) }));
   const obs = roles.map((_, i) => RNG.stream(o.seed, 0x0b5e, i));
@@ -341,5 +363,6 @@ export function simulateStroeymeyt(P: ColonyParams, c: StroeymeytColony, o: Stro
     res.oracleLogSd = sim.oracleLogN ? Math.sqrt(sim.oracleLogSq / sim.oracleLogN - m * m) : NaN;
   }
   if (c.oracleTrace) res.oracleStats = oracleStats(sim.oracleTrace, [1, 6, 60]);
+  if (c.oracleTrace && sim.oracleG.n) res.oracleG = { ...sim.oracleG };
   return res;
 }

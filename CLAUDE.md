@@ -51,6 +51,10 @@ duties that come with it.
     --gate`, record a disposition for each commitment it lists (`plied
     dispose`, with the reason), and start runs with `run.sh start <name>
     --node <ids> -- …`.
+  - Before running any code a commitment governs, at any size (smokes, toy
+    runs and tests included), run `plied review <nodes>` (no `--gate`) and
+    read the list. A commitment saying "before any X" has no size exemption,
+    and a plan inherited from an earlier session is not a review.
   - `plied check` must pass (it is in `npm test`). Its warnings are review
     prompts, never a change of status. A flagged log entry that holds no
     commitment is recorded as read with `plied scanned <D…> --rev … --on

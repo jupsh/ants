@@ -19,3 +19,4 @@ Draft label: P1 (docs/threads-draft.md revision 2).
 ## History
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
 - 2026-10-24 22:11 UTC lead (session 104e7640): set nodes=["T019"] — attached to its nodes (D142)
+- 2026-10-29 20:08 UTC lead (session 7f762276): reviewed D181: Q01's answer keeps P01 missed (D133) and makes the omission part of step 5's closure wording (F081, D106 amended, STATUS); nothing reopens the fit

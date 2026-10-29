@@ -4,7 +4,7 @@ title: Entrance excursions vs foraging trips (path audit)
 status: blocked
 size: M
 priority: 50
-note: RESUME has the entrance-excursion trip audit on hold; needs the user's go
+note: approved (D181); starts after the active synchrony work (Part D, T033)
 outcome:
 depends: data/fits/s2018-tracker.json, data/fits/s2018-trips.json
 ---
@@ -38,7 +38,8 @@ archive 2026-10-15 (diagnostic A). Scoped by the lead agent 2026-10-18.
 ## Done when
 1. **Data:** per phase, the joint distribution of log trip duration and maximum distance from the exit. Compare a
    1- and a 2-component mixture by BIC, pooled and per colony.
-2. **Model:** the same for one simulated run at the C2 start point, through the frozen tracker.
+2. **Model:** the same for one simulated run at C2's fitted settings (not its start point; D181), through the frozen
+   tracker.
 3. **Verdict:** yes or no on a distinct class. If yes:
    - a proposed rule;
    - its effect on trip count and on KM survival at 30 / 120 / 600 / 3600 s, data and model.
@@ -64,6 +65,7 @@ Recalibrating trips, re-estimating the tracker, changing C2.
 what was done, the command, and the result in numbers. Long output goes in results/ and is linked. Before each run, state
 what each outcome would mean. Past ~300 lines in this file, move older entries
 to LOG.md (same format); Findings stay here. -->
+- 2026-10-29 20:07 UTC · lead-claude · Lead: user approved the audit (D181), to start after the active synchrony work; Done-when 2 now runs the model arm at C2's fitted settings, not its start point. A mixture is reported as a duration / reach class, not foraging intent (P70).
 
 ## Findings
 <When done: the answer in a few sentences; evidence (paths in this folder);

@@ -82,7 +82,17 @@ export function withObsVariant(c: StroeymeytColony, argv = process.argv): Stroey
     else if (kind === 'local') out = { ...out, oracle: { kind, kappa: Number(v), r: Number(tauC), tauC: Number(mode) } };
     else if (kind === 'driverShared') out = { ...out, oracle: { kind, amp: Number(v), tau: Number(tauC) } };
     else if (kind === 'driverLocal') out = { ...out, oracle: { kind, amp: Number(v), sigma: Number(tauC) } };
-    else throw new Error(`--oracle ${orc}: kind must be coupled, placebo, const, coupledX, local, driverShared or driverLocal`);
+    // Part D Stages 1–3 (D158), every member under mapping M: `relay:κ:r:τ_c` (T), `driverSharedM:A:τ` (Eu-M),
+    // `driverLocalM:A:σ` (El20-M), `driverWave:A:σ:v:uniform|perimeter` (Ed, Ew), `driverSpatial:A:τ:λ` (Es).
+    else if (kind === 'relay') out = { ...out, oracle: { kind: 'local', kappa: Number(v), r: Number(tauC), tauC: Number(mode), mapM: true } };
+    else if (kind === 'driverSharedM') out = { ...out, oracle: { kind: 'driverShared', amp: Number(v), tau: Number(tauC), mapM: true } };
+    else if (kind === 'driverLocalM') out = { ...out, oracle: { kind: 'driverLocal', amp: Number(v), sigma: Number(tauC), mapM: true } };
+    else if (kind === 'driverWave') {
+      const origin = orc.split(':')[4];
+      if (origin !== 'uniform' && origin !== 'perimeter') throw new Error(`--oracle ${orc}: origin must be uniform or perimeter`);
+      out = { ...out, oracle: { kind, amp: Number(v), sigma: Number(tauC), v: Number(mode), origin, mapM: true } };
+    } else if (kind === 'driverSpatial') out = { ...out, oracle: { kind, amp: Number(v), tau: Number(tauC), lambda: Number(mode), mapM: true } };
+    else throw new Error(`--oracle ${orc}: kind must be coupled, placebo, const, coupledX, local, driverShared, driverLocal, relay, driverSharedM, driverLocalM, driverWave or driverSpatial`);
   }
   // `--oracleTrace`: record the realised oracle signal every 10 s (D108 amendment 1), reduced to `oracleStats` per run.
   if (argv.includes('--oracleTrace')) out = { ...out, oracleTrace: { every: 10 } };

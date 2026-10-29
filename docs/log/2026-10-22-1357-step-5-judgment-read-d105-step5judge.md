@@ -55,6 +55,8 @@ title: Step-5 judgment read (D105; step5judge-20261022T133809Z, ok, 18 m): not a
     not show the model cannot reproduce them anywhere within its parameter ranges. The stopping-rule verdict is
     unchanged. Its own trophallaxis bouts also end too fast
     against Buffin's dish data. No 1999-driven model revision follows in M1; only bug fixes reopen it.
+    **(Added 2026-10-29 ≈ 20:04 UTC, user; D181):** the Buffin fed → starved joint-fit row promised by the adopted
+    Buffin review was omitted (P01, missed; D133). The closure stands.
     - Rows that pass: distance on all days, contacts before the main bout, and time in nest on 8 d. Time in nest on
       1 / 4 d is marginal.
     - No causal reading. The shortfall in trophallaxis comes with returnRate at its upper bound (fast leaving), and

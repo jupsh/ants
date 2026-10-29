@@ -9,13 +9,10 @@ A claim with no progress for 24 h is stale and may be taken over.
 
 | pri | id | status | size | title | claim | last progress |
 |---|---|---|---|---|---|---|
-| 50 | [B005](B005-entrance-excursions-vs-foraging-trips/README.md) | blocked | M | Entrance excursions vs foraging trips (path audit) — *RESUME has the entrance-excursion trip audit on hold; needs the user's go* |  |  |
-| 60 | [B016](B016-candidate-held-out-colony-data-sets/README.md) | blocked | S | Candidate held-out colony data sets — *the user sets the survey's exposure rules (what may be read) and approves web search first* |  |  |
-| 70 | [B007](B007-contact-observer-validation-and-row-4/README.md) | blocked | L | Stroeymeyt contact observer: write it and validate it against the authors' tool — *needs the user: paper not cleared, GPL tool set-up, agreement criterion in STATUS* |  |  |
-| 90 | [B006](B006-light-dark-trip-location-difference/README.md) | open | S | Light/dark contrasts the nest model lacks |  | 2026-10-18 |
-| 100 | [B004](B004-slow-displacement-in-still-periods/README.md) | open | M | Form of the slow displacement in still periods |  |  |
+| 50 | [B005](B005-entrance-excursions-vs-foraging-trips/README.md) | blocked | M | Entrance excursions vs foraging trips (path audit) — *approved (D181); starts after the active synchrony work (Part D, T033)* |  | 2026-10-29 |
+| 60 | [B016](B016-candidate-held-out-colony-data-sets/README.md) | open | S | Candidate held-out colony data sets — *metadata-only survey and web search approved (D181)* |  | 2026-10-29 |
+| 70 | [B007](B007-contact-observer-validation-and-row-4/README.md) | open | L | Stroeymeyt contact observer: write it and validate it against the authors' tool — *source and tool settled (D181); the agreement criterion is proposed, approved and frozen before any comparison* |  | 2026-10-29 |
 | 110 | [B011](B011-e6-bout-end-vs-observed-contact/README.md) | open | M | E6 bout end vs observed contact |  |  |
-| 130 | [B017](B017-pheromone-field-with-a-physical-sampling/README.md) | open | M | Pheromone field with a physical sampling footprint |  |  |
 | 140 | [B010](B010-e1-data-orientation-and-axis-tilt/README.md) | blocked | S | E1 data orientation and axis tilt — *E1 is paused (STATUS); not before it resumes* |  |  |
 | 920 | [B020](B020-nestmate-only-crop-gate-in-the-mailleux/README.md) | unscoped | ? | Nestmate-only crop gate in the Mailleux runner |  |  |
 | 930 | [B021](B021-b018-rate-tables-on-the-model-through/README.md) | unscoped | ? | B018 rate tables on the model through the observer |  |  |

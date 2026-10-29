@@ -1,10 +1,10 @@
 ---
 id: B007
 title: Stroeymeyt contact observer: write it and validate it against the authors' tool
-status: blocked
+status: open
 size: L
 priority: 70
-note: needs the user: paper not cleared, GPL tool set-up, agreement criterion in STATUS
+note: source and tool settled (D181); the agreement criterion is proposed, approved and frozen before any comparison
 outcome:
 depends:
 ---
@@ -41,11 +41,13 @@ Source: STATUS § Open problems and backlog (seeded 2026-10-18); Rules in force 
 
 Row 4 itself (data vs model) stays main-line work.
 
-## Before pickup (the user)
-- **Source text:** Stroeymeyt et al. 2018 is not in `docs/literature.json`. Either clear it, or allow working from
-  the parameter list in STATUS alone.
-- **The tool:** where the authors' tool comes from and how it is built.
-- **Criterion:** the agreement criterion, logged in STATUS.
+## Before pickup (the user) — settled 2026-10-29 (D181)
+- **Source text:** X015's previously reviewed Stroeymeyt Methods sections only (and the parameter list in STATUS);
+  no wider clearance, no search or browsing of the paper or supplement to locate others.
+- **The tool:** the authors' GPL-3.0 tool pinned to an exact version, built and run locally as a black box.
+- **Criterion:** the lead proposes a numerical agreement criterion (counts, total durations, pair / event overlap,
+  per colony × phase); the user approves it and it is frozen in `docs/log/` before any comparison. Correlation
+  alone is not agreement.
 
 ## Base
 <At claim: commit, and whether `src/sim/analysis/inNest.ts` and `src/sim/experiments/colonyStroeymeyt.ts` are
@@ -71,6 +73,7 @@ Row 4 and body exclusion, the tracker, held-out data.
 what was done, the command, and the result in numbers. Long output goes in results/ and is linked. Before each run, state
 what each outcome would mean. Past ~300 lines in this file, move older entries
 to LOG.md (same format); Findings stay here. -->
+- 2026-10-29 20:07 UTC · lead-claude · Lead: user settled source, tool and criterion process (D181, Q09); unblocked. Next: the lead's agreement-criterion proposal, for the user's approval before any comparison (P71, P72).
 
 ## Findings
 <When done: the answer in a few sentences; evidence (paths in this folder);

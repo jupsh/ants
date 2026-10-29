@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "simHash": "27482bdb0cdab4cc",
+    "simHash": "ecce22a65b2428dc",
     "commit": "ecbb918ce309d3ff3265769a064104776c0dd6b4",
     "dirty": true,
     "node": "v22.22.1",
@@ -66,6 +66,13 @@
         "date": "2026-10-24",
         "by": "lead-claude",
         "reason": "D135 (step-5 contact split): new diagnostic option contactLog in colonyMailleux1999.ts, output only and off by default; test/m1999.test.ts: with it on every other field is equal; 1999 identity hash dddbafeb… unchanged"
+      },
+      {
+        "from": "27482bdb0cdab4cc",
+        "to": "ecce22a65b2428dc",
+        "date": "2026-10-26",
+        "by": "lead-claude",
+        "reason": "D171 (P58): the producer imports none of the files Stage 1 changed (colonyBles.ts, colonyStroeymeyt.ts, s2018Lib.ts; import graph checked), so its output is unchanged"
       }
     ]
   },

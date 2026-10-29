@@ -21,3 +21,6 @@ Draft label: Q3 (docs/threads-draft.md revision 2).
 - 2026-10-25 04:14 UTC lead (session 0bcdd30b): reviewed D158: the redesign asks for this decision before Stage 2a (Q16 option 4), since all members and base share the start. Still open.
 - 2026-10-25 04:19 UTC lead (session 0bcdd30b): set state=answered; set answered_by=D159; set answer=Recheck at C2 settings, not waived; design frozen before it runs; completed b… — user answered Q03 in D159 item 4
 - 2026-10-25 04:25 UTC lead (session 0bcdd30b): reviewed D160: this is the frozen recheck Q03's answer (D159 item 4) requires, proposed for approval (Q17).
+- 2026-10-25 17:57 UTC lead (session fe835760): reviewed D162: it freezes the recheck Q03's answer (D159 item 4) requires and records the run's start and the lead's disclosed Stage 1 lapse (no run affected); the answer stands, no reopening.
+- 2026-10-25 18:11 UTC lead (session fe835760): reviewed D163: the recheck Q03's answer called for is done and passes (all five rows equivalent, 14-20 h, C2 base; T015 closed). The answer stands; nothing reopens.
+- 2026-10-25 18:24 UTC lead (session fe835760): reviewed D164: it mentions the recheck only as the point after which Stage 1 was reapplied. Answered; nothing reopens.

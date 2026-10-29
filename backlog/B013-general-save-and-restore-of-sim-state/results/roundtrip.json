@@ -1,71 +1,107 @@
 {
   "provenance": {
-    "simHash": "27482bdb0cdab4cc",
-    "commit": "784f21d8ff8a843ffa52d4ed2c0a098f5a0600ad",
+    "simHash": "ecce22a65b2428dc",
+    "commit": "77fb34431025b74aeb1a6ade361023db443458a7",
     "dirty": true,
     "node": "v22.22.1",
     "argv": [],
-    "date": "2026-10-19T14:59:09.940Z",
+    "date": "2026-10-26T03:33:14.115Z",
     "item": "B013-general-save-and-restore-of-sim-state",
     "depends": {},
-    "restamped": [
-      {
-        "from": "baf4cb0b4b513531",
-        "to": "88f9271e1dc0755a",
-        "date": "2026-10-20",
-        "by": "lead-claude",
-        "reason": "D078: observation-only change for D076 (opt-in restMaps / ActivityStats still-cell recorder, new src/sim/analysis/restPosition.ts); with it off, outputs bit-identical to the old code (one Stroeymeyt colony, 6 h, activity window: identical JSON); B018/B019 import none of the changed files"
-      },
-      {
-        "from": "88f9271e1dc0755a",
-        "to": "286c87ca9157d928",
-        "date": "2026-10-20",
-        "by": "lead-claude",
-        "reason": "D085: observation-only change for D083 Part B (opt-in neighbourStats recorder, new src/sim/analysis/neighbourRates.ts); with it off, outputs bit-identical to HEAD f0a05a0 (one Stroeymeyt colony, 6 h, activity window: identical JSON); no stamped result imports the new module"
-      },
-      {
-        "from": "286c87ca9157d928",
-        "to": "3c4d7e2b18d7f147",
-        "date": "2026-10-20",
-        "by": "lead-claude",
-        "reason": "D096: B014 lazyRest applied (proposal.rebased.patch, sha256 55e224a0…), off by default; with it off, outputs hash-equal to the unpatched tree (D095: identity.ts 9 cases, 22 pooled colonies, the fitted C2 / C1 points with restMaps and neighbourStats); scripts/m1999Points.ts gained a 'c2' branch only (model-A points unchanged)"
-      },
-      {
-        "from": "3c4d7e2b18d7f147",
-        "to": "1388de91d25b0ca4",
-        "date": "2026-10-22",
-        "by": "lead-claude",
-        "reason": "D104: step-5 judging code: the oracle diagnostic passed through the 1999 runner (M1999Options.oracle, off by default; oracleLog only with a coupled oracle) and placebo streams for ants added after the first step; with the oracle off, 1999 shared-nest outputs hash-equal to the code before (scripts/scratch/identM1999Oracle.ts: 3 days × 4 recruiters at the step-5 optimum, stepped and lazy); the placebo path is unchanged when no ant is added (test/oracle.test.ts)"
-      },
-      {
-        "from": "1388de91d25b0ca4",
-        "to": "72e05b8102168b4b",
-        "date": "2026-10-22",
-        "by": "lead-claude",
-        "reason": "D110 (D108 amendments 1–2): oracle placebo log shift and an opt-in realised-signal recorder (ColonyOptions.oracleTrace, Stroeymeyt runner over the observed window, oracleStats in the s2018Colony task), all off by default; test/oracle.test.ts shows shift 0 = raw placebo, shift −sd²/2 = mean-one placebo, rows identical with the recorder on and off; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
-      },
-      {
-        "from": "72e05b8102168b4b",
-        "to": "f57a833f31cc3b4f",
-        "date": "2026-10-22",
-        "by": "lead-claude",
-        "reason": "D118 (Part C build, D115 amendment 1, D117): new oracle kinds coupledX, local, driverShared, driverLocal (+ driverLocalTable), all off by default; test/oracle.test.ts: strength 0 bit-identical for every kind, local r = ∞ equals coupledX, a vanishing range leaves rows unchanged; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
-      },
-      {
-        "from": "f57a833f31cc3b4f",
-        "to": "b88c50268eb43f61",
-        "date": "2026-10-22",
-        "by": "lead-claude",
-        "reason": "D120: simHash no longer counts the local-only CeCILL port src/sim/reference/khuongSegmentation.ts, which no simulation imports"
-      },
-      {
-        "from": "b88c50268eb43f61",
-        "to": "27482bdb0cdab4cc",
-        "date": "2026-10-24",
-        "by": "lead-claude",
-        "reason": "D135 (step-5 contact split): new diagnostic option contactLog in colonyMailleux1999.ts, output only and off by default; test/m1999.test.ts: with it on every other field is equal; 1999 identity hash dddbafeb… unchanged"
+    "regenerated": {
+      "date": "2026-10-26",
+      "by": "lead-claude",
+      "reason": "D171 item 4 (P58): Stage 1 (D164) added fields to ColonySim (oracleG, oracle caches), so serialised-state hashes and snapshot sizes changed; pass, step indices and observable hashes are unchanged. Previous file below (its simHash and trail).",
+      "previous": {
+        "simHash": "27482bdb0cdab4cc",
+        "date": "2026-10-19T14:59:09.940Z",
+        "commit": "784f21d8ff8a843ffa52d4ed2c0a098f5a0600ad",
+        "restamped": [
+          {
+            "from": "baf4cb0b4b513531",
+            "to": "88f9271e1dc0755a",
+            "date": "2026-10-20",
+            "by": "lead-claude",
+            "reason": "D078: observation-only change for D076 (opt-in restMaps / ActivityStats still-cell recorder, new src/sim/analysis/restPosition.ts); with it off, outputs bit-identical to the old code (one Stroeymeyt colony, 6 h, activity window: identical JSON); B018/B019 import none of the changed files"
+          },
+          {
+            "from": "88f9271e1dc0755a",
+            "to": "286c87ca9157d928",
+            "date": "2026-10-20",
+            "by": "lead-claude",
+            "reason": "D085: observation-only change for D083 Part B (opt-in neighbourStats recorder, new src/sim/analysis/neighbourRates.ts); with it off, outputs bit-identical to HEAD f0a05a0 (one Stroeymeyt colony, 6 h, activity window: identical JSON); no stamped result imports the new module"
+          },
+          {
+            "from": "286c87ca9157d928",
+            "to": "3c4d7e2b18d7f147",
+            "date": "2026-10-20",
+            "by": "lead-claude",
+            "reason": "D096: B014 lazyRest applied (proposal.rebased.patch, sha256 55e224a0…), off by default; with it off, outputs hash-equal to the unpatched tree (D095: identity.ts 9 cases, 22 pooled colonies, the fitted C2 / C1 points with restMaps and neighbourStats); scripts/m1999Points.ts gained a 'c2' branch only (model-A points unchanged)"
+          },
+          {
+            "from": "3c4d7e2b18d7f147",
+            "to": "1388de91d25b0ca4",
+            "date": "2026-10-22",
+            "by": "lead-claude",
+            "reason": "D104: step-5 judging code: the oracle diagnostic passed through the 1999 runner (M1999Options.oracle, off by default; oracleLog only with a coupled oracle) and placebo streams for ants added after the first step; with the oracle off, 1999 shared-nest outputs hash-equal to the code before (scripts/scratch/identM1999Oracle.ts: 3 days × 4 recruiters at the step-5 optimum, stepped and lazy); the placebo path is unchanged when no ant is added (test/oracle.test.ts)"
+          },
+          {
+            "from": "1388de91d25b0ca4",
+            "to": "72e05b8102168b4b",
+            "date": "2026-10-22",
+            "by": "lead-claude",
+            "reason": "D110 (D108 amendments 1–2): oracle placebo log shift and an opt-in realised-signal recorder (ColonyOptions.oracleTrace, Stroeymeyt runner over the observed window, oracleStats in the s2018Colony task), all off by default; test/oracle.test.ts shows shift 0 = raw placebo, shift −sd²/2 = mean-one placebo, rows identical with the recorder on and off; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+          },
+          {
+            "from": "72e05b8102168b4b",
+            "to": "f57a833f31cc3b4f",
+            "date": "2026-10-22",
+            "by": "lead-claude",
+            "reason": "D118 (Part C build, D115 amendment 1, D117): new oracle kinds coupledX, local, driverShared, driverLocal (+ driverLocalTable), all off by default; test/oracle.test.ts: strength 0 bit-identical for every kind, local r = ∞ equals coupledX, a vanishing range leaves rows unchanged; no change outside the oracle branches; 1999 identity hash dddbafeb… unchanged"
+          },
+          {
+            "from": "f57a833f31cc3b4f",
+            "to": "b88c50268eb43f61",
+            "date": "2026-10-22",
+            "by": "lead-claude",
+            "reason": "D120: simHash no longer counts the local-only CeCILL port src/sim/reference/khuongSegmentation.ts, which no simulation imports"
+          },
+          {
+            "from": "b88c50268eb43f61",
+            "to": "27482bdb0cdab4cc",
+            "date": "2026-10-24",
+            "by": "lead-claude",
+            "reason": "D135 (step-5 contact split): new diagnostic option contactLog in colonyMailleux1999.ts, output only and off by default; test/m1999.test.ts: with it on every other field is equal; 1999 identity hash dddbafeb… unchanged"
+          }
+        ],
+        "results": [
+          {
+            "kind": "stroeymeyt",
+            "pass": true,
+            "full": {
+              "state": "e8d822d5301878504b531180caa0eaccca8f41b98c85a3e4358b53756f297739",
+              "observable": "a995df1941011a3e75fab0747f2eb26ec443d5f6b705830fec3f0831cd0c0fdd"
+            },
+            "write": {
+              "state": "e6d2111e6bf1b0603ae15c25f2d0eb8b96bc67eaec41ab07f6495745e2092200",
+              "snapshotBytes": 1336496
+            }
+          },
+          {
+            "kind": "mailleux",
+            "pass": true,
+            "full": {
+              "state": "4c834d820793e3c46219371d8686d8f5c5114ff1bcb7d0d0f5fdb200e18fb23e",
+              "observable": "50423bb0391afb408cc4067f533b1e8e27c8980edeafed80a67934c75744e0d4"
+            },
+            "write": {
+              "state": "b06ebba879e226516339b2f574a005612215505f99874e213e1851fac15b8e70",
+              "snapshotBytes": 742759
+            }
+          }
+        ]
       }
-    ]
+    }
   },
   "T": 1500,
   "results": [
@@ -76,26 +112,26 @@
         "kind": "stroeymeyt",
         "mode": "full",
         "stepIndex": 3000,
-        "state": "e8d822d5301878504b531180caa0eaccca8f41b98c85a3e4358b53756f297739",
+        "state": "d422866d3484633b6d04ac6e93f232f4b483cdd4b235424126ebf3349ac5164e",
         "observable": "a995df1941011a3e75fab0747f2eb26ec443d5f6b705830fec3f0831cd0c0fdd"
       },
       "write": {
         "kind": "stroeymeyt",
         "mode": "write",
         "stepIndex": 1500,
-        "state": "e6d2111e6bf1b0603ae15c25f2d0eb8b96bc67eaec41ab07f6495745e2092200",
+        "state": "262dba97f5df3ec41e47edae246503e1179470a23c4a32f41e9e07313c90a73b",
         "observable": "8a54850c5d9b38fa8ea3af3438198811c8770430f07c3b344bfcbc7bc0e55a4a",
-        "serializeMs": 38.5,
-        "snapshotBytes": 1336496
+        "serializeMs": 69.9,
+        "snapshotBytes": 1337015
       },
       "read": {
         "kind": "stroeymeyt",
         "mode": "read",
         "stepIndex": 3000,
-        "state": "e8d822d5301878504b531180caa0eaccca8f41b98c85a3e4358b53756f297739",
+        "state": "d422866d3484633b6d04ac6e93f232f4b483cdd4b235424126ebf3349ac5164e",
         "observable": "a995df1941011a3e75fab0747f2eb26ec443d5f6b705830fec3f0831cd0c0fdd",
-        "restoreMs": 32.1,
-        "snapshotBytes": 1336496
+        "restoreMs": 59.3,
+        "snapshotBytes": 1337015
       }
     },
     {
@@ -105,26 +141,26 @@
         "kind": "mailleux",
         "mode": "full",
         "stepIndex": 3000,
-        "state": "4c834d820793e3c46219371d8686d8f5c5114ff1bcb7d0d0f5fdb200e18fb23e",
+        "state": "054ae2ff190ad12ed93f742af345626edf65750652dfc6133d473315351f0e15",
         "observable": "50423bb0391afb408cc4067f533b1e8e27c8980edeafed80a67934c75744e0d4"
       },
       "write": {
         "kind": "mailleux",
         "mode": "write",
         "stepIndex": 1500,
-        "state": "b06ebba879e226516339b2f574a005612215505f99874e213e1851fac15b8e70",
+        "state": "e5ec456831bf899de7d55edb4452eb829a82cff507d0daf948c9f451590c0b37",
         "observable": "3b0342c6df0b53e11d79e3dbb69d3ff42fa36991cfab3604fedb79a367361ab5",
-        "serializeMs": 22.1,
-        "snapshotBytes": 742759
+        "serializeMs": 39.2,
+        "snapshotBytes": 743278
       },
       "read": {
         "kind": "mailleux",
         "mode": "read",
         "stepIndex": 3000,
-        "state": "4c834d820793e3c46219371d8686d8f5c5114ff1bcb7d0d0f5fdb200e18fb23e",
+        "state": "054ae2ff190ad12ed93f742af345626edf65750652dfc6133d473315351f0e15",
         "observable": "50423bb0391afb408cc4067f533b1e8e27c8980edeafed80a67934c75744e0d4",
-        "restoreMs": 11.4,
-        "snapshotBytes": 742759
+        "restoreMs": 20.3,
+        "snapshotBytes": 743278
       }
     }
   ]

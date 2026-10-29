@@ -18,3 +18,5 @@ and 22 pooled colonies; per-step verification clean. Medians of 3: colony122 1.3
 1.40×, 53 nestmates 1.15×, pilot motion none. Stepped run times are bimodal under V8 pretenuring (B022).
 proposal.patch unapplied (user's decision). Applied 2026-10-20 as a rebased copy (D095 review, D096): bit-identical
 re-checked in the current tree, including the fitted C2 / C1 points and step-5 C2 nests.
+
+2026-10-26 (D171): bench.json's times were measured on the earlier code and were not rerun; identity.json was rerun under the current code (all 20 case hashes identical).

@@ -1,10 +1,10 @@
 ---
 id: B016
 title: Candidate held-out colony data sets
-status: blocked
+status: open
 size: S
 priority: 60
-note: the user sets the survey's exposure rules (what may be read) and approves web search first
+note: metadata-only survey and web search approved (D181)
 outcome:
 depends:
 ---
@@ -41,9 +41,12 @@ A candidate list for the user, who assigns roles and clears papers. For each dat
 - licence;
 - whether any of its results were seen during the survey.
 
-## Before pickup (the user)
-- **Exposure rules:** what may be read (repository records and data descriptors? methods sections? abstracts?).
-- **Web search:** approval for this survey.
+## Before pickup (the user) — settled 2026-10-29 (D181)
+- **Exposure rules:** repository records, data descriptors and metadata only (species, lab, design, recorded
+  variables, availability, licence). No abstracts, full texts, results or figures. Methods sections only by a
+  later, separate permission.
+- **Web search:** approved for this survey. Titles and snippets can show results: anything seen is reported for
+  `docs/contamination/`.
 
 ## Base
 <At claim: commit; desk work only.>
@@ -65,6 +68,7 @@ Downloading or opening data, reading results, clearing papers, assigning roles.
 what was done, the command, and the result in numbers. Long output goes in results/ and is linked. Before each run, state
 what each outcome would mean. Past ~300 lines in this file, move older entries
 to LOG.md (same format); Findings stay here. -->
+- 2026-10-29 20:07 UTC · lead-claude · Lead: user approved a metadata-only survey with web search (D181, Q10); unblocked (P73, P74).
 
 ## Findings
 <When done: the answer in a few sentences; evidence (paths in this folder);

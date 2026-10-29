@@ -18,3 +18,4 @@ data's L 0.073, and Ê_A ≈ 0. The J − A contrast is consistent with same-bin
 establish it; no artefact fraction is assigned (corrected 2026-10-25, D157). S2_J is positive in every role pair.
 Reference classing lowers L by 0.042 (reduction only). Caveats: V3b (F094); data 8–12 h against simulations 2 × 4 h;
 the C2 warm-up shortcut is unrechecked (P02); El20 reaches the data's S2_J with the wrong far-band level (D122).
+2026-10-25 (D163): the C2 warm-up shortcut is now rechecked at C2 base: the five colony means are equivalent in 14–20 h (F096). The S2 audit used 4-h runs after a 2-h warm-up, where only F096's descriptive results apply.

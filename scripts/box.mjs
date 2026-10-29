@@ -32,6 +32,7 @@
 // simulated colony ≈ 270 s). Speeds per CPU are in scripts/boxCpus.json (measured rows, else a guess by generation).
 import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
@@ -260,9 +261,12 @@ if (cmd === 'offers') {
   const paths = argv.slice(1).filter((a, i, l) => !a.startsWith('--') && !['--env', '--list'].includes(l[i - 1]));
   if (!paths.length) die('fetch <path…> (relative to the worktree)');
   const q = paths.map((p) => `'${p.replace(/'/g, "'\\''")}'`).join(' ');
-  const r = spawnSync('ssh', [...sshArgs(e), `cd ${e.BOX_DIR} && tar czf - ${q}`], { maxBuffer: 2 ** 31 });
+  // Streamed (ssh | tar), not buffered: a buffered archive is capped at 2 GB (2026-10-29: 20 GB of outputs).
+  const r = spawnSync('bash', ['-c', 'set -o pipefail; ssh "$@" | tee >(wc -c > "$BYTES") | tar xzf -; s=$?; wait; exit $s', '_', ...sshArgs(e), `cd ${e.BOX_DIR} && tar czf - ${q}`], { encoding: 'utf8', env: { ...process.env, BYTES: `${os.tmpdir()}/box-fetch-${process.pid}.bytes` } });
   if (r.status !== 0) die(`fetch failed: ${r.stderr}`);
-  spawnSync('tar', ['xzf', '-'], { input: r.stdout, maxBuffer: 2 ** 31 });
+  const bytesFile = `${os.tmpdir()}/box-fetch-${process.pid}.bytes`;
+  const bytes = fs.existsSync(bytesFile) ? Number(fs.readFileSync(bytesFile, 'utf8')) : NaN;
+  fs.rmSync(bytesFile, { force: true });
   const sum = `find ${q} -type f | LC_ALL=C sort | xargs md5sum`;
   const box = onBox(e, sum).out.split('\n').filter(Boolean);
   const loc = new Set(execFileSync('bash', ['-c', sum], { encoding: 'utf8', maxBuffer: 1 << 28 }).split('\n').filter(Boolean));
@@ -270,21 +274,24 @@ if (cmd === 'offers') {
   if (miss.length) die(`${miss.length} of ${box.length} files differ after fetch: ${miss.slice(0, 5).join('; ')}`);
   // --list f: the fetched files, one per line (switch pushes exactly these).
   if (opt('--list')) fs.writeFileSync(opt('--list'), box.map((l) => l.replace(/^\S+\s+/, '')).join('\n') + '\n');
-  console.log(`fetched ${box.length} files (${(r.stdout.length / 1e6).toFixed(1)} MB compressed), md5-checked`);
+  console.log(`fetched ${box.length} files (${(bytes / 1e6).toFixed(1)} MB compressed), md5-checked`);
 } else if (cmd === 'push') {
   const e = readEnv();
   const paths = argv.slice(1).filter((a, i, l) => !a.startsWith('--') && !['--env', '--from-list'].includes(l[i - 1]));
   if (!paths.length && !opt('--from-list')) die('push <path…> | --from-list f (relative to the local tree)');
   const files = (opt('--from-list') ? fs.readFileSync(opt('--from-list'), 'utf8') : execFileSync('find', [...paths, '-type', 'f'], { encoding: 'utf8' })).split('\n').filter((f) => f && !NEVER.slice(0, 4).some((r) => r.test(f)));
-  const tar = spawnSync('tar', ['czf', '-', '-T', '-'], { input: files.join('\n'), maxBuffer: 2 ** 31 });
-  const cp = onBox(e, `mkdir -p ${e.BOX_DIR} && cd ${e.BOX_DIR} && tar xzf - && echo copied`, tar.stdout);
-  if (!cp.out.includes('copied')) die(`push failed: ${cp.err}`);
+  // Streamed (tar | ssh), as fetch.
+  const cp = spawnSync('bash', ['-c', 'set -o pipefail; tar czf - -T - | tee >(wc -c > "$BYTES") | ssh "$@"; s=$?; wait; exit $s', '_', ...sshArgs(e), `mkdir -p ${e.BOX_DIR} && cd ${e.BOX_DIR} && tar xzf - && echo copied`], { input: files.join('\n'), encoding: 'utf8', env: { ...process.env, BYTES: `${os.tmpdir()}/box-push-${process.pid}.bytes` } });
+  if (!(cp.stdout ?? '').includes('copied')) die(`push failed: ${cp.stderr}`);
+  const pushFile = `${os.tmpdir()}/box-push-${process.pid}.bytes`;
+  const pushed = fs.existsSync(pushFile) ? Number(fs.readFileSync(pushFile, 'utf8')) : NaN;
+  fs.rmSync(pushFile, { force: true });
   const sum = (l) => `printf '%s\\n' ${l.map((f) => `'${f.replace(/'/g, "'\\''")}'`).join(' ')} | xargs md5sum`;
   const loc = execFileSync('bash', ['-c', sum(files)], { encoding: 'utf8', maxBuffer: 1 << 28 }).split('\n').filter(Boolean);
   const box = new Set(onBox(e, sum(files)).out.split('\n').filter(Boolean));
   const miss = loc.filter((l) => !box.has(l));
   if (miss.length) die(`${miss.length} of ${loc.length} files differ after push: ${miss.slice(0, 5).join('; ')}`);
-  console.log(`pushed ${loc.length} files (${(tar.stdout.length / 1e6).toFixed(1)} MB compressed), md5-checked`);
+  console.log(`pushed ${loc.length} files (${(pushed / 1e6).toFixed(1)} MB compressed), md5-checked`);
 } else if (cmd === 'destroy') {
   const e = readEnv();
   if (!flag('--yes')) die('destroy deletes everything on the box: fetch what is needed first, then pass --yes');
@@ -401,13 +408,15 @@ if (cmd === 'offers') {
   const newRun = (st.out.match(/started (\S+)/) ?? [])[1];
   const last = relaunch.trim().split(/\s+/).pop();
   if (/^\d+$/.test(last) && Number(last) !== nj) console.log(`WARNING: the relaunch command ends in ${last}, but the new box has ${nj} job slots: if that is a job count, relaunch with the right one (or 'auto')`);
+  step('destroy the old box', 'destroy', '--yes');
+  fs.renameSync(NEXT, OLD);
+  // Finish and watch read logs/box.env, so they start only once it names the new box (2026-10-29: a finish started
+  // before the rename looked for the run on the old box and quit).
   for (const [k, sub] of [['--finish', 'finish'], ['--watch', 'watch']]) {
     if (!opt(k) || !newRun) continue;
     const r = spawnSync('bash', ['scripts/run.sh', 'start', `${name}-${sub}`, '--', 'node', 'scripts/box.mjs', sub, '--run', newRun, ...opt(k).split(/\s+/).filter(Boolean)], { encoding: 'utf8' });
     console.log(r.stdout.trim() || r.stderr.trim());
   }
-  step('destroy the old box', 'destroy', '--yes');
-  fs.renameSync(NEXT, OLD);
   console.log(`switched in ${((Date.now() - t0) / 60000).toFixed(1)} min: ${next.BOX_CPU}, $${Number(next.BOX_PRICE).toFixed(3)}/h; ${OLD} now names it. Start pace windows after the relaunch (carried files keep their times).`);
 } else {
   console.log(fs.readFileSync(new URL(import.meta.url), 'utf8').split('\n').slice(1, 28).map((l) => l.replace(/^\/\/ ?/, '')).join('\n'));

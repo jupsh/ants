@@ -4,8 +4,8 @@ title: Project status (current state, plan, rules in force, evidence policy)
 ---
 # Project status
 
-_Last updated: 2026-10-25 (through D161: the S2 audit read, the Stages 1–3 redesign approved, the Q03 recheck
-design approved as amended). Every change is dated in `docs/log/`._
+_Last updated: 2026-10-29 (through D181, the user's answers to Q01 and Q04–Q10; earlier through D175, Stage 2a read, P29's rule approved; earlier through D163: the S2 audit read, the Stages 1–3 redesign approved, the Q03 recheck
+run and passed). Every change is dated in `docs/log/`._
 
 **Where the record lives.** One file per record, plain text; `npm test` fails if the record is
 inconsistent (`node findings/findings.mjs check`, `node docs/records.mjs check`, `plied check`). The lead agent
@@ -46,7 +46,7 @@ in the RESUME archive (A005).
   - **Step 4 (in-nest motion, Stroeymeyt 2018)** closed with C2 selected provisionally, failures explicit (D088;
     F068). C3 is deferred.
   - **Step 5 (Mailleux 1999 with C2's motion)** ended as a transfer failure within the allotted search, not
-    converged (D106, D107; F081). Its Buffin failure is the donor-volume cap pilot2 showed (D133; F093). The
+    converged, with the promised Buffin joint-fit row omitted (D106, D107, D181; F081). Its Buffin failure is the donor-volume cap pilot2 showed (D133; F093). The
     contact split found no implementation mismatch. Whether Mailleux scored walking and third-party contacts needs
     the paper (D139; Q11). It reopens only on a demonstrated bug (Plan step 5; D138 item 1).
   - **Synchrony** is the central interest (D114) and a blocker for freezing the structure before any held-out
@@ -57,8 +57,14 @@ in the RESUME archive (A005).
     - S2 audit (T032, closed): pass. S2's decay exceeds the joint-shift null and C2 base in the light phase (D156;
       F095). It names no mechanism: a spatially varying response to a shared signal passes J too (F094).
     - Next: the Stages 1–3 redesign (D158), approved with amendments for Stage 1 build and synthetic checks (D159;
-      T033). Stage 2a waits on the Q03 warm-up recheck at C2 settings (T015), whose design is approved as amended
-      (D160, D161) and is frozen before it runs. The capability rule and the box budget keep their own approvals.
+      T033). The Q03 warm-up recheck at C2 settings passed within its stated scope (D163; F096), so it no longer holds
+      Stage 2a. Stage 1 is built, uncommitted (D164). The precision forecast is done (D166, D167; F097), and so is the
+      timing bench (D168, D169). Stage 2 proceeds as designed, Stage 2a first (D170, D171); it ran (D172; ≈ $1.82) and
+      is read: 9 of 11 members calibrated, Es included; T10f and T10m ineligible (D173; F098). P29's capability rule is approved as amended (D175) and P47's rules as written (D178), so every rule
+      before Stage 2b is fixed. The capability stage is built (D176; gap-fillings confirmed, D177). Stage 2b and the
+      capability runs ran on a rented box, switched once for disk (D179, D180), and are being fetched; both stay
+      sealed until their readers are frozen (P63, P64). The multipliers are reported (D184): Es is clipped 94 % of the
+      time at its calibrated strength (F100). Stage 1–2a is committed.
   - **Step 9** (the held-out test) and **E6** are on hold (D114).
 - **Disclosed limitations:** the `carries` of closed threads (`plied tree`) and the findings they name. Among them:
   - C2's failing rows (F068), the forager per-ant spread (F075), packing (F027, F078) and still–still contacts
@@ -178,7 +184,9 @@ any pilot.
 8. **Fit protection** (gates E6): ranking check; convergence gate and
    identifiability at the optimum; flat-direction profiles.
 9. **Held-out tests:** the Stroeymeyt age-experiment colonies (rows 1–4,
-   unopened until then); then E6 preparation (ensemble pre-registered;
+   unopened until then; rows 1 and 4 are predictions reported with their
+   failures, not a condition of the freeze, and contacts are reported
+   incomplete if the observer is unvalidated: D181); then E6 preparation (ensemble pre-registered;
    directed navigation as its own logged addition; `leaveCropFrac`
    sensitivity) and the **E6 run** (development benchmark, pre-registered
    rule).

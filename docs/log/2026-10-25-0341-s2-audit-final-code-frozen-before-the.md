@@ -38,3 +38,8 @@ title: S2 audit final code frozen before the run: two fixes outside every synthe
       it. Nothing has been written there.
     - The run starts after that, through `plied review T032 --action run:s2audit --gate` and `run.sh start … --node
       T032`. Estimate ≈ 10–20 min locally, from the synthetic cases' pair-bin counts; not timed on a real file.
+- **2026-10-26 ≈ 03:35 UTC — Amendment (D171 item 3, under D170): `s2AuditSyn.ts` changed after the audit was read.**
+  The unused parameter `i` on line 338 is renamed `_i`, to clear a `tsc` error (`noUnusedParameters`); the parameter is
+  never read, so nothing the script computes changes. md5 `49d3e26028b495837de3668c04ca7669` → `d93060f5c38610e1dd2116e6890b3ff7`.
+  The frozen version is kept verbatim in `logs/s2audit/frozen/s2AuditSyn.ts` (md5 `49d3e260…`); the table above still
+  names what ran (D152, D156).

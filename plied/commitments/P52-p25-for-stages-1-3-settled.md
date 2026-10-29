@@ -11,10 +11,42 @@ wording: >-
 summary: Disclosure in every spatial reading of the redesign.
 made: D159
 state: open
+governs: [commit, publish]
 nodes: [T033]
+reviews:
+  - action: run:q03-recheck-20261025
+    disposition: not-applicable
+    because: >-
+      This run is the Q03 water-init recheck at C2 base (T015): no Stages 1-3 member, no mechanism,
+      no spatial coupling, no assessment rows. No spatial reading; no packing arm.
+    by: lead (session 421f3ea4)
+    at: "2026-10-25 16:55 UTC"
+  - action: run:partd-bench-20261026
+    disposition: not-applicable
+    because: No spatial reading; no packing arm.
+    by: lead (session 0cf57b71)
+    at: "2026-10-26 01:31 UTC"
+  - action: commit:20261029
+    disposition: not-applicable
+    because: No packing arm or spatial reading is committed.
+    by: lead (session 20261029)
+    at: "2026-10-29 21:23 UTC"
 ---
 
 ## History
 - 2026-10-25 04:19 UTC lead (session 0bcdd30b): created
 - 2026-10-25 04:25 UTC lead (session 0bcdd30b): reviewed D160: no spatial reading; untouched.
 - 2026-10-25 16:45 UTC lead (session 421f3ea4): reviewed D161: it approves the Q03 recheck design (T015) and confirms Stage 1 may proceed now, Stage 2a after the recheck reading; it mentions T033 only for that order. Packing is not mentioned.
+- 2026-10-25 16:55 UTC lead (session 421f3ea4): review for run:q03-recheck-20261025: not-applicable — This run is the Q03 water-init recheck at C2 base (T015): no Stages 1-3 member, no mechanism, no spatial coupling, no assessment rows. No spatial reading; no packing arm.
+- 2026-10-25 18:12 UTC lead (session fe835760): reviewed D163: a water-start recheck at C2 base; it says nothing about wall behaviour or packing (F078 still carried). Unaffected.
+- 2026-10-25 18:24 UTC lead (session fe835760): reviewed D164: no packing or wall change in the build; F078 still carried. Unaffected.
+- 2026-10-26 01:19 UTC lead (session 0cf57b71): reviewed D165: packing disposition and its disclosures unchanged.
+- 2026-10-26 01:31 UTC lead (session 0cf57b71): review for run:partd-bench-20261026: not-applicable — No spatial reading; no packing arm.
+- 2026-10-26 03:35 UTC lead (session 0cf57b71): set governs=["commit","publish"] — D171 item 5: reading-only wording; it cannot bear on a run, fit or rental, and comes up again when results are committed or published
+- 2026-10-26 16:18 UTC lead (session d6df3027): reviewed D172: launch adds no packing arm and reads no spatial result; the F078 disclosure stays owed in the spatial readings, unaffected
+- 2026-10-29 01:26 UTC lead (session 20261029): reviewed D173-D175 (via D159/T033): no packing arm is proposed or run; F078's discrepancy is still carried. Unaffected.
+- 2026-10-29 05:27 UTC lead (session 20261029): reviewed D176: no packing arm. Unaffected.
+- 2026-10-29 05:32 UTC lead (session 20261029): reviewed D177: no packing arm. Unaffected.
+- 2026-10-29 05:34 UTC lead (session 20261029): reviewed D178: no packing arm. Unaffected.
+- 2026-10-29 05:45 UTC lead (session 20261029): reviewed D179: no packing arm among the rented runs. Unaffected.
+- 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No packing arm or spatial reading is committed.

@@ -3,7 +3,7 @@
   "definitions": "docs/log D076 (pre-registration, approved D077), D078 (code); src/sim/analysis/restPosition.ts",
   "field": "dark-hour still occupancy of all workers, focal ant left out, 5 × 5-mm box sum over its mean on DATA_NEST",
   "provenance": {
-    "simHash": "27482bdb0cdab4cc",
+    "simHash": "ecce22a65b2428dc",
     "commit": "f0a05a045aae071482bf432a30ae1b3be08ad655",
     "dirty": true,
     "node": "v22.22.1",
@@ -58,6 +58,13 @@
         "date": "2026-10-24",
         "by": "lead-claude",
         "reason": "D135 (step-5 contact split): new diagnostic option contactLog in colonyMailleux1999.ts, output only and off by default; test/m1999.test.ts: with it on every other field is equal; 1999 identity hash dddbafeb… unchanged"
+      },
+      {
+        "from": "27482bdb0cdab4cc",
+        "to": "ecce22a65b2428dc",
+        "date": "2026-10-26",
+        "by": "lead-claude",
+        "reason": "D171 (P58): rerun under the current code (stroeymeytRestPosition.ts), byte-identical apart from provenance"
       }
     ]
   },

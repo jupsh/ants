@@ -9,6 +9,13 @@
       "from": "B1 rerun 2026-10-22: 66 runs on 64 vCPU, about 270 s each (D111)"
     },
     {
+      "match": "Threadripper PRO 5995WX",
+      "arch": "Zen 3",
+      "speed": 0.51,
+      "source": "measured",
+      "from": "Part D Stage 2a 2026-10-26 (D172), offer 56637446 (Quebec, 128 vCPU = 64 cores with SMT, quota 122.9): 2,904 runs of ≈ 285 reference s in 3 h 42 min at 121 jobs, ≈ 555 s per run (pace windows 554–629 s); the 0.85 Zen 3 guess assumed one job per core"
+    },
+    {
       "match": "EPYC 7742",
       "arch": "Zen 2",
       "speed": 0.77,

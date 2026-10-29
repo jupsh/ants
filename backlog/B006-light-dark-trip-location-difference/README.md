@@ -1,11 +1,11 @@
 ---
 id: B006
 title: Light/dark contrasts the nest model lacks
-status: open
+status: done
 size: S
 priority: 90
 note:
-outcome:
+outcome: descriptive light/dark ratios accepted, cause left unresolved; two phase controls are hypotheses for after M1 (D181)
 depends:
 ---
 # B006 — Light/dark contrasts the nest model lacks
@@ -72,6 +72,7 @@ to LOG.md (same format); Findings stay here. -->
 - 2026-10-18 15:56 UTC · Codex · Follow-up (`nice -n 10 python3 -I backlog/B006-light-dark-trip-location-difference/analyze.py`): omitting colony112 lowers trip/activity and trip/contacts Pearson r to 0.093 and 0.095, while activity/contacts remains ≥0.963 under every single-colony omission. Per-colony table and all leave-one-out ranges in `results/analysis.md`; mechanism note in `results/design.md`. No simulation run or model edit.
 - 2026-10-18 16:14 UTC · lead-claude · Lead review (2026-10-18): (1) the design note omits the set-up's phase temperature: light 26 °C, dark 22 °C (colonyStroeymeyt.ts STROEYMEYT_TEMP). Moving speed is equal across phases (0.275 / 0.275 cm/s, Stroeymeyt archive), so temperature does not act through speed; whether it acts through switching rates is open (0.47 eV Arrhenius over 22→26 °C gives ×1.28, Q10 2 ×1.32; activity ratio 1.37). Candidate causes for the in-nest contrast should be named apart: temperature, entrainment to the 12-h cycle, light reaching the nest via the entrance or returning foragers; the nest itself is dark to the ants in both phases (IR-pass filter). This matters for step 5: Mailleux 1999 ran at 22 ± 3 °C, lighting unstated. (2) Trip duration: Depickère et al. 2004 (J. Insect Physiol., cleared) found foragers aggregate in darkness and disperse in light; the outside arena is dark in the dark phase, a candidate for longer dark trips (hypothesis only). (3) Status is still open with Findings written and no claim; close it only after (1) is addressed or explicitly left out.
 - 2026-10-18 16:24 UTC · Codex · Addressed the lead review in `results/design.md`: added the 26/22 °C set-up and equal forager moving speed, separated temperature, 12-h entrainment, entrance/returner cues, and the darkness-related trip hypothesis; qualified transfer to Mailleux 1999 at 22 ± 3 °C with unstated lighting. No data recalculation, simulation run or model change. Left status open for the user's phase/cause decision noted in STATUS.
+- 2026-10-29 20:07 UTC · lead-claude · Lead: user decision (D181, Q06): descriptive findings accepted, cause left unresolved; no phase mechanism or Mailleux phase mapping in M1 (P68). Closed as done.
 
 ## Findings
 The light/dark in-nest activity and moving-involved contact contrasts are tightly associated across the 22 fit colonies (log-ratio Spearman ρ = 0.967; each persists after omitting any one colony). The dark/light trip-duration contrast is weakly ranked against either (ρ = 0.230 and 0.202); its moderate Pearson associations vanish when colony112 is omitted. The geometric mean ratios are 2.368 (trip duration, dark/light), 1.368 (moving fraction, light/dark), and 1.528 (moving contacts, light/dark). Evidence and per-colony counts: `analyze.py`, `results/analysis.md`.

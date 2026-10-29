@@ -11,3 +11,4 @@ Draft label: T3.2f (docs/threads-draft.md revision 2). A diagnostic only; adopti
 ## History
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
 - 2026-10-25 00:31 UTC lead (session 7c2d50fd): D144 (T049 scan review) cites this record's links; reviewed, nothing here changes (the cited promises are covered or discharged as D144 lists)
+- 2026-10-29 20:16 UTC lead (session 7f762276): reviewed D182: cites D138 item 1 only; the nestmate-only crop gate is a diagnostic unaffected by the clearance

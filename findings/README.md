@@ -8,8 +8,8 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 
 | status | meaning | n |
 |---|---|---|
-| established | a pre-registered reading, read mechanically against its rule | 28 |
-| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 45 |
+| established | a pre-registered reading, read mechanically against its rule | 30 |
+| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 48 |
 | literature | reported by a cleared source; not tested here | 10 |
 | hypothesis | our reasoning; untested | 3 |
 | closed | a tested line with no further arms (a negative result) | 6 |
@@ -70,6 +70,9 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F092](F092-the-data-s-11-frame-onset-lag-contrast.md) | indicated | "The data's 11-frame onset-lag contrast by distance is mostly episode composition (null 1 expects 8.8 frames); the per-episode excess slope is small (S3₂ +0.19 frames per 10 mm) and not separated from C2 base (difference +0.10 [−0.06, 0.28]), so gate G did not establish positive excess ordering" | 2026-10-23 |
 | [F094](F094-on-synthetic-colonies-the-s2-joint-shift.md) | indicated | On synthetic colonies, the S2 joint-shift null J removes place–activity artefacts (moving paths, stable rest sites) and a homogeneous shared driver (S2_J within ±0.002) and recovers planted local spatial dependence at 97–100 % for latent bout lengths 2–30 bins, but passes a spatially structured shared driver as decay (S2_J ≈ 0.16), so S2_J > 0 names no mechanism | 2026-10-25 |
 | [F095](F095-in-the-stroeymeyt-data-s-light-phase-s2.md) | indicated | In the Stroeymeyt data's light phase, S2's distance decay exceeds the joint-shift null J and C2 base (data S2_J 0.052, lower bound 0.039; data − base 0.035, lower bound 0.021; 20 colonies), so S2 survives the same-bin classing audit as a spatial row; it does not tell local dependence from a spatially varying response to a shared signal | 2026-10-25 |
+| [F097](F097-at-part-d-s-stage-2b-design-22-data.md) | indicated | At Part D's Stage 2b design (22 data colonies, 2 runs x 22 simulated), a perfect model's 90 % half-width reaches the tolerance on S1 D_w forager 10 min (h/tol 1.03 with Eu's between-colony spread, 0.97 with El20's), so joint equivalence on all 20 rows is very unlikely even for a perfect model; the data's between-colony spread sets most of every row's width; S3 rows are precise | 2026-10-26 |
+| [F098](F098-part-d-stage-2a-9-of-11-synchrony.md) | established | Part D Stage 2a: 9 of 11 synchrony members calibrate to the D_w target on fresh seeds (Es included); the 10-min transmission members T10f and T10m do not | 2026-10-26 |
+| [F100](F100-at-its-calibrated-strength-a-3-part-d-s.md) | established | At its calibrated strength (A = 3), Part D's Es member is clipped in 94 % of trajectory samples (applied mean g 0.33, E[1/g] 3.8): in practice a two-level switch, not a mean-1 shared signal | 2026-10-29 |
 
 ## Packing, walls and resting sites
 
@@ -111,6 +114,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F014](F014-motion-rows-observer-insensitive.md) | established | For the 32 motion rows it does not matter whether that displacement is tag error or rest creep; observer not revised | 2026-10-17 |
 | [F015](F015-still-still-crossings-observer-sensitive.md) | established | Still–still contact crossings are strongly observation-sensitive (×2.4 under tag drift M); near share is robust | 2026-10-17 |
 | [F016](F016-no-robust-crossing-statistic.md) | established | No band × dwell crossing statistic is robust for still–still contacts; moving-involved are robust with a dwell ≥ 2 frames | 2026-10-17 |
+| [F099](F099-in-long-still-periods-of-the-stroeymeyt.md) | indicated | In long still periods of the Stroeymeyt fit colonies the slow displacement is bursty and bounded, diffusive after the post-stop decay, not continuous creep; a tag-rotation offset carries 12-15 % of it; the C2 model lacks it (foragers) or has other structure (nurses) | 2026-10-29 |
 
 ## Light / dark
 
@@ -166,6 +170,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F049](F049-pheromone-grid-nonconvergence.md) | indicated | The pheromone field conserves mass, but its point-sampled signal does not converge with grid refinement | 2026-10-18 |
 | [F059](F059-a-colonysim-can-be-saved-to-disk-and.md) | indicated | A ColonySim can be saved to disk and restored in another process bit-identically (0.7–1.3 MB, 10–40 ms) | 2026-10-19 |
 | [F066](F066-lazy-resting-ants-are-bit-identical-to.md) | indicated | Lazy resting ants are bit-identical to stepping and give ≈1.4× on Stroeymeyt-scale colonies, ≈1.15× on Mailleux nests at density 2.3 | 2026-10-19 |
+| [F096](F096-at-c2-base-settings-the-revised-water.md) | indicated | At C2 base settings, the revised water start (the warm-up shortcut) and the original start (full water, empty crops) give equivalent colony means in 14-20 h on all five rows of the Q03 recheck (22 colonies, paired); in 2-6 h the original start is still settling (bouts to nurses -32 %, nurse water +0.011), while the revised start's 2-6 h means lie within the margins of its 14-20 h means | 2026-10-25 |
 
 ## Superseded
 

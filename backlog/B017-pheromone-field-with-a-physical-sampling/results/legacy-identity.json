@@ -1,0 +1,55 @@
+{
+  "provenance": {
+    "simHash": "ecce22a65b2428dc",
+    "commit": "77fb34431025b74aeb1a6ade361023db443458a7",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [],
+    "date": "2026-10-29T20:05:14.722Z",
+    "item": "B017-pheromone-field-with-a-physical-sampling",
+    "depends": {
+      "backlog/B017-pheromone-field-with-a-physical-sampling/baseline": "7c9ecafca218dd29",
+      "backlog/B012-pheromone-field-grid-convergence/convergence.ts": "40eba4614d06d355",
+      "backlog/B017-pheromone-field-with-a-physical-sampling/field.ts": "65a05647d9be9434",
+      "backlog/B017-pheromone-field-with-a-physical-sampling/antPhysics.ts": "1681e7894ee02f4a",
+      "backlog/B017-pheromone-field-with-a-physical-sampling/world.ts": "e5b0fc5ca88ee3fa",
+      "backlog/B017-pheromone-field-with-a-physical-sampling/convergence.ts": "3c63e11c03da76dd",
+      "backlog/B017-pheromone-field-with-a-physical-sampling/footprint.test.ts": "14921a58f4f35f7a",
+      "backlog/B017-pheromone-field-with-a-physical-sampling/legacyIdentity.ts": "a39a5ade1cea8d9b",
+      "backlog/B017-pheromone-field-with-a-physical-sampling/makePatch.mjs": "8c444160094a2bb0"
+    }
+  },
+  "pass": true,
+  "cells": [
+    4,
+    1,
+    0.5,
+    0.25,
+    0.125
+  ],
+  "sampleComparisons": 10000,
+  "walkingComparisons": 40,
+  "hashes": [
+    {
+      "cell": 4,
+      "hash": "1d5b74744046468b49b469f7b39860c84e44154022c7cbd5fc83b2454cbbec61"
+    },
+    {
+      "cell": 1,
+      "hash": "f3cd62cb516463c78646b3039ff793f9c13ede348b9ebba1b395a45451970037"
+    },
+    {
+      "cell": 0.5,
+      "hash": "9201d59a52c1422cde3507693f8b42849dbd5dd03c1e42babfef50e640fc0619"
+    },
+    {
+      "cell": 0.25,
+      "hash": "e247ade6215f4f1f177a1ccb5b6b5353ea7aed091fb9f2374c8cf37b02a646ac"
+    },
+    {
+      "cell": 0.125,
+      "hash": "c32be596475e7c63ccd9eefa92c81a907417153741b5aa8134ae3747c486293b"
+    }
+  ],
+  "scope": "Omitted and explicit-zero footprint versus original source: exact Float32 contents, currentScale, all cell values, samples, and body/mind/RNG after walks including a wall turn."
+}

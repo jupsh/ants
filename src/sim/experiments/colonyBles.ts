@@ -115,9 +115,11 @@ export interface ColonyOptions {
     | { kind: 'placebo'; sd: number; tauC: number; meanOne?: boolean; shift?: number }
     | { kind: 'const'; factor: number }
     | { kind: 'coupledX'; kappa: number; tauC: number }
-    | { kind: 'local'; kappa: number; r: number; tauC: number }
-    | { kind: 'driverShared'; amp: number; tau: number }
-    | { kind: 'driverLocal'; amp: number; sigma: number; mu?: number; dur?: number };
+    | { kind: 'local'; kappa: number; r: number; tauC: number; mapM?: boolean }
+    | { kind: 'driverShared'; amp: number; tau: number; mapM?: boolean }
+    | { kind: 'driverLocal'; amp: number; sigma: number; mu?: number; dur?: number; mapM?: boolean }
+    | { kind: 'driverWave'; amp: number; sigma: number; v: number; origin: 'uniform' | 'perimeter'; mu?: number; dur?: number; mapM?: boolean }
+    | { kind: 'driverSpatial'; amp: number; tau: number; lambda: number; mapM?: boolean };
   /*
    * Part C (D115 amendment 1, D117; diagnostics, never adoptable):
    * - `coupledX`: the global coupling with the focal ant excluded. Ant i's input m_i is the moving fraction of the other
@@ -128,6 +130,19 @@ export interface ColonyOptions {
    * - `driverLocal`: disturbance events (Poisson, mean active count `mu` (1), each `dur` s (60) at a uniform nest
    *   position); g_i = exp(A·S_i − c(x_i)), S_i = Σ exp(−d² / 2σ²), c(x) = μ·(E_Y[exp(A·w(|x − Y|))] − 1) over Y uniform
    *   in the nest (tabulated on a 1-mm grid), so E[g | x] = 1 under the prescribed process.
+   * Part D Stages 1–3 (D126 amendment 1, D158, D159; diagnostics, never adoptable):
+   * - `mapM`, the common mapping M (Part C kinds): g clamped to [0.25, 4], walk-on × g and stop rate (`activeToRest`,
+   *   nurse and forager values) × 1 / g. `local` with `mapM` is the `relay` member. Absent: walk-on only, as Part C.
+   * - `driverWave`: travelling fronts. Events arrive as `driverLocal`'s (Poisson, rate μ / dur, own stream); an event's
+   *   front leaves its origin with speed `v` (mm/s), and an ant at distance d is exposed during [d / v, d / v + dur)
+   *   after the arrival with weight exp(−d² / 2σ²) (σ = ∞: 1). g_i = exp(A·S_i − c(x_i)), c as `driverLocal`'s with
+   *   the origins' law: uniform in the nest (`uniform`, `driverLocalTable`; v = ∞ is `driverLocal`) or uniform on the
+   *   nest's perimeter (`perimeter`, `driverPerimeterTable`). The delay only shifts exposures, so E[g | x] = 1.
+   * - `driverSpatial` (Es): `driverShared`'s z (same stream), with a response that varies in space:
+   *   g_i = exp(A·β(x_i)·z − (A·β(x_i))² / 2), β(x) = exp(−d_e(x) / λ) / mean over the nest floor of exp(−d_e / λ),
+   *   d_e the distance from the nest entrance. Mean 1 at a fixed position under the stationary signal, before clipping;
+   *   λ = ∞ is `driverShared`.
+   * With `oracleTrace`, `oracleG` sums g before and after clipping and 1 / g at the trace's samples (P21).
    */
   /**
    * Realised-signal recorder for the oracle (D108 amendments 1–2; observation only): every `every` s in [`from`, `to`)
@@ -292,6 +307,10 @@ export class ColonySim {
   private readonly oracleEvents: { x: number; y: number; left: number }[] = [];
   private oracleCTable: number[] | null = null;
   private oracleEventsInit = false;
+  /** `driverSpatial`: 1 / the nest-floor mean of exp(−d_e / λ) (set on first use). */
+  private oracleBetaNorm = NaN;
+  /** Part C / D kinds with `oracleTrace`: sums over in-nest ants at the trace's samples (see `ColonyOptions.oracle`). */
+  oracleG = { n: 0, sumPre: 0, sumPost: 0, sumInvPost: 0, clipped: 0 };
   /** With `oracleTrace`: log g samples, one series per signal (see `ColonyOptions.oracleTrace`). */
   oracleTrace: number[][] = [];
   private oracleNextSample = NaN;
@@ -467,6 +486,8 @@ export class ColonySim {
     const ants = this.w.ants;
     const inNest = ants.map((a, i) => a.body.alive && !outside[i]);
     const logG = new Array<number>(ants.length).fill(0);
+    // Log g before clipping; the drivers set logG and copy it here, clipped below under M.
+    const preG = new Array<number>(ants.length).fill(0);
     if (o.kind === 'coupledX' || o.kind === 'local') {
       let n = 0;
       let moving = 0;
@@ -514,30 +535,54 @@ export class ColonySim {
         }
         const ui = Number.isNaN(this.oracleUi[i] ?? NaN) ? slow : this.oracleUi[i];
         this.oracleUi[i] = ui + (cm[i] / cnt[i] - ui) * k;
-        logG[i] = slow > 0 ? Math.min(Math.log(4), Math.max(-Math.log(4), o.kappa * Math.log(this.oracleUi[i] / slow))) : 0;
+        preG[i] = slow > 0 ? o.kappa * Math.log(this.oracleUi[i] / slow) : 0;
+        logG[i] = slow > 0 ? Math.min(Math.log(4), Math.max(-Math.log(4), preG[i])) : 0;
       }
-    } else if (o.kind === 'driverShared') {
+    } else if (o.kind === 'driverShared' || o.kind === 'driverSpatial') {
       const rng = (this.oracleRng[0] ??= RNG.stream(this.o.seed, 0x0c0b));
       if (Number.isNaN(this.oracleZ)) this.oracleZ = rng.gauss();
       const k = Math.exp(-dt / o.tau);
       this.oracleZ = this.oracleZ * k + Math.sqrt(1 - k * k) * rng.gauss();
-      const l = o.amp * this.oracleZ - (o.amp * o.amp) / 2;
-      for (let i = 0; i < ants.length; i++) if (inNest[i]) logG[i] = l;
-    } else if (o.kind === 'driverLocal') {
+      if (o.kind === 'driverShared') {
+        const l = o.amp * this.oracleZ - (o.amp * o.amp) / 2;
+        for (let i = 0; i < ants.length; i++) if (inNest[i]) logG[i] = l;
+      } else {
+        const nest = this.w.apparatus.regions.find((r) => r.kind === 'nest')!;
+        const [ex, ey] = this.entrance;
+        if (Number.isNaN(this.oracleBetaNorm)) this.oracleBetaNorm = 1 / esFloorMean(nest, ex, ey, o.lambda);
+        for (let i = 0; i < ants.length; i++) {
+          if (!inNest[i]) continue;
+          const b = ants[i].body;
+          const a = o.amp * (Math.exp(-Math.hypot(b.x - ex, b.y - ey) / o.lambda) * this.oracleBetaNorm);
+          logG[i] = a * this.oracleZ - (a * a) / 2;
+        }
+      }
+    } else if (o.kind === 'driverLocal' || o.kind === 'driverWave') {
       const nest = this.w.apparatus.regions.find((r) => r.kind === 'nest')!;
       const mu = o.mu ?? 1;
       const dur = o.dur ?? 60;
-      const rng = (this.oracleRng[0] ??= RNG.stream(this.o.seed, 0x0c0c));
-      const place = (left: number) => this.oracleEvents.push({ x: rng.range(nest.x0, nest.x1), y: rng.range(nest.y0, nest.y1), left });
+      const perim = o.kind === 'driverWave' && o.origin === 'perimeter';
+      const v = o.kind === 'driverWave' ? o.v : Infinity;
+      // A front reaches the farthest nest point (the diagonal) this long after its arrival; v = ∞: none, as `driverLocal`.
+      const reach = Number.isFinite(v) ? Math.hypot(nest.x1 - nest.x0, nest.y1 - nest.y0) / v : 0;
+      const life = dur + reach;
+      const rng = (this.oracleRng[0] ??= RNG.stream(this.o.seed, perim ? 0x0c0d : 0x0c0c));
+      const W = nest.x1 - nest.x0;
+      const H = nest.y1 - nest.y0;
+      const place = (left: number) => {
+        if (!perim) return this.oracleEvents.push({ x: rng.range(nest.x0, nest.x1), y: rng.range(nest.y0, nest.y1), left });
+        const [x, y] = perimeterPoint(nest, rng.range(0, 2 * (W + H)));
+        return this.oracleEvents.push({ x, y, left });
+      };
       if (!this.oracleEventsInit) {
-        // Stationary start: a Poisson number of active events with uniform remaining lives.
+        // Stationary start: a Poisson number of events still under way, with uniform remaining lives.
         this.oracleEventsInit = true;
-        for (let e = rng.poisson(mu); e > 0; e--) place(rng.range(0, dur));
-        this.oracleCTable = driverLocalTable(nest, o.amp, o.sigma, mu);
+        for (let e = rng.poisson(reach === 0 ? mu : (mu * life) / dur); e > 0; e--) place(rng.range(0, life));
+        this.oracleCTable = perim ? driverPerimeterTable(nest, o.amp, o.sigma, mu) : driverLocalTable(nest, o.amp, o.sigma, mu);
       }
       for (const e of this.oracleEvents) e.left -= dt;
       for (let e = this.oracleEvents.length - 1; e >= 0; e--) if (this.oracleEvents[e].left <= 0) this.oracleEvents.splice(e, 1);
-      for (let e = rng.poisson((mu / dur) * dt); e > 0; e--) place(dur);
+      for (let e = rng.poisson((mu / dur) * dt); e > 0; e--) place(life);
       const c = this.oracleCTable!;
       const nx = Math.round(nest.x1 - nest.x0);
       const ny = Math.round(nest.y1 - nest.y0);
@@ -546,13 +591,31 @@ export class ColonySim {
         if (!inNest[i]) continue;
         const b = ants[i].body;
         let S = 0;
-        for (const e of this.oracleEvents) S += Math.exp(-((b.x - e.x) ** 2 + (b.y - e.y) ** 2) / s2);
+        if (reach === 0) for (const e of this.oracleEvents) S += Math.exp(-((b.x - e.x) ** 2 + (b.y - e.y) ** 2) / s2);
+        else for (const e of this.oracleEvents) S += waveWeight(b.x - e.x, b.y - e.y, life - e.left, v, dur, s2);
         const cx = Math.min(nx - 1, Math.max(0, Math.floor(b.x - nest.x0)));
         const cy = Math.min(ny - 1, Math.max(0, Math.floor(b.y - nest.y0)));
         logG[i] = o.amp * S - c[cy * nx + cx];
       }
     }
-    if (this.oracleSampleDue(dt)) for (let i = 0; i < ants.length; i++) (this.oracleTrace[i] ??= []).push(inNest[i] ? logG[i] : NaN);
+    const mapM = 'mapM' in o && o.mapM === true;
+    if (o.kind !== 'coupledX' && o.kind !== 'local')
+      for (let i = 0; i < ants.length; i++) {
+        preG[i] = logG[i];
+        if (mapM) logG[i] = Math.min(Math.log(4), Math.max(-Math.log(4), logG[i]));
+      }
+    if (this.oracleSampleDue(dt)) {
+      for (let i = 0; i < ants.length; i++) (this.oracleTrace[i] ??= []).push(inNest[i] ? logG[i] : NaN);
+      const s = this.oracleG;
+      for (let i = 0; i < ants.length; i++) {
+        if (!inNest[i]) continue;
+        s.n++;
+        s.sumPre += Math.exp(preG[i]);
+        s.sumPost += Math.exp(logG[i]);
+        s.sumInvPost += Math.exp(-logG[i]);
+        if (preG[i] !== logG[i]) s.clipped++;
+      }
+    }
     return (i) => Math.exp(logG[i]);
   }
 
@@ -739,6 +802,7 @@ export class ColonySim {
         if (a.body.alive) stepDrive(a.mind, P.nest.driveTau, dt, (this.driveRng[i] ??= RNG.stream(this.o.seed, 0xd21e, i)));
       });
     const orc = this.o.oracle ? this.oracleStep(dt, outside) : null;
+    const oracleMapM = !!this.o.oracle && 'mapM' in this.o.oracle && this.o.oracle.mapM === true;
     const stopMult = this.o.aggregate || this.o.site ? this.stopMultStep(t, outside) : null;
     const acts: (NestAction | ForagerAction | null)[] = w.ants.map((a, i) => {
       const p = per[i];
@@ -752,15 +816,26 @@ export class ColonySim {
       const f = P.nest.forager;
       const fA = f?.activeToRest;
       const fR = f?.restToActive;
+      // Under mapping M (Part D) the oracle's g also divides the stop rates, times the comparison-Q multiplier if any.
+      let stopN = 1;
+      let stopF = 1;
       if (orc) {
         const g = orc(i);
         P.nest.restToActive = base * g;
         if (f && fR !== undefined && !this.o.oracleNurseOnly) f.restToActive = fR * g;
+        if (oracleMapM) {
+          stopN = 1 / g;
+          if (!this.o.oracleNurseOnly) stopF = 1 / g;
+        }
       }
       if (stopMult) {
         const g = stopMult(i);
-        P.nest.activeToRest = baseA * g;
-        if (f && fA !== undefined) f.activeToRest = fA * g;
+        stopN *= g;
+        stopF *= g;
+      }
+      if (stopMult || oracleMapM) {
+        P.nest.activeToRest = baseA * stopN;
+        if (f && fA !== undefined) f.activeToRest = fA * stopF;
       }
       try {
         return lasiusNestWorker(p, interocept(a.body), a.mind, P.nest, a.body.rng);
@@ -920,4 +995,55 @@ export function driverLocalTable(nest: { x0: number; x1: number; y0: number; y1:
       out[cy * nx + cx] = mu * (sum / (nx * ny) - 1);
     }
   return out;
+}
+
+/** The point at arc length u along a rectangle's perimeter, anticlockwise from (x0, y0) (`driverWave` perimeter origins). */
+export function perimeterPoint(nest: { x0: number; x1: number; y0: number; y1: number }, u: number): [number, number] {
+  const W = nest.x1 - nest.x0;
+  const H = nest.y1 - nest.y0;
+  if (u < W) return [nest.x0 + u, nest.y0];
+  if (u < W + H) return [nest.x1, nest.y0 + (u - W)];
+  if (u < 2 * W + H) return [nest.x1 - (u - W - H), nest.y1];
+  return [nest.x0, nest.y1 - (u - 2 * W - H)];
+}
+
+/**
+ * `driverWave`'s exposure to one event: weight exp(−d² / s2) while the front, arrived `since` s ago at speed `v`, covers
+ * the ant (d / v ≤ since < d / v + dur), else 0. (dx, dy): the ant's offset from the event's origin.
+ */
+export function waveWeight(dx: number, dy: number, since: number, v: number, dur: number, s2: number): number {
+  const d2 = dx * dx + dy * dy;
+  const delay = Math.sqrt(d2) / v;
+  return since >= delay && since < delay + dur ? Math.exp(-d2 / s2) : 0;
+}
+
+/**
+ * c(x) for `driverWave` with perimeter origins: μ·(E_Y[exp(A·w(|x − Y|))] − 1), Y uniform on the nest's perimeter
+ * (midpoint rule, 0.1-mm steps), at the same 1-mm cell points as `driverLocalTable`.
+ */
+export function driverPerimeterTable(nest: { x0: number; x1: number; y0: number; y1: number }, amp: number, sigma: number, mu: number): number[] {
+  const nx = Math.round(nest.x1 - nest.x0);
+  const ny = Math.round(nest.y1 - nest.y0);
+  const s2 = 2 * sigma * sigma;
+  const L = 2 * (nest.x1 - nest.x0 + nest.y1 - nest.y0);
+  const m = Math.round(L / 0.1);
+  const pts = Array.from({ length: m }, (_, k) => perimeterPoint({ x0: 0, x1: nest.x1 - nest.x0, y0: 0, y1: nest.y1 - nest.y0 }, ((k + 0.5) * L) / m));
+  const out = new Array<number>(nx * ny);
+  for (let cy = 0; cy < ny; cy++)
+    for (let cx = 0; cx < nx; cx++) {
+      let sum = 0;
+      for (const [px, py] of pts) sum += Math.exp(amp * Math.exp(-((cx - px) ** 2 + (cy - py) ** 2) / s2));
+      out[cy * nx + cx] = mu * (sum / m - 1);
+    }
+  return out;
+}
+
+/** Es's normaliser (D158, D159): the mean of exp(−d_e / λ) over the nest floor, d_e the distance from (ex, ey) (0.1-mm cell centres). */
+export function esFloorMean(nest: { x0: number; x1: number; y0: number; y1: number }, ex: number, ey: number, lambda: number): number {
+  const nx = Math.round((nest.x1 - nest.x0) / 0.1);
+  const ny = Math.round((nest.y1 - nest.y0) / 0.1);
+  let sum = 0;
+  for (let j = 0; j < ny; j++)
+    for (let i = 0; i < nx; i++) sum += Math.exp(-Math.hypot(nest.x0 + (i + 0.5) * 0.1 - ex, nest.y0 + (j + 0.5) * 0.1 - ey) / lambda);
+  return sum / (nx * ny);
 }

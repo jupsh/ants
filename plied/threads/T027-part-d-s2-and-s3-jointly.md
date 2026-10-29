@@ -11,3 +11,8 @@ Draft label: T3.3.4 (docs/threads-draft.md revision 2).
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
 - 2026-10-25 00:32 UTC lead (session 7c2d50fd): D144 (T049 scan review) cites this record's links; reviewed, nothing here changes (the cited promises are covered or discharged as D144 lists)
 - 2026-10-25 04:14 UTC lead (session 0bcdd30b): reviewed D158: this group's Stages 1-3 child (T033) now has a proposed redesign under D126 amendment 1; nothing else in the group changes.
+- 2026-10-25 18:24 UTC lead (session fe835760): reviewed D164: it cites D126 only through P28's wording (unattainable rows before any Part D model run) for the Stages 1-3 smoke; T027 is closed and D164 does not reopen it.
+- 2026-10-25 18:24 UTC lead (session fe835760): correction to the previous note: T027 is a group node, not closed. D164 changes nothing under it beyond P28's open question (Q18), which sits on T033.
+- 2026-10-26 01:27 UTC lead (session 0cf57b71): reviewed D166: it cites D126 for the attainability formula only; T027 is the group node, no change beyond T033.
+- 2026-10-29 01:26 UTC lead (session 20261029): reviewed D174/D175: they cite D126 for the capability rule, which T033 carries (Part A approved as amended); this group node is unchanged.
+- 2026-10-29 05:27 UTC lead (session 20261029): reviewed D176: it cites D126 for R's ratio-of-means and denominator rules, now implemented in scripts/capability.ts under T033. This group node is unchanged.

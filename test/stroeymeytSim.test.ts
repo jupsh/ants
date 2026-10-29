@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { ColonySim } from '../src/sim/experiments/colonyBles';
-import { simulateStroeymeyt, STROEYMEYT_SOURCES } from '../src/sim/experiments/colonyStroeymeyt';
+import { newColonySim } from '../src/sim/experiments/colonyLazy';
+import { simulateStroeymeyt, STROEYMEYT_SOURCES, STROEYMEYT_WATER_INIT, stroeymeytColonyOptions } from '../src/sim/experiments/colonyStroeymeyt';
 import { s2018Base } from '../src/sim/experiments/stroeymeytTargets';
 import { LASIUS_NEST, LASIUS_NEST_B, LASIUS_PARAMS } from '../src/sim/species/lasiusM1';
 import { stroeymeytApparatus } from '../src/sim/world/apparatus';
@@ -52,5 +53,28 @@ describe('Stroeymeyt set-up: water (STATUS 2026-10-15)', () => {
     expect(r.bouts.some((b) => nurse(b.receiver) && b.ul > 0)).toBe(true);
     // Without water a nurse loses ≈ 0.02 of its maximum in 40 min; at least one ends above where it started.
     expect(w.ants.some((a, i) => nurse(i) && a.body.water / a.body.waterMax > start[i] + 0.01)).toBe(true);
+  });
+});
+
+describe('Stroeymeyt set-up: original water start (Q03 recheck, D161)', () => {
+  const o = { seed: 5, phase: 'light' as const, warmupS: 60, obsS: 300, exploreGiveUp: 30 };
+  const thirst = 0.9;
+  const Pw = { ...P, nest: { ...P.nest, thirstFrac: thirst } };
+
+  it('is off by default: the production start, and the same rows as without the option', () => {
+    expect(stroeymeytColonyOptions(Pw, col, o).waterInit).toEqual(STROEYMEYT_WATER_INIT(thirst));
+    expect(simulateStroeymeyt(Pw, col, { ...o, waterStart: undefined }).rows).toEqual(simulateStroeymeyt(Pw, col, o).rows);
+  });
+
+  it('starts every ant at body water in [thirst, 1] with an empty crop', () => {
+    const revised = newColonySim(Pw, stroeymeytColonyOptions(Pw, col, o));
+    const original = newColonySim(Pw, stroeymeytColonyOptions(Pw, col, { ...o, waterStart: 'original' }));
+    const workers = original.w.ants.slice(0, col.nurses + col.foragers);
+    const frac = workers.map((a) => a.body.water / a.body.waterMax);
+    expect(frac.every((f) => f >= thirst && f <= 1)).toBe(true);
+    expect(workers.every((a) => a.body.cropUl === 0)).toBe(true);
+    // Foragers are not all full, as they are at the production start, and some production foragers carry a crop.
+    expect(frac.slice(col.nurses).some((f) => f < 1)).toBe(true);
+    expect(revised.w.ants.slice(col.nurses, col.nurses + col.foragers).some((a) => a.body.cropUl > 0)).toBe(true);
   });
 });

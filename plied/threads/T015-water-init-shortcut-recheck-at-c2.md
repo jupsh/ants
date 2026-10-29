@@ -2,10 +2,15 @@
 id: T015
 title: Water-init shortcut recheck at C2 settings
 parent: T006
-status: open
-next: 1
+status: closed
 actor: lead
-links: [P02, D159, D160, D161]
+outcome:
+  quote: >-
+    all five rows equivalent: the starts are equivalent in these five colony-averaged measurements
+    in 14-20 h at C2 base settings
+  ref: D163
+carries: [F096]
+links: [P02, D159, D160, D161, D162, D163]
 ---
 Draft label: T3.1i (docs/threads-draft.md revision 2). Bears on C1, C2 and every Stroeymeyt simulated set in synchrony Parts B-D, including the base the S2 audit compares against.
 
@@ -20,3 +25,6 @@ Draft label: T3.1i (docs/threads-draft.md revision 2). Bears on C1, C2 and every
 - 2026-10-25 04:19 UTC lead (session 0bcdd30b): set status=open; cleared waiting_on; set actor=lead; set next=1; added D159 to links — Q03 answered (D159): design and freeze the recheck at C2 settings, then run it, before Stage 2a
 - 2026-10-25 04:22 UTC lead (session 0bcdd30b): set status=waiting; set waiting_on=["Q17"]; cleared next; added D160 to links — recheck design proposed (D160); waits on the user's approval (Q17)
 - 2026-10-25 16:45 UTC lead (session 421f3ea4): set status=open; cleared waiting_on; set actor=lead; set next=1; added D161 to links — Q17 answered (D161): freeze the seed mapping, runner and reader, then run the recheck
+- 2026-10-25 16:54 UTC lead (session 421f3ea4): added D162 to links — recheck frozen (D162): switch, runner, reader, seed mapping
+- 2026-10-25 16:55 UTC lead (session 421f3ea4): run q03-recheck-20261025-20261025T165512Z started after the gate passed (D162 freeze; 44 runs, 15 jobs, local); the reader runs once all 44 outputs exist
+- 2026-10-25 18:11 UTC lead (session fe835760): set status=closed; set outcome.quote=all five rows equivalent: the starts are equivalent in these five colony-aver…; set outcome.ref=D163; set carries=["F096"]; cleared next; added D163 to links — Q03 recheck read (D163): pass on all five rows; F096 carries what it does not establish (warm-up adequacy, every colony, new mechanisms)
