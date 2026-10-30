@@ -9,8 +9,9 @@ wording: >-
   mapping and observation pipeline as the transmission family.
 summary: The V3b alternative as a model member, not the synthetic generator.
 made: D157
-state: open
+state: fulfilled
 nodes: [T033]
+resolved_by: D200
 links: [D158]
 reviews:
   - action: run:q03-recheck-20261025
@@ -88,6 +89,34 @@ reviews:
     because: Es as frozen; its clipping disclosed (D184) and its 2b multipliers reported.
     by: lead (session 20261029)
     at: "2026-10-29 22:36 UTC"
+  - action: run:partdcap-nulls
+    disposition: not-applicable
+    because: no member is run or read in the nulls step; Es was specified and run earlier (D158, D194)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:36 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+      - record: D194
+        rev: 3eee0e9774405cf7f7c7bc732310651e00a3a67b628bac2553baaf055388769d
+  - action: run:partdcap-same
+    disposition: satisfied
+    because: >-
+      Es, the shared-signal member with a spatially varying response, is among the 9 calibrated
+      members checked under the same pipeline (D176's member list)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:47 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-cross
+    disposition: satisfied
+    because: Es is one of the 7 D members in every T x Es pair, through the same pipeline (D176)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:56 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
 ---
 
 ## History
@@ -119,3 +148,7 @@ reviews:
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: cites D158 for the rows; Es's map unchanged; unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Es as frozen; its clipping disclosed (D184) and its 2b multipliers reported.
 - 2026-10-30 05:35 UTC lead (session 9d2b15e6): reviewed D194: Es (the bounded shared-signal member with a spatially varying response) was assessed under mapping M and the same observer as T; it does not reproduce (5 of 20 equivalent; S3 unresolved; 94 % clipped). P42's build requirement is met; its member is carried into Stage 3b. Stays open until the capability reading.
+- 2026-10-30 17:36 UTC lead (session 9d2b15e6): review for run:partdcap-nulls: not-applicable — no member is run or read in the nulls step; Es was specified and run earlier (D158, D194)
+- 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: satisfied — Es, the shared-signal member with a spatially varying response, is among the 9 calibrated members checked under the same pipeline (D176's member list)
+- 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: satisfied — Es is one of the 7 D members in every T x Es pair, through the same pipeline (D176)
+- 2026-10-30 17:58 UTC lead (session 9d2b15e6): set state=fulfilled; set resolved_by=D200 — Es, the bounded member with one shared signal and a spatially varying response, was specified before running (D158, D159), run under mapping M and the same observer (D194), and tested in the capability comparison (D200)

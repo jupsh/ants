@@ -8,7 +8,29 @@ actor: lead
 approval:
   state: approved
   by: D159
-links: [D126, D134, P21, D156, D157, D158, D159, D173, D174, D175, D176, D177, D178, D179, D194]
+links:
+  - D126
+  - D134
+  - P21
+  - D156
+  - D157
+  - D158
+  - D159
+  - D173
+  - D174
+  - D175
+  - D176
+  - D177
+  - D178
+  - D179
+  - D194
+  - D196
+  - D197
+  - D198
+  - D200
+  - D201
+  - D202
+  - D203
 scanned:
   - record: D167
     rev: 7412f85134a17dfab22d4722b34b2d2643d578ce82669108fbceae843baf0009
@@ -73,6 +95,29 @@ scanned:
       read in full (lead wrote it): 'c frozen on them before any member comparison' restates P59
       (made D175); 'Stage 3c only if capability passes' restates D158; D190's B017 order is P75. No
       new obligation.
+  - record: D196
+    rev: 5e1c072601be7834acb3bfc4a2be93977d1dbcef5bcaeb2f4dfcf9eaf0f4163e
+    at: "2026-10-30 17:42 UTC"
+    by: lead (session 9d2b15e6)
+    because: >-
+      read in full (lead wrote it): 'before any member's capability output is read' and 'before any
+      cross-member value exists' restate P59 and P63 (made D175, D176); no new obligation
+  - record: D196
+    rev: e67ec9a3bd52e5eeb41bfcccda9d7a2a85443a1237617457d9c19481031db034
+    at: "2026-10-30 17:50 UTC"
+    by: lead (session 9d2b15e6)
+    because: >-
+      re-read after its dated correction (D197's spread qualification): 'before any member's
+      capability output is read' and 'before any cross-member value exists' restate P59 and P63; the
+      correction adds no obligation
+  - record: D197
+    rev: b80fed2f6a3a83d6d30dafdd1f6007b7304b1610817dc6abe029073ca9bbafe1
+    at: "2026-10-30 17:50 UTC"
+    by: lead (session 9d2b15e6)
+    because: >-
+      read in full: the user's 'stop before computing any cross-member value' restates P59 (made
+      D175 item 6); its other items fix c and α (D196) and ask for reporting done in D198. No new
+      obligation.
 ---
 Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment 1), not approved (D128); held until the S2 audit shows what spatial pattern still needs explaining (D134).
 
@@ -124,3 +169,11 @@ Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment
 - 2026-10-30 05:34 UTC lead (session 9d2b15e6): added D194 to links — D194: Stage 2b read (Stage 3a): no member reproduces jointly (F103); every arm short at 20-min D_w (F104). Question 1 answered; T033 stays open for Stage 3b (capability) and, only if it passes, 3c.
 - 2026-10-30 05:35 UTC lead (session 9d2b15e6): scanned D194 (rev 3eee0e977440): no commitment to record — read in full (lead wrote it): 'c frozen on them before any member comparison' restates P59 (made D175); 'Stage 3c only if capability passes' restates D158; D190's B017 order is P75. No new obligation.
 - 2026-10-30 17:29 UTC lead (session 9d2b15e6): capfiles (partd2-capfiles-20261030T053011Z) exited 0 after 7 h 06 min (≈ 12:36 UTC); exit status only, outputs sealed (P63). Next: partDCap.ts nulls, P61's plausibility check and P62's false-positive rate, then c frozen (P59) in a freeze entry, gated first.
+- 2026-10-30 17:41 UTC lead (session 9d2b15e6): added D196 to links — D196: c frozen on the nulls (9.282; fallback α 0.025/3, FP 4.4 %); null plausibility shown; same-member check next, held for the user given the S3₂ location point
+- 2026-10-30 17:42 UTC lead (session 9d2b15e6): scanned D196 (rev 5e1c072601be): no commitment to record — read in full (lead wrote it): 'before any member's capability output is read' and 'before any cross-member value exists' restate P59 and P63 (made D175, D176); no new obligation
+- 2026-10-30 17:48 UTC lead (session 9d2b15e6): added D197 to links — D197: user says proceed with the gated same-member check under D196, c and α fixed; run partdcap-same-20261030T174837Z started
+- 2026-10-30 17:49 UTC lead (session 9d2b15e6): added D198 to links — D198: same-member check passes, 10/135 (f 7.4 %; F105); cross held for the user
+- 2026-10-30 17:50 UTC lead (session 9d2b15e6): scanned D196 (rev e67ec9a3bd52): no commitment to record — re-read after its dated correction (D197's spread qualification): 'before any member's capability output is read' and 'before any cross-member value exists' restate P59 and P63; the correction adds no obligation
+- 2026-10-30 17:50 UTC lead (session 9d2b15e6): scanned D197 (rev b80fed2f6a3a): no commitment to record — read in full: the user's 'stop before computing any cross-member value' restates P59 (made D175 item 6); its other items fix c and α (D196) and ask for reporting done in D198. No new obligation.
+- 2026-10-30 17:58 UTC lead (session 9d2b15e6): added D200 to links — D200: capability passes (14/14 pairs, 36/36; F106) with uneven false-positive rates; Stage 3c has no member to place against; the measurement list is the outcome
+- 2026-10-30 18:10 UTC lead (session 9d2b15e6): added D201, D202, D203 to links — D201 user: descriptive comparison then measurement list; D202 designed; D203 read (F107). Next: the measurement list in two parts

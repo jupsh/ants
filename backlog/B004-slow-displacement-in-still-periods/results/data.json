@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "simHash": "ecce22a65b2428dc",
+  "simHash": "eb48ce968127e6a8",
   "commit": "77fb34431025b74aeb1a6ade361023db443458a7",
   "dirty": true,
   "node": "v22.22.1",
@@ -8,6 +8,15 @@
    "data"
   ],
   "date": "2026-10-29T20:39:26.901Z",
+  "restamped": [
+   {
+    "from": "ecce22a65b2428dc",
+    "to": "eb48ce968127e6a8",
+    "date": "2026-10-30",
+    "by": "lead-claude",
+    "reason": "D195: B017 patch applied (D190), samplingSigmaMm default 0 = legacy point sampler, deposit spacing unchanged when off; with it off, outputs bit-identical to the unpatched tree (D188: B017 legacyIdentity, 10000 samples and 40 walking-state comparisons); nothing enables the footprint"
+   }
+  ],
   "item": "B004-slow-displacement-in-still-periods",
   "depends": {
    "data/fits/s2018-tracker.json": "37387f23bedea16a",

@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "simHash": "ecce22a65b2428dc",
+    "simHash": "eb48ce968127e6a8",
     "commit": "ecbb918ce309d3ff3265769a064104776c0dd6b4",
     "dirty": true,
     "node": "v22.22.1",
@@ -73,6 +73,13 @@
         "date": "2026-10-26",
         "by": "lead-claude",
         "reason": "D171 (P58): the producer imports none of the files Stage 1 changed (colonyBles.ts, colonyStroeymeyt.ts, s2018Lib.ts; import graph checked), so its output is unchanged"
+      },
+      {
+        "from": "ecce22a65b2428dc",
+        "to": "eb48ce968127e6a8",
+        "date": "2026-10-30",
+        "by": "lead-claude",
+        "reason": "D195: B017 patch applied (D190), samplingSigmaMm default 0 = legacy point sampler, deposit spacing unchanged when off; with it off, outputs bit-identical to the unpatched tree (D188: B017 legacyIdentity, 10000 samples and 40 walking-state comparisons); nothing enables the footprint"
       }
     ]
   },

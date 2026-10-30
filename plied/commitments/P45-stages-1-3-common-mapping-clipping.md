@@ -60,3 +60,4 @@ reviews:
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the reader carries mapping, clipping, phase, duration and Q03 disclosures; unaffected
 - 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: its disclosures carry mapping M, clipping (multipliers before/after, clipped share), light phase, the 2 x 4 h against 8-12 h duration and Q03's member gap; none waived. Applies again to the capability reading and any commit or publication.
+- 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: it cites D158 for Stage 3c; the carried disclosures (mapping, clipping, phase, duration, Q03) apply to the reading as a whole and are in D194; D200 adds none and waives none.

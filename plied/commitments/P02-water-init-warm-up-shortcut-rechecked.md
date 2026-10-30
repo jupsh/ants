@@ -99,6 +99,40 @@ reviews:
       (D185).
     by: lead (session 20261029)
     at: "2026-10-29 22:36 UTC"
+  - action: run:partdcap-nulls
+    disposition: not-applicable
+    because: >-
+      nulls reads the existing base-pool capability files (D176); no simulation, no walk-on or water
+      parameter changed
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:36 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-same
+    disposition: not-applicable
+    because: same reads stored capability files (D176); no simulation, no walk-on or water parameter changed
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:47 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-cross
+    disposition: not-applicable
+    because: cross reads stored capability files (D176); no simulation, no walk-on or water parameter changed
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:56 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partddesc
+    disposition: not-applicable
+    because: reads stored outputs only (D202); no simulation, no walk-on or water parameter changed
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 18:08 UTC"
+    inputs:
+      - record: D202
+        rev: 97916663a5b52f993397cc2e3ac2c9edb295a2193d1d44d74c54c1220764a0b3
 ---
 Draft label: P2 (docs/threads-draft.md revision 2).
 
@@ -137,3 +171,7 @@ Draft label: P2 (docs/threads-draft.md revision 2).
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — The reading carries D163's C2-base scope and the members' unrechecked warm-up as a disclosure (D185).
 - 2026-10-30 04:45 UTC lead (session 9aa22476): reviewed D191: it cites D094 only for the step-5 design. P02 covers Stroeymeyt colony runs, not step 5 (its summary), and the T057 judge changes only E2 layer forager/phys parameters, not walk-on rates or water parameters of those runs; unaffected
 - 2026-10-30 05:35 UTC lead (session 9d2b15e6): reviewed D194: it cites D163 only to disclose that the Q03 recheck covered C2 base, not the members; no walk-on or water parameter changed, so the recheck condition is not triggered. Stays open.
+- 2026-10-30 17:36 UTC lead (session 9d2b15e6): review for run:partdcap-nulls: not-applicable — nulls reads the existing base-pool capability files (D176); no simulation, no walk-on or water parameter changed
+- 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: not-applicable — same reads stored capability files (D176); no simulation, no walk-on or water parameter changed
+- 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: not-applicable — cross reads stored capability files (D176); no simulation, no walk-on or water parameter changed
+- 2026-10-30 18:08 UTC lead (session 9d2b15e6): review for run:partddesc: not-applicable — reads stored outputs only (D202); no simulation, no walk-on or water parameter changed

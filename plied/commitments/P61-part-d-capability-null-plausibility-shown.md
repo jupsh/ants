@@ -5,8 +5,9 @@ wording: >-
   Before c is frozen, the null's joint (R, S3₂, R_J) distribution is shown against the base arm's
   and Part C's per-colony values (R, S3₂) as a plausibility check, reported in the freeze entry.
 made: D175
-state: open
+state: fulfilled
 nodes: [T033]
+resolved_by: D196
 reviews:
   - action: rent:partd2b-20261029
     disposition: not-applicable
@@ -42,6 +43,18 @@ reviews:
     because: No capability statistic is involved.
     by: lead (session 20261029)
     at: "2026-10-29 22:36 UTC"
+  - action: run:partdcap-nulls
+    disposition: satisfied
+    because: >-
+      nulls writes the plausibility tables (null joint (R, S3₂, R_J) against the pool's and Part C
+      base's per-colony values); the lead will report them in the freeze entry before freezing c
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:36 UTC"
+    inputs:
+      - record: D175
+        rev: a97c730ed5c53346f2e9dbc37b1db8914870619664c53a4423689b5547f1e3ba
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
 ---
 
 ## History
@@ -56,3 +69,5 @@ reviews:
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — The null plausibility tables are written by partDCap.ts nulls into the freeze entry before c is frozen.
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: not-applicable — No capability statistic is involved.
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: names P61 as a step of Stage 3b; the null plausibility check is not yet done (capfiles still running). Open.
+- 2026-10-30 17:36 UTC lead (session 9d2b15e6): review for run:partdcap-nulls: satisfied — nulls writes the plausibility tables (null joint (R, S3₂, R_J) against the pool's and Part C base's per-colony values); the lead will report them in the freeze entry before freezing c
+- 2026-10-30 17:41 UTC lead (session 9d2b15e6): set state=fulfilled; set resolved_by=D196 — D196 shows the null's joint (R, S3₂, R_J) against the pool's and Part C base's per-colony values before c is frozen, in the freeze entry

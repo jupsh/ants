@@ -11,8 +11,9 @@ wording: >-
   concrete additional measurements proposed.
 summary: Gate on any mechanism claim.
 made: D157
-state: open
+state: fulfilled
 nodes: [T033]
+resolved_by: D200
 links: [D158]
 reviews:
   - action: run:q03-recheck-20261025
@@ -86,6 +87,42 @@ reviews:
     because: The 2b reading draws no transmission-versus-driver conclusion; that waits on the capability test.
     by: lead (session 20261029)
     at: "2026-10-29 22:36 UTC"
+  - action: run:partdcap-nulls
+    disposition: satisfied
+    because: >-
+      the nulls step is part of testing the bounded diagnostic D175 approved, before any
+      transmission-versus-driver claim; no conclusion is drawn
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:36 UTC"
+    inputs:
+      - record: D175
+        rev: a97c730ed5c53346f2e9dbc37b1db8914870619664c53a4423689b5547f1e3ba
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-same
+    disposition: satisfied
+    because: >-
+      the same-member check tests the bounded diagnostic's false-positive behaviour on real member
+      datasets before any cross-member comparison; no transmission-versus-driver claim is made
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:47 UTC"
+    inputs:
+      - record: D175
+        rev: a97c730ed5c53346f2e9dbc37b1db8914870619664c53a4423689b5547f1e3ba
+      - record: D197
+        rev: b80fed2f6a3a83d6d30dafdd1f6007b7304b1610817dc6abe029073ca9bbafe1
+  - action: run:partdcap-cross
+    disposition: satisfied
+    because: >-
+      cross is the bounded diagnostic's capability test through the actual observer, Es included;
+      the user fixed the wording of a pass and that it identifies no mechanism (D199)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:56 UTC"
+    inputs:
+      - record: D175
+        rev: a97c730ed5c53346f2e9dbc37b1db8914870619664c53a4423689b5547f1e3ba
+      - record: D199
+        rev: 95299e0ccca953d02ca049a8f811ddafd02d2ba0e4c5c3051e66822322acb684
 ---
 
 ## History
@@ -117,3 +154,7 @@ reviews:
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the 2b reader draws no transmission-versus-driver conclusion; unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — The 2b reading draws no transmission-versus-driver conclusion; that waits on the capability test.
 - 2026-10-30 05:35 UTC lead (session 9d2b15e6): reviewed D194: D194 draws no transmission-versus-driver conclusion and says question 2 waits on the capability test; F103 cites P44 for the same reason. Not yet fulfilled: governs the Stage 3b reading.
+- 2026-10-30 17:36 UTC lead (session 9d2b15e6): review for run:partdcap-nulls: satisfied — the nulls step is part of testing the bounded diagnostic D175 approved, before any transmission-versus-driver claim; no conclusion is drawn
+- 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: satisfied — the same-member check tests the bounded diagnostic's false-positive behaviour on real member datasets before any cross-member comparison; no transmission-versus-driver claim is made
+- 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: satisfied — cross is the bounded diagnostic's capability test through the actual observer, Es included; the user fixed the wording of a pass and that it identifies no mechanism (D199)
+- 2026-10-30 17:58 UTC lead (session 9d2b15e6): set state=fulfilled; set resolved_by=D200 — The bounded diagnostic (R, S3₂, R_J) was specified (D175) and tested through the actual observer on the simulated members, Es included: it distinguishes every T x D pair (D200). No transmission-versus-driver conclusion is drawn; the outcome is the measurement list

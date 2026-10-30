@@ -11,8 +11,9 @@ wording: >-
   not evaluable; Es must not disappear from the claim by becoming ineligible.
 summary: Part of P29's rule, which keeps its own approval.
 made: D159
-state: open
+state: fulfilled
 nodes: [T033]
+resolved_by: D200
 reviews:
   - action: run:q03-recheck-20261025
     disposition: not-applicable
@@ -86,6 +87,46 @@ reviews:
     because: The 2b reading is not the capability test.
     by: lead (session 20261029)
     at: "2026-10-29 22:36 UTC"
+  - action: run:partdcap-nulls
+    disposition: satisfied
+    because: >-
+      c is chosen on 10,000 null pairs from the base pool (seed 0xca90), separate from the member
+      datasets used for the check; the procedure (D175, D176) is frozen and no assessment separation
+      has been inspected
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:36 UTC"
+    inputs:
+      - record: D175
+        rev: a97c730ed5c53346f2e9dbc37b1db8914870619664c53a4423689b5547f1e3ba
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-same
+    disposition: satisfied
+    because: >-
+      c and α were chosen on base nulls (D196), separate draws from the member datasets this check
+      uses; the procedure is frozen before any assessment separation is inspected; Es included
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:47 UTC"
+    inputs:
+      - record: D175
+        rev: a97c730ed5c53346f2e9dbc37b1db8914870619664c53a4423689b5547f1e3ba
+      - record: D196
+        rev: e67ec9a3bd52e5eeb41bfcccda9d7a2a85443a1237617457d9c19481031db034
+  - action: run:partdcap-cross
+    disposition: satisfied
+    because: >-
+      c and α chosen on base nulls (D196), separate from the member datasets; false-positive
+      behaviour reported per family before cross (D198, D199); power across every required T-D pair
+      is what cross reports
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:56 UTC"
+    inputs:
+      - record: D196
+        rev: e67ec9a3bd52e5eeb41bfcccda9d7a2a85443a1237617457d9c19481031db034
+      - record: D198
+        rev: 34a90e8a2dd31540939ace594de9afd8afbf9387b74fcb429f8c1b87a45188a7
+      - record: D199
+        rev: 95299e0ccca953d02ca049a8f811ddafd02d2ba0e4c5c3051e66822322acb684
 ---
 
 ## History
@@ -114,3 +155,7 @@ reviews:
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: cites D159 for the 2b rules only; the capability procedure is unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: not-applicable — The 2b reading is not the capability test.
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: D194 cites D159 for the Stage 2b rules; it computes no capability statistic and inspects no assessment separation, so P48's freeze-before-inspection still holds for Stage 3b. Unaffected.
+- 2026-10-30 17:36 UTC lead (session 9d2b15e6): review for run:partdcap-nulls: satisfied — c is chosen on 10,000 null pairs from the base pool (seed 0xca90), separate from the member datasets used for the check; the procedure (D175, D176) is frozen and no assessment separation has been inspected
+- 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: satisfied — c and α were chosen on base nulls (D196), separate draws from the member datasets this check uses; the procedure is frozen before any assessment separation is inspected; Es included
+- 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: satisfied — c and α chosen on base nulls (D196), separate from the member datasets; false-positive behaviour reported per family before cross (D198, D199); power across every required T-D pair is what cross reports
+- 2026-10-30 17:58 UTC lead (session 9d2b15e6): set state=fulfilled; set resolved_by=D200 — Independent simulated datasets at the intended size (6 per member, 2 x 22), threshold chosen on separate null draws and frozen first (D196), false-positive behaviour (D198) and power across every required T-D pair (D200) reported; Es included

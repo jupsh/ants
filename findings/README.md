@@ -8,8 +8,8 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 
 | status | meaning | n |
 |---|---|---|
-| established | a pre-registered reading, read mechanically against its rule | 32 |
-| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 50 |
+| established | a pre-registered reading, read mechanically against its rule | 34 |
+| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 51 |
 | literature | reported by a cleared source; not tested here | 10 |
 | hypothesis | our reasoning; untested | 3 |
 | closed | a tested line with no further arms (a negative result) | 6 |
@@ -75,6 +75,9 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F100](F100-at-its-calibrated-strength-a-3-part-d-s.md) | established | At its calibrated strength (A = 3), Part D's Es member is clipped in 94 % of trajectory samples (applied mean g 0.33, E[1/g] 3.8): in practice a two-level switch, not a mean-1 shared signal | 2026-10-29 |
 | [F103](F103-part-d-stage-2b-stage-3a-no-tested.md) | established | Part D Stage 2b (Stage 3a): no tested synchrony member reproduces the data's magnitude, timescales and spatial profile jointly on all 20 rows (family T 0 of 2, family D 0 of 7, Es included; controls Eu, El20 and C2 base also not); per F097 this joint failure is expected even of a perfect model, so the information is in the outside rows | 2026-10-30 |
 | [F104](F104-in-part-d-s-stage-2b-every-simulated-arm.md) | indicated | In Part D's Stage 2b, every simulated arm falls short of the data's 20-min dispersion ratio D_w (data all ants 6.28, nurses 5.12, foragers 3.12; arms 3.2-5.25 on all ants), outside on all ants for 8 of 11 non-base arms and on foragers for 9, while all are equivalent at 10 s: members calibrated on the 1-min cell under-produce slow synchrony | 2026-10-30 |
+| [F105](F105-part-d-capability-under-c-frozen-on-base.md) | established | Part D capability: under c frozen on base nulls (9.28), 10 of 135 same-member dataset pairs of the 9 calibrated synchrony members exceed c (f = 7.4 %, above the nominal 5 %; family T 6 of 30, family D 4 of 105), so the same-member check passes (fail at 14 or more) with a false-positive rate the capability claim must carry | 2026-10-30 |
+| [F106](F106-part-d-capability-the-r-s32-r-j.md) | established | Part D capability: the (R, S3₂, R_J) diagnostic meets its frozen separation criterion on these 22 colony set-ups, every one of the 14 calibrated transmission x driver member pairs distinguished in 36 of 36 comparisons, with uneven observed false-positive rates (7.4 % pooled, 20 % within T, 3.8 % within D); it separates simulated members' estimated means and identifies no mechanism | 2026-10-30 |
+| [F107](F107-beside-the-data-s-capability-coordinates.md) | indicated | Beside the data's capability coordinates (20 Stroeymeyt colonies, light), the transmission members' R_J difference is unresolved only because both corrected bands (C − Ê_J) are high, with raw near-band C 1.7-2.2 times the data's and R lower; the driver members other than Es have unresolved near-band differences but double the 20-40 mm band (R, R_J about twice the data's); Es's R and C-band differences are unresolved but its R_J is about twice the data's; every S3₂ difference is unresolved, and every member differs from the data on at least one coordinate or band mean | 2026-10-30 |
 
 ## Packing, walls and resting sites
 

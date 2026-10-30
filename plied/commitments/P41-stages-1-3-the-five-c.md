@@ -94,6 +94,54 @@ reviews:
       nothing selected from the rows.
     by: lead (session 20261029)
     at: "2026-10-29 22:36 UTC"
+  - action: run:partdcap-nulls
+    disposition: satisfied
+    because: >-
+      nulls reads no member file and no assessment row; c is set on base nulls, so no member is
+      selected by the rows (D176 order; D194 lists every member)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:36 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+      - record: D194
+        rev: 3eee0e9774405cf7f7c7bc732310651e00a3a67b628bac2553baaf055388769d
+  - action: run:partdcap-same
+    disposition: satisfied
+    because: >-
+      every calibrated member's six datasets are checked, none chosen or dropped; c and α were
+      frozen on nulls only (D196) and stay fixed (D197)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:47 UTC"
+    inputs:
+      - record: D196
+        rev: e67ec9a3bd52e5eeb41bfcccda9d7a2a85443a1237617457d9c19481031db034
+      - record: D197
+        rev: b80fed2f6a3a83d6d30dafdd1f6007b7304b1610817dc6abe029073ca9bbafe1
+  - action: run:partdcap-cross
+    disposition: satisfied
+    because: >-
+      every calibrated T x D pair is compared (14 pairs), none chosen or dropped; c and α stay as
+      frozen (D196, D199)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:56 UTC"
+    inputs:
+      - record: D196
+        rev: e67ec9a3bd52e5eeb41bfcccda9d7a2a85443a1237617457d9c19481031db034
+      - record: D199
+        rev: 95299e0ccca953d02ca049a8f811ddafd02d2ba0e4c5c3051e66822322acb684
+  - action: run:partddesc
+    disposition: satisfied
+    because: >-
+      every calibrated member shown with its outside rows; nothing is chosen, dropped or tuned; no
+      label or placement (D201, D202)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 18:08 UTC"
+    inputs:
+      - record: D201
+        rev: 3a4e777d8fdde50115ecfed88eb328a25146f3658e9c236e7cb5d0e1e5b5e84e
+      - record: D202
+        rev: 97916663a5b52f993397cc2e3ac2c9edb295a2193d1d44d74c54c1220764a0b3
 ---
 
 ## History
@@ -125,3 +173,8 @@ reviews:
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the 20 rows are used for assessment only; no member is selected or tuned from them; unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Roles and tolerances frozen (D158/D159); every calibrated member is assessed and reported; nothing selected from the rows.
 - 2026-10-30 05:37 UTC lead (session 9d2b15e6): reviewed D194: the five raw C bands and the five S2-J bands were assessed as frozen (D158); every calibrated member is reported and none chosen, dropped or tuned on the rows, as D194 states. Open: applies to the capability reading and anything after.
+- 2026-10-30 17:36 UTC lead (session 9d2b15e6): review for run:partdcap-nulls: satisfied — nulls reads no member file and no assessment row; c is set on base nulls, so no member is selected by the rows (D176 order; D194 lists every member)
+- 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: satisfied — every calibrated member's six datasets are checked, none chosen or dropped; c and α were frozen on nulls only (D196) and stay fixed (D197)
+- 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: satisfied — every calibrated T x D pair is compared (14 pairs), none chosen or dropped; c and α stay as frozen (D196, D199)
+- 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: every calibrated member entered the capability comparison and none was chosen on the assessment rows; the rows enter only through D158's Stage 3c restriction (no member without an outside row). Consistent with P41.
+- 2026-10-30 18:08 UTC lead (session 9d2b15e6): review for run:partddesc: satisfied — every calibrated member shown with its outside rows; nothing is chosen, dropped or tuned; no label or placement (D201, D202)

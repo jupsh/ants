@@ -7,14 +7,13 @@
 **lead**
 
 2. [T033](threads/T033-part-d-stages-1-3.md) Part D Stages 1-3
-3. [T046](threads/T046-pheromone-field-with-a-physical-sampling.md) Pheromone field with a physical sampling footprint
 
 **user**
 
 1. [T020](threads/T020-mailleux-1999-clearance-its-contact-definition.md) Mailleux 1999 clearance: its contact definition
 
 
-**Open, not scheduled:** T001, T010, T022, T023, T030, T034, T035, T037, T040, T041, T043, T047, T048, T052
+**Open, not scheduled:** T001, T010, T022, T023, T030, T034, T035, T037, T040, T041, T043, T046, T047, T048, T052
 
 
 ## Open questions
@@ -66,13 +65,13 @@ None.
 | [P39](commitments/P39-s2-audit-v2-v5-are-called.md) | Wording of V2 and V5 in every record and the reading. | D150 | fulfilled | T032 |
 | [P40](commitments/P40-s2-audit-gamma-calibration-hashes-frozen.md) | Governs the gamma calibration and its record. | D150 | fulfilled | T032 |
 | [P41](commitments/P41-stages-1-3-the-five-c.md) | Assessment rows of the revised design. | D157 | open | T033 |
-| [P42](commitments/P42-stages-1-3-a-shared-signal.md) | The V3b alternative as a model member, not the synthetic generator. | D157 | open | T033 |
+| [P42](commitments/P42-stages-1-3-a-shared-signal.md) | The V3b alternative as a model member, not the synthetic generator. | D157 | fulfilled | T033 |
 | [P43](commitments/P43-stages-1-3-reproduction-asked-first.md) | Order and scope of the reading. | D157 | open | T033 |
-| [P44](commitments/P44-stages-1-3-no-transmission-versus.md) | Gate on any mechanism claim. | D157 | open | T033 |
+| [P44](commitments/P44-stages-1-3-no-transmission-versus.md) | Gate on any mechanism claim. | D157 | fulfilled | T033 |
 | [P45](commitments/P45-stages-1-3-common-mapping-clipping.md) | Carried disclosures. | D157 | open | T033 |
 | [P46](commitments/P46-es-map-frozen-mean-1-only.md) | Es implementation and its reporting. | D159 | open | T033 |
 | [P47](commitments/P47-stages-1-3-rows-support-missing.md) | Before Stage 2b. | D159 | fulfilled | T033 |
-| [P48](commitments/P48-stages-1-3-capability-independent-datasets.md) | Part of P29's rule, which keeps its own approval. | D159 | open | T033 |
+| [P48](commitments/P48-stages-1-3-capability-independent-datasets.md) | Part of P29's rule, which keeps its own approval. | D159 | fulfilled | T033 |
 | [P49](commitments/P49-q03-recheck-starts-seeds-window-and.md) | The recheck that P02 asks for. | D159 | fulfilled | T015, T033 |
 | [P50](commitments/P50-stages-1-3-box-bench-settings.md) | With docs/BOX.md. | D159 | open | T033 |
 | [P51](commitments/P51-stages-1-3-reading-raw-and.md) | Reading wording. | D159 | open | T033 |
@@ -83,11 +82,11 @@ None.
 | [P56](commitments/P56-part-d-precision-forecast-before-any.md) | Part D: precision forecast before any further member simulation, smoke and timing benchmark included | D165 | fulfilled | T033 |
 | [P57](commitments/P57-part-d-precision-forecast-all-20.md) | Part D precision forecast: all 20 rows, sources and limits stated, unresolved where unsupported, never a filter; smoke statistics unused | D165 | fulfilled | T033 |
 | [P58](commitments/P58-before-the-stage-1-commit-scratch.md) | Before the Stage 1 commit: scratch tsc error resolved; each stale stamped result's provenance verified before re-stamping | D165 | fulfilled | T033 |
-| [P59](commitments/P59-part-d-capability-c-frozen-on.md) | Part D capability: c frozen on nulls first, then the same-member check; a failed check returns to the user before any cross-member value | D175 | open | T033 |
+| [P59](commitments/P59-part-d-capability-c-frozen-on.md) | Part D capability: c frozen on nulls first, then the same-member check; a failed check returns to the user before any cross-member value | D175 | fulfilled | T033 |
 | [P60](commitments/P60-part-d-capability-null-pool-size.md) | Before any cap run. | D175 | fulfilled | T033 |
-| [P61](commitments/P61-part-d-capability-null-plausibility-shown.md) | Part D capability: null plausibility shown before c is frozen, in the freeze entry | D175 | open | T033 |
-| [P62](commitments/P62-part-d-capability-fallback-false-positive.md) | Part D capability: fallback false-positive rate measured on the nulls; tightened before freezing if above 5 % | D175 | open | T033 |
-| [P63](commitments/P63-part-d-capability-member-cap-outputs.md) | Part D capability: member cap outputs sealed until c is frozen | D176 | open | T033 |
+| [P61](commitments/P61-part-d-capability-null-plausibility-shown.md) | Part D capability: null plausibility shown before c is frozen, in the freeze entry | D175 | fulfilled | T033 |
+| [P62](commitments/P62-part-d-capability-fallback-false-positive.md) | Part D capability: fallback false-positive rate measured on the nulls; tightened before freezing if above 5 % | D175 | fulfilled | T033 |
+| [P63](commitments/P63-part-d-capability-member-cap-outputs.md) | Part D capability: member cap outputs sealed until c is frozen | D176 | fulfilled | T033 |
 | [P64](commitments/P64-part-d-stage-2b-the-reader.md) | Part D Stage 2b: the reader applying Part B built before any 2b output is read | D178 | fulfilled | T033 |
 | [P65](commitments/P65-l0s1-judge-frozen-before-it-runs.md) | L0S1 judge frozen before it runs; no refit from it | D181 | fulfilled | T057 |
 | [P66](commitments/P66-rows-1-and-4-held-out.md) | Rows 1 and 4: held-out predictions, failures reported | D181 | open | T036 |
@@ -99,7 +98,7 @@ None.
 | [P72](commitments/P72-b007-source-x015-s-previously-reviewed.md) | B007 source: X015's previously reviewed Methods sections only | D181 | open | T010 |
 | [P73](commitments/P73-b016-reads-metadata-only.md) | B016 reads metadata only | D181 | open | T037 |
 | [P74](commitments/P74-b016-incidental-exposures-recorded.md) | B016 incidental exposures recorded | D181 | open | T037 |
-| [P75](commitments/P75-b017-patch-applied-only-after-partd2b.md) | B017 patch applied only after partd2b-read and capfiles finish | D190 | open | T046 |
+| [P75](commitments/P75-b017-patch-applied-only-after-partd2b.md) | B017 patch applied only after partd2b-read and capfiles finish | D190 | fulfilled | T046 |
 | [P76](commitments/P76-trail-sigma-sourced-and-grid-checked.md) | Trail sigma sourced and grid checked before any trail-following result | D190 | open | T046 |
 | [P77](commitments/P77-t057-judge-starts-only-after-partd2b.md) | T057 judge starts only after partd2b-read has finished; src/sim unchanged until both arms end | D191 | superseded → P79 | T057 |
 | [P78](commitments/P78-t057-if-trigger-c-fires-reopening.md) | T057: if trigger (c) fires, reopening is raised to the user as a question | D191 | not-triggered | T057 |
@@ -169,7 +168,7 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │   └── T043  E6 bout end vs observed contact                                        open, [B011]
 ├── T044  Infrastructure                                                             (group)
 │   ├── T045  Adopt B013's colony save / restore patch                               held, [B013]
-│   ├── T046  Pheromone field with a physical sampling footprint                     open, next 3, lead, [B017]
+│   ├── T046  Pheromone field with a physical sampling footprint                     open, [B017]
 │   ├── T047  B018 rate tables on the model                                          open, [B021]
 │   ├── T048  V8 pretenuring and bimodal run times                                   open, [B022]
 │   └── T049  Review the decisions that plied check flags as possibly unrecor…       closed, outcome D144

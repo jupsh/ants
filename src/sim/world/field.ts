@@ -1,3 +1,11 @@
+import { estimated } from '../core/param';
+
+/** Numerical demonstration only; choosing a biological footprint needs the user. */
+export const PROVISIONAL_TRAIL_SAMPLING_SIGMA = estimated(
+  0.5, 'mm',
+  'Provisional Gaussian antenna-sampling sigma for the B017 convergence check, chosen to resolve a fixed physical footprint on the tested grids. No biological measurement; not adopted and never enabled by default.',
+);
+
 /**
  * A pheromone field on the surface grid with exponential decay
  * C(t) = C0·exp(−(t − t0)/τ).
@@ -19,7 +27,11 @@ export class PheromoneField {
     readonly h: number,
     readonly cell: number,
     readonly tau: number,
+    /** Gaussian sampling sigma in mm; 0 preserves the legacy point sampler. */
+    readonly samplingSigmaMm = 0,
   ) {
+    if (!Number.isFinite(samplingSigmaMm) || samplingSigmaMm < 0)
+      throw new RangeError('samplingSigmaMm must be finite and non-negative');
     this.data = new Float32Array(w * h);
     this.invTau = 1 / tau;
   }
@@ -41,8 +53,9 @@ export class PheromoneField {
     this.base = this.now;
   }
 
-  /** Bilinear sample of current concentration at (x, y) in mm. */
+  /** Current signal at (x, y) in mm; the physical footprint is opt-in. */
   sample(x: number, y: number): number {
+    if (this.samplingSigmaMm > 0) return this.sampleFootprint(x, y);
     const gx = x / this.cell - 0.5;
     const gy = y / this.cell - 0.5;
     let ix = Math.floor(gx);
@@ -61,6 +74,39 @@ export class PheromoneField {
     const a = d[i] + (d[i + 1] - d[i]) * fx;
     const b = d[i + w] + (d[i + w + 1] - d[i + w]) * fx;
     return (a + (b - a) * fy) * this.scale;
+  }
+
+  /**
+   * Integrate deposited amount against a Gaussian footprint. Stored cell
+   * values times cell size are amounts, so this is independent of grid size
+   * in the refinement limit. The kernel is exp(-r²/(2σ²))/(sqrt(2π)σ):
+   * a straight infinite trail laid at 1 unit/mm tends to centreline signal 1.
+   * Thus the signal retains the legacy units/mm convention, rather than
+   * silently turning trailThreshold into an areal-density threshold.
+   *
+   * Truncate each axis at 4σ (omits <0.013% of the 2-D Gaussian integral).
+   * The domain is zero-padded, without renormalising at its edges. Neither
+   * boundary deposition nor the existing late-decay cutoff is changed.
+   */
+  private sampleFootprint(x: number, y: number): number {
+    const sigma = this.samplingSigmaMm;
+    const radius = 4 * sigma;
+    const c = this.cell;
+    const x0 = Math.max(0, Math.ceil((x - radius) / c - 0.5));
+    const x1 = Math.min(this.w - 1, Math.floor((x + radius) / c - 0.5));
+    const y0 = Math.max(0, Math.ceil((y - radius) / c - 0.5));
+    const y1 = Math.min(this.h - 1, Math.floor((y + radius) / c - 0.5));
+    const inv2s2 = 1 / (2 * sigma * sigma);
+    let sum = 0;
+    for (let j = y0; j <= y1; j++) {
+      const dy = (j + 0.5) * c - y;
+      const wy = Math.exp(-dy * dy * inv2s2);
+      for (let i = x0; i <= x1; i++) {
+        const dx = (i + 0.5) * c - x;
+        sum += this.data[j * this.w + i] * wy * Math.exp(-dx * dx * inv2s2);
+      }
+    }
+    return sum * this.scale * c / (Math.sqrt(2 * Math.PI) * sigma);
   }
 
   /** Add `amount` (units per mm of trail) at (x, y), split bilinearly. */

@@ -61,3 +61,4 @@ Draft label: P21 (docs/threads-draft.md revision 2).
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the Stage 2b reader reports the multiplier before and after clipping for every 2b arm; P21 stays open for that reading
 - 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged
 - 2026-10-30 05:37 UTC lead (session 9d2b15e6): reviewed D194: both multipliers reported, kept apart, for every 2b member (before clipping and applied, with the clipped share; Es 5.97 / 0.32 / 94.3 %). Governs commit and publish of the reading: met in D194. Applies again to the capability reading. Open.
+- 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: it cites D158 for Stage 3c's rule; the capability reading uses no multiplier, and both multipliers were reported for the 2b reading (D194). Applies to commit and publish; unaffected.

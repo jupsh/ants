@@ -79,6 +79,38 @@ reviews:
     because: Governs spatial coupling; the judge adds no spatial coupling (no oracle, no coupling arm)
     by: lead (session 9aa22476)
     at: "2026-10-30 04:50 UTC"
+  - action: run:partdcap-nulls
+    disposition: not-applicable
+    because: nulls adds no spatial coupling; it computes c from base-arm runs only (D176)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:36 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-same
+    disposition: not-applicable
+    because: the check adds no spatial coupling; it compares stored datasets of members already run (D176)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:47 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-cross
+    disposition: not-applicable
+    because: cross adds no spatial coupling; it compares stored datasets of members already run (D176)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:56 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partddesc
+    disposition: not-applicable
+    because: no spatial coupling added; a descriptive over stored runs (D202)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 18:08 UTC"
+    inputs:
+      - record: D202
+        rev: 97916663a5b52f993397cc2e3ac2c9edb295a2193d1d44d74c54c1220764a0b3
 ---
 
 ## History
@@ -113,3 +145,8 @@ reviews:
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — P52's disposition is carried as a disclosure in the reading (D185); no spatial coupling added.
 - 2026-10-30 04:50 UTC lead (session 9aa22476): review for run:t057-judge-20261030: not-applicable — Governs spatial coupling; the judge adds no spatial coupling (no oracle, no coupling arm)
 - 2026-10-30 05:37 UTC lead (session 9d2b15e6): reviewed D194: D194 carries P52's meaning of 'settled' (closed with failures accepted, F078 with the near-share deficit) as a disclosure and adds no spatial coupling; the coupling arms were the ones gated at D158/D159. Unaffected.
+- 2026-10-30 17:36 UTC lead (session 9d2b15e6): review for run:partdcap-nulls: not-applicable — nulls adds no spatial coupling; it computes c from base-arm runs only (D176)
+- 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: not-applicable — the check adds no spatial coupling; it compares stored datasets of members already run (D176)
+- 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: not-applicable — cross adds no spatial coupling; it compares stored datasets of members already run (D176)
+- 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: it cites D158 for Stage 3c; no spatial coupling added by the capability step. Unaffected.
+- 2026-10-30 18:08 UTC lead (session 9d2b15e6): review for run:partddesc: not-applicable — no spatial coupling added; a descriptive over stored runs (D202)

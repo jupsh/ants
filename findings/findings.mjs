@@ -29,10 +29,10 @@
 //   related, supersedes, superseded_by    ", "-separated finding ids
 //   depends     ", "-separated stamped results (JSON with `provenance`); check flags
 //               them when simulation code or their inputs have changed
-import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { currentHashes } from '../backlog/_lib/runHashes.mjs';
 import { cell, die, findAndPrint, frontmatter, headerLines, parseArgs, setField, slugify } from '../scripts/records.mjs';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -235,17 +235,9 @@ function cmdCheck() {
   const unchecked = new Set();
   if (stamped.length) {
     const deps = [...new Set(stamped.flatMap((s) => Object.keys(s.prov.depends ?? {})))];
-    const now = JSON.parse(
-      execFileSync('npx', ['vite-node', path.join(ROOT, 'backlog/_lib/currentHashes.ts'), ...deps], {
-        cwd: ROOT,
-        encoding: 'utf8',
-        stdio: ['ignore', 'pipe', 'inherit'],
-      })
-        .trim()
-        .split('\n')
-        .pop(),
-    );
-    for (const { f, rel, prov } of stamped) {
+    const { now, error } = currentHashes(ROOT, deps);
+    if (error) problems.push(`stamped results not checked: ${error}`);
+    for (const { f, rel, prov } of now ? stamped : []) {
       const why = [];
       if (prov.simHash !== now.simHash) why.push(`simHash ${prov.simHash} → ${now.simHash}`);
       // An input absent from this checkout (local-only data, e.g. data/stroeymeyt2018/ in CI) can't be checked here.

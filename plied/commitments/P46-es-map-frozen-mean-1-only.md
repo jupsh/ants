@@ -86,6 +86,38 @@ reviews:
       beside D184's.
     by: lead (session 20261029)
     at: "2026-10-29 22:36 UTC"
+  - action: run:partdcap-nulls
+    disposition: not-applicable
+    because: Es's multipliers are not involved; nulls reads base runs only
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:36 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-same
+    disposition: not-applicable
+    because: the check reads S2/S3 capability files, not multipliers; Es's multipliers were reported in D194
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:47 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-cross
+    disposition: not-applicable
+    because: cross reads S2/S3 capability files, not multipliers; Es's were reported in D194
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:56 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partddesc
+    disposition: not-applicable
+    because: no multiplier is computed; S2/S3 coordinates only (D202)
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 18:08 UTC"
+    inputs:
+      - record: D202
+        rev: 97916663a5b52f993397cc2e3ac2c9edb295a2193d1d44d74c54c1220764a0b3
 ---
 
 ## History
@@ -114,3 +146,7 @@ reviews:
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: Es's clipping (D184, F100) is carried as a disclosure and the 2b multipliers are reported; unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Es's clipped and trajectory multipliers are reported for the 2b runs (D185's descriptive rows) beside D184's.
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: Es's multipliers reported both ways for Stage 2b (before clipping 5.97, applied 0.32, clipped 94.3 %); neither averages 1, as P46 says. The before-clipping mean differs from Stage 2a's 0.52, reported with an unchecked heavy-tail reading. Stays open for the capability reading.
+- 2026-10-30 17:36 UTC lead (session 9d2b15e6): review for run:partdcap-nulls: not-applicable — Es's multipliers are not involved; nulls reads base runs only
+- 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: not-applicable — the check reads S2/S3 capability files, not multipliers; Es's multipliers were reported in D194
+- 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: not-applicable — cross reads S2/S3 capability files, not multipliers; Es's were reported in D194
+- 2026-10-30 18:08 UTC lead (session 9d2b15e6): review for run:partddesc: not-applicable — no multiplier is computed; S2/S3 coordinates only (D202)

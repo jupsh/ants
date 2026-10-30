@@ -12,10 +12,10 @@
 //
 // Every command but check regenerates the index files. Status, size, priority, note and
 // outcome are otherwise edited in the item's frontmatter by hand.
-import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { currentHashes } from './_lib/runHashes.mjs';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const STATUSES = ['unscoped', 'open', 'active', 'blocked', 'done', 'dropped'];
@@ -276,16 +276,8 @@ function cmdCheck(pos) {
     }
   }
   const deps = [...new Set(stamped.flatMap((s) => Object.keys(s.prov?.depends ?? {})))];
-  const now = JSON.parse(
-    execFileSync('npx', ['vite-node', path.join(DIR, '_lib/currentHashes.ts'), ...deps], {
-      cwd: path.dirname(DIR),
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'inherit'],
-    })
-      .trim()
-      .split('\n')
-      .pop(),
-  );
+  const { now, error } = currentHashes(path.dirname(DIR), deps);
+  if (error) die(`check: ${error}`);
   let stale = 0;
   for (const it of chosen) {
     const mine = stamped.filter((s) => s.it === it);

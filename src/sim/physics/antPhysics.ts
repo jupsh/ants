@@ -113,8 +113,10 @@ export function walkAnt(w: World, a: Agent, per: SurfacePercept, walkP: WalkPara
         const walked = len * f;
         if (walked > 0) {
           if (b.gasterDown && w.trail) {
-            // Deposit along the walked part in ≤ 1 mm pieces.
-            const n = Math.max(1, Math.ceil(walked));
+            // The physical-footprint mode resolves the deposited path on
+            // the grid. With it off, retain the legacy ≤ 1 mm pieces.
+            const maxStep = w.trail.samplingSigmaMm > 0 ? Math.min(1, w.trail.cell / 2) : 1;
+            const n = Math.max(1, Math.ceil(walked / maxStep));
             for (let i = 0; i < n; i++) {
               const g = ((i + 0.5) / n) * f;
               w.trail.deposit(x0 + dx * g, y0 + dy * g, phys.depositPerMm, walked / n);

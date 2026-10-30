@@ -85,6 +85,38 @@ reviews:
     because: Local run; nothing rented.
     by: lead (session 20261029)
     at: "2026-10-29 22:36 UTC"
+  - action: run:partdcap-nulls
+    disposition: not-applicable
+    because: local run on fetched files; no rental
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:36 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-same
+    disposition: not-applicable
+    because: local run on fetched files; no rental
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:47 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-cross
+    disposition: not-applicable
+    because: local run on fetched files; no rental
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 17:56 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partddesc
+    disposition: not-applicable
+    because: local, seconds to minutes; no rental
+    by: lead (session 9d2b15e6)
+    at: "2026-10-30 18:08 UTC"
+    inputs:
+      - record: D202
+        rev: 97916663a5b52f993397cc2e3ac2c9edb295a2193d1d44d74c54c1220764a0b3
 ---
 
 ## History
@@ -115,3 +147,7 @@ reviews:
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: no rental; unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: not-applicable — Local run; nothing rented.
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: D194 cites D159 for the reading rules; the 2b reading ran locally and rented nothing. Unaffected.
+- 2026-10-30 17:36 UTC lead (session 9d2b15e6): review for run:partdcap-nulls: not-applicable — local run on fetched files; no rental
+- 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: not-applicable — local run on fetched files; no rental
+- 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: not-applicable — local run on fetched files; no rental
+- 2026-10-30 18:08 UTC lead (session 9d2b15e6): review for run:partddesc: not-applicable — local, seconds to minutes; no rental
