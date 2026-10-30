@@ -3,7 +3,7 @@
 # authoritative and are linked, never restated (CLAUDE.md, lead-agent duties).
 [plied]
 format = 1
-requires = ">=0.7.0"   # 0.7.0: superseded commitments, governs, named vs linked stale warnings (plied#25-#27); 0.2.0: `scanned` (scan reviews, plied#3); 0.4.0: flow lists with an apostrophe (plied#10), which 0.3.0 misreads
+requires = ">=0.11.0"  # 0.11.0: dispose --read pins the evidence a disposition read (plied#30; D187); 0.7.0: superseded commitments, governs, named vs linked stale warnings (plied#25-#27); 0.2.0: `scanned` (scan reviews, plied#3); 0.4.0: flow lists with an apostrophe (plied#10), which 0.3.0 misreads
 root = "plied"
 canonical_branch = "browser-sim-m1"
 

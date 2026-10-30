@@ -49,8 +49,9 @@ duties that come with it.
   - Before a consequential action (a fit or long run, freezing a reading,
     committing results), run `plied review <nodes> --action <kind:name>
     --gate`, record a disposition for each commitment it lists (`plied
-    dispose`, with the reason), and start runs with `run.sh start <name>
-    --node <ids> -- …`.
+    dispose`, with the reason and `--read ID@SHA256` for each record it
+    rests on, the SHA from the `plied show <ID> --json` you read; D187), and
+    start runs with `run.sh start <name> --node <ids> -- …`.
   - Before running any code a commitment governs, at any size (smokes, toy
     runs and tests included), run `plied review <nodes>` (no `--gate`) and
     read the list. A commitment saying "before any X" has no size exemption,
