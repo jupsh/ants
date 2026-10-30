@@ -34,6 +34,18 @@ reviews:
     because: No capability statistic has been computed; the reader enforces the order in code.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: satisfied
+    because: >-
+      capfiles computes per-file audit accumulators only; the reader enforces nulls → c frozen →
+      same → cross (partDCap.ts).
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: not-applicable
+    because: The 2b reader reads no capability output.
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -45,3 +57,6 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — Running computes no separation: partDCap.ts runs locally later in the enforced order; member capability outputs sealed (P63).
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — Switching computes nothing; the reader order is enforced locally later.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No capability statistic has been computed; the reader enforces the order in code.
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — capfiles computes per-file audit accumulators only; the reader enforces nulls → c frozen → same → cross (partDCap.ts).
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the 2b reader is independent of the capability reader and reads none of its outputs; P59's order is unaffected
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: not-applicable — The 2b reader reads no capability output.

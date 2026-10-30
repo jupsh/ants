@@ -57,3 +57,5 @@ reviews:
 - 2026-10-29 05:34 UTC lead (session 20261029): reviewed D178: nothing carried forward is waived. Unaffected.
 - 2026-10-29 05:45 UTC lead (session 20261029): reviewed D179: same mapping, clipping, phase (light) and duration as D158; nothing waived. Unaffected.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: satisfied — Mapping, clipping, phase, duration and Q03 disclosures are carried in D173 and D184 and in the Stage 2b reader's disclosures.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the reader carries mapping, clipping, phase, duration and Q03 disclosures; unaffected
+- 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged

@@ -62,7 +62,7 @@ in the RESUME archive (A005).
       timing bench (D168, D169). Stage 2 proceeds as designed, Stage 2a first (D170, D171); it ran (D172; ≈ $1.82) and
       is read: 9 of 11 members calibrated, Es included; T10f and T10m ineligible (D173; F098). P29's capability rule is approved as amended (D175) and P47's rules as written (D178), so every rule
       before Stage 2b is fixed. The capability stage is built (D176; gap-fillings confirmed, D177). Stage 2b and the
-      capability runs ran on a rented box, switched once for disk (D179, D180), and are being fetched; both stay
+      capability runs ran on a rented box, switched once for disk (D179, D180; ≈ $2.51), and are fetched; both stay
       sealed until their readers are frozen (P63, P64). The multipliers are reported (D184): Es is clipped 94 % of the
       time at its calibrated strength (F100). Stage 1–2a is committed.
   - **Step 9** (the held-out test) and **E6** are on hold (D114).

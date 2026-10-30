@@ -9,6 +9,8 @@ Kinds: **decision** a decision (the user's, or delegated); **design** a design o
 
 | id | date | time | kind | entry |
 |---|---|---|---|---|
+| D186 | 2026-10-29 | 22:35 | decision | [User: Q23 answered, D185's gap-filling in D174 Part B confirmed as written (support fixed at 100 draws; an extended arm's S2-J rows all at 400 against the data at 400; a support colony under 90 % valid at 400 makes the row unresolved (MC))](2026-10-29-2235-user-q23-answered-d185-s-gap-filling-in.md) |
+| D185 | 2026-10-29 | 22:13 | design | [Part D Stage 2b reader built and frozen (P64; D174 Part B): the 20 rows, support, missing statistics, D117 equivalence, the S2-J MC rule with one extension, Stage 3a and the descriptive rows; dry run on Part C's files identical to the S2 audit and Stage 0; one gap in Part B for the user to confirm; no Stage 2b output read](2026-10-29-2213-part-d-stage-2b-reader-built-and-frozen.md) |
 | D184 | 2026-10-29 | 21:21 | reading | [Part D Stage 2a multipliers read (P21, P46): Es clipped in 94 % of trajectory samples at its calibrated strength, applied mean g 0.33; T20f/T20m about 10 %, the other drivers under 1 %](2026-10-29-2121-part-d-stage-2a-multipliers-read-p21-p46.md) |
 | D183 | 2026-10-29 | 20:54 | reading | [B004 read: the slow still-period displacement is bursty and bounded, not creep (F099)](2026-10-29-2054-b004-read-the-slow-still-period.md) |
 | D182 | 2026-10-29 | 20:14 | decision | [User: Q11 answered — Mailleux 1999 cleared for full-text reading, the whole paper (fit / development data, no held-out part); the user moves the PDF into literature/, the lead pins it](2026-10-29-2014-user-q11-answered-mailleux-1999-cleared.md) |

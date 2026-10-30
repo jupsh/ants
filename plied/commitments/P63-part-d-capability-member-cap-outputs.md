@@ -30,6 +30,16 @@ reviews:
     because: Member capability outputs stay sealed; logs/ is git-ignored, so none is committed.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: satisfied
+    because: Outputs go to logs/partd2/cap/s2 and s3, both sealed; the lead checks only counts until c is frozen.
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: satisfied
+    because: The 2b reader reads no capability output; those stay sealed.
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -40,3 +50,5 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — Capability output paths sealed locally before launch (D179); on the box only counts and file times are checked.
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — Carried outputs move by script (fetch, push), md5-checked, never opened; sealed paths unchanged.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: satisfied — Member capability outputs stay sealed; logs/ is git-ignored, so none is committed.
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — Outputs go to logs/partd2/cap/s2 and s3, both sealed; the lead checks only counts until c is frozen.
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — The 2b reader reads no capability output; those stay sealed.

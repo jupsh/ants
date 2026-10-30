@@ -74,6 +74,18 @@ reviews:
     because: No capability verdict is committed; the procedure is frozen (D175-D177) and unrun.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: satisfied
+    because: >-
+      Independent datasets at the intended size (D176): 6 per calibrated member, 22 colonies × 2
+      runs, and the base null pool; the procedure was frozen first (D175-D177).
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: not-applicable
+    because: The 2b reading is not the capability test.
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -98,3 +110,6 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — Datasets independent (capSeeds.ts 9ea9474c: arm, run, colony on 0xc4b3; seeds distinct from 2a/2b, tested), 6 per member at 22 x 2, nulls from a separate base pool; procedure fixed D175-D177.
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — Same independent seeds (capSeeds.ts 9ea9474c); results do not depend on the box (seeded runs, same Node 22.22.1).
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No capability verdict is committed; the procedure is frozen (D175-D177) and unrun.
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — Independent datasets at the intended size (D176): 6 per calibrated member, 22 colonies × 2 runs, and the base null pool; the procedure was frozen first (D175-D177).
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: cites D159 for the 2b rules only; the capability procedure is unaffected
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: not-applicable — The 2b reading is not the capability test.

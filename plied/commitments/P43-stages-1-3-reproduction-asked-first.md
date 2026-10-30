@@ -54,3 +54,5 @@ reviews:
 - 2026-10-29 05:34 UTC lead (session 20261029): reviewed D178: Part B's missing-row rule (never equivalent, blocks joint reproduction) and 'unresolved (MC)' fit P43's requirement to report failures and unresolved rows. Unaffected; binds the 2b reading.
 - 2026-10-29 05:45 UTC lead (session 20261029): reviewed D179: rental and launch only; reproduction is still read first in 2b, with failures and unresolved rows reported. Unaffected.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No reproduction reading is committed: Stage 2b is unread.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the reader reads reproduction (Stage 3a) first, keeps every row with outside, unresolved and missing listed, and carries S3's failed gate; P43 applies at the reading
+- 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged

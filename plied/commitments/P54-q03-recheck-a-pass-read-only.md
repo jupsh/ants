@@ -49,3 +49,5 @@ reviews:
 - 2026-10-29 05:34 UTC lead (session 20261029): reviewed D178: no warm-up claim. Unaffected.
 - 2026-10-29 05:45 UTC lead (session 20261029): reviewed D179: no warm-up claim is made by renting or running. Unaffected.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — The Q03 recheck reading (D163) is committed as read; nothing reinterprets it.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the Q03 scope (C2 base only, unrechecked for members) is carried as a disclosure; unaffected
+- 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged

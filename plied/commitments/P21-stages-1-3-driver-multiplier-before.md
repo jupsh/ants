@@ -58,3 +58,5 @@ Draft label: P21 (docs/threads-draft.md revision 2).
 - 2026-10-29 05:34 UTC lead (session 20261029): reviewed D178: support and MC rules do not touch clipping; the multiplier report is still owed before commit or publication. Open.
 - 2026-10-29 05:45 UTC lead (session 20261029): reviewed D179 (rental and launch): runs carry --oracleTrace, so pre- and post-clipping multipliers will exist; the report is owed before commit or publication. Open.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: satisfied — D184 reports the multiplier before and after clipping for every Stage 2a member (logs/partd2/mult-2a.json); the Stage 2b reader reports both for the 2b runs.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the Stage 2b reader reports the multiplier before and after clipping for every 2b arm; P21 stays open for that reading
+- 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged

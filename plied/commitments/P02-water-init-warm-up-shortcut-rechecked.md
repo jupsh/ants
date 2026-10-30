@@ -87,6 +87,18 @@ reviews:
       members' warm-up stays disclosed as unrechecked (D173, D184).
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: not-applicable
+    because: "capfiles simulates nothing: it runs the frozen S2 and S3 audits on the fetched capability outputs."
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: satisfied
+    because: >-
+      The reading carries D163's C2-base scope and the members' unrechecked warm-up as a disclosure
+      (D185).
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 Draft label: P2 (docs/threads-draft.md revision 2).
 
@@ -121,3 +133,5 @@ Draft label: P2 (docs/threads-draft.md revision 2).
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — Same runs and start as run:partd2b-20261029 (D179): nothing changes but the box and its disk; the members' warm-up remains disclosed as unrechecked.
 - 2026-10-29 20:08 UTC lead (session 7f762276): reviewed D181: it cites D094 only for step 5 being fitted and judged on L0S1c (Q04); P02 covers Stroeymeyt colony runs, not step 5 or the L0S1 judge (T057), so it is unaffected
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: satisfied — The commit changes no walk-on or water parameter; D163's C2-base recheck holds and the members' warm-up stays disclosed as unrechecked (D173, D184).
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: not-applicable — capfiles simulates nothing: it runs the frozen S2 and S3 audits on the fetched capability outputs.
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — The reading carries D163's C2-base scope and the members' unrechecked warm-up as a disclosure (D185).

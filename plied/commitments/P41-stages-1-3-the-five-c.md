@@ -82,6 +82,18 @@ reviews:
       assessment rows (2b rows unread).
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: satisfied
+    because: No member is selected or tuned; the capability files feed the frozen capability rule (D175-D177).
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: satisfied
+    because: >-
+      Roles and tolerances frozen (D158/D159); every calibrated member is assessed and reported;
+      nothing selected from the rows.
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -109,3 +121,6 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — Roles and tolerances frozen (D158/D159); the 9 members and strengths come from the D_w calibration (D173), checked on the box (9 verify files calibrated, pushed md5-checked).
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — Same 9 members at D173 strengths, carried with the pushed calib/verify files; nothing chosen from assessment rows.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: satisfied — Roles and tolerances frozen in D158/D159; nothing committed selects or tunes a member from assessment rows (2b rows unread).
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — No member is selected or tuned; the capability files feed the frozen capability rule (D175-D177).
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the 20 rows are used for assessment only; no member is selected or tuned from them; unaffected
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Roles and tolerances frozen (D158/D159); every calibrated member is assessed and reported; nothing selected from the rows.

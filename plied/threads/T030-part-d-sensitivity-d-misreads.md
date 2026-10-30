@@ -12,3 +12,4 @@ Draft label: T3.3.4c (docs/threads-draft.md revision 2). Outside gate G.
 - 2026-10-25 00:32 UTC lead (session 7c2d50fd): D144 (T049 scan review) cites this record's links; reviewed, nothing here changes (the cited promises are covered or discharged as D144 lists)
 - 2026-10-29 05:27 UTC lead (session 20261029): reviewed D176: it reuses s3Audit.py (D129) unchanged for the primary S3_2 in capability datasets; sensitivity (d) is not part of the capability rule. Unaffected.
 - 2026-10-29 05:32 UTC lead (session 20261029): reviewed D177: it adopts D129's colony rule for the primary S3_2 in capability datasets; sensitivity (d) is not used there. Unaffected.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: cites D129 only for the frozen S3 audit hashes; unaffected

@@ -24,3 +24,4 @@ Draft label: Q3 (docs/threads-draft.md revision 2).
 - 2026-10-25 17:57 UTC lead (session fe835760): reviewed D162: it freezes the recheck Q03's answer (D159 item 4) requires and records the run's start and the lead's disclosed Stage 1 lapse (no run affected); the answer stands, no reopening.
 - 2026-10-25 18:11 UTC lead (session fe835760): reviewed D163: the recheck Q03's answer called for is done and passes (all five rows equivalent, 14-20 h, C2 base; T015 closed). The answer stands; nothing reopens.
 - 2026-10-25 18:24 UTC lead (session fe835760): reviewed D164: it mentions the recheck only as the point after which Stage 1 was reapplied. Answered; nothing reopens.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: cites Q03's outcome as a carried disclosure; does not reopen it

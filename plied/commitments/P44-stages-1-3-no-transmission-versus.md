@@ -74,6 +74,18 @@ reviews:
       unrun on its reader.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: satisfied
+    because: >-
+      These files are the capability test through the actual observer (D175); no conclusion before c
+      is frozen and the checks pass.
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: satisfied
+    because: The 2b reading draws no transmission-versus-driver conclusion; that waits on the capability test.
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -101,3 +113,6 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — These runs are the specified capability test's datasets through the frozen tracker (tmpShortSim 6c85d31c, as D172); no conclusion before c is frozen and the checks pass.
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — The relaunched runs are the same specified capability datasets; no conclusion drawn by switching.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No transmission-versus-driver conclusion is committed; the capability test is built (D176) and unrun on its reader.
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — These files are the capability test through the actual observer (D175); no conclusion before c is frozen and the checks pass.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the 2b reader draws no transmission-versus-driver conclusion; unaffected
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — The 2b reading draws no transmission-versus-driver conclusion; that waits on the capability test.

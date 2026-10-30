@@ -78,6 +78,16 @@ reviews:
     because: Es's map as frozen (D158/D159) and implemented (D164); colonyBles.ts unchanged since.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: not-applicable
+    because: No member runs; Es's map is unchanged.
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: satisfied
+    because: Es as frozen; its clipping disclosed (D184) and its 2b multipliers reported.
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -105,3 +115,6 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — Es map specified and implemented before running; colonyBles.ts 8b77cc4e locally and box checksums match local (setup).
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — Es map unchanged (colonyBles.ts 8b77cc4e); setup compares checksums with local.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: satisfied — Es's map as frozen (D158/D159) and implemented (D164); colonyBles.ts unchanged since.
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: not-applicable — No member runs; Es's map is unchanged.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: cites D158 for the rows; Es's map unchanged; unaffected
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Es as frozen; its clipping disclosed (D184) and its 2b multipliers reported.

@@ -74,6 +74,18 @@ reviews:
       clipped 94 %; F100) and keeps the entrance rationale a hypothesis.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: satisfied
+    because: Es's multipliers are reported (D184, F100); capfiles changes none.
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: satisfied
+    because: >-
+      Es's clipped and trajectory multipliers are reported for the 2b runs (D185's descriptive rows)
+      beside D184's.
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -98,3 +110,6 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — Es map unchanged (colonyBles.ts 8b77cc4e); --oracleTrace on every member run records the clipped and pre-clip multipliers for reporting.
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — Es map unchanged; --oracleTrace kept on every member run.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: satisfied — D184 reports Es's clipped and trajectory multipliers (applied 0.33, before clipping 0.52, clipped 94 %; F100) and keeps the entrance rationale a hypothesis.
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — Es's multipliers are reported (D184, F100); capfiles changes none.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: Es's clipping (D184, F100) is carried as a disclosure and the 2b multipliers are reported; unaffected
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Es's clipped and trajectory multipliers are reported for the 2b runs (D185's descriptive rows) beside D184's.

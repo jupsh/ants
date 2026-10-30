@@ -70,6 +70,18 @@ reviews:
       read or committed.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: not-applicable
+    because: The capability files are not the Stage 2b assessment rows.
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: satisfied
+    because: >-
+      Support, missing-statistic and MC rules as approved (D178) and coded in the frozen reader
+      (D185), its gap confirmed (D186).
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -95,3 +107,6 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — Part B's rules approved before any assessment run (D178); the missing-row clause binds the reading.
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — Part B approved (D178) before any assessment; the reruns of broken 2b runs use the same seeds.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: satisfied — Support, missing-statistic and MC rules fixed (D174 Part B, approved D178); no assessment is read or committed.
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: not-applicable — The capability files are not the Stage 2b assessment rows.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the reader implements P47's support, missing-statistic and MC rules as approved (D178); one gap-filling raised as Q23; P47 applies at the reading
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Support, missing-statistic and MC rules as approved (D178) and coded in the frozen reader (D185), its gap confirmed (D186).

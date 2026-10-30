@@ -75,6 +75,16 @@ reviews:
     because: A commit rents nothing.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: not-applicable
+    because: Local run; nothing rented.
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: not-applicable
+    because: Local run; nothing rented.
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -101,3 +111,6 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — Rental approved by the user (D179) on the measured estimate; box shows 29 jobs, not 31 (about 7 % longer, about $1.48-1.80), reported to the user.
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — The failure, the remaining work, the new estimate ($1.05-1.74 on 48597476, about $2.5-3.2 in all, above D179's approval) and the offer went to the user, who approved the switch (D180) before renting.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — A commit rents nothing.
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: not-applicable — Local run; nothing rented.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: no rental; unaffected
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: not-applicable — Local run; nothing rented.

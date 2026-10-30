@@ -49,3 +49,5 @@ reviews:
 - 2026-10-29 05:34 UTC lead (session 20261029): reviewed D178: Part B keeps D117's interval rule and adds 'unresolved (MC)', consistent with P51. Unaffected.
 - 2026-10-29 05:45 UTC lead (session 20261029): reviewed D179: no reading yet; the interval rule binds the 2b reading. Unaffected.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No band reading is committed.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the dependent-bands disclosure is carried, and classes follow the interval rule, so a point difference is never outside by itself; unaffected
+- 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged

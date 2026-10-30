@@ -51,6 +51,20 @@ scanned:
     because: >-
       read in full (lead wrote it): 'Before any capability or Stage 2b run come Q21 Part B, the gate
       … and the rental approval' restates P47, the CLAUDE.md gate and P50; no new obligation.
+  - record: D185
+    rev: 62210b658b0bb07ae34d32a40ce5199f21f7f56ec6fac113ac7a445edc67068a
+    at: "2026-10-29 22:15 UTC"
+    by: lead (session 20261029)
+    because: >-
+      D185's if-then clauses are rules inside the frozen reader (the MC extension and support), not
+      commitments; its one open point is Q23
+  - record: D186
+    rev: 19abdd78c7bc8eb72172a6c4cbd27e6ef251545d28e0ab155fa47a9dc7dc0acc
+    at: "2026-10-29 22:37 UTC"
+    by: lead (session 20261029)
+    because: >-
+      D186 quotes the confirmed rule's if-then (a support colony under 90 % valid makes the row
+      unresolved), a rule of the frozen reader, not a commitment
 ---
 Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment 1), not approved (D128); held until the S2 audit shows what spatial pattern still needs explaining (D134).
 
@@ -93,3 +107,8 @@ Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment
 - 2026-10-29 05:33 UTC lead (session 20261029): added D178 to links — D178: Q21 answered in full; every pre-2b rule fixed. Next: gate and the 3,256-run estimate for the user's rental approval (P50); the 2b reader applying Part B is built before any 2b output is read.
 - 2026-10-29 05:45 UTC lead (session 20261029): added D179 to links — D179: rented 50186808 (instance 58203242); run partd2b-20261029T054430Z on the box (assess, cap, capnull; 3,256 runs, ~10.4-12.6 h); local auto-finish partd2b-finish-20261029T054509Z fetches logs/partd2 and logs/short and destroys the box. 2b and capability outputs sealed (P63, P64). Next: stop rule at ~05:55 UTC, hourly checks; after fetch, capfiles locally, then partDCap nulls and the freeze entry.
 - 2026-10-29 21:24 UTC lead (session 20261029): reviewed D180, D181, D184: D180 records the Stage 2b and capability runs completed on the switched box (fetch by hand after the finish step's start-up race); D184 reports the Stage 2a multipliers P21 and P46 owe (Es clipped 94 %, F100), a disclosure for Es in Stage 2b and the capability test with no rule changed; D181 answers other threads' questions and does not touch T033
+- 2026-10-29 22:14 UTC lead (session 20261029): reviewed D185: the Stage 2b reader is frozen; P64 fulfilled; Q23 raised for its one gap-filling; the 2b reading waits on Q23
+- 2026-10-29 22:15 UTC lead (session 20261029): scanned D185 (rev 62210b658b0b): no commitment to record — D185's if-then clauses are rules inside the frozen reader (the MC extension and support), not commitments; its one open point is Q23
+- 2026-10-29 22:36 UTC lead (session 20261029): reviewed D186: Q23 answered; the Stage 2b reading proceeds (files stage started, run partd2b-read); capfiles paused until it finishes (resumable)
+- 2026-10-29 22:37 UTC lead (session 20261029): scanned D186 (rev 19abdd78c7bc): no commitment to record — D186 quotes the confirmed rule's if-then (a support colony under 90 % valid makes the row unresolved), a rule of the frozen reader, not a commitment
+- 2026-10-30 04:08 UTC lead (session 9d2b15e6): Stage 2b reading: files stage (run partd2b-read-20261029T223633Z) exited 0 at 04:07 UTC, 1,057 jobs in logs/partd2/assess; read stage started as partd2b-read-20261030T040810Z under the same gated action run:partd2b-read (gate re-checked, passes). capfiles still paused (partD2.ts capfiles, resumable), to restart after read.

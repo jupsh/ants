@@ -50,3 +50,5 @@ reviews:
 - 2026-10-29 05:34 UTC lead (session 20261029): reviewed D178: no packing arm. Unaffected.
 - 2026-10-29 05:45 UTC lead (session 20261029): reviewed D179: no packing arm among the rented runs. Unaffected.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No packing arm or spatial reading is committed.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: carried as a disclosure in the 2b reader; unaffected
+- 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged

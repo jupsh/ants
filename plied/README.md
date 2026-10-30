@@ -87,7 +87,7 @@ None.
 | [P61](commitments/P61-part-d-capability-null-plausibility-shown.md) | Part D capability: null plausibility shown before c is frozen, in the freeze entry | D175 | open | T033 |
 | [P62](commitments/P62-part-d-capability-fallback-false-positive.md) | Part D capability: fallback false-positive rate measured on the nulls; tightened before freezing if above 5 % | D175 | open | T033 |
 | [P63](commitments/P63-part-d-capability-member-cap-outputs.md) | Part D capability: member cap outputs sealed until c is frozen | D176 | open | T033 |
-| [P64](commitments/P64-part-d-stage-2b-the-reader.md) | Part D Stage 2b: the reader applying Part B built before any 2b output is read | D178 | open | T033 |
+| [P64](commitments/P64-part-d-stage-2b-the-reader.md) | Part D Stage 2b: the reader applying Part B built before any 2b output is read | D178 | fulfilled | T033 |
 | [P65](commitments/P65-l0s1-judge-frozen-before-it-runs.md) | L0S1 judge frozen before it runs; no refit from it | D181 | open | T057 |
 | [P66](commitments/P66-rows-1-and-4-held-out.md) | Rows 1 and 4: held-out predictions, failures reported | D181 | open | T036 |
 | [P67](commitments/P67-held-out-test-reported-incomplete-for.md) | Held-out test reported incomplete for contacts if the observer is unvalidated | D181 | open | T036, T010 |

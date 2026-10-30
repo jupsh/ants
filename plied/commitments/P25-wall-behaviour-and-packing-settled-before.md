@@ -64,6 +64,16 @@ reviews:
     because: A commit adds no spatial coupling; P52's disposition for these comparisons is unchanged.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: not-applicable
+    because: No simulation and no spatial coupling is added; the audits only measure existing runs.
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: satisfied
+    because: P52's disposition is carried as a disclosure in the reading (D185); no spatial coupling added.
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -93,3 +103,6 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — D159 item 5 / P52: packing closed with failures accepted for these comparisons; unchanged.
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — Unchanged since run:partd2b-20261029: P52's disposition holds; no packing arm.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — A commit adds no spatial coupling; P52's disposition for these comparisons is unchanged.
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: not-applicable — No simulation and no spatial coupling is added; the audits only measure existing runs.
+- 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: P25/P52's disposition is carried as a disclosure in the 2b reader; unaffected
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — P52's disposition is carried as a disclosure in the reading (D185); no spatial coupling added.

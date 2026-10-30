@@ -56,3 +56,19 @@ scope: T033
     590 `pd-cap-` outputs in 54.5 min ≈ 650 per h, above the expected 550 (stop line ≈ 370).
   - Disk: 22 of 80 GB used. At ≈ 2 MB per capability output, ≈ 28 GB at the end.
   - Projection: `cap` (2,376) done ≈ 19:25, `capnull` (352) ≈ 20:00 UTC; then the finish step fetches and destroys.
+- **2026-10-29 ≈ 21:40 UTC — Runs complete; the automatic finish failed twice; resumable fetch started.**
+  - On the box: `assess` done 15:46, `cap` done 19:38, `capnull` done 20:05 (run exit 0 after 4 h 25 min);
+    3,256 outputs (27 GB) in `logs/short`. Seen: the status file and file counts only.
+  - Finish `partd2b-finish-20261029T154020Z` exited after 2 s at 15:40: `box.mjs switch` started it before renaming
+    `box.next.env` to `box.env`, so it looked for the run on the old box. Fixed in `box.mjs` (finish and watch now
+    start after the rename; committed in 43ae144). The box then idled from 20:05 until fetched.
+  - Finish restarted by hand (`partd2b-finish2-20261029T211517Z`): the streamed `tar` fetch was cut after 21 min by
+    a connection reset from the host. The box was kept, as designed; the partial extraction may have left
+    truncated files locally.
+  - Fetch now by `scripts/scratch/box/fetch-rsync.sh` (`partd2b-fetch-20261029T213903Z`): rsync with resume and
+    up to 20 attempts per directory, then every file's md5 checked against the box (counts printed, no names), and
+    the box destroyed only if all match.
+- **2026-10-29 ≈ 21:47 UTC — Fetched, verified and destroyed.** The rsync fetch took 7.6 min on its first attempt:
+  `logs/partd2` 3,283 files, the run's records 8, `logs/short` 3,256 files, each md5-equal to the box's (counts
+  only). Instance 58263882 destroyed after 6.92 h, ≈ $1.08. **Stage 2b and capability rental in all ≈ $2.51**
+  (58203242 ≈ $1.43, 58263882 ≈ $1.08), against D180's ≈ $2.5–3.2. The outputs stay sealed (P63, P64).

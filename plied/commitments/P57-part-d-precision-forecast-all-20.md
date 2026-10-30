@@ -73,6 +73,16 @@ reviews:
     because: The precision forecast (D166/D167) is committed unchanged; no forecast is used as a filter.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: run:partd2-capfiles
+    disposition: not-applicable
+    because: No forecast is used.
+    by: lead (session 20261029)
+    at: "2026-10-29 21:47 UTC"
+  - action: run:partd2b-read
+    disposition: satisfied
+    because: The forecast is reported beside the reading, never used as a filter; every row is assessed.
+    by: lead (session 20261029)
+    at: "2026-10-29 22:36 UTC"
 ---
 
 ## History
@@ -92,3 +102,5 @@ reviews:
 - 2026-10-29 05:44 UTC lead (session 20261029): review for run:partd2b-20261029: satisfied — The box received only the 22 Stage 2a calib/verify files; no smoke output or toy strength can reach it.
 - 2026-10-29 14:49 UTC lead (session 20261029): review for rent:partd2b-switch-20261029: satisfied — Only logs/short and logs/partd2 from this run are carried; no smoke output exists on the old box.
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — The precision forecast (D166/D167) is committed unchanged; no forecast is used as a filter.
+- 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: not-applicable — No forecast is used.
+- 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — The forecast is reported beside the reading, never used as a filter; every row is assessed.
