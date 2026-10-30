@@ -133,6 +133,112 @@ reviews:
     inputs:
       - record: D202
         rev: 97916663a5b52f993397cc2e3ac2c9edb295a2193d1d44d74c54c1220764a0b3
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: >-
+      reads stored data and Stage 2b outputs only (D207); no simulation, no walk-on or water
+      parameter changed
+    by: lead (session 20261030)
+    at: "2026-10-30 21:10 UTC"
+    inputs:
+      - record: D207
+        rev: 8f6f241d26d437df775bce00a27ef04f216e12facb2569dc025e87ee3c8f9396
+  - action: run:partdblocks-2
+    disposition: not-applicable
+    because: >-
+      as run:partdblocks: stored data and Stage 2b outputs only; D207's amendment changes file
+      loading, no simulation or parameter
+    by: lead (session 20261030)
+    at: "2026-10-30 21:22 UTC"
+    inputs:
+      - record: D207
+        rev: 9a55da1c62b45147ecc27069e9c2373aa6a0813e34155338fc0296b3db5c4202
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: >-
+      re-read after D207's amendment: this run crashed (the machine ran out of memory) before
+      writing any output, and nothing was read; the work is rerun under run:partdblocks-2, disposed
+      separately
+    by: lead (session 20261030)
+    at: "2026-10-30 21:23 UTC"
+    inputs:
+      - record: D207
+        rev: 9a55da1c62b45147ecc27069e9c2373aa6a0813e34155338fc0296b3db5c4202
+  - action: run:partdblocks-3
+    disposition: not-applicable
+    because: stored data and Stage 2b outputs only; no simulation, no walk-on or water parameter changed
+    by: lead (session 20261030)
+    at: "2026-10-30 21:33 UTC"
+    inputs:
+      - record: D207
+        rev: 8ba0cb4f72b4208a701139a480d5c5be0d67b3e8f9ff83864a421d081410fcfd
+  - action: run:partdblocks-2
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 2: this run's output failed P88's self-check and was set aside
+      unread (blocks-selfcheck-failed-c91854ee.json); the work is rerun under run:partdblocks-3,
+      disposed separately
+    by: lead (session 20261030)
+    at: "2026-10-30 21:33 UTC"
+    inputs:
+      - record: D207
+        rev: 8ba0cb4f72b4208a701139a480d5c5be0d67b3e8f9ff83864a421d081410fcfd
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 2: this first run crashed on memory before writing any output and
+      nothing was read; superseded by run:partdblocks-2 (self-check failed, set aside) and
+      run:partdblocks-3
+    by: lead (session 20261030)
+    at: "2026-10-30 21:34 UTC"
+    inputs:
+      - record: D207
+        rev: 8ba0cb4f72b4208a701139a480d5c5be0d67b3e8f9ff83864a421d081410fcfd
+  - action: run:partdblocks-4
+    disposition: not-applicable
+    because: stored data and Stage 2b outputs only; no simulation, no walk-on or water parameter changed
+    by: lead (session 20261030)
+    at: "2026-10-30 21:44 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 3: this first run crashed on memory before writing any output and
+      nothing was read; superseded by run:partdblocks-4
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: run:partdblocks-2
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 3: this run's output failed P88's self-check and was set aside
+      unread; superseded by run:partdblocks-4
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: run:partdblocks-3
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing
+      was read; superseded by run:partdblocks-4
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: commit:partd-1a-20261030
+    disposition: not-applicable
+    because: >-
+      The commit changes no src/ file, so no walk-on rate or water parameter; D163's C2-base recheck
+      stands.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:06 UTC"
 ---
 Draft label: P2 (docs/threads-draft.md revision 2).
 
@@ -175,3 +281,14 @@ Draft label: P2 (docs/threads-draft.md revision 2).
 - 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: not-applicable — same reads stored capability files (D176); no simulation, no walk-on or water parameter changed
 - 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: not-applicable — cross reads stored capability files (D176); no simulation, no walk-on or water parameter changed
 - 2026-10-30 18:08 UTC lead (session 9d2b15e6): review for run:partddesc: not-applicable — reads stored outputs only (D202); no simulation, no walk-on or water parameter changed
+- 2026-10-30 21:10 UTC lead (session 20261030): review for run:partdblocks: not-applicable — reads stored data and Stage 2b outputs only (D207); no simulation, no walk-on or water parameter changed
+- 2026-10-30 21:22 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — as run:partdblocks: stored data and Stage 2b outputs only; D207's amendment changes file loading, no simulation or parameter
+- 2026-10-30 21:23 UTC lead (session 20261030): review for run:partdblocks: not-applicable — re-read after D207's amendment: this run crashed (the machine ran out of memory) before writing any output, and nothing was read; the work is rerun under run:partdblocks-2, disposed separately
+- 2026-10-30 21:33 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — stored data and Stage 2b outputs only; no simulation, no walk-on or water parameter changed
+- 2026-10-30 21:33 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — re-read after D207 amendment 2: this run's output failed P88's self-check and was set aside unread (blocks-selfcheck-failed-c91854ee.json); the work is rerun under run:partdblocks-3, disposed separately
+- 2026-10-30 21:34 UTC lead (session 20261030): review for run:partdblocks: not-applicable — re-read after D207 amendment 2: this first run crashed on memory before writing any output and nothing was read; superseded by run:partdblocks-2 (self-check failed, set aside) and run:partdblocks-3
+- 2026-10-30 21:44 UTC lead (session 20261030): review for run:partdblocks-4: not-applicable — stored data and Stage 2b outputs only; no simulation, no walk-on or water parameter changed
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks: not-applicable — re-read after D207 amendment 3: this first run crashed on memory before writing any output and nothing was read; superseded by run:partdblocks-4
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — re-read after D207 amendment 3: this run's output failed P88's self-check and was set aside unread; superseded by run:partdblocks-4
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing was read; superseded by run:partdblocks-4
+- 2026-10-30 22:06 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — The commit changes no src/ file, so no walk-on rate or water parameter; D163's C2-base recheck stands.

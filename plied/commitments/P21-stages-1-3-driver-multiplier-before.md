@@ -32,6 +32,13 @@ reviews:
       (logs/partd2/mult-2a.json); the Stage 2b reader reports both for the 2b runs.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: commit:partd-1a-20261030
+    disposition: not-applicable
+    because: >-
+      No driver multiplier is newly reported: D204-D210 read D_w by block and draft the list; the
+      multipliers stay as D184 reports them.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:06 UTC"
 ---
 Draft label: P21 (docs/threads-draft.md revision 2).
 
@@ -62,3 +69,5 @@ Draft label: P21 (docs/threads-draft.md revision 2).
 - 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged
 - 2026-10-30 05:37 UTC lead (session 9d2b15e6): reviewed D194: both multipliers reported, kept apart, for every 2b member (before clipping and applied, with the clipped share; Es 5.97 / 0.32 / 94.3 %). Governs commit and publish of the reading: met in D194. Applies again to the capability reading. Open.
 - 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: it cites D158 for Stage 3c's rule; the capability reading uses no multiplier, and both multipliers were reported for the 2b reading (D194). Applies to commit and publish; unaffected.
+- 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: it cites D158 for the stopping rule and its lead items only; it reports no multiplier and runs nothing, so P21's before/after-clipping reporting is not engaged. Unchanged
+- 2026-10-30 22:06 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — No driver multiplier is newly reported: D204-D210 read D_w by block and draft the list; the multipliers stay as D184 reports them.

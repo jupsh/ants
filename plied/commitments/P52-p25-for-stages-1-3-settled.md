@@ -31,6 +31,16 @@ reviews:
     because: No packing arm or spatial reading is committed.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: commit:partd-1a-20261030
+    disposition: satisfied
+    because: >-
+      No packing arm; D205 Part 2 item 2 carries F078 with the near-share deficit (F027, F078; P52)
+      as limitations, not matches.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:07 UTC"
+    inputs:
+      - record: D205
+        rev: e990086aa7e8f8e7d3a154cc02d3eafe19786ee4ac0e809e3a29f1717a20ad88
 ---
 
 ## History
@@ -53,3 +63,5 @@ reviews:
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: carried as a disclosure in the 2b reader; unaffected
 - 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: its disclosures say packing is closed with failures accepted, not matched, and carry F078 with the near-share deficit; no packing arm added. Applies to commit and publish.
+- 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: it names P52 among the failures every member inherits (packing closed with failures accepted, F078 with the near-share deficit), as P52's wording requires them carried; it proposes no packing arm. Unchanged, open
+- 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — No packing arm; D205 Part 2 item 2 carries F078 with the near-share deficit (F027, F078; P52) as limitations, not matches.

@@ -142,6 +142,128 @@ reviews:
         rev: 3a4e777d8fdde50115ecfed88eb328a25146f3658e9c236e7cb5d0e1e5b5e84e
       - record: D202
         rev: 97916663a5b52f993397cc2e3ac2c9edb295a2193d1d44d74c54c1220764a0b3
+  - action: run:partdcap-nulls
+    disposition: satisfied
+    because: >-
+      Re-read after D204, which corrects only D194's S1 window labels (5 s, 1 min, 10 min): nulls
+      reads no member file and no assessment row; c is set on base nulls, so no member is selected
+      by the rows (D176 order; D194 lists every member)
+    by: lead (session 20261030)
+    at: "2026-10-30 20:47 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+      - record: D194
+        rev: 5d5c2108904ee4453da89c3a95d2399691e9acbbdf492a2c6a6bc7bfb294b65f
+  - action: run:partdblocks
+    disposition: satisfied
+    because: >-
+      D207 reports all 12 arms and selects none; Stage 2b roles, rows and tolerances are unchanged
+      and its classes are copied, not recomputed
+    by: lead (session 20261030)
+    at: "2026-10-30 21:10 UTC"
+    inputs:
+      - record: D207
+        rev: 8f6f241d26d437df775bce00a27ef04f216e12facb2569dc025e87ee3c8f9396
+  - action: run:partdblocks-2
+    disposition: satisfied
+    because: D207 as amended still reports all 12 arms and selects none; Stage 2b classes copied, not recomputed
+    by: lead (session 20261030)
+    at: "2026-10-30 21:22 UTC"
+    inputs:
+      - record: D207
+        rev: 9a55da1c62b45147ecc27069e9c2373aa6a0813e34155338fc0296b3db5c4202
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: >-
+      re-read after D207's amendment: this run crashed (the machine ran out of memory) before
+      writing any output, and nothing was read; the work is rerun under run:partdblocks-2, disposed
+      separately
+    by: lead (session 20261030)
+    at: "2026-10-30 21:23 UTC"
+    inputs:
+      - record: D207
+        rev: 9a55da1c62b45147ecc27069e9c2373aa6a0813e34155338fc0296b3db5c4202
+  - action: run:partdblocks-3
+    disposition: satisfied
+    because: all 12 arms reported, none selected; Stage 2b classes copied, not recomputed
+    by: lead (session 20261030)
+    at: "2026-10-30 21:33 UTC"
+    inputs:
+      - record: D207
+        rev: 8ba0cb4f72b4208a701139a480d5c5be0d67b3e8f9ff83864a421d081410fcfd
+  - action: run:partdblocks-2
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 2: this run's output failed P88's self-check and was set aside
+      unread (blocks-selfcheck-failed-c91854ee.json); the work is rerun under run:partdblocks-3,
+      disposed separately
+    by: lead (session 20261030)
+    at: "2026-10-30 21:33 UTC"
+    inputs:
+      - record: D207
+        rev: 8ba0cb4f72b4208a701139a480d5c5be0d67b3e8f9ff83864a421d081410fcfd
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 2: this first run crashed on memory before writing any output and
+      nothing was read; superseded by run:partdblocks-2 (self-check failed, set aside) and
+      run:partdblocks-3
+    by: lead (session 20261030)
+    at: "2026-10-30 21:34 UTC"
+    inputs:
+      - record: D207
+        rev: 8ba0cb4f72b4208a701139a480d5c5be0d67b3e8f9ff83864a421d081410fcfd
+  - action: run:partdblocks-4
+    disposition: satisfied
+    because: all 12 arms reported, none selected; Stage 2b classes copied, not recomputed
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 3: this first run crashed on memory before writing any output and
+      nothing was read; superseded by run:partdblocks-4
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: run:partdblocks-2
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 3: this run's output failed P88's self-check and was set aside
+      unread; superseded by run:partdblocks-4
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: run:partdblocks-3
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing
+      was read; superseded by run:partdblocks-4
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: commit:partd-1a-20261030
+    disposition: satisfied
+    because: >-
+      D205 selects no member ('No placement, no family label, no closest member'); D210 is
+      descriptive and selects none; no assessment row or tolerance changed.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:06 UTC"
+    inputs:
+      - record: D205
+        rev: e990086aa7e8f8e7d3a154cc02d3eafe19786ee4ac0e809e3a29f1717a20ad88
+      - record: D210
+        rev: 91511fa8dac08a97ba28db172b6f39be91fe08489cd10a28a46148d17f90fbc0
 ---
 
 ## History
@@ -178,3 +300,16 @@ reviews:
 - 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: satisfied — every calibrated T x D pair is compared (14 pairs), none chosen or dropped; c and α stay as frozen (D196, D199)
 - 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: every calibrated member entered the capability comparison and none was chosen on the assessment rows; the rows enter only through D158's Stage 3c restriction (no member without an outside row). Consistent with P41.
 - 2026-10-30 18:08 UTC lead (session 9d2b15e6): review for run:partddesc: satisfied — every calibrated member shown with its outside rows; nothing is chosen, dropped or tuned; no label or placement (D201, D202)
+- 2026-10-30 20:47 UTC lead (session 20261030): review for run:partdcap-nulls: satisfied — Re-read after D204, which corrects only D194's S1 window labels (5 s, 1 min, 10 min): nulls reads no member file and no assessment row; c is set on base nulls, so no member is selected by the rows (D176 order; D194 lists every member)
+- 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: it uses the members' existing descriptives (S5, S6, S7) to rank measurements, not to select members, and changes no row, role or tolerance. Unchanged
+- 2026-10-30 21:10 UTC lead (session 20261030): review for run:partdblocks: satisfied — D207 reports all 12 arms and selects none; Stage 2b roles, rows and tolerances are unchanged and its classes are copied, not recomputed
+- 2026-10-30 21:22 UTC lead (session 20261030): review for run:partdblocks-2: satisfied — D207 as amended still reports all 12 arms and selects none; Stage 2b classes copied, not recomputed
+- 2026-10-30 21:23 UTC lead (session 20261030): review for run:partdblocks: not-applicable — re-read after D207's amendment: this run crashed (the machine ran out of memory) before writing any output, and nothing was read; the work is rerun under run:partdblocks-2, disposed separately
+- 2026-10-30 21:33 UTC lead (session 20261030): review for run:partdblocks-3: satisfied — all 12 arms reported, none selected; Stage 2b classes copied, not recomputed
+- 2026-10-30 21:33 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — re-read after D207 amendment 2: this run's output failed P88's self-check and was set aside unread (blocks-selfcheck-failed-c91854ee.json); the work is rerun under run:partdblocks-3, disposed separately
+- 2026-10-30 21:34 UTC lead (session 20261030): review for run:partdblocks: not-applicable — re-read after D207 amendment 2: this first run crashed on memory before writing any output and nothing was read; superseded by run:partdblocks-2 (self-check failed, set aside) and run:partdblocks-3
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-4: satisfied — all 12 arms reported, none selected; Stage 2b classes copied, not recomputed
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks: not-applicable — re-read after D207 amendment 3: this first run crashed on memory before writing any output and nothing was read; superseded by run:partdblocks-4
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — re-read after D207 amendment 3: this run's output failed P88's self-check and was set aside unread; superseded by run:partdblocks-4
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing was read; superseded by run:partdblocks-4
+- 2026-10-30 22:06 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — D205 selects no member ('No placement, no family label, no closest member'); D210 is descriptive and selects none; no assessment row or tolerance changed.

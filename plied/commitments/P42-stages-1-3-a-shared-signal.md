@@ -117,6 +117,18 @@ reviews:
     inputs:
       - record: D176
         rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+  - action: run:partdcap-nulls
+    disposition: not-applicable
+    because: >-
+      Re-read after D204, which corrects only D194's S1 window labels: no member is run or read in
+      the nulls step; Es was specified and run earlier (D158, D194)
+    by: lead (session 20261030)
+    at: "2026-10-30 20:47 UTC"
+    inputs:
+      - record: D176
+        rev: 1a0a604d94312ce0b943f54a70dff070a96bb5b490e6fe2f4ec5f8ae18b71d96
+      - record: D194
+        rev: 5d5c2108904ee4453da89c3a95d2399691e9acbbdf492a2c6a6bc7bfb294b65f
 ---
 
 ## History
@@ -152,3 +164,4 @@ reviews:
 - 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: satisfied — Es, the shared-signal member with a spatially varying response, is among the 9 calibrated members checked under the same pipeline (D176's member list)
 - 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: satisfied — Es is one of the 7 D members in every T x Es pair, through the same pipeline (D176)
 - 2026-10-30 17:58 UTC lead (session 9d2b15e6): set state=fulfilled; set resolved_by=D200 — Es, the bounded member with one shared signal and a spatially varying response, was specified before running (D158, D159), run under mapping M and the same observer (D194), and tested in the capability comparison (D200)
+- 2026-10-30 20:47 UTC lead (session 20261030): review for run:partdcap-nulls: not-applicable — Re-read after D204, which corrects only D194's S1 window labels: no member is run or read in the nulls step; Es was specified and run earlier (D158, D194)

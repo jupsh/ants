@@ -15,6 +15,8 @@ depends:
 Frozen reader (D185, md5 1ff8b42c); support 22 colonies (S1, S3) and 20 (S2, S2-J) on every row, none missing.
 Equivalent / outside of 20: T20f 7/8, T20m 7/5, Eu-M 6/3, El20-M, Ed2, Ed5, Ed20 10/3 each, Ew5 7/4, Es 5/4, Eu 7/4,
 El20 10/3, base 3/14. Eu-M's S2-J >= 40 mm is unresolved (MC) after the one extension to 400 draws. Outside rows:
-the 20-min D_w cells in nearly every arm (F104); the T members' near-band C (1.7-3.4 times the data's); C >= 40 mm in
+the 10-min D_w cells in nearly every arm (F104); the T members' near-band C (1.7-3.4 times the data's); C >= 40 mm in
 Eu-M, Ew5, Es and Eu. Unresolved rows are neither passes nor failures (P43). Disclosed limits: 2 x 4 h simulated against
 8-12 h of light, Q03 unrechecked for the members, packing (F078), Es clipped 94 % (F100), dependent bands (P51).
+
+Corrected 2026-10-30 (D204): "20-min" read "10-min" (the S1 windows are 5 s, 1 min and 10 min).

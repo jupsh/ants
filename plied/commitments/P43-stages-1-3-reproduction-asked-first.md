@@ -32,6 +32,19 @@ reviews:
     because: "No reproduction reading is committed: Stage 2b is unread."
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: commit:partd-1a-20261030
+    disposition: satisfied
+    because: >-
+      D210 copies the Stage 2b classes beside its block contrasts unchanged and keeps unresolved
+      apart from lower; D204 changes labels only, verdicts unchanged; S3 is not mentioned as
+      restored.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:06 UTC"
+    inputs:
+      - record: D210
+        rev: 91511fa8dac08a97ba28db172b6f39be91fe08489cd10a28a46148d17f90fbc0
+      - record: D204
+        rev: 2b8bd6ee2f2b8de4c0bbf0c854afec2717730814d117a89f1ad14b42ac9e95d3
 ---
 
 ## History
@@ -60,3 +73,5 @@ reviews:
 - 2026-10-30 17:42 UTC lead (session 9d2b15e6): reviewed D196: D196 discloses that Stage 0's gate G failed against a Part C base S3₂ (+0.085) that two later base draws place high (0.014, 0.019), and says explicitly that it does not re-judge D130: the failed gate stays on record. Consistent with P43.
 - 2026-10-30 17:50 UTC lead (session 9d2b15e6): reviewed D197: the user states 'Stage 0's failed gate remains unchanged', which is P43's own clause; D197 changes nothing in P43.
 - 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: it keeps reproduction first (F103 cited: joint reproduction unestablished) and states that capability identifies no mechanism; S3's failed gate is not touched. Applies to commit and publish.
+- 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: it keeps F103's joint failure and the outside rows as the starting point, says nothing restores S3 as a propagation signature, and keeps unresolved rows unresolved. Unchanged
+- 2026-10-30 22:06 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — D210 copies the Stage 2b classes beside its block contrasts unchanged and keeps unresolved apart from lower; D204 changes labels only, verdicts unchanged; S3 is not mentioned as restored.

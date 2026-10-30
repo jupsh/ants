@@ -13,6 +13,11 @@ reviews:
     because: No B007 comparison is made by committing.
     by: lead (session 20261029)
     at: "2026-10-29 21:24 UTC"
+  - action: commit:partd-1a-20261030
+    disposition: not-applicable
+    because: No B007 comparison in this commit.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:07 UTC"
 ---
 
 ## History
@@ -21,3 +26,4 @@ reviews:
 - 2026-10-29 21:24 UTC lead (session 20261029): review for commit:20261029: not-applicable — No B007 comparison is made by committing.
 - 2026-10-30 04:45 UTC lead (session 9aa22476): reviewed D191: it cites D181 only as the source of the Q04 judge; D181's answer on B007's criterion is not touched by T057's L0S1 judge, so P71 is unaffected
 - 2026-10-30 05:00 UTC lead (session 9aa22476): reviewed D193: it cites D181 only for the scope of the Q04 judge (sensitivity, no refit); the reading touches none of D181's answer on B007's criterion, so P71 is unaffected
+- 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — No B007 comparison in this commit.

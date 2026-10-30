@@ -35,6 +35,18 @@ reviews:
       Stage 2b reader's disclosures.
     by: lead (session 20261029)
     at: "2026-10-29 21:23 UTC"
+  - action: commit:partd-1a-20261030
+    disposition: satisfied
+    because: >-
+      Nothing is waived: D204-D210 change no mapping, clipping, phase or duration treatment and no
+      Q03 record; D205 Part 2 item 2 carries C2's failures.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:07 UTC"
+    inputs:
+      - record: D205
+        rev: e990086aa7e8f8e7d3a154cc02d3eafe19786ee4ac0e809e3a29f1717a20ad88
+      - record: D210
+        rev: 91511fa8dac08a97ba28db172b6f39be91fe08489cd10a28a46148d17f90fbc0
 ---
 
 ## History
@@ -61,3 +73,5 @@ reviews:
 - 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: its disclosures carry mapping M, clipping (multipliers before/after, clipped share), light phase, the 2 x 4 h against 8-12 h duration and Q03's member gap; none waived. Applies again to the capability reading and any commit or publication.
 - 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: it cites D158 for Stage 3c; the carried disclosures (mapping, clipping, phase, duration, Q03) apply to the reading as a whole and are in D194; D200 adds none and waives none.
+- 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: a proposal with no run; it waives none of the carried items (mapping, clipping, phase and duration, Q03). Its duration remark on D_w's 4-h blocks is from code, not a test. Unchanged
+- 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — Nothing is waived: D204-D210 change no mapping, clipping, phase or duration treatment and no Q03 record; D205 Part 2 item 2 carries C2's failures.

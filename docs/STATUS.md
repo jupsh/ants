@@ -65,12 +65,13 @@ in the RESUME archive (A005).
       capability runs ran on a rented box, switched once for disk (D179, D180; ≈ $2.51), and are fetched. The multipliers
       are reported (D184): Es is clipped 94 % of the time at its calibrated strength (F100). Stage 1–2a is committed.
       Stage 2b is read (D194): no member reproduces jointly, family T 0 of 2, D 0 of 7 (F103; expected even of a
-      perfect model, F097), every arm short at 20-min D_w (F104). Stage 3b: c is frozen on the nulls (D196; 9.28,
-      fallback α 0.025/3). The same-member check passes (D198; F105), and capability passes: all 14 T × D pairs
+      perfect model, F097), every arm short at 10-min D_w (F104; labels corrected, D204). Stage 3b: c is frozen on
+      the nulls (D196; 9.28, fallback α 0.025/3). The same-member check passes (D198; F105), and capability passes: all 14 T × D pairs
       distinguished, with uneven false-positive rates, 7.4 % pooled, 20 % within T (D200; F106). No member has every
       row inside, so Stage 3c places the data against none and the measurement list is the outcome (D200). The data's
-      coordinates beside the members' are read as a descriptive (D203; F107). Next: the measurement list, in two
-      parts (D201): what separates the members, and what addresses their shared failures.
+      coordinates beside the members' are read as a descriptive (D203; F107). The measurement list is approved with
+      amendments (D205, D206). Its first item, the data's D_w by light block, is read (D210; F108): the slow synchrony
+      is highest in the 06-10 UTC block. The order of the remaining items is the user's.
   - **Step 9** (the held-out test) and **E6** are on hold (D114).
 - **Disclosed limitations:** the `carries` of closed threads (`plied tree`) and the findings they name. Among them:
   - C2's failing rows (F068), the forager per-ant spread (F075), packing (F027, F078) and still–still contacts
@@ -219,6 +220,9 @@ Process (see also CLAUDE.md):
   run they govern; amendments are dated lines in the entry's own file. **Read the whole relevant entry before
   appending to it** (a pilot was launched against a condition written
   just above the entry being appended, 2026-10-10).
+- **Implementation by the implementer subagent** (D208): the lead agent
+  writes a brief and keeps the record; the implementer writes the code and
+  a report (`docs/HANDOFF.md`).
 - **Blind while a pre-registration is open:** check only that outputs
   exist; if anything is seen, say exactly what, here and in the reply.
 - **New rules only if they block a known way to get a wrong answer**

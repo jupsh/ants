@@ -117,6 +117,106 @@ reviews:
     inputs:
       - record: D202
         rev: 97916663a5b52f993397cc2e3ac2c9edb295a2193d1d44d74c54c1220764a0b3
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: local, about a minute; no box (D207)
+    by: lead (session 20261030)
+    at: "2026-10-30 21:10 UTC"
+    inputs:
+      - record: D207
+        rev: 8f6f241d26d437df775bce00a27ef04f216e12facb2569dc025e87ee3c8f9396
+  - action: run:partdblocks-2
+    disposition: not-applicable
+    because: local (peak about 0.5 GB per file after D207's amendment, about 20-40 min); no box
+    by: lead (session 20261030)
+    at: "2026-10-30 21:22 UTC"
+    inputs:
+      - record: D207
+        rev: 9a55da1c62b45147ecc27069e9c2373aa6a0813e34155338fc0296b3db5c4202
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: >-
+      re-read after D207's amendment: this run crashed (the machine ran out of memory) before
+      writing any output, and nothing was read; the work is rerun under run:partdblocks-2, disposed
+      separately
+    by: lead (session 20261030)
+    at: "2026-10-30 21:23 UTC"
+    inputs:
+      - record: D207
+        rev: 9a55da1c62b45147ecc27069e9c2373aa6a0813e34155338fc0296b3db5c4202
+  - action: run:partdblocks-3
+    disposition: not-applicable
+    because: local, about 10 min, peak about 330 MB; no box
+    by: lead (session 20261030)
+    at: "2026-10-30 21:33 UTC"
+    inputs:
+      - record: D207
+        rev: 8ba0cb4f72b4208a701139a480d5c5be0d67b3e8f9ff83864a421d081410fcfd
+  - action: run:partdblocks-2
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 2: this run's output failed P88's self-check and was set aside
+      unread (blocks-selfcheck-failed-c91854ee.json); the work is rerun under run:partdblocks-3,
+      disposed separately
+    by: lead (session 20261030)
+    at: "2026-10-30 21:33 UTC"
+    inputs:
+      - record: D207
+        rev: 8ba0cb4f72b4208a701139a480d5c5be0d67b3e8f9ff83864a421d081410fcfd
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 2: this first run crashed on memory before writing any output and
+      nothing was read; superseded by run:partdblocks-2 (self-check failed, set aside) and
+      run:partdblocks-3
+    by: lead (session 20261030)
+    at: "2026-10-30 21:34 UTC"
+    inputs:
+      - record: D207
+        rev: 8ba0cb4f72b4208a701139a480d5c5be0d67b3e8f9ff83864a421d081410fcfd
+  - action: run:partdblocks-4
+    disposition: not-applicable
+    because: local, about 10 min, peak about 330 MB; no box
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: run:partdblocks
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 3: this first run crashed on memory before writing any output and
+      nothing was read; superseded by run:partdblocks-4
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: run:partdblocks-2
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 3: this run's output failed P88's self-check and was set aside
+      unread; superseded by run:partdblocks-4
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: run:partdblocks-3
+    disposition: not-applicable
+    because: >-
+      re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing
+      was read; superseded by run:partdblocks-4
+    by: lead (session 20261030)
+    at: "2026-10-30 21:45 UTC"
+    inputs:
+      - record: D207
+        rev: 72fe3a177216140b402fbd9675c64f8d4de2d198d87f23f2a0855df7473103ed
+  - action: commit:partd-1a-20261030
+    disposition: not-applicable
+    because: No box rented; partDBlocks ran locally (D210).
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:07 UTC"
 ---
 
 ## History
@@ -151,3 +251,14 @@ reviews:
 - 2026-10-30 17:47 UTC lead (session 9d2b15e6): review for run:partdcap-same: not-applicable — local run on fetched files; no rental
 - 2026-10-30 17:56 UTC lead (session 9d2b15e6): review for run:partdcap-cross: not-applicable — local run on fetched files; no rental
 - 2026-10-30 18:08 UTC lead (session 9d2b15e6): review for run:partddesc: not-applicable — local, seconds to minutes; no rental
+- 2026-10-30 21:10 UTC lead (session 20261030): review for run:partdblocks: not-applicable — local, about a minute; no box (D207)
+- 2026-10-30 21:22 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — local (peak about 0.5 GB per file after D207's amendment, about 20-40 min); no box
+- 2026-10-30 21:23 UTC lead (session 20261030): review for run:partdblocks: not-applicable — re-read after D207's amendment: this run crashed (the machine ran out of memory) before writing any output, and nothing was read; the work is rerun under run:partdblocks-2, disposed separately
+- 2026-10-30 21:33 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — local, about 10 min, peak about 330 MB; no box
+- 2026-10-30 21:33 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — re-read after D207 amendment 2: this run's output failed P88's self-check and was set aside unread (blocks-selfcheck-failed-c91854ee.json); the work is rerun under run:partdblocks-3, disposed separately
+- 2026-10-30 21:34 UTC lead (session 20261030): review for run:partdblocks: not-applicable — re-read after D207 amendment 2: this first run crashed on memory before writing any output and nothing was read; superseded by run:partdblocks-2 (self-check failed, set aside) and run:partdblocks-3
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-4: not-applicable — local, about 10 min, peak about 330 MB; no box
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks: not-applicable — re-read after D207 amendment 3: this first run crashed on memory before writing any output and nothing was read; superseded by run:partdblocks-4
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — re-read after D207 amendment 3: this run's output failed P88's self-check and was set aside unread; superseded by run:partdblocks-4
+- 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing was read; superseded by run:partdblocks-4
+- 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — No box rented; partDBlocks ran locally (D210).

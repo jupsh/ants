@@ -3,9 +3,9 @@ id: D194
 date: 2026-10-30
 time: 05:32
 kind: reading
-title: Part D Stage 2b read (Stage 3a; D158, D174 Part B): no member reproduces jointly, family T 0 of 2, family D 0 of 7, controls and base also not; every arm short of the data's 20-min D_w; T too strong in the near bands, Eu-M, Ew5, Es and Eu too strong in the far band; read beside F097, which forecast joint equivalence very unlikely for a perfect model
+title: Part D Stage 2b read (Stage 3a; D158, D174 Part B): no member reproduces jointly, family T 0 of 2, family D 0 of 7, controls and base also not; every arm short of the data's 10-min D_w; T too strong in the near bands, Eu-M, Ew5, Es and Eu too strong in the far band; read beside F097, which forecast joint equivalence very unlikely for a perfect model
 ---
-- **2026-10-30 ≈ 05:32 UTC — Part D Stage 2b read (Stage 3a; D158, D174 Part B): no member reproduces jointly, family T 0 of 2, family D 0 of 7, controls and base also not; every arm short of the data's 20-min D_w; T too strong in the near bands, Eu-M, Ew5, Es and Eu too strong in the far band; read beside F097, which forecast joint equivalence very unlikely for a perfect model.**
+- **2026-10-30 ≈ 05:32 UTC — Part D Stage 2b read (Stage 3a; D158, D174 Part B): no member reproduces jointly, family T 0 of 2, family D 0 of 7, controls and base also not; every arm short of the data's 10-min D_w; T too strong in the near bands, Eu-M, Ew5, Es and Eu too strong in the far band; read beside F097, which forecast joint equivalence very unlikely for a perfect model.**
   - **What:** the Stage 2b reading (D158 as amended by D159; D174 Part B, approved D178, gap-filled by D185 and
     confirmed in D186), read mechanically by the frozen reader `scripts/scratch/partD2b.ts` (md5 `1ff8b42c`, checked
     before running). Answers question 1 of D158 (P43): which tested members reproduce synchrony magnitude, timescales
@@ -27,14 +27,14 @@ title: Part D Stage 2b read (Stage 3a; D158, D174 Part B): no member reproduces 
 
     | row | forecast | data | T20f | T20m | Eu-M | El20-M | Ed2 | Ed5 | Ed20 | Ew5 | Es | Eu | El20 | base |
     |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-    | S1 D_w all 10 s | unresolved | 2.63 | E | E | E | E | E | E | E | E | E | E | E | **O** |
-    | S1 D_w all 20 min | unresolved | 6.28 | **O** | u | u | **O** | **O** | **O** | **O** | **O** | **O** | u | **O** | **O** |
-    | S1 D_w nurse 10 s | unresolved | 2.28 | u | u | u | E | E | E | E | E | u | E | E | **O** |
-    | S1 D_w nurse 2 min | unresolved | 3.67 | u | u | u | E | E | E | E | E | u | u | u | **O** |
-    | S1 D_w nurse 20 min | unresolved | 5.12 | **O** | u | u | **O** | **O** | **O** | **O** | **O** | u | u | **O** | **O** |
-    | S1 D_w forager 10 s | unresolved | 1.58 | E | E | u | u | u | u | u | u | u | E | E | **O** |
-    | S1 D_w forager 2 min | unresolved | 2.12 | u | u | u | u | u | u | u | u | u | E | u | **O** |
-    | S1 D_w forager 20 min | unresolved | 3.12 | **O** | u | **O** | **O** | **O** | **O** | **O** | **O** | **O** | u | **O** | **O** |
+    | S1 D_w all 5 s | unresolved | 2.63 | E | E | E | E | E | E | E | E | E | E | E | **O** |
+    | S1 D_w all 10 min | unresolved | 6.28 | **O** | u | u | **O** | **O** | **O** | **O** | **O** | **O** | u | **O** | **O** |
+    | S1 D_w nurse 5 s | unresolved | 2.28 | u | u | u | E | E | E | E | E | u | E | E | **O** |
+    | S1 D_w nurse 1 min | unresolved | 3.67 | u | u | u | E | E | E | E | E | u | u | u | **O** |
+    | S1 D_w nurse 10 min | unresolved | 5.12 | **O** | u | u | **O** | **O** | **O** | **O** | **O** | u | u | **O** | **O** |
+    | S1 D_w forager 5 s | unresolved | 1.58 | E | E | u | u | u | u | u | u | u | E | E | **O** |
+    | S1 D_w forager 1 min | unresolved | 2.12 | u | u | u | u | u | u | u | u | u | E | u | **O** |
+    | S1 D_w forager 10 min | unresolved | 3.12 | **O** | u | **O** | **O** | **O** | **O** | **O** | **O** | **O** | u | **O** | **O** |
     | S2 C < 5 mm | marginal | 0.104 | **O** | **O** | u | E | E | E | E | u | u | u | E | **O** |
     | S2 C 5–10 mm | marginal | 0.060 | **O** | **O** | u | E | E | E | E | u | u | u | E | **O** |
     | S2 C 10–20 mm | unresolved | 0.030 | **O** | **O** | E | u | u | u | u | E | u | u | u | **O** |
@@ -49,8 +49,8 @@ title: Part D Stage 2b read (Stage 3a; D158, D174 Part B): no member reproduces 
     | S3₂ | precise | 0.189 | E | E | E | E | E | E | E | E | u | E | E | E |
     | **equivalent / outside** | | | 7 / 8 | 7 / 5 | 6 / 3 | 10 / 3 | 10 / 3 | 10 / 3 | 10 / 3 | 7 / 4 | 5 / 4 | 7 / 4 | 10 / 3 | 3 / 14 |
 
-    (S1 cells as the reader names them: 10, 120 and 1200 s. S2-J rows are C − Ê_J. Every sim value, CI and tolerance
-    is in `read.json`.)
+    (S1 cells: the reader's keys 10, 120 and 1200 are frames at 2 fps, so 5 s, 1 min and 10 min; labels corrected,
+    D204. S2-J rows are C − Ê_J. Every sim value, CI and tolerance is in `read.json`.)
   - **Stage 3a (the rule, D158):** no arm has all 20 rows equivalent. **Family T: no member reproduces, of 2
     calibrated. Family D: no member reproduces, of 7 calibrated** (Es included). T10f and T10m were not calibrated
     (D173) and are not assessed. The controls Eu and El20 and C2 base do not reproduce either. **Answer to question 1:
@@ -59,11 +59,11 @@ title: Part D Stage 2b read (Stage 3a; D158, D174 Part B): no member reproduces 
     model at this sample size, and 15 rows unforecastable. So the joint failure does not by itself count against any
     one member. The outside rows carry the information; unresolved rows are neither failures nor passes (P43). The
     following is description, no new rule:
-    - **Slow timescale, every arm.** The data's 20-min D_w (all 6.28, nurse 5.12, forager 3.12) is above every arm's
+    - **Slow timescale, every arm.** The data's 10-min D_w (all 6.28, nurse 5.12, forager 3.12) is above every arm's
       (all 3.2–5.25). It is outside on all-ants for 8 of the 11 non-base arms and on foragers for 9. Only T20m, Eu-M
-      and Eu are not outside on all-ants at 20 min (unresolved). At 10 s every non-base arm is equivalent on all-ants.
+      and Eu are not outside on all-ants at 10 min (unresolved). At 5 s every non-base arm is equivalent on all-ants.
       The members were calibrated on the all-ants 1-min cell (D173; the cell excluded from the rows) and fall short at
-      20 min. With 2 × 4 h simulated against 8–12 h of light, the 20-min cell has the fewest blocks per simulated run.
+      10 min. With 2 × 4 h simulated against 8–12 h of light, the 10-min cell has the fewest blocks per simulated run.
       Whether that biases D_w down is not examined (F104).
     - **Family T: too local.** Both T members' near-band C (< 5, 5–10, 10–20 mm) is 1.7–3.4 times the data's
       (0.18–0.23 against 0.10 at < 5 mm), outside in all six cells. Their excess over J is outside at 10–20 mm (and at
@@ -71,7 +71,7 @@ title: Part D Stage 2b read (Stage 3a; D158, D174 Part B): no member reproduces 
     - **Drivers: profile too flat in some.** Eu-M, Ew5, Es and the control Eu are outside at ≥ 40 mm on C (0.030–0.073
       against −0.001). El20-M, Ed2, Ed5, Ed20 and the control El20 have nearly identical classes and values (as their
       calibration and multipliers did, D173, D184): their near bands are equivalent, their far bands unresolved, and
-      they fail only the 20-min cells.
+      they fail only the 10-min cells.
     - **Es:** S3₁ and S3₂ unresolved (0.98 and 1.04 against 0.27 and 0.19), S2-J ≥ 40 mm outside. The only arm whose
       S3 rows are not equivalent.
     - **Base:** 3 of 20 equivalent (S2 C ≥ 40 mm and the S3 rows), 14 outside.
@@ -104,7 +104,7 @@ title: Part D Stage 2b read (Stage 3a; D158, D174 Part B): no member reproduces 
     - The raw and corrected bands are dependent, so their agreement is not ten independent confirmations. Far-band
       classes come from the interval rule, not from point differences (P51).
     - Es is dominated by clipping (D184).
-  - **Findings:** F103 (the Stage 3a result), F104 (the 20-min shortfall).
+  - **Findings:** F103 (the Stage 3a result), F104 (the 10-min shortfall).
   - **What it does not show:** which mechanism is behind the data's synchrony. That is question 2, and it waits on the
     capability test (P44). No member is chosen, dropped or tuned on these rows (P41; stopping rule, D158).
   - **Exposures:** none. The seals on these outputs were lifted by D186; the capability outputs stay sealed (P63), and
@@ -116,3 +116,6 @@ title: Part D Stage 2b read (Stage 3a; D158, D174 Part B): no member reproduces 
       gated `run:partd2-capfiles`). Then `partDCap.ts`: nulls first, and c frozen on them before any member comparison.
     - Stage 3c only if capability passes (D158).
     - D190's B017 patch waits until `capfiles` finishes.
+- **2026-10-30 ≈ 20:45 UTC — Correction (D204).** The S1 cells were labelled 10 s, 2 min and 20 min, reading the
+  reader's window keys (10, 120, 1200 frames at 2 fps) as seconds. They are 5 s, 1 min and 10 min, and the labels above
+  (title, table, text) are corrected in place. Every number, class and verdict is unchanged.

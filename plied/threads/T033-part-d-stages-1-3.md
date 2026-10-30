@@ -31,6 +31,12 @@ links:
   - D201
   - D202
   - D203
+  - D204
+  - D205
+  - D206
+  - D207
+  - D209
+  - D210
 scanned:
   - record: D167
     rev: 7412f85134a17dfab22d4722b34b2d2643d578ce82669108fbceae843baf0009
@@ -118,6 +124,22 @@ scanned:
       read in full: the user's 'stop before computing any cross-member value' restates P59 (made
       D175 item 6); its other items fix c and α (D196) and ask for reporting done in D198. No new
       obligation.
+  - record: D194
+    rev: 5d5c2108904ee4453da89c3a95d2399691e9acbbdf492a2c6a6bc7bfb294b65f
+    at: "2026-10-30 20:49 UTC"
+    by: lead (session 20261030)
+    because: >-
+      re-read after D204's in-place label correction (S1 windows 5 s, 1 min, 10 min) and its dated
+      line: the conditionals are unchanged ('c frozen on them before any member comparison' restates
+      P59, made D175; 'Stage 3c only if capability passes' restates D158; D190's B017 order is P75);
+      the correction adds no obligation
+  - record: D209
+    rev: eb19932ee4da68ca852407a086e27973eefd11044b3e5029b04ae5ffed2a2f25
+    at: "2026-10-30 21:57 UTC"
+    by: lead (session 20261030)
+    because: >-
+      read in full (lead wrote it): 'caught before any value was read' reports what happened; it
+      counts three code defects for D208 and holds no obligation
 ---
 Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment 1), not approved (D128); held until the S2 audit shows what spatial pattern still needs explaining (D134).
 
@@ -177,3 +199,12 @@ Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment
 - 2026-10-30 17:50 UTC lead (session 9d2b15e6): scanned D197 (rev b80fed2f6a3a): no commitment to record — read in full: the user's 'stop before computing any cross-member value' restates P59 (made D175 item 6); its other items fix c and α (D196) and ask for reporting done in D198. No new obligation.
 - 2026-10-30 17:58 UTC lead (session 9d2b15e6): added D200 to links — D200: capability passes (14/14 pairs, 36/36; F106) with uneven false-positive rates; Stage 3c has no member to place against; the measurement list is the outcome
 - 2026-10-30 18:10 UTC lead (session 9d2b15e6): added D201, D202, D203 to links — D201 user: descriptive comparison then measurement list; D202 designed; D203 read (F107). Next: the measurement list in two parts
+- 2026-10-30 20:49 UTC lead (session 20261030): scanned D194 (rev 5d5c2108904e): no commitment to record — re-read after D204's in-place label correction (S1 windows 5 s, 1 min, 10 min) and its dated line: the conditionals are unchanged ('c frozen on them before any member comparison' restates P59, made D175; 'Stage 3c only if capability passes' restates D158; D190's B017 order is P75); the correction adds no obligation
+- 2026-10-30 20:49 UTC lead (session 20261030): reviewed D204: it corrects the S1 window labels in D194, D203, F103, F104 and STATUS (5 s, 1 min, 10 min, not 10 s, 2 min, 20 min); this thread's 05:34 history line 'every arm short at 20-min D_w (F104)' means the 10-min cell. Numbers, classes and verdicts are unchanged, so T033's state is unchanged: the measurement list (D201) is next, and its slow-timescale part is about the 10-min cell, the slowest S1 measures
+- 2026-10-30 20:51 UTC lead (session 20261030): added D204 to links; added D205 to links — D205: measurement list drafted for the user (Q24), in D201's two parts; D204 corrected the S1 window labels it uses. T033 waits on Q24's answer before Part 2 item 1(a) is designed
+- 2026-10-30 21:06 UTC lead (session 20261030): added D206 to links — reviewed D206: Q24 answered, D205 approved with amendments; commitments P80-P87 attached here. Next on this thread: design Part 2 item 1(a) (coverage, colony weighting, uncertainty; P81) before computing
+- 2026-10-30 21:09 UTC lead (session 20261030): added D207 to links — D207: Part 2 item 1(a) designed (coverage, colony weighting, uncertainty fixed before computing; P81)
+- 2026-10-30 21:23 UTC lead (session 20261030): run in progress: partdblocks-2-20261030T212231Z (local, logs/runs/), writing logs/partd2/blocks.json; the first run (run:partdblocks) crashed the machine on memory with no output (D207 amendment). The reading starts with P88's self-check against D194
+- 2026-10-30 21:57 UTC lead (session 20261030): added D209 to links; added D210 to links — D210: Part 2 item 1(a) read (F108): 10-min D_w highest in the 06-10 block; every arm below it. D209: three code defects in the 1(a) script, counted for D208
+- 2026-10-30 21:57 UTC lead (session 20261030): scanned D209 (rev eb19932ee4da): no commitment to record — read in full (lead wrote it): 'caught before any value was read' reports what happened; it counts three code defects for D208 and holds no obligation
+- 2026-10-30 21:57 UTC lead (session 20261030): hand-off (session ending): Part 2 item 1(a) is done (D207 design, D210 reading, F108). Nothing running. Left for the next session: the user orders D205's remaining items (Part 2: 1(b) triggers T035, 1(c) foragers T012, new data, model work; Part 1: density, direct sensing), each a new design (P87); implementation goes to the implementer (D208). Scratch: scripts/scratch/partDBlocks.py (md5 7ebffa33), logs/partd2/blocks.json; a failed-self-check output set aside unread at logs/partd2/blocks-selfcheck-failed-c91854ee.json. All record changes since commit dfffd94 are uncommitted

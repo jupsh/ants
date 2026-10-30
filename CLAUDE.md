@@ -7,6 +7,13 @@ agents**: the user gives them the most control, and this file adds the
 duties that come with it.
 
 ## Lead-agent duties
+- **Implementation goes to the implementer** (D208): code, scripts and tests
+  are written by the `implementer` subagent (Opus, without this file) from a
+  written brief, and come back as a written report (`docs/HANDOFF.md`). You
+  do the bookkeeping before the brief and after the report, not while it
+  works, and check its result yourself. A hook asks the user before you edit
+  `src/`, `scripts/` or `test/` directly. Log a defect found in code with
+  `--kind correction`.
 - **Keep each fact in its one home** (AGENTS.md, *How the record is
   divided*). A change is written once, where it belongs, and summaries are
   pointers:
@@ -71,11 +78,14 @@ duties that come with it.
 - **Sealed paths** are enforced for you by `.claude/hooks/sealed.py`. While a
   pre-registration is open, add its output paths to
   `.claude/sealed-paths.txt`; remove them once the reading is frozen.
-- **Handing work to another agent** (a subagent, or another vendor's agent
-  run by the user or from the shell): give it a backlog item or a written
-  task naming the scope, the files it may change, what it may run and how its
+- **Handing work to another agent** (the implementer, another subagent, or
+  another vendor's agent run by the user or from the shell): give it a
+  backlog item or a written task (for the implementer, a brief in the
+  `docs/HANDOFF.md` format) naming the scope, the files it may change, what it may run and how its
   result will be checked; name its plied thread, if it has one (it may
-  `plied claim` it and message it, not write records). Check the result
+  `plied claim` it and message it, not write records; the implementer
+  shares your plied identity and session, so it does neither: you claim
+  and note the node, and its report is its hand-off). Check the result
   yourself (diff, `npm test`, `tsc`) before relying on it. Never hand over anything that needs sealed
   paths, held-out data or a frozen artifact.
 - **Commits:** ask before committing unless told to; plain messages, no

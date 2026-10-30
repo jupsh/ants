@@ -56,7 +56,7 @@ title: Part D descriptive comparison read (D201, D202): on 20 colonies, the T me
     means sit beside them, not which mechanism produced the data.
   - **Findings:** F107.
   - **Next:** the ranked measurement list (D201): measurements predicted to separate the implemented members, and
-    measurements addressing their shared failures (above all the 20-min D_w shortfall, F104). Interventions that need
+    measurements addressing their shared failures (above all the 10-min D_w shortfall, F104). Interventions that need
     new modelling are "unresolved (needs modelling)".
 - **2026-10-30 ≈ 18:31 UTC — Correction (user review, in conversation).** Two wordings are tightened in place above.
   1. Where a difference's CI includes 0, the entry now says "the difference is unresolved", not that the member
@@ -64,3 +64,5 @@ title: Part D descriptive comparison read (D201, D202): on 20 colonies, the T me
   2. The T members' "too much co-movement in both bands" referred to the corrected bands (C − Ê_J) that form R_J; their
      raw far-band C is below the data's as a point estimate.
   The numbers are unchanged.
+- **2026-10-30 ≈ 20:45 UTC — Correction (D204).** "20-min D_w" in "Next" is the 10-min cell (the S1 window keys are
+  frames at 2 fps); corrected in place.
