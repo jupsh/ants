@@ -8,7 +8,7 @@ actor: lead
 approval:
   state: approved
   by: D159
-links: [D126, D134, P21, D156, D157, D158, D159, D173, D174, D175, D176, D177, D178, D179]
+links: [D126, D134, P21, D156, D157, D158, D159, D173, D174, D175, D176, D177, D178, D179, D194]
 scanned:
   - record: D167
     rev: 7412f85134a17dfab22d4722b34b2d2643d578ce82669108fbceae843baf0009
@@ -65,6 +65,14 @@ scanned:
     because: >-
       D186 quotes the confirmed rule's if-then (a support colony under 90 % valid makes the row
       unresolved), a rule of the frozen reader, not a commitment
+  - record: D194
+    rev: 3eee0e9774405cf7f7c7bc732310651e00a3a67b628bac2553baaf055388769d
+    at: "2026-10-30 05:35 UTC"
+    by: lead (session 9d2b15e6)
+    because: >-
+      read in full (lead wrote it): 'c frozen on them before any member comparison' restates P59
+      (made D175); 'Stage 3c only if capability passes' restates D158; D190's B017 order is P75. No
+      new obligation.
 ---
 Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment 1), not approved (D128); held until the S2 audit shows what spatial pattern still needs explaining (D134).
 
@@ -112,3 +120,7 @@ Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment
 - 2026-10-29 22:36 UTC lead (session 20261029): reviewed D186: Q23 answered; the Stage 2b reading proceeds (files stage started, run partd2b-read); capfiles paused until it finishes (resumable)
 - 2026-10-29 22:37 UTC lead (session 20261029): scanned D186 (rev 19abdd78c7bc): no commitment to record — D186 quotes the confirmed rule's if-then (a support colony under 90 % valid makes the row unresolved), a rule of the frozen reader, not a commitment
 - 2026-10-30 04:08 UTC lead (session 9d2b15e6): Stage 2b reading: files stage (run partd2b-read-20261029T223633Z) exited 0 at 04:07 UTC, 1,057 jobs in logs/partd2/assess; read stage started as partd2b-read-20261030T040810Z under the same gated action run:partd2b-read (gate re-checked, passes). capfiles still paused (partD2.ts capfiles, resumable), to restart after read.
+- 2026-10-30 04:47 UTC lead (session 9d2b15e6): Stage 2b read (partd2b-read-20261030T040810Z) exited 3 at 04:46 UTC: ext-needed.json names Eu-M and Eu (S2-J rows not MC-resolved at 100 draws). The one extension (D174 Part B, as filled by D185 and confirmed in D186) started as partd2b-read-20261030T044706Z (ext --arms Eu-M,Eu), same gated action; read runs again after it.
+- 2026-10-30 05:34 UTC lead (session 9d2b15e6): added D194 to links — D194: Stage 2b read (Stage 3a): no member reproduces jointly (F103); every arm short at 20-min D_w (F104). Question 1 answered; T033 stays open for Stage 3b (capability) and, only if it passes, 3c.
+- 2026-10-30 05:35 UTC lead (session 9d2b15e6): scanned D194 (rev 3eee0e977440): no commitment to record — read in full (lead wrote it): 'c frozen on them before any member comparison' restates P59 (made D175); 'Stage 3c only if capability passes' restates D158; D190's B017 order is P75. No new obligation.
+- 2026-10-30 17:29 UTC lead (session 9d2b15e6): capfiles (partd2-capfiles-20261030T053011Z) exited 0 after 7 h 06 min (≈ 12:36 UTC); exit status only, outputs sealed (P63). Next: partDCap.ts nulls, P61's plausibility check and P62's false-positive rate, then c frozen (P59) in a freeze entry, gated first.

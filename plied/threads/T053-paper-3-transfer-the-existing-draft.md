@@ -13,3 +13,5 @@ Draft label: T7.3 (docs/threads-draft.md revision 2). Carries step 5, the held-o
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
 - 2026-10-25 03:11 UTC lead (session 0bcdd30b): reviewed D147: its 'P20' names the Part C simulated set, not commitment P20. No change.
 - 2026-10-29 20:08 UTC lead (session 7f762276): reviewed D181: bears on the paper's text: step 5's disclosure now includes the omitted Buffin joint-fit row (F081), and the held-out section reports rows 1 and 4 as predictions with failures, contacts marked incomplete if the observer is unvalidated (P66, P67); no change to the thread's waits
+- 2026-10-30 04:45 UTC lead (session 9aa22476): reviewed D191: it cites T038 only for P06 (a) and (b); T053 waits on T036, T038 and P24 and is unaffected
+- 2026-10-30 05:00 UTC lead (session 9aa22476): reviewed D193: it cites T038 only for P06 (a) and (b); F102 may be cited in paper 3 as a layer sensitivity of the step-5 transfer failure, but T053's waits are unchanged

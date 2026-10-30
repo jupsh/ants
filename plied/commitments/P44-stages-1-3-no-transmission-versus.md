@@ -116,3 +116,4 @@ reviews:
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — These files are the capability test through the actual observer (D175); no conclusion before c is frozen and the checks pass.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the 2b reader draws no transmission-versus-driver conclusion; unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — The 2b reading draws no transmission-versus-driver conclusion; that waits on the capability test.
+- 2026-10-30 05:35 UTC lead (session 9d2b15e6): reviewed D194: D194 draws no transmission-versus-driver conclusion and says question 2 waits on the capability test; F103 cites P44 for the same reason. Not yet fulfilled: governs the Stage 3b reading.

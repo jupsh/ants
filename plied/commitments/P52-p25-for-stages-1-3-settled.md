@@ -52,3 +52,4 @@ reviews:
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No packing arm or spatial reading is committed.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: carried as a disclosure in the 2b reader; unaffected
 - 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: its disclosures say packing is closed with failures accepted, not matched, and carry F078 with the near-share deficit; no packing arm added. Applies to commit and publish.

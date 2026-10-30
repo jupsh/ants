@@ -53,3 +53,4 @@ reviews:
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No fallback rate computed yet.
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — The fallback FP rate is measured on the nulls by partDCap.ts nulls before c is frozen.
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: not-applicable — No capability statistic is involved.
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: names P62 as a step of Stage 3b; the fallback's false-positive rate is not yet measured. Open.

@@ -68,6 +68,4 @@ to LOG.md (same format); Findings stay here. -->
 - 2026-10-29 20:07 UTC · codex-b017 · Handoff sent on T046 to lead and this session claim released. The final plied check, run during concurrent project record updates, reports zero errors and 19 unrelated stale-review warnings: D180 on T033, P21, P43, P45, P51, P52, P54; new D181 warnings on P01, P03, Q11, P02, T020, T023, T031, T033, T034, T035, T038, T053. Each is left for the lead: these record reviews are outside B017 and this agent may not edit plied records. This updates the earlier seven-warning inventory; B017 validation results are unchanged. The patch was opened in Codex for review.
 
 ## Findings
-<When done: the answer in a few sentences; evidence (paths in this folder);
-confidence and caveats; what it implies; suggested next steps or new items. A
-change the main code needs goes in this folder as `proposal.patch`.>
+The optional 0.5-mm Gaussian footprint with deposit spacing min(1 mm, cell/2) passes B012's rule (worst change 3.046 % at the 0.25 to 0.125 mm refinement, no gaps); the point-sampling control fails; legacy mode is bit-identical. The sigma is provisional and unsourced; coarse grids stay alignment-sensitive; `proposal.patch` is unapplied. Evidence: `results/analysis.md`, `results/convergence.json`, `results/legacy-identity.json`. Lead review: D188; finding F101 (F049 related). Next: the user decides adoption and a sigma (T046).

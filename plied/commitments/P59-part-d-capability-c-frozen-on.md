@@ -60,3 +60,4 @@ reviews:
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — capfiles computes per-file audit accumulators only; the reader enforces nulls → c frozen → same → cross (partDCap.ts).
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the 2b reader is independent of the capability reader and reads none of its outputs; P59's order is unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: not-applicable — The 2b reader reads no capability output.
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: D194 names the order for Stage 3b (nulls first, c frozen on them, then the same-member check). No capability value computed; capfiles resumed at 05:30 UTC. Governs the next step; open.

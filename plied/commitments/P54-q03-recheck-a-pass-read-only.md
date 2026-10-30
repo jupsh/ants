@@ -51,3 +51,4 @@ reviews:
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — The Q03 recheck reading (D163) is committed as read; nothing reinterprets it.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the Q03 scope (C2 base only, unrechecked for members) is carried as a disclosure; unaffected
 - 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: it discloses that the Q03 recheck supports only C2 base (D163) and not the members, as P54 limits it; no stationarity or warm-up adequacy claimed. Applies to commit and publish.

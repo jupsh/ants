@@ -74,6 +74,11 @@ reviews:
     because: P52's disposition is carried as a disclosure in the reading (D185); no spatial coupling added.
     by: lead (session 20261029)
     at: "2026-10-29 22:36 UTC"
+  - action: run:t057-judge-20261030
+    disposition: not-applicable
+    because: Governs spatial coupling; the judge adds no spatial coupling (no oracle, no coupling arm)
+    by: lead (session 9aa22476)
+    at: "2026-10-30 04:50 UTC"
 ---
 
 ## History
@@ -106,3 +111,5 @@ reviews:
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: not-applicable — No simulation and no spatial coupling is added; the audits only measure existing runs.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: P25/P52's disposition is carried as a disclosure in the 2b reader; unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — P52's disposition is carried as a disclosure in the reading (D185); no spatial coupling added.
+- 2026-10-30 04:50 UTC lead (session 9aa22476): review for run:t057-judge-20261030: not-applicable — Governs spatial coupling; the judge adds no spatial coupling (no oracle, no coupling arm)
+- 2026-10-30 05:37 UTC lead (session 9d2b15e6): reviewed D194: D194 carries P52's meaning of 'settled' (closed with failures accepted, F078 with the near-share deficit) as a disclosure and adds no spatial coupling; the coupling arms were the ones gated at D158/D159. Unaffected.

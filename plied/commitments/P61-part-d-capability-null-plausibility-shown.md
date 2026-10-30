@@ -55,3 +55,4 @@ reviews:
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — c is not frozen; nothing computed from the nulls.
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — The null plausibility tables are written by partDCap.ts nulls into the freeze entry before c is frozen.
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: not-applicable — No capability statistic is involved.
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: names P61 as a step of Stage 3b; the null plausibility check is not yet done (capfiles still running). Open.

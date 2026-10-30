@@ -15,6 +15,11 @@ reviews:
     because: A commit of records and code; no structure freeze is made.
     by: lead (session 20261029)
     at: "2026-10-29 21:24 UTC"
+  - action: run:t057-judge-20261030
+    disposition: not-applicable
+    because: Governs the structure freeze; this judging run freezes nothing and changes no structure
+    by: lead (session 9aa22476)
+    at: "2026-10-30 04:50 UTC"
 ---
 Draft label: P3 (docs/threads-draft.md revision 2).
 
@@ -24,3 +29,4 @@ Draft label: P3 (docs/threads-draft.md revision 2).
 - 2026-10-25 00:31 UTC lead (session 7c2d50fd): D144 (T049 scan review) cites this record's links; reviewed, nothing here changes (the cited promises are covered or discharged as D144 lists)
 - 2026-10-29 20:08 UTC lead (session 7f762276): reviewed D181: Q05 makes rows 1 and 4 reported predictions rather than a freeze condition (P66, P67), and says the freeze still waits on the synchrony decision; P03 is unchanged and still open
 - 2026-10-29 21:24 UTC lead (session 20261029): review for commit:20261029: not-applicable — A commit of records and code; no structure freeze is made.
+- 2026-10-30 04:50 UTC lead (session 9aa22476): review for run:t057-judge-20261030: not-applicable — Governs the structure freeze; this judging run freezes nothing and changes no structure

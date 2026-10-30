@@ -113,3 +113,4 @@ reviews:
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — Es's multipliers are reported (D184, F100); capfiles changes none.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: Es's clipping (D184, F100) is carried as a disclosure and the 2b multipliers are reported; unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Es's clipped and trajectory multipliers are reported for the 2b runs (D185's descriptive rows) beside D184's.
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: Es's multipliers reported both ways for Stage 2b (before clipping 5.97, applied 0.32, clipped 94.3 %); neither averages 1, as P46 says. The before-clipping mean differs from Stage 2a's 0.52, reported with an unchecked heavy-tail reading. Stays open for the capability reading.

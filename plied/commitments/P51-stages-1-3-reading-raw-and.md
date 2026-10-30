@@ -51,3 +51,4 @@ reviews:
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No band reading is committed.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the dependent-bands disclosure is carried, and classes follow the interval rule, so a point difference is never outside by itself; unaffected
 - 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: D194 discloses the dependence of raw and corrected bands and classes far bands by the frozen interval rule only (e.g. Eu-M's S2-J >= 40 mm unresolved (MC), Ew5's C >= 40 mm outside by its CI). F103 carries the same disclosure. Applies to commit and publish of the reading.

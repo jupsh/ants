@@ -56,3 +56,4 @@ reviews:
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — No reproduction reading is committed: Stage 2b is unread.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the reader reads reproduction (Stage 3a) first, keeps every row with outside, unresolved and missing listed, and carries S3's failed gate; P43 applies at the reading
 - 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged
+- 2026-10-30 05:37 UTC lead (session 9d2b15e6): reviewed D194: D194 answers the first question (no tested member reproduces jointly; F103), keeps all 20 rows, lists every outside and unresolved row, and keeps Stage 0's failed gate G on record; its descriptive gate-G recomputation on the 2b base ('positive excess ordering established') is explicitly said not to reverse it. Governs commit and publish; met in D194. Open.

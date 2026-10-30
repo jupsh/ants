@@ -21,8 +21,12 @@
  * oracle, which it refuses. Condition 4 (|fitZ| ≤ 5) and the 5 % bound check (unit scale, as `s2018AtBound`) are
  * printed for the adoption rule.
  *
+ * T057 (E2 trigger c, D181): `--swapLayer alt` judges the fit's point with only the E2 layer swapped to L0S1
+ * (`forager` and `phys` of `LASIUS_PARAMS_E2_ALT`, and its pipette accessibility); every other parameter, the seeds and the
+ * rule are unchanged. `--swapLayer main` is the same arm on L0S1c (a no-op: bit-identical to omitting it).
+ *
  * Usage: npx vite-node scripts/reportM1999.ts --fit data/fits/colony-m1999-<layer>-shared.json [--n 240] [--allow-code-change]
- *   [--roles nurse] [--contactMin s] [--set nest.k=v,…] [--oracle spec] [--out f.json]
+ *   [--roles nurse] [--contactMin s] [--set nest.k=v,…] [--oracle spec] [--swapLayer main|alt] [--out f.json]
  */
 import { binomialSE, fitZ, logSdZ, verdict } from '../src/sim/analysis/compare';
 import type { ColonyParams } from '../src/sim/experiments/colonyBles';
@@ -60,7 +64,13 @@ const SET = Object.fromEntries(
       return [k.slice(5), Number(v)];
     }),
 );
-const P: ColonyParams = { ...P0, nest: { ...P0.nest, ...SET, ...(ROLES === 'nurse' ? { foragerFrac: 0 } : {}) } };
+const SWAP = arg('--swapLayer', '');
+if (SWAP && SWAP !== 'main' && SWAP !== 'alt') throw new Error('--swapLayer main|alt');
+const P: ColonyParams = {
+  ...P0,
+  ...(SWAP === 'alt' ? { forager: LASIUS_PARAMS_E2_ALT.forager, phys: LASIUS_PARAMS_E2_ALT.phys } : {}),
+  nest: { ...P0.nest, ...SET, ...(ROLES === 'nurse' ? { foragerFrac: 0 } : {}) },
+};
 const CONTACT_MIN = numArg('--contactMin', fit.contactMin);
 const ORC = arg('--oracle', '');
 const oracle = ORC
@@ -72,7 +82,7 @@ const oracle = ORC
   : undefined;
 const LAZY = fit.lazyRest && !oracle ? { lazyRest: {} } : {};
 const OUT = arg('--out', '');
-const accessible = (alt ? MAILLEUX_SETUP_E2_ALT : MAILLEUX_SETUP).accessible;
+const accessible = (alt || SWAP === 'alt' ? MAILLEUX_SETUP_E2_ALT : MAILLEUX_SETUP).accessible;
 const perNest: number = fit.design?.recruitersPerNest ?? 0;
 
 console.log(`${FIT}: layer ${fit.layer}; design ${perNest ? `shared warm-ups, ${perNest} per nest` : 'independent'}; fit loss (selection batch) ${fit.selectionLoss.toFixed(2)}, runs ${fit.runs.map((r: number) => r.toFixed(1)).join(', ')}`);
@@ -89,7 +99,7 @@ const sim = Object.fromEntries(
   ),
 ) as Record<M1999Day, M1999Recruiter[]>;
 pool.close();
-const arm = [ROLES && `roles ${ROLES}`, CONTACT_MIN !== fit.contactMin && `contacts ≥ ${CONTACT_MIN} s`, ...Object.entries(SET).map(([k, v]) => `${k} ${v}`), ORC && `oracle ${ORC}`].filter(Boolean).join(', ') || 'the fit point as fitted';
+const arm = [SWAP === 'alt' && 'E2 layer L0S1',ROLES && `roles ${ROLES}`, CONTACT_MIN !== fit.contactMin && `contacts ≥ ${CONTACT_MIN} s`, ...Object.entries(SET).map(([k, v]) => `${k} ${v}`), ORC && `oracle ${ORC}`].filter(Boolean).join(', ') || 'the fit point as fitted';
 console.log(`${N} recruiters per day, fresh seeds, ${arm}${LAZY.lazyRest ? ' (lazy rests)' : ''} [${((Date.now() - t0) / 1000).toFixed(0)} s]\n`);
 
 const f = (v: number) => (Math.abs(v) < 10 ? v.toFixed(2) : v.toFixed(1));
@@ -138,7 +148,7 @@ if (OUT)
     arm,
     n: N,
     seed: SEED,
-    options: { roles: ROLES || 'as fitted', contactMin: CONTACT_MIN, set: SET, oracle: oracle ?? null, lazyRest: !!LAZY.lazyRest },
+    options: { swapLayer: SWAP || 'as fitted', roles: ROLES || 'as fitted', contactMin: CONTACT_MIN, set: SET, oracle: oracle ?? null, lazyRest: !!LAZY.lazyRest },
     rows: rows.map((r, i) => ({ id: r.target.id, label: r.target.label, data: r.target.mean, seData: r.comparison.seData, sim: r.comparison.sim, seSim: r.comparison.seSim, z: r.comparison.z, fitZ: fitZs[i], simSd: r.simSd })),
     noBout: Object.fromEntries(M1999_DAYS.map((d, i) => [d, noBout[i]])),
     adequate,

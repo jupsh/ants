@@ -10,8 +10,9 @@ wording: >-
   statistic prevents joint reproduction.
 summary: Before Stage 2b.
 made: D159
-state: open
+state: fulfilled
 nodes: [T033]
+resolved_by: D194
 reviews:
   - action: run:q03-recheck-20261025
     disposition: not-applicable
@@ -110,3 +111,5 @@ reviews:
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: not-applicable — The capability files are not the Stage 2b assessment rows.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the reader implements P47's support, missing-statistic and MC rules as approved (D178); one gap-filling raised as Q23; P47 applies at the reading
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Support, missing-statistic and MC rules as approved (D178) and coded in the frozen reader (D185), its gap confirmed (D186).
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: D194 applied P47's rules through D185's frozen reader: common support on all 20 rows (22/20 colonies), no missing statistic, the 100->400 extension for Eu-M and Eu, and Eu-M's S2-J >= 40 mm left unresolved (MC). The rules governed the 2b assessment, now read; the capability reading has its own rule (P59-P62). Leaving it open for the lead to close against D194 with the user's view.
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): set state=fulfilled; set resolved_by=D194 — P47's rules were specified and frozen before assessment (D174 Part B, D178, D185, D186) and D194 applied them: common support on all 20 rows, no missing statistic, the 100->400 extension adapted to the S2-J boundaries with Eu-M's row unresolved (MC). Supersedes this session's earlier note that left closing open.

@@ -52,3 +52,4 @@ reviews:
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: satisfied — Member capability outputs stay sealed; logs/ is git-ignored, so none is committed.
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — Outputs go to logs/partd2/cap/s2 and s3, both sealed; the lead checks only counts until c is frozen.
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — The 2b reader reads no capability output; those stay sealed.
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: D194 states the capability outputs stay sealed and were not opened; the seal on logs/partd2/cap/ and pd-cap- remains in .claude/sealed-paths.txt. capfiles writes them now; still sealed until c is frozen. Open.

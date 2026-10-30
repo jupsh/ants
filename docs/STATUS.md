@@ -4,7 +4,7 @@ title: Project status (current state, plan, rules in force, evidence policy)
 ---
 # Project status
 
-_Last updated: 2026-10-29 (through D181, the user's answers to Q01 and Q04–Q10; earlier through D175, Stage 2a read, P29's rule approved; earlier through D163: the S2 audit read, the Stages 1–3 redesign approved, the Q03 recheck
+_Last updated: 2026-10-30 (through D194, Part D Stage 2b read: no member reproduces jointly; earlier through D193, E2 trigger (c) read on T057: it does not fire; earlier through D181, the user's answers to Q01 and Q04–Q10; earlier through D175, Stage 2a read, P29's rule approved; earlier through D163: the S2 audit read, the Stages 1–3 redesign approved, the Q03 recheck
 run and passed). Every change is dated in `docs/log/`._
 
 **Where the record lives.** One file per record, plain text; `npm test` fails if the record is
@@ -62,9 +62,11 @@ in the RESUME archive (A005).
       timing bench (D168, D169). Stage 2 proceeds as designed, Stage 2a first (D170, D171); it ran (D172; ≈ $1.82) and
       is read: 9 of 11 members calibrated, Es included; T10f and T10m ineligible (D173; F098). P29's capability rule is approved as amended (D175) and P47's rules as written (D178), so every rule
       before Stage 2b is fixed. The capability stage is built (D176; gap-fillings confirmed, D177). Stage 2b and the
-      capability runs ran on a rented box, switched once for disk (D179, D180; ≈ $2.51), and are fetched; both stay
-      sealed until their readers are frozen (P63, P64). The multipliers are reported (D184): Es is clipped 94 % of the
-      time at its calibrated strength (F100). Stage 1–2a is committed.
+      capability runs ran on a rented box, switched once for disk (D179, D180; ≈ $2.51), and are fetched. The multipliers
+      are reported (D184): Es is clipped 94 % of the time at its calibrated strength (F100). Stage 1–2a is committed.
+      Stage 2b is read (D194): no member reproduces jointly, family T 0 of 2, D 0 of 7 (F103; expected even of a
+      perfect model, F097), every arm short at 20-min D_w (F104). Next, Stage 3b: capability files, then c frozen on
+      the nulls (P59); its outputs stay sealed until then (P63).
   - **Step 9** (the held-out test) and **E6** are on hold (D114).
 - **Disclosed limitations:** the `carries` of closed threads (`plied tree`) and the findings they name. Among them:
   - C2's failing rows (F068), the forager per-ant spread (F075), packing (F027, F078) and still–still contacts
@@ -532,7 +534,8 @@ E2 reopening (else E2 is closed for M1 as provisional, its known
 non-optimum disclosed):
 - With paired seeds: (a) a between-layer difference > 1 combined SE whose
   CI excludes 0; (b) the E6 verdict differs between layers; (c) 1999
-  adequacy differs between layers.
+  adequacy differs between layers. (c) was read at D106's candidate and
+  does not fire (D193, F102); (a) and (b) wait on E6.
 - Shared failures: drinking-time spread, through the intakeSd 0.4 profile
   point as the drinking layer (same triggers); giving up matters only if
   > 5 % of E6 food visits end in a give-up.

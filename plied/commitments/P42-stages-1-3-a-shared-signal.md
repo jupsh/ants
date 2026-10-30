@@ -118,3 +118,4 @@ reviews:
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: not-applicable — No member runs; Es's map is unchanged.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: cites D158 for the rows; Es's map unchanged; unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Es as frozen; its clipping disclosed (D184) and its 2b multipliers reported.
+- 2026-10-30 05:35 UTC lead (session 9d2b15e6): reviewed D194: Es (the bounded shared-signal member with a spatially varying response) was assessed under mapping M and the same observer as T; it does not reproduce (5 of 20 equivalent; S3 unresolved; 94 % clipped). P42's build requirement is met; its member is carried into Stage 3b. Stays open until the capability reading.

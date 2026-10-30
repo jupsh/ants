@@ -124,3 +124,4 @@ reviews:
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: satisfied — No member is selected or tuned; the capability files feed the frozen capability rule (D175-D177).
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: the 20 rows are used for assessment only; no member is selected or tuned from them; unaffected
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — Roles and tolerances frozen (D158/D159); every calibrated member is assessed and reported; nothing selected from the rows.
+- 2026-10-30 05:37 UTC lead (session 9d2b15e6): reviewed D194: the five raw C bands and the five S2-J bands were assessed as frozen (D158); every calibrated member is reported and none chosen, dropped or tuned on the rows, as D194 states. Open: applies to the capability reading and anything after.

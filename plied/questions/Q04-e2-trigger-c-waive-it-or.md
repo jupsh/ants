@@ -13,3 +13,4 @@ Draft label: Q4 (docs/threads-draft.md revision 2).
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
 - 2026-10-24 22:12 UTC lead (session 104e7640): set nodes=["T039"] — attached to its nodes (D142)
 - 2026-10-29 20:05 UTC lead (session 7f762276): set state=answered; set answered_by=D181 — D181: user — judge L0S1 (bounded, paired, frozen first) rather than waive (c)
+- 2026-10-30 04:44 UTC lead (session 9aa22476): reviewed D191: it cites Q04 as the source of the judge; the answer (D181) is carried out as written, nothing reopened

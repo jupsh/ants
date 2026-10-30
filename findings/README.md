@@ -8,8 +8,8 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 
 | status | meaning | n |
 |---|---|---|
-| established | a pre-registered reading, read mechanically against its rule | 30 |
-| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 48 |
+| established | a pre-registered reading, read mechanically against its rule | 32 |
+| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 50 |
 | literature | reported by a cleared source; not tested here | 10 |
 | hypothesis | our reasoning; untested | 3 |
 | closed | a tested line with no further arms (a negative result) | 6 |
@@ -73,6 +73,8 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F097](F097-at-part-d-s-stage-2b-design-22-data.md) | indicated | At Part D's Stage 2b design (22 data colonies, 2 runs x 22 simulated), a perfect model's 90 % half-width reaches the tolerance on S1 D_w forager 10 min (h/tol 1.03 with Eu's between-colony spread, 0.97 with El20's), so joint equivalence on all 20 rows is very unlikely even for a perfect model; the data's between-colony spread sets most of every row's width; S3 rows are precise | 2026-10-26 |
 | [F098](F098-part-d-stage-2a-9-of-11-synchrony.md) | established | Part D Stage 2a: 9 of 11 synchrony members calibrate to the D_w target on fresh seeds (Es included); the 10-min transmission members T10f and T10m do not | 2026-10-26 |
 | [F100](F100-at-its-calibrated-strength-a-3-part-d-s.md) | established | At its calibrated strength (A = 3), Part D's Es member is clipped in 94 % of trajectory samples (applied mean g 0.33, E[1/g] 3.8): in practice a two-level switch, not a mean-1 shared signal | 2026-10-29 |
+| [F103](F103-part-d-stage-2b-stage-3a-no-tested.md) | established | Part D Stage 2b (Stage 3a): no tested synchrony member reproduces the data's magnitude, timescales and spatial profile jointly on all 20 rows (family T 0 of 2, family D 0 of 7, Es included; controls Eu, El20 and C2 base also not); per F097 this joint failure is expected even of a perfect model, so the information is in the outside rows | 2026-10-30 |
+| [F104](F104-in-part-d-s-stage-2b-every-simulated-arm.md) | indicated | In Part D's Stage 2b, every simulated arm falls short of the data's 20-min dispersion ratio D_w (data all ants 6.28, nurses 5.12, foragers 3.12; arms 3.2-5.25 on all ants), outside on all ants for 8 of 11 non-base arms and on foragers for 9, while all are equivalent at 10 s: members calibrated on the 1-min cell under-produce slow synchrony | 2026-10-30 |
 
 ## Packing, walls and resting sites
 
@@ -146,6 +148,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F080](F080-step-5-fit-with-c2-s-motion-transferred.md) | indicated | Step-5 fit with C2's motion transferred: the search runs into density's lower end (2 /cm²) and returnRate's upper end; no run converged in the default budget | 2026-10-22 |
 | [F081](F081-step-5-judgment-with-c2-s-motion.md) | established | Step-5 judgment: with C2's motion transferred, the fitted candidate is not adequate and not adoptable; trophallaxis totals far too short and later-day contacts too many in every sensitivity arm; transfer failure within the allotted search | 2026-10-22 |
 | [F093](F093-at-the-step-5-optimum-buffin-dish-bouts.md) | indicated | At the step-5 optimum, Buffin-dish bouts are capped by donor volume (the longest bout and the 90th percentile are both 31.1 s, the time to empty 0.9 µL to the giveFrac floor at shareRate 0.0225 µL/s; 53 % end with the donor empty), the mechanism pilot2 showed before step 4 | 2026-10-24 |
+| [F102](F102-d106-s-step-5-candidate-is-not-adequate.md) | established | D106's step-5 candidate is not adequate on the alternative E2 layer L0S1 either (9 rows \|z\| > 3 vs 5 on L0S1c); 1999 adequacy does not differ between layers, so E2 trigger (c) does not fire | 2026-10-30 |
 
 ## E2 (drinking, trail laying)
 
@@ -171,6 +174,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F059](F059-a-colonysim-can-be-saved-to-disk-and.md) | indicated | A ColonySim can be saved to disk and restored in another process bit-identically (0.7–1.3 MB, 10–40 ms) | 2026-10-19 |
 | [F066](F066-lazy-resting-ants-are-bit-identical-to.md) | indicated | Lazy resting ants are bit-identical to stepping and give ≈1.4× on Stroeymeyt-scale colonies, ≈1.15× on Mailleux nests at density 2.3 | 2026-10-19 |
 | [F096](F096-at-c2-base-settings-the-revised-water.md) | indicated | At C2 base settings, the revised water start (the warm-up shortcut) and the original start (full water, empty crops) give equivalent colony means in 14-20 h on all five rows of the Q03 recheck (22 colonies, paired); in 2-6 h the original start is still settling (bouts to nurses -32 %, nurse water +0.011), while the revised start's 2-6 h means lie within the margins of its 14-20 h means | 2026-10-25 |
+| [F101](F101-with-a-0-5-mm-gaussian-sampling.md) | indicated | With a 0.5-mm Gaussian sampling footprint (provisional sigma) and deposit spacing <= cell/2, the pheromone field's signal converges under B012's rule (worst change 3.05 % at 0.25 to 0.125 mm, no gaps); legacy mode is bit-identical; coarse grids stay alignment-sensitive | 2026-10-30 |
 
 ## Superseded
 

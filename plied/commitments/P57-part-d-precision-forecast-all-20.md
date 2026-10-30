@@ -10,8 +10,9 @@ wording: >-
   uninspected smoke statistics to construct it or carry the toy selected strengths into production
   calibration.
 made: D165
-state: open
+state: fulfilled
 nodes: [T033]
+resolved_by: D194
 links: [P28, P41]
 reviews:
   - action: run:partd-bench-20261026
@@ -104,3 +105,5 @@ reviews:
 - 2026-10-29 21:23 UTC lead (session 20261029): review for commit:20261029: not-applicable — The precision forecast (D166/D167) is committed unchanged; no forecast is used as a filter.
 - 2026-10-29 21:47 UTC lead (session 20261029): review for run:partd2-capfiles: not-applicable — No forecast is used.
 - 2026-10-29 22:36 UTC lead (session 20261029): review for run:partd2b-read: satisfied — The forecast is reported beside the reading, never used as a filter; every row is assessed.
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: the forecast (F097) is printed beside every row's class in D194's table and used only to read the joint failure; no row was removed from the all-20 requirement. Fulfilled in substance for Stage 2b; left open for the lead to close with the reading committed.
+- 2026-10-30 05:36 UTC lead (session 9d2b15e6): set state=fulfilled; set resolved_by=D194 — D194 prints F097's forecast beside all 20 rows' classes, uses it only to read the joint failure, and removes no row from the all-20 requirement; the forecast itself met the rest of P57 in D166/D167. Supersedes this session's earlier note that left closing open.
