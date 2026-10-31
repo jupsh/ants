@@ -3,8 +3,10 @@ id: P91
 title: "Item 1(b): synthetic tests before any data run"
 wording: synthetic tests before any data run
 made: D212
-state: open
+state: fulfilled
 nodes: [T035]
+resolved_by: D217
+links: [D217]
 reviews:
   - action: run:triggers-build-smoke
     disposition: acting
@@ -61,6 +63,42 @@ reviews:
       D217) and the rule stays in force for the read.
     by: lead (session 108deea8)
     at: "2026-10-31 00:42 UTC"
+  - action: run:triggers-amend2
+    disposition: acting
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-build-smoke
+    disposition: acting
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-read
+    disposition: satisfied
+    because: >-
+      Synthetic checks passed (D215, D217) and the independent implementation agreed on synthetic
+      cases (D220) before this read.
+    by: lead (session 108deea8)
+    at: "2026-10-31 01:00 UTC"
+    inputs:
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
 ---
 
 ## History
@@ -72,3 +110,7 @@ reviews:
 - 2026-10-31 00:37 UTC lead (session 108deea8): review for run:triggers-cal-full: satisfied — D217: 39 synthetic checks pass on the final code (rerun by the lead) before this data run.
 - 2026-10-31 00:41 UTC lead (session 108deea8): review for run:triggers-quorum: satisfied — Synthetic only: the quorum is itself a synthetic check, before the real read.
 - 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — The scripts are local scratch and not committed; the committed records describe them (D215, D217) and the rule stays in force for the read.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-amend2: acting — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-build-smoke: acting — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 01:00 UTC lead (session 108deea8): review for run:triggers-read: satisfied — Synthetic checks passed (D215, D217) and the independent implementation agreed on synthetic cases (D220) before this read.
+- 2026-10-31 01:11 UTC lead (session 108deea8): set state=fulfilled; set resolved_by=D217; added D217 to links — D215 and D217: the synthetic checks passed before each data run (smokes and the full run)

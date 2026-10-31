@@ -42,6 +42,18 @@ reviews:
       design, decisions and builds (D211-D219).
     by: lead (session 108deea8)
     at: "2026-10-31 00:42 UTC"
+  - action: commit:partd-1b1c-20261031
+    disposition: not-applicable
+    because: no near or far band reading in these records
+    by: lead (session 6b5fb317)
+    at: "2026-10-31 03:35 UTC"
+    inputs:
+      - record: D221
+        rev: 2c4c00f83034f74f98234e2e799f1efc5b082fc738fb53e0883c666d6a11adbc
+      - record: D226
+        rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
+      - record: D228
+        rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
 ---
 
 ## History
@@ -66,3 +78,4 @@ reviews:
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: D194 discloses the dependence of raw and corrected bands and classes far bands by the frozen interval rule only (e.g. Eu-M's S2-J >= 40 mm unresolved (MC), Ew5's C >= 40 mm outside by its CI). F103 carries the same disclosure. Applies to commit and publish of the reading.
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — No band reading or far-band verdict in this commit; D210 is descriptive with no outside class.
 - 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s design, decisions and builds (D211-D219).
+- 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: not-applicable — no near or far band reading in these records

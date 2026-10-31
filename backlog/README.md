@@ -17,4 +17,3 @@ A claim with no progress for 24 h is stale and may be taken over.
 | 920 | [B020](B020-nestmate-only-crop-gate-in-the-mailleux/README.md) | unscoped | ? | Nestmate-only crop gate in the Mailleux runner |  |  |
 | 930 | [B021](B021-b018-rate-tables-on-the-model-through/README.md) | unscoped | ? | B018 rate tables on the model through the observer |  |  |
 | 940 | [B022](B022-v8-pretenuring-and-bimodal-colony-run/README.md) | unscoped | ? | V8 pretenuring and bimodal colony-run times |  |  |
-| 950 | [B023](B023-forager-nest-entries-and-queen-movements/README.md) | unscoped | ? | Forager nest entries and queen movements as triggers of in-nest activity episodes |  |  |

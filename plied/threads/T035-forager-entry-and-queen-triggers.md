@@ -2,14 +2,18 @@
 id: T035
 title: Forager-entry and queen triggers
 parent: T023
-status: open
-next: 1
-actor: lead
+status: closed
 approval:
   state: approved
   by: D213
+outcome:
+  quote: >-
+    queen movement onsets exceed the margin … observational associations, not triggering
+    established; the 10-min D_w shortfall untested
+  ref: D221
+carries: [F109, F104]
 backlog: B023
-links: [D134, D211, D212, D213, D215, D216, D217, D218, D219]
+links: [D134, D211, D212, D213, D215, D216, D217, D218, D219, D220, D221]
 scanned:
   - record: D212
     rev: d4b52839054d3f76579eb1a6f9cae3ef191b57f081c66ec3aace6f84f4ba5a4e
@@ -37,3 +41,5 @@ Draft label: T3.3.7 (docs/threads-draft.md revision 2). The design separates act
 - 2026-10-31 00:37 UTC lead (session 108deea8): added D217 to links; added D218 to links — D217: amendment 2 built and checked; D218: meta.command defect (implementer code) logged
 - 2026-10-31 00:38 UTC lead (session 108deea8): Run triggers-cal-full-20261031T003816Z started (gated run:triggers-cal-full): 100-seed calibration, then the 22-colony pass → logs/partd2/triggers-calibration.json and logs/partd2/triggers/. The aggregator (the read) is a separate step, held for the user's answer on a quorum check
 - 2026-10-31 00:40 UTC lead (session 108deea8): added D219 to links — D219: quorum check before the read
+- 2026-10-31 00:58 UTC lead (session 108deea8): added D220 to links — D220: quorum read, agreement; the read waits only on the running calibration and per-colony runs
+- 2026-10-31 01:11 UTC lead (session 108deea8): set status=closed; cleared next; cleared actor; added D221 to links; set outcome.quote=queen movement onsets exceed the margin … observational associations, not tri…; set outcome.ref=D221; set carries=["F109","F104"] — D221: item 1(b) read; F109 records the associations (cause open), F104's shortfall not tested by it

@@ -45,6 +45,10 @@ links:
   - D217
   - D218
   - D219
+  - D220
+  - D221
+  - D222
+  - D223
 scanned:
   - record: D167
     rev: 7412f85134a17dfab22d4722b34b2d2643d578ce82669108fbceae843baf0009
@@ -221,3 +225,11 @@ Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment
 - 2026-10-31 00:20 UTC lead (session 108deea8): added D215 to links; added D216 to links — D215 (item 1(b) built, smoke-run) and D216 (user settles three points, D212 amendment 2); the work is on T035. D214 is the implementer process change (D208), not Part D
 - 2026-10-31 00:37 UTC lead (session 108deea8): added D217 to links; added D218 to links — D217 (item 1(b) amendment 2 built) and D218 (a provenance defect in its scripts); the work is on T035
 - 2026-10-31 00:42 UTC lead (session 108deea8): added D219 to links — D219: quorum check before the item 1(b) read (work on T035)
+- 2026-10-31 00:59 UTC lead (session 108deea8): added D220 to links — D220: item 1(b) quorum read, the two implementations agree (work on T035)
+- 2026-10-31 01:11 UTC lead (session 108deea8): added D221 to links — D221: item 1(b) read (F109); T035 closed. Remaining Part 2 items for the user to order
+- 2026-10-31 02:18 UTC lead (session 6b5fb317): added D222 to links; added D223 to links — D222: the user takes item 1(c) (T012) next; D223 designs it for approval (Q26). T033 stays open: 1(d), 1(e) unordered
+- 2026-10-31 02:32 UTC lead (session 6b5fb317): reviewed D224@40e58b5e95b7; reviewed D224: it approves T012's item 1(c) design (D223 amendment 1); T033 stays open, with 1(d) and 1(e) unordered and T012 using its Stage 2b outputs
+- 2026-10-31 02:56 UTC lead (session 6b5fb317): reviewed D225@75b5077cef03; reviewed D225: it reports T012's item 1(c) build and smoke (citing D223); T033 is unchanged, still open with 1(d) and 1(e) unordered
+- 2026-10-31 03:09 UTC lead (session 6b5fb317): reviewed D226@9b60eeb57b4b; reviewed D226: T012's item 1(c) is read (F110: the 10-min shortfall is in coupling, not co-presence, for every arm and group). T033 stays open; 1(d), 1(e) and any model design are the user's to order
+- 2026-10-31 03:28 UTC lead (session 6b5fb317): reviewed D227@9164b9580a47, D226@056c295f9e6f; reviewed D226 amendment 1 and D227: item 1(c)'s reading is corrected (interior bins do not rule out post-entry bursts; unresolved m is not equivalence) and waits on an independent implementation; then item 1(e)'s design. T033 stays open
+- 2026-10-31 03:34 UTC lead (session 6b5fb317): reviewed D226@0772038601c4, D228@e6f75b99836a; reviewed D226's appended line and D228: item 1(c)'s statistics are independently reproduced; T033 stays open (1(e) next per D227)

@@ -126,3 +126,5 @@ title: Part D Part 2 item 1(b) designed (D205, D211; B023, D134 item 4; proposal
   - **Descriptive row:** the primary settings with candidates at least 5 min from any same-type event (no class), beside
     the isolated-event row. The primary candidate rule is unchanged.
   - **Kept as implemented:** the other gap-fillings of D215 (report Deviation 2 b-n), the seed `RNG.stream(0x1b212, 1)`.
+- **2026-10-31 ≈ 00:58 UTC — Correction to amendment 2's wording (D220):** "the pooled SD is Σ(n−1)·SD²/Σ(n−1)" names the pooled variance;
+  the pooled SD is its square root, √(Σ(n−1)·SD²/Σ(n−1)), as both implementations compute. No value or class changes.

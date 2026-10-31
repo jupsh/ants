@@ -3,8 +3,10 @@ id: P89
 title: "Item 1(b): sparse queen-event support reads unresolved"
 wording: Sparse queen-event support should yield unresolved.
 made: D213
-state: open
+state: not-triggered
 nodes: [T035]
+resolved_by: D221
+links: [D221]
 reviews:
   - action: run:triggers-build-smoke
     disposition: acting
@@ -65,6 +67,57 @@ reviews:
     because: "No item 1(b) result is committed: nothing has been read on real data; the aggregator is held (D219)."
     by: lead (session 108deea8)
     at: "2026-10-31 00:42 UTC"
+  - action: run:triggers-amend2
+    disposition: acting
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-build-smoke
+    disposition: acting
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-quorum
+    disposition: acting
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-read
+    disposition: acting
+    because: >-
+      The aggregator applies the support rule (>= 11 contributing colonies, else unresolved); the
+      reading copies it.
+    by: lead (session 108deea8)
+    at: "2026-10-31 01:00 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D213
+        rev: 3e24af2a43b97b483f93952dc62b2ed6e838224efa81e3d21b6130fa596738e4
 ---
 
 ## History
@@ -75,3 +128,8 @@ reviews:
 - 2026-10-31 00:37 UTC lead (session 108deea8): review for run:triggers-cal-full: acting — Built and checked as amendment 1 states (D215, D217); these runs only write per-colony and calibration files.
 - 2026-10-31 00:41 UTC lead (session 108deea8): review for run:triggers-quorum: acting — The second implementation is built from D212's text, which carries this rule; the comparison tests that both implement it alike.
 - 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No item 1(b) result is committed: nothing has been read on real data; the aggregator is held (D219).
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-amend2: acting — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-build-smoke: acting — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-quorum: acting — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 01:00 UTC lead (session 108deea8): review for run:triggers-read: acting — The aggregator applies the support rule (>= 11 contributing colonies, else unresolved); the reading copies it.
+- 2026-10-31 01:11 UTC lead (session 108deea8): set state=not-triggered; set resolved_by=D221; added D221 to links — D221: both types had 22 contributing colonies, so the sparse-support rule did not apply

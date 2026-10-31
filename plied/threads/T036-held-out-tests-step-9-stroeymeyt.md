@@ -13,3 +13,4 @@ Draft label: T4 (docs/threads-draft.md revision 2). Step 9 on hold (D114).
 - 2026-10-25 00:32 UTC lead (session 7c2d50fd): D144 (T049 scan review) cites this record's links; reviewed, nothing here changes (the cited promises are covered or discharged as D144 lists)
 - 2026-10-29 20:06 UTC lead (session 7f762276): removed Q05 from waiting_on — D181 (Q05) answered: rows 1 and 4 held-out predictions (P66), contacts incomplete if unvalidated (P67); still waits on T023 (P03)
 - 2026-10-30 04:52 UTC lead (session 9aa22476): reviewed D191's launch line: it names P03 only as not applicable to the T057 judge; T036's held-out test is untouched (no held-out data used)
+- 2026-10-31 03:28 UTC lead (session 6b5fb317): reviewed D227@9164b9580a47; reviewed D227 (reaches this node through T023): it orders an item 1(c) check and an item 1(e) design on development data; no held-out data or step-9 test is involved, so the held-out tests stay held on T023

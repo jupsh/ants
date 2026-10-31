@@ -1,11 +1,11 @@
 ---
 id: B023
 title: Forager nest entries and queen movements as triggers of in-nest activity episodes
-status: unscoped
-size: ?
+status: done
+size: M
 priority: 950
 note:
-outcome:
+outcome: answered on the main line (D221; F109): queen onsets exceed the margin; forager entries a smaller, pre-existing rise
 depends:
 ---
 # B023 — Forager nest entries and queen movements as triggers of in-nest activity episodes
@@ -65,8 +65,12 @@ D137).
 what was done, the command, and the result in numbers. Long output goes in results/ and is linked. Before each run, state
 what each outcome would mean. Past ~300 lines in this file, move older entries
 to LOG.md (same format); Findings stay here. -->
+- 2026-10-31 01:11 UTC · lead · Answered on the main line as Part D item 1(b): designed D212 (amendments 1-2), built D215/D217, quorum D220, read D221 (F109). See Findings.
 
 ## Findings
-<When done: the answer in a few sentences; evidence (paths in this folder);
-confidence and caveats; what it implies; suggested next steps or new items. A
-change the main code needs goes in this folder as `proposal.patch`.>
+Answered on the main line as Part D Part 2 item 1(b) (T035), not in this folder: design D212 with amendments 1-2
+(user D213, D216), which adopts this item's design requirements; read D221; finding F109. In the 22 fit colonies'
+light phase, nest activity rises after queen movement onsets beyond matched controls and above a 10 % margin, with no
+pre-event rise; forager entries are followed by a rise smaller than the margin that was already under way before them.
+Observational associations: shared drivers and reverse causation remain possible. Evidence and scripts: D221 and
+`logs/partd2/triggers/` (local).

@@ -48,6 +48,18 @@ reviews:
       design, decisions and builds (D211-D219).
     by: lead (session 108deea8)
     at: "2026-10-31 00:42 UTC"
+  - action: commit:partd-1b1c-20261031
+    disposition: not-applicable
+    because: packing is not read here
+    by: lead (session 6b5fb317)
+    at: "2026-10-31 03:35 UTC"
+    inputs:
+      - record: D221
+        rev: 2c4c00f83034f74f98234e2e799f1efc5b082fc738fb53e0883c666d6a11adbc
+      - record: D226
+        rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
+      - record: D228
+        rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
 ---
 
 ## History
@@ -73,3 +85,4 @@ reviews:
 - 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: it names P52 among the failures every member inherits (packing closed with failures accepted, F078 with the near-share deficit), as P52's wording requires them carried; it proposes no packing arm. Unchanged, open
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — No packing arm; D205 Part 2 item 2 carries F078 with the near-share deficit (F027, F078; P52) as limitations, not matches.
 - 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s design, decisions and builds (D211-D219).
+- 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: not-applicable — packing is not read here

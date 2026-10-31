@@ -4,7 +4,7 @@ title: Project status (current state, plan, rules in force, evidence policy)
 ---
 # Project status
 
-_Last updated: 2026-10-30 (through D219, Part D item 1(b) built, calibrating, quorum check before the read; D214, the implementer's token use cut; D210, item 1(a) read; through D203, Part D descriptive comparison read; D200, capability passed, the measurement list is the outcome; D198, same-member check passed; D196, capability c frozen; D194, Part D Stage 2b read: no member reproduces jointly; earlier through D193, E2 trigger (c) read on T057: it does not fire; earlier through D181, the user's answers to Q01 and Q04–Q10; earlier through D175, Stage 2a read, P29's rule approved; earlier through D163: the S2 audit read, the Stages 1–3 redesign approved, the Q03 recheck
+_Last updated: 2026-10-30 (through D221, Part D item 1(b) read, F109; D220, quorum agreement; D214, the implementer's token use cut; D210, item 1(a) read; through D203, Part D descriptive comparison read; D200, capability passed, the measurement list is the outcome; D198, same-member check passed; D196, capability c frozen; D194, Part D Stage 2b read: no member reproduces jointly; earlier through D193, E2 trigger (c) read on T057: it does not fire; earlier through D181, the user's answers to Q01 and Q04–Q10; earlier through D175, Stage 2a read, P29's rule approved; earlier through D163: the S2 audit read, the Stages 1–3 redesign approved, the Q03 recheck
 run and passed). Every change is dated in `docs/log/`._
 
 **Where the record lives.** One file per record, plain text; `npm test` fails if the record is
@@ -72,9 +72,14 @@ in the RESUME archive (A005).
       coordinates beside the members' are read as a descriptive (D203; F107). The measurement list is approved with
       amendments (D205, D206). Its first item, the data's D_w by light block, is read (D210; F108): the slow synchrony
       is highest in the 06-10 UTC block. The user left the order of the rest to the lead, who took 1(b), the
-      forager-entry and queen triggers (D211; T035): designed and approved with amendments (D212, D213, D216), built and
-      checked (D215, D217); its calibration and per-colony runs are going, and the read waits on an independent
-      second implementation agreeing with the first (D219).
+      forager-entry and queen triggers (D211; T035, closed): designed and approved with amendments (D212, D213, D216),
+      built (D215, D217), reproduced by an independent implementation (D220) and read (D221; F109): nest activity rises
+      after queen movement onsets above the margin; forager entries follow a rise already under way. The user took
+      1(c), the foragers' 10-min shortfall, next (D222; T012): designed and approved with amendments (D223, D224),
+      built (D225), read (D226, amended; F110) and independently reproduced (D228). In every arm the 10-min shortfall
+      is in observed coupling, not co-presence; the arms' foragers lack the data's activity just after an observed
+      entry. The user takes 1(e), a design for the slow co-variation deficit across nurses and foragers, next (D227);
+      whether a focused review of experimental synchrony work comes first is open.
   - **Step 9** (the held-out test) and **E6** are on hold (D114).
 - **Disclosed limitations:** the `carries` of closed threads (`plied tree`) and the findings they name. Among them:
   - C2's failing rows (F068), the forager per-ant spread (F075), packing (F027, F078) and still–still contacts
@@ -443,8 +448,8 @@ Stroeymeyt archive; each item traceable to its dated entry there):
   most 30 generations for C1 (raised to 60 on 2026-10-16 for run time
   only; C1 archive), tolX 0.03, estimate = mean of the last 20
   generation means, then the selection batch. (4) No IPOP restart; if the
-  other start's selection loss is within 20 % and its estimate differs by
-  > 0.5 box units in any coordinate, phase 2 also runs from it. (5)
+  other start's selection loss is within 20 % and its estimate differs
+  by > 0.5 box units in any coordinate, phase 2 also runs from it. (5)
   Phase-1 results fall under the pilot conditions (never reported as fit
   quality, judged, ranked or adopted); seeds keyed by phase and start.
 - **C1 is diagnostic:** its estimates support no biological conclusions;
@@ -548,8 +553,8 @@ non-optimum disclosed):
   adequacy differs between layers. (c) was read at D106's candidate and
   does not fire (D193, F102); (a) and (b) wait on E6.
 - Shared failures: drinking-time spread, through the intakeSd 0.4 profile
-  point as the drinking layer (same triggers); giving up matters only if
-  > 5 % of E6 food visits end in a give-up.
+  point as the drinking layer (same triggers); giving up matters only
+  if > 5 % of E6 food visits end in a give-up.
 - Before E2 is ever called adopted: ≥ 3 recovery replicates and a
   bigger-budget refit from the profile's better point.
 

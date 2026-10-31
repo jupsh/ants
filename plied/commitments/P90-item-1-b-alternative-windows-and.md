@@ -3,8 +3,10 @@ id: P90
 title: "Item 1(b): alternative windows and thresholds descriptive"
 wording: Keep the proposed alternative windows and thresholds descriptive
 made: D213
-state: open
+state: fulfilled
 nodes: [T035]
+resolved_by: D221
+links: [D221]
 reviews:
   - action: run:triggers-build-smoke
     disposition: acting
@@ -65,6 +67,55 @@ reviews:
       D217) and the rule stays in force for the read.
     by: lead (session 108deea8)
     at: "2026-10-31 00:42 UTC"
+  - action: run:triggers-amend2
+    disposition: acting
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-build-smoke
+    disposition: acting
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-quorum
+    disposition: acting
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-read
+    disposition: acting
+    because: Only the forager and queen primary rows carry a class; the other rows are reported descriptively.
+    by: lead (session 108deea8)
+    at: "2026-10-31 01:00 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D213
+        rev: 3e24af2a43b97b483f93952dc62b2ed6e838224efa81e3d21b6130fa596738e4
 ---
 
 ## History
@@ -75,3 +126,8 @@ reviews:
 - 2026-10-31 00:37 UTC lead (session 108deea8): review for run:triggers-cal-full: acting — The descriptive rows are written without class (D217); nothing is read in this step.
 - 2026-10-31 00:41 UTC lead (session 108deea8): review for run:triggers-quorum: acting — The second implementation is built from D212's text, which carries this rule; the comparison tests that both implement it alike.
 - 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — The scripts are local scratch and not committed; the committed records describe them (D215, D217) and the rule stays in force for the read.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-amend2: acting — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-build-smoke: acting — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-quorum: acting — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 01:00 UTC lead (session 108deea8): review for run:triggers-read: acting — Only the forager and queen primary rows carry a class; the other rows are reported descriptively.
+- 2026-10-31 01:11 UTC lead (session 108deea8): set state=fulfilled; set resolved_by=D221; added D221 to links — D221 reports the alternative windows and thresholds as descriptive rows with no class

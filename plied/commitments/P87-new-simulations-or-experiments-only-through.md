@@ -185,6 +185,136 @@ reviews:
         rev: 61cade10f360d1e4bf470b5ecacca53a1449f03a63c3457c647826f9250fba5e
       - record: D219
         rev: f40d4621554b1c43d95ada49998f2767223f5eb1b71a041a9ec9d77322841df8
+  - action: commit:item1b-design-20261031
+    disposition: satisfied
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-amend2
+    disposition: satisfied
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-build-smoke
+    disposition: satisfied
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-cal-full
+    disposition: satisfied
+    because: >-
+      Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance
+      formula as its square root, the pooled SD both implementations compute; it changes nothing
+      this action did or its disposition rests on.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:59 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+      - record: D220
+        rev: 6a41442d4e57d8a87407783501125e554a7e72d70ac50eac18e3446fc5bfc6f3
+  - action: run:triggers-read
+    disposition: satisfied
+    because: No new simulation or experiment; the read aggregates the approved design's outputs.
+    by: lead (session 108deea8)
+    at: "2026-10-31 01:00 UTC"
+    inputs:
+      - record: D212
+        rev: c08d81a72ffe2039af178f50cd473fc20e63edae34c1faff63547e4892286a8f
+  - action: run:foragers1c-build-smoke
+    disposition: satisfied
+    because: "no new simulation or experiment: existing development tracks and stored runs re-read (D223 Inputs)"
+    by: lead (session 6b5fb317)
+    at: "2026-10-31 02:33 UTC"
+    inputs:
+      - record: D223
+        rev: d91126ff338bb2e03861036626ef624304f4379bd9e707f9ad215faa8f1de646
+      - record: D224
+        rev: 40e58b5e95b78564c1257ba08746a92d3e52144e55d9f211b0ca5e809910b360
+  - action: run:foragers1c-data
+    disposition: satisfied
+    because: "no new simulation or experiment: existing tracks and stored runs (D223 Inputs, D225)"
+    by: lead (session 6b5fb317)
+    at: "2026-10-31 02:57 UTC"
+    inputs:
+      - record: D223
+        rev: d91126ff338bb2e03861036626ef624304f4379bd9e707f9ad215faa8f1de646
+      - record: D224
+        rev: 40e58b5e95b78564c1257ba08746a92d3e52144e55d9f211b0ca5e809910b360
+      - record: D225
+        rev: 75b5077cef0329318950747616b3444f23f232161a33bb8e2b5fd3dc79f3ca27
+  - action: run:foragers1c-read
+    disposition: satisfied
+    because: "no new simulation or experiment: existing tracks and stored runs (D223 Inputs, D225)"
+    by: lead (session 6b5fb317)
+    at: "2026-10-31 02:57 UTC"
+    inputs:
+      - record: D223
+        rev: d91126ff338bb2e03861036626ef624304f4379bd9e707f9ad215faa8f1de646
+      - record: D224
+        rev: 40e58b5e95b78564c1257ba08746a92d3e52144e55d9f211b0ca5e809910b360
+      - record: D225
+        rev: 75b5077cef0329318950747616b3444f23f232161a33bb8e2b5fd3dc79f3ca27
+  - action: run:foragers1c-second
+    disposition: satisfied
+    because: "D227: existing minute records of two colonies and stored runs; no new simulation or experiment"
+    by: lead (session 6b5fb317)
+    at: "2026-10-31 03:23 UTC"
+    inputs:
+      - record: D226
+        rev: 056c295f9e6f53d9e245e750bdac2d11fe65d2f7b6b655afdf7e330d7e43b714
+      - record: D227
+        rev: 9164b9580a47b25b5ccdcf1db0487c714c0f94bbad35e19763e200514d2db2b1
+  - action: run:foragers1c-second
+    disposition: satisfied
+    because: >-
+      re-read D226 after its change (appends D228's result only): the check used existing minute
+      records and stored runs; no new simulation or experiment
+    by: lead (session 6b5fb317)
+    at: "2026-10-31 03:34 UTC"
+    inputs:
+      - record: D226
+        rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
+      - record: D227
+        rev: 9164b9580a47b25b5ccdcf1db0487c714c0f94bbad35e19763e200514d2db2b1
+      - record: D228
+        rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
+  - action: commit:partd-1b1c-20261031
+    disposition: satisfied
+    because: the committed work used existing tracks and stored runs; no new simulation or experiment
+    by: lead (session 6b5fb317)
+    at: "2026-10-31 03:35 UTC"
+    inputs:
+      - record: D221
+        rev: 2c4c00f83034f74f98234e2e799f1efc5b082fc738fb53e0883c666d6a11adbc
+      - record: D226
+        rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
+      - record: D228
+        rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
 ---
 
 ## History
@@ -208,3 +338,17 @@ reviews:
 - 2026-10-31 00:37 UTC lead (session 108deea8): review for run:triggers-cal-full: satisfied — No new simulation or experiment: synthetic calibration and recorded tracks, under D212 amendments 1-2 (D213, D216).
 - 2026-10-31 00:41 UTC lead (session 108deea8): review for run:triggers-quorum: satisfied — No new simulation or experiment; synthetic test inputs under D219's design.
 - 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: satisfied — D212 and D219 are separate designs; no new simulation or experiment in the committed records.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for commit:item1b-design-20261031: satisfied — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-amend2: satisfied — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-build-smoke: satisfied — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 00:59 UTC lead (session 108deea8): review for run:triggers-cal-full: satisfied — Re-read D212 after its dated correction (D220): it only renames amendment 2's pooled-variance formula as its square root, the pooled SD both implementations compute; it changes nothing this action did or its disposition rests on.
+- 2026-10-31 01:00 UTC lead (session 108deea8): review for run:triggers-read: satisfied — No new simulation or experiment; the read aggregates the approved design's outputs.
+- 2026-10-31 01:11 UTC lead (session 108deea8): reviewed D221@2c4c00f83034; D221's Next: a queen-linked model mechanism would be a separate design. Still open
+- 2026-10-31 02:18 UTC lead (session 6b5fb317): reviewed D222@1bbe791636e9, D223@b738f2de5839; D222 says model changes need their own design (recorded separately as P103, cf. P87); D223 re-reads existing tracks and runs, simulates nothing, and leaves B005's model side to a separate design. P87 stays open
+- 2026-10-31 02:32 UTC lead (session 6b5fb317): reviewed D223@d91126ff338b; D223 amendment 1 adds no simulation or experiment (the unseen-as-unknown sensitivity is data only, re-read tracks). Open
+- 2026-10-31 02:33 UTC lead (session 6b5fb317): review for run:foragers1c-build-smoke: satisfied — no new simulation or experiment: existing development tracks and stored runs re-read (D223 Inputs)
+- 2026-10-31 02:57 UTC lead (session 6b5fb317): review for run:foragers1c-data: satisfied — no new simulation or experiment: existing tracks and stored runs (D223 Inputs, D225)
+- 2026-10-31 02:57 UTC lead (session 6b5fb317): review for run:foragers1c-read: satisfied — no new simulation or experiment: existing tracks and stored runs (D223 Inputs, D225)
+- 2026-10-31 03:23 UTC lead (session 6b5fb317): review for run:foragers1c-second: satisfied — D227: existing minute records of two colonies and stored runs; no new simulation or experiment
+- 2026-10-31 03:34 UTC lead (session 6b5fb317): review for run:foragers1c-second: satisfied — re-read D226 after its change (appends D228's result only): the check used existing minute records and stored runs; no new simulation or experiment
+- 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — the committed work used existing tracks and stored runs; no new simulation or experiment
