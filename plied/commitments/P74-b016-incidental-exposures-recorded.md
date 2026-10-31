@@ -14,3 +14,4 @@ nodes: [T037]
 - 2026-10-30 05:00 UTC lead (session 9aa22476): reviewed D193: it cites D181 only for the scope of the Q04 judge (sensitivity, no refit); the reading touches none of D181's answer on B016's exposure records, so P74 is unaffected
 - 2026-10-31 02:18 UTC lead (session 6b5fb317): reviewed D223@b738f2de5839; D223 cites D181 only for B005's Done-when 1; no title or snippet is involved, so P74 is unaffected
 - 2026-10-31 02:32 UTC lead (session 6b5fb317): reviewed D223@d91126ff338b; D223 amendment 1 involves no title or snippet. Unaffected
+- 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D232@7e78fcc5a5c3; D232 takes P74's wording as the review's own exposure rule, by reference (a commitment of its own follows only if the user approves D232, Q27); P74 still governs B016's survey (T037), unchanged

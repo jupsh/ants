@@ -98,3 +98,4 @@ reviews:
 - 2026-10-30 22:06 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — D210 copies the Stage 2b classes beside its block contrasts unchanged and keeps unresolved apart from lower; D204 changes labels only, verdicts unchanged; S3 is not mentioned as restored.
 - 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s design, decisions and builds (D211-D219).
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — the committed readings keep Stage 2b's rows and classes and report failures and unresolved rows (D221, D226 copy classes unchanged)
+- 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 cites D158 only to name the members and restates the reproduction reading (F103); no new assessment, so P43 is unaffected

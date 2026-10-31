@@ -122,6 +122,12 @@
       "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
     },
     {
+      "file": "NapoliGarnierPorfiri2026_NestPhaseTransition_PRXLife_DEVELOPMENT.pdf",
+      "sha256": "ff35ee67f6643691d007ef670f544f6672cd8cc39d1c5f2bd55e6ae4f37f31c3",
+      "role": "development-other-species",
+      "cleared": "docs/log D233 (user, 2026-10-31): re-read permitted, appendices included, as a theoretical source for the synchrony review (D232 amendment 1, point 3; P122); the earlier reading stays development exposure (X018). Copy restored by the user from the held folder."
+    },
+    {
       "file": "Nicolis2005_AnimBehav69-535_aggregates-interaction-rate.pdf",
       "sha256": "fdffadacdc5b804b4ba0b503700b7926283111787de106e8add19fefc94debaa",
       "role": "parameter-and-structure-source",

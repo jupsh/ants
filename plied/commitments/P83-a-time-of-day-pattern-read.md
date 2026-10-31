@@ -274,3 +274,4 @@ reviews:
 - 2026-10-31 03:23 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — no reading: values are compared between implementations only
 - 2026-10-31 03:34 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — re-read D226 after its change: the change appends D228's result only (the independent check agrees); the check was a reproduction on existing records, so this commitment still does not bear on it
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — D221 and D226 read the block patterns narrowly, confounded with time since recording began
+- 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 restates P83 for F108 and keeps a non-biological account (H7) among the untested hypotheses; applied, unchanged

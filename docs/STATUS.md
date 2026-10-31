@@ -78,8 +78,12 @@ in the RESUME archive (A005).
       1(c), the foragers' 10-min shortfall, next (D222; T012): designed and approved with amendments (D223, D224),
       built (D225), read (D226, amended; F110) and independently reproduced (D228). In every arm the 10-min shortfall
       is in observed coupling, not co-presence; the arms' foragers lack the data's activity just after an observed
-      entry. The user takes 1(e), a design for the slow co-variation deficit across nurses and foragers, next (D227);
-      whether a focused review of experimental synchrony work comes first is open.
+      entry. The user takes 1(e), a design for the slow co-variation deficit across nurses and foragers, next (D227),
+      after a focused review of experimental synchrony work (D230; T058). The synthesis of F103–F110 is D231; the
+      review's scope is approved with amendments (D232, D233; P117–P129): stage 1, the metadata search, is next.
+      Tier-1 clearances take effect paper by paper once their checks pass. Napoli et al. 2026 is re-read once the user
+      restores it to `literature/` and it is pinned. The search exposure that found Richardson et al. 2026 is X023
+      (development, other species).
   - **Step 9** (the held-out test) and **E6** are on hold (D114).
 - **Disclosed limitations:** the `carries` of closed threads (`plied tree`) and the findings they name. Among them:
   - C2's failing rows (F068), the forager per-ant spread (F075), packing (F027, F078) and still–still contacts

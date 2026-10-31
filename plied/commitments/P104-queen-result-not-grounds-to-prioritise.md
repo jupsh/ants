@@ -93,3 +93,4 @@ reviews:
 - 2026-10-31 03:23 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — no queen-linked analysis or model addition
 - 2026-10-31 03:34 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — re-read D226 after its change: the change appends D228's result only (the independent check agrees); the check was a reproduction on existing records, so this commitment still does not bear on it
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — no queen-linked model addition is proposed or committed; F109 and D221 read the queen result as an association
+- 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 lists queen-linked activation as untested hypothesis H5 and repeats that F109 is not grounds to prioritise a queen-linked addition; applied, unchanged

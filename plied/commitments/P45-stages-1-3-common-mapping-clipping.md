@@ -96,3 +96,4 @@ reviews:
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — Nothing is waived: D204-D210 change no mapping, clipping, phase or duration treatment and no Q03 record; D205 Part 2 item 2 carries C2's failures.
 - 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s design, decisions and builds (D211-D219).
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: not-applicable — no revised member proposal in this commit
+- 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 cites D158 only to name the members and lists Q03 and clipping as carried limitations; nothing is waived, so P45 is unaffected

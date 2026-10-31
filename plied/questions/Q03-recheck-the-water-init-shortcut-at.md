@@ -26,3 +26,4 @@ Draft label: Q3 (docs/threads-draft.md revision 2).
 - 2026-10-25 18:24 UTC lead (session fe835760): reviewed D164: it mentions the recheck only as the point after which Stage 1 was reapplied. Answered; nothing reopens.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: cites Q03's outcome as a carried disclosure; does not reopen it
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: D194 and F103 cite Q03 to disclose that its recheck covered C2 base only; they do not reopen it (answered by D159, recheck done, D163). Stays answered.
+- 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 cites Q03 only as a carried limitation (not rechecked for the members, F103); the answered question is not reopened

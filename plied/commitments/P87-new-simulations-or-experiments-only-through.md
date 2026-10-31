@@ -352,3 +352,4 @@ reviews:
 - 2026-10-31 03:23 UTC lead (session 6b5fb317): review for run:foragers1c-second: satisfied — D227: existing minute records of two colonies and stored runs; no new simulation or experiment
 - 2026-10-31 03:34 UTC lead (session 6b5fb317): review for run:foragers1c-second: satisfied — re-read D226 after its change (appends D228's result only): the check used existing minute records and stored runs; no new simulation or experiment
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — the committed work used existing tracks and stored runs; no new simulation or experiment
+- 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D232@7e78fcc5a5c3; D232 lists P87 under Not in scope and classes any prediction checkable in existing data as needing its own design; respected
