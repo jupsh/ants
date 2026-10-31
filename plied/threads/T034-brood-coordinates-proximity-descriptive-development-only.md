@@ -13,3 +13,6 @@ Draft label: T3.3.6 (docs/threads-draft.md revision 2). Allowlist frozen (D137);
 - 2026-10-26 03:36 UTC lead (session 0cf57b71): reviewed D171: it re-stamps F060's B018 site result (producer imports no changed file); no analysis here is affected.
 - 2026-10-29 20:08 UTC lead (session 7f762276): reviewed D181: reached only through D134 (checked for Q01); D181 says nothing about brood coordinates, so T034 is unaffected
 - 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: it cites D134 only for T035's trigger design (§4); brood coordinates are not on the measurement list, so T034 is unchanged
+- 2026-10-30 22:14 UTC lead (session 108deea8): reviewed D211@c8f5e94149d3, D212@d4b52839054d; D211 and D212 cite D134 item 4 (triggers); D212 uses no brood coordinates (B023 keeps brood proximity out of scope, D137). Unaffected
+- 2026-10-30 22:42 UTC lead (session 108deea8): reviewed D212@008d3119e499; D212 amendment 1 adds no brood data (event distance bands are from the entering forager or the queen, not brood). Unaffected
+- 2026-10-31 00:20 UTC lead (session 108deea8): reviewed D212@61cade10f360; D212 amendment 2 uses no brood data. Unaffected

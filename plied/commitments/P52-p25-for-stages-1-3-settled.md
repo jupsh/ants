@@ -41,6 +41,13 @@ reviews:
     inputs:
       - record: D205
         rev: e990086aa7e8f8e7d3a154cc02d3eafe19786ee4ac0e809e3a29f1717a20ad88
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: >-
+      No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s
+      design, decisions and builds (D211-D219).
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 
 ## History
@@ -65,3 +72,4 @@ reviews:
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: its disclosures say packing is closed with failures accepted, not matched, and carry F078 with the near-share deficit; no packing arm added. Applies to commit and publish.
 - 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: it names P52 among the failures every member inherits (packing closed with failures accepted, F078 with the near-share deficit), as P52's wording requires them carried; it proposes no packing arm. Unchanged, open
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — No packing arm; D205 Part 2 item 2 carries F078 with the near-share deficit (F027, F078; P52) as limitations, not matches.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s design, decisions and builds (D211-D219).

@@ -37,6 +37,13 @@ reviews:
     because: No Q03 recheck reading in this commit.
     by: lead (session 108deea8)
     at: "2026-10-30 22:07 UTC"
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: >-
+      No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s
+      design, decisions and builds (D211-D219).
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 
 ## History
@@ -58,3 +65,4 @@ reviews:
 - 2026-10-29 22:37 UTC lead (session 20261029): reviewed D186: it answers Q23 on the MC extension's support; this commitment applies at the 2b reading unchanged
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: it discloses that the Q03 recheck supports only C2 base (D163) and not the members, as P54 limits it; no stationarity or warm-up adequacy claimed. Applies to commit and publish.
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — No Q03 recheck reading in this commit.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s design, decisions and builds (D211-D219).

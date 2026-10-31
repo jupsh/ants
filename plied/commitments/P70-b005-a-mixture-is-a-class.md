@@ -13,6 +13,11 @@ reviews:
     because: No B005 mixture is reported in this commit.
     by: lead (session 108deea8)
     at: "2026-10-30 22:07 UTC"
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: No B005 mixture is reported.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 
 ## History
@@ -21,3 +26,4 @@ reviews:
 - 2026-10-30 04:45 UTC lead (session 9aa22476): reviewed D191: it cites D181 only as the source of the Q04 judge; D181's answer on B005 is not touched by T057's L0S1 judge, so P70 is unaffected
 - 2026-10-30 05:00 UTC lead (session 9aa22476): reviewed D193: it cites D181 only for the scope of the Q04 judge (sensitivity, no refit); the reading touches none of D181's answer on B005's mixture reading, so P70 is unaffected
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — No B005 mixture is reported in this commit.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No B005 mixture is reported.

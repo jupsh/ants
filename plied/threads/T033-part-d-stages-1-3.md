@@ -37,6 +37,14 @@ links:
   - D207
   - D209
   - D210
+  - D211
+  - D212
+  - D213
+  - D215
+  - D216
+  - D217
+  - D218
+  - D219
 scanned:
   - record: D167
     rev: 7412f85134a17dfab22d4722b34b2d2643d578ce82669108fbceae843baf0009
@@ -208,3 +216,8 @@ Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment
 - 2026-10-30 21:57 UTC lead (session 20261030): added D209 to links; added D210 to links — D210: Part 2 item 1(a) read (F108): 10-min D_w highest in the 06-10 block; every arm below it. D209: three code defects in the 1(a) script, counted for D208
 - 2026-10-30 21:57 UTC lead (session 20261030): scanned D209 (rev eb19932ee4da): no commitment to record — read in full (lead wrote it): 'caught before any value was read' reports what happened; it counts three code defects for D208 and holds no obligation
 - 2026-10-30 21:57 UTC lead (session 20261030): hand-off (session ending): Part 2 item 1(a) is done (D207 design, D210 reading, F108). Nothing running. Left for the next session: the user orders D205's remaining items (Part 2: 1(b) triggers T035, 1(c) foragers T012, new data, model work; Part 1: density, direct sensing), each a new design (P87); implementation goes to the implementer (D208). Scratch: scripts/scratch/partDBlocks.py (md5 7ebffa33), logs/partd2/blocks.json; a failed-self-check output set aside unread at logs/partd2/blocks-selfcheck-failed-c91854ee.json. All record changes since commit dfffd94 are uncommitted
+- 2026-10-30 22:13 UTC lead (session 108deea8): added D211 to links; added D212 to links — D211: the user left the order of D205's remaining Part 2 items to the lead, who took 1(b) (T035); D212 designs it, awaiting the user (Q25)
+- 2026-10-30 22:42 UTC lead (session 108deea8): added D213 to links — D213: the user approved item 1(b)'s design (D212) with amendments, frozen as D212 amendment 1; the work is on T035
+- 2026-10-31 00:20 UTC lead (session 108deea8): added D215 to links; added D216 to links — D215 (item 1(b) built, smoke-run) and D216 (user settles three points, D212 amendment 2); the work is on T035. D214 is the implementer process change (D208), not Part D
+- 2026-10-31 00:37 UTC lead (session 108deea8): added D217 to links; added D218 to links — D217 (item 1(b) amendment 2 built) and D218 (a provenance defect in its scripts); the work is on T035
+- 2026-10-31 00:42 UTC lead (session 108deea8): added D219 to links — D219: quorum check before the item 1(b) read (work on T035)

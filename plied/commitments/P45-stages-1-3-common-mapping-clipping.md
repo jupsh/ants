@@ -47,6 +47,13 @@ reviews:
         rev: e990086aa7e8f8e7d3a154cc02d3eafe19786ee4ac0e809e3a29f1717a20ad88
       - record: D210
         rev: 91511fa8dac08a97ba28db172b6f39be91fe08489cd10a28a46148d17f90fbc0
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: >-
+      No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s
+      design, decisions and builds (D211-D219).
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 
 ## History
@@ -75,3 +82,4 @@ reviews:
 - 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: it cites D158 for Stage 3c; the carried disclosures (mapping, clipping, phase, duration, Q03) apply to the reading as a whole and are in D194; D200 adds none and waives none.
 - 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: a proposal with no run; it waives none of the carried items (mapping, clipping, phase and duration, Q03). Its duration remark on D_w's 4-h blocks is from code, not a test. Unchanged
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — Nothing is waived: D204-D210 change no mapping, clipping, phase or duration treatment and no Q03 record; D205 Part 2 item 2 carries C2's failures.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s design, decisions and builds (D211-D219).

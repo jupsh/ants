@@ -55,8 +55,8 @@ acting on it.
   - in your reply, say what you changed, what you ran and what came out, and
     anything you saw that a rule says you should not have.
 - **The implementer subagent** (`.claude/agents/implementer.md`, D208) is one
-  of these agents: it works from a brief and writes a report in the formats
-  of `docs/HANDOFF.md`.
+  of these agents: it works from a brief (`docs/HANDOFF.md`) under the
+  shorter rules of `docs/IMPLEMENTER.md` (D214) and returns its report as text.
 - **If you are handed a backlog item** (`backlog/Bnnn-slug/`): read its
   whole `README.md`, stay inside its scope, and write only inside that
   folder (the main tree is read-only for backlog work; a change it needs

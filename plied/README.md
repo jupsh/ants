@@ -6,6 +6,7 @@
 
 **lead**
 
+1. [T035](threads/T035-forager-entry-and-queen-triggers.md) Forager-entry and queen triggers
 2. [T033](threads/T033-part-d-stages-1-3.md) Part D Stages 1-3
 
 **user**
@@ -13,7 +14,7 @@
 1. [T020](threads/T020-mailleux-1999-clearance-its-contact-definition.md) Mailleux 1999 clearance: its contact definition
 
 
-**Open, not scheduled:** T001, T010, T022, T023, T030, T034, T035, T037, T040, T041, T043, T046, T047, T048, T052
+**Open, not scheduled:** T001, T010, T022, T023, T030, T034, T037, T040, T041, T043, T046, T047, T048, T052
 
 
 ## Open questions
@@ -34,6 +35,8 @@ None.
 | [P08](commitments/P08-misread-definition-frozen-independently-of-s3.md) | Outside gate G. Its misread definition and P24's may coincide; whichever design comes first decides whether they share one. | D129 | open | T030 |
 | [P09](commitments/P09-ask-for-mailleux-1999-clearance-if.md) | Rule 2 fired; clearance requested in D139. The clearance itself is a question for the user. | D135 | fulfilled | T018, T020 |
 | [P10](commitments/P10-clear-the-bles-paper-only-after.md) | Lead recommendation, the user may overrule (D127 amendment 1); paper 4's brief starts with a novelty audit. | D127 | open | T055 |
+| [P100](commitments/P100-item-1-b-rise-label-above.md) | Item 1(b): rise label above 5 % false positives in the null reported uncalibrated | D216 | open | T035 |
+| [P101](commitments/P101-item-1-b-the-read-waits.md) | Item 1(b): the read waits until the two implementations agree | D219 | open | T035 |
 | [P11](commitments/P11-b006-closes-only-after-the-phase.md) | Addressed in results/design.md (B006, 2026-10-18 16:24). B006 stays open for the phase / cause decision. | B006 | fulfilled | T011 |
 | [P12](commitments/P12-literature-derived-structures-parked-until-the.md) | Partly addressed: contact-based activation "not warranted on current evidence" (STATUS closed lines, 2026-10-17 14:02, user); kept out of C2 (2026-10-18 01:41). Revisit triggers in D138 item 3. | S001 | open | T014 |
 | [P13](commitments/P13-when-e1-resumes-b010-then-the.md) | When E1 resumes: B010, then the Bonavita held-out test | S001 | open | T003 |
@@ -112,6 +115,17 @@ None.
 | [P86](commitments/P86-direct-sensing-time-locking-alone-is.md) | Direct sensing: time-locking alone is not an external cause; a null constrains only what was measured | D206 | open | T033 |
 | [P87](commitments/P87-new-simulations-or-experiments-only-through.md) | New simulations or experiments only through a separate design | D206 | open | T033 |
 | [P88](commitments/P88-item-1-a-self-check-pooled.md) | Item 1(a) self-check: pooled values equal D194's before anything is read | D207 | fulfilled | T033 |
+| [P89](commitments/P89-item-1-b-sparse-queen-event.md) | Item 1(b): sparse queen-event support reads unresolved | D213 | open | T035 |
+| [P90](commitments/P90-item-1-b-alternative-windows-and.md) | Item 1(b): alternative windows and thresholds descriptive | D213 | open | T035 |
+| [P91](commitments/P91-item-1-b-synthetic-tests-before.md) | Item 1(b): synthetic tests before any data run | D212 | open | T035 |
+| [P92](commitments/P92-item-1-b-self-check-before.md) | Item 1(b): self-check before any output is read | D212 | open | T035 |
+| [P93](commitments/P93-item-1-b-a-rise-before.md) | Item 1(b): a rise before the event is an ongoing association, not triggering | D213 | open | T035 |
+| [P94](commitments/P94-item-1-b-primary-events-chosen.md) | Item 1(b): primary events chosen without later behaviour | D213 | open | T035 |
+| [P95](commitments/P95-item-1-b-missing-detections-never.md) | Item 1(b): missing detections never count as stillness or residence | D213 | open | T035 |
+| [P96](commitments/P96-item-1-b-an-upper-bound.md) | Item 1(b): an upper bound below δ is an association smaller than the margin, not 'does not trigger' | D213 | open | T035 |
+| [P97](commitments/P97-item-1-b-the-event-ant.md) | Item 1(b): the event ant excluded at control times too | D213 | open | T035 |
+| [P98](commitments/P98-item-1-b-observational-associations-not.md) | Item 1(b): observational associations; not an explanation of the 10-min D_w shortfall | D213 | open | T035 |
+| [P99](commitments/P99-item-1-b-amendments-frozen-before.md) | Item 1(b): amendments frozen before event-aligned results are examined | D213 | fulfilled | T035 |
 
 ## Held or parked
 
@@ -167,7 +181,7 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │       │   └── T033  Part D Stages 1-3                                              open, next 2, lead, approval: approved (D159)
 │       ├── T032  S2 audit: same-bin classing, composition nulls                     closed, approval: approved (D145), outcome D156, carries F094, F095
 │       ├── T034  Brood coordinates: proximity, descriptive (development only)       open
-│       └── T035  Forager-entry and queen triggers                                   open, [B023]
+│       └── T035  Forager-entry and queen triggers                                   open, next 1, lead, approval: approved (D213), [B023]
 ├── T036  Held-out tests (step 9): Stroeymeyt age-experiment colonies                held, ⟵ T023
 │   └── T037  Candidate held-out colony data sets                                    open, [B016]
 ├── T038  E6: Bles et al. 2022, development benchmark on the best step-5 …           held, ⟵ T036

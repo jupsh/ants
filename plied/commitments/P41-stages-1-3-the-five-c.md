@@ -264,6 +264,39 @@ reviews:
         rev: e990086aa7e8f8e7d3a154cc02d3eafe19786ee4ac0e809e3a29f1717a20ad88
       - record: D210
         rev: 91511fa8dac08a97ba28db172b6f39be91fe08489cd10a28a46148d17f90fbc0
+  - action: run:triggers-build-smoke
+    disposition: not-applicable
+    because: No member is run or selected; data-only analysis of recorded tracks.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:42 UTC"
+  - action: run:triggers-amend2
+    disposition: not-applicable
+    because: >-
+      No simulation, member, model, spatial coupling or box: a scratch-script change to the item
+      1(b) analysis, synthetic checks and a 2-colony smoke rerun.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:20 UTC"
+  - action: run:triggers-cal-full
+    disposition: not-applicable
+    because: >-
+      No simulation, member, model, spatial coupling or box: a 100-seed synthetic calibration and
+      the per-colony pass over recorded tracks, both local.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:37 UTC"
+  - action: run:triggers-quorum
+    disposition: not-applicable
+    because: >-
+      Synthetic data only: a frame dump from the synthetic generator and an independent
+      implementation run on it; no simulation of the ant model, no box.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:41 UTC"
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: >-
+      No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s
+      design, decisions and builds (D211-D219).
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 
 ## History
@@ -313,3 +346,8 @@ reviews:
 - 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — re-read after D207 amendment 3: this run's output failed P88's self-check and was set aside unread; superseded by run:partdblocks-4
 - 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing was read; superseded by run:partdblocks-4
 - 2026-10-30 22:06 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — D205 selects no member ('No placement, no family label, no closest member'); D210 is descriptive and selects none; no assessment row or tolerance changed.
+- 2026-10-30 22:42 UTC lead (session 108deea8): review for run:triggers-build-smoke: not-applicable — No member is run or selected; data-only analysis of recorded tracks.
+- 2026-10-31 00:20 UTC lead (session 108deea8): review for run:triggers-amend2: not-applicable — No simulation, member, model, spatial coupling or box: a scratch-script change to the item 1(b) analysis, synthetic checks and a 2-colony smoke rerun.
+- 2026-10-31 00:37 UTC lead (session 108deea8): review for run:triggers-cal-full: not-applicable — No simulation, member, model, spatial coupling or box: a 100-seed synthetic calibration and the per-colony pass over recorded tracks, both local.
+- 2026-10-31 00:41 UTC lead (session 108deea8): review for run:triggers-quorum: not-applicable — Synthetic data only: a frame dump from the synthetic generator and an independent implementation run on it; no simulation of the ant model, no box.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s design, decisions and builds (D211-D219).

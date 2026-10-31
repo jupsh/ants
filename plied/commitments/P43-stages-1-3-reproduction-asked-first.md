@@ -45,6 +45,13 @@ reviews:
         rev: 91511fa8dac08a97ba28db172b6f39be91fe08489cd10a28a46148d17f90fbc0
       - record: D204
         rev: 2b8bd6ee2f2b8de4c0bbf0c854afec2717730814d117a89f1ad14b42ac9e95d3
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: >-
+      No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s
+      design, decisions and builds (D211-D219).
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 
 ## History
@@ -75,3 +82,4 @@ reviews:
 - 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: it keeps reproduction first (F103 cited: joint reproduction unestablished) and states that capability identifies no mechanism; S3's failed gate is not touched. Applies to commit and publish.
 - 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: it keeps F103's joint failure and the outside rows as the starting point, says nothing restores S3 as a propagation signature, and keeps unresolved rows unresolved. Unchanged
 - 2026-10-30 22:06 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — D210 copies the Stage 2b classes beside its block contrasts unchanged and keeps unresolved apart from lower; D204 changes labels only, verdicts unchanged; S3 is not mentioned as restored.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s design, decisions and builds (D211-D219).

@@ -1,11 +1,12 @@
-# Hand-off between the lead agent and the implementer (D208)
+# Hand-off between the lead agent and the implementer (D208, D214)
 
 The lead agent keeps the record; the implementer subagent (`.claude/agents/implementer.md`, Opus) writes the code.
 They meet in two files, kept per task in `logs/handoff/<YYYYMMDD-HHMM>-<slug>/` (local, not committed; the log
 entry quotes what matters):
 
 - `brief.md`, written by the lead before the work;
-- `report.md`, written by the implementer at the end.
+- `report.md`: the implementer's report, returned as its final message (the harness does not let a subagent write
+  it) and saved there by the lead.
 
 ## The lead's side
 
@@ -27,7 +28,12 @@ finding and plied in the same step. A defect found in the implementer's code, no
 
 Do the bookkeeping at these two points, not while the implementer works.
 
-**Spawning:** `Agent` with `subagent_type: "implementer"`, prompt: the brief's path and one line on the task.
+**Spawning:** `Agent` with `subagent_type: "implementer"`, `effort` from the brief's Effort line, prompt: the brief's
+path and one line on the task. It reads `docs/IMPLEMENTER.md` (its rules and the report format), not AGENTS.md.
+
+**Keeping it small (D214):** one stage per brief (build and synthetic checks, then a smoke, as separate briefs when
+the first stage is large); point to records and code by exact line ranges, not "read X whole"; say which functions
+to reuse by name and file. Effort: **high** when the code computes a pre-registered statistic, **medium** otherwise.
 Continue the same implementer with `SendMessage` for follow-up fixes on the same brief; start a new one for a
 new brief.
 
@@ -42,9 +48,10 @@ the numbers before the real reading.
 - Nodes: <T…>; log entry it rests on: <D…>
 - Blind: no | yes: <outputs not to open, list or tail>
 - Gated: <run:<slug>, covering every run under May run> | none govern (`plied review <nodes>` lists no commitment)
+- Effort: high (computes a pre-registered statistic) | medium
 
 ## Task
-<What to build or change and why, in a few sentences. Point to the log entry or code, don't restate them.>
+<What to build or change and why, in a few sentences. Point to the log entry or code by line range, don't restate them.>
 
 ## Requirements
 <Each commitment or decision that governs the work, quoted word for word with its id, e.g.
@@ -60,10 +67,10 @@ Add any constraint the lead sets, marked as the lead's.>
 <How the result will be checked: tests that must pass, a known case and its answer, numbers to reproduce.>
 
 ## Report
-Write to `logs/handoff/<…>/report.md`.
+Return it as your final message, in the format of `docs/IMPLEMENTER.md`.
 ```
 
-## Report (`report.md`)
+## Report (`report.md`, saved by the lead; the implementer's copy of this format is in `docs/IMPLEMENTER.md`)
 
 ```markdown
 # Report: <task title>

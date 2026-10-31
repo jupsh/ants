@@ -127,6 +127,37 @@ reviews:
         rev: 91511fa8dac08a97ba28db172b6f39be91fe08489cd10a28a46148d17f90fbc0
       - record: F108
         rev: b5dd9256e4fcbd988a503e004eee2b99e8600a92e4ac65c7cc146a5846b04d57
+  - action: run:triggers-build-smoke
+    disposition: not-applicable
+    because: No D_w classification in the build or smoke.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:42 UTC"
+  - action: run:triggers-amend2
+    disposition: not-applicable
+    because: >-
+      The build, synthetic checks and smoke rerun read and report no result (counts, self-check,
+      time and memory only).
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:20 UTC"
+  - action: run:triggers-cal-full
+    disposition: not-applicable
+    because: >-
+      These runs write files only; nothing is read or reported until the aggregator, which is a
+      separate step.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:37 UTC"
+  - action: run:triggers-quorum
+    disposition: not-applicable
+    because: Synthetic data only; no real-data value is computed or read in the quorum check.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:41 UTC"
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: >-
+      No D_w, density, direct-sensing or ordering claim is made in D211-D219 beyond D211's choice,
+      which states the order is a practical proposal.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 
 ## History
@@ -143,3 +174,9 @@ reviews:
 - 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing was read; superseded by run:partdblocks-4
 - 2026-10-30 21:57 UTC lead (session 20261030): reviewed D210: Stage 2b's classes are copied beside unchanged and per-block differences are reported as differences, not classes; applied here, stays open
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — D210 lists unresolved arms (T20m, Eu-M, Eu, Es) apart from lower ones per block and copies Stage 2b's outside/unresolved classes beside; F108 says the same.
+- 2026-10-30 22:14 UTC lead (session 108deea8): reviewed D211@c8f5e94149d3; D211 cites D206 only for ordering; no outside/unresolved classification is made, so unaffected
+- 2026-10-30 22:42 UTC lead (session 108deea8): review for run:triggers-build-smoke: not-applicable — No D_w classification in the build or smoke.
+- 2026-10-31 00:20 UTC lead (session 108deea8): review for run:triggers-amend2: not-applicable — The build, synthetic checks and smoke rerun read and report no result (counts, self-check, time and memory only).
+- 2026-10-31 00:37 UTC lead (session 108deea8): review for run:triggers-cal-full: not-applicable — These runs write files only; nothing is read or reported until the aggregator, which is a separate step.
+- 2026-10-31 00:41 UTC lead (session 108deea8): review for run:triggers-quorum: not-applicable — Synthetic data only; no real-data value is computed or read in the quorum check.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No D_w, density, direct-sensing or ordering claim is made in D211-D219 beyond D211's choice, which states the order is a practical proposal.

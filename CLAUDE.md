@@ -9,7 +9,9 @@ duties that come with it.
 ## Lead-agent duties
 - **Implementation goes to the implementer** (D208): code, scripts and tests
   are written by the `implementer` subagent (Opus, without this file) from a
-  written brief, and come back as a written report (`docs/HANDOFF.md`). You
+  written brief, and come back as a written report (`docs/HANDOFF.md`), returned as its final message and saved
+  by you; it reads `docs/IMPLEMENTER.md` instead of AGENTS.md, has only Bash, Read, Edit and Write, and runs at the
+  brief's effort (D214). You
   do the bookkeeping before the brief and after the report, not while it
   works, and check its result yourself. A hook asks the user before you edit
   `src/`, `scripts/` or `test/` directly. Log a defect found in code with

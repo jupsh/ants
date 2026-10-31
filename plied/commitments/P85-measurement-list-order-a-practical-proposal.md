@@ -117,6 +117,37 @@ reviews:
     inputs:
       - record: D205
         rev: e990086aa7e8f8e7d3a154cc02d3eafe19786ee4ac0e809e3a29f1717a20ad88
+  - action: run:triggers-build-smoke
+    disposition: not-applicable
+    because: No order claim made by a build.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:42 UTC"
+  - action: run:triggers-amend2
+    disposition: not-applicable
+    because: >-
+      The build, synthetic checks and smoke rerun read and report no result (counts, self-check,
+      time and memory only).
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:20 UTC"
+  - action: run:triggers-cal-full
+    disposition: not-applicable
+    because: >-
+      These runs write files only; nothing is read or reported until the aggregator, which is a
+      separate step.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:37 UTC"
+  - action: run:triggers-quorum
+    disposition: not-applicable
+    because: Synthetic data only; no real-data value is computed or read in the quorum check.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:41 UTC"
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: >-
+      No D_w, density, direct-sensing or ordering claim is made in D211-D219 beyond D211's choice,
+      which states the order is a practical proposal.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 
 ## History
@@ -132,3 +163,9 @@ reviews:
 - 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — re-read after D207 amendment 3: this run's output failed P88's self-check and was set aside unread; superseded by run:partdblocks-4
 - 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing was read; superseded by run:partdblocks-4
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — D205's Order line: 'a practical proposal, not a demonstrated superiority (D206)'.
+- 2026-10-30 22:14 UTC lead (session 108deea8): reviewed D211@c8f5e94149d3; D211 relies on this: it takes 1(b) because it is next in D205's order, stating the order is a practical proposal, not a ranking by value. Unaffected
+- 2026-10-30 22:42 UTC lead (session 108deea8): review for run:triggers-build-smoke: not-applicable — No order claim made by a build.
+- 2026-10-31 00:20 UTC lead (session 108deea8): review for run:triggers-amend2: not-applicable — The build, synthetic checks and smoke rerun read and report no result (counts, self-check, time and memory only).
+- 2026-10-31 00:37 UTC lead (session 108deea8): review for run:triggers-cal-full: not-applicable — These runs write files only; nothing is read or reported until the aggregator, which is a separate step.
+- 2026-10-31 00:41 UTC lead (session 108deea8): review for run:triggers-quorum: not-applicable — Synthetic data only; no real-data value is computed or read in the quorum check.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No D_w, density, direct-sensing or ordering claim is made in D211-D219 beyond D211's choice, which states the order is a practical proposal.

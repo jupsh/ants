@@ -220,6 +220,39 @@ reviews:
     because: No change to Es's map and no new multiplier reading in this commit.
     by: lead (session 108deea8)
     at: "2026-10-30 22:07 UTC"
+  - action: run:triggers-build-smoke
+    disposition: not-applicable
+    because: Es is not run and its map is not touched.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:42 UTC"
+  - action: run:triggers-amend2
+    disposition: not-applicable
+    because: >-
+      No simulation, member, model, spatial coupling or box: a scratch-script change to the item
+      1(b) analysis, synthetic checks and a 2-colony smoke rerun.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:20 UTC"
+  - action: run:triggers-cal-full
+    disposition: not-applicable
+    because: >-
+      No simulation, member, model, spatial coupling or box: a 100-seed synthetic calibration and
+      the per-colony pass over recorded tracks, both local.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:37 UTC"
+  - action: run:triggers-quorum
+    disposition: not-applicable
+    because: >-
+      Synthetic data only: a frame dump from the synthetic generator and an independent
+      implementation run on it; no simulation of the ant model, no box.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:41 UTC"
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: >-
+      The commit changes no src/ file, model parameter, Es map or box state: records and process
+      docs only.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 
 ## History
@@ -263,3 +296,8 @@ reviews:
 - 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-2: not-applicable — re-read after D207 amendment 3: this run's output failed P88's self-check and was set aside unread; superseded by run:partdblocks-4
 - 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing was read; superseded by run:partdblocks-4
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — No change to Es's map and no new multiplier reading in this commit.
+- 2026-10-30 22:42 UTC lead (session 108deea8): review for run:triggers-build-smoke: not-applicable — Es is not run and its map is not touched.
+- 2026-10-31 00:20 UTC lead (session 108deea8): review for run:triggers-amend2: not-applicable — No simulation, member, model, spatial coupling or box: a scratch-script change to the item 1(b) analysis, synthetic checks and a 2-colony smoke rerun.
+- 2026-10-31 00:37 UTC lead (session 108deea8): review for run:triggers-cal-full: not-applicable — No simulation, member, model, spatial coupling or box: a 100-seed synthetic calibration and the per-colony pass over recorded tracks, both local.
+- 2026-10-31 00:41 UTC lead (session 108deea8): review for run:triggers-quorum: not-applicable — Synthetic data only: a frame dump from the synthetic generator and an independent implementation run on it; no simulation of the ant model, no box.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — The commit changes no src/ file, model parameter, Es map or box state: records and process docs only.

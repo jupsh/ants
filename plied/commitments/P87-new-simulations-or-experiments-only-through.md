@@ -121,6 +121,70 @@ reviews:
     inputs:
       - record: D210
         rev: 91511fa8dac08a97ba28db172b6f39be91fe08489cd10a28a46148d17f90fbc0
+  - action: run:triggers-build-smoke
+    disposition: satisfied
+    because: >-
+      No new simulation or experiment: existing recorded tracks only, under its own design (D212
+      amendment 1, approved D213).
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:42 UTC"
+    inputs:
+      - record: D212
+        rev: 008d3119e4993d16aae91123639b90f30b48c911514abbd6f3b7009c330cb5ad
+      - record: D213
+        rev: 3e24af2a43b97b483f93952dc62b2ed6e838224efa81e3d21b6130fa596738e4
+  - action: run:triggers-build-smoke
+    disposition: satisfied
+    because: >-
+      Re-read D212 after amendment 2: the amendment was written after this step finished, from its
+      report (D215); it changes nothing the build or smoke did. The step is complete.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:20 UTC"
+    inputs:
+      - record: D212
+        rev: 61cade10f360d1e4bf470b5ecacca53a1449f03a63c3457c647826f9250fba5e
+      - record: D215
+        rev: 27cb81684aecf8d23a36f46f20d76eecaa7fa2aa98f9b3047e10604d5feb37de
+  - action: run:triggers-amend2
+    disposition: satisfied
+    because: "No new simulation or experiment: synthetic checks and recorded tracks under D212 amendment 2 (D216)."
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:20 UTC"
+    inputs:
+      - record: D212
+        rev: 61cade10f360d1e4bf470b5ecacca53a1449f03a63c3457c647826f9250fba5e
+      - record: D216
+        rev: 2bfa57b89d06c19abfe5f6e4d95516771eafa89f131df7c30be6b53258ff0364
+  - action: run:triggers-cal-full
+    disposition: satisfied
+    because: >-
+      No new simulation or experiment: synthetic calibration and recorded tracks, under D212
+      amendments 1-2 (D213, D216).
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:37 UTC"
+    inputs:
+      - record: D212
+        rev: 61cade10f360d1e4bf470b5ecacca53a1449f03a63c3457c647826f9250fba5e
+      - record: D216
+        rev: 2bfa57b89d06c19abfe5f6e4d95516771eafa89f131df7c30be6b53258ff0364
+  - action: run:triggers-quorum
+    disposition: satisfied
+    because: No new simulation or experiment; synthetic test inputs under D219's design.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:41 UTC"
+    inputs:
+      - record: D219
+        rev: f40d4621554b1c43d95ada49998f2767223f5eb1b71a041a9ec9d77322841df8
+  - action: commit:item1b-design-20261031
+    disposition: satisfied
+    because: D212 and D219 are separate designs; no new simulation or experiment in the committed records.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
+    inputs:
+      - record: D212
+        rev: 61cade10f360d1e4bf470b5ecacca53a1449f03a63c3457c647826f9250fba5e
+      - record: D219
+        rev: f40d4621554b1c43d95ada49998f2767223f5eb1b71a041a9ec9d77322841df8
 ---
 
 ## History
@@ -137,3 +201,10 @@ reviews:
 - 2026-10-30 21:46 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing was read; superseded by run:partdblocks-4
 - 2026-10-30 21:57 UTC lead (session 20261030): reviewed D210: it simulated nothing; its Next leaves new simulations or experiments to their own design; stays open
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — The commit holds no new simulation or experiment; D210's Next leaves new runs to their own design (P87).
+- 2026-10-30 22:14 UTC lead (session 108deea8): reviewed D211@c8f5e94149d3; D211: 1(b) uses existing development data and needs no new simulation; 1(d) and 1(e) stay separate designs. Respected, still open
+- 2026-10-30 22:42 UTC lead (session 108deea8): review for run:triggers-build-smoke: satisfied — No new simulation or experiment: existing recorded tracks only, under its own design (D212 amendment 1, approved D213).
+- 2026-10-31 00:20 UTC lead (session 108deea8): review for run:triggers-build-smoke: satisfied — Re-read D212 after amendment 2: the amendment was written after this step finished, from its report (D215); it changes nothing the build or smoke did. The step is complete.
+- 2026-10-31 00:20 UTC lead (session 108deea8): review for run:triggers-amend2: satisfied — No new simulation or experiment: synthetic checks and recorded tracks under D212 amendment 2 (D216).
+- 2026-10-31 00:37 UTC lead (session 108deea8): review for run:triggers-cal-full: satisfied — No new simulation or experiment: synthetic calibration and recorded tracks, under D212 amendments 1-2 (D213, D216).
+- 2026-10-31 00:41 UTC lead (session 108deea8): review for run:triggers-quorum: satisfied — No new simulation or experiment; synthetic test inputs under D219's design.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: satisfied — D212 and D219 are separate designs; no new simulation or experiment in the committed records.

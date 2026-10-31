@@ -126,6 +126,37 @@ reviews:
         rev: 91511fa8dac08a97ba28db172b6f39be91fe08489cd10a28a46148d17f90fbc0
       - record: F108
         rev: b5dd9256e4fcbd988a503e004eee2b99e8600a92e4ac65c7cc146a5846b04d57
+  - action: run:triggers-build-smoke
+    disposition: not-applicable
+    because: The smoke reports counts, timings, memory and the self-check only; no block pattern is read.
+    by: lead (session 108deea8)
+    at: "2026-10-30 22:42 UTC"
+  - action: run:triggers-amend2
+    disposition: not-applicable
+    because: >-
+      The build, synthetic checks and smoke rerun read and report no result (counts, self-check,
+      time and memory only).
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:20 UTC"
+  - action: run:triggers-cal-full
+    disposition: not-applicable
+    because: >-
+      These runs write files only; nothing is read or reported until the aggregator, which is a
+      separate step.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:37 UTC"
+  - action: run:triggers-quorum
+    disposition: not-applicable
+    because: Synthetic data only; no real-data value is computed or read in the quorum check.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:41 UTC"
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: >-
+      No D_w, density, direct-sensing or ordering claim is made in D211-D219 beyond D211's choice,
+      which states the order is a practical proposal.
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 
 ## History
@@ -142,3 +173,10 @@ reviews:
 - 2026-10-30 21:45 UTC lead (session 20261030): review for run:partdblocks-3: not-applicable — re-read after D207 amendment 3: this run stopped on the block guard with no output; nothing was read; superseded by run:partdblocks-4
 - 2026-10-30 21:57 UTC lead (session 20261030): reviewed D210: the first-block pattern is read as variation the members do not represent, with the time-since-recording confound; applied here, stays open
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: satisfied — D210 'What this shows (P83)' and F108 read the block pattern as variation the members lack, not its cause, with the recording-time confound stated.
+- 2026-10-30 22:14 UTC lead (session 108deea8): reviewed D211@c8f5e94149d3, D212@d4b52839054d; D211 and D212 apply this limit: D212 reads event rates per light block beside F108 'as P83 requires', descriptively; no cause is claimed. Unaffected, still open
+- 2026-10-30 22:42 UTC lead (session 108deea8): reviewed D212@008d3119e499; D212 amendment 1 keeps the block event rates descriptive (D212's descriptive rows unchanged) and adds no time-of-day claim; this limit still applies to them. Unaffected
+- 2026-10-30 22:42 UTC lead (session 108deea8): review for run:triggers-build-smoke: not-applicable — The smoke reports counts, timings, memory and the self-check only; no block pattern is read.
+- 2026-10-31 00:20 UTC lead (session 108deea8): review for run:triggers-amend2: not-applicable — The build, synthetic checks and smoke rerun read and report no result (counts, self-check, time and memory only).
+- 2026-10-31 00:37 UTC lead (session 108deea8): review for run:triggers-cal-full: not-applicable — These runs write files only; nothing is read or reported until the aggregator, which is a separate step.
+- 2026-10-31 00:41 UTC lead (session 108deea8): review for run:triggers-quorum: not-applicable — Synthetic data only; no real-data value is computed or read in the quorum check.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No D_w, density, direct-sensing or ordering claim is made in D211-D219 beyond D211's choice, which states the order is a practical proposal.

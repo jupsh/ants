@@ -39,6 +39,13 @@ reviews:
       multipliers stay as D184 reports them.
     by: lead (session 108deea8)
     at: "2026-10-30 22:06 UTC"
+  - action: commit:item1b-design-20261031
+    disposition: not-applicable
+    because: >-
+      No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s
+      design, decisions and builds (D211-D219).
+    by: lead (session 108deea8)
+    at: "2026-10-31 00:42 UTC"
 ---
 Draft label: P21 (docs/threads-draft.md revision 2).
 
@@ -71,3 +78,4 @@ Draft label: P21 (docs/threads-draft.md revision 2).
 - 2026-10-30 17:58 UTC lead (session 9d2b15e6): reviewed D200: it cites D158 for Stage 3c's rule; the capability reading uses no multiplier, and both multipliers were reported for the 2b reading (D194). Applies to commit and publish; unaffected.
 - 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: it cites D158 for the stopping rule and its lead items only; it reports no multiplier and runs nothing, so P21's before/after-clipping reporting is not engaged. Unchanged
 - 2026-10-30 22:06 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — No driver multiplier is newly reported: D204-D210 read D_w by block and draft the list; the multipliers stay as D184 reports them.
+- 2026-10-31 00:42 UTC lead (session 108deea8): review for commit:item1b-design-20261031: not-applicable — No Stages 1-3 reading, member, band or multiplier is committed: the entries are item 1(b)'s design, decisions and builds (D211-D219).

@@ -18,3 +18,6 @@ Draft label: T3.3.4d (docs/threads-draft.md revision 2). Bounded and secondary (
 - 2026-10-29 20:08 UTC lead (session 7f762276): reviewed D181: it reaches T031 only through D134 (named among the records the lead checked for Q01); no bearing on the robust S3 variant
 - 2026-10-29 20:16 UTC lead (session 7f762276): reviewed D182: cites D138 item 1 only; no bearing on the robust S3 variant
 - 2026-10-30 20:51 UTC lead (session 20261030): reviewed D205: it cites D134 only for T035's trigger design (§4); it proposes no S3 variant, and D138 item 4's revisit condition is untouched, so T031 stays held
+- 2026-10-30 22:14 UTC lead (session 108deea8): reviewed D211@c8f5e94149d3, D212@d4b52839054d; D211 and D212 cite D134 for its item 4 (triggers, T035); the robust S3 variant (D134's priority note) is not touched. T031 stays held
+- 2026-10-30 22:42 UTC lead (session 108deea8): reviewed D212@008d3119e499; D212 amendment 1 changes only item 1(b)'s event, matching and reading rules; it cites D134 for item 4, not the robust S3 variant. T031 stays held
+- 2026-10-31 00:20 UTC lead (session 108deea8): reviewed D212@61cade10f360; D212 amendment 2 changes only item 1(b)'s balance SD, rise calibration and a descriptive control row; nothing about the robust S3 variant. Still held
