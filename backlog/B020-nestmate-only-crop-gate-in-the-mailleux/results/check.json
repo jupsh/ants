@@ -1,0 +1,40 @@
+{
+  "provenance": {
+    "simHash": "eb48ce968127e6a8",
+    "commit": "6464a31273428f4d5339899c8cfcc2e867104a46",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [
+      "--check"
+    ],
+    "date": "2026-10-31T02:19:23.923Z",
+    "item": "B020-nestmate-only-crop-gate-in-the-mailleux",
+    "depends": {
+      "data/fits/colony-m1999-main-shared-pilot.json": "7599ed9966343bb3",
+      "scripts/pool.ts": "d7247ddcbdd5f087",
+      "src/sim/parallel/tasks.ts": "727da83e1f2b9726",
+      "backlog/B020-nestmate-only-crop-gate-in-the-mailleux/sweep.ts": "dc71e55d9baa5f91"
+    }
+  },
+  "roleRouting": true,
+  "days": [
+    {
+      "day": 1,
+      "recruiters": 4,
+      "bitIdentical": true,
+      "seconds": 7.738
+    },
+    {
+      "day": 4,
+      "recruiters": 4,
+      "bitIdentical": true,
+      "seconds": 9.823
+    },
+    {
+      "day": 8,
+      "recruiters": 4,
+      "bitIdentical": true,
+      "seconds": 8.821
+    }
+  ]
+}

@@ -9,7 +9,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | status | meaning | n |
 |---|---|---|
 | established | a pre-registered reading, read mechanically against its rule | 34 |
-| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 54 |
+| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 55 |
 | literature | reported by a cleared source; not tested here | 10 |
 | hypothesis | our reasoning; untested | 3 |
 | closed | a tested line with no further arms (a negative result) | 6 |
@@ -155,6 +155,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F081](F081-step-5-judgment-with-c2-s-motion.md) | established | Step-5 judgment: with C2's motion transferred, the fitted candidate is not adequate and not adoptable; trophallaxis totals far too short and later-day contacts too many in every sensitivity arm; transfer failure within the allotted search | 2026-10-22 |
 | [F093](F093-at-the-step-5-optimum-buffin-dish-bouts.md) | indicated | At the step-5 optimum, Buffin-dish bouts are capped by donor volume (the longest bout and the 90th percentile are both 31.1 s, the time to empty 0.9 µL to the giveFrac floor at shareRate 0.0225 µL/s; 53 % end with the donor empty), the mechanism pilot2 showed before step 4 | 2026-10-24 |
 | [F102](F102-d106-s-step-5-candidate-is-not-adequate.md) | established | D106's step-5 candidate is not adequate on the alternative E2 layer L0S1 either (9 rows \|z\| > 3 vs 5 on L0S1c); 1999 adequacy does not differ between layers, so E2 trigger (c) does not fire | 2026-10-30 |
+| [F111](F111-b020-recruiter-confound-behind-the-crop-gate-guard-failure.md) | indicated | At B001's historical pilot point, the shared crop gate's Table-2a guard failure is mostly the recruiter's own gate (fixing the recruiter at 0.05 cuts the largest shift from 7.31 / 11.16 to 1.49 SE_data), but a nestmate-only relaxation's guard is unresolved at this sample (timeInNest.d4 +1.48 [−0.27, +4.10], trophTotal.d4 +1.49 [−0.44, +4.05]); after-trophallaxis leaving stays low (18.2 / 11.4 / 10.2 % at 1 / 4 / 8 d against data 44 / 56 / 86) and saturates between thresholds 0.5 and 1 | 2026-10-31 |
 
 ## E2 (drinking, trail laying)
 

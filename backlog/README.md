@@ -14,6 +14,5 @@ A claim with no progress for 24 h is stale and may be taken over.
 | 70 | [B007](B007-contact-observer-validation-and-row-4/README.md) | open | L | Stroeymeyt contact observer: write it and validate it against the authors' tool — *source and tool settled (D181); the agreement criterion is proposed, approved and frozen before any comparison* |  | 2026-10-29 |
 | 110 | [B011](B011-e6-bout-end-vs-observed-contact/README.md) | open | M | E6 bout end vs observed contact |  |  |
 | 140 | [B010](B010-e1-data-orientation-and-axis-tilt/README.md) | blocked | S | E1 data orientation and axis tilt — *E1 is paused (STATUS); not before it resumes* |  |  |
-| 920 | [B020](B020-nestmate-only-crop-gate-in-the-mailleux/README.md) | unscoped | ? | Nestmate-only crop gate in the Mailleux runner |  |  |
 | 930 | [B021](B021-b018-rate-tables-on-the-model-through/README.md) | unscoped | ? | B018 rate tables on the model through the observer |  |  |
 | 940 | [B022](B022-v8-pretenuring-and-bimodal-colony-run/README.md) | unscoped | ? | V8 pretenuring and bimodal colony-run times |  |  |

@@ -14,7 +14,7 @@
 2. [T012](threads/T012-forager-trips-entrance-excursions.md) Forager trips; entrance excursions
 
 
-**Open, not scheduled:** T001, T010, T022, T023, T030, T034, T037, T040, T041, T043, T046, T047, T048, T052
+**Open, not scheduled:** T001, T010, T023, T030, T034, T037, T040, T041, T043, T046, T047, T048, T052
 
 
 ## Open questions
@@ -180,7 +180,7 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │   │   ├── T019  Step-5 closure wording after the missed Buffin fit row             closed, outcome D181, carries F081, F093
 │   │   ├── T020  Mailleux 1999 clearance: its contact definition                    open, next 1, user
 │   │   ├── T021  G3 contacted-nestmate departures                                   parked, [B001]
-│   │   └── T022  Nestmate-only crop gate in the Mailleux runner                     open, [B020]
+│   │   └── T022  Nestmate-only crop gate in the Mailleux runner                     closed, outcome D229, carries F111, [B020]
 │   └── T023  Cause of colony synchrony: modelled, or its omission argued            open
 │       ├── T024  Describe the synchrony                                             closed, outcome F022
 │       ├── T025  Part B: oracle stress test                                         closed, outcome D112, carries F084

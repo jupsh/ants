@@ -1,0 +1,1476 @@
+{
+  "provenance": {
+    "simHash": "eb48ce968127e6a8",
+    "commit": "6464a31273428f4d5339899c8cfcc2e867104a46",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [
+      "--arm",
+      "nestmate-1",
+      "--day",
+      "1",
+      "--n",
+      "80"
+    ],
+    "date": "2026-10-31T02:22:52.111Z",
+    "item": "B020-nestmate-only-crop-gate-in-the-mailleux",
+    "depends": {
+      "data/fits/colony-m1999-main-shared-pilot.json": "7599ed9966343bb3",
+      "scripts/pool.ts": "d7247ddcbdd5f087",
+      "src/sim/parallel/tasks.ts": "727da83e1f2b9726",
+      "backlog/B020-nestmate-only-crop-gate-in-the-mailleux/sweep.ts": "dc71e55d9baa5f91"
+    }
+  },
+  "fit": "data/fits/colony-m1999-main-shared-pilot.json",
+  "seed": 2039978842,
+  "perNest": 4,
+  "arm": "nestmate-1",
+  "day": 1,
+  "n": 80,
+  "dt": 0.025,
+  "warmup": 900,
+  "density": 0.49510385870165696,
+  "seconds": 26.836,
+  "recruiters": [
+    {
+      "timeInNest": 130.35000000000014,
+      "left": true,
+      "distance": 19.692332096528435,
+      "contacts": 7,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.9427200236442768,
+      "cropAtExit": 0.9421689873957088,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 6,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 152.625,
+      "left": true,
+      "distance": 1.1205830554946938,
+      "contacts": 6,
+      "trophTotal": 141.07499999999993,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.4570175063896565,
+      "cropAtExit": 0.1999562918901826,
+      "troph": {
+        "n": 2,
+        "left": 1
+      },
+      "other": {
+        "n": 3,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 364.625,
+      "left": true,
+      "distance": 67.09459995091888,
+      "contacts": 14,
+      "trophTotal": 112.40000000000043,
+      "contactsBefore": 3,
+      "cropAtEntry": 0.7965091599709218,
+      "cropAtExit": 0.2011829099580173,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 7,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 430.4250000000002,
+      "left": true,
+      "distance": 40.144171014294315,
+      "contacts": 18,
+      "trophTotal": 180.42500000000052,
+      "contactsBefore": 2,
+      "cropAtEntry": 0.8323939042056973,
+      "cropAtExit": 0.3337249660598718,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 7,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 3.125,
+      "left": true,
+      "distance": 0.7081656856358919,
+      "contacts": 0,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.12762744970463835,
+      "cropAtExit": 0.1276075041236755,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 0,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 360.4000000000001,
+      "left": true,
+      "distance": 37.971208282031974,
+      "contacts": 14,
+      "trophTotal": 183.17500000000064,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.729385231430362,
+      "cropAtExit": 0.44345256041691394,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 5,
+        "left": 3
+      }
+    },
+    {
+      "timeInNest": 107.82500000000005,
+      "left": true,
+      "distance": 11.239643235694395,
+      "contacts": 8,
+      "trophTotal": 50.124999999999886,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.8179176206840115,
+      "cropAtExit": 0.19958490200568868,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 4,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 562,
+      "left": true,
+      "distance": 14.413969075425744,
+      "contacts": 14,
+      "trophTotal": 464.6250000000023,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.7862533193796706,
+      "cropAtExit": 0.19945586820746092,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 4,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 127.54999999999995,
+      "left": true,
+      "distance": 0.26845070408695765,
+      "contacts": 6,
+      "trophTotal": 58.950000000000045,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.5755947169770279,
+      "cropAtExit": 0.19996384567465178,
+      "troph": {
+        "n": 2,
+        "left": 2
+      },
+      "other": {
+        "n": 4,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 16.90000000000009,
+      "left": true,
+      "distance": 1.1428405094846865,
+      "contacts": 2,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.022276203783940456,
+      "cropAtExit": 0.022169035860835212,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 6.125,
+      "left": true,
+      "distance": 1.2215100641595917,
+      "contacts": 1,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.10567899593830965,
+      "cropAtExit": 0.10564005456595701,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 10.900000000000091,
+      "left": true,
+      "distance": 1.8465893310539407,
+      "contacts": 1,
+      "trophTotal": 3.6249999999998863,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.24461715873600962,
+      "cropAtExit": 0.1998784896901302,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 0,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 187.125,
+      "left": true,
+      "distance": 5.929955157102733,
+      "contacts": 5,
+      "trophTotal": 87.55000000000007,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.693311194282208,
+      "cropAtExit": 0.19960693179413902,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 4,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 38.325000000000045,
+      "left": true,
+      "distance": 0.8896118328492546,
+      "contacts": 0,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.08942999471521192,
+      "cropAtExit": 0.08918769284279554,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 0,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 139.7750000000001,
+      "left": true,
+      "distance": 14.143918336021722,
+      "contacts": 1,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.4657586117535764,
+      "cropAtExit": 0.46521934234229784,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 1,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 186.25,
+      "left": true,
+      "distance": 16.040083420686983,
+      "contacts": 7,
+      "trophTotal": 58.350000000000136,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.9198626011309912,
+      "cropAtExit": 0.19974695779505924,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 5,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 126.40000000000009,
+      "left": true,
+      "distance": 7.106381501598051,
+      "contacts": 6,
+      "trophTotal": 24.25,
+      "contactsBefore": 3,
+      "cropAtEntry": 0.4990291461538489,
+      "cropAtExit": 0.19968112830543558,
+      "troph": {
+        "n": 1,
+        "left": 1
+      },
+      "other": {
+        "n": 4,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 62.075000000000045,
+      "left": true,
+      "distance": 6.837778239467551,
+      "contacts": 3,
+      "trophTotal": 16.074999999999932,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.3982642939941586,
+      "cropAtExit": 0.19978726172911213,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 1200,
+      "left": false,
+      "distance": 4.5228880227871215,
+      "contacts": 68,
+      "trophTotal": 1102.3000000000025,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.8657224430418673,
+      "cropAtExit": 0.2523347905155342,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 10,
+        "left": 3
+      }
+    },
+    {
+      "timeInNest": 1200,
+      "left": false,
+      "distance": 6.709640891002033,
+      "contacts": 39,
+      "trophTotal": 1160.4000000000021,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.9677316710918754,
+      "cropAtExit": 0.40169957064066636,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 9,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 62.5,
+      "left": true,
+      "distance": 7.6335274000475835,
+      "contacts": 3,
+      "trophTotal": 1.6000000000000227,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.21961310987509602,
+      "cropAtExit": 0.19950877884016638,
+      "troph": {
+        "n": 1,
+        "left": 1
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 140.60000000000014,
+      "left": true,
+      "distance": 13.934297383556725,
+      "contacts": 5,
+      "trophTotal": 32.09999999999991,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.4394023454920969,
+      "cropAtExit": 0.19953782064690634,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 60.77500000000009,
+      "left": true,
+      "distance": 14.125715361629005,
+      "contacts": 3,
+      "trophTotal": 12.499999999999886,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.3540446552570861,
+      "cropAtExit": 0.1996354412160068,
+      "troph": {
+        "n": 1,
+        "left": 1
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 132.97500000000014,
+      "left": true,
+      "distance": 14.32783650432211,
+      "contacts": 4,
+      "trophTotal": 26.34999999999991,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.44194004075130267,
+      "cropAtExit": 0.19963752769002746,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 497.07500000000005,
+      "left": true,
+      "distance": 13.446849553839098,
+      "contacts": 18,
+      "trophTotal": 418.30000000000314,
+      "contactsBefore": 2,
+      "cropAtEntry": 0.5610294379262414,
+      "cropAtExit": 0.19971547539149206,
+      "troph": {
+        "n": 2,
+        "left": 1
+      },
+      "other": {
+        "n": 7,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 717.6500000000001,
+      "left": true,
+      "distance": 22.073845965536716,
+      "contacts": 20,
+      "trophTotal": 519.4500000000083,
+      "contactsBefore": 3,
+      "cropAtEntry": 0.5000161445930906,
+      "cropAtExit": 0.19941591751842694,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 8,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 548.5250000000001,
+      "left": true,
+      "distance": 48.15468572889402,
+      "contacts": 27,
+      "trophTotal": 235.27500000000146,
+      "contactsBefore": 4,
+      "cropAtEntry": 0.9557003044337626,
+      "cropAtExit": 0.19980976066087677,
+      "troph": {
+        "n": 3,
+        "left": 1
+      },
+      "other": {
+        "n": 8,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 361.47500000000014,
+      "left": true,
+      "distance": 1.557790514768757,
+      "contacts": 12,
+      "trophTotal": 260.32500000000675,
+      "contactsBefore": 2,
+      "cropAtEntry": 0.43590690478762406,
+      "cropAtExit": 0.1999735262502876,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 7,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 452.6750000000002,
+      "left": true,
+      "distance": 31.490407390869187,
+      "contacts": 11,
+      "trophTotal": 363.6750000000012,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.8768237391187707,
+      "cropAtExit": 0.19967808000726106,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 6,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 358.72500000000014,
+      "left": true,
+      "distance": 12.344076969605036,
+      "contacts": 7,
+      "trophTotal": 304.00000000000136,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.7836996539497869,
+      "cropAtExit": 0.1996545535635647,
+      "troph": {
+        "n": 3,
+        "left": 1
+      },
+      "other": {
+        "n": 2,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 174.47500000000014,
+      "left": true,
+      "distance": 0.5668719645510542,
+      "contacts": 9,
+      "trophTotal": 166.3500000000006,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.45979175903869063,
+      "cropAtExit": 0.19993219893597278,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 3,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 44.5,
+      "left": true,
+      "distance": 11.72342799890437,
+      "contacts": 1,
+      "trophTotal": 0.024999999999977263,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.20031810108911102,
+      "cropAtExit": 0.19972810569044072,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 73.77500000000009,
+      "left": true,
+      "distance": 4.227236465708931,
+      "contacts": 6,
+      "trophTotal": 46.5,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.7732627625600575,
+      "cropAtExit": 0.19980511326302103,
+      "troph": {
+        "n": 1,
+        "left": 1
+      },
+      "other": {
+        "n": 3,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 45.72500000000002,
+      "left": true,
+      "distance": 2.519509580911211,
+      "contacts": 3,
+      "trophTotal": 29.125,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.5590948864156302,
+      "cropAtExit": 0.19992528546575122,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 377.20000000000005,
+      "left": true,
+      "distance": 2.7258723293365525,
+      "contacts": 11,
+      "trophTotal": 359.10000000000093,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.6018166219750218,
+      "cropAtExit": 0.19972681356534905,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 6,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 436.85000000000014,
+      "left": true,
+      "distance": 5.234956382530202,
+      "contacts": 10,
+      "trophTotal": 405.57500000000255,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.5661382194266121,
+      "cropAtExit": 0.19991127365492217,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 5,
+        "left": 3
+      }
+    },
+    {
+      "timeInNest": 488.9000000000001,
+      "left": true,
+      "distance": 0.6474171401197658,
+      "contacts": 36,
+      "trophTotal": 481.00000000000364,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.5226623906272169,
+      "cropAtExit": 0.1998842813213072,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 10,
+        "left": 5
+      }
+    },
+    {
+      "timeInNest": 4.4500000000000455,
+      "left": true,
+      "distance": 0.3715409528900642,
+      "contacts": 1,
+      "trophTotal": 1.7499999999998863,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.2215049644397889,
+      "cropAtExit": 0.1999121009511274,
+      "troph": {
+        "n": 1,
+        "left": 1
+      },
+      "other": {
+        "n": 0,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 1200,
+      "left": false,
+      "distance": 0.461102112703792,
+      "contacts": 42,
+      "trophTotal": 1196.950000000005,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.6401678719459033,
+      "cropAtExit": 0.2419361121689414,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 10,
+        "left": 3
+      }
+    },
+    {
+      "timeInNest": 12.450000000000045,
+      "left": true,
+      "distance": 0.4260145473328797,
+      "contacts": 1,
+      "trophTotal": 10.274999999999977,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.3264075491261792,
+      "cropAtExit": 0.19971345778644373,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 0,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 47.200000000000045,
+      "left": true,
+      "distance": 1.0107716577306196,
+      "contacts": 3,
+      "trophTotal": 37.799999999999955,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.6659977609489329,
+      "cropAtExit": 0.1999172125214766,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 50.72500000000002,
+      "left": true,
+      "distance": 1.007531823295524,
+      "contacts": 3,
+      "trophTotal": 3.674999999999841,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.24504087028353255,
+      "cropAtExit": 0.1994382265365736,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 67.17500000000007,
+      "left": true,
+      "distance": 0.6855285772197226,
+      "contacts": 2,
+      "trophTotal": 60.52499999999998,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.9460004022672535,
+      "cropAtExit": 0.19976046378226803,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 1200,
+      "left": false,
+      "distance": 0.13606531868904287,
+      "contacts": 68,
+      "trophTotal": 1197.9000000000033,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.912011800345463,
+      "cropAtExit": 0.3516837173215671,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 9,
+        "left": 3
+      }
+    },
+    {
+      "timeInNest": 135.07500000000005,
+      "left": true,
+      "distance": 5.937230880249425,
+      "contacts": 3,
+      "trophTotal": 85.9499999999997,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.4573059446052024,
+      "cropAtExit": 0.19983788579573064,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 12.325000000000045,
+      "left": true,
+      "distance": 0.7783132083274272,
+      "contacts": 0,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.17490078769837925,
+      "cropAtExit": 0.17482258835714393,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 0,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 1150.25,
+      "left": true,
+      "distance": 22.226059409432338,
+      "contacts": 30,
+      "trophTotal": 1003.6500000000019,
+      "contactsBefore": 2,
+      "cropAtEntry": 1.113351692567722,
+      "cropAtExit": 0.1996103877587239,
+      "troph": {
+        "n": 3,
+        "left": 0
+      },
+      "other": {
+        "n": 7,
+        "left": 4
+      }
+    },
+    {
+      "timeInNest": 325.45000000000005,
+      "left": true,
+      "distance": 25.38568059361262,
+      "contacts": 8,
+      "trophTotal": 146.37500000000057,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.9351604939293485,
+      "cropAtExit": 0.19962752285482593,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 11.200000000000045,
+      "left": true,
+      "distance": 0.7821344127014236,
+      "contacts": 0,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.0023483502653845155,
+      "cropAtExit": 0.0022772743459247603,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 0,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 163.20000000000005,
+      "left": true,
+      "distance": 21.380229015963444,
+      "contacts": 6,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.46090510552042013,
+      "cropAtExit": 0.4599084068992302,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 5,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 419.10000000000014,
+      "left": true,
+      "distance": 19.906874850974237,
+      "contacts": 13,
+      "trophTotal": 296.900000000001,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.7151045845323742,
+      "cropAtExit": 0.19968117209803177,
+      "troph": {
+        "n": 2,
+        "left": 1
+      },
+      "other": {
+        "n": 7,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 259.2750000000001,
+      "left": true,
+      "distance": 17.821916465780244,
+      "contacts": 14,
+      "trophTotal": 92.85000000000025,
+      "contactsBefore": 1,
+      "cropAtEntry": 1.0437856055140626,
+      "cropAtExit": 0.1993873354902514,
+      "troph": {
+        "n": 2,
+        "left": 1
+      },
+      "other": {
+        "n": 7,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 42.125,
+      "left": true,
+      "distance": 3.5731793129592284,
+      "contacts": 2,
+      "trophTotal": 15.875,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.39577472210603465,
+      "cropAtExit": 0.1998857975751628,
+      "troph": {
+        "n": 1,
+        "left": 1
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 234.04999999999995,
+      "left": true,
+      "distance": 29.821340905163858,
+      "contacts": 10,
+      "trophTotal": 70.70000000000005,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.9701176476437873,
+      "cropAtExit": 0.30030672524120183,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 3,
+        "left": 3
+      }
+    },
+    {
+      "timeInNest": 1031.125,
+      "left": true,
+      "distance": 24.603754541094283,
+      "contacts": 40,
+      "trophTotal": 880.2500000000028,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.9845723441816084,
+      "cropAtExit": 0.19970354476744398,
+      "troph": {
+        "n": 3,
+        "left": 0
+      },
+      "other": {
+        "n": 8,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 126.35000000000014,
+      "left": true,
+      "distance": 4.2319493493843945,
+      "contacts": 10,
+      "trophTotal": 105.2249999999998,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.7656648219738262,
+      "cropAtExit": 0.1998140068866451,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 6,
+        "left": 3
+      }
+    },
+    {
+      "timeInNest": 66.92500000000007,
+      "left": true,
+      "distance": 1.9950978604677896,
+      "contacts": 5,
+      "trophTotal": 55.450000000000045,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.5612287265038155,
+      "cropAtExit": 0.19986182123922794,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 77.82500000000005,
+      "left": true,
+      "distance": 16.13534189779247,
+      "contacts": 5,
+      "trophTotal": 5.9249999999999545,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.2732793184502166,
+      "cropAtExit": 0.19978133803646428,
+      "troph": {
+        "n": 1,
+        "left": 1
+      },
+      "other": {
+        "n": 4,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 15.925000000000068,
+      "left": true,
+      "distance": 0.8892636620284714,
+      "contacts": 2,
+      "trophTotal": 11.699999999999932,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.3441462306981085,
+      "cropAtExit": 0.1998702572674841,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 427.9000000000001,
+      "left": true,
+      "distance": 1.3768142754090342,
+      "contacts": 16,
+      "trophTotal": 418.5750000000005,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.9517064881378671,
+      "cropAtExit": 0.19976293714307108,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 8,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 1200,
+      "left": false,
+      "distance": 7.837263091833172,
+      "contacts": 37,
+      "trophTotal": 1159.9250000000027,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.831385428775057,
+      "cropAtExit": 0.25704852152311175,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 10,
+        "left": 3
+      }
+    },
+    {
+      "timeInNest": 82.375,
+      "left": true,
+      "distance": 10.21187214902943,
+      "contacts": 4,
+      "trophTotal": 48.09999999999991,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.5311069705552875,
+      "cropAtExit": 0.19981309506539177,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 2.5750000000000455,
+      "left": true,
+      "distance": 0.22457619448629823,
+      "contacts": 0,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.15352356181503213,
+      "cropAtExit": 0.1535070987958247,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 0,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 421.82500000000005,
+      "left": true,
+      "distance": 11.24535587175512,
+      "contacts": 24,
+      "trophTotal": 344.50000000000057,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.7686073387810878,
+      "cropAtExit": 0.19975237313974398,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 7,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 888.3500000000001,
+      "left": true,
+      "distance": 14.265607176048501,
+      "contacts": 17,
+      "trophTotal": 777.2500000000025,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.8572597047969545,
+      "cropAtExit": 0.19977361193810222,
+      "troph": {
+        "n": 3,
+        "left": 0
+      },
+      "other": {
+        "n": 6,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 170.5250000000001,
+      "left": true,
+      "distance": 8.335863932586225,
+      "contacts": 4,
+      "trophTotal": 127.47499999999968,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.40896522939746066,
+      "cropAtExit": 0.19982135029290385,
+      "troph": {
+        "n": 1,
+        "left": 1
+      },
+      "other": {
+        "n": 1,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 1171.125,
+      "left": true,
+      "distance": 13.499315206862994,
+      "contacts": 44,
+      "trophTotal": 1101.8750000000164,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.9179358364699016,
+      "cropAtExit": 0.19993681923535883,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 9,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 42.55000000000007,
+      "left": true,
+      "distance": 6.3230349607906335,
+      "contacts": 2,
+      "trophTotal": 14.999999999999886,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.3848047434874022,
+      "cropAtExit": 0.19969934939254017,
+      "troph": {
+        "n": 1,
+        "left": 1
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 15.725000000000023,
+      "left": true,
+      "distance": 3.654980128373168,
+      "contacts": 3,
+      "trophTotal": 6.175000000000068,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.27588030201157254,
+      "cropAtExit": 0.19969212869569639,
+      "troph": {
+        "n": 1,
+        "left": 1
+      },
+      "other": {
+        "n": 2,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 482.10000000000014,
+      "left": true,
+      "distance": 7.0823401488543665,
+      "contacts": 8,
+      "trophTotal": 430.90000000000725,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.8234544196009566,
+      "cropAtExit": 0.19974620572061105,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 4,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 1012.8500000000001,
+      "left": true,
+      "distance": 4.9309233131382015,
+      "contacts": 19,
+      "trophTotal": 980.8500000000039,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.7850406291419071,
+      "cropAtExit": 0.19972792904275272,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 7,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 8.325000000000045,
+      "left": true,
+      "distance": 1.8685572013643559,
+      "contacts": 2,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.0799458467845396,
+      "cropAtExit": 0.07989297516516651,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 143.45000000000005,
+      "left": true,
+      "distance": 25.42742652861663,
+      "contacts": 1,
+      "trophTotal": 0,
+      "contactsBefore": null,
+      "cropAtEntry": 0.9645433964702957,
+      "cropAtExit": 0.963667215592296,
+      "troph": {
+        "n": 0,
+        "left": 0
+      },
+      "other": {
+        "n": 1,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 323.67499999999995,
+      "left": true,
+      "distance": 19.891547928429638,
+      "contacts": 25,
+      "trophTotal": 249.12500000000057,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.7138804515560371,
+      "cropAtExit": 0.19980837918186495,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 9,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 1200,
+      "left": false,
+      "distance": 1.7207992027988648,
+      "contacts": 22,
+      "trophTotal": 1183.2250000000017,
+      "contactsBefore": 0,
+      "cropAtEntry": 1.0670103824447346,
+      "cropAtExit": 0.6258935746342466,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 7,
+        "left": 3
+      }
+    },
+    {
+      "timeInNest": 280.70000000000005,
+      "left": true,
+      "distance": 16.506596615276603,
+      "contacts": 15,
+      "trophTotal": 149.65000000000055,
+      "contactsBefore": 4,
+      "cropAtEntry": 0.5995351909499671,
+      "cropAtExit": 0.19963225694747588,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 6,
+        "left": 3
+      }
+    },
+    {
+      "timeInNest": 36.90000000000009,
+      "left": true,
+      "distance": 5.2158270478374,
+      "contacts": 3,
+      "trophTotal": 5.224999999999909,
+      "contactsBefore": 2,
+      "cropAtEntry": 0.26434310643267045,
+      "cropAtExit": 0.1997234651989911,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 1
+      }
+    },
+    {
+      "timeInNest": 63.72500000000002,
+      "left": true,
+      "distance": 6.233109251306195,
+      "contacts": 6,
+      "trophTotal": 26.5,
+      "contactsBefore": 0,
+      "cropAtEntry": 0.44236631290335093,
+      "cropAtExit": 0.19986610252411516,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 4,
+        "left": 2
+      }
+    },
+    {
+      "timeInNest": 59.52500000000009,
+      "left": true,
+      "distance": 14.380187283098468,
+      "contacts": 5,
+      "trophTotal": 12.699999999999932,
+      "contactsBefore": 2,
+      "cropAtEntry": 0.35654324129184406,
+      "cropAtExit": 0.19967846792764582,
+      "troph": {
+        "n": 1,
+        "left": 0
+      },
+      "other": {
+        "n": 2,
+        "left": 0
+      }
+    },
+    {
+      "timeInNest": 222.97500000000014,
+      "left": true,
+      "distance": 26.897286818872708,
+      "contacts": 14,
+      "trophTotal": 109.75000000000125,
+      "contactsBefore": 1,
+      "cropAtEntry": 0.9357915420621692,
+      "cropAtExit": 0.19959983858802943,
+      "troph": {
+        "n": 2,
+        "left": 0
+      },
+      "other": {
+        "n": 5,
+        "left": 0
+      }
+    }
+  ]
+}
