@@ -50,6 +50,12 @@
       "cleared": "docs/log D233 (tier 1, D232 amendment 1); check passed and logged in D234/D235; synchrony review (D232): read for mechanisms, manipulations and predictions only, never parameters or targets (P129). PDF placed by the user."
     },
     {
+      "file": "Cole1991c_JInsectBehav4-129_phase-response-curve.pdf",
+      "sha256": "99a82903b45d984ff757967c0124fac0b963291b98a8d95a2f575d0d614d0722",
+      "role": "development-other-species",
+      "cleared": "docs/log D235 (Q28, tier-1 addition); check passed and logged; synchrony review (D232): read for mechanisms, manipulations and predictions only, never parameters or targets (P129). PDF placed by the user."
+    },
+    {
       "file": "ColeCheshire1996_AmNat148-1_mobile-cellular-automata-Leptothorax.pdf",
       "sha256": "ac3846f5aaed941242ad0495a1b12084a3a4b7b8a954fdc5da735dcb6fb2a11d",
       "role": "development-other-species",
@@ -84,6 +90,12 @@
       "sha256": "75e1e5be451e75f3c316fc38035b875477ca81dc85f389bb4cc9900b8c82f4c5",
       "role": "parameter-and-structure-source",
       "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); L. niger; read in full, never a test."
+    },
+    {
+      "file": "DesplandSimpson2006_ProcRSocB273-1517_locust-rhythm-synchronization.pdf",
+      "sha256": "fa481c121e6333f6b4309e5a14350620814845c585bbda7a3caead12a0e12817",
+      "role": "development-other-species",
+      "cleared": "docs/log D236 (eighth tier-1 paper); check passed and logged; synchrony review (D232): read for mechanisms, manipulations and predictions only, never parameters or targets (P129). PDF placed by the user."
     },
     {
       "file": "Franks1990_BullMathBiol52-597_synchronization-starvation-I.pdf",

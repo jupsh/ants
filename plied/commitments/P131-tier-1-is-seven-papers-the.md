@@ -3,8 +3,9 @@ id: P131
 title: Tier 1 is seven papers; the eighth slot stays unused
 wording: That gives seven tier-1 papers; leave the eighth slot unused.
 made: D235
-state: open
+state: waived
 nodes: [T058]
+resolved_by: D236
 reviews:
   - action: commit:synchrony-stage1-20261101
     disposition: satisfied
@@ -21,3 +22,4 @@ reviews:
 ## History
 - 2026-11-01 17:17 UTC lead (session f6ab21fd): created — D235: the user's decision on Q28
 - 2026-11-01 17:19 UTC lead (session f6ab21fd): review for commit:synchrony-stage1-20261101: satisfied — Seven papers cleared; no eighth proposed or pinned.
+- 2026-11-01 17:26 UTC lead (session f6ab21fd): set state=waived; set resolved_by=D236 — D236: the user asked the lead to take Despland & Simpson 2006 if relevant; taken as the eighth tier-1 paper

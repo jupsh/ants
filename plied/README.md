@@ -70,7 +70,7 @@ None.
 | [P129](commitments/P129-review-full-texts-read-for-mechanisms.md) | Review: full texts read for mechanisms, never parameters or targets | D232 | open | T058 |
 | [P13](commitments/P13-when-e1-resumes-b010-then-the.md) | When E1 resumes: B010, then the Bonavita held-out test | S001 | open | T003 |
 | [P130](commitments/P130-both-doering-papers-deferred-until-their.md) | Both Doering papers deferred until their data provenance is clarified | D235 | open | T058 |
-| [P131](commitments/P131-tier-1-is-seven-papers-the.md) | Tier 1 is seven papers; the eighth slot stays unused | D235 | open | T058 |
+| [P131](commitments/P131-tier-1-is-seven-papers-the.md) | Tier 1 is seven papers; the eighth slot stays unused | D235 | waived | T058 |
 | [P14](commitments/P14-e6-ensemble-rule-reconciled-with-d104.md) | D104 skipped Plan steps 6-8, so neither ranking-check survivors nor profile ends exist; D104: E6 runs on the best step-5 fit. No amendment reconciling the two was found; one is due before any E6 run. | S001 | open | T041, T038 |
 | [P15](commitments/P15-rows-1-4-scope-decided-with.md) | Rows 1 / 4 scope decided with step 9 | D114 | fulfilled | T036, Q05 |
 | [P16](commitments/P16-a-partner-counted-twice-within-one.md) | D139: rule 1 does not fire (partner-repeat inside its bout 0.00 on every day). | D135 | not-triggered | T018 |

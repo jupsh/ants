@@ -5,7 +5,7 @@ parent: T023
 status: open
 next: 1
 actor: lead
-links: [D227, D230, D231, D232, D233, D234, D235, X023, X024]
+links: [D227, D230, D231, D232, D233, D234, D235, D236, X023, X024]
 ---
 
 ## History
@@ -16,3 +16,4 @@ links: [D227, D230, D231, D232, D233, D234, D235, X023, X024]
 - 2026-10-31 19:08 UTC lead (session f6ab21fd): Stage 1 done (D234, X024). Cleared: Richardson 2026, Franks 1990, Cole 1991 PRSB, Richardson 2017; Doering 2019 and four additions wait on Q28. Stage 2 waits on the user placing the cleared PDFs in literature/; the lead pins each hash before opening. Napoli 2026 pinned, not yet re-read.
 - 2026-11-01 17:17 UTC lead (session f6ab21fd): set links=["D227","D230","D231","D232","D233","D234","D235","X023","X024"] — D235: Q28 answered
 - 2026-11-01 17:17 UTC lead (session f6ab21fd): D235: seven tier-1 papers cleared; six PDFs pinned in literature/ (D235); Cole 1991 J Insect Behav's PDF still missing; rspb20063471.pdf (Despland & Simpson 2006, not cleared) left in the repo root for the user. Stage 2 (full texts) next.
+- 2026-11-01 17:26 UTC lead (session f6ab21fd): set links=["D227","D230","D231","D232","D233","D234","D235","D236","X023","X024"] — D236: eighth tier-1 paper
