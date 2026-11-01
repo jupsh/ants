@@ -58,8 +58,8 @@ None.
 | [P118](commitments/P118-review-c2-keeps-supported-short-window.md) | Review: C2 keeps supported short-window behaviour, not every activity level | D233 | open | T058 |
 | [P119](commitments/P119-review-a-discriminator-kept-only-where.md) | Review: a discriminator kept only where the evidence sets up the contrast | D233 | open | T058 |
 | [P12](commitments/P12-literature-derived-structures-parked-until-the.md) | Partly addressed: contact-based activation "not warranted on current evidence" (STATUS closed lines, 2026-10-17 14:02, user); kept out of C2 (2026-10-18 01:41). Revisit triggers in D138 item 3. | S001 | open | T014 |
-| [P120](commitments/P120-review-a-tier-1-clearance-takes.md) | Review: a tier-1 clearance takes effect only after its check passes and is logged | D233 | open | T058 |
-| [P121](commitments/P121-review-corrections-and-retractions-checked-eight.md) | Review: corrections and retractions checked; eight papers a ceiling | D233 | open | T058 |
+| [P120](commitments/P120-review-a-tier-1-clearance-takes.md) | Review: a tier-1 clearance takes effect only after its check passes and is logged | D233 | fulfilled | T058 |
+| [P121](commitments/P121-review-corrections-and-retractions-checked-eight.md) | Review: corrections and retractions checked; eight papers a ceiling | D233 | fulfilled | T058 |
 | [P122](commitments/P122-napoli-2026-opened-only-once-restored.md) | Napoli 2026 opened only once restored to literature/ and pinned | D233 | open | T058 |
 | [P123](commitments/P123-lasius-papers-cleared-by-name-only.md) | Lasius papers cleared by name only, no blanket clearance | D233 | open | T058 |
 | [P124](commitments/P124-review-evidence-classed-by-the-study.md) | Review: evidence classed by the study's actual design | D233 | open | T058 |
@@ -69,6 +69,8 @@ None.
 | [P128](commitments/P128-review-one-exposure-entry-per-search.md) | Review: one exposure entry per search session; nothing downloaded | D232 | open | T058 |
 | [P129](commitments/P129-review-full-texts-read-for-mechanisms.md) | Review: full texts read for mechanisms, never parameters or targets | D232 | open | T058 |
 | [P13](commitments/P13-when-e1-resumes-b010-then-the.md) | When E1 resumes: B010, then the Bonavita held-out test | S001 | open | T003 |
+| [P130](commitments/P130-both-doering-papers-deferred-until-their.md) | Both Doering papers deferred until their data provenance is clarified | D235 | open | T058 |
+| [P131](commitments/P131-tier-1-is-seven-papers-the.md) | Tier 1 is seven papers; the eighth slot stays unused | D235 | open | T058 |
 | [P14](commitments/P14-e6-ensemble-rule-reconciled-with-d104.md) | D104 skipped Plan steps 6-8, so neither ranking-check survivors nor profile ends exist; D104: E6 runs on the best step-5 fit. No amendment reconciling the two was found; one is due before any E6 run. | S001 | open | T041, T038 |
 | [P15](commitments/P15-rows-1-4-scope-decided-with.md) | Rows 1 / 4 scope decided with step 9 | D114 | fulfilled | T036, Q05 |
 | [P16](commitments/P16-a-partner-counted-twice-within-one.md) | D139: rule 1 does not fire (partner-repeat inside its bout 0.00 on every day). | D135 | not-triggered | T018 |

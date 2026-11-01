@@ -80,9 +80,11 @@ in the RESUME archive (A005).
       is in observed coupling, not co-presence; the arms' foragers lack the data's activity just after an observed
       entry. The user takes 1(e), a design for the slow co-variation deficit across nurses and foragers, next (D227),
       after a focused review of experimental synchrony work (D230; T058). The synthesis of F103–F110 is D231; the
-      review's scope is approved with amendments (D232, D233; P117–P129): stage 1, the metadata search, is next.
-      Tier-1 clearances take effect paper by paper once their checks pass. Napoli et al. 2026 is re-read once the user
-      restores it to `literature/` and it is pinned. The search exposure that found Richardson et al. 2026 is X023
+      review's scope is approved with amendments (D232, D233; P117–P129). Stage 1, the metadata search, is done
+      (D234; X024). Tier 1 is seven papers (D235): Richardson et al. 2026 and 2017, Franks et al. 1990, Cole 1991
+      (*Proc R Soc B*), Vaes & Detrain 2022, Cole & Cheshire 1996 and Cole 1991 (*J Insect Behav*, PDF still to
+      come); both Doering papers deferred (P130). The PDFs are pinned in `literature/`, as is Napoli et al. 2026 for
+      its re-read. Stage 2, the full texts, is next. The search exposure that found Richardson et al. 2026 is X023
       (development, other species).
   - **Step 9** (the held-out test) and **E6** are on hold (D114).
 - **Disclosed limitations:** the `carries` of closed threads (`plied tree`) and the findings they name. Among them:

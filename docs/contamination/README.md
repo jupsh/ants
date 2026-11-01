@@ -30,3 +30,4 @@ with a dated line rather than adding a second one.
 | X021 | source / development | [Resting-site / aggregation literature (2026-10-18 ≈ 15:52 UTC; the user supplied 11 PDFs in the repo root and delegated the roles to Claude)](X021-resting-site-aggregation-literature-2026.md) | 2026-10-18 |
 | X022 | fit (development use) | [Stroeymeyt 2018 queen tracks, first analysis (B018)](X022-stroeymeyt-2018-queen-tracks-first.md) | 2026-10-19 |
 | X023 | development (other species) | [Synchrony literature web search by the user's codex advisor (2026-10-31 ≈ 03:24 UTC): Richardson et al. 2026 and three other papers](X023-synchrony-literature-web-search-by-the.md) | 2026-10-31 |
+| X024 | development (other species) | [Synchrony review stage 1 metadata search by the lead (D232, D233): 17 PubMed queries, Crossref, DataCite, Zenodo and OpenAlex; about 160 titles, 19 other-species abstracts](X024-synchrony-review-stage-1-metadata-search.md) | 2026-10-31 |

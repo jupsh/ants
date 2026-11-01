@@ -44,6 +44,18 @@
       "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
     },
     {
+      "file": "Cole1991b_ProcRSocB244-253_is-animal-behaviour-chaotic.pdf",
+      "sha256": "f1aa175cbc68c4c3c1131052c3dcab4880df271f32a3f67574b1028d362d0a7d",
+      "role": "development-other-species",
+      "cleared": "docs/log D233 (tier 1, D232 amendment 1); check passed and logged in D234/D235; synchrony review (D232): read for mechanisms, manipulations and predictions only, never parameters or targets (P129). PDF placed by the user."
+    },
+    {
+      "file": "ColeCheshire1996_AmNat148-1_mobile-cellular-automata-Leptothorax.pdf",
+      "sha256": "ac3846f5aaed941242ad0495a1b12084a3a4b7b8a954fdc5da735dcb6fb2a11d",
+      "role": "development-other-species",
+      "cleared": "docs/log D235 (Q28, tier-1 addition); check passed and logged in D234/D235; synchrony review (D232): read for mechanisms, manipulations and predictions only, never parameters or targets (P129). PDF placed by the user."
+    },
+    {
       "file": "Crosscombe2026_Entropy28-451_dwell-time-transitions.pdf",
       "sha256": "b544e1387ab8f30ed76165b244dcfd50761132363384f3808ad223ab11833956",
       "role": "development-other-species",
@@ -72,6 +84,12 @@
       "sha256": "75e1e5be451e75f3c316fc38035b875477ca81dc85f389bb4cc9900b8c82f4c5",
       "role": "parameter-and-structure-source",
       "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); L. niger; read in full, never a test."
+    },
+    {
+      "file": "Franks1990_BullMathBiol52-597_synchronization-starvation-I.pdf",
+      "sha256": "a9976f5ad96a8543c72b9c57080f81e01160872d10faff1f1f0ebea7c486c305",
+      "role": "development-other-species",
+      "cleared": "docs/log D233 (tier 1, D232 amendment 1); check passed and logged in D234/D235; synchrony review (D232): read for mechanisms, manipulations and predictions only, never parameters or targets (P129). PDF placed by the user."
     },
     {
       "file": "FranksSendovaFranks1992_BehavEcolSociobiol30-109_brood-sorting.pdf",
@@ -134,6 +152,18 @@
       "cleared": "docs/research/encounters-aggregation.md: user decision 2026-10-10 night; read in full, not a test."
     },
     {
+      "file": "Richardson2017_PLoSComputBiol13-e1005527_activity-cycles-transmission.pdf",
+      "sha256": "116083c9e3a3a9d5b64563b79341cb0ef2d3c3395f7f2259acf0cf94ec016234",
+      "role": "development-other-species",
+      "cleared": "docs/log D233 (tier 1, D232 amendment 1); check passed and logged in D234/D235; synchrony review (D232): read for mechanisms, manipulations and predictions only, never parameters or targets (P129). PDF placed by the user."
+    },
+    {
+      "file": "Richardson2026_CommunBiol9-1317_modular-nest-activity-cycles.pdf",
+      "sha256": "ffecbe6be5e66487dae8b820087f56a02b16f83e10d5a124edd5c199b8561c89",
+      "role": "development-other-species",
+      "cleared": "docs/log D233 (tier 1, D232 amendment 1); check passed and logged in D234/D235; synchrony review (D232): read for mechanisms, manipulations and predictions only, never parameters or targets (P129). PDF placed by the user."
+    },
+    {
       "file": "SakamotoAkimoto2017_TJSEC8_box-constraint-handling-CMA-ES.pdf",
       "sha256": "fe63af7468a20a40ef76ef4e6afa10adb3775cfeb4c9ef996b7e6dfa735d8f70",
       "role": "methods",
@@ -144,6 +174,12 @@
       "sha256": "7aff33ac370d05c47aa0af987470c2ac518274bf8abde957de0dd8aa7887af59",
       "role": "development-other-species",
       "cleared": "docs/STATUS.md: Evidence policy, resting-site literature 2026-10-18 ≈ 15:52 — role set by Claude (user delegated); hypotheses and methods only, no parameters imported."
+    },
+    {
+      "file": "VaesDetrain2022_PLoSONE17-e0273087_Myrmica-starvation-activity.pdf",
+      "sha256": "51f5ad4d88e01bf9a73f521dbd1a274521bd78c3a1f96f869c49577e799679b3",
+      "role": "development-other-species",
+      "cleared": "docs/log D235 (Q28, tier-1 addition); check passed and logged in D234/D235; synchrony review (D232): read for mechanisms, manipulations and predictions only, never parameters or targets (P129). PDF placed by the user."
     }
   ]
 }
