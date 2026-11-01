@@ -5,8 +5,9 @@ wording: >-
   the review excludes any paper that analyses held-out data: … A paper whose sources cannot be
   settled from metadata is listed for the user, not read.
 made: D232
-state: open
+state: fulfilled
 nodes: [T058]
+resolved_by: D238
 reviews:
   - action: commit:q27-review-scope-20261031
     disposition: not-triggered
@@ -53,3 +54,5 @@ reviews:
 - 2026-11-01 17:19 UTC lead (session f6ab21fd): review for commit:synchrony-stage1-20261101: satisfied — D234/D235: every tier-1 paper is another species or predates the held-out sets; held-out-adjacent records seen by title only.
 - 2026-11-01 17:27 UTC lead (session f6ab21fd): reviewed D236@95b5f98a08b3; D236 (Despland & Simpson 2006 added as the eighth tier-1 paper) read; no change to this commitment's state.
 - 2026-11-01 17:29 UTC lead (session f6ab21fd): review for commit:synchrony-d236-20261101: satisfied — D236: the eighth paper is on locusts and cannot analyse a held-out set; Cole 1991 J Insect Behav predates them.
+- 2026-11-01 17:38 UTC lead (session f6ab21fd): reviewed D237@aeef03977adf; D237 (review note delivered) followed this rule; kept open while the user may ask for revisions (Q29).
+- 2026-11-01 18:20 UTC lead (session f6ab21fd): set state=fulfilled; set resolved_by=D238 — D238: the user accepted the review (D237, amended) as delivered under this rule; item 1(e)'s design not started

@@ -4,7 +4,7 @@ title: Both Doering papers deferred until their data provenance is clarified
 wording: Defer both Doering papers pending data-provenance clarification.
 made: D235
 state: open
-nodes: [T058]
+nodes: [T058, T023]
 reviews:
   - action: commit:synchrony-stage1-20261101
     disposition: satisfied
@@ -26,6 +26,14 @@ reviews:
         rev: 95b5f98a08b3714b9440375496076e499447c6a751b62561d37c5fd381122950
       - record: D235
         rev: afeabe355110bf2f83b5d38e32566090d8a1f8d742cd9e381fe0e21fb6155e98
+  - action: commit:synchrony-review-20261101
+    disposition: satisfied
+    because: Neither Doering paper is pinned or in literature/; the note marks both as deferred abstracts.
+    by: lead (session f6ab21fd)
+    at: "2026-11-01 18:21 UTC"
+    inputs:
+      - record: D238
+        rev: 7655ef093c1ff672b1ac5bc85031076c4f54bf6478f98f5dfc141dceb0905e92
 ---
 
 ## History
@@ -33,3 +41,5 @@ reviews:
 - 2026-11-01 17:19 UTC lead (session f6ab21fd): review for commit:synchrony-stage1-20261101: satisfied — Neither Doering paper's PDF is in literature/ or pinned; both deferred in D235.
 - 2026-11-01 17:27 UTC lead (session f6ab21fd): reviewed D236@95b5f98a08b3; D236 (Despland & Simpson 2006 added as the eighth tier-1 paper) read; no change to this commitment's state.
 - 2026-11-01 17:29 UTC lead (session f6ab21fd): review for commit:synchrony-d236-20261101: satisfied — Neither Doering paper is in literature/ or pinned.
+- 2026-11-01 18:20 UTC lead (session f6ab21fd): set nodes=["T058","T023"] — kept open beyond T058's close: the Doering papers return if their provenance is clarified
+- 2026-11-01 18:21 UTC lead (session f6ab21fd): review for commit:synchrony-review-20261101: satisfied — Neither Doering paper is pinned or in literature/; the note marks both as deferred abstracts.

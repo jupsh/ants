@@ -353,3 +353,5 @@ reviews:
 - 2026-10-31 03:34 UTC lead (session 6b5fb317): review for run:foragers1c-second: satisfied — re-read D226 after its change (appends D228's result only): the check used existing minute records and stored runs; no new simulation or experiment
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — the committed work used existing tracks and stored runs; no new simulation or experiment
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D232@7e78fcc5a5c3; D232 lists P87 under Not in scope and classes any prediction checkable in existing data as needing its own design; respected
+- 2026-11-01 17:38 UTC lead (session f6ab21fd): reviewed D237@aeef03977adf; D237 read: the review runs nothing and changes no model; any check it proposes needs its own design. No change.
+- 2026-11-01 18:21 UTC lead (session f6ab21fd): reviewed D237@2e84a192f41d, D238@7655ef093c1f; D237 (corrected) and D238 read: every proposed check needs its own design; nothing run or changed. No change.

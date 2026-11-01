@@ -91,3 +91,5 @@ reviews:
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — no model change is committed; D226 and D227 leave any revision to a separate design
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D232@7e78fcc5a5c3; D232 lists P103 under Not in scope: the review changes no model and proposes no member; respected, not discharged
 - 2026-10-31 04:23 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 cites D222 (P103's source) for the queen hypothesis H5 only; it proposes no model change, so P103 is respected, not discharged
+- 2026-11-01 17:38 UTC lead (session f6ab21fd): reviewed D237@aeef03977adf; D237 read: the review runs nothing and changes no model; any check it proposes needs its own design. No change.
+- 2026-11-01 18:21 UTC lead (session f6ab21fd): reviewed D237@2e84a192f41d, D238@7655ef093c1f; D237 (corrected) and D238 read: every proposed check needs its own design; nothing run or changed. No change.

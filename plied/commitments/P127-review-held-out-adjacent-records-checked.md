@@ -6,8 +6,9 @@ wording: >-
   first checked on title, species and data source alone; its abstract is read only if it uses none
   of the held-out sets.
 made: D232
-state: open
+state: fulfilled
 nodes: [T058]
+resolved_by: D238
 reviews:
   - action: commit:q27-review-scope-20261031
     disposition: not-triggered
@@ -54,3 +55,5 @@ reviews:
 - 2026-11-01 17:19 UTC lead (session f6ab21fd): review for commit:synchrony-stage1-20261101: satisfied — X024: held-out-adjacent records read on title and authors only; abstracts printed only for other-species papers.
 - 2026-11-01 17:27 UTC lead (session f6ab21fd): reviewed D236@95b5f98a08b3; D236 (Despland & Simpson 2006 added as the eighth tier-1 paper) read; no change to this commitment's state.
 - 2026-11-01 17:29 UTC lead (session f6ab21fd): review for commit:synchrony-d236-20261101: not-triggered — The commit records D236 (eighth tier-1 paper), two hash pins, P131 waived and STATUS; no review table written, no full text read, no model or 1(e) design touched.
+- 2026-11-01 17:38 UTC lead (session f6ab21fd): reviewed D237@aeef03977adf; D237 (review note delivered) followed this rule; kept open while the user may ask for revisions (Q29).
+- 2026-11-01 18:20 UTC lead (session f6ab21fd): set state=fulfilled; set resolved_by=D238 — D238: the user accepted the review (D237, amended) as delivered under this rule; item 1(e)'s design not started

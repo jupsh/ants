@@ -3,8 +3,9 @@ id: P122
 title: Napoli 2026 opened only once restored to literature/ and pinned
 wording: Restore the approved copy to the cleared collection and pin its hash before opening it.
 made: D233
-state: open
+state: fulfilled
 nodes: [T058]
+resolved_by: D237
 reviews:
   - action: commit:q27-review-scope-20261031
     disposition: satisfied
@@ -49,3 +50,4 @@ reviews:
 - 2026-11-01 17:18 UTC lead (session f6ab21fd): reviewed D235@afeabe355110; D235 applies the same pin-before-opening rule to every cleared PDF; Napoli is pinned, not yet opened. Still open.
 - 2026-11-01 17:19 UTC lead (session f6ab21fd): review for commit:synchrony-stage1-20261101: satisfied — All cleared PDFs, Napoli included, are pinned in docs/literature.json (this commit) and none has been opened beyond PDF metadata and page count.
 - 2026-11-01 17:29 UTC lead (session f6ab21fd): review for commit:synchrony-d236-20261101: satisfied — Every cleared PDF, the two added in D236 included, is pinned in docs/literature.json (this commit); none opened beyond PDF metadata and page count.
+- 2026-11-01 18:20 UTC lead (session f6ab21fd): set state=fulfilled; set resolved_by=D237 — D237/X025: Napoli 2026 opened only after its pin (D233)

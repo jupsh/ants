@@ -3,8 +3,9 @@ id: P123
 title: Lasius papers cleared by name only, no blanket clearance
 wording: Decide once specific papers are identified; no blanket clearance.
 made: D233
-state: open
+state: not-triggered
 nodes: [T058]
+resolved_by: D234
 reviews:
   - action: commit:q27-review-scope-20261031
     disposition: not-triggered
@@ -46,3 +47,4 @@ reviews:
 - 2026-10-31 19:09 UTC lead (session f6ab21fd): reviewed D234@3ab0d191d96f; D234: no Lasius synchrony paper found, none brought; still open.
 - 2026-11-01 17:19 UTC lead (session f6ab21fd): review for commit:synchrony-stage1-20261101: satisfied — D234: no Lasius synchrony paper identified; none brought or cleared.
 - 2026-11-01 17:29 UTC lead (session f6ab21fd): review for commit:synchrony-d236-20261101: not-triggered — The commit records D236 (eighth tier-1 paper), two hash pins, P131 waived and STATUS; no review table written, no full text read, no model or 1(e) design touched.
+- 2026-11-01 18:20 UTC lead (session f6ab21fd): set state=not-triggered; set resolved_by=D234 — D234: no Lasius synchrony paper identified, so none was brought

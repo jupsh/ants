@@ -6,8 +6,10 @@
 
 **lead**
 
-1. [T058](threads/T058-focused-review-of-experimental-synchrony-work.md) Focused review of experimental synchrony work, before item 1(e)'s design
+1. [T059](threads/T059-h6-initiation-and-directional-transfer-test.md) H6 initiation and directional-transfer test: design (D238 item 1)
 2. [T033](threads/T033-part-d-stages-1-3.md) Part D Stages 1-3
+2. [T060](threads/T060-contact-reset-timing-test-design-d238.md) Contact-reset timing test: design (D238 item 2)
+3. [T061](threads/T061-feasibility-inventory-of-permitted-metadata-for.md) Feasibility inventory of permitted metadata for food state and clock versus elapsed time (D238)
 
 **user**
 
@@ -51,26 +53,34 @@ None.
 | [P111](commitments/P111-item-1-c-entry-clustering-excludes.md) | Item 1(c): entry clustering excludes the focal ant; benchmark only | D224 | fulfilled | T012 |
 | [P112](commitments/P112-item-1-c-synthetic-checks-before.md) | Item 1(c): synthetic checks before any data run | D223 | fulfilled | T012 |
 | [P113](commitments/P113-item-1-c-self-checks-before.md) | Item 1(c): self-checks before anything is read | D223 | fulfilled | T012 |
-| [P114](commitments/P114-focused-review-before-item-1-e.md) | Focused review before item 1(e)'s design | D230 | open | T058, T033, T023 |
-| [P115](commitments/P115-review-deliverable-a-comparison-of-candidate.md) | Review deliverable: a comparison of candidate mechanisms, not a model implementation | D230 | open | T058 |
-| [P116](commitments/P116-b020-f111-kept-out-of-the.md) | B020/F111 kept out of the synchrony synthesis unless it constrains a hypothesis | D230 | open | T058 |
-| [P117](commitments/P117-review-c1-c5-assessed-as-questions.md) | Review: C1-C5 assessed as questions, 'unknown' where nothing comparable was measured | D233 | open | T058 |
-| [P118](commitments/P118-review-c2-keeps-supported-short-window.md) | Review: C2 keeps supported short-window behaviour, not every activity level | D233 | open | T058 |
-| [P119](commitments/P119-review-a-discriminator-kept-only-where.md) | Review: a discriminator kept only where the evidence sets up the contrast | D233 | open | T058 |
+| [P114](commitments/P114-focused-review-before-item-1-e.md) | Focused review before item 1(e)'s design | D230 | fulfilled | T058, T033, T023 |
+| [P115](commitments/P115-review-deliverable-a-comparison-of-candidate.md) | Review deliverable: a comparison of candidate mechanisms, not a model implementation | D230 | fulfilled | T058 |
+| [P116](commitments/P116-b020-f111-kept-out-of-the.md) | B020/F111 kept out of the synchrony synthesis unless it constrains a hypothesis | D230 | fulfilled | T058 |
+| [P117](commitments/P117-review-c1-c5-assessed-as-questions.md) | Review: C1-C5 assessed as questions, 'unknown' where nothing comparable was measured | D233 | fulfilled | T058 |
+| [P118](commitments/P118-review-c2-keeps-supported-short-window.md) | Review: C2 keeps supported short-window behaviour, not every activity level | D233 | fulfilled | T058 |
+| [P119](commitments/P119-review-a-discriminator-kept-only-where.md) | Review: a discriminator kept only where the evidence sets up the contrast | D233 | fulfilled | T058 |
 | [P12](commitments/P12-literature-derived-structures-parked-until-the.md) | Partly addressed: contact-based activation "not warranted on current evidence" (STATUS closed lines, 2026-10-17 14:02, user); kept out of C2 (2026-10-18 01:41). Revisit triggers in D138 item 3. | S001 | open | T014 |
 | [P120](commitments/P120-review-a-tier-1-clearance-takes.md) | Review: a tier-1 clearance takes effect only after its check passes and is logged | D233 | fulfilled | T058 |
 | [P121](commitments/P121-review-corrections-and-retractions-checked-eight.md) | Review: corrections and retractions checked; eight papers a ceiling | D233 | fulfilled | T058 |
-| [P122](commitments/P122-napoli-2026-opened-only-once-restored.md) | Napoli 2026 opened only once restored to literature/ and pinned | D233 | open | T058 |
-| [P123](commitments/P123-lasius-papers-cleared-by-name-only.md) | Lasius papers cleared by name only, no blanket clearance | D233 | open | T058 |
-| [P124](commitments/P124-review-evidence-classed-by-the-study.md) | Review: evidence classed by the study's actual design | D233 | open | T058 |
-| [P125](commitments/P125-review-output-mechanisms-worth-a-quantitative.md) | Review output: mechanisms worth a quantitative test, evidence and transfer limits explicit | D233 | open | T058 |
-| [P126](commitments/P126-review-held-out-guard.md) | Review: held-out guard | D232 | open | T058 |
-| [P127](commitments/P127-review-held-out-adjacent-records-checked.md) | Review: held-out-adjacent records checked on title, species and source before their abstract | D232 | open | T058 |
-| [P128](commitments/P128-review-one-exposure-entry-per-search.md) | Review: one exposure entry per search session; nothing downloaded | D232 | open | T058 |
-| [P129](commitments/P129-review-full-texts-read-for-mechanisms.md) | Review: full texts read for mechanisms, never parameters or targets | D232 | open | T058 |
+| [P122](commitments/P122-napoli-2026-opened-only-once-restored.md) | Napoli 2026 opened only once restored to literature/ and pinned | D233 | fulfilled | T058 |
+| [P123](commitments/P123-lasius-papers-cleared-by-name-only.md) | Lasius papers cleared by name only, no blanket clearance | D233 | not-triggered | T058 |
+| [P124](commitments/P124-review-evidence-classed-by-the-study.md) | Review: evidence classed by the study's actual design | D233 | fulfilled | T058 |
+| [P125](commitments/P125-review-output-mechanisms-worth-a-quantitative.md) | Review output: mechanisms worth a quantitative test, evidence and transfer limits explicit | D233 | fulfilled | T058 |
+| [P126](commitments/P126-review-held-out-guard.md) | Review: held-out guard | D232 | fulfilled | T058 |
+| [P127](commitments/P127-review-held-out-adjacent-records-checked.md) | Review: held-out-adjacent records checked on title, species and source before their abstract | D232 | fulfilled | T058 |
+| [P128](commitments/P128-review-one-exposure-entry-per-search.md) | Review: one exposure entry per search session; nothing downloaded | D232 | fulfilled | T058 |
+| [P129](commitments/P129-review-full-texts-read-for-mechanisms.md) | Review: full texts read for mechanisms, never parameters or targets | D232 | fulfilled | T058 |
 | [P13](commitments/P13-when-e1-resumes-b010-then-the.md) | When E1 resumes: B010, then the Bonavita held-out test | S001 | open | T003 |
-| [P130](commitments/P130-both-doering-papers-deferred-until-their.md) | Both Doering papers deferred until their data provenance is clarified | D235 | open | T058 |
+| [P130](commitments/P130-both-doering-papers-deferred-until-their.md) | Both Doering papers deferred until their data provenance is clarified | D235 | open | T058, T023 |
 | [P131](commitments/P131-tier-1-is-seven-papers-the.md) | Tier 1 is seven papers; the eighth slot stays unused | D235 | waived | T058 |
+| [P132](commitments/P132-h6-design-what-it-adds-beyond.md) | H6 design: what it adds beyond the existing spatial and entry analyses | D238 | open | T059 |
+| [P133](commitments/P133-h6-design-missed-contacts-tracking-gaps.md) | H6 design: missed contacts, tracking gaps, ongoing rises and spatially varying common inputs addressed | D238 | open | T059 |
+| [P134](commitments/P134-h6-no-observed-preceding-contact-stays.md) | H6: 'no observed preceding contact' stays an observational definition | D238 | open | T059 |
+| [P135](commitments/P135-contact-reset-design-identifiability-of-the.md) | Contact-reset design: identifiability of the three-interval comparison established first | D238 | open | T060 |
+| [P136](commitments/P136-contact-reset-h2-versus-h3-kept.md) | Contact-reset: H2 versus H3 kept unresolved unless the design can distinguish them | D238 | open | T060 |
+| [P137](commitments/P137-contact-associations-and-granger-predictability-are.md) | Contact associations and Granger predictability are not causal evidence | D238 | open | T059, T060 |
+| [P138](commitments/P138-food-state-and-clock-a-feasibility.md) | Food state and clock: a feasibility inventory of permitted metadata only, before any design | D238 | open | T061 |
+| [P139](commitments/P139-the-synchrony-review-stays-local-no.md) | The synchrony review stays local; no private page | D238 | open | T058, T023 |
 | [P14](commitments/P14-e6-ensemble-rule-reconciled-with-d104.md) | D104 skipped Plan steps 6-8, so neither ranking-check survivors nor profile ends exist; D104: E6 runs on the best step-5 fit. No amendment reconciling the two was found; one is due before any E6 run. | S001 | open | T041, T038 |
 | [P15](commitments/P15-rows-1-4-scope-decided-with.md) | Rows 1 / 4 scope decided with step 9 | D114 | fulfilled | T036, Q05 |
 | [P16](commitments/P16-a-partner-counted-twice-within-one.md) | D139: rule 1 does not fire (partner-repeat inside its bout 0.00 on every day). | D135 | not-triggered | T018 |
@@ -213,7 +223,10 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │       ├── T032  S2 audit: same-bin classing, composition nulls                     closed, approval: approved (D145), outcome D156, carries F094, F095
 │       ├── T034  Brood coordinates: proximity, descriptive (development only)       open
 │       ├── T035  Forager-entry and queen triggers                                   closed, approval: approved (D213), outcome D221, carries F109, F104, [B023]
-│       └── T058  Focused review of experimental synchrony work, before item 1(e)…   open, next 1, lead
+│       ├── T058  Focused review of experimental synchrony work, before item 1(e)…   closed, user, outcome D238
+│       ├── T059  H6 initiation and directional-transfer test: design (D238 item …   open, next 1, lead
+│       ├── T060  Contact-reset timing test: design (D238 item 2)                    open, next 2, lead
+│       └── T061  Feasibility inventory of permitted metadata for food state and …   open, next 3, lead
 ├── T036  Held-out tests (step 9): Stroeymeyt age-experiment colonies                held, ⟵ T023
 │   └── T037  Candidate held-out colony data sets                                    open, [B016]
 ├── T038  E6: Bles et al. 2022, development benchmark on the best step-5 …           held, ⟵ T036

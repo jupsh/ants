@@ -15,3 +15,4 @@ Draft label: T4 (docs/threads-draft.md revision 2). Step 9 on hold (D114).
 - 2026-10-30 04:52 UTC lead (session 9aa22476): reviewed D191's launch line: it names P03 only as not applicable to the T057 judge; T036's held-out test is untouched (no held-out data used)
 - 2026-10-31 03:28 UTC lead (session 6b5fb317): reviewed D227@9164b9580a47; reviewed D227 (reaches this node through T023): it orders an item 1(c) check and an item 1(e) design on development data; no held-out data or step-9 test is involved, so the held-out tests stay held on T023
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D230@d48f344b163e; D230 cites T023 to order the focused review before item 1(e). D232's held-out guard excludes any paper analysing the age-experiment colonies or the Stroeymeyt SM beyond its methods; this held thread is unaffected
+- 2026-11-01 18:21 UTC lead (session f6ab21fd): reviewed D238@7655ef093c1f; D238 read (it cites T023): nothing here changes.
