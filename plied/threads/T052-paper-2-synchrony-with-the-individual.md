@@ -17,3 +17,4 @@ Draft label: T7.2 (docs/threads-draft.md revision 2). "Now" (STATUS).
 - 2026-10-31 03:28 UTC lead (session 6b5fb317): reviewed D227@9164b9580a47; reviewed D227 (through T023): it orders development-data work on the slow co-variation deficit (item 1(c) check, item 1(e) design) that paper 2 may later cite; nothing in the paper's scope or plan changes now
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D230@d48f344b163e; D230 cites T023 to order the focused review (T058) before item 1(e); paper 2's scope is unchanged. The review's comparison may later feed its discussion of mechanisms
 - 2026-11-01 18:21 UTC lead (session f6ab21fd): reviewed D238@7655ef093c1f; D238 read (it cites T023): nothing here changes.
+- 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.

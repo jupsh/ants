@@ -9,7 +9,6 @@
 1. [T059](threads/T059-h6-initiation-and-directional-transfer-test.md) H6 initiation and directional-transfer test: design (D238 item 1)
 2. [T033](threads/T033-part-d-stages-1-3.md) Part D Stages 1-3
 2. [T060](threads/T060-contact-reset-timing-test-design-d238.md) Contact-reset timing test: design (D238 item 2)
-3. [T061](threads/T061-feasibility-inventory-of-permitted-metadata-for.md) Feasibility inventory of permitted metadata for food state and clock versus elapsed time (D238)
 
 **user**
 
@@ -79,10 +78,22 @@ None.
 | [P135](commitments/P135-contact-reset-design-identifiability-of-the.md) | Contact-reset design: identifiability of the three-interval comparison established first | D238 | open | T060 |
 | [P136](commitments/P136-contact-reset-h2-versus-h3-kept.md) | Contact-reset: H2 versus H3 kept unresolved unless the design can distinguish them | D238 | open | T060 |
 | [P137](commitments/P137-contact-associations-and-granger-predictability-are.md) | Contact associations and Granger predictability are not causal evidence | D238 | open | T059, T060 |
-| [P138](commitments/P138-food-state-and-clock-a-feasibility.md) | Food state and clock: a feasibility inventory of permitted metadata only, before any design | D238 | open | T061 |
+| [P138](commitments/P138-food-state-and-clock-a-feasibility.md) | Food state and clock: a feasibility inventory of permitted metadata only, before any design | D238 | fulfilled | T061 |
 | [P139](commitments/P139-the-synchrony-review-stays-local-no.md) | The synchrony review stays local; no private page | D238 | open | T058, T023 |
 | [P14](commitments/P14-e6-ensemble-rule-reconciled-with-d104.md) | D104 skipped Plan steps 6-8, so neither ranking-check survivors nor profile ends exist; D104: E6 runs on the best step-5 fit. No amendment reconciling the two was found; one is due before any E6 run. | S001 | open | T041, T038 |
+| [P140](commitments/P140-h6-design-brought-back-for-approval.md) | H6 design brought back for approval before implementation or analysis | D239 | fulfilled | T059 |
+| [P141](commitments/P141-t061-already-permitted-metadata-only-missing.md) | T061: already permitted metadata only; missing stays unknown; wider access a separate decision | D239 | fulfilled | T061 |
+| [P142](commitments/P142-food-state-and-clock-no-comparison.md) | Food state and clock: no comparison, proxy or new data now; both open for item 1(d) | D242 | open | T023 |
+| [P143](commitments/P143-h6-zones-named-high-and-low.md) | H6: zones named high- and low-forager-visit unless their anatomy is established | D242 | open | T059 |
+| [P144](commitments/P144-h6-all-episode-sensitivities-reported-none.md) | H6: all episode sensitivities reported, none selected | D242 | open | T059 |
+| [P145](commitments/P145-h6-stage-2b-arms-deferred-to.md) | H6: Stage 2b arms deferred to a separate decision and design | D242 | open | T059 |
+| [P146](commitments/P146-h6-identity-beyond-location-unresolved-without.md) | H6: identity beyond location unresolved without adequate support for the conditional reference | D242 | open | T059 |
+| [P147](commitments/P147-h6-s2-utc-aligned-cross-colony.md) | H6 S2: UTC-aligned cross-colony pairs; quiet-start only for event analyses, no concatenated Granger series | D242 | open | T059 |
+| [P148](commitments/P148-h6-symmetric-coverage-rules-unknown-fractions.md) | H6: symmetric coverage rules; unknown fractions reported by role, zone and context | D242 | open | T059 |
+| [P149](commitments/P149-h6-repeatability-the-single-primary-statistic.md) | H6: repeatability the single primary statistic; the rest descriptive; sensitivities cannot overturn it | D242 | open | T059 |
 | [P15](commitments/P15-rows-1-4-scope-decided-with.md) | Rows 1 / 4 scope decided with step 9 | D114 | fulfilled | T036, Q05 |
+| [P150](commitments/P150-h6-synthetic-null-and-recovery-checks.md) | H6: synthetic null and recovery checks with acceptance rules fixed first | D242 | open | T059 |
+| [P151](commitments/P151-h6-reader-frozen-and-checks-passed.md) | H6: reader frozen and checks passed before any empirical result is inspected; failures back to the user | D242 | open | T059 |
 | [P16](commitments/P16-a-partner-counted-twice-within-one.md) | D139: rule 1 does not fire (partner-repeat inside its bout 0.00 on every day). | D135 | not-triggered | T018 |
 | [P17](commitments/P17-leavecropfrac-sensitivity-with-the-e6-run.md) | B003 was dropped on this ground. | S001 | open | T042 |
 | [P18](commitments/P18-e2-adoption-preconditions.md) | Only if E2 reopens. | S001 | open | T004 |
@@ -226,7 +237,7 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │       ├── T058  Focused review of experimental synchrony work, before item 1(e)…   closed, user, outcome D238
 │       ├── T059  H6 initiation and directional-transfer test: design (D238 item …   open, next 1, lead
 │       ├── T060  Contact-reset timing test: design (D238 item 2)                    open, next 2, lead
-│       └── T061  Feasibility inventory of permitted metadata for food state and …   open, next 3, lead
+│       └── T061  Feasibility inventory of permitted metadata for food state and …   closed, lead, outcome D240, carries F108
 ├── T036  Held-out tests (step 9): Stroeymeyt age-experiment colonies                held, ⟵ T023
 │   └── T037  Candidate held-out colony data sets                                    open, [B016]
 ├── T038  E6: Bles et al. 2022, development benchmark on the best step-5 …           held, ⟵ T036

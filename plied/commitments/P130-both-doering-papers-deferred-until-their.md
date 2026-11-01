@@ -34,6 +34,18 @@ reviews:
     inputs:
       - record: D238
         rev: 7655ef093c1ff672b1ac5bc85031076c4f54bf6478f98f5dfc141dceb0905e92
+  - action: commit:h6-design-20261101
+    disposition: satisfied
+    because: Neither Doering paper is pinned or read.
+    by: lead (session f6ab21fd)
+    at: "2026-11-01 22:46 UTC"
+    inputs:
+      - record: D242
+        rev: 95cc70c9ace090981dbc595ffb10d18a35f19fdbcf8455a6bf43acf2b0db63fa
+      - record: D241
+        rev: 597483bc51a5737e117a90e3c044b57b707aa0098848143a71938914bc3ba4ca
+      - record: D240
+        rev: 5875f95982462051e5fa97516cc789db1066fed33cc94c549cb361b80746300d
 ---
 
 ## History
@@ -43,3 +55,4 @@ reviews:
 - 2026-11-01 17:29 UTC lead (session f6ab21fd): review for commit:synchrony-d236-20261101: satisfied — Neither Doering paper is in literature/ or pinned.
 - 2026-11-01 18:20 UTC lead (session f6ab21fd): set nodes=["T058","T023"] — kept open beyond T058's close: the Doering papers return if their provenance is clarified
 - 2026-11-01 18:21 UTC lead (session f6ab21fd): review for commit:synchrony-review-20261101: satisfied — Neither Doering paper is pinned or in literature/; the note marks both as deferred abstracts.
+- 2026-11-01 22:46 UTC lead (session f6ab21fd): review for commit:h6-design-20261101: satisfied — Neither Doering paper is pinned or read.

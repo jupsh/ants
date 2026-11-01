@@ -77,6 +77,21 @@ reviews:
         rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
       - record: D228
         rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
+  - action: commit:h6-design-20261101
+    disposition: not-triggered
+    because: >-
+      The commit records the T061 inventory (D240), the H6 design and its amendment (D241), the
+      user's answers (D242), F108's update and plied records; no model change, analysis, run or
+      reading of new results.
+    by: lead (session f6ab21fd)
+    at: "2026-11-01 22:46 UTC"
+    inputs:
+      - record: D242
+        rev: 95cc70c9ace090981dbc595ffb10d18a35f19fdbcf8455a6bf43acf2b0db63fa
+      - record: D241
+        rev: 597483bc51a5737e117a90e3c044b57b707aa0098848143a71938914bc3ba4ca
+      - record: D240
+        rev: 5875f95982462051e5fa97516cc789db1066fed33cc94c549cb361b80746300d
 ---
 
 ## History
@@ -93,3 +108,6 @@ reviews:
 - 2026-10-31 04:23 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 cites D222 (P103's source) for the queen hypothesis H5 only; it proposes no model change, so P103 is respected, not discharged
 - 2026-11-01 17:38 UTC lead (session f6ab21fd): reviewed D237@aeef03977adf; D237 read: the review runs nothing and changes no model; any check it proposes needs its own design. No change.
 - 2026-11-01 18:21 UTC lead (session f6ab21fd): reviewed D237@2e84a192f41d, D238@7655ef093c1f; D237 (corrected) and D238 read: every proposed check needs its own design; nothing run or changed. No change.
+- 2026-11-01 19:15 UTC lead (session f6ab21fd): reviewed D241@c351e62616d5; D241 (the H6 design) read against this; addressed in the design, open until it is approved and read.
+- 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.
+- 2026-11-01 22:46 UTC lead (session f6ab21fd): review for commit:h6-design-20261101: not-triggered — The commit records the T061 inventory (D240), the H6 design and its amendment (D241), the user's answers (D242), F108's update and plied records; no model change, analysis, run or reading of new results.

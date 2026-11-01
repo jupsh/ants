@@ -82,6 +82,21 @@ reviews:
         rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
       - record: D228
         rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
+  - action: commit:h6-design-20261101
+    disposition: not-triggered
+    because: >-
+      The commit records the T061 inventory (D240), the H6 design and its amendment (D241), the
+      user's answers (D242), F108's update and plied records; no model change, analysis, run or
+      reading of new results.
+    by: lead (session f6ab21fd)
+    at: "2026-11-01 22:46 UTC"
+    inputs:
+      - record: D242
+        rev: 95cc70c9ace090981dbc595ffb10d18a35f19fdbcf8455a6bf43acf2b0db63fa
+      - record: D241
+        rev: 597483bc51a5737e117a90e3c044b57b707aa0098848143a71938914bc3ba4ca
+      - record: D240
+        rev: 5875f95982462051e5fa97516cc789db1066fed33cc94c549cb361b80746300d
 ---
 
 ## History
@@ -94,3 +109,4 @@ reviews:
 - 2026-10-31 03:34 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — re-read D226 after its change: the change appends D228's result only (the independent check agrees); the check was a reproduction on existing records, so this commitment still does not bear on it
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — no queen-linked model addition is proposed or committed; F109 and D221 read the queen result as an association
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 lists queen-linked activation as untested hypothesis H5 and repeats that F109 is not grounds to prioritise a queen-linked addition; applied, unchanged
+- 2026-11-01 22:46 UTC lead (session f6ab21fd): review for commit:h6-design-20261101: not-triggered — The commit records the T061 inventory (D240), the H6 design and its amendment (D241), the user's answers (D242), F108's update and plied records; no model change, analysis, run or reading of new results.

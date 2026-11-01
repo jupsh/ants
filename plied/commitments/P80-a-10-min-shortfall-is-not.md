@@ -276,3 +276,5 @@ reviews:
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — D221 and D226 both state that the 10-min shortfall / a 1-min association is not a 10-min process
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 restates P80 among F108's limits; it claims no oscillator
 - 2026-11-01 18:21 UTC lead (session f6ab21fd): reviewed D238@7655ef093c1f; D238 read: the review no longer claims L. niger is aperiodic; P80 is cited for what it says. No change.
+- 2026-11-01 19:16 UTC lead (session f6ab21fd): reviewed D241@c351e62616d5; D241 (H6 design proposal) read: it cites this record's links for context; nothing here changes.
+- 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.

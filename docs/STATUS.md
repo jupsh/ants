@@ -85,8 +85,11 @@ in the RESUME archive (A005).
       1991 (*Proc R Soc B*), Vaes & Detrain 2022, Cole & Cheshire 1996, Cole 1991 (*J Insect Behav*) and Despland &
       Simpson 2006 (locusts); both Doering papers deferred (P130). Stage 2 is done (X025): the review note
       `docs/research/synchrony-review.md` (D237) is accepted with amendments (D238; T058 closed). Next, in the user's
-      order: the H6 initiation and directional-transfer design (T059), the contact-reset timing design (T060), and a
-      feasibility inventory of permitted metadata for food state and clock versus elapsed time (T061). The search exposure that found Richardson et al. 2026 is X023
+      order: the H6 initiation and directional-transfer test (T059), designed (D241) and approved with amendments
+      (D242; amendment 1): implementation and the synthetic checks V1–V4 next, its empirical outputs sealed until the
+      reader is frozen and the checks pass; then the contact-reset timing design (T060). The metadata inventory (T061,
+      D240) found no useful designed variation for food state or clock versus elapsed time; neither is commissioned on
+      these data (D242), both open for item 1(d). The search exposure that found Richardson et al. 2026 is X023
       (development, other species).
   - **Step 9** (the held-out test) and **E6** are on hold (D114).
 - **Disclosed limitations:** the `carries` of closed threads (`plied tree`) and the findings they name. Among them:

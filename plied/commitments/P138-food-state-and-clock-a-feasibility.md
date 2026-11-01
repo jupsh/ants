@@ -6,8 +6,9 @@ wording: >-
   starts and lighting information. Establish whether useful independent variation exists before
   commissioning those designs.
 made: D238
-state: open
+state: fulfilled
 nodes: [T061]
+resolved_by: D240
 reviews:
   - action: commit:synchrony-review-20261101
     disposition: not-triggered
@@ -24,3 +25,4 @@ reviews:
 ## History
 - 2026-11-01 18:20 UTC lead (session f6ab21fd): created — D238: the user's limit on food state and clock versus elapsed time
 - 2026-11-01 18:21 UTC lead (session f6ab21fd): review for commit:synchrony-review-20261101: not-triggered — Governs designs not yet written (T059-T061); the commit records the accepted review, D238 and the plied threads only.
+- 2026-11-01 19:11 UTC lead (session f6ab21fd): set state=fulfilled; set resolved_by=D240 — D240: only an inventory of permitted metadata was done; no design commissioned (Q30)

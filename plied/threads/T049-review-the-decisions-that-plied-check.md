@@ -270,6 +270,13 @@ scanned:
     because: >-
       No commitment: 'pending' describes the uncommitted work, already committed in 10b0ca2; the
       dispose --read rule is a CLAUDE.md duty, not an if-then commitment
+  - record: D241
+    rev: 597483bc51a5737e117a90e3c044b57b707aa0098848143a71938914bc3ba4ca
+    at: "2026-11-01 22:45 UTC"
+    by: lead (session f6ab21fd)
+    because: >-
+      D241's 'deferred' (the Stage 2b arms) is the user's choice in D242, recorded as P145 made by
+      D242; D241 holds no further commitment
 ---
 Draft label: T6.5 (docs/threads-draft.md revision 2). plied check (scan_commitments, since 2026-10-17) flags 44 entries, D004 to D142, with a conditional or deferral that no commitment links. The draft review (D138) harvested commitments by search, not entry by entry.
 
@@ -323,3 +330,4 @@ Draft label: T6.5 (docs/threads-draft.md revision 2). plied check (scan_commitme
 - 2026-10-25 00:30 UTC lead (session 7c2d50fd): set status=closed; set outcome.ref=D144; set outcome.quote=six commitments recorded (D030 ×2, S001's per-ant spread rule, D126 ×2, D138'…; cleared next; cleared actor; added D144 to links — Every flagged entry read (D144): 6 commitments P25-P30, 43 scans
 - 2026-10-29 20:08 UTC lead (session 7f762276): scanned D106 (rev ca758194394d): no commitment to record — read in full after D181's dated addition: the addition records the omitted Buffin row (P01, missed) and holds no conditional; the existing 'B001 deferred', stopping-rule and synchrony-blocker lines are covered (B001; Plan step 5; P03), as the earlier T049 scan found
 - 2026-10-30 04:27 UTC lead (session 33d9cef4): scanned D187 (rev fc2157174e00): no commitment to record — No commitment: 'pending' describes the uncommitted work, already committed in 10b0ca2; the dispose --read rule is a CLAUDE.md duty, not an if-then commitment
+- 2026-11-01 22:45 UTC lead (session f6ab21fd): scanned D241 (rev 597483bc51a5): no commitment to record — D241's 'deferred' (the Stage 2b arms) is the user's choice in D242, recorded as P145 made by D242; D241 holds no further commitment

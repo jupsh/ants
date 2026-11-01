@@ -23,3 +23,5 @@ Draft label: T3.3.4d (docs/threads-draft.md revision 2). Bounded and secondary (
 - 2026-10-31 00:20 UTC lead (session 108deea8): reviewed D212@61cade10f360; D212 amendment 2 changes only item 1(b)'s balance SD, rise calibration and a descriptive control row; nothing about the robust S3 variant. Still held
 - 2026-10-31 00:59 UTC lead (session 108deea8): reviewed D212@c08d81a72ffe; D212's latest line only corrects amendment 2's pooled-SD formula (item 1(b)); nothing about the robust S3 variant. Still held
 - 2026-10-31 03:38 UTC lead (session 6b5fb317): reviewed D229@096feb17dd28, F111@caa79874f712; reviewed D229 and F111 (via D138): B020 is unrelated to the robust S3 variant; stays held
+- 2026-11-01 19:16 UTC lead (session f6ab21fd): reviewed D241@c351e62616d5; D241 (H6 design proposal) read: it cites this record's links for context; nothing here changes.
+- 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.
