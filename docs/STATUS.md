@@ -87,7 +87,9 @@ in the RESUME archive (A005).
       `docs/research/synchrony-review.md` (D237) is accepted with amendments (D238; T058 closed). Next, in the user's
       order: the H6 initiation and directional-transfer test (T059), designed (D241) and approved with amendments
       (D242; amendment 1): implementation and the synthetic checks V1–V4 next, its empirical outputs sealed until the
-      reader is frozen and the checks pass; then the contact-reset timing design (T060). The metadata inventory (T061,
+      reader is frozen and the checks pass; then the contact-reset timing design (T060), designed (D243) and
+      approved with amendments (D244; amendment 1): the Stage 0 extraction, matching and V0 checks next, after H6's
+      code is checked, Stage 1 deferred, Stage 0's empirical outputs sealed. The metadata inventory (T061,
       D240) found no useful designed variation for food state or clock versus elapsed time; neither is commissioned on
       these data (D242), both open for item 1(d). The search exposure that found Richardson et al. 2026 is X023
       (development, other species).

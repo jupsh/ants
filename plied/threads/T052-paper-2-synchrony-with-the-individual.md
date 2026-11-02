@@ -18,3 +18,5 @@ Draft label: T7.2 (docs/threads-draft.md revision 2). "Now" (STATUS).
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D230@d48f344b163e; D230 cites T023 to order the focused review (T058) before item 1(e); paper 2's scope is unchanged. The review's comparison may later feed its discussion of mechanisms
 - 2026-11-01 18:21 UTC lead (session f6ab21fd): reviewed D238@7655ef093c1f; D238 read (it cites T023): nothing here changes.
 - 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.
+- 2026-11-02 03:16 UTC lead (session 7b85e17e): reviewed D243@9fcd5b57058b; D243 cites F089 for its forecast that Stage 0 may find no characteristic interval; if Stage 0 is read, its regularity result bears on paper 2's individual baseline; nothing to change before then
+- 2026-11-02 03:31 UTC lead (session 7b85e17e): reviewed D243@a5fef01895d5; D243 amendment 1 makes Stage 0b a hazard-shape fit (k̄) on the triplet-supplying ants; it bears on paper 2's individual baseline only once read, and then only for this comparison

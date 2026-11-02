@@ -97,6 +97,19 @@ reviews:
         rev: 597483bc51a5737e117a90e3c044b57b707aa0098848143a71938914bc3ba4ca
       - record: D240
         rev: 5875f95982462051e5fa97516cc789db1066fed33cc94c549cb361b80746300d
+  - action: commit:t060-stage0-design-20261102
+    disposition: not-triggered
+    because: >-
+      The commit records T060's design (D243 with amendment 1), the user's answer (D244), STATUS's
+      pointer and plied records only; nothing is built, run, fitted or read; no queen-linked model
+      addition is prioritised; D243 excludes the queen from the primary.
+    by: lead (session 7b85e17e)
+    at: "2026-11-02 03:34 UTC"
+    inputs:
+      - record: D243
+        rev: a5fef01895d5a78df9941aa9914c404b673e2e4c311a0c7f0d2afc721813260b
+      - record: D244
+        rev: 8f3c0feeac9407fabac76aaf0ebf0f44d21bfbe13bc4d9b92233335bdf600a3c
 ---
 
 ## History
@@ -110,3 +123,4 @@ reviews:
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — no queen-linked model addition is proposed or committed; F109 and D221 read the queen result as an association
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 lists queen-linked activation as untested hypothesis H5 and repeats that F109 is not grounds to prioritise a queen-linked addition; applied, unchanged
 - 2026-11-01 22:46 UTC lead (session f6ab21fd): review for commit:h6-design-20261101: not-triggered — The commit records the T061 inventory (D240), the H6 design and its amendment (D241), the user's answers (D242), F108's update and plied records; no model change, analysis, run or reading of new results.
+- 2026-11-02 03:34 UTC lead (session 7b85e17e): review for commit:t060-stage0-design-20261102: not-triggered — The commit records T060's design (D243 with amendment 1), the user's answer (D244), STATUS's pointer and plied records only; nothing is built, run, fitted or read; no queen-linked model addition is prioritised; D243 excludes the queen from the primary.

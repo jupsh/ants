@@ -277,6 +277,25 @@ scanned:
     because: >-
       D241's 'deferred' (the Stage 2b arms) is the user's choice in D242, recorded as P145 made by
       D242; D241 holds no further commitment
+  - record: D243
+    rev: a378543b442be50f26629d2b0445aa42ae9fd3fb8a4b2b5863929cdad40b8997
+    at: "2026-11-02 03:15 UTC"
+    by: lead (session 7b85e17e)
+    because: >-
+      read in full: a design proposal; its conditionals (reader frozen before any empirical
+      statistic, Stage 1 only if Stage 0 says identifiable, nothing read if a check fails) bind only
+      on the user's approval and are recorded as commitments then, as D241's were by D242 (P150,
+      P151); the approval gate itself is P152, made by D238
+  - record: D243
+    rev: 9fcd5b57058bdd11cdb859b7dbc4c8adbc16db9ebfef668cf151615b2a83edc6
+    at: "2026-11-02 03:16 UTC"
+    by: lead (session 7b85e17e)
+    because: >-
+      read in full (revision with the sustained-onset rule): a design proposal; its conditionals
+      (reader frozen before any empirical statistic, Stage 1 only if Stage 0 says identifiable,
+      nothing read if a check fails) bind only on the user's approval and are recorded as
+      commitments then, as D241's were by D242 (P150, P151); the approval gate itself is P152, made
+      by D238
 ---
 Draft label: T6.5 (docs/threads-draft.md revision 2). plied check (scan_commitments, since 2026-10-17) flags 44 entries, D004 to D142, with a conditional or deferral that no commitment links. The draft review (D138) harvested commitments by search, not entry by entry.
 
@@ -331,3 +350,5 @@ Draft label: T6.5 (docs/threads-draft.md revision 2). plied check (scan_commitme
 - 2026-10-29 20:08 UTC lead (session 7f762276): scanned D106 (rev ca758194394d): no commitment to record — read in full after D181's dated addition: the addition records the omitted Buffin row (P01, missed) and holds no conditional; the existing 'B001 deferred', stopping-rule and synchrony-blocker lines are covered (B001; Plan step 5; P03), as the earlier T049 scan found
 - 2026-10-30 04:27 UTC lead (session 33d9cef4): scanned D187 (rev fc2157174e00): no commitment to record — No commitment: 'pending' describes the uncommitted work, already committed in 10b0ca2; the dispose --read rule is a CLAUDE.md duty, not an if-then commitment
 - 2026-11-01 22:45 UTC lead (session f6ab21fd): scanned D241 (rev 597483bc51a5): no commitment to record — D241's 'deferred' (the Stage 2b arms) is the user's choice in D242, recorded as P145 made by D242; D241 holds no further commitment
+- 2026-11-02 03:15 UTC lead (session 7b85e17e): scanned D243 (rev a378543b442b): no commitment to record — read in full: a design proposal; its conditionals (reader frozen before any empirical statistic, Stage 1 only if Stage 0 says identifiable, nothing read if a check fails) bind only on the user's approval and are recorded as commitments then, as D241's were by D242 (P150, P151); the approval gate itself is P152, made by D238
+- 2026-11-02 03:16 UTC lead (session 7b85e17e): scanned D243 (rev 9fcd5b57058b): no commitment to record — read in full (revision with the sustained-onset rule): a design proposal; its conditionals (reader frozen before any empirical statistic, Stage 1 only if Stage 0 says identifiable, nothing read if a check fails) bind only on the user's approval and are recorded as commitments then, as D241's were by D242 (P150, P151); the approval gate itself is P152, made by D238

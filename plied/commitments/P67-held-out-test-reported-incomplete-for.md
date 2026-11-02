@@ -23,6 +23,19 @@ reviews:
     because: The held-out test is not reported by this commit.
     by: lead (session 108deea8)
     at: "2026-10-30 22:07 UTC"
+  - action: commit:t060-stage0-design-20261102
+    disposition: not-triggered
+    because: >-
+      The commit records T060's design (D243 with amendment 1), the user's answer (D244), STATUS's
+      pointer and plied records only; nothing is built, run, fitted or read; no held-out test is
+      reported.
+    by: lead (session 7b85e17e)
+    at: "2026-11-02 03:34 UTC"
+    inputs:
+      - record: D243
+        rev: a5fef01895d5a78df9941aa9914c404b673e2e4c311a0c7f0d2afc721813260b
+      - record: D244
+        rev: 8f3c0feeac9407fabac76aaf0ebf0f44d21bfbe13bc4d9b92233335bdf600a3c
 ---
 
 ## History
@@ -35,3 +48,4 @@ reviews:
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — The held-out test is not reported by this commit.
 - 2026-10-31 02:17 UTC lead (session 6b5fb317): reviewed D223@b738f2de5839; D223 cites D181 only for B005's Done-when 1; it uses no contact observer and no held-out test, so P67 is unaffected
 - 2026-10-31 02:32 UTC lead (session 6b5fb317): reviewed D223@d91126ff338b; D223 amendment 1 adds no contact observer or held-out test; D181 still cited only for B005's Done-when 1. Unaffected
+- 2026-11-02 03:34 UTC lead (session 7b85e17e): review for commit:t060-stage0-design-20261102: not-triggered — The commit records T060's design (D243 with amendment 1), the user's answer (D244), STATUS's pointer and plied records only; nothing is built, run, fitted or read; no held-out test is reported.

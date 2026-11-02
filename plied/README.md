@@ -94,7 +94,22 @@ None.
 | [P15](commitments/P15-rows-1-4-scope-decided-with.md) | Rows 1 / 4 scope decided with step 9 | D114 | fulfilled | T036, Q05 |
 | [P150](commitments/P150-h6-synthetic-null-and-recovery-checks.md) | H6: synthetic null and recovery checks with acceptance rules fixed first | D242 | open | T059 |
 | [P151](commitments/P151-h6-reader-frozen-and-checks-passed.md) | H6: reader frozen and checks passed before any empirical result is inspected; failures back to the user | D242 | open | T059 |
+| [P152](commitments/P152-contact-reset-design-brought-to-the.md) | Contact-reset design brought to the user for approval before anything runs | D238 | fulfilled | T060 |
+| [P153](commitments/P153-contact-reset-histories-unknown-unless-independently.md) | Contact-reset: histories unknown unless independently bounded | D244 | open | T060 |
+| [P154](commitments/P154-contact-reset-focal-bridging-only-as.md) | Contact-reset: focal bridging only as a sensitivity | D244 | open | T060 |
+| [P155](commitments/P155-contact-reset-4-1-mm-crossings.md) | Contact-reset: 4.1-mm crossings described as proximity-defined contacts | D244 | open | T060 |
+| [P156](commitments/P156-contact-reset-coherent-synthetic-observation-or.md) | Contact-reset: coherent synthetic observation or separate validation scopes, generator settings frozen | D244 | open | T060 |
+| [P157](commitments/P157-contact-reset-stage-0b-s-reference.md) | Contact-reset: Stage 0b's reference rate defined despite threshold, censoring and selection | D244 | open | T060 |
+| [P158](commitments/P158-contact-reset-regularity-assessed-on-the.md) | Contact-reset: regularity assessed on the ants supplying the matched triplets | D244 | open | T060 |
+| [P159](commitments/P159-contact-reset-stage-0b-failure-means.md) | Contact-reset: Stage 0b failure means 'not established for this comparison' | D244 | open | T060 |
 | [P16](commitments/P16-a-partner-counted-twice-within-one.md) | D139: rule 1 does not fire (partner-repeat inside its bout 0.00 on every day). | D135 | not-triggered | T018 |
+| [P160](commitments/P160-contact-reset-stage-1-s-equivalence.md) | Contact-reset: Stage 1's equivalence reading narrowed to change relative to references | D244 | open | T060 |
+| [P161](commitments/P161-contact-reset-reader-edge-cases-resolved.md) | Contact-reset: reader edge cases resolved before freezing | D244 | open | T060 |
+| [P162](commitments/P162-contact-reset-v6-kept-as-a.md) | Contact-reset: V6 kept as a fixed stress test | D244 | open | T060 |
+| [P163](commitments/P163-contact-reset-stage-0-extraction-matching.md) | Contact-reset: Stage 0 extraction, matching and V0 built after the amendments; Stage 1 deferred | D244 | open | T060 |
+| [P164](commitments/P164-contact-reset-stage-0-outputs-sealed.md) | Contact-reset Stage 0: outputs sealed until the reader is frozen and V0 and the reproduction pass | D243 | open | T060 |
+| [P165](commitments/P165-contact-reset-the-speed-bound-checked.md) | Contact-reset: the speed bound checked before anything else is read | D243 | open | T060 |
+| [P166](commitments/P166-contact-reset-a-failed-check-or.md) | Contact-reset: a failed check or a substantive change comes back to the user | D244 | open | T060 |
 | [P17](commitments/P17-leavecropfrac-sensitivity-with-the-e6-run.md) | B003 was dropped on this ground. | S001 | open | T042 |
 | [P18](commitments/P18-e2-adoption-preconditions.md) | Only if E2 reopens. | S001 | open | T004 |
 | [P19](commitments/P19-after-or-alongside-e6-scans-recovery.md) | Plan step 10. | S001 | open | T038 |

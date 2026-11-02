@@ -46,6 +46,19 @@ reviews:
         rev: 597483bc51a5737e117a90e3c044b57b707aa0098848143a71938914bc3ba4ca
       - record: D240
         rev: 5875f95982462051e5fa97516cc789db1066fed33cc94c549cb361b80746300d
+  - action: commit:t060-stage0-design-20261102
+    disposition: satisfied
+    because: >-
+      The commit records T060's design (D243 with amendment 1), the user's answer (D244), STATUS's
+      pointer and plied records only; nothing is built, run, fitted or read; neither Doering paper
+      is read or cited in D243 or D244.
+    by: lead (session 7b85e17e)
+    at: "2026-11-02 03:34 UTC"
+    inputs:
+      - record: D243
+        rev: a5fef01895d5a78df9941aa9914c404b673e2e4c311a0c7f0d2afc721813260b
+      - record: D244
+        rev: 8f3c0feeac9407fabac76aaf0ebf0f44d21bfbe13bc4d9b92233335bdf600a3c
 ---
 
 ## History
@@ -56,3 +69,4 @@ reviews:
 - 2026-11-01 18:20 UTC lead (session f6ab21fd): set nodes=["T058","T023"] — kept open beyond T058's close: the Doering papers return if their provenance is clarified
 - 2026-11-01 18:21 UTC lead (session f6ab21fd): review for commit:synchrony-review-20261101: satisfied — Neither Doering paper is pinned or in literature/; the note marks both as deferred abstracts.
 - 2026-11-01 22:46 UTC lead (session f6ab21fd): review for commit:h6-design-20261101: satisfied — Neither Doering paper is pinned or read.
+- 2026-11-02 03:34 UTC lead (session 7b85e17e): review for commit:t060-stage0-design-20261102: satisfied — The commit records T060's design (D243 with amendment 1), the user's answer (D244), STATUS's pointer and plied records only; nothing is built, run, fitted or read; neither Doering paper is read or cited in D243 or D244.

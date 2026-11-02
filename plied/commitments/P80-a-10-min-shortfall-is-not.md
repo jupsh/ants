@@ -278,3 +278,5 @@ reviews:
 - 2026-11-01 18:21 UTC lead (session f6ab21fd): reviewed D238@7655ef093c1f; D238 read: the review no longer claims L. niger is aperiodic; P80 is cited for what it says. No change.
 - 2026-11-01 19:16 UTC lead (session f6ab21fd): reviewed D241@c351e62616d5; D241 (H6 design proposal) read: it cites this record's links for context; nothing here changes.
 - 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.
+- 2026-11-02 03:16 UTC lead (session 7b85e17e): reviewed D243@9fcd5b57058b; D243 cites P80 only for the transfer limit (periodicity in our data unresolved); it reads no 10-min oscillator; unaffected
+- 2026-11-02 03:30 UTC lead (session 7b85e17e): reviewed D243@a5fef01895d5; D243 amendment 1 does not touch P80's subject; the earlier citation (transfer limit) is unchanged; unaffected
