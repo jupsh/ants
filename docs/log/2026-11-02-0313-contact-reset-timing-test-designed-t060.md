@@ -514,3 +514,36 @@ title: Contact-reset timing test designed (T060; D238, D239; proposal for the us
       If the primary's support fails and no sensitivity's counts would pass the same rule, T060 closes: the comparison
       is unsupported by this extraction and observation rule. If the primary's support passes, or the primary fails
       while a sensitivity's counts would pass, nothing more is read and the question returns to the user.
+  - **2026-11-03 ≈ 15:58 UTC — the support audit's code frozen (P172; D267, D268).** The restricted support reader
+    `support.ts` and the extraction `extract.ts`, with every file they import (static, dynamic and type-only; 26
+    files), are copied byte-identical under `scripts/frozen/t060/` at repo-relative paths, and the audit runs from
+    those copies. The frozen copy reproduces colony 237's `repro-c15.json` byte-identically and pools the synthetic
+    Scope B support files identically to the scratch code (`logs/t060-freeze-check/`, gate `run:t060-freeze-check`).
+    This is not the 0b reader's freeze: Stage 0's statistics stay unread (D266), and P164 holds for them. SHA-256 (path
+    under `scripts/frozen/t060/`):
+    - `scripts/frozen/h6/scripts/lib.ts` 08c15523fdb8d395be34299cf28efac41594487ac82c409a7659dc3dae359a07
+    - `scripts/frozen/h6/scripts/scratch/activitySeries.ts` 11bcced7201a2061410abe264c8f84b2e5bcd9cd8dfbe7626fba7cf11c6dcb5b
+    - `scripts/frozen/h6/scripts/scratch/contactOnset.ts` 5a8b80a1ed673f5aa2ff0369289c60a77248bd288dd03215370f3e15521448b5
+    - `scripts/frozen/h6/scripts/scratch/contactStats.ts` 5b92f3b5eedf8472baa1dfbc512652036f2a923371294fea91bfcd70adb5bd92
+    - `scripts/frozen/h6/scripts/scratch/h6-next/extract.ts` ea889e9dc43984053963b4d8dfe30999ccae78aab1f399a9aa2ac66c990b9f71
+    - `scripts/frozen/h6/scripts/scratch/h6-next/reader.ts` 3c3985c09c3148a65d03c97b08eb5bcd08c8b118e3cfc19f7db58cf69c1b87d1
+    - `scripts/frozen/h6/scripts/scratch/onsetStats.ts` fedb6ff3c74746c2b6d62ba4f7bf0e089b7445a84d1dc5056f03a84a652e03ee
+    - `scripts/frozen/h6/scripts/simHash.ts` a2fe565af8a4258b4d6184449eb2fce4ff7f0b972d3cf69b984b5fddb5826076
+    - `scripts/frozen/h6/scripts/stroeymeytTracks.ts` e352a25454c3db66d26c2d96be215448f9e0b0009a5dbf9eab50c8fef45275c9
+    - `scripts/frozen/h6/src/sim/analysis/compare.ts` 50718fbbd12496a40158facd19ffb3778d00da33653a16a3df2a2cce1e4c2462
+    - `scripts/frozen/h6/src/sim/analysis/inNest.ts` 21e731e3fe473328575101a0a507fb886af0b8ace698cd980d353dd0d6fac267
+    - `scripts/frozen/h6/src/sim/analysis/khuongData.ts` d3359274ab28a43baa9c89a81d7ac65553c1b11b77caf3d0cb4111e34f178232
+    - `scripts/frozen/h6/src/sim/analysis/trajectory.ts` f4d642f941f876b5cc2997c8b7a0cb85bff53081ea3a5025f52fce1c7d7cef1b
+    - `scripts/frozen/h6/src/sim/core/math.ts` 8a09fa1aa55286e93c53c2a65bd39da6991e391c7e50629e8cc2be0344256a90
+    - `scripts/frozen/h6/src/sim/core/rng.ts` 0f87b2faf56cc39918fce92b5fa305662b4f7c30d44f305600af0e4a9ce17c09
+    - `scripts/frozen/h6/src/sim/experiments/e1Exploration.ts` c5397c1a576721dee96ac499e238af4ded1804386bcee60e74ed989f5e0546ad
+    - `scripts/frozen/h6/src/sim/models/walk.ts` 14ad75f686cf83b0cb9fc3068ede3c87ea8750c198f60cac7ba1c0e793e2a569
+    - `scripts/frozen/h6/src/sim/perception/types.ts` 98c5ee5ae8cb74a53d7abe8bd5d3d37207af6561ab5ed1caebe10a95cdc02634
+    - `scripts/frozen/h6/src/sim/reference/sectoredWalker.ts` bca68fb0bfa1b2f9967ba1f3668b5e5344781303e3b1fa4c8a19d2ec35e79083
+    - `scripts/frozen/h6/src/sim/world/surface.ts` 5f7b043d467d13735156bd07985c3b4c2c097397ff078264fc1c9afe30a29b24
+    - `scripts/scratch/t060/argvGuard.ts` fad6e77f9cc9f356af2a1291106b2ea59219409d9fe9a4049b5666ed576b7e69
+    - `scripts/scratch/t060/events.ts` bec9264b29601f0039d617cc3c7c6f0deb8799f08c92bcbd17df1caeb9541f77
+    - `scripts/scratch/t060/extract.ts` 29d04b2517a683e8ebdbe46f6aa76bd11b292f25c30078f2c697ed3f533fefa1
+    - `scripts/scratch/t060/reader.ts` 01d574a333dc3ab607ffdcf36d04a92f56857cce5077f4991646f186034bab83
+    - `scripts/scratch/t060/support.ts` f22b6423e38622f80bc98c2a16bf90dbf9a4cbef3af5daba5d2e283286622424
+    - `src/sim/core/rng.ts` 0f87b2faf56cc39918fce92b5fa305662b4f7c30d44f305600af0e4a9ce17c09

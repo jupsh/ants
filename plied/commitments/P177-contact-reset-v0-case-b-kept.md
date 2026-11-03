@@ -125,6 +125,45 @@ reviews:
     inputs:
       - record: D243
         rev: ab96ad707023467de1602a4777f8393d5032ec0974422b5d054200af52b9502a
+  - action: run:t060-s0-brief1b
+    disposition: acting
+    because: >-
+      Re-read D243@a0ceb72f78ab: one dated block appended since (2026-11-03, the support audit's
+      code frozen: support.ts, extract.ts and their 26-file import closure copied byte-identical
+      under scripts/frozen/t060/ with their SHA-256s; P172, D267, D268). It postdates this action
+      and changes nothing it did or read, so the earlier disposition (acting) stands; the block is
+      reviewed at the next action's gate.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:01 UTC"
+    inputs:
+      - record: D243
+        rev: a0ceb72f78abef50fd2e7d382e082d8d6ec3fd5a370cd4c5509ad3173ec037fe
+  - action: run:t060-s0-brief2
+    disposition: satisfied
+    because: >-
+      Re-read D243@a0ceb72f78ab: one dated block appended since (2026-11-03, the support audit's
+      code frozen: support.ts, extract.ts and their 26-file import closure copied byte-identical
+      under scripts/frozen/t060/ with their SHA-256s; P172, D267, D268). It postdates this action
+      and changes nothing it did or read, so the earlier disposition (satisfied) stands; the block
+      is reviewed at the next action's gate.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:01 UTC"
+    inputs:
+      - record: D243
+        rev: a0ceb72f78abef50fd2e7d382e082d8d6ec3fd5a370cd4c5509ad3173ec037fe
+  - action: run:t060-v0-scopeA-20261103
+    disposition: acting
+    because: >-
+      Re-read D243@a0ceb72f78ab: one dated block appended since (2026-11-03, the support audit's
+      code frozen: support.ts, extract.ts and their 26-file import closure copied byte-identical
+      under scripts/frozen/t060/ with their SHA-256s; P172, D267, D268). It postdates this action
+      and changes nothing it did or read, so the earlier disposition (acting) stands; the block is
+      reviewed at the next action's gate.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:01 UTC"
+    inputs:
+      - record: D243
+        rev: a0ceb72f78abef50fd2e7d382e082d8d6ec3fd5a370cd4c5509ad3173ec037fe
 ---
 
 ## History
@@ -138,3 +177,6 @@ reviews:
 - 2026-11-03 15:23 UTC lead (session e38b977a): review for run:t060-s0-brief1b: acting — Re-read D243@ab96ad707023: one dated block appended since (2026-11-03 15:18 UTC, the lead's details of the support-only audit after D266: a restricted support reader, the extraction in memory with no event table written, the colony-237 flag, the freeze, the stops). It postdates this action and changes nothing it did or read, so the earlier disposition (acting) stands; the block is reviewed at the next action's gate.
 - 2026-11-03 15:23 UTC lead (session e38b977a): review for run:t060-s0-brief2: satisfied — Re-read D243@ab96ad707023: one dated block appended since (2026-11-03 15:18 UTC, the lead's details of the support-only audit after D266: a restricted support reader, the extraction in memory with no event table written, the colony-237 flag, the freeze, the stops). It postdates this action and changes nothing it did or read, so the earlier disposition (satisfied) stands; the block is reviewed at the next action's gate.
 - 2026-11-03 15:23 UTC lead (session e38b977a): review for run:t060-v0-scopeA-20261103: acting — Re-read D243@ab96ad707023: one dated block appended since (2026-11-03 15:18 UTC, the lead's details of the support-only audit after D266: a restricted support reader, the extraction in memory with no event table written, the colony-237 flag, the freeze, the stops). It postdates this action and changes nothing it did or read, so the earlier disposition (acting) stands; the block is reviewed at the next action's gate.
+- 2026-11-03 16:01 UTC lead (session e38b977a): review for run:t060-s0-brief1b: acting — Re-read D243@a0ceb72f78ab: one dated block appended since (2026-11-03, the support audit's code frozen: support.ts, extract.ts and their 26-file import closure copied byte-identical under scripts/frozen/t060/ with their SHA-256s; P172, D267, D268). It postdates this action and changes nothing it did or read, so the earlier disposition (acting) stands; the block is reviewed at the next action's gate.
+- 2026-11-03 16:01 UTC lead (session e38b977a): review for run:t060-s0-brief2: satisfied — Re-read D243@a0ceb72f78ab: one dated block appended since (2026-11-03, the support audit's code frozen: support.ts, extract.ts and their 26-file import closure copied byte-identical under scripts/frozen/t060/ with their SHA-256s; P172, D267, D268). It postdates this action and changes nothing it did or read, so the earlier disposition (satisfied) stands; the block is reviewed at the next action's gate.
+- 2026-11-03 16:01 UTC lead (session e38b977a): review for run:t060-v0-scopeA-20261103: acting — Re-read D243@a0ceb72f78ab: one dated block appended since (2026-11-03, the support audit's code frozen: support.ts, extract.ts and their 26-file import closure copied byte-identical under scripts/frozen/t060/ with their SHA-256s; P172, D267, D268). It postdates this action and changes nothing it did or read, so the earlier disposition (acting) stands; the block is reviewed at the next action's gate.

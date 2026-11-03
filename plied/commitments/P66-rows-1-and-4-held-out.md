@@ -94,6 +94,30 @@ reviews:
       freeze, model change, E6 run, held-out data, paper or simulation is in it.
     by: lead (session e38b977a)
     at: "2026-11-03 15:25 UTC"
+  - action: commit:t060-stage0-design-20261102
+    disposition: not-triggered
+    because: >-
+      Re-read D243@a0ceb72f78ab: one dated block appended since (2026-11-03, the support audit's
+      code frozen: support.ts, extract.ts and their 26-file import closure copied byte-identical
+      under scripts/frozen/t060/ with their SHA-256s; P172, D267, D268). It postdates this action
+      and changes nothing it did or read, so the earlier disposition (not-triggered) stands; the
+      block is reviewed at the next action's gate.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:01 UTC"
+    inputs:
+      - record: D243
+        rev: a0ceb72f78abef50fd2e7d382e082d8d6ec3fd5a370cd4c5509ad3173ec037fe
+  - action: commit:t060-freeze-20261103
+    disposition: not-triggered
+    because: >-
+      The commit holds the T060 freeze and its records: scripts/frozen/t060/ (26 files,
+      byte-identical to D243's freeze block SHA-256s; checked by sha256sum and by the frozen copy's
+      colony-237 repro and synthetic pool, D243), D267, D268, D243's blocks, STATUS, and plied
+      records (P184, P185, dispositions, notes). Nothing under src/ or test/; scripts/scratch/ and
+      logs/ are not committed; backlog/ left out. No structure freeze, model change, E6 run,
+      held-out data, paper or simulation is in it.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:03 UTC"
 ---
 
 ## History
@@ -111,3 +135,5 @@ reviews:
 - 2026-11-03 07:02 UTC lead (session 691f3fd9): review for commit:t060-stage0-design-20261102: not-triggered — Re-read D243@514044e8ab40: one dated block appended since (2026-11-03 06:51 UTC, the lead's brief-2 details: the colony's list, death records, blind frames, intervals and the sustained-onset rule, sensitivities, reproduction, speed-bound check, Scope B generator and scoring), filling gaps in amendments 1 and 2 without changing a threshold, label or acceptance rule. The commit (dca4a4a) holds the version first read, so this disposition for it stands; the block is reviewed at the next commit's gate.
 - 2026-11-03 15:24 UTC lead (session e38b977a): review for commit:t060-stage0-design-20261102: not-triggered — Re-read D243@ab96ad707023: one dated block appended since (2026-11-03 15:18 UTC, the lead's details of the support-only audit after D266: a restricted support reader, the extraction in memory with no event table written, the colony-237 flag, the freeze, the stops). It postdates this action and changes nothing it did or read, so the earlier disposition (not-triggered) stands; the block is reviewed at the next action's gate.
 - 2026-11-03 15:25 UTC lead (session e38b977a): review for commit:t060-q37-records-20261103: not-triggered — The commit holds records only (git status: nothing under src/, scripts/, test/ or .claude/; backlog/ left out): T060's Stage 0 records D261-D266 with D243's dated blocks, X029, STATUS, and plied records (Q36, Q37, P175-P183, dispositions, notes, T037's message). No structure freeze, model change, E6 run, held-out data, paper or simulation is in it.
+- 2026-11-03 16:01 UTC lead (session e38b977a): review for commit:t060-stage0-design-20261102: not-triggered — Re-read D243@a0ceb72f78ab: one dated block appended since (2026-11-03, the support audit's code frozen: support.ts, extract.ts and their 26-file import closure copied byte-identical under scripts/frozen/t060/ with their SHA-256s; P172, D267, D268). It postdates this action and changes nothing it did or read, so the earlier disposition (not-triggered) stands; the block is reviewed at the next action's gate.
+- 2026-11-03 16:03 UTC lead (session e38b977a): review for commit:t060-freeze-20261103: not-triggered — The commit holds the T060 freeze and its records: scripts/frozen/t060/ (26 files, byte-identical to D243's freeze block SHA-256s; checked by sha256sum and by the frozen copy's colony-237 repro and synthetic pool, D243), D267, D268, D243's blocks, STATUS, and plied records (P184, P185, dispositions, notes). Nothing under src/ or test/; scripts/scratch/ and logs/ are not committed; backlog/ left out. No structure freeze, model change, E6 run, held-out data, paper or simulation is in it.

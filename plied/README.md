@@ -128,6 +128,8 @@ None.
 | [P181](commitments/P181-contact-reset-audit-tag-52-conservative.md) | Contact-reset audit: tag 52 conservative; colony 237's retag ambiguity flagged separately | D266 | open | T060 |
 | [P182](commitments/P182-contact-reset-audit-a-support-failure.md) | Contact-reset audit: a support failure closes the comparison as unsupported by this extraction | D266 | open | T060 |
 | [P183](commitments/P183-contact-reset-any-redesign-a-separate.md) | Contact-reset: any redesign a separate decision | D266 | open | T060 |
+| [P184](commitments/P184-contact-reset-audit-freeze-committed-gated.md) | Contact-reset audit: freeze committed, gated, before the audit, only once the equality, whitelist and colony-237 checks pass | D267 | open | T060 |
+| [P185](commitments/P185-contact-reset-audit-back-to-the.md) | Contact-reset audit: back to the user if the primary or any sensitivity would pass support; otherwise T060 closes as unsupported | D267 | open | T060 |
 | [P19](commitments/P19-after-or-alongside-e6-scans-recovery.md) | Plan step 10. | S001 | open | T038 |
 | [P20](commitments/P20-the-held-out-test-is-reported.md) | The user may reassign it (D127). | D127 | open | T053 |
 | [P21](commitments/P21-stages-1-3-driver-multiplier-before.md) | With D128: the 2-D separation rule deferred until calibrated. | D129 | open | T033 |

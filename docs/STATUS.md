@@ -4,7 +4,7 @@ title: Project status (current state, plan, rules in force, evidence policy)
 ---
 # Project status
 
-_Last updated: 2026-11-03 (T060: Q37 answered, a support-only audit, D266 and D243 15:18 block; V0 Scope A passed, D264; brief 2 checked, Scope B fails by design, Q37, D265; brief 2 started, D243 06:51 dated block; T060 Stage 0 build started, D243 dated block; through D260: H6 read, T059 closed). Earlier: 2026-11-02 (through D248: B011 read, F112, T043 closed; D246, Q33 answered, D241 amendment 2; D245, the H6 build checked; RESUME trimmed, its earlier text in A006). Earlier "Last updated" lines are in the RESUME archives. Every change is dated in `docs/log/`._
+_Last updated: 2026-11-03 (T060: support reader checked and frozen, D268, D267, D243 freeze block; Q37 answered, a support-only audit, D266 and D243 15:18 block; V0 Scope A passed, D264; brief 2 checked, Scope B fails by design, Q37, D265; brief 2 started, D243 06:51 dated block; T060 Stage 0 build started, D243 dated block; through D260: H6 read, T059 closed). Earlier: 2026-11-02 (through D248: B011 read, F112, T043 closed; D246, Q33 answered, D241 amendment 2; D245, the H6 build checked; RESUME trimmed, its earlier text in A006). Earlier "Last updated" lines are in the RESUME archives. Every change is dated in `docs/log/`._
 
 **Where the record lives.** One file per record, plain text; `npm test` fails if the record is
 inconsistent (`node findings/findings.mjs check`, `node docs/records.mjs check`, `plied check`). The lead agent
@@ -65,7 +65,8 @@ in the RESUME archive (A005).
       under the design (every interval unknown by the partner blind-opportunity rule), so nothing empirical is read.
       Q37 answered (D266): a **support-only audit** through a restricted support reader, Scope B's acceptance waived
       for it alone (details in D243's 15:18 block); if support fails, T060 closes as unsupported by this extraction
-      and observation rule. **Next: the support reader (implementer), the freeze, the run.**
+      and observation rule. Support reader built and checked (D268); its code and imports frozen under
+      `scripts/frozen/t060/` (D243 freeze block; freeze commit approved, D267). **Next: the audit from the frozen copy.**
       F114 bears on the identifiability question. Stage 1 deferred; Stage 0's outputs sealed.
     - **Food state, clock versus elapsed time (T061):** not commissioned on these data (D240, D242); open for item 1(d).
     - The history of this bullet up to 2026-11-02 is in the RESUME archive of 2026-11-02 (A006).

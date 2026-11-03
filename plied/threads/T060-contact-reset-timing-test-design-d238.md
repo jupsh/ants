@@ -5,7 +5,7 @@ parent: T023
 status: open
 next: 1
 actor: lead
-links: [D237, D238, D243, Q32, D244, D261, Q36, D262, D264, D265, Q37, D266]
+links: [D237, D238, D243, Q32, D244, D261, Q36, D262, D264, D265, Q37, D266, D267]
 scanned:
   - record: D265
     rev: 78ad4ca2f334fa5f8cc4f7ad113df8220666b1cc9d7463bd0aafce0eb2bf0046
@@ -14,6 +14,13 @@ scanned:
     because: >-
       read in full: its one 'pending' is the colony-237 old-tag EDGE, carried in Q37's body as part
       of the user's decision; no new conditional or deferral
+  - record: D268
+    rev: a611d465e140a5617e4d1dd8a972961d7f75059ed21e744745ba6177f475830c
+    at: "2026-11-03 16:02 UTC"
+    by: lead (session e38b977a)
+    because: >-
+      read in full: its 'before any track is read' describes where an invalid-index run stops; no
+      conditional or deferral
 ---
 
 ## History
@@ -35,3 +42,7 @@ scanned:
 - 2026-11-03 09:03 UTC lead (session 691f3fd9): set actor=user; added D264 to links; added D265 to links; added Q37 to links — D264: V0 Scope A passes; D265: brief 2 checked, reproduction and speed bound pass, Scope B's rules cannot be met under the design; Q37 to the user (P166). Outputs: logs/t060-synthetic/v0A, scopeB, logs/t060-repro; code uncommitted scratch in scripts/scratch/t060/
 - 2026-11-03 09:03 UTC lead (session 691f3fd9): scanned D265 (rev 78ad4ca2f334): no commitment to record — read in full: its one 'pending' is the colony-237 old-tag EDGE, carried in Q37's body as part of the user's decision; no new conditional or deferral
 - 2026-11-03 15:18 UTC lead (session e38b977a): set actor=lead; set next=1; added D266 to links — D266: Q37 answered; next, the support-only audit (D243 dated block of 2026-11-03 ≈ 15:18 UTC): a restricted support reader built by the implementer, the freeze (P172), the extraction run in memory, the support counts read
+- 2026-11-03 15:30 UTC lead (session e38b977a): Support-only audit (D266; D243 15:18 block): records committed (3b02e94, gate commit:t060-q37-records-20261103). Implementer building the restricted support reader and audit CLI from logs/handoff/20261103-1529-t060-support/brief.md (gate run:t060-support-brief passed); code to scripts/scratch/t060/support.ts (scratch until frozen), checks to logs/t060-support-check/. Then the lead's check, the freeze under scripts/frozen/t060/ (P172), the audit run.
+- 2026-11-03 15:42 UTC lead (session e38b977a): added D267 to links — D267: the freeze commit approved, gated, once the checks pass; the stop rule kept
+- 2026-11-03 16:02 UTC lead (session e38b977a): scanned D268 (rev a611d465e140): no commitment to record — read in full: its 'before any track is read' describes where an invalid-index run stops; no conditional or deferral
+- 2026-11-03 16:02 UTC lead (session e38b977a): reviewed D268@a611d465e140, D243@a0ceb72f78ab; D268: the support reader and audit CLI built and checked (equality with readStage0, whitelist and forbidden-name tests, colony-237 repro byte-identical). D243's freeze block: support.ts, extract.ts and their 26-file closure frozen under scripts/frozen/t060/ (SHA-256s there); the frozen copy reproduces colony 237 and pools identically (logs/t060-freeze-check/). Next: the gated freeze commit (D267, P184), then the audit from the frozen copy.
