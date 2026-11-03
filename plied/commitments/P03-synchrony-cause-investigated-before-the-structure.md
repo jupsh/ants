@@ -110,6 +110,67 @@ reviews:
         rev: 33ffee2d7b35cc68baca7141a758621b02f8e5a016a185532a7b57b6aa1126cf
       - record: F113
         rev: 51c6d0624bfe7b5e3f2136834e509a1929da99ac8383d02b4e2bbd6b3fedca24
+  - action: commit:t060-stage0-design-20261102
+    disposition: not-triggered
+    because: >-
+      Re-read D243@f25336a56aed: one dated block appended since (2026-11-03 01:04 UTC, the lead's
+      Stage 0 implementation details: order of two briefs, event table, near approach, triplets,
+      matching cell, 0a, 0b likelihood and support, Scope A generator), filling gaps in amendment 1
+      without changing it. The commit (dca4a4a) holds the version read, so this disposition for it
+      stands; the block is reviewed at the next commit's gate.
+    by: lead (session f6353347)
+    at: "2026-11-03 01:07 UTC"
+    inputs:
+      - record: D243
+        rev: f25336a56aedb6617594ff5e016b3b016991badba61a07f1db99860b9db336da
+  - action: commit:t060-stage0-design-20261102
+    disposition: not-triggered
+    because: >-
+      Re-read D243@e11041360645: amendment 2 appended (D262: 0b read as k-bar over a memoryless
+      reference's median; V0 cases b2 and a-sparse added). The commit (dca4a4a) holds the version
+      first read, so this disposition for it stands; the later text is reviewed at the next commit's
+      gate.
+    by: lead (session f6353347)
+    at: "2026-11-03 02:21 UTC"
+    inputs:
+      - record: D243
+        rev: e110413606458b965ea5fdc9670f4a7e2a7652f907e74045bcebda2b3b069247
+  - action: commit:t060-stage0-design-20261102
+    disposition: not-triggered
+    because: >-
+      Re-read D243@514044e8ab40: one dated block appended since (2026-11-03 06:51 UTC, the lead's
+      brief-2 details: the colony's list, death records, blind frames, intervals and the
+      sustained-onset rule, sensitivities, reproduction, speed-bound check, Scope B generator and
+      scoring), filling gaps in amendments 1 and 2 without changing a threshold, label or acceptance
+      rule. The commit (dca4a4a) holds the version first read, so this disposition for it stands;
+      the block is reviewed at the next commit's gate.
+    by: lead (session 691f3fd9)
+    at: "2026-11-03 06:59 UTC"
+    inputs:
+      - record: D243
+        rev: 514044e8ab400a7c8f9063172ae40a6f5525784aaf1dfc05f2668f416b23c2c7
+  - action: commit:t060-stage0-design-20261102
+    disposition: not-triggered
+    because: >-
+      Re-read D243@ab96ad707023: one dated block appended since (2026-11-03 15:18 UTC, the lead's
+      details of the support-only audit after D266: a restricted support reader, the extraction in
+      memory with no event table written, the colony-237 flag, the freeze, the stops). It postdates
+      this action and changes nothing it did or read, so the earlier disposition (not-triggered)
+      stands; the block is reviewed at the next action's gate.
+    by: lead (session e38b977a)
+    at: "2026-11-03 15:21 UTC"
+    inputs:
+      - record: D243
+        rev: ab96ad707023467de1602a4777f8393d5032ec0974422b5d054200af52b9502a
+  - action: commit:t060-q37-records-20261103
+    disposition: not-triggered
+    because: >-
+      The commit holds records only (git status: nothing under src/, scripts/, test/ or .claude/;
+      backlog/ left out): T060's Stage 0 records D261-D266 with D243's dated blocks, X029, STATUS,
+      and plied records (Q36, Q37, P175-P183, dispositions, notes, T037's message). No structure
+      freeze, model change, E6 run, held-out data, paper or simulation is in it.
+    by: lead (session e38b977a)
+    at: "2026-11-03 15:25 UTC"
 ---
 Draft label: P3 (docs/threads-draft.md revision 2).
 
@@ -127,3 +188,8 @@ Draft label: P3 (docs/threads-draft.md revision 2).
 - 2026-11-02 15:32 UTC lead (session 0e89af04): review for commit:h6-design-20261101: not-triggered — Re-read D241@07a71b62d68a: one dated line appended under amendment 2 (D249: the blind check's cutoff is the user's, either pooled or either zone share above 50 %, one zone flag printed) (and, since the 597483/2b609a47 pins, the lead's implementation details and amendment 2, reviewed at 05:5x UTC). The commit holds the version first read (597483), so this disposition for it stands; the later text is reviewed at the next commit's gate.
 - 2026-11-03 00:05 UTC lead (session eac59010): review for commit:h6-design-20261101: not-triggered — Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules or any amendment. The commit holds the version it was gated on; the later text is reviewed at the next commit's gate (commit:h6-freeze-20261102).
 - 2026-11-03 01:00 UTC lead (session f6353347): review for commit:h6-reading-20261103: not-triggered — No structure freeze: the commit adds an observational reading (D260, F113-F116) and notes; T023 stays open (its 00:53 note).
+- 2026-11-03 01:07 UTC lead (session f6353347): review for commit:t060-stage0-design-20261102: not-triggered — Re-read D243@f25336a56aed: one dated block appended since (2026-11-03 01:04 UTC, the lead's Stage 0 implementation details: order of two briefs, event table, near approach, triplets, matching cell, 0a, 0b likelihood and support, Scope A generator), filling gaps in amendment 1 without changing it. The commit (dca4a4a) holds the version read, so this disposition for it stands; the block is reviewed at the next commit's gate.
+- 2026-11-03 02:21 UTC lead (session f6353347): review for commit:t060-stage0-design-20261102: not-triggered — Re-read D243@e11041360645: amendment 2 appended (D262: 0b read as k-bar over a memoryless reference's median; V0 cases b2 and a-sparse added). The commit (dca4a4a) holds the version first read, so this disposition for it stands; the later text is reviewed at the next commit's gate.
+- 2026-11-03 06:59 UTC lead (session 691f3fd9): review for commit:t060-stage0-design-20261102: not-triggered — Re-read D243@514044e8ab40: one dated block appended since (2026-11-03 06:51 UTC, the lead's brief-2 details: the colony's list, death records, blind frames, intervals and the sustained-onset rule, sensitivities, reproduction, speed-bound check, Scope B generator and scoring), filling gaps in amendments 1 and 2 without changing a threshold, label or acceptance rule. The commit (dca4a4a) holds the version first read, so this disposition for it stands; the block is reviewed at the next commit's gate.
+- 2026-11-03 15:21 UTC lead (session e38b977a): review for commit:t060-stage0-design-20261102: not-triggered — Re-read D243@ab96ad707023: one dated block appended since (2026-11-03 15:18 UTC, the lead's details of the support-only audit after D266: a restricted support reader, the extraction in memory with no event table written, the colony-237 flag, the freeze, the stops). It postdates this action and changes nothing it did or read, so the earlier disposition (not-triggered) stands; the block is reviewed at the next action's gate.
+- 2026-11-03 15:25 UTC lead (session e38b977a): review for commit:t060-q37-records-20261103: not-triggered — The commit holds records only (git status: nothing under src/, scripts/, test/ or .claude/; backlog/ left out): T060's Stage 0 records D261-D266 with D243's dated blocks, X029, STATUS, and plied records (Q36, Q37, P175-P183, dispositions, notes, T037's message). No structure freeze, model change, E6 run, held-out data, paper or simulation is in it.

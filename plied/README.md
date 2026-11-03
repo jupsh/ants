@@ -6,8 +6,8 @@
 
 **lead**
 
+1. [T060](threads/T060-contact-reset-timing-test-design-d238.md) Contact-reset timing test: design (D238 item 2)
 2. [T033](threads/T033-part-d-stages-1-3.md) Part D Stages 1-3
-2. [T060](threads/T060-contact-reset-timing-test-design-d238.md) Contact-reset timing test: design (D238 item 2)
 
 **user**
 
@@ -107,7 +107,7 @@ None.
 | [P162](commitments/P162-contact-reset-v6-kept-as-a.md) | Contact-reset: V6 kept as a fixed stress test | D244 | open | T060 |
 | [P163](commitments/P163-contact-reset-stage-0-extraction-matching.md) | Contact-reset: Stage 0 extraction, matching and V0 built after the amendments; Stage 1 deferred | D244 | open | T060 |
 | [P164](commitments/P164-contact-reset-stage-0-outputs-sealed.md) | Contact-reset Stage 0: outputs sealed until the reader is frozen and V0 and the reproduction pass | D243 | open | T060 |
-| [P165](commitments/P165-contact-reset-the-speed-bound-checked.md) | Contact-reset: the speed bound checked before anything else is read | D243 | open | T060 |
+| [P165](commitments/P165-contact-reset-the-speed-bound-checked.md) | Contact-reset: the speed bound checked before anything else is read | D243 | not-triggered | T060 |
 | [P166](commitments/P166-contact-reset-a-failed-check-or.md) | Contact-reset: a failed check or a substantive change comes back to the user | D244 | open | T060 |
 | [P167](commitments/P167-h6-blind-check-of-s1-s.md) | H6 blind check of S1's unknown share prints only the two pooled shares | D246 | superseded → P170 | T059 |
 | [P168](commitments/P168-h6-s1-mostly-unknown-a-radius.md) | H6: S1 mostly unknown, a radius proposal to the user before the freeze | D246 | superseded → P171 | T059 |
@@ -118,7 +118,16 @@ None.
 | [P172](commitments/P172-at-each-freeze-the-frozen-reader.md) | At each freeze, the frozen reader and its imports committed byte-identical under scripts/frozen/ | D249 | open | T059, T060 |
 | [P173](commitments/P173-h6-after-the-second-blind-check.md) | H6: after the second blind check, no further coverage tuning; S1 reported as it falls (coverage-limited) if the cutoff is met, and the freeze proceeds | D252 | fulfilled | T059 |
 | [P174](commitments/P174-h6-v-computed-once-from-the.md) | H6: v computed once from the tracks and recorded before the rebuilt intermediates are read | D252 | fulfilled | T059 |
+| [P175](commitments/P175-contact-reset-0b-established-only-if.md) | Contact-reset 0b: established only if k-bar over the memoryless reference's median clears 1.5 | D262 | open | T060 |
+| [P176](commitments/P176-contact-reset-v0-a-sparse-cell.md) | Contact-reset V0: a sparse-cell case, established in at most 5 % | D262 | fulfilled | T060 |
+| [P177](commitments/P177-contact-reset-v0-case-b-kept.md) | Contact-reset V0: case (b) kept, disclosed as passing by support; (b2) Weibull k = 0.7 added | D262 | fulfilled | T060 |
+| [P178](commitments/P178-contact-reset-audit-worded-as-support.md) | Contact-reset audit: worded as support retained by the frozen extraction, not true counts | D266 | open | T060 |
+| [P179](commitments/P179-contact-reset-audit-not-evidence-against.md) | Contact-reset audit: not evidence against contact resetting as a biological mechanism | D266 | open | T060 |
 | [P18](commitments/P18-e2-adoption-preconditions.md) | Only if E2 reopens. | S001 | open | T004 |
+| [P180](commitments/P180-contact-reset-audit-a-restricted-support.md) | Contact-reset audit: a restricted support reader; back to the user if support passes | D266 | open | T060 |
+| [P181](commitments/P181-contact-reset-audit-tag-52-conservative.md) | Contact-reset audit: tag 52 conservative; colony 237's retag ambiguity flagged separately | D266 | open | T060 |
+| [P182](commitments/P182-contact-reset-audit-a-support-failure.md) | Contact-reset audit: a support failure closes the comparison as unsupported by this extraction | D266 | open | T060 |
+| [P183](commitments/P183-contact-reset-any-redesign-a-separate.md) | Contact-reset: any redesign a separate decision | D266 | open | T060 |
 | [P19](commitments/P19-after-or-alongside-e6-scans-recovery.md) | Plan step 10. | S001 | open | T038 |
 | [P20](commitments/P20-the-held-out-test-is-reported.md) | The user may reassign it (D127). | D127 | open | T053 |
 | [P21](commitments/P21-stages-1-3-driver-multiplier-before.md) | With D128: the 2-D separation rule deferred until calibrated. | D129 | open | T033 |
@@ -258,7 +267,7 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │       ├── T035  Forager-entry and queen triggers                                   closed, approval: approved (D213), outcome D221, carries F109, F104, [B023]
 │       ├── T058  Focused review of experimental synchrony work, before item 1(e)…   closed, user, outcome D238
 │       ├── T059  H6 initiation and directional-transfer test: design (D238 item …   closed, lead, outcome D260, carries F113, F114, F115, F116
-│       ├── T060  Contact-reset timing test: design (D238 item 2)                    open, next 2, lead
+│       ├── T060  Contact-reset timing test: design (D238 item 2)                    open, next 1, lead
 │       └── T061  Feasibility inventory of permitted metadata for food state and …   closed, lead, outcome D240, carries F108
 ├── T036  Held-out tests (step 9): Stroeymeyt age-experiment colonies                held, ⟵ T023
 │   └── T037  Candidate held-out colony data sets                                    open, [B016]

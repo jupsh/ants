@@ -289,3 +289,228 @@ title: Contact-reset timing test designed (T060; D238, D239; proposal for the us
     - **Outputs and blinding:** Stage 0's empirical outputs go to `logs/t060/`, sealed from now
       (`.claude/sealed-paths.txt`) until the reader is frozen by its SHA-256 in this entry and V0 and the
       reproduction pass. Synthetic outputs go to `logs/t060-synthetic/`, which is not sealed.
+  - **2026-11-03 ≈ 01:04 UTC — Stage 0 build: the lead's implementation details (amendment 1 point 5 and D244's "details
+    are fixed by the lead"; nothing built or computed yet).** They fill gaps in amendment 1; none changes it.
+    - **Order:** two implementer briefs (D214, one stage each). Brief 1: the event-table reader (matching, 0a, 0b,
+      bootstrap, labels) and Scope A, with a smoke of 3 synthetic data sets per case. Brief 2: the extraction from
+      tracks, Scope B, the reproduction and the speed-bound check (its details are fixed in a later dated line before
+      it is written). Then V0 in full as a lead's long run, the reader frozen (P172), and only then Stage 0's
+      empirical outputs. Code in `scripts/scratch/t060/` (scratch until frozen, as H6). Synthetic outputs in
+      `logs/t060-synthetic/`.
+    - **Light phase and entry:** one light phase per colony, 06–18 UTC. An inactive interval counts only if its first
+      still frame is at or after 06:00; at 18:00 it is censored (0b) and excluded from triplets.
+    - **Event table** (the interface between extraction and reader), per colony: the ants (nurses and foragers) with
+      role and zone; per ant its inactive intervals in order, each with first still frame, onset frame (or censored),
+      PDC frames, near-approach frames, the frame its history becomes unknown (if it does) and why (focal gap, partner
+      blind opportunity, unbracketed or unseen partner, exit, unknown sustained-onset status); per bout between
+      consecutive intervals, whether its history is complete; the colony's 10-frame moving-fraction bins.
+    - **Near approach:** a moving partner, the focal still, entering 8 mm from farther; the approach lasts until the pair
+      is beyond 9 mm again (1 mm hysteresis, as the PDC's 4.1 / 5.1 mm); it is a near approach if no PDC with that
+      partner occurs during it; its frame is the entry into 8 mm.
+    - **Triplets:** I1, I2, I3 consecutive inactive intervals of one ant (no other inactive interval between them), each
+      ending in an observed onset, none with an unknown history, and both bouts between them complete. Contact
+      triplet: no PDC in I1 or I3, exactly one in I2 (near approaches allowed). Reference triplet: no PDC in I1, I2 or
+      I3 and exactly one near approach in I2. B = frames from I2's first still frame to the PDC (or near approach);
+      A = frames from it to I2's onset (≥ 1 by construction).
+    - **Matching cell:** role; zone of I2 (H6's zones, `buildZones` on H6's frozen intermediates, at the focal's position
+      at I2's first still frame; an unassigned cell is its own category); 4-h block of the PDC or near-approach frame;
+      I1 quintile and B quintile (per colony, from the pooled complete contact and reference triplets, fixed before
+      matching); activity level tertile and slope class from H6's frozen `context()` (reader.ts lines 394–416) at that
+      frame (a frame without context leaves the triplet unmatched). Matching as amendment 1 point 5, seed fixed.
+    - **0a:** a colony counts if at least 20 of its contact triplets have at least one matched reference; 0a passes
+      with at least 15 such colonies.
+    - **0b's likelihood:** an interval enters at 60 s (120 frames) if those frames hold no PDC and no unknown history;
+      E (frames) ends at the onset or is censored at the first PDC after entry, the history becoming unknown, or 18:00.
+      Per colony, the weighted log-likelihood Σ_a w_a ℓ_a, w_a the ant's share of the colony's matched contact
+      triplets; within an ant × block cell the scale's MLE given k is (Σ E^k / d)^(1/k), so k_c maximises the profile
+      over k in [0.05, 20]; cells with no uncensored interval drop out (their profile term is 0). The block is that of
+      the entry frame.
+    - **0b's support (a reader edge case, P161):** besides each colony's entry rule (≥ 10 supplying ants, ≥ 100
+      uncensored intervals among them), k̄ is computed only with at least 15 entering colonies (as 0a and H6's
+      `MIN_COLONIES`); otherwise the label is "not established" with the reason "support". The bootstrap resamples the
+      entering colonies' k_c.
+    - **Scope A generator (frozen settings of amendment 1, and these):** per colony the real numbers of nurses and
+      foragers (`roles()`); each ant's zone L or H with probability ½, fixed; simulated from 04:00 (2-h burn-in) to
+      18:00 UTC; interval = 60 s + E, E from the case's law at the ant's scale s (log-uniform 120–1,200 s): (a)
+      exponential, mean s; (b) Lomax, shape 1, scale s; (c) Weibull, k = 3, scale s; (d) exponential with hazard
+      exp(X_t)/s, X a stationary Ornstein–Uhlenbeck process (SD 0.5, τ 10 min), piecewise constant per second. Bouts
+      lognormal (median 20 s, log-SD 1). Durations in whole frames, at least 1. PDCs and near approaches independent
+      Poisson processes during stillness, each 1 per 10 min (a near approach to 8 mm without reaching 4.1 mm is about
+      as frequent as a PDC if arrivals scale with the radius, 8 / 4.1 − 1 ≈ 0.95), with no effect on timing. Loss of
+      complete history 1 per 20 min at any time, making the interval or bout it falls in unknown from that frame. The
+      moving-fraction bins from the synthetic ants' bouts. Streams `RNG.stream(seed, case, data set, colony, ant, purpose)`.
+  - **2026-11-03 ≈ 02:22 UTC — amendment 2 (D262, the user's answer to Q36 on D261).** Where this differs from the
+    text above, it governs; the lead fixes the details.
+    - **0b's memoryless reference (replaces the reading's statistic, keeps its threshold):** for each colony entering
+      0b, the primary fit's ants, weights and ant × block cells are refitted with k fixed at 1 (rates λ = d / ΣE per
+      cell). Each of 1,000 draws keeps every interval's entry and redraws its excess as exponential at its cell's λ,
+      observed up to a censoring time: an interval censored in the data keeps its censoring time; for one that ended in
+      an onset at E, a censoring time is drawn from the colony's censoring distribution (reverse Kaplan–Meier over the
+      fit's intervals, censorings as events, weighted as the fit) conditional on exceeding E, and none if that
+      distribution's mass beyond E is spent (Efron's conditional scheme for censored data). Each draw is fitted exactly
+      as the data; k̄* = exp(mean over colonies of log k_c*); m0 = the median of the 1,000 k̄*. **The reading:** "a
+      characteristic interval established for this comparison" if the lower bound of the 2,000-draw colony-bootstrap
+      95 % interval of k̄, divided by m0, exceeds 1.5; otherwise "a characteristic interval was not established for
+      this comparison". Reported beside it: k̄, m0, the reference's 2.5th and 97.5th percentiles, k̄ / m0 with its
+      interval, and `dPerCell` by colony. The same reference is applied to the two descriptive fits (reference-supplying
+      ants; PDCs not censoring), reported without labels.
+    - **V0, Scope A, two cases added (acceptance fixed now):**
+      - **(b2)** Weibull excess, k = 0.7, scale s, everything else as case (a): "established" in at most 5 %.
+      - **(a-sparse)** case (a)'s law with fewer intervals per cell, read by 0b alone: in Scope A, sparse cells and
+        enough matched triplets cannot be had together (fewer complete intervals mean fewer triplets, so 0b's support
+        rule would end the case before the estimator, as in case (b)). So 0b's fit and reference run directly on
+        synthetic cells: 22 colonies with the real numbers of nurses and foragers, every ant weighted equally, 3 blocks
+        per ant; per ant × block, 1 + Poisson(3) entering intervals, each excess exponential at the ant's scale s
+        (log-uniform 120–1,200 s) and censored at an independent exponential time with mean s (about half censored).
+        The colony entry rule (≥ 10 ants, ≥ 100 uncensored intervals) and the 15-colony support rule apply.
+        "Established" in at most 5 % of 200 data sets. Its companion (c-sparse), the same with a Weibull k = 3 excess,
+        is reported without an acceptance rule (how much the sparse cells cost).
+      - **(b)** is kept; its result is reported as passing by support, not by the estimator.
+  - **2026-11-03 ≈ 06:51 UTC — Stage 0 build, brief 2: the lead's details for the extraction from tracks, Scope B, the
+    reproduction and the speed-bound check (promised by the ≈ 01:04 block; nothing built or computed yet).** They fill
+    gaps in amendments 1 and 2; none changes a threshold, a label or an acceptance rule. Where an item below makes fewer
+    histories complete than a plainer reading would, that is deliberate (P153).
+    - **The colony's list** (amendment 1 point 1, "every ant on the colony's list counts"): every tag in the colony's
+      PreTreatment tag file, whatever its final status, the queen included as a partner. Focal ants are the nurses and
+      foragers of `roles()`; the queen is never focal.
+    - **Metadata that show a tag absent** (point 1, "for example, dead before the span"): the tag file's `death`
+      frame, the authors' record on the tracking clock. A tag is absent from that frame on if it has no read at or
+      after it in the PreTreatment file. A tag read after its recorded death keeps no death record (counted). Nothing
+      else shows absence: `last_det` and `count` come from the tracking itself and `final_status` is an end-of-experiment
+      state. Lost tags and both tags of the retagged ant (`retagged_ants.txt`) count as unseen ants unless read. How the
+      authors recorded deaths is not known; that is stated with the result, and the histories made unknown by unseen tags
+      are counted with and without the death record.
+    - **Blind frames** (point 1's blind-opportunity rule, made exact for the PDC detector). A PDC is ContactOnset's
+      crossing, which registers only on a frame where both ants are read in the nest with step codes from consecutive
+      frames. So a crossing is hidden by the focal's own short gaps as surely as by a partner's. Within a span (an
+      interval from its first still frame to its onset, or to 18:00), the blind frames of a pair (focal i, partner j)
+      are the frames where:
+      - j is unread, or i is unread;
+      - either ant's read follows an unread frame (code 3);
+      - j's read is outside the nest;
+      - i makes a moving step that the sustained-onset rule absorbs (below).
+
+      A run of blind frames is a **blind contact opportunity** in three cases:
+      - (i) j is read on a frame of the run within 4.1 mm of the focal's still position q;
+      - (ii) j has unread frames in the run, and D252's `reachable` (frozen `extract.ts`) holds for them. It uses j's
+        bracketing reads (its last read before them and its first after, any read in or out of the nest), r = 4.1 mm,
+        v = 20 mm/s (10 mm/s as a sensitivity), and the span as the window;
+      - (iii) j's unread run is not bracketed by reads within the light phase.
+
+      q is the focal's last read at or before the run's first frame. The history becomes unknown from the earliest frame
+      at which a hidden PDC could have occurred: in (i) and (iii) the run's first frame, in (ii) the floor of
+      `reachable`'s a; never before the span's start. The cause is `partnerBlind` in (i) and (ii) and
+      `partnerUnbracketed` in (iii).
+    - **Near approaches** are counted as observed. A near approach that might have been missed does not make a history
+      unknown: the design defines completeness by PDCs.
+    - **Intervals and bouts** (the ≈ 01:04 block, made exact). Steps follow the onset step rule (H6).
+      - **Start:** a still run starts at the read that ends a moving step (diagShort's `start`). A run whose start
+        follows a break (an unread run of more than 3 frames, an out-of-nest read, or the recording's start) is not
+        recorded, and the bout around it is incomplete.
+      - **Onset candidate:** a moving step after at least 20 still frames (the plain onset).
+      - **Sustained-onset rule:** a candidate is accepted if the focal's position at frame +4 (else its nearest read in
+        +3 … +6) is at least 1 mm from its last still position (the read before the step). Otherwise it is an
+        **absorbed excursion**: the still run continues; every moving step in frames +1 … +6 belongs to the same
+        excursion; and the reference position stays the one before it, so the step back from a misread is never a
+        candidate. If there is no read in +3 … +6, the onset status is unknown: the interval is unknown from the
+        candidate's frame (cause `onsetStatus`) and the next bout is incomplete.
+      - **Inactive interval:** a still run that reaches 120 frames. Its onset frame is the accepted candidate's.
+      - **A break inside an interval** makes it unknown from the first unread frame (`focalGap`) or from the
+        out-of-nest read (`exit`), with no onset.
+      - **A complete bout:** the onset was accepted, and the focal is read in the nest, with no unread run of more than
+        3 frames, from the onset to the next interval's start.
+      - **An interval with no observed onset followed by a later interval** is allowed when its history is unknown;
+        the bout between them is then incomplete. `validateColony` (events.ts) is relaxed to allow exactly this, and
+        Scope A's outputs must stay byte-identical.
+    - **Zones and bins:** the zone grid and the 10-frame moving-fraction bins are built in the same pass, as H6Pass1
+      builds them (nurses' and foragers' light-phase in-nest reads; StepRule). Zones come from H6's frozen
+      `buildZones`. The reproduction checks that both equal H6's frozen intermediates.
+    - **Sensitivities extracted:** v = 10 mm/s; focal bridging (P154: a focal unread run inside an interval of at most
+      60 frames, with less than 1 mm displacement across it, is still and known, and its frames are blind for every
+      pair); the plain onset definition; no death record. All are reported; none is selected and none is labelled. The
+      10-s and 300-s interval sensitivities belong to Stage 1 and are not built.
+    - **Reproduction** (printed first, and nothing else from the tracks):
+      - per colony: the light-phase plain onsets of nurses and foragers equal OnsetStats'; the PDCs between ants of
+        `roles()` equal ContactOnset's contacts, frame by frame; ContactOnset's Test B onset counts from the same pass
+        equal `logs/contacts/tb-c<i>.json`; the grid and bins equal H6's;
+      - pooled: F009's nurse hazard by time since the last moving run, from the pass's bounded still runs (diagShort's
+        convention, with cbAgg's bins and pooling). The 10–20 s and > 640 s bins must round to 3.86 and 0.16 /min; the
+        other bins, and the foragers', are printed beside cbAgg's values on the original files.
+    - **Speed-bound check** (P165), printed with the reproduction: light phase, every tag, steps by the step rule (two
+      in-nest reads at most 3 frames apart), speed = displacement / (gap × 0.5 s). The rule's share is the share above
+      20 mm/s of all such steps; the share among moving steps is printed beside it. If either exceeds 0.1 %, nothing else
+      is read and the user decides.
+    - **Scope B generator** (amendment 1 point 2's frozen settings, and these, frozen now as P156 asks):
+      - **Nest:** the bounding rectangle of the colony's H6 grid cells with at least 600 detection-frames (its
+        dimensions only).
+      - **Ants:** the real numbers of nurses and foragers, no queen, no exits. Every ant is still at 04:00, starting an
+        interval.
+      - **Timing:** a still interval lasts 60 s + E, with Scope A's excess laws and per-ant scales (`excessSampler`).
+        Bouts are lognormal (median 20 s, log-SD 1). Durations are whole frames, at least 1.
+      - **Still sites:** uniform over the rectangle, redrawn until at least 2 mm from every still ant's site. A still
+        ant's true position is its site + iid N(0, 0.1²) mm per axis per frame.
+      - **Moving:** 2.5 mm per frame (5 mm/s); per-frame heading change N(0, 0.3²) rad; uniform initial heading;
+        specular reflection at the walls. At the bout's drawn end, the walk goes on frame by frame while it is within
+        2 mm of a still ant's site.
+      - **Detection:** per ant, a two-state Markov chain (undetected → detected 0.25 per frame, detected → undetected
+        0.25 × 0.073 / 0.927 per frame, so 92.7 % detected with a mean gap of 2 s), started from its stationary
+        distribution.
+      - **Misreads:** on a detected frame, with probability 1/1,000 (5/1,000 when another ant's true position is within
+        4.1 mm), the read is displaced by U(1, 3) mm in a uniform direction.
+      - **Reads and time:** all reads are in the nest; t = f / 2 s, frame 0 at 00:00 UTC.
+      - **Truth:** intervals, onsets, misread frames, and PDCs from true positions and states (the 4.1 / 5.1 mm
+        crossing, the partner truly moving, the focal truly still).
+      - **Randomness:** streams `RNG.stream(SEED, scope B, case, data set, colony, ant, purpose)`.
+    - **Scope B scoring,** pooled over a case's data sets and reported per case:
+      - (1) among pipeline intervals with an accepted onset, no unknown frame and no observed PDC, the share whose
+        [start, onset) holds a true PDC (at most 1 %);
+      - (2) among pipeline intervals with an accepted onset and no unknown frame, the share whose length is within 2
+        frames of the length of the true still interval containing its start (at least 95 %);
+      - (3) the share of accepted onsets at which the ant is truly still (at most 1 %). It counts onsets from misreads
+        and from jitter alike;
+      - (4) end to end: cases (a) and (c), 50 data sets each, with the reader unchanged;
+      - also reported, without a rule: the share of entering intervals whose known, PDC-free stretch (0b's
+        uncensored part) holds a true PDC.
+    - **Blinding:** the extraction writes event tables only where `--out` says. The implementer never runs it on real
+      tracks except in its reproduction mode, which builds the tables in memory and prints and writes only the values
+      above. Real event tables are built by the lead, into the sealed folder, after the freeze (P164).
+  - **2026-11-03 ≈ 15:18 UTC — the support-only audit (D266, the user's answer to Q37): the lead's details (nothing built
+    or run yet).** Scope B's acceptance is waived for this reading only (D266); everything else above stands.
+    - **What runs:** the extraction as checked in D265 (`extract.ts`, the primary and the four sensitivities), per
+      colony, in memory, its tables passed straight to a new **restricted support reader** (`support.ts`). Only the
+      support reader's output is written, to `logs/t060-support/` (not sealed). **No event table is written:** a
+      support reading does not need one, and none then exists on disk to be read beyond support. This replaces "Real
+      event tables are built by the lead, into the sealed folder" for this audit; the sealed Stage 0 output folder
+      (amendment 1) stays sealed and empty. A reading beyond support would need the user's decision and a fresh
+      extraction (about 45 min).
+    - **What the support reader outputs, and nothing else** (per colony, for the primary and for each sensitivity):
+      - inactive intervals recorded; of them, those ending in an observed onset and those with no unknown frame; by
+        role and by zone (L, H, unassigned);
+      - histories made unknown, by cause (`CAUSES`) and role; intervals unknown only by unseen tags, with and without
+        the death record; the tags on the list and those unseen in the light phase (the extraction's own counts);
+      - bouts complete, and incomplete by cause;
+      - contact and reference triplets (the 01:04 block); contact triplets with at least one matched reference
+        (matching exactly as the reader's, seed and keys as for real data); whether the colony counts for 0a;
+      - 0b's entry: the supplying ants and the uncensored intervals among them, and whether the colony enters;
+      - pooled: the colonies counting for 0a (of 22) and entering 0b, and, for the primary only, **support retained by
+        the frozen extraction: passes or fails** (passes only if 0a passes and at least 15 colonies enter 0b, as above
+        and P161). Sensitivities are counts only, unlabelled.
+    - **What it may not compute or print:** any frame number or time, interval or bout length, A, B, I1, quintile cut,
+      rate, shape, CV or bootstrap, and nothing of 0b's fit, its reference, k̄ or a 0b label. It neither imports nor
+      calls `readStage0`, `read0b`, `label0b`, `kbarOf`, `referenceDraws`, `fitFlat`, `fitShape` or
+      `fitColony`. A test fixes the output's keys to the list above. Its counts must equal `readStage0`'s (contact
+      triplets matched, colonies counting, colonies entering, supplying ants, uncensored intervals) on synthetic Scope A
+      and Scope B tables.
+    - **Colony 237 (tag 52):** kept conservative (D265: a partner, unseen unless read). Flagged separately in the
+      output: tag 52's light-phase reads in colony 237 (a count), colony 237's intervals unknown only by unseen tags
+      (with and without the death record), and whether colony 237 is pivotal, i.e. whether the 0a count or the 0b
+      entry would reach 15 if colony 237 alone were counted as passing it. Nothing is changed for it.
+    - **Freeze (P172):** before any run on tracks, `extract.ts`, `support.ts` and every file they import are copied
+      byte-identical under `scripts/frozen/t060/` at repo-relative paths, their SHA-256s in a dated line here; the run
+      uses the frozen copies.
+    - **The reading, and the stops:** the pooled verdict and counts are read and logged, worded as "support retained by
+      the frozen extraction", never as the true number of biological intervals or triplets (Scope B's spurious onsets
+      split intervals, D265 rule 3), and never as evidence about contact resetting as a biological mechanism (D266).
+      If the primary's support fails and no sensitivity's counts would pass the same rule, T060 closes: the comparison
+      is unsupported by this extraction and observation rule. If the primary's support passes, or the primary fails
+      while a sensitivity's counts would pass, nothing more is read and the question returns to the user.

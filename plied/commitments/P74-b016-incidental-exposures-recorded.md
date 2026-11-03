@@ -5,6 +5,30 @@ wording: Any result seen in a title or snippet is reported and goes in docs/cont
 made: D181
 state: open
 nodes: [T037]
+reviews:
+  - action: fetch:b016-metadata-survey-1a3f128b
+    disposition: acting
+    because: >-
+      User authorized this B016 review in the current chat. The initial search and DataCite title
+      exposures are inventoried in
+      backlog/B016-candidate-held-out-colony-data-sets/exposure-handoff.md; all later
+      outcome-bearing titles will be added. The lead receives that inventory for
+      docs/contamination/. This acting disposition does not claim that the lead has entered the
+      contamination record or that the commitment is fulfilled.
+    by: codex-b016 (session 1a3f128b)
+    at: "2026-11-03 06:49 UTC"
+    ref: backlog/B016-candidate-held-out-colony-data-sets/exposure-handoff.md
+  - action: commit:t060-q37-records-20261103
+    disposition: not-triggered
+    because: >-
+      The commit holds records only (git status: nothing under src/, scripts/, test/ or .claude/;
+      backlog/ left out): T060's Stage 0 records D261-D266 with D243's dated blocks, X029, STATUS,
+      and plied records (Q36, Q37, P175-P183, dispositions, notes, T037's message). It carries
+      P73/P74's dispositions as the B016 worker recorded them and T037's hand-off message, but none
+      of B016's files; the B016 exposure entry (P74) is the lead's follow-up, still owed and outside
+      this commit.
+    by: lead (session e38b977a)
+    at: "2026-11-03 15:26 UTC"
 ---
 
 ## History
@@ -16,3 +40,5 @@ nodes: [T037]
 - 2026-10-31 02:32 UTC lead (session 6b5fb317): reviewed D223@d91126ff338b; D223 amendment 1 involves no title or snippet. Unaffected
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D232@7e78fcc5a5c3; D232 takes P74's wording as the review's own exposure rule, by reference (a commitment of its own follows only if the user approves D232, Q27); P74 still governs B016's survey (T037), unchanged
 - 2026-11-02 05:57 UTC lead (session 0e89af04): reviewed D232@5c00fbac6f47; D232 applies this rule to the synchrony review's literature search (one contamination entry per search session; done as X024). It changes neither B016's survey nor the rule
+- 2026-11-03 06:49 UTC codex-b016 (session 1a3f128b): review for fetch:b016-metadata-survey-1a3f128b: acting — User authorized this B016 review in the current chat. The initial search and DataCite title exposures are inventoried in backlog/B016-candidate-held-out-colony-data-sets/exposure-handoff.md; all later outcome-bearing titles will be added. The lead receives that inventory for docs/contamination/. This acting disposition does not claim that the lead has entered the contamination record or that the commitment is fulfilled.
+- 2026-11-03 15:26 UTC lead (session e38b977a): review for commit:t060-q37-records-20261103: not-triggered — The commit holds records only (git status: nothing under src/, scripts/, test/ or .claude/; backlog/ left out): T060's Stage 0 records D261-D266 with D243's dated blocks, X029, STATUS, and plied records (Q36, Q37, P175-P183, dispositions, notes, T037's message). It carries P73/P74's dispositions as the B016 worker recorded them and T037's hand-off message, but none of B016's files; the B016 exposure entry (P74) is the lead's follow-up, still owed and outside this commit.
