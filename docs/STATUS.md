@@ -53,13 +53,12 @@ in the RESUME archive (A005).
     test (Rules in force; P03). What Parts B–D and Stage 2b established is synthesised in D231 (F103–F110); the
     literature review is `docs/research/synchrony-review.md` (D237, accepted with amendments, D238). Current work, in
     the user's order (D238):
-    - **H6 initiation and directional-transfer test (T059):** designed and approved with amendments (D241, D242),
-      built and checked (D245); Q33 answered (D246; D241 amendment 2); fixes checked (D250). The full V1–V4 run passed
-      every acceptance rule (D257). The blind check found S1 mostly unknown (D251; X027); the reachability clause (D252, D255)
-      leaves it so (D256; X028), so S1 is reported as it falls, labelled coverage-limited (P173). The reader is frozen
-      (D258, D259; committed under `scripts/frozen/h6/`, P172); next, the empirical reading. Its empirical output folder is sealed; exposures so far X026–X028.
-    - **Contact-reset timing (T060):** designed and approved with amendments (D243, D244); Stage 0 after H6's code is
-      checked, Stage 1 deferred; Stage 0's outputs sealed.
+    - **H6 initiation and directional-transfer test (T059): closed.** Designed and approved with amendments (D241,
+      D242); V1–V4 passed (D257); reader frozen under `scripts/frozen/h6/` (D258, D259); read (D260): both decision
+      labels unresolved (F113); S1 coverage-limited and uninformative (F114); S2 no direction distinguished (F115); S3's
+      crossing arms not estimable under D212's isolation rule (F116). Exposures X026–X028.
+    - **Contact-reset timing (T060):** designed and approved with amendments (D243, D244); Stage 0 next (H6's code
+      is checked and frozen; F114 bears on its identifiability question), Stage 1 deferred; Stage 0's outputs sealed.
     - **Food state, clock versus elapsed time (T061):** not commissioned on these data (D240, D242); open for item 1(d).
     - The history of this bullet up to 2026-11-02 is in the RESUME archive of 2026-11-02 (A006).
   - **Step 9** (the held-out test) and **E6** are on hold (D114).

@@ -6,7 +6,6 @@
 
 **lead**
 
-1. [T059](threads/T059-h6-initiation-and-directional-transfer-test.md) H6 initiation and directional-transfer test: design (D238 item 1)
 2. [T033](threads/T033-part-d-stages-1-3.md) Part D Stages 1-3
 2. [T060](threads/T060-contact-reset-timing-test-design-d238.md) Contact-reset timing test: design (D238 item 2)
 
@@ -72,9 +71,9 @@ None.
 | [P13](commitments/P13-when-e1-resumes-b010-then-the.md) | When E1 resumes: B010, then the Bonavita held-out test | S001 | open | T003 |
 | [P130](commitments/P130-both-doering-papers-deferred-until-their.md) | Both Doering papers deferred until their data provenance is clarified | D235 | open | T058, T023 |
 | [P131](commitments/P131-tier-1-is-seven-papers-the.md) | Tier 1 is seven papers; the eighth slot stays unused | D235 | waived | T058 |
-| [P132](commitments/P132-h6-design-what-it-adds-beyond.md) | H6 design: what it adds beyond the existing spatial and entry analyses | D238 | open | T059 |
-| [P133](commitments/P133-h6-design-missed-contacts-tracking-gaps.md) | H6 design: missed contacts, tracking gaps, ongoing rises and spatially varying common inputs addressed | D238 | open | T059 |
-| [P134](commitments/P134-h6-no-observed-preceding-contact-stays.md) | H6: 'no observed preceding contact' stays an observational definition | D238 | open | T059 |
+| [P132](commitments/P132-h6-design-what-it-adds-beyond.md) | H6 design: what it adds beyond the existing spatial and entry analyses | D238 | fulfilled | T059 |
+| [P133](commitments/P133-h6-design-missed-contacts-tracking-gaps.md) | H6 design: missed contacts, tracking gaps, ongoing rises and spatially varying common inputs addressed | D238 | fulfilled | T059 |
+| [P134](commitments/P134-h6-no-observed-preceding-contact-stays.md) | H6: 'no observed preceding contact' stays an observational definition | D238 | fulfilled | T059 |
 | [P135](commitments/P135-contact-reset-design-identifiability-of-the.md) | Contact-reset design: identifiability of the three-interval comparison established first | D238 | open | T060 |
 | [P136](commitments/P136-contact-reset-h2-versus-h3-kept.md) | Contact-reset: H2 versus H3 kept unresolved unless the design can distinguish them | D238 | open | T060 |
 | [P137](commitments/P137-contact-associations-and-granger-predictability-are.md) | Contact associations and Granger predictability are not causal evidence | D238 | open | T059, T060 |
@@ -84,15 +83,15 @@ None.
 | [P140](commitments/P140-h6-design-brought-back-for-approval.md) | H6 design brought back for approval before implementation or analysis | D239 | fulfilled | T059 |
 | [P141](commitments/P141-t061-already-permitted-metadata-only-missing.md) | T061: already permitted metadata only; missing stays unknown; wider access a separate decision | D239 | fulfilled | T061 |
 | [P142](commitments/P142-food-state-and-clock-no-comparison.md) | Food state and clock: no comparison, proxy or new data now; both open for item 1(d) | D242 | open | T023 |
-| [P143](commitments/P143-h6-zones-named-high-and-low.md) | H6: zones named high- and low-forager-visit unless their anatomy is established | D242 | open | T059 |
-| [P144](commitments/P144-h6-all-episode-sensitivities-reported-none.md) | H6: all episode sensitivities reported, none selected | D242 | open | T059 |
+| [P143](commitments/P143-h6-zones-named-high-and-low.md) | H6: zones named high- and low-forager-visit unless their anatomy is established | D242 | fulfilled | T059 |
+| [P144](commitments/P144-h6-all-episode-sensitivities-reported-none.md) | H6: all episode sensitivities reported, none selected | D242 | fulfilled | T059 |
 | [P145](commitments/P145-h6-stage-2b-arms-deferred-to.md) | H6: Stage 2b arms deferred to a separate decision and design | D242 | open | T059 |
-| [P146](commitments/P146-h6-identity-beyond-location-unresolved-without.md) | H6: identity beyond location unresolved without adequate support for the conditional reference | D242 | open | T059 |
-| [P147](commitments/P147-h6-s2-utc-aligned-cross-colony.md) | H6 S2: UTC-aligned cross-colony pairs; quiet-start only for event analyses, no concatenated Granger series | D242 | open | T059 |
-| [P148](commitments/P148-h6-symmetric-coverage-rules-unknown-fractions.md) | H6: symmetric coverage rules; unknown fractions reported by role, zone and context | D242 | open | T059 |
-| [P149](commitments/P149-h6-repeatability-the-single-primary-statistic.md) | H6: repeatability the single primary statistic; the rest descriptive; sensitivities cannot overturn it | D242 | open | T059 |
+| [P146](commitments/P146-h6-identity-beyond-location-unresolved-without.md) | H6: identity beyond location unresolved without adequate support for the conditional reference | D242 | fulfilled | T059 |
+| [P147](commitments/P147-h6-s2-utc-aligned-cross-colony.md) | H6 S2: UTC-aligned cross-colony pairs; quiet-start only for event analyses, no concatenated Granger series | D242 | fulfilled | T059 |
+| [P148](commitments/P148-h6-symmetric-coverage-rules-unknown-fractions.md) | H6: symmetric coverage rules; unknown fractions reported by role, zone and context | D242 | fulfilled | T059 |
+| [P149](commitments/P149-h6-repeatability-the-single-primary-statistic.md) | H6: repeatability the single primary statistic; the rest descriptive; sensitivities cannot overturn it | D242 | fulfilled | T059 |
 | [P15](commitments/P15-rows-1-4-scope-decided-with.md) | Rows 1 / 4 scope decided with step 9 | D114 | fulfilled | T036, Q05 |
-| [P150](commitments/P150-h6-synthetic-null-and-recovery-checks.md) | H6: synthetic null and recovery checks with acceptance rules fixed first | D242 | open | T059 |
+| [P150](commitments/P150-h6-synthetic-null-and-recovery-checks.md) | H6: synthetic null and recovery checks with acceptance rules fixed first | D242 | fulfilled | T059 |
 | [P151](commitments/P151-h6-reader-frozen-and-checks-passed.md) | H6: reader frozen and checks passed before any empirical result is inspected; failures back to the user | D242 | fulfilled | T059 |
 | [P152](commitments/P152-contact-reset-design-brought-to-the.md) | Contact-reset design brought to the user for approval before anything runs | D238 | fulfilled | T060 |
 | [P153](commitments/P153-contact-reset-histories-unknown-unless-independently.md) | Contact-reset: histories unknown unless independently bounded | D244 | open | T060 |
@@ -117,7 +116,7 @@ None.
 | [P170](commitments/P170-h6-blind-check-prints-the-two.md) | H6 blind check prints the two pooled unknown shares and one yes/no zone flag, no per-zone value | D249 | fulfilled | T059 |
 | [P171](commitments/P171-h6-radius-proposal-to-the-user.md) | H6: radius proposal to the user before the freeze if either pooled share or either zone's share is above 50 % | D249 | fulfilled | T059 |
 | [P172](commitments/P172-at-each-freeze-the-frozen-reader.md) | At each freeze, the frozen reader and its imports committed byte-identical under scripts/frozen/ | D249 | open | T059, T060 |
-| [P173](commitments/P173-h6-after-the-second-blind-check.md) | H6: after the second blind check, no further coverage tuning; S1 reported as it falls (coverage-limited) if the cutoff is met, and the freeze proceeds | D252 | open | T059 |
+| [P173](commitments/P173-h6-after-the-second-blind-check.md) | H6: after the second blind check, no further coverage tuning; S1 reported as it falls (coverage-limited) if the cutoff is met, and the freeze proceeds | D252 | fulfilled | T059 |
 | [P174](commitments/P174-h6-v-computed-once-from-the.md) | H6: v computed once from the tracks and recorded before the rebuilt intermediates are read | D252 | fulfilled | T059 |
 | [P18](commitments/P18-e2-adoption-preconditions.md) | Only if E2 reopens. | S001 | open | T004 |
 | [P19](commitments/P19-after-or-alongside-e6-scans-recovery.md) | Plan step 10. | S001 | open | T038 |
@@ -258,7 +257,7 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │       ├── T034  Brood coordinates: proximity, descriptive (development only)       open
 │       ├── T035  Forager-entry and queen triggers                                   closed, approval: approved (D213), outcome D221, carries F109, F104, [B023]
 │       ├── T058  Focused review of experimental synchrony work, before item 1(e)…   closed, user, outcome D238
-│       ├── T059  H6 initiation and directional-transfer test: design (D238 item …   open, next 1, lead
+│       ├── T059  H6 initiation and directional-transfer test: design (D238 item …   closed, lead, outcome D260, carries F113, F114, F115, F116
 │       ├── T060  Contact-reset timing test: design (D238 item 2)                    open, next 2, lead
 │       └── T061  Feasibility inventory of permitted metadata for food state and …   closed, lead, outcome D240, carries F108
 ├── T036  Held-out tests (step 9): Stroeymeyt age-experiment colonies                held, ⟵ T023

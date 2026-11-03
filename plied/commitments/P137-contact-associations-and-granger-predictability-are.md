@@ -200,6 +200,51 @@ reviews:
     inputs:
       - record: D259
         rev: da68ade2ca9f550792fdbb88369ec191646cd6fef041de62b8c6cd7d508f05ef
+  - action: commit:h6-freeze-20261102
+    disposition: not-triggered
+    because: >-
+      Re-read D259@8bc940ad09b0: one dated line appended after the commit (committed as fb6af11,
+      then the H6 output folder unsealed); the frozen files and hashes are unchanged, so the
+      disposition for this commit stands
+    by: lead (session eac59010)
+    at: "2026-11-03 00:10 UTC"
+    inputs:
+      - record: D259
+        rev: 8bc940ad09b0e75660f466f2aedc70317eaf37118055fa922fecc881a0740227
+  - action: run:h6-reading-20261103
+    disposition: not-triggered
+    because: >-
+      The run executes the frozen reader (scripts/frozen/h6/…/reader.ts 3c3985c0, D259) unchanged on
+      the frozen extractor's 22 intermediates (logs/h6-work-next, hashes matching the rebuild
+      report), all parts, default draws 1000 and boot 2000; no causal claim is made by a run; the
+      reading will state it
+    by: lead (session eac59010)
+    at: "2026-11-03 00:30 UTC"
+    inputs:
+      - record: D259
+        rev: 8bc940ad09b0e75660f466f2aedc70317eaf37118055fa922fecc881a0740227
+  - action: run:h6-reading2-20261103
+    disposition: not-triggered
+    because: >-
+      As for run:h6-reading-20261103, which died of heap exhaustion before writing anything: the
+      same frozen reader, inputs and options, rerun with Node's heap raised to 6000 MB (no change to
+      code or results)
+    by: lead (session eac59010)
+    at: "2026-11-03 00:35 UTC"
+  - action: commit:h6-reading-20261103
+    disposition: satisfied
+    because: >-
+      D260 ('Granger predictability is not a causal claim (P137)'; 'Nothing here is causal'), F115
+      and F116 ('Observational') word the S2/S3 associations as non-causal; read in full.
+    by: lead (session f6353347)
+    at: "2026-11-03 01:00 UTC"
+    inputs:
+      - record: D260
+        rev: 33ffee2d7b35cc68baca7141a758621b02f8e5a016a185532a7b57b6aa1126cf
+      - record: F115
+        rev: 6ad296290e5b95900c2156392e4e45ad02ed5ca762345c0247b579cdb7f4b55b
+      - record: F116
+        rev: fbe7736f6c0953ac36701aff0ef88b10be5605ac847aa5e1650f873fd58c16e1
 ---
 
 ## History
@@ -228,3 +273,9 @@ reviews:
 - 2026-11-03 00:06 UTC lead (session eac59010): review for run:h6-build-smoke: acting — Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules or any amendment. The run finished and was read before the change, under the text it was gated on; the disposition stands.
 - 2026-11-03 00:06 UTC lead (session eac59010): review for run:h6-fixes-20261102: not-triggered — Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules or any amendment. The run finished and was read before the change, under the text it was gated on; the disposition stands.
 - 2026-11-03 00:08 UTC lead (session eac59010): review for commit:h6-freeze-20261102: not-triggered — The commit holds records, the frozen code (D259) and no empirical statistic; the sealed output folder is untouched until after the commit; no causal claim is made
+- 2026-11-03 00:10 UTC lead (session eac59010): review for commit:h6-freeze-20261102: not-triggered — Re-read D259@8bc940ad09b0: one dated line appended after the commit (committed as fb6af11, then the H6 output folder unsealed); the frozen files and hashes are unchanged, so the disposition for this commit stands
+- 2026-11-03 00:30 UTC lead (session eac59010): review for run:h6-reading-20261103: not-triggered — The run executes the frozen reader (scripts/frozen/h6/…/reader.ts 3c3985c0, D259) unchanged on the frozen extractor's 22 intermediates (logs/h6-work-next, hashes matching the rebuild report), all parts, default draws 1000 and boot 2000; no causal claim is made by a run; the reading will state it
+- 2026-11-03 00:35 UTC lead (session eac59010): review for run:h6-reading2-20261103: not-triggered — As for run:h6-reading-20261103, which died of heap exhaustion before writing anything: the same frozen reader, inputs and options, rerun with Node's heap raised to 6000 MB (no change to code or results)
+- 2026-11-03 00:43 UTC lead (session eac59010): set state=fulfilled; set resolved_by=D260 — D260 makes no causal claim from contact associations or Granger predictability
+- 2026-11-03 00:44 UTC lead (session eac59010): set state=open; cleared resolved_by — Reopened: P137 is also attached to T060, whose contact-reset reading it still governs; D260 met it for T059 only
+- 2026-11-03 01:00 UTC lead (session f6353347): review for commit:h6-reading-20261103: satisfied — D260 ('Granger predictability is not a causal claim (P137)'; 'Nothing here is causal'), F115 and F116 ('Observational') word the S2/S3 associations as non-causal; read in full.

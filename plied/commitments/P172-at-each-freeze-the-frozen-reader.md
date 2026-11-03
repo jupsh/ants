@@ -43,6 +43,43 @@ reviews:
     inputs:
       - record: D259
         rev: da68ade2ca9f550792fdbb88369ec191646cd6fef041de62b8c6cd7d508f05ef
+  - action: commit:h6-freeze-20261102
+    disposition: satisfied
+    because: >-
+      Re-read D259@8bc940ad09b0: one dated line appended after the commit (committed as fb6af11,
+      then the H6 output folder unsealed); the frozen files and hashes are unchanged, so the
+      disposition for this commit stands
+    by: lead (session eac59010)
+    at: "2026-11-03 00:10 UTC"
+    inputs:
+      - record: D259
+        rev: 8bc940ad09b0e75660f466f2aedc70317eaf37118055fa922fecc881a0740227
+  - action: run:h6-reading-20261103
+    disposition: satisfied
+    because: The reader run is the committed frozen copy (D259, fb6af11), byte-identical to the logged SHA-256s
+    by: lead (session eac59010)
+    at: "2026-11-03 00:30 UTC"
+    inputs:
+      - record: D259
+        rev: 8bc940ad09b0e75660f466f2aedc70317eaf37118055fa922fecc881a0740227
+  - action: run:h6-reading2-20261103
+    disposition: satisfied
+    because: >-
+      As for run:h6-reading-20261103, which died of heap exhaustion before writing anything: the
+      same frozen reader, inputs and options, rerun with Node's heap raised to 6000 MB (no change to
+      code or results)
+    by: lead (session eac59010)
+    at: "2026-11-03 00:35 UTC"
+  - action: commit:h6-reading-20261103
+    disposition: not-triggered
+    because: >-
+      No freeze in this commit: git diff HEAD shows nothing under scripts/frozen/ (H6's frozen copy,
+      committed in fb6af11, unchanged); the reading ran from that copy (D260 'What ran').
+    by: lead (session f6353347)
+    at: "2026-11-03 01:00 UTC"
+    inputs:
+      - record: D260
+        rev: 33ffee2d7b35cc68baca7141a758621b02f8e5a016a185532a7b57b6aa1126cf
 ---
 
 ## History
@@ -58,3 +95,7 @@ reviews:
 - 2026-11-02 22:01 UTC lead (session eac59010): reviewed D257@0a64c040066c; D257 read: names the files to freeze (reader.ts 3c3985c0, extract.ts ea889e9d) under scripts/frozen/; no freeze yet, stays open
 - 2026-11-03 00:08 UTC lead (session eac59010): reviewed D258@81f3dbbbcece; Reviewed D258: the H6 freeze follows this commitment (D259, 24 files byte-identical under scripts/frozen/h6/, hashes in the log); it stays open for later freezes (T060)
 - 2026-11-03 00:08 UTC lead (session eac59010): review for commit:h6-freeze-20261102: satisfied — This commit adds scripts/frozen/h6/: the frozen reader and every file it imports (24 files), each byte-identical to the SHA-256 listed in D259, checked file by file
+- 2026-11-03 00:10 UTC lead (session eac59010): review for commit:h6-freeze-20261102: satisfied — Re-read D259@8bc940ad09b0: one dated line appended after the commit (committed as fb6af11, then the H6 output folder unsealed); the frozen files and hashes are unchanged, so the disposition for this commit stands
+- 2026-11-03 00:30 UTC lead (session eac59010): review for run:h6-reading-20261103: satisfied — The reader run is the committed frozen copy (D259, fb6af11), byte-identical to the logged SHA-256s
+- 2026-11-03 00:35 UTC lead (session eac59010): review for run:h6-reading2-20261103: satisfied — As for run:h6-reading-20261103, which died of heap exhaustion before writing anything: the same frozen reader, inputs and options, rerun with Node's heap raised to 6000 MB (no change to code or results)
+- 2026-11-03 01:00 UTC lead (session f6353347): review for commit:h6-reading-20261103: not-triggered — No freeze in this commit: git diff HEAD shows nothing under scripts/frozen/ (H6's frozen copy, committed in fb6af11, unchanged); the reading ran from that copy (D260 'What ran').

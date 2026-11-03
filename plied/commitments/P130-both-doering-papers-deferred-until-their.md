@@ -96,6 +96,14 @@ reviews:
     inputs:
       - record: D241
         rev: b1dd437cb8eb845458917e3f9ecf780f783e4ff2bbacbe3adccc128e70630f74
+  - action: commit:h6-reading-20261103
+    disposition: not-triggered
+    because: D260 and F113-F116 cite no Doering paper and use none of their data.
+    by: lead (session f6353347)
+    at: "2026-11-03 01:00 UTC"
+    inputs:
+      - record: D260
+        rev: 33ffee2d7b35cc68baca7141a758621b02f8e5a016a185532a7b57b6aa1126cf
 ---
 
 ## History
@@ -110,3 +118,4 @@ reviews:
 - 2026-11-02 05:55 UTC lead (session 0e89af04): review for commit:h6-design-20261101: satisfied — Re-read D241@36eec164deeb: since the 597483 bytes this review read (the bytes committed in f9ad78f), only two blocks were appended, the lead's implementation details (onset rule, 25 mm radius, S1 sampling, runs, queens) and amendment 2 (D246). The commit holds the version read, so this disposition for it stands; the additions are reviewed at the next commit's gate.
 - 2026-11-02 15:32 UTC lead (session 0e89af04): review for commit:h6-design-20261101: satisfied — Re-read D241@07a71b62d68a: one dated line appended under amendment 2 (D249: the blind check's cutoff is the user's, either pooled or either zone share above 50 %, one zone flag printed) (and, since the 597483/2b609a47 pins, the lead's implementation details and amendment 2, reviewed at 05:5x UTC). The commit holds the version first read (597483), so this disposition for it stands; the later text is reviewed at the next commit's gate.
 - 2026-11-03 00:05 UTC lead (session eac59010): review for commit:h6-design-20261101: satisfied — Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules or any amendment. The commit holds the version it was gated on; the later text is reviewed at the next commit's gate (commit:h6-freeze-20261102).
+- 2026-11-03 01:00 UTC lead (session f6353347): review for commit:h6-reading-20261103: not-triggered — D260 and F113-F116 cite no Doering paper and use none of their data.

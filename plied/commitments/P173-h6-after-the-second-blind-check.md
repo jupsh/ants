@@ -7,8 +7,9 @@ wording: >-
   No further tuning: S1 is reported under the new rule, labelled coverage-limited, with its unknown
   shares. The freeze proceeds.
 made: D252
-state: open
+state: fulfilled
 nodes: [T059]
+resolved_by: D260
 reviews:
   - action: run:h6-reach-20261102
     disposition: not-triggered
@@ -39,6 +40,39 @@ reviews:
         rev: 18f3534436d222bbb3523c59cd1caccf205f78517408195ede8944058aef9bef
       - record: D259
         rev: da68ade2ca9f550792fdbb88369ec191646cd6fef041de62b8c6cd7d508f05ef
+  - action: commit:h6-freeze-20261102
+    disposition: satisfied
+    because: >-
+      Re-read D259@8bc940ad09b0: one dated line appended after the commit (committed as fb6af11,
+      then the H6 output folder unsealed); the frozen files and hashes are unchanged, so the
+      disposition for this commit stands
+    by: lead (session eac59010)
+    at: "2026-11-03 00:10 UTC"
+    inputs:
+      - record: D259
+        rev: 8bc940ad09b0e75660f466f2aedc70317eaf37118055fa922fecc881a0740227
+  - action: run:h6-reading-20261103
+    disposition: acting
+    because: >-
+      The run executes the frozen reader (scripts/frozen/h6/…/reader.ts 3c3985c0, D259) unchanged on
+      the frozen extractor's 22 intermediates (logs/h6-work-next, hashes matching the rebuild
+      report), all parts, default draws 1000 and boot 2000; no coverage tuning; S1 will be reported
+      as it falls, labelled coverage-limited, with its unknown shares
+    by: lead (session eac59010)
+    at: "2026-11-03 00:30 UTC"
+    inputs:
+      - record: D256
+        rev: 18f3534436d222bbb3523c59cd1caccf205f78517408195ede8944058aef9bef
+      - record: D259
+        rev: 8bc940ad09b0e75660f466f2aedc70317eaf37118055fa922fecc881a0740227
+  - action: run:h6-reading2-20261103
+    disposition: acting
+    because: >-
+      As for run:h6-reading-20261103, which died of heap exhaustion before writing anything: the
+      same frozen reader, inputs and options, rerun with Node's heap raised to 6000 MB (no change to
+      code or results)
+    by: lead (session eac59010)
+    at: "2026-11-03 00:35 UTC"
 ---
 
 ## History
@@ -51,3 +85,7 @@ reviews:
 - 2026-11-02 22:01 UTC lead (session eac59010): reviewed D257@0a64c040066c; D257 read: cites D252 only for the coverage clause the extractor carries; no coverage tuning, nothing changes here
 - 2026-11-03 00:07 UTC lead (session eac59010): reviewed D258@81f3dbbbcece, D259@da68ade2ca9f; Reviewed D258, D259: the freeze carries the reachability clause as P173 fixed it; S1 is still to be reported as it falls, labelled coverage-limited, at the empirical reading; stays open
 - 2026-11-03 00:08 UTC lead (session eac59010): review for commit:h6-freeze-20261102: satisfied — No coverage tuning after the second blind check: the frozen extractor is the reachability one D256 used (ea889e9d); the freeze proceeds; S1 will be reported coverage-limited
+- 2026-11-03 00:10 UTC lead (session eac59010): review for commit:h6-freeze-20261102: satisfied — Re-read D259@8bc940ad09b0: one dated line appended after the commit (committed as fb6af11, then the H6 output folder unsealed); the frozen files and hashes are unchanged, so the disposition for this commit stands
+- 2026-11-03 00:30 UTC lead (session eac59010): review for run:h6-reading-20261103: acting — The run executes the frozen reader (scripts/frozen/h6/…/reader.ts 3c3985c0, D259) unchanged on the frozen extractor's 22 intermediates (logs/h6-work-next, hashes matching the rebuild report), all parts, default draws 1000 and boot 2000; no coverage tuning; S1 will be reported as it falls, labelled coverage-limited, with its unknown shares
+- 2026-11-03 00:35 UTC lead (session eac59010): review for run:h6-reading2-20261103: acting — As for run:h6-reading-20261103, which died of heap exhaustion before writing anything: the same frozen reader, inputs and options, rerun with Node's heap raised to 6000 MB (no change to code or results)
+- 2026-11-03 00:43 UTC lead (session eac59010): set state=fulfilled; set resolved_by=D260 — D260 reports S1 under the frozen rule, labelled coverage-limited, with its unknown shares; no further tuning

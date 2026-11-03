@@ -3,8 +3,9 @@ id: P144
 title: "H6: all episode sensitivities reported, none selected"
 wording: Report all; do not select whichever gives the strongest result.
 made: D242
-state: open
+state: fulfilled
 nodes: [T059]
+resolved_by: D260
 reviews:
   - action: commit:h6-design-20261101
     disposition: not-triggered
@@ -195,6 +196,37 @@ reviews:
     inputs:
       - record: D259
         rev: da68ade2ca9f550792fdbb88369ec191646cd6fef041de62b8c6cd7d508f05ef
+  - action: commit:h6-freeze-20261102
+    disposition: not-triggered
+    because: >-
+      Re-read D259@8bc940ad09b0: one dated line appended after the commit (committed as fb6af11,
+      then the H6 output folder unsealed); the frozen files and hashes are unchanged, so the
+      disposition for this commit stands
+    by: lead (session eac59010)
+    at: "2026-11-03 00:10 UTC"
+    inputs:
+      - record: D259
+        rev: 8bc940ad09b0e75660f466f2aedc70317eaf37118055fa922fecc881a0740227
+  - action: run:h6-reading-20261103
+    disposition: acting
+    because: >-
+      The run executes the frozen reader (scripts/frozen/h6/…/reader.ts 3c3985c0, D259) unchanged on
+      the frozen extractor's 22 intermediates (logs/h6-work-next, hashes matching the rebuild
+      report), all parts, default draws 1000 and boot 2000; every episode set is computed beside the
+      primary and disagreements are listed by the reader; all are reported
+    by: lead (session eac59010)
+    at: "2026-11-03 00:30 UTC"
+    inputs:
+      - record: D259
+        rev: 8bc940ad09b0e75660f466f2aedc70317eaf37118055fa922fecc881a0740227
+  - action: run:h6-reading2-20261103
+    disposition: acting
+    because: >-
+      As for run:h6-reading-20261103, which died of heap exhaustion before writing anything: the
+      same frozen reader, inputs and options, rerun with Node's heap raised to 6000 MB (no change to
+      code or results)
+    by: lead (session eac59010)
+    at: "2026-11-03 00:35 UTC"
 ---
 
 ## History
@@ -219,3 +251,7 @@ reviews:
 - 2026-11-03 00:06 UTC lead (session eac59010): review for run:h6-fixes-20261102: satisfied — Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules or any amendment. The run finished and was read before the change, under the text it was gated on; the disposition stands.
 - 2026-11-03 00:06 UTC lead (session eac59010): review for run:h6-v1v4-20261102: satisfied — Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules or any amendment. The run finished and was read before the change, under the text it was gated on; the disposition stands.
 - 2026-11-03 00:08 UTC lead (session eac59010): review for commit:h6-freeze-20261102: not-triggered — The commit holds records, the frozen code (D259) and no empirical statistic; the sealed output folder is untouched until after the commit; the frozen reader computes every sensitivity beside the primary; nothing is selected or reported here
+- 2026-11-03 00:10 UTC lead (session eac59010): review for commit:h6-freeze-20261102: not-triggered — Re-read D259@8bc940ad09b0: one dated line appended after the commit (committed as fb6af11, then the H6 output folder unsealed); the frozen files and hashes are unchanged, so the disposition for this commit stands
+- 2026-11-03 00:30 UTC lead (session eac59010): review for run:h6-reading-20261103: acting — The run executes the frozen reader (scripts/frozen/h6/…/reader.ts 3c3985c0, D259) unchanged on the frozen extractor's 22 intermediates (logs/h6-work-next, hashes matching the rebuild report), all parts, default draws 1000 and boot 2000; every episode set is computed beside the primary and disagreements are listed by the reader; all are reported
+- 2026-11-03 00:35 UTC lead (session eac59010): review for run:h6-reading2-20261103: acting — As for run:h6-reading-20261103, which died of heap exhaustion before writing anything: the same frozen reader, inputs and options, rerun with Node's heap raised to 6000 MB (no change to code or results)
+- 2026-11-03 00:43 UTC lead (session eac59010): set state=fulfilled; set resolved_by=D260 — D260 reports every episode sensitivity beside the primary, none selected; no disagreement

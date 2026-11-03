@@ -2,10 +2,32 @@
 id: T059
 title: "H6 initiation and directional-transfer test: design (D238 item 1)"
 parent: T023
-status: open
-next: 1
+status: closed
 actor: lead
-links: [D237, D238, D239, D241, D242, D246, D247, D249, D250, D251, D252, D253, D254, D255, D256]
+outcome:
+  ref: D260
+  quote: both decision labels unresolved
+carries: [F113, F114, F115, F116]
+links:
+  - D237
+  - D238
+  - D239
+  - D241
+  - D242
+  - D246
+  - D247
+  - D249
+  - D250
+  - D251
+  - D252
+  - D253
+  - D254
+  - D255
+  - D256
+  - D257
+  - D258
+  - D259
+  - D260
 ---
 
 ## History
@@ -37,3 +59,7 @@ links: [D237, D238, D239, D241, D242, D246, D247, D249, D250, D251, D252, D253, 
 - 2026-11-02 16:56 UTC lead (session 0e89af04): reviewed D256@18f3534436d2; D256: second blind check (X028): 0.784 / 0.897, zone yes; by P173 S1 is reported as it falls, labelled coverage-limited; the reachability extractor (h6-next) is the one to freeze. The freeze waits only for the V1-V4 run
 - 2026-11-02 22:00 UTC lead (session eac59010): reviewed D257@0a64c040066c; D257: V1-V4 run h6-v1v4-20261102 finished ok (21:57 UTC) and read: every acceptance rule of D241 amendment 1 point 5 passes; the reader 3c3985c0 runs unchanged in h6-next, and the extractor's coverage-only change does not reach scorePrimary. Next: the freeze (reader + reachability extractor under scripts/frozen/, P172), then the empirical reading
 - 2026-11-03 00:08 UTC lead (session eac59010): reviewed D258@81f3dbbbcece, D259@da68ade2ca9f; D258 (user): go-ahead for the freeze. D259: reader 3c3985c0 and extractor ea889e9d frozen with 22 more files under scripts/frozen/h6/ (tsc, npm test pass); P151 fulfilled. Next: commit (gate commit:h6-freeze-20261102), unseal the H6 output folder, the empirical reading from the frozen code
+- 2026-11-03 00:09 UTC lead (session eac59010): reviewed D259@8bc940ad09b0; Committed fb6af11 (gate commit:h6-freeze-20261102 passed); H6 output folder unsealed (D259 dated line). Next: the empirical reading from the frozen code
+- 2026-11-03 00:31 UTC lead (session eac59010): Long run h6-reading-20261103 started 00:30 UTC (gated run:h6-reading-20261103; logs/runs/h6-reading-20261103-20261103T003058Z/): the frozen reader (scripts/frozen/h6/, D259) with --empirical --assign real --work logs/h6-work-next (22 intermediates, hashes matching the rebuild report), all parts, draws 1000, boot 2000; output logs/h6/reading.json. The reading follows with a log entry and finding
+- 2026-11-03 00:34 UTC lead (session eac59010): Run h6-reading-20261103 failed after 3 min 19 s: JavaScript heap out of memory at Node's default ~2 GB limit (exit 134); no output written, nothing read. Rerun unchanged with --max-old-space-size=6000 as run:h6-reading2-20261103
+- 2026-11-03 00:44 UTC lead (session eac59010): set status=closed; cleared next; set outcome.ref=D260; set outcome.quote=both decision labels unresolved; set carries=["F113","F114","F115","F116"]; added D257 to links; added D258 to links; added D259 to links; added D260 to links — D260: the empirical reading read against the frozen design; the thread's work (design, build, checks, freeze, reading) is done
