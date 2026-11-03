@@ -1,0 +1,469 @@
+{
+  "url": "https://api.datacite.org/dois?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers&query=types.resourceTypeGeneral%3ADataset+AND+creators.name%3AFeinerman+AND+titles.title%3A%28ant+OR+ants+OR+superorganisms+OR+food%29&page%5Bsize%5D=50&page%5Bnumber%5D=1",
+  "total": 5,
+  "records": [
+    {
+      "doi": "10.6084/m9.figshare.31457431",
+      "titles": [
+        {
+          "title": "Colony demographics shape nest construction in ants"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Harikrishnan",
+          "familyName": "R",
+          "name": "R, Harikrishnan",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4795-1666"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Roi",
+          "familyName": "Weinberger",
+          "name": "Weinberger, Roi",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Ehud",
+          "familyName": "Fonio",
+          "name": "Fonio, Ehud",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Ofer",
+          "familyName": "Feinerman",
+          "name": "Feinerman, Ofer",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Colony_demographics_shape_nest_construction_in_ants/31457431",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "420493 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.31457431.v1",
+      "titles": [
+        {
+          "title": "Colony demographics shape nest construction in ants"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Harikrishnan",
+          "familyName": "R",
+          "name": "R, Harikrishnan",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4795-1666"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Roi",
+          "familyName": "Weinberger",
+          "name": "Weinberger, Roi",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Ehud",
+          "familyName": "Fonio",
+          "name": "Fonio, Ehud",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Ofer",
+          "familyName": "Feinerman",
+          "name": "Feinerman, Ofer",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Colony_demographics_shape_nest_construction_in_ants/31457431/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "420493 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.31457431",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.j9kd51cc7",
+      "titles": [
+        {
+          "title": "Dual‐fluorescence imaging and automated trophallaxis detection for studying multi‐nutrient regulation in superorganisms"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Weizmann Institute of Science"
+          ],
+          "givenName": "Lior",
+          "familyName": "Baltiansky",
+          "name": "Baltiansky, Lior",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3870-1788"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Weizmann Institute of Science"
+          ],
+          "givenName": "Einav",
+          "familyName": "Sarafian-Tamam",
+          "name": "Sarafian-Tamam, Einav",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Weizmann Institute of Science"
+          ],
+          "givenName": "Efrat",
+          "familyName": "Greenwald",
+          "name": "Greenwald, Efrat",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3614-8915"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Weizmann Institute of Science"
+          ],
+          "givenName": "Ofer",
+          "familyName": "Feinerman",
+          "name": "Feinerman, Ofer",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4145-0238"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Weizmann Institute of Science"
+          ],
+          "givenName": "Einav",
+          "familyName": "Sarafian‐Tamam",
+          "name": "Sarafian‐Tamam, Einav",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Natural sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Natural sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "ecological modeling"
+        },
+        {
+          "subject": "Ecology, Evolution, Behavior and Systematics"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.j9kd51cc7",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "233242032 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/2041-210x.13646",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.29149595.v1",
+      "titles": [
+        {
+          "title": "Maximal response to a mechanical leader at critical group size in ant collectives"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Atanu",
+          "familyName": "Chatterjee",
+          "name": "Chatterjee, Atanu",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Tom",
+          "familyName": "Tzook",
+          "name": "Tzook, Tom",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Nir",
+          "familyName": "Gov",
+          "name": "Gov, Nir",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Ofer",
+          "familyName": "Feinerman",
+          "name": "Feinerman, Ofer",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biological Physics"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Biophysics"
+        },
+        {
+          "subject": "Complex Physical Systems"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://springernature.figshare.com/articles/dataset/Maximal_response_to_a_mechanical_leader_at_critical_group_size_in_ant_collectives/29149595/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "7772830 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.29149595",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1038/s41467-025-61158-6",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.29149595",
+      "titles": [
+        {
+          "title": "Maximal response to a mechanical leader at critical group size in ant collectives"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Atanu",
+          "familyName": "Chatterjee",
+          "name": "Chatterjee, Atanu",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Tom",
+          "familyName": "Tzook",
+          "name": "Tzook, Tom",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Nir",
+          "familyName": "Gov",
+          "name": "Gov, Nir",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Ofer",
+          "familyName": "Feinerman",
+          "name": "Feinerman, Ofer",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biological Physics"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Biophysics"
+        },
+        {
+          "subject": "Complex Physical Systems"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://springernature.figshare.com/articles/dataset/Maximal_response_to_a_mechanical_leader_at_critical_group_size_in_ant_collectives/29149595",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "7772830 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1038/s41467-025-61158-6",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:51:36.862151+00:00"
+}

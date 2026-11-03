@@ -1,0 +1,1843 @@
+{
+  "url": "https://api.datacite.org/dois?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers&query=types.resourceTypeGeneral%3ADataset+AND+%28titles.title%3A%28trophallaxis+OR+%22food+flow%22+OR+%22food+exchange%22%29+OR+subjects.subject%3Atrophallaxis%29&page%5Bsize%5D=50&page%5Bnumber%5D=1",
+  "total": 24,
+  "records": [
+    {
+      "doi": "10.6084/m9.figshare.34328244.v1",
+      "titles": [
+        {
+          "title": "African Food Inflation, Exchange Rates and Import Dependence: Data and Reproducibility Materials for Asymmetric Price Transmission"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "REINDOLPH",
+          "familyName": "OSEI-ANIM",
+          "name": "REINDOLPH OSEI-ANIM",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "380110",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "International economics",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/African_Food_Inflation_Exchange_Rates_and_Import_Dependence_Data_and_Reproducibility_Materials_for_Asymmetric_Price_Transmission/34328244/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "13114003 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.6084/m9.figshare.34328244",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34328244.v2",
+      "titles": [
+        {
+          "title": "African Food Inflation, Exchange Rates and Import Dependence: Data and Reproducibility Materials for Asymmetric Price Transmission"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "REINDOLPH",
+          "familyName": "OSEI-ANIM",
+          "name": "REINDOLPH OSEI-ANIM",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "380110",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "International economics",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/African_Food_Inflation_Exchange_Rates_and_Import_Dependence_Data_and_Reproducibility_Materials_for_Asymmetric_Price_Transmission/34328244/2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "21230315 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.34328244",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34328244",
+      "titles": [
+        {
+          "title": "African Food Inflation, Exchange Rates and Import Dependence: Data and Reproducibility Materials for Asymmetric Price Transmission"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "REINDOLPH",
+          "familyName": "OSEI-ANIM",
+          "name": "REINDOLPH OSEI-ANIM",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "380110",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "International economics",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/African_Food_Inflation_Exchange_Rates_and_Import_Dependence_Data_and_Reproducibility_Materials_for_Asymmetric_Price_Transmission/34328244",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "21230315 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.5281/zenodo.21231416",
+      "titles": [
+        {
+          "title": "The Translational Gap in Low-Energy Radiation Research: Bibliometric Evidence of a Materials-to-Food Knowledge Flow"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of the Philippines Manila"
+          ],
+          "givenName": "Alyssa Joy",
+          "familyName": "Damole",
+          "name": "Damole, Alyssa Joy",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Philippine Nuclear Research Institute-Department of Science and Technology",
+            "Commission on Higher Education",
+            "Rizal Technological University"
+          ],
+          "givenName": "Custer",
+          "familyName": "Deocaris",
+          "name": "Deocaris, Custer",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-3530-1228"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Yonsei University"
+          ],
+          "givenName": "Alfredo Jr.",
+          "familyName": "Alcantara",
+          "name": "Alcantara, Alfredo Jr.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-6455-602X"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.21231416",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.21231417",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.21231417",
+      "titles": [
+        {
+          "title": "The Translational Gap in Low-Energy Radiation Research: Bibliometric Evidence of a Materials-to-Food Knowledge Flow"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of the Philippines Manila"
+          ],
+          "givenName": "Alyssa Joy",
+          "familyName": "Damole",
+          "name": "Damole, Alyssa Joy",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Philippine Nuclear Research Institute-Department of Science and Technology",
+            "Commission on Higher Education",
+            "Rizal Technological University"
+          ],
+          "givenName": "Custer",
+          "familyName": "Deocaris",
+          "name": "Deocaris, Custer",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-3530-1228"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Yonsei University"
+          ],
+          "givenName": "Alfredo Jr.",
+          "familyName": "Alcantara",
+          "name": "Alcantara, Alfredo Jr.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-6455-602X"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.21231417",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.21231416",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.17632/4scn23hcgj.1",
+      "titles": [
+        {
+          "title": "Camponotus Fellah Trophallaxis Detection Dataset"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Dmytro",
+          "familyName": "Kushnir",
+          "name": "Kushnir, Dmytro",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Mendeley Data",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Computer Science"
+        },
+        {
+          "subject": "Entomology"
+        },
+        {
+          "subject": "Object Recognition"
+        },
+        {
+          "subject": "Ant"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://data.mendeley.com/datasets/4scn23hcgj/1",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "resourceTypeGeneral": "Dataset",
+          "relatedIdentifier": "10.17632/4scn23hcgj",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.17632/4scn23hcgj",
+      "titles": [
+        {
+          "title": "Camponotus Fellah Trophallaxis Detection Dataset"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Dmytro",
+          "familyName": "Kushnir",
+          "name": "Kushnir, Dmytro",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Mendeley Data",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Computer Science"
+        },
+        {
+          "subject": "Entomology"
+        },
+        {
+          "subject": "Object Recognition"
+        },
+        {
+          "subject": "Ant"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://data.mendeley.com/datasets/4scn23hcgj",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "resourceTypeGeneral": "Dataset",
+          "relatedIdentifier": "10.17632/4scn23hcgj.1",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.4211/hs.caebbbb68cce49f2bbf351f28d865794",
+      "titles": [
+        {
+          "lang": "en",
+          "title": "Metropolitan Food Flow Network and Supply Chain Diversity"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "CUAHSI"
+          ],
+          "givenName": "Michael",
+          "familyName": "Gomez",
+          "name": "Gomez, Michael",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "Other",
+              "nameIdentifier": "https://hydroshare.org/user/655/"
+            }
+          ]
+        }
+      ],
+      "publisher": "Consortium of Universities for the Advancement of Hydrologic Science, Inc",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "subject": "Food supply chain"
+        },
+        {
+          "subject": "Food flows"
+        },
+        {
+          "subject": "Food network"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CompositeResource"
+      },
+      "url": "http://www.hydroshare.org/resource/caebbbb68cce49f2bbf351f28d865794",
+      "rightsList": [
+        {
+          "rightsUri": "http://creativecommons.org/licenses/by/4.0/",
+          "rights": "This resource is shared under the Creative Commons Attribution CC BY."
+        }
+      ],
+      "sizes": [
+        "59658743 bytes"
+      ],
+      "formats": [
+        "text/csv",
+        "application/zip"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.5061/dryad.j9kd51cc7",
+      "titles": [
+        {
+          "title": "Dual‐fluorescence imaging and automated trophallaxis detection for studying multi‐nutrient regulation in superorganisms"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Weizmann Institute of Science"
+          ],
+          "givenName": "Lior",
+          "familyName": "Baltiansky",
+          "name": "Baltiansky, Lior",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3870-1788"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Weizmann Institute of Science"
+          ],
+          "givenName": "Einav",
+          "familyName": "Sarafian-Tamam",
+          "name": "Sarafian-Tamam, Einav",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Weizmann Institute of Science"
+          ],
+          "givenName": "Efrat",
+          "familyName": "Greenwald",
+          "name": "Greenwald, Efrat",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3614-8915"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Weizmann Institute of Science"
+          ],
+          "givenName": "Ofer",
+          "familyName": "Feinerman",
+          "name": "Feinerman, Ofer",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4145-0238"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Weizmann Institute of Science"
+          ],
+          "givenName": "Einav",
+          "familyName": "Sarafian‐Tamam",
+          "name": "Sarafian‐Tamam, Einav",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Natural sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Natural sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "ecological modeling"
+        },
+        {
+          "subject": "Ecology, Evolution, Behavior and Systematics"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.j9kd51cc7",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "233242032 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/2041-210x.13646",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.k9v42",
+      "titles": [
+        {
+          "title": "Data from: Dopamine regulates termite soldier differentiation through trophallactic behaviours"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Toyama"
+          ],
+          "givenName": "Hajime",
+          "familyName": "Yaguchi",
+          "name": "Yaguchi, Hajime",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Toyama"
+          ],
+          "givenName": "Takaya",
+          "familyName": "Inoue",
+          "name": "Inoue, Takaya",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Tamagawa University"
+          ],
+          "givenName": "Ken",
+          "familyName": "Sasaki",
+          "name": "Sasaki, Ken",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Toyama"
+          ],
+          "givenName": "Kiyoto",
+          "familyName": "Maekawa",
+          "name": "Maekawa, Kiyoto",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2016,
+      "subjects": [
+        {
+          "subject": "proctodeal trophallaxis"
+        },
+        {
+          "subject": "caste polyphenism"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Dopamine",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "soldier differentiation"
+        },
+        {
+          "subject": "Zootermopsis nevadensis"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.k9v42",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "9424596 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rsos.150574",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.n6d50",
+      "titles": [
+        {
+          "title": "Data from: Social transmission of information about a mutualist via trophallaxis in ant colonies"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Chiba University"
+          ],
+          "givenName": "Masayuki",
+          "familyName": "Hayashi",
+          "name": "Hayashi, Masayuki",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Kwansei Gakuin University"
+          ],
+          "givenName": "Masaru K.",
+          "familyName": "Hojo",
+          "name": "Hojo, Masaru K.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Chiba University"
+          ],
+          "givenName": "Masashi",
+          "familyName": "Nomura",
+          "name": "Nomura, Masashi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Faculty of Agriculture, Ryukyu University, Nishihara, Okinawa 903-0213, Japan"
+          ],
+          "givenName": "Kazuki",
+          "familyName": "Tsuji",
+          "name": "Tsuji, Kazuki",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2017,
+      "subjects": [
+        {
+          "subject": "Aphis craccivora"
+        },
+        {
+          "subject": "Trophobiosis"
+        },
+        {
+          "subject": "Trophallaxis"
+        },
+        {
+          "subject": "Ant–aphid mutualism"
+        },
+        {
+          "subject": "Tetramorium tsushimae"
+        },
+        {
+          "subject": "Mutualist recognition"
+        },
+        {
+          "subject": "Acyrthosiphon pisum"
+        },
+        {
+          "subject": "social information"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.n6d50",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "38018 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2017.1367",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17221328",
+      "titles": [
+        {
+          "title": "GNN Food Flow Dataset Parquet Version"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Wisconsin–Madison"
+          ],
+          "givenName": "Qianheng",
+          "familyName": "Zhang",
+          "name": "Zhang, Qianheng",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0002-1436-7105"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.17221328",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.17221329",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17221329",
+      "titles": [
+        {
+          "title": "GNN Food Flow Dataset Parquet Version"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Wisconsin–Madison"
+          ],
+          "givenName": "Qianheng",
+          "familyName": "Zhang",
+          "name": "Zhang, Qianheng",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0002-1436-7105"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.17221329",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.17221328",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17221267",
+      "titles": [
+        {
+          "title": "GNN Food Flow Dataset"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Wisconsin–Madison"
+          ],
+          "givenName": "Qianheng",
+          "familyName": "Zhang",
+          "name": "Zhang, Qianheng",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0002-1436-7105"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.17221267",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.17221268",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17221268",
+      "titles": [
+        {
+          "title": "GNN Food Flow Dataset"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Wisconsin–Madison"
+          ],
+          "givenName": "Qianheng",
+          "familyName": "Zhang",
+          "name": "Zhang, Qianheng",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0002-1436-7105"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.17221268",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.17221267",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.26183/nhm3-jh91",
+      "titles": [
+        {
+          "titleType": null,
+          "lang": null,
+          "title": "Data from: Microbial evolution in allodapine bees: perspectives from trophallactic, socially plastic pollinators "
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Simon",
+          "familyName": "Tierney",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "http://orcid.org/0000-0002-8812-6753"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Thomas",
+          "familyName": "Jeffries",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "http://orcid.org/0000-0001-6479-0353"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Hauke",
+          "familyName": "Koch",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "http://orcid.org/0000-0002-2694-7775"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Western Sydney University",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "network trophallaxis"
+        },
+        {
+          "subject": "network microbiome"
+        },
+        {
+          "subject": "microbial transmission"
+        },
+        {
+          "subject": "socialimmunity"
+        },
+        {
+          "subject": "pathogen susceptibility"
+        },
+        {
+          "subject": "pollination services"
+        },
+        {
+          "classificationCode": "310405",
+          "schemeUri": "https://www.abs.gov.au/ausstats/abs@.nsf/0",
+          "subject": "310405 - Evolutionary ecology",
+          "subjectScheme": "Australian and New Zealand Standard Research Classification (ANZSRC) 2020: Fields of Research (FoR) codes"
+        },
+        {
+          "classificationCode": "310703",
+          "schemeUri": "https://www.abs.gov.au/ausstats/abs@.nsf/0",
+          "subject": "310703 - Microbial ecology",
+          "subjectScheme": "Australian and New Zealand Standard Research Classification (ANZSRC) 2020: Fields of Research (FoR) codes"
+        },
+        {
+          "classificationCode": "310509",
+          "schemeUri": "https://www.abs.gov.au/ausstats/abs@.nsf/0",
+          "subject": "310509 - Genomics",
+          "subjectScheme": "Australian and New Zealand Standard Research Classification (ANZSRC) 2020: Fields of Research (FoR) codes"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://research-data.westernsydney.edu.au/published/29865a005b9911f0bda49de16547e89f",
+      "rightsList": [
+        {
+          "rightsUri": "http://creativecommons.org/licenses/by/4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.1428501",
+      "titles": [
+        {
+          "title": "Estimation of Macronutrient Content of Traditional Pakistani Chapatti/ Roti as Part of Food Exchange List"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [],
+          "name": "Iosr Journals",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [],
+          "name": "Ms. Mahnaz Nasir Khan",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [],
+          "name": "Dr. Samia Kalsoom",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [],
+          "name": "Dr. Ayyaz Ali Khan",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Figshare",
+      "publicationYear": 2015,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "http://figshare.com/articles/Estimation_of_Macronutrient_Content_of_Traditional_Pakistani_Chapatti_Roti_as_Part_of_Food_Exchange_List/1428501",
+      "rightsList": [
+        {
+          "rightsUri": "http://creativecommons.org/licenses/by/3.0/us",
+          "rights": "CC-BY"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.1428501.v1",
+      "titles": [
+        {
+          "title": "Estimation of Macronutrient Content of Traditional Pakistani Chapatti/ Roti as Part of Food Exchange List"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [],
+          "name": "Iosr Journals",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [],
+          "name": "Ms. Mahnaz Nasir Khan",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [],
+          "name": "Dr. Samia Kalsoom",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [],
+          "name": "Dr. Ayyaz Ali Khan",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Figshare",
+      "publicationYear": 2015,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/Estimation_of_Macronutrient_Content_of_Traditional_Pakistani_Chapatti_Roti_as_Part_of_Food_Exchange_List/1428501/1",
+      "rightsList": [
+        {
+          "rightsUri": "http://creativecommons.org/licenses/by/3.0/us",
+          "rights": "CC-BY"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.13012/b2idb-2712449_v1",
+      "titles": [
+        {
+          "title": "Honeybee trophallaxis event data for The origin of heavy tails in honeybee and human interaction times"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Illinois"
+          ],
+          "givenName": "Sang Hyun",
+          "familyName": "Choi",
+          "name": "Choi, Sang Hyun",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Vikyath",
+          "familyName": "Rao",
+          "name": "Rao, Vikyath",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Tim",
+          "familyName": "Gernat",
+          "name": "Gernat, Tim",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Illinois"
+          ],
+          "givenName": "Adam",
+          "familyName": "Hamilton",
+          "name": "Hamilton, Adam",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Illinois"
+          ],
+          "givenName": "Gene",
+          "familyName": "Robinson",
+          "name": "Robinson, Gene",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Illinois"
+          ],
+          "givenName": "Nigel",
+          "familyName": "Goldenfeld",
+          "name": "Goldenfeld, Nigel",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "University of Illinois at Urbana-Champaign",
+      "publicationYear": 2019,
+      "subjects": [
+        {
+          "subject": "honey bee"
+        },
+        {
+          "subject": "trophallaxis"
+        },
+        {
+          "subject": "social network"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://databank.illinois.edu/datasets/IDB-2712449",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementedBy",
+          "relatedIdentifier": "10.13012/b2idb-4021786_v1",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1073/pnas.2002013117",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.5582779",
+      "titles": [
+        {
+          "title": "Trophallaxis interactions of three honey bee colonies"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "Carl R. Woese Institute for Genomic Biology, University of Illinois at Urbana-Champaign"
+          ],
+          "givenName": "Tim",
+          "familyName": "Gernat",
+          "name": "Gernat, Tim",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Swarm Intelligence and Complex Systems Group, Department of Computer Science, Leipzig University"
+          ],
+          "givenName": "Tobias",
+          "familyName": "Jagla",
+          "name": "Jagla, Tobias",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Carl R. Woese Institute for Genomic Biology, University of Illinois at Urbana-Champaign"
+          ],
+          "givenName": "Beryl M.",
+          "familyName": "Jones",
+          "name": "Jones, Beryl M.",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Swarm Intelligence and Complex Systems Group, Department of Computer Science, Leipzig University"
+          ],
+          "givenName": "Martin",
+          "familyName": "Middendorf",
+          "name": "Middendorf, Martin",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Carl R. Woese Institute for Genomic Biology, University of Illinois at Urbana-Champaign; Neuroscience Program, University of Illinois at Urbana-Champaign; Department of Entomology, University of Illinois at Urbana-Champaign"
+          ],
+          "givenName": "Gene E.",
+          "familyName": "Robinson",
+          "name": "Robinson, Gene E.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "subject": "social insect, honey bee, social interaction, trophallaxis, network, social network, temporal network, trophallaxis network"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://zenodo.org/record/5582779",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by-nc/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution Non Commercial 4.0 International",
+          "rightsIdentifier": "cc-by-nc-4.0"
+        },
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess",
+          "rights": "Open Access"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.5582780",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.5582780",
+      "titles": [
+        {
+          "title": "Trophallaxis interactions of three honey bee colonies"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "Carl R. Woese Institute for Genomic Biology, University of Illinois at Urbana-Champaign"
+          ],
+          "givenName": "Tim",
+          "familyName": "Gernat",
+          "name": "Gernat, Tim",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Swarm Intelligence and Complex Systems Group, Department of Computer Science, Leipzig University"
+          ],
+          "givenName": "Tobias",
+          "familyName": "Jagla",
+          "name": "Jagla, Tobias",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Carl R. Woese Institute for Genomic Biology, University of Illinois at Urbana-Champaign"
+          ],
+          "givenName": "Beryl M.",
+          "familyName": "Jones",
+          "name": "Jones, Beryl M.",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Swarm Intelligence and Complex Systems Group, Department of Computer Science, Leipzig University"
+          ],
+          "givenName": "Martin",
+          "familyName": "Middendorf",
+          "name": "Middendorf, Martin",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Carl R. Woese Institute for Genomic Biology, University of Illinois at Urbana-Champaign; Neuroscience Program, University of Illinois at Urbana-Champaign; Department of Entomology, University of Illinois at Urbana-Champaign"
+          ],
+          "givenName": "Gene E.",
+          "familyName": "Robinson",
+          "name": "Robinson, Gene E.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "subject": "social insect, honey bee, social interaction, trophallaxis, network, social network, temporal network, trophallaxis network"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://zenodo.org/record/5582780",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by-nc/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution Non Commercial 4.0 International",
+          "rightsIdentifier": "cc-by-nc-4.0"
+        },
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess",
+          "rights": "Open Access"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.5582779",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.6393702",
+      "titles": [
+        {
+          "title": "Supplementary data for the article \"A data-driven simulation of the trophallactic network and intranidal food flow dissemination in ants.\""
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "Center for Nonlinear Phenomena and Complex Systems (Cenoli) - CP 231, Université libre de Bruxelles (ULB), Campus Plaine, Boulevard du Triomphe, Building NO - level 5, B-1050 Bruxelles, Belgium"
+          ],
+          "givenName": "Olivier",
+          "familyName": "Bles",
+          "name": "Bles, Olivier",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Center for Nonlinear Phenomena and Complex Systems (Cenoli) - CP 231, Université libre de Bruxelles (ULB), Campus Plaine, Boulevard du Triomphe, Building NO - level 5, B-1050 Bruxelles, Belgium"
+          ],
+          "givenName": "Jean-Louis",
+          "familyName": "Deneubourg",
+          "name": "Deneubourg, Jean-Louis",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Université de Strasbourg, CNRS, IPHC, UMR 7178, Strasbourg, France"
+          ],
+          "givenName": "Cédric",
+          "familyName": "Sueur",
+          "name": "Sueur, Cédric",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-8206-2739"
+            }
+          ]
+        },
+        {
+          "affiliation": [
+            "Center for Nonlinear Phenomena and Complex Systems (Cenoli) - CP 231, Université libre de Bruxelles (ULB), Campus Plaine, Boulevard du Triomphe, Building NO - level 5, B-1050 Bruxelles, Belgium"
+          ],
+          "givenName": "Stamatios C.",
+          "familyName": "Nicolis",
+          "name": "Nicolis, Stamatios C.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2022,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://zenodo.org/record/6393702",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        },
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess",
+          "rights": "Open Access"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.6393703",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.6396637",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.6396637",
+      "titles": [
+        {
+          "title": "Supplementary data for the article \"A data-driven simulation of the trophallactic network and intranidal food flow dissemination in ants.\""
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "Center for Nonlinear Phenomena and Complex Systems (Cenoli) - CP 231, Université libre de Bruxelles (ULB), Campus Plaine, Boulevard du Triomphe, Building NO - level 5, B-1050 Bruxelles, Belgium"
+          ],
+          "givenName": "Olivier",
+          "familyName": "Bles",
+          "name": "Bles, Olivier",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Center for Nonlinear Phenomena and Complex Systems (Cenoli) - CP 231, Université libre de Bruxelles (ULB), Campus Plaine, Boulevard du Triomphe, Building NO - level 5, B-1050 Bruxelles, Belgium"
+          ],
+          "givenName": "Jean-Louis",
+          "familyName": "Deneubourg",
+          "name": "Deneubourg, Jean-Louis",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Université de Strasbourg, CNRS, IPHC, UMR 7178, Strasbourg, France"
+          ],
+          "givenName": "Cédric",
+          "familyName": "Sueur",
+          "name": "Sueur, Cédric",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-8206-2739"
+            }
+          ]
+        },
+        {
+          "affiliation": [
+            "Center for Nonlinear Phenomena and Complex Systems (Cenoli) - CP 231, Université libre de Bruxelles (ULB), Campus Plaine, Boulevard du Triomphe, Building NO - level 5, B-1050 Bruxelles, Belgium"
+          ],
+          "givenName": "Stamatios C.",
+          "familyName": "Nicolis",
+          "name": "Nicolis, Stamatios C.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2022,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://zenodo.org/record/6396637",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        },
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess",
+          "rights": "Open Access"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.6393702",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.6393703",
+      "titles": [
+        {
+          "title": "Supplementary data for the article \"A data-driven simulation of the trophallactic network and intranidal food flow dissemination in ants.\""
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "Center for Nonlinear Phenomena and Complex Systems (Cenoli) - CP 231, Université libre de Bruxelles (ULB), Campus Plaine, Boulevard du Triomphe, Building NO - level 5, B-1050 Bruxelles, Belgium"
+          ],
+          "givenName": "Olivier",
+          "familyName": "Bles",
+          "name": "Bles, Olivier",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Center for Nonlinear Phenomena and Complex Systems (Cenoli) - CP 231, Université libre de Bruxelles (ULB), Campus Plaine, Boulevard du Triomphe, Building NO - level 5, B-1050 Bruxelles, Belgium"
+          ],
+          "givenName": "Jean-Louis",
+          "familyName": "Deneubourg",
+          "name": "Deneubourg, Jean-Louis",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Université de Strasbourg, CNRS, IPHC, UMR 7178, Strasbourg, France"
+          ],
+          "givenName": "Cédric",
+          "familyName": "Sueur",
+          "name": "Sueur, Cédric",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-8206-2739"
+            }
+          ]
+        },
+        {
+          "affiliation": [
+            "Center for Nonlinear Phenomena and Complex Systems (Cenoli) - CP 231, Université libre de Bruxelles (ULB), Campus Plaine, Boulevard du Triomphe, Building NO - level 5, B-1050 Bruxelles, Belgium"
+          ],
+          "givenName": "Stamatios C.",
+          "familyName": "Nicolis",
+          "name": "Nicolis, Stamatios C.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2022,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://zenodo.org/record/6393703",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        },
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess",
+          "rights": "Open Access"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.6393702",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:50:15.143647+00:00"
+}

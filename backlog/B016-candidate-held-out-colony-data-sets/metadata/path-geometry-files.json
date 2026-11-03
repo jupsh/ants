@@ -1,0 +1,75 @@
+{
+  "url": "https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.1f24f",
+  "record": {
+    "identifier": "doi:10.5061/dryad.1f24f",
+    "id": 17355,
+    "title": "Data from: Same length, different shapes: ants collectively choose a straight foraging path over a bent one",
+    "authors": [
+      {
+        "firstName": "Olivier",
+        "lastName": "Bles"
+      },
+      {
+        "firstName": "Thibault",
+        "lastName": "Boehly"
+      },
+      {
+        "firstName": "Jean Louis",
+        "lastName": "Deneubourg"
+      },
+      {
+        "firstName": "Stamatios C.",
+        "lastName": "Nicolis"
+      }
+    ],
+    "keywords": [
+      "Recrutment",
+      "ant",
+      "orientation",
+      "Collective preference"
+    ],
+    "publicationDate": "2018-02-26",
+    "versionNumber": 1,
+    "license": "https://spdx.org/licenses/CC0-1.0.html",
+    "relatedWorks": [
+      {
+        "relationship": "primary_article",
+        "identifierType": "DOI",
+        "identifier": "https://doi.org/10.1098/rsbl.2018.0070"
+      }
+    ],
+    "storageSize": 14760,
+    "_links": {
+      "self": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.1f24f"
+      },
+      "stash:versions": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.1f24f/versions"
+      },
+      "stash:version": {
+        "href": "/api/v2/versions/17416"
+      },
+      "stash:download": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.1f24f/download"
+      },
+      "curies": [
+        {
+          "name": "stash",
+          "href": "https://github.com/datadryad/dryad-app/blob/main/documentation/apis/link_relations.md#{rel}",
+          "templated": "true"
+        }
+      ]
+    }
+  },
+  "files_url": "https://datadryad.org/api/v2/versions/17416/files",
+  "file_metadata": [
+    {
+      "path": "Supplementary_Data.xlsx",
+      "size": 14760,
+      "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "status": "created"
+    }
+  ],
+  "file_page_count": null,
+  "retrieved_at": "2026-11-03T06:52:25.600514+00:00"
+}

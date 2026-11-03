@@ -611,6 +611,15 @@ reviews:
       worded as not evidence about contact resetting.
     by: lead (session e38b977a)
     at: "2026-11-03 16:28 UTC"
+  - action: commit:b016-records-20261103
+    disposition: not-triggered
+    because: >-
+      The commit holds records only (nothing under src/, scripts/ or test/): B016's item folder
+      (README, results, metadata snapshots, item scripts, hand-offs), the generated backlog index,
+      X030, D271, D272, Q38, STATUS and plied records (notes, P73/P74 states). No association or
+      causal claim.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:37 UTC"
 ---
 
 ## History
@@ -673,3 +682,4 @@ reviews:
 - 2026-11-03 16:03 UTC lead (session e38b977a): review for commit:t060-freeze-20261103: not-triggered — The commit holds the T060 freeze and its records: scripts/frozen/t060/ (26 files, byte-identical to D243's freeze block SHA-256s; checked by sha256sum and by the frozen copy's colony-237 repro and synthetic pool, D243), D267, D268, D243's blocks, STATUS, and plied records (P184, P185, dispositions, notes). Nothing under src/ or test/; scripts/scratch/ and logs/ are not committed; backlog/ left out. No reading or causal claim is in it; the audit reads support counts only.
 - 2026-11-03 16:05 UTC lead (session e38b977a): review for run:t060-support-audit-20261103: not-triggered — The run is the support-only audit (D266, D267): the frozen scripts/frozen/t060/ support.ts --colony i for the 22 colonies (extraction in memory, no event table written, only whitelisted counts to logs/t060-support/), then --pool. The sealed folder is never named or written. Support counts only; no association or causal claim.
 - 2026-11-03 16:28 UTC lead (session e38b977a): review for commit:t060-close-20261103: satisfied — The commit holds records only (git status: nothing under src/, scripts/ or test/; backlog/ left out): the T060 reading D269, F117, D270, T060's close and its commitment states, P186, T063, notes, STATUS. D269 and F117 make no causal or associational claim: support counts only, worded as not evidence about contact resetting.
+- 2026-11-03 16:37 UTC lead (session e38b977a): review for commit:b016-records-20261103: not-triggered — The commit holds records only (nothing under src/, scripts/ or test/): B016's item folder (README, results, metadata snapshots, item scripts, hand-offs), the generated backlog index, X030, D271, D272, Q38, STATUS and plied records (notes, P73/P74 states). No association or causal claim.

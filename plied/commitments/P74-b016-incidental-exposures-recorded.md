@@ -3,8 +3,9 @@ id: P74
 title: B016 incidental exposures recorded
 wording: Any result seen in a title or snippet is reported and goes in docs/contamination/.
 made: D181
-state: open
+state: fulfilled
 nodes: [T037]
+resolved_by: X030
 reviews:
   - action: fetch:b016-metadata-survey-1a3f128b
     disposition: acting
@@ -64,3 +65,5 @@ reviews:
 - 2026-11-03 15:26 UTC lead (session e38b977a): review for commit:t060-q37-records-20261103: not-triggered — The commit holds records only (git status: nothing under src/, scripts/, test/ or .claude/; backlog/ left out): T060's Stage 0 records D261-D266 with D243's dated blocks, X029, STATUS, and plied records (Q36, Q37, P175-P183, dispositions, notes, T037's message). It carries P73/P74's dispositions as the B016 worker recorded them and T037's hand-off message, but none of B016's files; the B016 exposure entry (P74) is the lead's follow-up, still owed and outside this commit.
 - 2026-11-03 16:03 UTC lead (session e38b977a): review for commit:t060-freeze-20261103: not-triggered — The commit holds the T060 freeze and its records: scripts/frozen/t060/ (26 files, byte-identical to D243's freeze block SHA-256s; checked by sha256sum and by the frozen copy's colony-237 repro and synthetic pool, D243), D267, D268, D243's blocks, STATUS, and plied records (P184, P185, dispositions, notes). Nothing under src/ or test/; scripts/scratch/ and logs/ are not committed; backlog/ left out. Nothing of B016 is in it; the B016 exposure entry (P74) is the lead's follow-up, still owed and outside this commit.
 - 2026-11-03 16:28 UTC lead (session e38b977a): review for commit:t060-close-20261103: not-triggered — The commit holds records only (git status: nothing under src/, scripts/ or test/; backlog/ left out): the T060 reading D269, F117, D270, T060's close and its commitment states, P186, T063, notes, STATUS. Nothing of B016 is in it beyond T037's queue position; the B016 exposure entry (P74) is the next work (D270).
+- 2026-11-03 16:31 UTC lead (session e38b977a): set state=fulfilled; set resolved_by=X030 — X030 enters every result seen in B016's titles and snippets (the worker's inventory: exposure-handoff.md, title-inventory.json)
+- 2026-11-03 16:32 UTC lead (session e38b977a): reviewed D271@59fa1169345e; D271 records P74 fulfilled by X030 (every title or snippet result entered); consistent with this record's state.

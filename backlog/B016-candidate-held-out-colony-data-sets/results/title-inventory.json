@@ -1,0 +1,3139 @@
+{
+  "provenance": {
+    "simHash": "eb48ce968127e6a8",
+    "commit": "6c3b0f20fed944c01266ca20fe2c994da8d66d23",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [],
+    "date": "2026-11-03T07:00:04.184Z",
+    "item": "B016-candidate-held-out-colony-data-sets",
+    "depends": {
+      "backlog/B016-candidate-held-out-colony-data-sets/metadata": "4ac8d33b13959583",
+      "backlog/B016-candidate-held-out-colony-data-sets/metadata.py": "4a689bef951d5d6e",
+      "backlog/B016-candidate-held-out-colony-data-sets/survey.ts": "2b3fd7f2479a15fd",
+      "backlog/B016-candidate-held-out-colony-data-sets/exposure-handoff.md": "1a8949006ac5e4ed",
+      "docs/contamination/X016-greenwald-segre-feinerman-2015.md": "dfae2fb17d96ecf4"
+    }
+  },
+  "caution": "Conservative inventory of every projected catalogue/bibliographic title made available in this survey, including non-candidates and duplicate versions. Some titles assert outcomes. No biological measurements, abstracts, descriptions or file contents are included. Initial web-search excerpts are separately inventoried in ../exposure-handoff.md.",
+  "titles": [
+    {
+      "doi": "10.1093/beheco/arw079",
+      "title": "Individual learning performance and exploratory activity are linked to colony foraging success in a mass-recruiting ant",
+      "snapshots": [
+        "pasquier-authors.json"
+      ]
+    },
+    {
+      "doi": "10.1098/rspb.2015.0679",
+      "title": "Ants adjust their pheromone deposition to a changing environment and their probability of making errors",
+      "snapshots": [
+        "pheromone-authors.json"
+      ]
+    },
+    {
+      "doi": "10.1098/rspb.2024.0898",
+      "title": "Ant social network structure is highly conserved across species",
+      "snapshots": [
+        "kay-authors.json"
+      ]
+    },
+    {
+      "doi": "10.1111/2041-210x.13646",
+      "title": "Dual‐fluorescence imaging and automated trophallaxis detection for studying multi‐nutrient regulation in superorganisms",
+      "snapshots": [
+        "baltiansky-authors.json"
+      ]
+    },
+    {
+      "doi": "10.13012/b2idb-2712449_v1",
+      "title": "Honeybee trophallaxis event data for The origin of heavy tails in honeybee and human interaction times",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.13018/bmr16964",
+      "title": "Solid-state NMR assignment of the globular domain of HET-s(1-227) prion protein in microcrystalline form.",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.13018/bmr16965",
+      "title": "Backbone NMR assignment of the globular domain of HET-s(1-227) prion protein.",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.13018/bmr34838",
+      "title": "Short RNA binding to peptide amyloids",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.13018/bmr52049",
+      "title": "An analysis of nucleotide-amyloid interactions reveals selective binding to codon-sized RNA",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.14288/1.0397980",
+      "title": "Data from: Nutrient foraging behaviour of four co-occuring perennial grassland plant species alone does not predict behaviour with neighbours",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.15454/pxde4k",
+      "title": "Habitat choice versus habitat transformation in a nest-building species: which matters most?",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.15468/1au75f",
+      "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.15468/3bsm3w",
+      "title": "Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.15468/3vhbmd",
+      "title": "The Westpalaearctic Lasius paralienus complex (Hymenoptera: Formicidae) contains three species",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.15468/9pzr9r",
+      "title": "A review of Tetramopria (Hymenoptera, Diapriidae, Diapriinae) of the Eastern Palaearctic with notes on mating behaviour and interactions with host ants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.15468/acmpin",
+      "title": "New species and a record of myrmecophilous mites of the families Neopygmephoridae and Microdispidae (Acari: Heterostigmatina: Pygmephoroidea) associated with Lasius umbratus (Hymenoptera: Formicidae) from Western Siberia, Russia",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.15468/bnnp7v",
+      "title": "Contribution to the knowledge of the genus Imparipes Berlese (Acari: Heterostigmata: Scutacaridae) associated with ants in Iran",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.15468/btpg92",
+      "title": "Myrmecophilous pygmephoroid mites (Acari: Pygmephoroidea) associated with Lasius flavus (Hymenoptera: Formicidae) in Russia",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.15468/exndaj",
+      "title": "A taxonomic revision of the Palaearctic members of the subgenus Lasius s. str. (Hymenoptera, Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.15468/jmpcoa",
+      "title": "Description of Pella maoershanensis sp. n. (Coleoptera, Staphylinidae, Aleocharinae) associated with Lasius spathepus from Guangxi, South China",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.15468/kdkj2d",
+      "title": "Taxonomy of Homoeusa Kraatz, 1856 (Coleoptera, Staphylinidae, Aleocharinae) from the East Palearctic: II. Revision of Japanese species",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.15468/mncugf",
+      "title": "Description of Pella maoershanensis sp. n. (Coleoptera, Staphylinidae, Aleocharinae) associated with Lasius spathepus from Guangxi, South China",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.15468/ngza9m",
+      "title": "A review of Tetramopria (Hymenoptera, Diapriidae, Diapriinae) of the Eastern Palaearctic with notes on mating behaviour and interactions with host ants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.15468/qgbtvz",
+      "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.15468/qhe6a3",
+      "title": "Contribution to the knowledge of the genus Imparipes Berlese (Acari: Heterostigmata: Scutacaridae) associated with ants in Iran",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.15468/s9f2ut",
+      "title": "Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.15468/tdfd0g",
+      "title": "A new species of the ant genus Lasius Fabricius, 1804 from Crete (Hymenoptera, Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.15468/texf95",
+      "title": "Description of Aleochara (Xenochara) ichikawai sp. nov., the first confirmed myrmecophilous species of Aleochara Gravenhorst, 1802 from the East Palearctic Region (Coleoptera: Staphylinidae: Aleocharinae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.15468/tkyhrf",
+      "title": "Taxonomy of Homoeusa Kraatz, 1856 (Coleoptera, Staphylinidae, Aleocharinae) from the East Palearctic: II. Revision of Japanese species",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.15468/tnd5gy",
+      "title": "Nest structure of the bark-digging ant Rhopalomastix (Formicidae, Myrmicinae) and notes on its mutualistic associations with diaspidids in a Thai mango plantation",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.15468/vebvtp",
+      "title": "A new species of Diartiger Sharp from Sichuan, China (Coleoptera: Staphylinidae: Pselaphinae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.15468/w3gg62",
+      "title": "A New Polygynous Lasius Species (Hymenoptera; Formicidae) From Central Europe, I. Description and General Biology",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.15468/wvryx7",
+      "title": "First record of the genus Falconina (Araneae, Corinnidae) from Mexico, with a description of a new species and observations on its interactions with ants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.15468/x8jscn",
+      "title": "The ant genus Rhopalomastix (Hymenoptera: Formicidae: Myrmicinae) in Southeast Asia, with descriptions of four new species from Singapore based on morphology and DNA barcoding",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.1594/pangaea.672319",
+      "title": "Water temperature profiles from 174 XBT drops along the track of POLARSTERN cruise ANT-V/2",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.1594/pangaea.734981",
+      "title": "Physical oceanography during POLARSTERN cruise ANT-V/2",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.1594/pangaea.895988",
+      "title": "Data from: Decline of rare and specialist species across multiple taxonomic groups after grassland intensification and abandonment",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.17026/dans-xtr-v3rg",
+      "title": "Ethnographic DATA: ERC Consolidator project Food Citizens? Collective food procurement in European cities: solidarity and diversity, skill and scale (2017-2024). Field reports from ethnographic research in Gdańsk, Rotterdam and Turin, 2019-2020",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.17026/dans-xuc-7ahg",
+      "title": "Ethnographic DATA: ERC Consolidator project Food Citizens? Collective food procurement in European cities: solidarity and diversity, skill and scale (2017-2024). Materials for documentary analysis from Gdańsk, Rotterdam and Turin, 2019-2020",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.17632/4scn23hcgj",
+      "title": "Camponotus Fellah Trophallaxis Detection Dataset",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.17632/4scn23hcgj.1",
+      "title": "Camponotus Fellah Trophallaxis Detection Dataset",
+      "snapshots": [
+        "kushnir.json",
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.17632/c8tcmz5k7v",
+      "title": "[Datasets and R codes] Temporal and thermal dynamics of extrafloral nectary-bearing plant-ant interactions in a Caatinga dry forest",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.17632/c8tcmz5k7v.1",
+      "title": "[Datasets and R codes] Temporal and thermal dynamics of extrafloral nectary-bearing plant-ant interactions in a Caatinga dry forest",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.17632/c8tcmz5k7v.2",
+      "title": "[Datasets and R codes] Temporal and thermal dynamics of extrafloral nectary-bearing plant-ant interactions in a Caatinga dry forest",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.17632/dkf9g6prpm",
+      "title": "The effect of juvenile hormone on the chemical profile and fertility of Lasius niger queens",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.17632/dkf9g6prpm.1",
+      "title": "The effect of juvenile hormone on the chemical profile and fertility of Lasius niger queens",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.17632/dkf9g6prpm.2",
+      "title": "The effect of juvenile hormone on the chemical profile and fertility of Lasius niger queens",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.17632/k96kwdm94s",
+      "title": "Lasius niger enzymatic activity",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.17632/k96kwdm94s.1",
+      "title": "Lasius niger enzymatic activity",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.17632/k96kwdm94s.2",
+      "title": "Lasius niger enzymatic activity",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.17632/v62t33nwnj",
+      "title": "Replication Package for The Mortgage Credit Channel of Macroeconomic Transmission",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.17632/v62t33nwnj.1",
+      "title": "Replication Package for The Mortgage Credit Channel of Macroeconomic Transmission",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.17632/vs2g9cdfx4",
+      "title": "Data: Leino et al. 2024 - Pollution-related changes in nest microbiota: Implications for growth and fledging in three passerine birds",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.17632/xk4rpddxx6",
+      "title": "Data for: Division of labour in the black garden ant (Lasius niger) leads to three distinct proteomes",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.17632/xk4rpddxx6.1",
+      "title": "Data for: Division of labour in the black garden ant (Lasius niger) leads to three distinct proteomes",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.17894/ucph.1bca84a9-3b29-4628-90e5-097b4b11c413",
+      "title": "Lasius niger genome and annotation",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.23708/zjtsdi",
+      "title": "Modified nest architecture and increased bioturbation in response to rise in temperature. A laboratory experiment with the ant species Lasius niger",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.25345/c51z4273d",
+      "title": "MassIVE MSV000102817 - Bottom-up proteomics data of Lasius fuliginosus venom",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.25345/c51z4273d",
+      "title": "Proteomic characterization of Lasius fuliginosus venom using bottom-up mass spectrometry",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.25345/c58g8ft6w",
+      "title": "MassIVE MSV000092460 - Proteomic investigation of Lasius niger and Bombus terrestris queen fertility",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.25345/c58g8ft6w",
+      "title": "We conducted label-free, quantitative proteomics on Lasius niger queen spermathecal fluid and whole-body extracts, as well as Bombus terrestris queen spermathecal fluid and hemolymph, to investigate patterns of protein expression linked to sperm viability and reproductive stage (unmated, recently mated, and 1 week after emergence of first workers). All samples were analyzed on a timsTOF Pro 2 instrument except the L. niger spermathecal fluid, which was analyzed on a timsTOF SCP instrument. The \"Compiled_data.xlsx\" file contains both the sample metadata and search result tables for all experiments.",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.25345/c5dr2pp57",
+      "title": "MassIVE MSV000101747 - LC-MS/MS of Lasius fuliginosus venom",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.25345/c5dr2pp57",
+      "title": "LC-MS/MS datasets of Lasius fuliginosus peptides",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.25740/cc037jw0373",
+      "title": "Colony life history in the turtle ant, Cephalotes goniodontus",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.25740/gr652yp4782",
+      "title": "Data for Nova, N., Pagliara, R., Gordon, D. M. 2022. Individual variation does not regulate foraging response to humidity in harvester ants. Frontiers Ecology and Evolution",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.25740/kp523dt7562",
+      "title": "Menzel, Florian; Fiocca, Katherine; Steiner, Erik; Gordon, Deborah M.2025. Cuticular hydrocarbons and collective response to water stress in a desert ant. Functional Ecology",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.25740/pj435tq4463",
+      "title": "Glinka, F., Steiner E.S., Privman E;, Gordon D. M. 2026. Shifts in demography in changing ecological conditions in a dependent-lineage population of harvester ant colonies\n",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.25740/pp407bs8360",
+      "title": "Gordon, Steiner, Das, Walker .2023 Harvester ant colonies differ in collective behavioral plasticity to regulate water loss",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.25740/qy007jv4648",
+      "title": "Better tired than lost: turtle ant trail networks favor coherence over short edges. 2021. Chandrasekhar, A., Marshall, J. A. R., Austin, C., Navhlakha, S. ,Gordon, D. M. PLoS Computational Biology.",
+      "snapshots": [
+        "contact-tracks.json",
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.25740/sq515dd6404",
+      "title": "Nova, N., Pagliara, R., Gordon, D. M. Individual variation does not regulate foraging response to humidity in harvester ant colonies. Frontiers Ecology and Evolution.",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.25740/sz403bn0186",
+      "title": "Rainfall, neighbors and foraging: the dynamics of a population of red harvester ant colonies 1988-2019. Sundaram, Steiner, Gordon. 2021. Ecological Monographs",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.25740/xd864rp1501",
+      "title": "Critical thermal limits and temperature-dependent walking speed may mediate coexistence between the native winter ant (Prenolepis imparis) and the invasive Argentine ant (Linepithema humile)",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.26183/nhm3-jh91",
+      "title": "Data from: Microbial evolution in allodapine bees: perspectives from trophallactic, socially plastic pollinators ",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.34808/tcev-1z14",
+      "title": "Imaging of biological samples: the ant Lasius Niger",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm237.dlkc.855",
+      "title": "MIBI data from the uterus of a 36.1-year-old asian female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm447.ctpp.495",
+      "title": "MIBI data from the uterus of a 31.5-year-old unknown female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm458.jhbq.969",
+      "title": "MIBI data from the uterus of a 36.6-year-old asian female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm463.sqhj.376",
+      "title": "MIBI data from the uterus of a 24-year-old black or african american female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm495.vxpx.373",
+      "title": "MIBI data from the uterus of a 30.2-year-old black or african american female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm526.ffgj.297",
+      "title": "MIBI data from the uterus of a 36.6-year-old asian female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm529.qfwc.259",
+      "title": "MIBI data from the uterus of a 25.1-year-old black or african american female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm692.lrpb.358",
+      "title": "MIBI data from the uterus of a 21.3-year-old unknown female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm732.lrmf.287",
+      "title": "MIBI data from the uterus of a 32.4-year-old asian female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm772.csqs.353",
+      "title": "MIBI data from the uterus of a 38.1-year-old white female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm784.hvpg.384",
+      "title": "MIBI data from the uterus of a 15.7-year-old asian female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm848.mjvk.888",
+      "title": "MIBI data from the uterus of a 24.1-year-old unknown female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.35079/hbm969.sdkg.788",
+      "title": "MIBI data from the uterus of a 27.1-year-old unknown female",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3535/2rr-9ld-qnw",
+      "title": "Lasius occultatus (Heer, 1850)",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.3535/8y4-drf-2ph",
+      "title": "Costus lasius Loes.",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.3535/bk4-vdz-zen",
+      "title": "Scabrotrophon lasius (Dall, 1919)",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.3535/g90-bvr-b4x",
+      "title": "Lasius globularis (Heer, 1850)",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.3535/hls-y7t-xgj",
+      "title": "Costus lasius Loes.",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.3535/kqc-458-sqk",
+      "title": "Costus lasius Loes.",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.3535/mkl-zxb-cpp",
+      "title": "Lasius Fabricius, 1804",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.3535/q00-md2-czb",
+      "title": "Scabrotrophon lasius (Dall, 1919)",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.3535/r83-hvs-fhx",
+      "title": "Costus lasius Loes.",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.3535/rmy-99n-9g7",
+      "title": "Costus lasius Loes.",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.3535/t5z-m7t-pcc",
+      "title": "Scabrotrophon lasius (Dall, 1919)",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.3535/vn5-f1m-ndh",
+      "title": "Lasius occultatus (Heer, 1850)",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.3535/wsk-est-r36",
+      "title": "Lasius Fabricius, 1804",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.3535/zlc-yhf-4hf",
+      "title": "Lasius occultatus (Heer, 1850)",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.3886/e170901",
+      "title": "Can Stimulating Demand Drive Costs Down? World War II as a Natural Experiment",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/e170901",
+      "title": "Archival Version",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/e170901v1",
+      "title": "Can Stimulating Demand Drive Costs Down? World War II as a Natural Experiment",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/e170901v1",
+      "title": "Version 1",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/e225841v1-203352",
+      "title": "Data and Code for: Do Credit Conditions Move House Prices?",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/e225841v1-219014",
+      "title": "Data and Code for: Do Credit Conditions Move House Prices?",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/icpsr03572",
+      "title": "Health Insurance Coverage Among Working Latinos in California, 2001",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/icpsr03572",
+      "title": "Archival Version",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/icpsr03572.v1",
+      "title": "Health Insurance Coverage Among Working Latinos in California, 2001",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/icpsr03572.v1",
+      "title": "Version 1",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/icpsr3572",
+      "title": "Health Insurance Coverage Among Working Latinos in California, 2001",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.3886/icpsr3572",
+      "title": "Archival Version",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.4211/hs.caebbbb68cce49f2bbf351f28d865794",
+      "title": "Metropolitan Food Flow Network and Supply Chain Diversity",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d35zt",
+      "title": "The ant genus Rhopalomastix (Hymenoptera: Formicidae: Myrmicinae) in Southeast Asia, with descriptions of four new species from Singapore based on morphology and DNA barcoding",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d35zt.v87",
+      "title": "The ant genus Rhopalomastix (Hymenoptera: Formicidae: Myrmicinae) in Southeast Asia, with descriptions of four new species from Singapore based on morphology and DNA barcoding",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d35zt.v88",
+      "title": "The ant genus Rhopalomastix (Hymenoptera: Formicidae: Myrmicinae) in Southeast Asia, with descriptions of four new species from Singapore based on morphology and DNA barcoding",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d37nl",
+      "title": "A new species of the ant genus Lasius Fabricius, 1804 from Crete (Hymenoptera, Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d37nl.v81",
+      "title": "A new species of the ant genus Lasius Fabricius, 1804 from Crete (Hymenoptera, Formicidae)",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d37nl.v82",
+      "title": "A new species of the ant genus Lasius Fabricius, 1804 from Crete (Hymenoptera, Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d37nl.v83",
+      "title": "A new species of the ant genus Lasius Fabricius, 1804 from Crete (Hymenoptera, Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3h8d",
+      "title": "Description of Pella maoershanensis sp. n. (Coleoptera, Staphylinidae, Aleocharinae) associated with Lasius spathepus from Guangxi, South China",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3h8d.v31",
+      "title": "Description of Pella maoershanensis sp. n. (Coleoptera, Staphylinidae, Aleocharinae) associated with Lasius spathepus from Guangxi, South China",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3h8d.v32",
+      "title": "Description of Pella maoershanensis sp. n. (Coleoptera, Staphylinidae, Aleocharinae) associated with Lasius spathepus from Guangxi, South China",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3h8d.v33",
+      "title": "Description of Pella maoershanensis sp. n. (Coleoptera, Staphylinidae, Aleocharinae) associated with Lasius spathepus from Guangxi, South China",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3lwn",
+      "title": "New species and a record of myrmecophilous mites of the families Neopygmephoridae and Microdispidae (Acari: Heterostigmatina: Pygmephoroidea) associated with Lasius umbratus (Hymenoptera: Formicidae) from Western Siberia, Russia",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3lwn.v77",
+      "title": "New species and a record of myrmecophilous mites of the families Neopygmephoridae and Microdispidae (Acari: Heterostigmatina: Pygmephoroidea) associated with Lasius umbratus (Hymenoptera: Formicidae) from Western Siberia, Russia",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3lwn.v78",
+      "title": "New species and a record of myrmecophilous mites of the families Neopygmephoridae and Microdispidae (Acari: Heterostigmatina: Pygmephoroidea) associated with Lasius umbratus (Hymenoptera: Formicidae) from Western Siberia, Russia",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3lwn.v79",
+      "title": "New species and a record of myrmecophilous mites of the families Neopygmephoridae and Microdispidae (Acari: Heterostigmatina: Pygmephoroidea) associated with Lasius umbratus (Hymenoptera: Formicidae) from Western Siberia, Russia",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3m2j",
+      "title": "The Westpalaearctic Lasius paralienus complex (Hymenoptera: Formicidae) contains three species",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3m2j.v84",
+      "title": "The Westpalaearctic Lasius paralienus complex (Hymenoptera: Formicidae) contains three species",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3m2j.v85",
+      "title": "The Westpalaearctic Lasius paralienus complex (Hymenoptera: Formicidae) contains three species",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3m2j.v86",
+      "title": "The Westpalaearctic Lasius paralienus complex (Hymenoptera: Formicidae) contains three species",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3mvt",
+      "title": "Myrmecophilous pygmephoroid mites (Acari: Pygmephoroidea) associated with Lasius flavus (Hymenoptera: Formicidae) in Russia",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3mvt.v77",
+      "title": "Myrmecophilous pygmephoroid mites (Acari: Pygmephoroidea) associated with Lasius flavus (Hymenoptera: Formicidae) in Russia",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d3mvt.v78",
+      "title": "Myrmecophilous pygmephoroid mites (Acari: Pygmephoroidea) associated with Lasius flavus (Hymenoptera: Formicidae) in Russia",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d45v8",
+      "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d45v8.v81",
+      "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d45v8.v83",
+      "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d45v8.v85",
+      "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d45v8.v88",
+      "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d45v8.v93",
+      "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d45v8.v97",
+      "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d45v8.v98",
+      "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d6wtn",
+      "title": "Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d6wtn.v79",
+      "title": "Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/d6wtn.v80",
+      "title": "Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dc6j",
+      "title": "Revision of the elusive ant genus Rhopalomastix (Hymenoptera, Formicidae, Myrmicinae) in Thailand based on morphology and DNA barcodes, with descriptions of three new species",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dc6j.v89",
+      "title": "Revision of the elusive ant genus Rhopalomastix (Hymenoptera, Formicidae, Myrmicinae) in Thailand based on morphology and DNA barcodes, with descriptions of three new species",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dc6j.v90",
+      "title": "Revision of the elusive ant genus Rhopalomastix (Hymenoptera, Formicidae, Myrmicinae) in Thailand based on morphology and DNA barcodes, with descriptions of three new species",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dcwpr",
+      "title": "A New Polygynous Lasius Species (Hymenoptera; Formicidae) From Central Europe, I. Description and General Biology",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dcwpr.v42",
+      "title": "A New Polygynous Lasius Species (Hymenoptera; Formicidae) From Central Europe, I. Description and General Biology",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dcwpr.v43",
+      "title": "A New Polygynous Lasius Species (Hymenoptera; Formicidae) From Central Europe, I. Description and General Biology",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dfz7b",
+      "title": "A taxonomic revision of the Palaearctic members of the subgenus Lasius s. str. (Hymenoptera, Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dfz7b.v16",
+      "title": "A taxonomic revision of the Palaearctic members of the subgenus Lasius s. str. (Hymenoptera, Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dfz7b.v17",
+      "title": "A taxonomic revision of the Palaearctic members of the subgenus Lasius s. str. (Hymenoptera, Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dgc8n",
+      "title": "First record of the genus Falconina (Araneae, Corinnidae) from Mexico, with a description of a new species and observations on its interactions with ants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dgc8n.v13",
+      "title": "First record of the genus Falconina (Araneae, Corinnidae) from Mexico, with a description of a new species and observations on its interactions with ants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dgc8n.v14",
+      "title": "First record of the genus Falconina (Araneae, Corinnidae) from Mexico, with a description of a new species and observations on its interactions with ants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dgqkw",
+      "title": "Nest structure of the bark-digging ant Rhopalomastix (Formicidae, Myrmicinae) and notes on its mutualistic associations with diaspidids in a Thai mango plantation",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dgqkw.v10",
+      "title": "Nest structure of the bark-digging ant Rhopalomastix (Formicidae, Myrmicinae) and notes on its mutualistic associations with diaspidids in a Thai mango plantation",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dgqkw.v9",
+      "title": "Nest structure of the bark-digging ant Rhopalomastix (Formicidae, Myrmicinae) and notes on its mutualistic associations with diaspidids in a Thai mango plantation",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dgr5y",
+      "title": "A review of Tetramopria (Hymenoptera, Diapriidae, Diapriinae) of the Eastern Palaearctic with notes on mating behaviour and interactions with host ants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dgr5y.v5",
+      "title": "A review of Tetramopria (Hymenoptera, Diapriidae, Diapriinae) of the Eastern Palaearctic with notes on mating behaviour and interactions with host ants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dgr5y.v6",
+      "title": "A review of Tetramopria (Hymenoptera, Diapriidae, Diapriinae) of the Eastern Palaearctic with notes on mating behaviour and interactions with host ants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dvqc",
+      "title": "Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dvqc.v77",
+      "title": "Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.48580/dvqc.v78",
+      "title": "Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.02v6wwqhk",
+      "title": "Data from: The role of habitat simplification and seasonality in shaping interactions between ants, plants and herbivores in a Neotropical savanna",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.05qfttf2x",
+      "title": "Sex differences in the foraging behavior of a generalist hawkmoth",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.05qfttffb",
+      "title": "Lasius flavus ants protect root aphid eggs from predators and pathogens during winter hibernation",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.0gb5mkm69",
+      "title": "Foraging behavior affects nest architecture in a cross-species comparison of ant nests",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.104t1",
+      "title": "Data from: Don't put all eggs in one nest - spread them and cut time at risk",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.1f24f",
+      "title": "Data from: Same length, different shapes: ants collectively choose a straight foraging path over a bent one",
+      "snapshots": [
+        "path-geometry-files.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.1kn03",
+      "title": "Data from: No evidence for social immunity in co-founding queen associations",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.1vp7476",
+      "title": "Data from: Changing of the guard: mixed specialization and flexibility in nest defense (Tetragonisca angustula)",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.222q601n",
+      "title": "Data from: Costs and constraints conspire to produce honest signalling: insights from an ant queen pheromone",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.2bvq83bt7",
+      "title": "The role of a synanthropic bird in the nest niche expansion of a secondary cavity-nester to man-made structures",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.2ngf1vj0x",
+      "title": "Data from: A wide range of abiotic and biotic variables leaves most variation in bird nest architecture unexplained",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.34tmpg4v1",
+      "title": "Social control of egg-laying in independently nest-founding bumble bee queens",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.35rt2",
+      "title": "Data from: Nest architecture shapes the collective behavior of harvester ants",
+      "snapshots": [
+        "gordon-pinter.json",
+        "nest-architecture.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.36ng4",
+      "title": "Data from: Nest size and aromatic plants in the nest as sexually selected female traits in blue tits",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.3dt11m7",
+      "title": "Data from: Collective behavior and colony persistence of social spiders depends on their physical environment",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.3rq87",
+      "title": "Data from: Pleiotropic effects of juvenile hormone in ant queens and the escape from the reproduction-immunocompetence trade-off",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.3tx95x6hd",
+      "title": "Ground-foraging ant communities in invaded (by Hovenia dulcis) and non-invaded Atlantic Forest sites, and ant-H. dulcis diaspore interactions",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.4152128",
+      "title": "Data from: Integrated population model reveals that Kestrels breeding in nest boxes operate as a source population",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.43q6b",
+      "title": "Data from: Taxa, petitioning agency, and lawsuits affect time spent awaiting listing under the US Endangered Species Act",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.47d7wm3r8",
+      "title": "Causes and consequences of material variation in avian nest building",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.5181v",
+      "title": "Data from: Individual ant workers show self-control",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.547d7wmbw",
+      "title": "Plant species with larger extrafloral nectaries produce better quality nectar only when needed and favour interactions with best ant partners",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.547d7wmgs",
+      "title": "Video recordings from: Observation of interspecific feeding by white-browed shrike-babbler (<em>Pteruthius aeralatus</em>) of brood-parasitic nestlings of chestnut-winged cuckoo (<em>Clamator coromandus</em>) in a nest of greater necklaced laughingthrush (<em>Pterorhinus pectoralis</em>)",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.59zw3r24h",
+      "title": "Colony-age-dependent variation in cuticular hydrocarbon profiles in subterranean termite colonies",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.5mkkwh777",
+      "title": "Lack of avian predators is associated with behavioural plasticity in nest construction and height in an island songbird",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.61649",
+      "title": "Data from: Ants disinfect fungus-exposed brood by oral uptake and spread of their poison",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.668rj",
+      "title": "Data from: Postglacial climate and fire-mediated vegetation change on the western Olympic Peninsula, Washington",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.6q573n601",
+      "title": "Data from: Prey encounters and spatial memory influence use of foraging patches in a marine central place forager",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.6t8vb41",
+      "title": "Data from: Spatial and temporal variation in nest temperatures forecasts sex ratio skews in a crocodilian with environmental sex determination",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.70s5t",
+      "title": "Data from: Timber harvest and tree size near nests explains variation in nest site occupancy but not productivity in northern goshawks (Accipiter gentilis)",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.7cq1st8",
+      "title": "Data from: Gone with the rain: negative effects of rainfall on male mating success in a nest-building arachnid",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.7j0c8dm",
+      "title": "Data from: Molecular diet analysis finds an insectivorous desert bat community dominated by resource sharing despite diverse echolocation and foraging strategies",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.7pvmcvf53",
+      "title": "Data from: Upcycling in the Hawaiian Islands: Native forest birds commonly engage in nest material kleptoparasitism",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.7wm37pw2z",
+      "title": "Possible limitations in the management of a small ant pest species (Plagiolepis alluaudi) using gel baits",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.802t8",
+      "title": "Data from: The evolution of queen pheromones in the ant genus Lasius",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.83bk3j9wk",
+      "title": "Data for: Female foraging strategy co-evolve with sexual harassment intensity in the Trinidadian guppy",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.8653",
+      "title": "Data from: Is the evolution of inaccurate mimicry a result of selection by a suite of predators? A case study using myrmecomorphic spiders",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.89n87",
+      "title": "Data from: Enriching the ant tree of life: enhanced UCE bait set for genome-scale phylogenetics of ants and other Hymenoptera",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.8nm8r6s",
+      "title": "Data from: Spatial, temporal and individual-based differences in nest-site visits and subsequent reproductive success in wild great tits",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.8pk0p2ntd",
+      "title": "The Asian koel rapidly locates hosts breeding in novel nest sites",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.91nd2",
+      "title": "Data from: Nutrient foraging behaviour of four co-occuring perennial grassland plant species alone does not predict behaviour with neighbours",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.9d9s3",
+      "title": "Data from: Locomotor endurance predicts differences in realized dispersal between sympatric sexual and unisexual salamanders",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.9fs7n",
+      "title": "Data from: Nest etiquette - where ants go when nature calls",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.9j1cp",
+      "title": "Data from: Individual learning performance and exploratory activity are linked to colony foraging success in a mass-recruiting ant",
+      "snapshots": [
+        "lasius-all-p3.json",
+        "lasius-behaviour.json",
+        "pasquier-files.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.9k219",
+      "title": "Data from: Composite collective decision making",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.9p8cz8wqk",
+      "title": "Data from: Geographic distribution of terpenoid chemotypes in Tanacetum vulgare mediates tansy aphid occurrence but not abundance",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.b5mkkwhcb",
+      "title": "The correlates of intraspecific variation in nest height and nest building duration in the Eurasian blue tit Cyanistes caeruleus",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.b952b",
+      "title": "Data from: Queen pheromones modulate DNA methyltransferase activity in bee and ant workers",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.bvq83bk6x",
+      "title": "Nest choice in arboreal ants is an emergent consequence of network creation under spatial constraints",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.c5g4qt7",
+      "title": "Data from: Anthropogenic disturbance and rainfall variation threaten the stability of plant‐ant interactions in the Brazilian Caatinga",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.cb0f6",
+      "title": "Data from: Genetic constraints on dishonesty and caste dimorphism in an ant",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.cjsxksn5x",
+      "title": "Temporal consistency in interactions among birds, ants, and plants in a neotropical savanna",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.cnp5hqc27",
+      "title": "Juvenile socio-ecological environment shapes material technology in nest-building birds",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.d0t63",
+      "title": "Data from: Reproduction and dispersal in an ant-associated root aphid community",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.d7wm37pxr",
+      "title": "Diurnal foraging ant–tree co-occurrence networks are similar between canopy and understorey in a Neotropical rain forest",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.dfn2z358r",
+      "title": "Data from: Ant social network structure is highly conserved",
+      "snapshots": [
+        "contact-tracks.json",
+        "kay-files.json",
+        "tracking-data.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.dj2bf",
+      "title": "Data from: Opposing effects of allogrooming on disease transmission in ant societies",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.fk11b",
+      "title": "Data from: Bottom-up effects of host-plant species diversity and top-down effects of ants interactively increase plant performance",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.fqz612jrm",
+      "title": "Ant-hill heterogeneity and grassland management",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.ft4sn88",
+      "title": "Data from: Ant-plant interactions evolved through increasing interdependence",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.ft80s9n",
+      "title": "Data from: Underlying mechanisms and ecological context of variation in exploratory behavior of the Argentine ant, Linepithema humile",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.g4f4qrfxn",
+      "title": "Data from: Strong and weak environmental perturbations cause contrasting restructure of ant transportation networks",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.g79cnp5n1",
+      "title": "Data from: Growth and survival of the superorganism: ant colony macronutrient intake and investment",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.g9n85sm",
+      "title": "Data from: Additive effects of plant chemotype, mutualistic ants and predators on aphid performance and survival",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.gb8h60p",
+      "title": "Data from: The multi-dimensional nature of information drives prioritisation of private over social information in ants",
+      "snapshots": [
+        "lasius-all-p2.json",
+        "social-information-files.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.hk5n4m1",
+      "title": "Data from: The influence of spatial sampling scales on ant-plant interaction network architecture",
+      "snapshots": [
+        "tracking-data.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.j9kd51cc7",
+      "title": "Dual‐fluorescence imaging and automated trophallaxis detection for studying multi‐nutrient regulation in superorganisms",
+      "snapshots": [
+        "baltiansky-files.json",
+        "feinerman-ants.json",
+        "trophallaxis.json",
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.jq2bvq86c",
+      "title": "Temporal variation in maternal nest choice and its consequences for lizard embryos",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.jq6n2",
+      "title": "Data from: Alate susceptibility in ants",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.k5f6q",
+      "title": "Data from: Female in-nest chatter song increases predation",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.k98sf7mn6",
+      "title": "Data and code from: Large-scale source-sink dynamics in <em>Tachycineta bicolor</em> breeding in nest-boxes across eastern Canada's farmlands",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.k9v42",
+      "title": "Data from: Dopamine regulates termite soldier differentiation through trophallactic behaviours",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.kg593qs",
+      "title": "Data from: Asynchrony between ant seed dispersal activity and fruit dehiscence of myrmecochorous plants",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.kwh70rz8z",
+      "title": "Data for: Long-term environmental stability does not erode plasticity in nest building repsonses to changing ambient conditions",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.mkkwh70x0",
+      "title": "Data from: Interactions between seed-dispersing ant species affect plant community composition in field mesocosms",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.mm7bj56",
+      "title": "Data from: Effect of plant chemical variation and mutualistic ants on the local population genetic structure of an aphid herbivore",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.mr73c",
+      "title": "Data from: Ants adjust their pheromone deposition to a changing environment and their probability of making errors",
+      "snapshots": [
+        "lasius-all-p2.json",
+        "pheromone-files.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.mw6m9060v",
+      "title": "Data for: Microclimate shifts in nest-boxes and natural cavities throughout reproduction",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.n0r41",
+      "title": "Data from: Evolutionary basis of mitonuclear discordance between sister species of mole salamanders (Ambystoma sp.)",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.n3k7f",
+      "title": "Data from: Food supplementation mitigates dispersal-dependent differences in nest defence in a passerine bird.",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.n4h17",
+      "title": "Data from: Characterization of recruitment through tandem running in an Indian queenless ant Diacamma indicum",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.n6d50",
+      "title": "Data from: Social transmission of information about a mutualist via trophallaxis in ant colonies",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.n925d21",
+      "title": "Data from: Phenotypic integration in an extended phenotype: among‐individual variation in nest‐building traits of the alfalfa leafcutting bee (Megachile rotundata)",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.nc0gc",
+      "title": "Data from: Pupal cocoons affect sanitary brood care and limit fungal infections in ant colonies",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.nd4169j",
+      "title": "Data from: Variation in nest characteristics and brooding patterns of female Black-throated Blue Warblers is associated with thermal cues",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.nj811",
+      "title": "Data from: Context-dependent expression of the foraging gene in field colonies of ants: the interacting roles of age, environment and task",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.np757",
+      "title": "Data from: No phenotypic plasticity in nest-site selection in response to extreme flooding events",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.nq816",
+      "title": "Data from: Water stress strengthens mutualism among ants, trees, and scale insects",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.nzs7h44x7",
+      "title": "Effects of dominant ant species on ant community structure and ant-hemipteran interactions",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.p3p0621d",
+      "title": "Data from: Are gastropods, rather than ants, important dispersers of seeds of myrmecochorous forest herbs?",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.p8n5kb15",
+      "title": "Data from: Diversification and phylogeographic structure in widespread Azteca plant-ants from the northern Neotropics",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.pb2rp",
+      "title": "Data from: Fitness in invasive social wasps: the role of variation in viral load, immune response and paternity in predicting nest size and reproductive output",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.qfttdz0k1",
+      "title": "Ant body size mediates functional performance and species interactions in carrion decomposer communities",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.qg80q",
+      "title": "Data from: Hypoxia increases the risk of egg predation in a nest-guarding fish",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.qz612jmj3",
+      "title": "Data from: Acclimation in ants: Interference of communication and waterproofing through cuticular hydrocarbons in a multifunctional trait",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.r29th82",
+      "title": "Data from: Food dissemination in ants: robustness of the trophallactic network against resource quality",
+      "snapshots": [
+        "bles-food.json",
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.rxwdbrv8f",
+      "title": "Plant species-specificity of ant-plant mutualistic interactions: Differential predation of termites by Camponotus crassus on five species of extrafloral nectaried plants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.s4s2b",
+      "title": "Data from: Transgenerational effects and the cost of ant tending in aphids",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.sbcc2fr45",
+      "title": "Climate seasonality drives ant-plant-herbivore interactions via plant phenology in an extrafloral nectary-bearing plant community",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.sd64q",
+      "title": "Data from: Beyond thermal limits: comprehensive metrics of performance identify key axes of thermal adaptation in ants",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.sf7m0cg50",
+      "title": "Datasets used for the publication: State-dependence explains individual variation in nest defence behaviour in a long-lived bird",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.sn02v6xk5",
+      "title": "Data from: Road salt application increases sodium levels in roadside plants and ants, reshaping tritrophic interactions",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.t2q12",
+      "title": "Data from: Can social partnerships influence the microbiome? insights from ant farmers and their trophobiont mutualists.",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.t76hdr835",
+      "title": "No apparent trade-off between the quality of nest grown feathers and time spent in the nest in an aerial insectivore, the tree swallow",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.tqjq2bvzv",
+      "title": "Data from: Acoustic risk balancing by marine mammals: anthropogenic noise can influence the foraging decisions by seals",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.v23p8",
+      "title": "Data from: I smell where you walked – how chemical cues influence movement decisions in ants",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.vd57n",
+      "title": "Data from: Alate production in an aphid in relation to ant tending and alarm pheromone",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.vdncjsz17",
+      "title": "Data from: Ant-plant specialisation influenced more by network types than by disturbance, elevation, or latitude",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.vm0vc",
+      "title": "Data from: Anti-pathogen protection versus survival costs mediated by an ectosymbiont in an ant host",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.w0vt4b921",
+      "title": "Data from: How do birds and ants contribute to the recruitment of a tropical?",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.wh70rxx08",
+      "title": "Data from: Running in the rain: Impact of water droplets on tandem running recruitment in a tropical ant",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.wm37pvmkv",
+      "title": "Phytochemistry-mediated disruption of ant-aphid interactions by root-feeding nematodes",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.wm37pvmkz",
+      "title": "Desiccation limits recruitment in the pleometrotic desert seed-harvester ant Veromessor pergandei",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.wwpzgmshb",
+      "title": "Immune challenges increase network centrality in a queenless ant",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.zw3r22871",
+      "title": "Thermal tolerance of Lasius americanus across urbanization and geographical gradients",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5068/d18d7b",
+      "title": "Data from: Modularity and connectivity of nest structure scale with colony size",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5068/d1fx0d",
+      "title": "Data from: Harvester ant nest architecture is more strongly affected by intrinsic than extrinsic factors",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.10508847",
+      "title": "Linked collectors and determiners for: Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species.",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.10508848",
+      "title": "Linked collectors and determiners for: Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species.",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.10596849",
+      "title": "Linked collectors and determiners for: Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species.",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.11031825",
+      "title": "Group-level trait and individual performance: the impact of in-nest activity on food recruitment in ants",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.11068070",
+      "title": "Group-level trait and individual performance: the impact of in-nest activity on food recruitment in ants",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.14048619",
+      "title": "Table 1 in Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.14048620",
+      "title": "Table 1 in Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.14048623",
+      "title": "Table 2 in Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.14048624",
+      "title": "Table 2 in Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.14048625",
+      "title": "Table 4 in Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.14048626",
+      "title": "Table 4 in Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.14048627",
+      "title": "Table 6 in Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.14048628",
+      "title": "Table 6 in Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.14048629",
+      "title": "Table 7 in Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.14048630",
+      "title": "Table 7 in Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160562",
+      "title": "Table 1 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160563",
+      "title": "Table 1 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160564",
+      "title": "Table 2 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160565",
+      "title": "Table 2 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160566",
+      "title": "Table 3 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160567",
+      "title": "Table 3 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160568",
+      "title": "Table 4 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160569",
+      "title": "Table 4 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160570",
+      "title": "Table 5 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160571",
+      "title": "Table 5 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15521756",
+      "title": "Response of the ant species Lasius niger to soil contamination with mulch film fragments at the micro- and nanoscale",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15521757",
+      "title": "Response of the ant species Lasius niger to soil contamination with mulch film fragments at the micro- and nanoscale",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17221267",
+      "title": "GNN Food Flow Dataset",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17221268",
+      "title": "GNN Food Flow Dataset",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17221328",
+      "title": "GNN Food Flow Dataset Parquet Version",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17221329",
+      "title": "GNN Food Flow Dataset Parquet Version",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17915192",
+      "title": "Data for: Multilevel variation in pathogen susceptibility and grooming behavior in ant societies",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17915193",
+      "title": "Data for: Multilevel variation in pathogen susceptibility and grooming behavior in ant societies",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18355252",
+      "title": "Dataset - Geographic distance-decay and host chemistry, not cophylogeny, structure the global ant–phorid parasitoid network",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18355253",
+      "title": "Dataset - Geographic distance-decay and host chemistry, not cophylogeny, structure the global ant–phorid parasitoid network",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18500042",
+      "title": "MsaV-1 and LniV-1 in Lasius niger ants in the Netherlands",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18500043",
+      "title": "MsaV-1 and LniV-1 in Lasius niger ants in the Netherlands",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18806936",
+      "title": "Emergence of Aspekt (ANT) — directed network dataset (nodes and edges)",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18806937",
+      "title": "Emergence of Aspekt (ANT) — directed network dataset (nodes and edges)",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18939481",
+      "title": "Emergence of Aspekt (ANT) — directed network dataset (nodes and edges)",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18960846",
+      "title": "MsaV-1 and LniV-1 in Lasius niger ants in the Netherlands",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.20489631",
+      "title": "Superseded dataset",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.20489632",
+      "title": "Superseded dataset",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.21231416",
+      "title": "The Translational Gap in Low-Energy Radiation Research: Bibliometric Evidence of a Materials-to-Food Knowledge Flow",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.21231417",
+      "title": "The Translational Gap in Low-Energy Radiation Research: Bibliometric Evidence of a Materials-to-Food Knowledge Flow",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.23771395",
+      "title": "Fore wings of black garden ant (Lasius niger)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.23771396",
+      "title": "Fore wings of black garden ant (Lasius niger)",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.5582779",
+      "title": "Trophallaxis interactions of three honey bee colonies",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.5582780",
+      "title": "Trophallaxis interactions of three honey bee colonies",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.6393702",
+      "title": "Supplementary data for the article \"A data-driven simulation of the trophallactic network and intranidal food flow dissemination in ants.\"",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.6393703",
+      "title": "Supplementary data for the article \"A data-driven simulation of the trophallactic network and intranidal food flow dissemination in ants.\"",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.6396637",
+      "title": "Supplementary data for the article \"A data-driven simulation of the trophallactic network and intranidal food flow dissemination in ants.\"",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.7310286",
+      "title": "Group-level trait and individual performance: the impact of in-nest activity on food recruitment in ants",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.7310287",
+      "title": "Group-level trait and individual performance: the impact of in-nest activity on food recruitment in ants",
+      "snapshots": [
+        "ant-networks.json",
+        "vaes-files.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.7767732",
+      "title": "Data for \"Not dear neighbours in the ant Lasius niger\"",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.7767733",
+      "title": "Data for \"Not dear neighbours in the ant Lasius niger\"",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.8132462",
+      "title": "Social interactions differ in their impact on foraging decisions",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.8132463",
+      "title": "Social interactions differ in their impact on foraging decisions",
+      "snapshots": [
+        "foraging-interactions.json"
+      ]
+    },
+    {
+      "doi": "10.5285/78408af3-452f-41af-95f3-ffc13b05c232",
+      "title": " Grassland arthropod trait and associated environmental data collected in arable reversion sites in southern England, 2014",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5683/sp3/6s7jkp",
+      "title": "Supplemental data and R code for: A novel method for testing the impacts of pesticide exposure on soil-nesting insects: A case study using the ant Lasius neoniger and the neonicotinoid insecticide Imidacloprid",
+      "snapshots": [
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.5683/sp3/e4plsa",
+      "title": "Supplemental data for: Friend or foe? Investigating Lasius neoniger (Hymenoptera: Formicidae) and Myzus persicae (Hemiptera: Aphididae) interspecies dynamics in a greenhouse agroecosystem",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.5683/sp3/tt6zxp",
+      "title": "Supplemental data for: Assessing cognitive performance in nature: brain size and personality correlates of novel object recognition in nest-guarding male pumpkinseed sunfish",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.5683/sp3/zbycyd",
+      "title": "Effect of polyethylene microplastics on the overwintering and nesting behaviour of the common field ant, Lasius neoniger dataset",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.5883/ds-antlmal",
+      "title": "Quantitative morphology and mtDNA reveal that Lasius maltaeus Seifert, 2020 is not endemic to the Maltese Islands (Hymenoptera, Formicidae)",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.11930286",
+      "title": "Photo-selective nets and potassium concentrations on Costus lasius crop",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.11930286.v1",
+      "title": "Photo-selective nets and potassium concentrations on Costus lasius crop",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.12019017",
+      "title": "The microbiota of the Lasius fuliginosus and Pella laticollis in the host–myrmecophile interactions",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.12019017.v1",
+      "title": "The microbiota of the Lasius fuliginosus and Pella laticollis in the host–myrmecophile interactions",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.1428501",
+      "title": "Estimation of Macronutrient Content of Traditional Pakistani Chapatti/ Roti as Part of Food Exchange List",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.1428501.v1",
+      "title": "Estimation of Macronutrient Content of Traditional Pakistani Chapatti/ Roti as Part of Food Exchange List",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.16786558.v3",
+      "title": "R Code for analysis - The effect of resource availability on interspecific competition between a native and an invasive ant",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.19144871",
+      "title": "Cognitive biases in Lasius niger, datasets",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.19144871.v1",
+      "title": "Cognitive biases in Lasius niger, datasets",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.21482898",
+      "title": "Lasius niger highres microCT",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.21482898.v1",
+      "title": "Lasius niger highres microCT",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23256578",
+      "title": "Metadata - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant Lasius niger",
+      "snapshots": [
+        "lasius-all-p4.json",
+        "lasius-behaviour.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23256578.v1",
+      "title": "Metadata - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant Lasius niger",
+      "snapshots": [
+        "lasius-all-p4.json",
+        "lasius-behaviour.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23256578.v2",
+      "title": "Metadata - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant Lasius niger",
+      "snapshots": [
+        "lasius-all-p3.json",
+        "lasius-behaviour.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23507211",
+      "title": "Data - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant <i>Lasius niger</i>",
+      "snapshots": [
+        "lasius-all-p4.json",
+        "lasius-behaviour.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23507211.v1",
+      "title": "Data - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant <i>Lasius niger</i>",
+      "snapshots": [
+        "lasius-all-p3.json",
+        "lasius-behaviour.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.25513309.v1",
+      "title": "<b>Dataset and outputs - Urban biotic challenges: Dietary restrictions and body fat content of female sexuals in urban populations of the garden ant </b><b><i>Lasius niger</i></b>",
+      "snapshots": [
+        "lasius-all-p4.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.27953055",
+      "title": "Bacterial microbiota in nest samples - Experimental study",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.27953055.v1",
+      "title": "Bacterial microbiota in nest samples - Experimental study",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.27953055.v2",
+      "title": "Bacterial microbiota in nest samples - Experimental study",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630139",
+      "title": "Additional file 1 of Social organization and physical environment shape the microbiome of harvester ants",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630139.v1",
+      "title": "Additional file 1 of Social organization and physical environment shape the microbiome of harvester ants",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630142",
+      "title": "Additional file 2 of Social organization and physical environment shape the microbiome of harvester ants",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630142.v1",
+      "title": "Additional file 2 of Social organization and physical environment shape the microbiome of harvester ants",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630145",
+      "title": "Additional file 3 of Social organization and physical environment shape the microbiome of harvester ants",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630145.v1",
+      "title": "Additional file 3 of Social organization and physical environment shape the microbiome of harvester ants",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28640093",
+      "title": "Bacterial microbiota in nest and eggshell samples - Observational study",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28640093.v1",
+      "title": "Bacterial microbiota in nest and eggshell samples - Observational study",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28640093.v2",
+      "title": "Bacterial microbiota in nest and eggshell samples - Observational study",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.29149595",
+      "title": "Maximal response to a mechanical leader at critical group size in ant collectives",
+      "snapshots": [
+        "feinerman-ants.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.29149595.v1",
+      "title": "Maximal response to a mechanical leader at critical group size in ant collectives",
+      "snapshots": [
+        "feinerman-ants.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.29716343",
+      "title": "Data Lasius Microatropods community",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.29716343.v1",
+      "title": "Data Lasius Microatropods community",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.29716343.v2",
+      "title": "Data Lasius Microatropods community",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30175467",
+      "title": "Supplementary_File_1 from A wide range of abiotic and biotic variables leaves most variation in bird nest architecture unexplained.",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30175467.v1",
+      "title": "Supplementary_File_1 from A wide range of abiotic and biotic variables leaves most variation in bird nest architecture unexplained.",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30374671",
+      "title": "Data paper \"Impact of Biogenic Structures of the Soil-Nesting Ants <i>Lasius niger</i> and <i>Lasius flavus</i> on the Soil Microarthropod Community in Urban Green Spaces\"",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30374671.v1",
+      "title": "Data paper \"Impact of Biogenic Structures of the Soil-Nesting Ants <i>Lasius niger</i> and <i>Lasius flavus</i> on the Soil Microarthropod Community in Urban Green Spaces\"",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30789938",
+      "title": "How carton-nest fungi of the ant <i>Lasius fuliginosus</i> interact with each other and with the root-rot fungus <i>Armillaria mellea</i>",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30789938.v1",
+      "title": "How carton-nest fungi of the ant <i>Lasius fuliginosus</i> interact with each other and with the root-rot fungus <i>Armillaria mellea</i>",
+      "snapshots": [
+        "lasius-all-p2.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30920237",
+      "title": "<b>Conflict in ant phylogeny results from complex interaction between multiple evolutionary signals and tree reconstruction artifacts</b>",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30920237.v1",
+      "title": "<b>Conflict in ant phylogeny results from complex interaction between multiple evolutionary signals and tree reconstruction artifacts</b>",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.31456480",
+      "title": "Interaction frequency dataset of an EFN-mediated ant–plant network in a seasonally dry tropical forest (Caatinga, Brazil)",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.31456480.v1",
+      "title": "Interaction frequency dataset of an EFN-mediated ant–plant network in a seasonally dry tropical forest (Caatinga, Brazil)",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.31457431",
+      "title": "Colony demographics shape nest construction in ants",
+      "snapshots": [
+        "feinerman-ants.json",
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.31457431.v1",
+      "title": "Colony demographics shape nest construction in ants",
+      "snapshots": [
+        "feinerman-ants.json",
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.31563076",
+      "title": "<b>Medusa in the nest: Human hair causes the death of breeding barn swallows (</b><b><i>Hirundo rustica</i></b><b>)</b>",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.31563076.v1",
+      "title": "<b>Medusa in the nest: Human hair causes the death of breeding barn swallows (</b><b><i>Hirundo rustica</i></b><b>)</b>",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.31840111.v1",
+      "title": "Data and code for climatic niche divergence and future contact zones of two invasive white-footed ants",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.32050599",
+      "title": "Dataset of the manuscript \"Microhabitat variation in feeding places shape ant-hemiptera interactions within cocoa agroecosystems\" - Biotropica 2026",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.32050599.v1",
+      "title": "Dataset of the manuscript \"Microhabitat variation in feeding places shape ant-hemiptera interactions within cocoa agroecosystems\" - Biotropica 2026",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.32050599.v2",
+      "title": "Dataset of the manuscript \"Microhabitat variation in feeding places shape ant-hemiptera interactions within cocoa agroecosystems\" - Biotropica 2026",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.32541894",
+      "title": "<b>Variation in nest height of the azure-winged magpie (</b><b><i>Cyanopica cyanus</i></b><b>) across an urbanization gradient</b>",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.32541894.v1",
+      "title": "<b>Variation in nest height of the azure-winged magpie (</b><b><i>Cyanopica cyanus</i></b><b>) across an urbanization gradient</b>",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.32825270",
+      "title": "ants earwig interactions orchards 06/2026",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.32825270.v1",
+      "title": "ants earwig interactions orchards 06/2026",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34062405",
+      "title": "Rissanen_Gene_expression_tables_ESM2 from Infection-induced changes in gene expression linked to foraging choices in self-medicating <i>Lasius platythorax</i> ants",
+      "snapshots": [
+        "lasius-behaviour.json",
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34062405.v1",
+      "title": "Rissanen_Gene_expression_tables_ESM2 from Infection-induced changes in gene expression linked to foraging choices in self-medicating <i>Lasius platythorax</i> ants",
+      "snapshots": [
+        "lasius-behaviour.json",
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34062405.v2",
+      "title": "Rissanen_Gene_expression_tables_ESM2 from Infection-induced changes in gene expression linked to foraging choices in self-medicating <i>Lasius platythorax</i> ants",
+      "snapshots": [
+        "lasius-behaviour.json",
+        "lasius.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34328244",
+      "title": "African Food Inflation, Exchange Rates and Import Dependence: Data and Reproducibility Materials for Asymmetric Price Transmission",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34328244.v1",
+      "title": "African Food Inflation, Exchange Rates and Import Dependence: Data and Reproducibility Materials for Asymmetric Price Transmission",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34328244.v2",
+      "title": "African Food Inflation, Exchange Rates and Import Dependence: Data and Reproducibility Materials for Asymmetric Price Transmission",
+      "snapshots": [
+        "trophallaxis.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.3443210",
+      "title": "Multi-interaction network involving different types of mutualism (animal pollination, seed-dispersal by frugivorous birds, and anti-herbivore defense by protective ants) sampled in a coastal tropical environment in Mexico.",
+      "snapshots": [
+        "tracking-data.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.3443210.v2",
+      "title": "Multi-interaction network involving different types of mutualism (animal pollination, seed-dispersal by frugivorous birds, and anti-herbivore defense by protective ants) sampled in a coastal tropical environment in Mexico.",
+      "snapshots": [
+        "tracking-data.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.3619779.v1",
+      "title": "Task allocation and site fidelity jointly influence foraging regulation in honey bee colonies",
+      "snapshots": [
+        "gordon-pinter.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.990183.v1",
+      "title": "On-Roadway In-Cabin Exposure to Particulate Matter: Measurement Results Using Both Continuous and Time-Integrated Sampling Approaches",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.c.3686758_d1",
+      "title": "Additional file 1: Tables S1-13. of Genomic exaptation enables Lasius niger adaptation to urban environments",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.c.3686758_d1.v1",
+      "title": "Additional file 1: Tables S1-13. of Genomic exaptation enables Lasius niger adaptation to urban environments",
+      "snapshots": [
+        "lasius-all-p3.json"
+      ]
+    },
+    {
+      "doi": "10.6086/d10q22",
+      "title": "Pollen diet mediates how pesticide exposure impacts brain gene expression in nest-founding bumble bee queens",
+      "snapshots": [
+        "in-nest.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/1khj9h",
+      "title": "Quasi-Coherent Fluctuations Limiting the Pedestal Growth on Alcator C-Mod: Experiment and Modeling",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/5ezszc",
+      "title": "Data Catalog Project - A Browsable, Searchable, Metadata System",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/bbd99l",
+      "title": "Replication Data for: Plant sex changes the outcome of ant-plant interactions in a facultative myrmecophytic cactus",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/f20tio",
+      "title": "Replication Data for: \"Recruitment boosts participation and transfers route information during collective migration in ants\"",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/fj2hkq",
+      "title": "Explaining Cold-Pulse Dynamics in Tokamak Plasmas Using Local Turbulent Transport Models",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/gfblk5",
+      "title": "Replication Data for: Covid-19 and Excess Mortality in Medicare Beneficiaries",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/gite0m",
+      "title": "Replication Data for: How the Wealth was Won: Factor Shares as Market Fundamentals",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/lxcxn9",
+      "title": "Alcator C-Mod: Research in support of ITER and steps beyond",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/oiyni9",
+      "title": "Perturbative transport modeling of cold-pulse dynamics in Alcator C-Mod Ohmic plasmas",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/oyybnu",
+      "title": "The High-Field Path to Practical Fusion Energy",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/qaddlh",
+      "title": "Anomalous transport in the H-mode pedestal of Alcator C-Mod discharges",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/r7g7a8",
+      "title": "Replication Data for : \"Recruitment boosts participation and transfers route information during collective migration in ants\"",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/spniog",
+      "title": "Replication RTR Data for: \"Recruitment boosts participation and transfers route information during collective migration in ants\"",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/thusnn",
+      "title": "Replication data for: Greenwald et al. (2009): Race attitude measures predicted vote in the 2008 U. S. Presidential Election",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/tmwhu7",
+      "title": "Replication Carrying Data for: \"Recruitment boosts participation and transfers route information during collective migration in ants\"",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/ugrekw",
+      "title": "Overview of the SPARC tokamak",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/uxeajb",
+      "title": "Farrahan et al. v. Gregoire et al., Greenwald Report (plaintiffs' expert)",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/x1zr4w",
+      "title": "Predictions of core plasma performance for the SPARC tokamak",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/xlqwf1",
+      "title": "Predictions of improved confinement in SPARC via energetic particle turbulence stabilization",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/yllfgp",
+      "title": "Replication RTR Data for: \"Recruitment boosts participation and transfers route information during collective migration in ants\"",
+      "snapshots": [
+        "ant-networks.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/zei08c",
+      "title": "Fast Low-to-High Confinement Mode Bifurcation Dynamics in a Tokamak Edge Plasma Gyrokinetic Simulation",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/zs0jpn",
+      "title": "Fusion Energy: Research At the Crossroads",
+      "snapshots": [
+        "weizmann.json"
+      ]
+    },
+    {
+      "doi": "10.82444/warw.33802963",
+      "title": "Data for Reliable many-to-many routing in wireless sensor networks using ant colony optimisation",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    },
+    {
+      "doi": "10.82444/warw.33802963.v1",
+      "title": "Data for Reliable many-to-many routing in wireless sensor networks using ant colony optimisation",
+      "snapshots": [
+        "contact-tracks.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "url": "https://api.crossref.org/works/10.1093/beheco/arw079",
+  "record": {
+    "DOI": "10.1093/beheco/arw079",
+    "title": [
+      "Individual learning performance and exploratory activity are linked to colony foraging success in a mass-recruiting ant"
+    ],
+    "author": [
+      {
+        "given": "Grégoire",
+        "family": "Pasquier",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      },
+      {
+        "given": "Christoph",
+        "family": "Grüter",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "role": "author",
+            "vocabulary": "crossref"
+          }
+        ]
+      }
+    ],
+    "publisher": "Oxford University Press (OUP)",
+    "published": {
+      "date-parts": [
+        [
+          2016,
+          6,
+          23
+        ]
+      ]
+    },
+    "container-title": [
+      "Behavioral Ecology"
+    ],
+    "URL": "https://doi.org/10.1093/beheco/arw079",
+    "relation": {},
+    "type": "journal-article"
+  },
+  "retrieved_at": "2026-11-03T06:55:32.383675+00:00"
+}

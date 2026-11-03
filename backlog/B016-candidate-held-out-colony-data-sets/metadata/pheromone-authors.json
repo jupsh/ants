@@ -1,0 +1,80 @@
+{
+  "url": "https://api.crossref.org/works/10.1098/rspb.2015.0679",
+  "record": {
+    "DOI": "10.1098/rspb.2015.0679",
+    "title": [
+      "Ants adjust their pheromone deposition to a changing environment and their probability of making errors"
+    ],
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0002-1350-4975",
+        "authenticated-orcid": false,
+        "given": "Tomer J.",
+        "family": "Czaczkes",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Biologie I, Universität Regensburg, Universitätstrasse 31, Regensburg 93053, Germany"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Jürgen",
+        "family": "Heinze",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Biologie I, Universität Regensburg, Universitätstrasse 31, Regensburg 93053, Germany"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "publisher": "The Royal Society",
+    "published": {
+      "date-parts": [
+        [
+          2015,
+          7,
+          7
+        ]
+      ]
+    },
+    "container-title": [
+      "Proceedings of the Royal Society B: Biological Sciences"
+    ],
+    "URL": "https://doi.org/10.1098/rspb.2015.0679",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2015,
+              7,
+              7
+            ]
+          ],
+          "date-time": "2015-07-07T00:00:00Z",
+          "timestamp": 1436227200000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://royalsociety.org/journals/ethics-policies/data-sharing-mining/"
+      }
+    ],
+    "relation": {},
+    "type": "journal-article"
+  },
+  "retrieved_at": "2026-11-03T06:55:32.476734+00:00"
+}

@@ -4,7 +4,7 @@ title: Project status (current state, plan, rules in force, evidence policy)
 ---
 # Project status
 
-_Last updated: 2026-11-03 (D270: next B016's exposure entry, then T063; T060 closed: support-only audit read, D269, F117; support reader checked and frozen, D268, D267, D243 freeze block; Q37 answered, a support-only audit, D266 and D243 15:18 block; V0 Scope A passed, D264; brief 2 checked, Scope B fails by design, Q37, D265; brief 2 started, D243 06:51 dated block; T060 Stage 0 build started, D243 dated block; through D260: H6 read, T059 closed). Earlier: 2026-11-02 (through D248: B011 read, F112, T043 closed; D246, Q33 answered, D241 amendment 2; D245, the H6 build checked; RESUME trimmed, its earlier text in A006). Earlier "Last updated" lines are in the RESUME archives. Every change is dated in `docs/log/`._
+_Last updated: 2026-11-03 (B016 read, X030, Q38, D271; D270: next T063; T060 closed: support-only audit read, D269, F117; support reader checked and frozen, D268, D267, D243 freeze block; Q37 answered, a support-only audit, D266 and D243 15:18 block; V0 Scope A passed, D264; brief 2 checked, Scope B fails by design, Q37, D265; brief 2 started, D243 06:51 dated block; T060 Stage 0 build started, D243 dated block; through D260: H6 read, T059 closed). Earlier: 2026-11-02 (through D248: B011 read, F112, T043 closed; D246, Q33 answered, D241 amendment 2; D245, the H6 build checked; RESUME trimmed, its earlier text in A006). Earlier "Last updated" lines are in the RESUME archives. Every change is dated in `docs/log/`._
 
 **Where the record lives.** One file per record, plain text; `npm test` fails if the record is
 inconsistent (`node findings/findings.mjs check`, `node docs/records.mjs check`, `plied check`). The lead agent
@@ -65,8 +65,8 @@ in the RESUME archive (A005).
       comparison is unsupported by this extraction and observation rule; not evidence about contact resetting as a
       mechanism. A redesign would be a separate decision (P183). Stage 1 never built; Stage 0's statistics never computed.
       Its empty output folder stays sealed (D270; P186).
-    - **Next (D270):** B016 (T037) first, its contamination entry; then **T063**, which remaining synchrony
-      explanations the available evidence can actually distinguish.
+    - **Next (D270):** B016 (T037) first: read and its exposures entered (D271, X030), T037's next step with the
+      user (Q38); now **T063**, which remaining synchrony explanations the available evidence can actually distinguish.
     - **Food state, clock versus elapsed time (T061):** not commissioned on these data (D240, D242); open for item 1(d).
     - The history of this bullet up to 2026-11-02 is in the RESUME archive of 2026-11-02 (A006).
   - **Step 9** (the held-out test) and **E6** are on hold (D114).

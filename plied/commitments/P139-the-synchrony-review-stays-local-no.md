@@ -174,6 +174,15 @@ reviews:
       T063, notes, STATUS. Nothing is published.
     by: lead (session e38b977a)
     at: "2026-11-03 16:28 UTC"
+  - action: commit:b016-records-20261103
+    disposition: not-triggered
+    because: >-
+      The commit holds records only (nothing under src/, scripts/ or test/): B016's item folder
+      (README, results, metadata snapshots, item scripts, hand-offs), the generated backlog index,
+      X030, D271, D272, Q38, STATUS and plied records (notes, P73/P74 states). Nothing is published;
+      a local commit. The synchrony review is not touched by it.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:37 UTC"
 ---
 
 ## History
@@ -199,3 +208,4 @@ reviews:
 - 2026-11-03 15:59 UTC lead (session e38b977a): review for commit:t060-stage0-design-20261102: satisfied — Re-read D243@a0ceb72f78ab: one dated block appended since (2026-11-03, the support audit's code frozen: support.ts, extract.ts and their 26-file import closure copied byte-identical under scripts/frozen/t060/ with their SHA-256s; P172, D267, D268). It postdates this action and changes nothing it did or read, so the earlier disposition (satisfied) stands; the block is reviewed at the next action's gate.
 - 2026-11-03 16:03 UTC lead (session e38b977a): review for commit:t060-freeze-20261103: not-triggered — The commit holds the T060 freeze and its records: scripts/frozen/t060/ (26 files, byte-identical to D243's freeze block SHA-256s; checked by sha256sum and by the frozen copy's colony-237 repro and synthetic pool, D243), D267, D268, D243's blocks, STATUS, and plied records (P184, P185, dispositions, notes). Nothing under src/ or test/; scripts/scratch/ and logs/ are not committed; backlog/ left out. Nothing is published or put on a page; the synchrony review stays local.
 - 2026-11-03 16:28 UTC lead (session e38b977a): review for commit:t060-close-20261103: not-triggered — The commit holds records only (git status: nothing under src/, scripts/ or test/; backlog/ left out): the T060 reading D269, F117, D270, T060's close and its commitment states, P186, T063, notes, STATUS. Nothing is published.
+- 2026-11-03 16:37 UTC lead (session e38b977a): review for commit:b016-records-20261103: not-triggered — The commit holds records only (nothing under src/, scripts/ or test/): B016's item folder (README, results, metadata snapshots, item scripts, hand-offs), the generated backlog index, X030, D271, D272, Q38, STATUS and plied records (notes, P73/P74 states). Nothing is published; a local commit. The synchrony review is not touched by it.

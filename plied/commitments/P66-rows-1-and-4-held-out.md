@@ -127,6 +127,15 @@ reviews:
       simulation is in it.
     by: lead (session e38b977a)
     at: "2026-11-03 16:28 UTC"
+  - action: commit:b016-records-20261103
+    disposition: not-triggered
+    because: >-
+      The commit holds records only (nothing under src/, scripts/ or test/): B016's item folder
+      (README, results, metadata snapshots, item scripts, hand-offs), the generated backlog index,
+      X030, D271, D272, Q38, STATUS and plied records (notes, P73/P74 states). No held-out role is
+      assigned and no test runs: B016's candidates stay unassigned (X030, Q38).
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:37 UTC"
 ---
 
 ## History
@@ -147,3 +156,5 @@ reviews:
 - 2026-11-03 16:01 UTC lead (session e38b977a): review for commit:t060-stage0-design-20261102: not-triggered — Re-read D243@a0ceb72f78ab: one dated block appended since (2026-11-03, the support audit's code frozen: support.ts, extract.ts and their 26-file import closure copied byte-identical under scripts/frozen/t060/ with their SHA-256s; P172, D267, D268). It postdates this action and changes nothing it did or read, so the earlier disposition (not-triggered) stands; the block is reviewed at the next action's gate.
 - 2026-11-03 16:03 UTC lead (session e38b977a): review for commit:t060-freeze-20261103: not-triggered — The commit holds the T060 freeze and its records: scripts/frozen/t060/ (26 files, byte-identical to D243's freeze block SHA-256s; checked by sha256sum and by the frozen copy's colony-237 repro and synthetic pool, D243), D267, D268, D243's blocks, STATUS, and plied records (P184, P185, dispositions, notes). Nothing under src/ or test/; scripts/scratch/ and logs/ are not committed; backlog/ left out. No structure freeze, model change, E6 run, held-out data, paper or simulation is in it.
 - 2026-11-03 16:28 UTC lead (session e38b977a): review for commit:t060-close-20261103: not-triggered — The commit holds records only (git status: nothing under src/, scripts/ or test/; backlog/ left out): the T060 reading D269, F117, D270, T060's close and its commitment states, P186, T063, notes, STATUS. No structure freeze, model change, E6 run, held-out data, paper or simulation is in it.
+- 2026-11-03 16:32 UTC lead (session e38b977a): reviewed D271@59fa1169345e; D271 cites D181 for B016's exposure rules; it assigns no held-out role and runs no test, so rows 1 and 4's held-out predictions are untouched.
+- 2026-11-03 16:37 UTC lead (session e38b977a): review for commit:b016-records-20261103: not-triggered — The commit holds records only (nothing under src/, scripts/ or test/): B016's item folder (README, results, metadata snapshots, item scripts, hand-offs), the generated backlog index, X030, D271, D272, Q38, STATUS and plied records (notes, P73/P74 states). No held-out role is assigned and no test runs: B016's candidates stay unassigned (X030, Q38).

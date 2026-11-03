@@ -1,0 +1,5287 @@
+{
+  "url": "https://api.datacite.org/dois?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers&query=types.resourceTypeGeneral%3ADataset+AND+%28subjects.subject%3ALasius+OR+titles.title%3ALasius%29&page%5Bsize%5D=50&page%5Bnumber%5D=3",
+  "total": 188,
+  "records": [
+    {
+      "doi": "10.5061/dryad.cb0f6",
+      "titles": [
+        {
+          "title": "Data from: Genetic constraints on dishonesty and caste dimorphism in an ant"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Copenhagen"
+          ],
+          "givenName": "Luke",
+          "familyName": "Holman",
+          "name": "Holman, Luke",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Copenhagen"
+          ],
+          "givenName": "Timothy A.",
+          "familyName": "Linksvayer",
+          "name": "Linksvayer, Timothy A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Copenhagen"
+          ],
+          "givenName": "Patrizia",
+          "familyName": "d'Ettorre",
+          "name": "d'Ettorre, Patrizia",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2013,
+      "subjects": [
+        {
+          "subject": "Evolution: social"
+        },
+        {
+          "subject": "Lasius niger"
+        },
+        {
+          "subject": "Communication: chemical"
+        },
+        {
+          "subject": "Genetics: evolutionary"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.cb0f6",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "78452 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1086/668828",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.61649",
+      "titles": [
+        {
+          "title": "Data from: Ants disinfect fungus-exposed brood by oral uptake and spread of their poison"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bayreuth",
+            "University of Regensburg"
+          ],
+          "givenName": "Simon",
+          "familyName": "Tragust",
+          "name": "Tragust, Simon",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Barbara",
+          "familyName": "Mitteregger",
+          "name": "Mitteregger, Barbara",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Vanessa",
+          "familyName": "Barone",
+          "name": "Barone, Vanessa",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Matthias",
+          "familyName": "Konrad",
+          "name": "Konrad, Matthias",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Line V.",
+          "familyName": "Ugelvig",
+          "name": "Ugelvig, Line V.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Regensburg"
+          ],
+          "givenName": "Sylvia",
+          "familyName": "Cremer",
+          "name": "Cremer, Sylvia",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2012,
+      "subjects": [
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Formic acid",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Evolutionary biology",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Social immunity"
+        },
+        {
+          "subject": "poison"
+        },
+        {
+          "subject": "Lasius neglectus"
+        },
+        {
+          "subject": "Metarhizium brunneum"
+        },
+        {
+          "subject": "ecological immunology"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.61649",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "91202 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1016/j.cub.2012.11.034",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.sd64q",
+      "titles": [
+        {
+          "title": "Data from: Beyond thermal limits: comprehensive metrics of performance identify key axes of thermal adaptation in ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "North Carolina State University",
+            "North Carolina Museum of Natural Sciences"
+          ],
+          "givenName": "Clint A.",
+          "familyName": "Penick",
+          "name": "Penick, Clint A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Case Western Reserve University"
+          ],
+          "givenName": "Sarah E.",
+          "familyName": "Diamond",
+          "name": "Diamond, Sarah E.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Vermont",
+            "University of Copenhagen"
+          ],
+          "givenName": "Nathan J.",
+          "familyName": "Sanders",
+          "name": "Sanders, Nathan J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "North Carolina State University",
+            "University of Copenhagen"
+          ],
+          "givenName": "Robert R.",
+          "familyName": "Dunn",
+          "name": "Dunn, Robert R.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2017,
+      "subjects": [
+        {
+          "subject": "Brachyponera chinensis"
+        },
+        {
+          "subject": "Lasius alienus"
+        },
+        {
+          "subject": "Tapinoma sessile"
+        },
+        {
+          "subject": "social insects"
+        },
+        {
+          "subject": "Aphaenogaster lamellidens"
+        },
+        {
+          "subject": "Solenopsis invicta"
+        },
+        {
+          "subject": "Monomorium minimum"
+        },
+        {
+          "subject": "Aphaenogaster rudis"
+        },
+        {
+          "subject": "Crematogaster lineolata"
+        },
+        {
+          "subject": "Linepithema humile"
+        },
+        {
+          "subject": "Temnothorax longispinosus"
+        },
+        {
+          "subject": "Temnothorax curvispinosus"
+        },
+        {
+          "subject": "Tetramroium SpE"
+        },
+        {
+          "subject": "Formica subsericea"
+        },
+        {
+          "subject": "Solenopsis molesta"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.sd64q",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "90021 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/1365-2435.12818",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.fk11b",
+      "titles": [
+        {
+          "title": "Data from: Bottom-up effects of host-plant species diversity and top-down effects of ants interactively increase plant performance"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Irvine"
+          ],
+          "givenName": "Xoaquín",
+          "familyName": "Moreira",
+          "name": "Moreira, Xoaquín",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Irvine"
+          ],
+          "givenName": "Kailen A.",
+          "familyName": "Mooney",
+          "name": "Mooney, Kailen A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Misión Biológica de Galicia"
+          ],
+          "givenName": "Rafael",
+          "familyName": "Zas",
+          "name": "Zas, Rafael",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Centro de Investigación Forestal de Lourizán, Unidad Asociada MBG-CSIC, Apartado de Correos 127, 36080 Pontevedra, Galicia, Spain"
+          ],
+          "givenName": "Luis",
+          "familyName": "Sampedro",
+          "name": "Sampedro, Luis",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2012,
+      "subjects": [
+        {
+          "subject": "Pinus pinaster"
+        },
+        {
+          "subject": "Multi-trophic interactions"
+        },
+        {
+          "subject": "Coccinella septempunctata"
+        },
+        {
+          "subject": "Pentatoma rufipes"
+        },
+        {
+          "subject": "Adalia bipunctata"
+        },
+        {
+          "subject": "plant-aphid-ant mutualism"
+        },
+        {
+          "subject": "Pinus radiata"
+        },
+        {
+          "subject": "Pinus sylvestris"
+        },
+        {
+          "subject": "Pinus pinea"
+        },
+        {
+          "subject": "Stictocephala bisonia"
+        },
+        {
+          "subject": "Leucaspis pini"
+        },
+        {
+          "subject": "Dolichovespula media"
+        },
+        {
+          "subject": "Cinara maritimae"
+        },
+        {
+          "subject": "aphid predators"
+        },
+        {
+          "subject": "Pissodes castaneus"
+        },
+        {
+          "subject": "plant productivity"
+        },
+        {
+          "subject": "Cinara pini"
+        },
+        {
+          "subject": "arthropod community structure"
+        },
+        {
+          "subject": "Lasius grandis"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.fk11b",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "88864 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2012.0893",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.jq6n2",
+      "titles": [
+        {
+          "title": "Data from: Alate susceptibility in ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Toronto"
+          ],
+          "givenName": "Eddie K. H.",
+          "familyName": "Ho",
+          "name": "Ho, Eddie K. H.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Toronto"
+          ],
+          "givenName": "Megan E.",
+          "familyName": "Frederickson",
+          "name": "Frederickson, Megan E.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2015,
+      "subjects": [
+        {
+          "subject": "division of labour among castes"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Camponotus mirabilis"
+        },
+        {
+          "subject": "Camponotus longipilis"
+        },
+        {
+          "subject": "Aphaenogaster cf. rudis"
+        },
+        {
+          "subject": "Lasius cf. nearcticus"
+        },
+        {
+          "subject": "Odontomachus bauri"
+        },
+        {
+          "subject": "Azteca sp."
+        },
+        {
+          "subject": "Brachymyrmex depilis"
+        },
+        {
+          "subject": "alate susceptibility"
+        },
+        {
+          "subject": "haploid or male susceptibility"
+        },
+        {
+          "subject": "Beauveria bassiana"
+        },
+        {
+          "subject": "individual and colony immunity"
+        },
+        {
+          "subject": "Myrmica rubra"
+        },
+        {
+          "subject": "Allomerus octoarticulatus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.jq6n2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "113707 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1002/ece3.1291",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.9j1cp",
+      "titles": [
+        {
+          "title": "Data from: Individual learning performance and exploratory activity are linked to colony foraging success in a mass-recruiting ant"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Lausanne"
+          ],
+          "givenName": "Grégoire",
+          "familyName": "Pasquier",
+          "name": "Pasquier, Grégoire",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Lausanne"
+          ],
+          "givenName": "Christoph",
+          "familyName": "Grüter",
+          "name": "Grüter, Christoph",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2016,
+      "subjects": [
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Navigation",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Lasius niger"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.9j1cp",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "116490 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/beheco/arw079",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.dj2bf",
+      "titles": [
+        {
+          "title": "Data from: Opposing effects of allogrooming on disease transmission in ant societies"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Helmholtz Zentrum München"
+          ],
+          "givenName": "Fabian J.",
+          "familyName": "Theis",
+          "name": "Theis, Fabian J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institute of Science and Technology Austria"
+          ],
+          "givenName": "Line V.",
+          "familyName": "Ugelvig",
+          "name": "Ugelvig, Line V.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Helmholtz Zentrum München"
+          ],
+          "givenName": "Carsten",
+          "familyName": "Marr",
+          "name": "Marr, Carsten",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institute of Science and Technology Austria"
+          ],
+          "givenName": "Sylvia",
+          "familyName": "Cremer",
+          "name": "Cremer, Sylvia",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2015,
+      "subjects": [
+        {
+          "subject": "social interaction patterns"
+        },
+        {
+          "subject": "sanitary behaviours"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Host-pathogen interactions",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Social immunity"
+        },
+        {
+          "subject": "Lasius neglectus"
+        },
+        {
+          "subject": "Metarhizium anisopliae"
+        },
+        {
+          "subject": "social insects"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.dj2bf",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "155982 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rstb.2014.0108",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.b952b",
+      "titles": [
+        {
+          "title": "Data from: Queen pheromones modulate DNA methyltransferase activity in bee and ant workers"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Australian National University"
+          ],
+          "givenName": "Luke",
+          "familyName": "Holman",
+          "name": "Holman, Luke",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Helsinki"
+          ],
+          "givenName": "Kalevi",
+          "familyName": "Trontti",
+          "name": "Trontti, Kalevi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Helsinki"
+          ],
+          "givenName": "Heikki",
+          "familyName": "Helanterä",
+          "name": "Helanterä, Heikki",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2015,
+      "subjects": [
+        {
+          "subject": "Lasius flavus"
+        },
+        {
+          "subject": "Caste"
+        },
+        {
+          "subject": "Lasius niger"
+        },
+        {
+          "subject": "methylome"
+        },
+        {
+          "subject": "fertility signal"
+        },
+        {
+          "subject": "Eusociality"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Epigenetics",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.b952b",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "172269 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rsbl.2015.1038",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.802t8",
+      "titles": [
+        {
+          "title": "Data from: The evolution of queen pheromones in the ant genus Lasius"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Copenhagen"
+          ],
+          "givenName": "Luke",
+          "familyName": "Holman",
+          "name": "Holman, Luke",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Australian National University"
+          ],
+          "givenName": "Robert",
+          "familyName": "Lanfear",
+          "name": "Lanfear, Robert",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Copenhagen"
+          ],
+          "givenName": "Patrizia",
+          "familyName": "d'Ettorre",
+          "name": "d'Ettorre, Patrizia",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2013,
+      "subjects": [
+        {
+          "subject": "Lasius"
+        },
+        {
+          "subject": "ant"
+        },
+        {
+          "subject": "Comparative studies"
+        },
+        {
+          "subject": "Evolution of co-operation"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.802t8",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "221136 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/jeb.12162",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.p3p0621d",
+      "titles": [
+        {
+          "title": "Data from: Are gastropods, rather than ants, important dispersers of seeds of myrmecochorous forest herbs?"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Manfred",
+          "familyName": "Türke",
+          "name": "Türke, Manfred",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Kerstin",
+          "familyName": "Andreas",
+          "name": "Andreas, Kerstin",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Martin M.",
+          "familyName": "Gossner",
+          "name": "Gossner, Martin M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Esther",
+          "familyName": "Kowalski",
+          "name": "Kowalski, Esther",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Markus",
+          "familyName": "Lange",
+          "name": "Lange, Markus",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bern"
+          ],
+          "givenName": "Steffen",
+          "familyName": "Boch",
+          "name": "Boch, Steffen",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bern"
+          ],
+          "givenName": "Stephanie A.",
+          "familyName": "Socher",
+          "name": "Socher, Stephanie A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Potsdam"
+          ],
+          "givenName": "Jörg",
+          "familyName": "Müller",
+          "name": "Müller, Jörg",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bern"
+          ],
+          "givenName": "Daniel",
+          "familyName": "Prati",
+          "name": "Prati, Daniel",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bern"
+          ],
+          "givenName": "Markus",
+          "familyName": "Fischer",
+          "name": "Fischer, Markus",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Rainer",
+          "familyName": "Meyhöfer",
+          "name": "Meyhöfer, Rainer",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Wolfgang W.",
+          "familyName": "Weisser",
+          "name": "Weisser, Wolfgang W.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2011,
+      "subjects": [
+        {
+          "subject": "Anemone nemorosa"
+        },
+        {
+          "subject": "Asarum europaeum"
+        },
+        {
+          "subject": "Formica pratensis"
+        },
+        {
+          "subject": "Lasius niger"
+        },
+        {
+          "subject": "Arion rufus"
+        },
+        {
+          "subject": "Interactions: mutualism"
+        },
+        {
+          "subject": "Interactions: plant/animal"
+        },
+        {
+          "subject": "Myrmica scabrinodis"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.p3p0621d",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "217379 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1086/663195",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.nc0gc",
+      "titles": [
+        {
+          "title": "Data from: Pupal cocoons affect sanitary brood care and limit fungal infections in ant colonies"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institute of Science and Technology Austria"
+          ],
+          "givenName": "Simon",
+          "familyName": "Tragust",
+          "name": "Tragust, Simon",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institute of Science and Technology Austria"
+          ],
+          "givenName": "Line V.",
+          "familyName": "Ugelvig",
+          "name": "Ugelvig, Line V.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Lausanne"
+          ],
+          "givenName": "Michel",
+          "familyName": "Chapuisat",
+          "name": "Chapuisat, Michel",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Regensburg"
+          ],
+          "givenName": "Jürgen",
+          "familyName": "Heinze",
+          "name": "Heinze, Jürgen",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institute of Science and Technology Austria"
+          ],
+          "givenName": "Sylvia",
+          "familyName": "Cremer",
+          "name": "Cremer, Sylvia",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2014,
+      "subjects": [
+        {
+          "subject": "Social immunity"
+        },
+        {
+          "subject": "Hygienic behaviour"
+        },
+        {
+          "subject": "Linepithema humile"
+        },
+        {
+          "subject": "Sanitary brood care"
+        },
+        {
+          "subject": "Lasius neglectus"
+        },
+        {
+          "subject": "Metarhizium brunneum"
+        },
+        {
+          "subject": "Crematogaster smithi"
+        },
+        {
+          "subject": "Platythyrea punctata"
+        },
+        {
+          "subject": "Formica selysi"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.nc0gc",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "156192 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1186/1471-2148-13-225",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.89n87",
+      "titles": [
+        {
+          "title": "Data from: Enriching the ant tree of life: enhanced UCE bait set for genome-scale phylogenetics of ants and other Hymenoptera"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Utah",
+            "Smithsonian Institution"
+          ],
+          "givenName": "Michael G.",
+          "familyName": "Branstetter",
+          "name": "Branstetter, Michael G.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Utah"
+          ],
+          "givenName": "John T.",
+          "familyName": "Longino",
+          "name": "Longino, John T.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Davis"
+          ],
+          "givenName": "Philip S.",
+          "familyName": "Ward",
+          "name": "Ward, Philip S.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Louisiana State University of Alexandria"
+          ],
+          "givenName": "Brant C.",
+          "familyName": "Faircloth",
+          "name": "Faircloth, Brant C.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2017,
+      "subjects": [
+        {
+          "subject": "Wasmannia auropunctata"
+        },
+        {
+          "subject": "Formica podzolica"
+        },
+        {
+          "subject": "Harpegnathos saltator"
+        },
+        {
+          "subject": "Myrcidris epicharis"
+        },
+        {
+          "subject": "Acromyrmex echinatior"
+        },
+        {
+          "subject": "Aneuretus simoni"
+        },
+        {
+          "subject": "Crematogaster nigropilosa"
+        },
+        {
+          "subject": "Cephalotes atratus"
+        },
+        {
+          "subject": "Prionopelta amabilis"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Molecular systematics",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Aculeata"
+        },
+        {
+          "subject": "Gnamptogenys minuta"
+        },
+        {
+          "subject": "Dolichoderus lamellosus"
+        },
+        {
+          "subject": "Pepsis grossa"
+        },
+        {
+          "subject": "Tetheamyrma sp"
+        },
+        {
+          "subject": "Patagonomyrmex angustus"
+        },
+        {
+          "subject": "Fulakora orizabana"
+        },
+        {
+          "subject": "Hypoponera nitidula"
+        },
+        {
+          "subject": "Diacamma rugosum"
+        },
+        {
+          "subject": "Eurhopalothrix gravis"
+        },
+        {
+          "subject": "Adelomyrmex marginodus"
+        },
+        {
+          "subject": "Vollenhovia emeryi"
+        },
+        {
+          "subject": "Protanilla sp"
+        },
+        {
+          "subject": "Neogene"
+        },
+        {
+          "subject": "Adelomyrmex dentivagans"
+        },
+        {
+          "subject": "Acanthognathus ocellatus"
+        },
+        {
+          "subject": "Gnamptogenys simulans"
+        },
+        {
+          "subject": "Ponera coarctata"
+        },
+        {
+          "subject": "Hylomyrma dentiloba"
+        },
+        {
+          "subject": "Solenopsis invicta"
+        },
+        {
+          "subject": "Camponotus floridanus"
+        },
+        {
+          "subject": "Linepithema humile"
+        },
+        {
+          "subject": "Pogonomyrmex occidentalis"
+        },
+        {
+          "subject": "Neoponera unidentata"
+        },
+        {
+          "subject": "Stegomyrmex manni"
+        },
+        {
+          "subject": "Stenamma alas"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Next-generation sequencing",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Odontomachus meinerti"
+        },
+        {
+          "subject": "Acanthoponera minor"
+        },
+        {
+          "subject": "Tatuidris tatusia"
+        },
+        {
+          "subject": "targeted enrichment"
+        },
+        {
+          "subject": "Adelomyrmex longinoi"
+        },
+        {
+          "subject": "Mayaponera constricta"
+        },
+        {
+          "subject": "Nothomyrmecia macrops"
+        },
+        {
+          "subject": "Pheidole fimbriata"
+        },
+        {
+          "subject": "Cataulacus egenus"
+        },
+        {
+          "subject": "Pogonomyrmex barbatus"
+        },
+        {
+          "subject": "Temnothorax nevadensis"
+        },
+        {
+          "subject": "Paleogene"
+        },
+        {
+          "subject": "Pseudoponera stigma"
+        },
+        {
+          "subject": "Cyphomyrmex rimosus"
+        },
+        {
+          "subject": "Tapinoma sessile"
+        },
+        {
+          "subject": "Leptomyrmex erythrocephalus"
+        },
+        {
+          "subject": "Tetraponera aethiops"
+        },
+        {
+          "subject": "Megachile rotundata"
+        },
+        {
+          "subject": "Aphaenogaster phalangium"
+        },
+        {
+          "subject": "Lasius sitiens"
+        },
+        {
+          "subject": "Basiceros manni"
+        },
+        {
+          "subject": "Myrmecia fulvipes"
+        },
+        {
+          "subject": "Apomyrma sp"
+        },
+        {
+          "subject": "Pachycondyla harpax"
+        },
+        {
+          "subject": "Sceliphron caementarium"
+        },
+        {
+          "subject": "Ooceraea biroi"
+        },
+        {
+          "subject": "Solenopsis bicolor"
+        },
+        {
+          "subject": "Perissomyrmex snyderi"
+        },
+        {
+          "subject": "Brachycistis timberlakei"
+        },
+        {
+          "subject": "Eciton burchellii"
+        },
+        {
+          "subject": "Rogeria belti"
+        },
+        {
+          "subject": "Lasioglossum albipes"
+        },
+        {
+          "subject": "Leptothorax muscorum"
+        },
+        {
+          "subject": "Dinoponera longipes"
+        },
+        {
+          "subject": "Myrmica incompleta"
+        },
+        {
+          "subject": "Manica hunteri"
+        },
+        {
+          "subject": "Proceratium mancum"
+        },
+        {
+          "subject": "Lasius niger"
+        },
+        {
+          "subject": "Rhopalothrix isthmica"
+        },
+        {
+          "subject": "Platythyrea punctata"
+        },
+        {
+          "subject": "Tetraponera allaborans"
+        },
+        {
+          "subject": "Philidris sp"
+        },
+        {
+          "subject": "Mischocyttarus flavitarsis"
+        },
+        {
+          "subject": "Simopelta andersoni"
+        },
+        {
+          "subject": "Gauromyrmex bengakalisi"
+        },
+        {
+          "subject": "Veromessor lobognathus"
+        },
+        {
+          "subject": "Nesomyrmex pleuriticus"
+        },
+        {
+          "subject": "Octostruma amrishi"
+        },
+        {
+          "subject": "Myrmecia varians"
+        },
+        {
+          "subject": "Goniomma blanci"
+        },
+        {
+          "subject": "Myrmelachista joycei"
+        },
+        {
+          "subject": "Parvaponera darwinii"
+        },
+        {
+          "subject": "Atta cephalotes"
+        },
+        {
+          "subject": "Aphaenogaster occidentalis"
+        },
+        {
+          "subject": "Tetraponera nodosa"
+        },
+        {
+          "subject": "Discothyrea horni complex"
+        },
+        {
+          "subject": "Monomorium pharaonis"
+        },
+        {
+          "subject": "Paraponera clavata"
+        },
+        {
+          "subject": "Pristomyrmex bicolor"
+        },
+        {
+          "subject": "Cryptopone butteli"
+        },
+        {
+          "subject": "Ectatomma gibbum"
+        },
+        {
+          "subject": "Pseudomyrmex spinicola"
+        },
+        {
+          "subject": "Syscia augustae"
+        },
+        {
+          "subject": "Myrmicocrypta sp"
+        },
+        {
+          "subject": "Pseudomyrmex gracilis"
+        },
+        {
+          "subject": "Apterostigma dentigerum"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.89n87",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "295668398 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/2041-210x.12742",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementedBy",
+          "relatedIdentifier": "https://www.ncbi.nlm.nih.gov/nuccore/..%2Fbioproject%2F%3Fterm%3DPRJNA360290",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.t2q12",
+      "titles": [
+        {
+          "title": "Data from: Can social partnerships influence the microbiome? insights from ant farmers and their trophobiont mutualists."
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Vrije Universiteit Amsterdam"
+          ],
+          "givenName": "Aniek B.F.",
+          "familyName": "Ivens",
+          "name": "Ivens, Aniek B.F.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Rockefeller University"
+          ],
+          "givenName": "Alice",
+          "familyName": "Gadau",
+          "name": "Gadau, Alice",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Vrije Universiteit Amsterdam"
+          ],
+          "givenName": "E. Toby",
+          "familyName": "Kiers",
+          "name": "Kiers, E. Toby",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Rockefeller University"
+          ],
+          "givenName": "Daniel J.C.",
+          "familyName": "Kronauer",
+          "name": "Kronauer, Daniel J.C.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Rockefeller University",
+            "Vrije Universiteit Amsterdam"
+          ],
+          "givenName": "Aniek B. F.",
+          "familyName": "Ivens",
+          "name": "Ivens, Aniek B. F.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Rockefeller University"
+          ],
+          "givenName": "Daniel J. C.",
+          "familyName": "Kronauer",
+          "name": "Kronauer, Daniel J. C.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2018,
+      "subjects": [
+        {
+          "subject": "Lasius claviger"
+        },
+        {
+          "subject": "Lasius nearcticus"
+        },
+        {
+          "subject": "Buchnera aphidicola"
+        },
+        {
+          "subject": "Sodalis"
+        },
+        {
+          "subject": "Lasius flavus"
+        },
+        {
+          "subject": "Endosymbionts"
+        },
+        {
+          "subject": "Prociphilus fraxinifolii"
+        },
+        {
+          "subject": "Lasius umbratus"
+        },
+        {
+          "subject": "Candidatus Tremblaya princeps"
+        },
+        {
+          "subject": "Brachymyrmex depilis"
+        },
+        {
+          "subject": "Prociphilus longianus"
+        },
+        {
+          "subject": "Prociphilus probosceus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Serratia symbiotica"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Aphids",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Prociphilus erigeronensis"
+        },
+        {
+          "subject": "Holocene"
+        },
+        {
+          "subject": "Rhizoecus sp."
+        },
+        {
+          "subject": "Mealybugs"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.t2q12",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "363360989 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/mec.14506",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.9fs7n",
+      "titles": [
+        {
+          "title": "Data from: Nest etiquette - where ants go when nature calls"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Regensburg"
+          ],
+          "givenName": "Tomer J.",
+          "familyName": "Czaczkes",
+          "name": "Czaczkes, Tomer J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Regensburg"
+          ],
+          "givenName": "Jürgen",
+          "familyName": "Heinze",
+          "name": "Heinze, Jürgen",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Regensburg"
+          ],
+          "givenName": "Joachim",
+          "familyName": "Ruther",
+          "name": "Ruther, Joachim",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2016,
+      "subjects": [
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Sanitation",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Lasius niger"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Defecation",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "sanitary behaviour"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.9fs7n",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "774315518 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1371/journal.pone.0118376",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5683/sp3/zbycyd",
+      "titles": [
+        {
+          "title": "Effect of polyethylene microplastics on the overwintering and nesting behaviour of the common field ant, Lasius neoniger dataset"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "School of Environmental Sciences. Ontario Agricultural College. University of Guelph."
+          ],
+          "givenName": "Aaron D.",
+          "familyName": "Fairweather",
+          "name": "Fairweather, Aaron D.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4026-8461"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "School of Environmental Sciences. Ontario Agricultural College. University of Guelph."
+          ],
+          "givenName": "Ryan",
+          "familyName": "Prosser",
+          "name": "Prosser, Ryan",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-9087-5748"
+            }
+          ]
+        }
+      ],
+      "publisher": "Borealis",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Earth and Environmental Sciences"
+        },
+        {
+          "subject": "entomology"
+        },
+        {
+          "subject": "microplastic"
+        },
+        {
+          "subject": "myrmecology"
+        },
+        {
+          "subject": "ecotoxicology"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Experimental data"
+      },
+      "url": "https://borealisdata.ca/citation?persistentId=doi:10.5683/SP3/ZBYCYD",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "lang": "en",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "23826",
+        "7216",
+        "12013"
+      ],
+      "formats": [
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/plain"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.5281/zenodo.17915192",
+      "titles": [
+        {
+          "title": "Data for: Multilevel variation in pathogen susceptibility and grooming behavior in ant societies"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université Libre de Bruxelles"
+          ],
+          "givenName": "Romain",
+          "familyName": "Willeput",
+          "name": "Willeput, Romain",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0006-1636-736X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Fund for Scientific Research"
+          ],
+          "givenName": "Claire",
+          "familyName": "Detrain",
+          "name": "Detrain, Claire",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-3068-1877"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Social insects"
+        },
+        {
+          "subject": "Entomopathogens"
+        },
+        {
+          "subject": "Immunity"
+        },
+        {
+          "subject": "Sanitary behaviors"
+        },
+        {
+          "subject": "Lasius flavus"
+        },
+        {
+          "subject": "Beauveria bassiana"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.17915192",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.17915193",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.17915193",
+      "titles": [
+        {
+          "title": "Data for: Multilevel variation in pathogen susceptibility and grooming behavior in ant societies"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université Libre de Bruxelles"
+          ],
+          "givenName": "Romain",
+          "familyName": "Willeput",
+          "name": "Willeput, Romain",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0006-1636-736X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Fund for Scientific Research"
+          ],
+          "givenName": "Claire",
+          "familyName": "Detrain",
+          "name": "Detrain, Claire",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-3068-1877"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Social insects"
+        },
+        {
+          "subject": "Entomopathogens"
+        },
+        {
+          "subject": "Immunity"
+        },
+        {
+          "subject": "Sanitary behaviors"
+        },
+        {
+          "subject": "Lasius flavus"
+        },
+        {
+          "subject": "Beauveria bassiana"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.17915193",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.17915192",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30374671",
+      "titles": [
+        {
+          "title": "Data paper \"Impact of Biogenic Structures of the Soil-Nesting Ants <i>Lasius niger</i> and <i>Lasius flavus</i> on the Soil Microarthropod Community in Urban Green Spaces\""
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Maria",
+          "familyName": "Sterzynska",
+          "name": "Sterzynska, Maria",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-9712-4285"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Dariusz",
+          "familyName": "J. Gwiazdowicz",
+          "name": "J. Gwiazdowicz, Dariusz",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Paweł",
+          "familyName": "Nicia",
+          "name": "Nicia, Paweł",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6556-5868"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Paweł",
+          "familyName": "Zadrożny",
+          "name": "Zadrożny, Paweł",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3736-2331"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Gema",
+          "familyName": "Trigos Peral",
+          "name": "Trigos Peral, Gema",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8713-5703"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Mohamed",
+          "familyName": "W. Negm",
+          "name": "W. Negm, Mohamed",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3479-0496"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Data_paper_Impact_of_Biogenic_Structures_of_the_Soil-Nesting_Ants_i_Lasius_niger_i_and_i_Lasius_flavus_i_on_the_Soil_Microarthropod_Community_in_Urban_Green_Spaces_/30374671",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "12195 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.30374671.v1",
+      "titles": [
+        {
+          "title": "Data paper \"Impact of Biogenic Structures of the Soil-Nesting Ants <i>Lasius niger</i> and <i>Lasius flavus</i> on the Soil Microarthropod Community in Urban Green Spaces\""
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Maria",
+          "familyName": "Sterzynska",
+          "name": "Sterzynska, Maria",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-9712-4285"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Dariusz",
+          "familyName": "J. Gwiazdowicz",
+          "name": "J. Gwiazdowicz, Dariusz",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Paweł",
+          "familyName": "Nicia",
+          "name": "Nicia, Paweł",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6556-5868"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Paweł",
+          "familyName": "Zadrożny",
+          "name": "Zadrożny, Paweł",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3736-2331"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Gema",
+          "familyName": "Trigos Peral",
+          "name": "Trigos Peral, Gema",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8713-5703"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Mohamed",
+          "familyName": "W. Negm",
+          "name": "W. Negm, Mohamed",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3479-0496"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Data_paper_Impact_of_Biogenic_Structures_of_the_Soil-Nesting_Ants_i_Lasius_niger_i_and_i_Lasius_flavus_i_on_the_Soil_Microarthropod_Community_in_Urban_Green_Spaces_/30374671/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "12195 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.30374671",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.29716343.v1",
+      "titles": [
+        {
+          "title": "Data Lasius Microatropods community"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Maria",
+          "familyName": "Sterzynska",
+          "name": "Sterzynska, Maria",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-9712-4285"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Data_Lasius_Microatropods_community/29716343/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "11663 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.6084/m9.figshare.29716343",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.29716343.v2",
+      "titles": [
+        {
+          "title": "Data Lasius Microatropods community"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Maria",
+          "familyName": "Sterzynska",
+          "name": "Sterzynska, Maria",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-9712-4285"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Data_Lasius_Microatropods_community/29716343/2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "12195 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.29716343",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.29716343",
+      "titles": [
+        {
+          "title": "Data Lasius Microatropods community"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Maria",
+          "familyName": "Sterzynska",
+          "name": "Sterzynska, Maria",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-9712-4285"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Data_Lasius_Microatropods_community/29716343",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "12195 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.3535/g90-bvr-b4x",
+      "titles": [
+        {
+          "title": "Lasius globularis (Heer, 1850)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Organizational",
+          "name": "Naturalis Biodiversity Center",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ROR",
+              "schemeUri": "https://ror.org",
+              "nameIdentifier": "https://ror.org/0566bfb96"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Distributed System of Scientific Collections",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Palaeontology",
+          "subjectScheme": "topicDiscipline"
+        },
+        {
+          "subject": "Life",
+          "subjectScheme": "topicDomain"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Digital Specimen"
+      },
+      "url": "https://disscover.dissco.eu/ds/10.3535/G90-BVR-B4X",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://api.dissco.eu/digital-specimen/v1/10.3535/G90-BVR-B4X",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://data.biodiversitydata.nl/naturalis/specimen/RGM.297152",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.3535/2rr-9ld-qnw",
+      "titles": [
+        {
+          "title": "Lasius occultatus (Heer, 1850)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Organizational",
+          "name": "Naturalis Biodiversity Center",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ROR",
+              "schemeUri": "https://ror.org",
+              "nameIdentifier": "https://ror.org/0566bfb96"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Distributed System of Scientific Collections",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Palaeontology",
+          "subjectScheme": "topicDiscipline"
+        },
+        {
+          "subject": "Life",
+          "subjectScheme": "topicDomain"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Digital Specimen"
+      },
+      "url": "https://disscover.dissco.eu/ds/10.3535/2RR-9LD-QNW",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://api.dissco.eu/digital-specimen/v1/10.3535/2RR-9LD-QNW",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://data.biodiversitydata.nl/naturalis/specimen/RGM.297149",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.3535/vn5-f1m-ndh",
+      "titles": [
+        {
+          "title": "Lasius occultatus (Heer, 1850)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Organizational",
+          "name": "Naturalis Biodiversity Center",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ROR",
+              "schemeUri": "https://ror.org",
+              "nameIdentifier": "https://ror.org/0566bfb96"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Distributed System of Scientific Collections",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Palaeontology",
+          "subjectScheme": "topicDiscipline"
+        },
+        {
+          "subject": "Life",
+          "subjectScheme": "topicDomain"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Digital Specimen"
+      },
+      "url": "https://disscover.dissco.eu/ds/10.3535/VN5-F1M-NDH",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://api.dissco.eu/digital-specimen/v1/10.3535/VN5-F1M-NDH",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://data.biodiversitydata.nl/naturalis/specimen/RGM.297150",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.3535/zlc-yhf-4hf",
+      "titles": [
+        {
+          "title": "Lasius occultatus (Heer, 1850)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Organizational",
+          "name": "Naturalis Biodiversity Center",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ROR",
+              "schemeUri": "https://ror.org",
+              "nameIdentifier": "https://ror.org/0566bfb96"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Distributed System of Scientific Collections",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Palaeontology",
+          "subjectScheme": "topicDiscipline"
+        },
+        {
+          "subject": "Life",
+          "subjectScheme": "topicDomain"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Digital Specimen"
+      },
+      "url": "https://disscover.dissco.eu/ds/10.3535/ZLC-YHF-4HF",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://api.dissco.eu/digital-specimen/v1/10.3535/ZLC-YHF-4HF",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://data.biodiversitydata.nl/naturalis/specimen/RGM.297151",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.3535/bk4-vdz-zen",
+      "titles": [
+        {
+          "title": "Scabrotrophon lasius (Dall, 1919)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Organizational",
+          "name": "Naturalis Biodiversity Center",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ROR",
+              "schemeUri": "https://ror.org",
+              "nameIdentifier": "https://ror.org/0566bfb96"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Distributed System of Scientific Collections",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Zoology",
+          "subjectScheme": "topicDiscipline"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Life",
+          "subjectScheme": "topicDomain"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Digital Specimen"
+      },
+      "url": "https://disscover.dissco.eu/ds/10.3535/BK4-VDZ-ZEN",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://api.dissco.eu/digital-specimen/v1/10.3535/BK4-VDZ-ZEN",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.MOL.464845",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.3535/t5z-m7t-pcc",
+      "titles": [
+        {
+          "title": "Scabrotrophon lasius (Dall, 1919)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Organizational",
+          "name": "Naturalis Biodiversity Center",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ROR",
+              "schemeUri": "https://ror.org",
+              "nameIdentifier": "https://ror.org/0566bfb96"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Distributed System of Scientific Collections",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Zoology",
+          "subjectScheme": "topicDiscipline"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Life",
+          "subjectScheme": "topicDomain"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Digital Specimen"
+      },
+      "url": "https://disscover.dissco.eu/ds/10.3535/T5Z-M7T-PCC",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://api.dissco.eu/digital-specimen/v1/10.3535/T5Z-M7T-PCC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.MOL.464846",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.3535/q00-md2-czb",
+      "titles": [
+        {
+          "title": "Scabrotrophon lasius (Dall, 1919)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Organizational",
+          "name": "Naturalis Biodiversity Center",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ROR",
+              "schemeUri": "https://ror.org",
+              "nameIdentifier": "https://ror.org/0566bfb96"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Distributed System of Scientific Collections",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Zoology",
+          "subjectScheme": "topicDiscipline"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Life",
+          "subjectScheme": "topicDomain"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Digital Specimen"
+      },
+      "url": "https://disscover.dissco.eu/ds/10.3535/Q00-MD2-CZB",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://api.dissco.eu/digital-specimen/v1/10.3535/Q00-MD2-CZB",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://data.biodiversitydata.nl/naturalis/specimen/RMNH.MOL.464847",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.3535/rmy-99n-9g7",
+      "titles": [
+        {
+          "title": "Costus lasius Loes."
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Organizational",
+          "name": "University of Graz",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ROR",
+              "schemeUri": "https://ror.org",
+              "nameIdentifier": "https://ror.org/01faaaf77"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Distributed System of Scientific Collections",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Botany",
+          "subjectScheme": "topicDiscipline"
+        },
+        {
+          "subject": "Life",
+          "subjectScheme": "topicDomain"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Digital Specimen"
+      },
+      "url": "https://disscover.dissco.eu/ds/10.3535/RMY-99N-9G7",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://api.dissco.eu/digital-specimen/v1/10.3535/RMY-99N-9G7",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVariantFormOf",
+          "relatedIdentifier": "https://w.jacq.org/W0344044",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.12019017.v1",
+      "titles": [
+        {
+          "title": "The microbiota of the Lasius fuliginosus and Pella laticollis in the host–myrmecophile interactions"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Agnieszka",
+          "familyName": "Kaczmarczyk-Ziemba",
+          "name": "Kaczmarczyk-Ziemba, Agnieszka",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Mirosław",
+          "familyName": "Zagaja",
+          "name": "Zagaja, Mirosław",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0079-0490"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Grzegorz K.",
+          "familyName": "Wagner",
+          "name": "Wagner, Grzegorz K.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Ewa",
+          "familyName": "Pietrykowska-Tudruj",
+          "name": "Pietrykowska-Tudruj, Ewa",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-9187-4544"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Bernard",
+          "familyName": "Staniec",
+          "name": "Staniec, Bernard",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6440-4704"
+            }
+          ]
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "subject": "Ecology"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "60808 Invertebrate Biology",
+          "subjectScheme": "FOR"
+        },
+        {
+          "subject": "60307 Host-Parasite Interactions",
+          "subjectScheme": "FOR"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/The_microbiota_of_the_Lasius_fuliginosus_and_Pella_laticollis_in_the_host_myrmecophile_interactions/12019017/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "1092620 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.12019017",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15521757",
+      "titles": [
+        {
+          "title": "Response of the ant species Lasius niger to soil contamination with mulch film fragments at the micro- and nanoscale"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bayreuth"
+          ],
+          "givenName": "Sarmite",
+          "familyName": "Kernchen",
+          "name": "Kernchen, Sarmite",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-2082-7307"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bayreuth"
+          ],
+          "givenName": "Martin G. J.",
+          "familyName": "Löder",
+          "name": "Löder, Martin G. J.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0001-9056-8254"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bayreuth"
+          ],
+          "givenName": "Christian",
+          "familyName": "Laforsch",
+          "name": "Laforsch, Christian",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-5889-4647"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15521757",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.15521756",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15521756",
+      "titles": [
+        {
+          "title": "Response of the ant species Lasius niger to soil contamination with mulch film fragments at the micro- and nanoscale"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bayreuth"
+          ],
+          "givenName": "Sarmite",
+          "familyName": "Kernchen",
+          "name": "Kernchen, Sarmite",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-2082-7307"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bayreuth"
+          ],
+          "givenName": "Martin G. J.",
+          "familyName": "Löder",
+          "name": "Löder, Martin G. J.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0001-9056-8254"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bayreuth"
+          ],
+          "givenName": "Christian",
+          "familyName": "Laforsch",
+          "name": "Laforsch, Christian",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-5889-4647"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15521756",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.15521757",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160571",
+      "titles": [
+        {
+          "title": "Table 5 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan; & Graduate School of Agriculture, Osaka Metropolitan University, Osaka, Japan;"
+          ],
+          "givenName": "Takumi",
+          "familyName": "Matsuura",
+          "name": "Matsuura, Takumi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Chihiro",
+          "familyName": "Handa",
+          "name": "Handa, Chihiro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Satobu",
+          "familyName": "Takahashi",
+          "name": "Takahashi, Satobu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan; & Institute of Mountain Science, Shinshu University, Nagano, Japan"
+          ],
+          "givenName": "Takao",
+          "familyName": "Itino",
+          "name": "Itino, Takao",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biodiversity"
+        },
+        {
+          "subject": "Taxonomy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15160571",
+      "rightsList": [
+        {
+          "rights": "License Not Specified",
+          "rightsIdentifier": "notspecified"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "10.1080/00222933.2025.2455482",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://zenodo.org/record/14970780",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://publication.plazi.org/id/FF88FF87FF8C784EFFDFD5037F68FFEC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.15160570",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160570",
+      "titles": [
+        {
+          "title": "Table 5 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan; & Graduate School of Agriculture, Osaka Metropolitan University, Osaka, Japan;"
+          ],
+          "givenName": "Takumi",
+          "familyName": "Matsuura",
+          "name": "Matsuura, Takumi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Chihiro",
+          "familyName": "Handa",
+          "name": "Handa, Chihiro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Satobu",
+          "familyName": "Takahashi",
+          "name": "Takahashi, Satobu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan; & Institute of Mountain Science, Shinshu University, Nagano, Japan"
+          ],
+          "givenName": "Takao",
+          "familyName": "Itino",
+          "name": "Itino, Takao",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biodiversity"
+        },
+        {
+          "subject": "Taxonomy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15160570",
+      "rightsList": [
+        {
+          "rights": "License Not Specified",
+          "rightsIdentifier": "notspecified"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "10.1080/00222933.2025.2455482",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://zenodo.org/record/14970780",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://publication.plazi.org/id/FF88FF87FF8C784EFFDFD5037F68FFEC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.15160571",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160569",
+      "titles": [
+        {
+          "title": "Table 4 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan; & Graduate School of Agriculture, Osaka Metropolitan University, Osaka, Japan;"
+          ],
+          "givenName": "Takumi",
+          "familyName": "Matsuura",
+          "name": "Matsuura, Takumi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Chihiro",
+          "familyName": "Handa",
+          "name": "Handa, Chihiro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Satobu",
+          "familyName": "Takahashi",
+          "name": "Takahashi, Satobu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan; & Institute of Mountain Science, Shinshu University, Nagano, Japan"
+          ],
+          "givenName": "Takao",
+          "familyName": "Itino",
+          "name": "Itino, Takao",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biodiversity"
+        },
+        {
+          "subject": "Taxonomy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15160569",
+      "rightsList": [
+        {
+          "rights": "License Not Specified",
+          "rightsIdentifier": "notspecified"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "10.1080/00222933.2025.2455482",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://zenodo.org/record/14970780",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://publication.plazi.org/id/FF88FF87FF8C784EFFDFD5037F68FFEC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.15160568",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160568",
+      "titles": [
+        {
+          "title": "Table 4 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan; & Graduate School of Agriculture, Osaka Metropolitan University, Osaka, Japan;"
+          ],
+          "givenName": "Takumi",
+          "familyName": "Matsuura",
+          "name": "Matsuura, Takumi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Chihiro",
+          "familyName": "Handa",
+          "name": "Handa, Chihiro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Satobu",
+          "familyName": "Takahashi",
+          "name": "Takahashi, Satobu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan; & Institute of Mountain Science, Shinshu University, Nagano, Japan"
+          ],
+          "givenName": "Takao",
+          "familyName": "Itino",
+          "name": "Itino, Takao",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biodiversity"
+        },
+        {
+          "subject": "Taxonomy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15160568",
+      "rightsList": [
+        {
+          "rights": "License Not Specified",
+          "rightsIdentifier": "notspecified"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "10.1080/00222933.2025.2455482",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://zenodo.org/record/14970780",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://publication.plazi.org/id/FF88FF87FF8C784EFFDFD5037F68FFEC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.15160569",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160566",
+      "titles": [
+        {
+          "title": "Table 3 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan; & Graduate School of Agriculture, Osaka Metropolitan University, Osaka, Japan;"
+          ],
+          "givenName": "Takumi",
+          "familyName": "Matsuura",
+          "name": "Matsuura, Takumi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Chihiro",
+          "familyName": "Handa",
+          "name": "Handa, Chihiro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Satobu",
+          "familyName": "Takahashi",
+          "name": "Takahashi, Satobu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan; & Institute of Mountain Science, Shinshu University, Nagano, Japan"
+          ],
+          "givenName": "Takao",
+          "familyName": "Itino",
+          "name": "Itino, Takao",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biodiversity"
+        },
+        {
+          "subject": "Taxonomy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15160566",
+      "rightsList": [
+        {
+          "rights": "License Not Specified",
+          "rightsIdentifier": "notspecified"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "10.1080/00222933.2025.2455482",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://zenodo.org/record/14970780",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://publication.plazi.org/id/FF88FF87FF8C784EFFDFD5037F68FFEC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.15160567",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160567",
+      "titles": [
+        {
+          "title": "Table 3 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan; & Graduate School of Agriculture, Osaka Metropolitan University, Osaka, Japan;"
+          ],
+          "givenName": "Takumi",
+          "familyName": "Matsuura",
+          "name": "Matsuura, Takumi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Chihiro",
+          "familyName": "Handa",
+          "name": "Handa, Chihiro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Satobu",
+          "familyName": "Takahashi",
+          "name": "Takahashi, Satobu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan; & Institute of Mountain Science, Shinshu University, Nagano, Japan"
+          ],
+          "givenName": "Takao",
+          "familyName": "Itino",
+          "name": "Itino, Takao",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biodiversity"
+        },
+        {
+          "subject": "Taxonomy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15160567",
+      "rightsList": [
+        {
+          "rights": "License Not Specified",
+          "rightsIdentifier": "notspecified"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "10.1080/00222933.2025.2455482",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://zenodo.org/record/14970780",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://publication.plazi.org/id/FF88FF87FF8C784EFFDFD5037F68FFEC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.15160566",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160565",
+      "titles": [
+        {
+          "title": "Table 2 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan; & Graduate School of Agriculture, Osaka Metropolitan University, Osaka, Japan;"
+          ],
+          "givenName": "Takumi",
+          "familyName": "Matsuura",
+          "name": "Matsuura, Takumi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Chihiro",
+          "familyName": "Handa",
+          "name": "Handa, Chihiro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Satobu",
+          "familyName": "Takahashi",
+          "name": "Takahashi, Satobu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan; & Institute of Mountain Science, Shinshu University, Nagano, Japan"
+          ],
+          "givenName": "Takao",
+          "familyName": "Itino",
+          "name": "Itino, Takao",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biodiversity"
+        },
+        {
+          "subject": "Taxonomy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15160565",
+      "rightsList": [
+        {
+          "rights": "License Not Specified",
+          "rightsIdentifier": "notspecified"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "10.1080/00222933.2025.2455482",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://zenodo.org/record/14970780",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://publication.plazi.org/id/FF88FF87FF8C784EFFDFD5037F68FFEC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.15160564",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160564",
+      "titles": [
+        {
+          "title": "Table 2 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan; & Graduate School of Agriculture, Osaka Metropolitan University, Osaka, Japan;"
+          ],
+          "givenName": "Takumi",
+          "familyName": "Matsuura",
+          "name": "Matsuura, Takumi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Chihiro",
+          "familyName": "Handa",
+          "name": "Handa, Chihiro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Satobu",
+          "familyName": "Takahashi",
+          "name": "Takahashi, Satobu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan; & Institute of Mountain Science, Shinshu University, Nagano, Japan"
+          ],
+          "givenName": "Takao",
+          "familyName": "Itino",
+          "name": "Itino, Takao",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biodiversity"
+        },
+        {
+          "subject": "Taxonomy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15160564",
+      "rightsList": [
+        {
+          "rights": "License Not Specified",
+          "rightsIdentifier": "notspecified"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "10.1080/00222933.2025.2455482",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://zenodo.org/record/14970780",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://publication.plazi.org/id/FF88FF87FF8C784EFFDFD5037F68FFEC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.15160565",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160562",
+      "titles": [
+        {
+          "title": "Table 1 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan; & Graduate School of Agriculture, Osaka Metropolitan University, Osaka, Japan;"
+          ],
+          "givenName": "Takumi",
+          "familyName": "Matsuura",
+          "name": "Matsuura, Takumi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Chihiro",
+          "familyName": "Handa",
+          "name": "Handa, Chihiro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Satobu",
+          "familyName": "Takahashi",
+          "name": "Takahashi, Satobu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan; & Institute of Mountain Science, Shinshu University, Nagano, Japan"
+          ],
+          "givenName": "Takao",
+          "familyName": "Itino",
+          "name": "Itino, Takao",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biodiversity"
+        },
+        {
+          "subject": "Taxonomy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15160562",
+      "rightsList": [
+        {
+          "rights": "License Not Specified",
+          "rightsIdentifier": "notspecified"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "10.1080/00222933.2025.2455482",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://zenodo.org/record/14970780",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://publication.plazi.org/id/FF88FF87FF8C784EFFDFD5037F68FFEC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.15160563",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.15160563",
+      "titles": [
+        {
+          "title": "Table 1 in Predation by Lasius ants on the obligate ant-symbiotic aphid Stomaphis japonica with special reference to the aphid honeydew delivery"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan; & Graduate School of Agriculture, Osaka Metropolitan University, Osaka, Japan;"
+          ],
+          "givenName": "Takumi",
+          "familyName": "Matsuura",
+          "name": "Matsuura, Takumi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Chihiro",
+          "familyName": "Handa",
+          "name": "Handa, Chihiro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Graduate School of Science and Technology, Shinshu University, Matsumoto, Japan;"
+          ],
+          "givenName": "Satobu",
+          "familyName": "Takahashi",
+          "name": "Takahashi, Satobu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biology, Faculty of Science, Shinshu University, Matsumoto, Japan; & Institute of Mountain Science, Shinshu University, Nagano, Japan"
+          ],
+          "givenName": "Takao",
+          "familyName": "Itino",
+          "name": "Itino, Takao",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Biodiversity"
+        },
+        {
+          "subject": "Taxonomy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.15160563",
+      "rightsList": [
+        {
+          "rights": "License Not Specified",
+          "rightsIdentifier": "notspecified"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "10.1080/00222933.2025.2455482",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://zenodo.org/record/14970780",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsPartOf",
+          "resourceTypeGeneral": "JournalArticle",
+          "relatedIdentifier": "http://publication.plazi.org/id/FF88FF87FF8C784EFFDFD5037F68FFEC",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.15160562",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23256578.v2",
+      "titles": [
+        {
+          "title": "Metadata - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant Lasius niger"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Gema",
+          "familyName": "Trigos Peral",
+          "name": "Trigos Peral, Gema",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8713-5703"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "classificationCode": "310308",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Terrestrial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "319999",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Other biological sciences not elsewhere classified",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Metadata_-_Urban_abiotic_stressors_drive_changes_in_the_foraging_activity_and_colony_growth_of_the_black_garden_ant_Lasius_niger/23256578/2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "2581837 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.23256578",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23507211.v1",
+      "titles": [
+        {
+          "title": "Data - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant <i>Lasius niger</i>"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Gema",
+          "familyName": "Trigos Peral",
+          "name": "Trigos Peral, Gema",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8713-5703"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Jürgen",
+          "familyName": "Heinze",
+          "name": "Heinze, Jürgen",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9403-5946"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Istvan Elek",
+          "familyName": "Maák",
+          "name": "Maák, Istvan Elek",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0999-4916"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Tomer",
+          "familyName": "Caczkes",
+          "name": "Caczkes, Tomer",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-1350-4975"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Magdalena",
+          "familyName": "Witek",
+          "name": "Witek, Magdalena",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6172-8981"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Luca Pietro",
+          "familyName": "Casacci",
+          "name": "Casacci, Luca Pietro",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3083-7357"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Daniel",
+          "familyName": "Sánchez-García",
+          "name": "Sánchez-García, Daniel",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0710-6292"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Adam",
+          "familyName": "Lőrincz",
+          "name": "Lőrincz, Adam",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0212-8035"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Michal",
+          "familyName": "Kochanowski",
+          "name": "Kochanowski, Michal",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4687-5104"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "classificationCode": "310308",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Terrestrial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Data_-_Urban_abiotic_stressors_drive_changes_in_the_foraging_activity_and_colony_growth_of_the_black_garden_ant_i_Lasius_niger_i_/23507211/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "2445156 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.23507211",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.17632/xk4rpddxx6",
+      "titles": [
+        {
+          "title": "Data for: Division of labour in the black garden ant (Lasius niger) leads to three distinct proteomes"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Martin",
+          "familyName": "Quque",
+          "name": "Quque, Martin",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Mendeley",
+      "publicationYear": 2019,
+      "subjects": [
+        {
+          "subject": "Mass Spectrometry"
+        },
+        {
+          "subject": "Proteomics"
+        },
+        {
+          "subject": "Social Insect"
+        },
+        {
+          "subject": "Behavior"
+        },
+        {
+          "subject": "Division of Labor"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://data.mendeley.com/datasets/xk4rpddxx6",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1016/j.jinsphys.2019.103907",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.17632/xk4rpddxx6.1",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.17632/dkf9g6prpm.1",
+      "titles": [
+        {
+          "title": "The effect of juvenile hormone on the chemical profile and fertility of Lasius niger queens"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Anneline",
+          "familyName": "Mattens",
+          "name": "Mattens, Anneline",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Associatie KU Leuven"
+          ],
+          "givenName": "Kin Ho",
+          "familyName": "Chan",
+          "name": "Chan, Kin Ho",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2573-4898"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University College London"
+          ],
+          "givenName": "Cintia Akemi",
+          "familyName": "Oi",
+          "name": "Oi, Cintia Akemi",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-3682-8219"
+            }
+          ]
+        }
+      ],
+      "publisher": "Mendeley Data",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "subject": "Chemical Ecology"
+        },
+        {
+          "subject": "Fertility"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://data.mendeley.com/datasets/dkf9g6prpm/1",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "resourceTypeGeneral": "Dataset",
+          "relatedIdentifier": "10.17632/dkf9g6prpm",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5883/ds-antlmal",
+      "titles": [
+        {
+          "title": "Quantitative morphology and mtDNA reveal that Lasius maltaeus Seifert, 2020 is not endemic to the Maltese Islands (Hymenoptera, Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Mattia",
+          "familyName": "Menchetti",
+          "name": "Menchetti, Mattia",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Enrico",
+          "familyName": "Schifani",
+          "name": "Schifani, Enrico",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Antonio",
+          "familyName": "Alicata",
+          "name": "Alicata, Antonio",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Roger",
+          "familyName": "Vila",
+          "name": "Vila, Roger",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Barcode of Life Data Systems",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "subject": "Life sciences"
+        },
+        {
+          "subject": "biology",
+          "subjectScheme": "DDC"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "DNA sequence and specimen metadata"
+      },
+      "url": "https://portal.boldsystems.org/recordset/DS-ANTLMAL",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [
+        "txt/xml/html/tsv/image"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.c.3686758_d1",
+      "titles": [
+        {
+          "title": "Additional file 1: Tables S1-13. of Genomic exaptation enables Lasius niger adaptation to urban environments"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Evgenii",
+          "familyName": "Konorov",
+          "name": "Konorov, Evgenii",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Mikhail",
+          "familyName": "Nikitin",
+          "name": "Nikitin, Mikhail",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Kirill",
+          "familyName": "Mikhailov",
+          "name": "Mikhailov, Kirill",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Sergey",
+          "familyName": "Lysenkov",
+          "name": "Lysenkov, Sergey",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Mikhail",
+          "familyName": "Belenky",
+          "name": "Belenky, Mikhail",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Peter",
+          "familyName": "Chang",
+          "name": "Chang, Peter",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Sergey",
+          "familyName": "Nuzhdin",
+          "name": "Nuzhdin, Sergey",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Victoria",
+          "familyName": "Scobeyeva",
+          "name": "Scobeyeva, Victoria",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Figshare",
+      "publicationYear": 2017,
+      "subjects": [
+        {
+          "subject": "Space Science"
+        },
+        {
+          "subject": "Microbiology"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Genetics"
+        },
+        {
+          "subject": "Evolutionary Biology"
+        },
+        {
+          "subject": "Ecology"
+        },
+        {
+          "subject": "69999 Biological Sciences not elsewhere classified",
+          "subjectScheme": "FOR"
+        },
+        {
+          "subject": "80699 Information Systems not elsewhere classified",
+          "subjectScheme": "FOR"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Computer and information sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Computer and information sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Inorganic Chemistry"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Chemical sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Chemical sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Infectious Diseases"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Health sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Health sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Virology"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://springernature.figshare.com/articles/dataset/Additional_file_1_Tables_S1-13_of_Genomic_exaptation_enables_Lasius_niger_adaptation_to_urban_environments/4634350",
+      "rightsList": [
+        {
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0",
+          "rights": "CC BY + CC0"
+        }
+      ],
+      "sizes": [
+        "49489 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.c.3686758_d1.v1",
+      "titles": [
+        {
+          "title": "Additional file 1: Tables S1-13. of Genomic exaptation enables Lasius niger adaptation to urban environments"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Evgenii",
+          "familyName": "Konorov",
+          "name": "Konorov, Evgenii",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Mikhail",
+          "familyName": "Nikitin",
+          "name": "Nikitin, Mikhail",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Kirill",
+          "familyName": "Mikhailov",
+          "name": "Mikhailov, Kirill",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Sergey",
+          "familyName": "Lysenkov",
+          "name": "Lysenkov, Sergey",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Mikhail",
+          "familyName": "Belenky",
+          "name": "Belenky, Mikhail",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Peter",
+          "familyName": "Chang",
+          "name": "Chang, Peter",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Sergey",
+          "familyName": "Nuzhdin",
+          "name": "Nuzhdin, Sergey",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Victoria",
+          "familyName": "Scobeyeva",
+          "name": "Scobeyeva, Victoria",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Figshare",
+      "publicationYear": 2017,
+      "subjects": [
+        {
+          "subject": "Space Science"
+        },
+        {
+          "subject": "Microbiology"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Genetics"
+        },
+        {
+          "subject": "Evolutionary Biology"
+        },
+        {
+          "subject": "Ecology"
+        },
+        {
+          "subject": "69999 Biological Sciences not elsewhere classified",
+          "subjectScheme": "FOR"
+        },
+        {
+          "subject": "80699 Information Systems not elsewhere classified",
+          "subjectScheme": "FOR"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Computer and information sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Computer and information sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Inorganic Chemistry"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Chemical sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Chemical sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "110309 Infectious Diseases",
+          "subjectScheme": "FOR"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Health sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Health sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "60506 Virology",
+          "subjectScheme": "FOR"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://springernature.figshare.com/articles/dataset/Additional_file_1_Tables_S1-13_of_Genomic_exaptation_enables_Lasius_niger_adaptation_to_urban_environments/4634350/1",
+      "rightsList": [
+        {
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0",
+          "rights": "CC BY + CC0"
+        }
+      ],
+      "sizes": [
+        "49489 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1186/s12862-016-0867-x",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.c.3686758_d1",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:51:33.469956+00:00"
+}

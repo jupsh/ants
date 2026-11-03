@@ -1,0 +1,137 @@
+{
+  "url": "https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.j9kd51cc7",
+  "record": {
+    "identifier": "doi:10.5061/dryad.j9kd51cc7",
+    "id": 66993,
+    "title": "Dual‐fluorescence imaging and automated trophallaxis detection for studying multi‐nutrient regulation in superorganisms",
+    "authors": [
+      {
+        "firstName": "Lior",
+        "lastName": "Baltiansky",
+        "email": "lior.baltiansky@weizmann.ac.il",
+        "affiliation": "Weizmann Institute of Science",
+        "affiliationROR": "https://ror.org/0316ej306",
+        "affiliations": [
+          {
+            "organization": "Weizmann Institute of Science",
+            "identifier": "https://ror.org/0316ej306"
+          }
+        ],
+        "orcid": "0000-0003-3870-1788"
+      },
+      {
+        "firstName": "Einav",
+        "lastName": "Sarafian-Tamam",
+        "email": "",
+        "affiliation": "Weizmann Institute of Science",
+        "affiliationROR": "https://ror.org/0316ej306",
+        "affiliations": [
+          {
+            "organization": "Weizmann Institute of Science",
+            "identifier": "https://ror.org/0316ej306"
+          }
+        ]
+      },
+      {
+        "firstName": "Efrat",
+        "lastName": "Greenwald",
+        "email": "",
+        "affiliation": "Weizmann Institute of Science",
+        "affiliationROR": "https://ror.org/0316ej306",
+        "affiliations": [
+          {
+            "organization": "Weizmann Institute of Science",
+            "identifier": "https://ror.org/0316ej306"
+          }
+        ],
+        "orcid": "0000-0003-3614-8915"
+      },
+      {
+        "firstName": "Ofer",
+        "lastName": "Feinerman",
+        "email": "ofer.feinerman@weizmann.ac.il",
+        "affiliation": "Weizmann Institute of Science",
+        "affiliationROR": "https://ror.org/0316ej306",
+        "affiliations": [
+          {
+            "organization": "Weizmann Institute of Science",
+            "identifier": "https://ror.org/0316ej306"
+          }
+        ],
+        "orcid": "0000-0003-4145-0238"
+      },
+      {
+        "firstName": "Einav",
+        "lastName": "Sarafian‐Tamam",
+        "email": "",
+        "affiliation": "Weizmann Institute of Science",
+        "affiliationROR": "https://ror.org/0316ej306",
+        "affiliations": [
+          {
+            "organization": "Weizmann Institute of Science",
+            "identifier": "https://ror.org/0316ej306"
+          }
+        ]
+      }
+    ],
+    "keywords": [
+      "ecological modeling",
+      "Ecology, Evolution, Behavior and Systematics"
+    ],
+    "publicationDate": "2021-06-16",
+    "versionNumber": 8,
+    "license": "https://spdx.org/licenses/CC0-1.0.html",
+    "relatedWorks": [
+      {
+        "relationship": "primary_article",
+        "identifierType": "DOI",
+        "identifier": "https://doi.org/10.1111/2041-210x.13646"
+      }
+    ],
+    "storageSize": 232367936,
+    "_links": {
+      "self": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.j9kd51cc7"
+      },
+      "stash:versions": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.j9kd51cc7/versions"
+      },
+      "stash:version": {
+        "href": "/api/v2/versions/249858"
+      },
+      "stash:download": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.j9kd51cc7/download"
+      },
+      "curies": [
+        {
+          "name": "stash",
+          "href": "https://github.com/datadryad/dryad-app/blob/main/documentation/apis/link_relations.md#{rel}",
+          "templated": "true"
+        }
+      ]
+    }
+  },
+  "files_url": "https://datadryad.org/api/v2/versions/249858/files",
+  "file_metadata": [
+    {
+      "path": "Dual_fluorescence_imaging_Baltiansky_et_al_2021.zip",
+      "size": 33016,
+      "mimeType": "application/x-zip-compressed",
+      "status": "copied"
+    },
+    {
+      "path": "Sample_data_from_multinutrient_experiment_Baltiansky_et_al_2021.zip",
+      "size": 665163,
+      "mimeType": "application/x-zip-compressed",
+      "status": "copied"
+    },
+    {
+      "path": "Trophallaxis_detection_Baltiansky_et_al_2021.zip",
+      "size": 231669757,
+      "mimeType": "application/x-zip-compressed",
+      "status": "copied"
+    }
+  ],
+  "file_page_count": null,
+  "retrieved_at": "2026-11-03T06:52:25.820229+00:00"
+}

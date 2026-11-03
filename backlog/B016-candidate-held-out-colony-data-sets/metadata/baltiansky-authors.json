@@ -1,0 +1,144 @@
+{
+  "url": "https://api.crossref.org/works/10.1111/2041-210x.13646",
+  "record": {
+    "DOI": "10.1111/2041-210x.13646",
+    "title": [
+      "Dual‐fluorescence imaging and automated trophallaxis detection for studying multi‐nutrient regulation in superorganisms"
+    ],
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0003-3870-1788",
+        "authenticated-orcid": false,
+        "given": "Lior",
+        "family": "Baltiansky",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Department of Physics of Complex Systems Weizmann Institute of Science Rehovot Israel"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Einav",
+        "family": "Sarafian‐Tamam",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Physics of Complex Systems Weizmann Institute of Science Rehovot Israel"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-3614-8915",
+        "authenticated-orcid": false,
+        "given": "Efrat",
+        "family": "Greenwald",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Physics of Complex Systems Weizmann Institute of Science Rehovot Israel"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-4145-0238",
+        "authenticated-orcid": false,
+        "given": "Ofer",
+        "family": "Feinerman",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Physics of Complex Systems Weizmann Institute of Science Rehovot Israel"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "publisher": "Wiley",
+    "published": {
+      "date-parts": [
+        [
+          2021,
+          6,
+          30
+        ]
+      ]
+    },
+    "container-title": [
+      "Methods in Ecology and Evolution"
+    ],
+    "URL": "https://doi.org/10.1111/2041-210x.13646",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              6,
+              30
+            ]
+          ],
+          "date-time": "2021-06-30T00:00:00Z",
+          "timestamp": 1625011200000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+      }
+    ],
+    "relation": {
+      "has-review": [
+        {
+          "id-type": "doi",
+          "id": "10.1111/2041-210X.13646/v1/review1",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1111/2041-210X.13646/v1/review2",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1111/2041-210X.13646/v2/decision1",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1111/2041-210X.13646/v2/response1",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1111/2041-210X.13646/v1/decision1",
+          "asserted-by": "object"
+        }
+      ]
+    },
+    "type": "journal-article"
+  },
+  "retrieved_at": "2026-11-03T06:55:32.383596+00:00"
+}

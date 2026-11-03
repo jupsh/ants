@@ -1,0 +1,5361 @@
+{
+  "url": "https://api.datacite.org/dois?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers&query=types.resourceTypeGeneral%3ADataset+AND+%28titles.title%3A%28ant+OR+ants%29+AND+titles.title%3A%28interaction+OR+interactions+OR+network+OR+networks+OR+contact+OR+contacts%29%29&page%5Bsize%5D=50&page%5Bnumber%5D=1",
+  "total": 172,
+  "records": [
+    {
+      "doi": "10.5061/dryad.g4f4qrfxn",
+      "titles": [
+        {
+          "title": "Data from: Strong and weak environmental perturbations cause contrasting restructure of ant transportation networks"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "HUN-REN Centre for Ecological Research"
+          ],
+          "name": "Piross, Imre Sándor",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-1201-5085"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Humboldt-Universität zu Berlin"
+          ],
+          "name": "Lecheval, Valentin",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "George Washington University"
+          ],
+          "name": "Powell, Scott",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-5970-8941"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Harvey Mudd College"
+          ],
+          "name": "Donaldson-Matasci, Matina C.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9877-384X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of York"
+          ],
+          "name": "Robinson, Elva",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4914-9327"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "resilience"
+        },
+        {
+          "subject": "resistance"
+        },
+        {
+          "subject": "polydomy"
+        },
+        {
+          "subject": "network shocks"
+        },
+        {
+          "subject": "Formica"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.g4f4qrfxn",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "482709 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.10610577",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSourceOf",
+          "relatedIdentifier": "10.5281/zenodo.10610579",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2024.2342",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.17632/c8tcmz5k7v.2",
+      "titles": [
+        {
+          "title": "[Datasets and R codes] Temporal and thermal dynamics of extrafloral nectary-bearing plant-ant interactions in a Caatinga dry forest"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Estadual de Alagoas"
+          ],
+          "givenName": "Diego",
+          "familyName": "Centeno-Alvarado",
+          "name": "Centeno-Alvarado, Diego",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0273-8538"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Talita",
+          "familyName": "Câmara",
+          "name": "Câmara, Talita",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2793-8907"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Geraldo",
+          "familyName": "Nascimento",
+          "name": "Nascimento, Geraldo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-5034-6136"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Nathália",
+          "familyName": "Thais Cavalcante",
+          "name": "Thais Cavalcante, Nathália",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Esther",
+          "familyName": "Santana",
+          "name": "Santana, Esther",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Friedrich Schiller University Jena"
+          ],
+          "givenName": "Holger",
+          "familyName": "Schielzeth",
+          "name": "Schielzeth, Holger",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9124-2261"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade de Pernambuco"
+          ],
+          "givenName": "Xavier",
+          "familyName": "Arnan",
+          "name": "Arnan, Xavier",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9904-274X"
+            }
+          ]
+        }
+      ],
+      "publisher": "Mendeley Data",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Ecology"
+        },
+        {
+          "subject": "Plant-Animal Interaction"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://data.mendeley.com/datasets/c8tcmz5k7v/2",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "resourceTypeGeneral": "Dataset",
+          "relatedIdentifier": "10.17632/c8tcmz5k7v",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.17632/c8tcmz5k7v",
+      "titles": [
+        {
+          "title": "[Datasets and R codes] Temporal and thermal dynamics of extrafloral nectary-bearing plant-ant interactions in a Caatinga dry forest"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Estadual de Alagoas"
+          ],
+          "givenName": "Diego",
+          "familyName": "Centeno-Alvarado",
+          "name": "Centeno-Alvarado, Diego",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0273-8538"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Talita",
+          "familyName": "Câmara",
+          "name": "Câmara, Talita",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2793-8907"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Geraldo",
+          "familyName": "Nascimento",
+          "name": "Nascimento, Geraldo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-5034-6136"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Nathália",
+          "familyName": "Thais Cavalcante",
+          "name": "Thais Cavalcante, Nathália",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Esther",
+          "familyName": "Santana",
+          "name": "Santana, Esther",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Friedrich Schiller University Jena"
+          ],
+          "givenName": "Holger",
+          "familyName": "Schielzeth",
+          "name": "Schielzeth, Holger",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9124-2261"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade de Pernambuco"
+          ],
+          "givenName": "Xavier",
+          "familyName": "Arnan",
+          "name": "Arnan, Xavier",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9904-274X"
+            }
+          ]
+        }
+      ],
+      "publisher": "Mendeley Data",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Ecology"
+        },
+        {
+          "subject": "Plant-Animal Interaction"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://data.mendeley.com/datasets/c8tcmz5k7v",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "resourceTypeGeneral": "Dataset",
+          "relatedIdentifier": "10.17632/c8tcmz5k7v.2",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "HasVersion",
+          "resourceTypeGeneral": "Dataset",
+          "relatedIdentifier": "10.17632/c8tcmz5k7v.1",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dgr5y",
+      "titles": [
+        {
+          "title": "A review of Tetramopria (Hymenoptera, Diapriidae, Diapriinae) of the Eastern Palaearctic with notes on mating behaviour and interactions with host ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Entomological Laboratory, Graduate School of Bioresources and Bioenvironmental Sciences, Kyushu University, Motooka 744, Nishi-ku, Fukuoka 819 - 0395, Japan"
+          ],
+          "givenName": "Ryoji",
+          "familyName": "Kawai",
+          "name": "Kawai, Ryoji",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0000-8596-9942"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Ulsan Agricultural Technology Center, 211, Cheongnyangcheonbyeon-ro, Cheongnyang-eup, Ulsan, Republic of Korea"
+          ],
+          "givenName": "Seonwoo",
+          "familyName": "Yoon",
+          "name": "Yoon, Seonwoo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0007-7370-1317"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Natural Sciences, National Museums Collection Centre, 242 West Granton Road, Granton, Edinburgh EH 5 1 JA, UK"
+          ],
+          "givenName": "David G.",
+          "familyName": "Notton",
+          "name": "Notton, David G.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-8933-7915"
+            }
+          ]
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/310443",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/jhr.98.148115",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dgr5y.v6",
+      "titles": [
+        {
+          "title": "A review of Tetramopria (Hymenoptera, Diapriidae, Diapriinae) of the Eastern Palaearctic with notes on mating behaviour and interactions with host ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Entomological Laboratory, Graduate School of Bioresources and Bioenvironmental Sciences, Kyushu University, Motooka 744, Nishi-ku, Fukuoka 819 - 0395, Japan"
+          ],
+          "givenName": "Ryoji",
+          "familyName": "Kawai",
+          "name": "Kawai, Ryoji",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0000-8596-9942"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Ulsan Agricultural Technology Center, 211, Cheongnyangcheonbyeon-ro, Cheongnyang-eup, Ulsan, Republic of Korea"
+          ],
+          "givenName": "Seonwoo",
+          "familyName": "Yoon",
+          "name": "Yoon, Seonwoo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0007-7370-1317"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Natural Sciences, National Museums Collection Centre, 242 West Granton Road, Granton, Edinburgh EH 5 1 JA, UK"
+          ],
+          "givenName": "David G.",
+          "familyName": "Notton",
+          "name": "Notton, David G.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-8933-7915"
+            }
+          ]
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/310443/imports/6",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dgr5y.v5",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/jhr.98.148115",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dgr5y",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dgc8n",
+      "titles": [
+        {
+          "title": "First record of the genus Falconina (Araneae, Corinnidae) from Mexico, with a description of a new species and observations on its interactions with ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "El Colegio de la Frontera, Sur. Carretera Antiguo Aeropuerto km 2.5, Tapachula, Chiapas, C: P. 30700, Mexico"
+          ],
+          "givenName": "Guillermo",
+          "familyName": "Ibarra-Núñez",
+          "name": "Ibarra-Núñez, Guillermo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-2042-425X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Investigaciones Forestales, Universidad Veracruzana, Parque El Haya, Carretera Antigua a Coatepec, Xalapa, Veracruz, C. P 91070, Mexico"
+          ],
+          "givenName": "Linda",
+          "familyName": "Marín",
+          "name": "Marín, Linda",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-4606-8719"
+            }
+          ]
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/300429",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/zse.100.127612",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dgc8n.v14",
+      "titles": [
+        {
+          "title": "First record of the genus Falconina (Araneae, Corinnidae) from Mexico, with a description of a new species and observations on its interactions with ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "El Colegio de la Frontera, Sur. Carretera Antiguo Aeropuerto km 2.5, Tapachula, Chiapas, C: P. 30700, Mexico"
+          ],
+          "givenName": "Guillermo",
+          "familyName": "Ibarra-Núñez",
+          "name": "Ibarra-Núñez, Guillermo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-2042-425X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Investigaciones Forestales, Universidad Veracruzana, Parque El Haya, Carretera Antigua a Coatepec, Xalapa, Veracruz, C. P 91070, Mexico"
+          ],
+          "givenName": "Linda",
+          "familyName": "Marín",
+          "name": "Marín, Linda",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-4606-8719"
+            }
+          ]
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/300429/imports/14",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dgc8n.v13",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/zse.100.127612",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dgc8n",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dgr5y.v5",
+      "titles": [
+        {
+          "title": "A review of Tetramopria (Hymenoptera, Diapriidae, Diapriinae) of the Eastern Palaearctic with notes on mating behaviour and interactions with host ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Entomological Laboratory, Graduate School of Bioresources and Bioenvironmental Sciences, Kyushu University, Motooka 744, Nishi-ku, Fukuoka 819 - 0395, Japan"
+          ],
+          "givenName": "Ryoji",
+          "familyName": "Kawai",
+          "name": "Kawai, Ryoji",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0000-8596-9942"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Ulsan Agricultural Technology Center, 211, Cheongnyangcheonbyeon-ro, Cheongnyang-eup, Ulsan, Republic of Korea"
+          ],
+          "givenName": "Seonwoo",
+          "familyName": "Yoon",
+          "name": "Yoon, Seonwoo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0007-7370-1317"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Natural Sciences, National Museums Collection Centre, 242 West Granton Road, Granton, Edinburgh EH 5 1 JA, UK"
+          ],
+          "givenName": "David G.",
+          "familyName": "Notton",
+          "name": "Notton, David G.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-8933-7915"
+            }
+          ]
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/310443/imports/5",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dgr5y.v3",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/jhr.98.148115",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dgr5y",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.17632/c8tcmz5k7v.1",
+      "titles": [
+        {
+          "title": "[Datasets and R codes] Temporal and thermal dynamics of extrafloral nectary-bearing plant-ant interactions in a Caatinga dry forest"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Estadual de Alagoas"
+          ],
+          "givenName": "Diego",
+          "familyName": "Centeno-Alvarado",
+          "name": "Centeno-Alvarado, Diego",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0273-8538"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Talita",
+          "familyName": "Câmara",
+          "name": "Câmara, Talita",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2793-8907"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Geraldo",
+          "familyName": "Nascimento",
+          "name": "Nascimento, Geraldo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-5034-6136"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Nathália",
+          "familyName": "Thais Cavalcante",
+          "name": "Thais Cavalcante, Nathália",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Esther",
+          "familyName": "Santana",
+          "name": "Santana, Esther",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Friedrich Schiller University Jena"
+          ],
+          "givenName": "Holger",
+          "familyName": "Schielzeth",
+          "name": "Schielzeth, Holger",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9124-2261"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade de Pernambuco"
+          ],
+          "givenName": "Xavier",
+          "familyName": "Arnan",
+          "name": "Arnan, Xavier",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9904-274X"
+            }
+          ]
+        }
+      ],
+      "publisher": "Mendeley Data",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Ecology"
+        },
+        {
+          "subject": "Plant-Animal Interaction"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://data.mendeley.com/datasets/c8tcmz5k7v/1",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "resourceTypeGeneral": "Dataset",
+          "relatedIdentifier": "10.17632/c8tcmz5k7v",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dgc8n.v13",
+      "titles": [
+        {
+          "title": "First record of the genus Falconina (Araneae, Corinnidae) from Mexico, with a description of a new species and observations on its interactions with ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "El Colegio de la Frontera, Sur. Carretera Antiguo Aeropuerto km 2.5, Tapachula, Chiapas, C: P. 30700, Mexico"
+          ],
+          "givenName": "Guillermo",
+          "familyName": "Ibarra-Núñez",
+          "name": "Ibarra-Núñez, Guillermo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-2042-425X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Investigaciones Forestales, Universidad Veracruzana, Parque El Haya, Carretera Antigua a Coatepec, Xalapa, Veracruz, C. P 91070, Mexico"
+          ],
+          "givenName": "Linda",
+          "familyName": "Marín",
+          "name": "Marín, Linda",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-4606-8719"
+            }
+          ]
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/300429/imports/13",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dgc8n.v12",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/zse.100.127612",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dgc8n",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.82444/warw.33802963.v1",
+      "titles": [
+        {
+          "title": "Data for Reliable many-to-many routing in wireless sensor networks using ant colony optimisation"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Jasmine",
+          "familyName": "Grosso",
+          "name": "Jasmine Grosso",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Arshad",
+          "familyName": "Jhumka",
+          "name": "Arshad Jhumka",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Matthew S.",
+          "familyName": "Bradbury",
+          "name": "Matthew S. Bradbury",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "University of Warwick",
+      "publicationYear": 2026,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.warwick.ac.uk/articles/dataset/Data_for_Reliable_many-to-many_routing_in_wireless_sensor_networks_using_ant_colony_optimisation/33802963/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "0 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.82444/warw.33802963",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsPartOf",
+          "relatedIdentifier": "https://doi.org/10.5281/zenodo.2609159",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "https://wrap.warwick.ac.uk/125034/",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "https://doi.org/10.1109/EDCC.2019.00030",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.82444/warw.33802963",
+      "titles": [
+        {
+          "title": "Data for Reliable many-to-many routing in wireless sensor networks using ant colony optimisation"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Jasmine",
+          "familyName": "Grosso",
+          "name": "Jasmine Grosso",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Arshad",
+          "familyName": "Jhumka",
+          "name": "Arshad Jhumka",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Matthew S.",
+          "familyName": "Bradbury",
+          "name": "Matthew S. Bradbury",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "University of Warwick",
+      "publicationYear": 2026,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.warwick.ac.uk/articles/dataset/Data_for_Reliable_many-to-many_routing_in_wireless_sensor_networks_using_ant_colony_optimisation/33802963",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "0 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPartOf",
+          "relatedIdentifier": "https://doi.org/10.5281/zenodo.2609159",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "https://wrap.warwick.ac.uk/125034/",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "https://doi.org/10.1109/EDCC.2019.00030",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.15468/9pzr9r",
+      "titles": [
+        {
+          "title": "A review of Tetramopria (Hymenoptera, Diapriidae, Diapriinae) of the Eastern Palaearctic with notes on mating behaviour and interactions with host ants"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "Entomological Laboratory, Graduate School of Bioresources and Bioenvironmental Sciences, Kyushu University, Motooka 744, Nishi-ku, Fukuoka 819 - 0395, Japan"
+          ],
+          "name": "Ryoji Kawai",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0000-8596-9942"
+            }
+          ]
+        },
+        {
+          "affiliation": [
+            "Ulsan Agricultural Technology Center, 211, Cheongnyangcheonbyeon-ro, Cheongnyang-eup, Ulsan, Republic of Korea"
+          ],
+          "name": "Seonwoo Yoon",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0007-7370-1317"
+            }
+          ]
+        },
+        {
+          "affiliation": [
+            "Department of Natural Sciences, National Museums Collection Centre, 242 West Granton Road, Granton, Edinburgh EH 5 1 JA, UK"
+          ],
+          "name": "David G. Notton",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8933-7915"
+            }
+          ]
+        }
+      ],
+      "publisher": "Catalogue of Life",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "copulation"
+        },
+        {
+          "subject": "Behaviour"
+        },
+        {
+          "subject": "courtship"
+        },
+        {
+          "subject": "host-parasitoid interaction"
+        },
+        {
+          "subject": "myrmecophile"
+        },
+        {
+          "subject": "description"
+        },
+        {
+          "subject": "key"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/385c11b5-c9a4-441c-a8f5-18cb2de137a4",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.48580/dgr5y",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.15468/wvryx7",
+      "titles": [
+        {
+          "title": "First record of the genus Falconina (Araneae, Corinnidae) from Mexico, with a description of a new species and observations on its interactions with ants"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Guillermo Ibarra-Núñez",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Linda Marín",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4606-8719"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Zoosystematics and Evolution",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "subject": "Coffee agroecosystems"
+        },
+        {
+          "subject": "male palpal structure"
+        },
+        {
+          "subject": "Chiapas"
+        },
+        {
+          "subject": "North America"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/e9b4de86-f509-4a23-b9de-6873ffdb86b7",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.15468/ngza9m",
+      "titles": [
+        {
+          "title": "A review of Tetramopria (Hymenoptera, Diapriidae, Diapriinae) of the Eastern Palaearctic with notes on mating behaviour and interactions with host ants"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Ryoji Kawai",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0000-8596-9942"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "name": "Seonwoo Yoon",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0007-7370-1317"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "name": "David G. Notton",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8933-7915"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Journal of Hymenoptera Research",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "copulation"
+        },
+        {
+          "subject": "Behaviour"
+        },
+        {
+          "subject": "courtship"
+        },
+        {
+          "subject": "host-parasitoid interaction"
+        },
+        {
+          "subject": "myrmecophile"
+        },
+        {
+          "subject": "description"
+        },
+        {
+          "subject": "key"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/96167dbf-24eb-4986-b740-9c3075978e44",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.5281/zenodo.18355252",
+      "titles": [
+        {
+          "title": "Dataset - Geographic distance-decay and host chemistry, not cophylogeny, structure the global ant–phorid parasitoid network"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "familyName": "Anonymous",
+          "name": "Anonymous",
+          "nameIdentifiers": [],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.18355252",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.18355253",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18355253",
+      "titles": [
+        {
+          "title": "Dataset - Geographic distance-decay and host chemistry, not cophylogeny, structure the global ant–phorid parasitoid network"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "familyName": "Anonymous",
+          "name": "Anonymous",
+          "nameIdentifiers": [],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.18355253",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.18355252",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.sn02v6xk5",
+      "titles": [
+        {
+          "title": "Data from: Road salt application increases sodium levels in roadside plants and ants, reshaping tritrophic interactions"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Hirosaki University"
+          ],
+          "name": "Terajima, Hiroki",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Hirosaki University"
+          ],
+          "name": "Kawase, Youhei",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Hirosaki University",
+            "Kyoto University"
+          ],
+          "name": "Yamawo, Akira",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2928-8151"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Hirosaki University"
+          ],
+          "name": "Azuma, Nobuyuki",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Hirosaki University"
+          ],
+          "name": "Noda, Kaori",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Hirosaki University",
+            "The University of Tokyo"
+          ],
+          "name": "Ikeda, Hiroshi",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-3610-697X"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ecology",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Entomology",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Chemical ecology",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.sn02v6xk5",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "74048 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1016/j.apsoil.2026.107417",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.31840111.v1",
+      "titles": [
+        {
+          "title": "Data and code for climatic niche divergence and future contact zones of two invasive white-footed ants"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Jhih-Rong",
+          "familyName": "LIAO",
+          "name": "Jhih-Rong LIAO",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-1234-2350"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310402",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Biogeography and phylogeography",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "410202",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Biosecurity science and invasive species ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Data_and_code_for_climatic_niche_divergence_and_future_contact_zones_of_two_invasive_white-footed_ants/31840111/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "114971 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.6084/m9.figshare.31840111",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.25740/qy007jv4648",
+      "titles": [
+        {
+          "title": "Better tired than lost: turtle ant trail networks favor coherence over short edges. 2021. Chandrasekhar, A., Marshall, J. A. R., Austin, C., Navhlakha, S. ,Gordon, D. M. PLoS Computational Biology."
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Arjun",
+          "familyName": "Chandrasekhar",
+          "name": "Chandrasekhar, Arjun",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "James A. R.",
+          "familyName": "Marshall",
+          "name": "Marshall, James A. R.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Cortnea",
+          "familyName": "Austin",
+          "name": "Austin, Cortnea",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Saket",
+          "familyName": "Navklakha",
+          "name": "Navklakha, Saket",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Deborah M.",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Stanford Digital Repository",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "search algorithm"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://purl.stanford.edu/qy007jv4648",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution Non Commercial No Derivatives 4.0 International",
+          "rightsIdentifier": "cc-by-nc-nd-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.32825270",
+      "titles": [
+        {
+          "title": "ants earwig interactions orchards 06/2026"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Jana",
+          "familyName": "Niedobova",
+          "name": "Jana Niedobova",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6767-4064"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "300210",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Sustainable agricultural development",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/ants_earwig_interactions_orchards_06_2026/32825270",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "36834 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.32825270.v1",
+      "titles": [
+        {
+          "title": "ants earwig interactions orchards 06/2026"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Jana",
+          "familyName": "Niedobova",
+          "name": "Jana Niedobova",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6767-4064"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "300210",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Sustainable agricultural development",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/ants_earwig_interactions_orchards_06_2026/32825270/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "36834 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.32825270",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.32050599.v1",
+      "titles": [
+        {
+          "title": "Dataset of the manuscript \"Microhabitat variation in feeding places shape ant-hemiptera interactions within cocoa agroecosystems\" - Biotropica 2026"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Elmo",
+          "familyName": "Koch",
+          "name": "Koch, Elmo",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Dataset_of_the_manuscript_Microhabitat_variation_in_feeding_places_shape_ant-hemiptera_interactions_within_cocoa_agroecosystems_-_Biotropica_2026/32050599/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "95664 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.6084/m9.figshare.32050599",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.32050599.v2",
+      "titles": [
+        {
+          "title": "Dataset of the manuscript \"Microhabitat variation in feeding places shape ant-hemiptera interactions within cocoa agroecosystems\" - Biotropica 2026"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Elmo",
+          "familyName": "Koch",
+          "name": "Koch, Elmo",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Dataset_of_the_manuscript_Microhabitat_variation_in_feeding_places_shape_ant-hemiptera_interactions_within_cocoa_agroecosystems_-_Biotropica_2026/32050599/2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "132459 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.32050599",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.32050599",
+      "titles": [
+        {
+          "title": "Dataset of the manuscript \"Microhabitat variation in feeding places shape ant-hemiptera interactions within cocoa agroecosystems\" - Biotropica 2026"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Elmo",
+          "familyName": "Koch",
+          "name": "Koch, Elmo",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Dataset_of_the_manuscript_Microhabitat_variation_in_feeding_places_shape_ant-hemiptera_interactions_within_cocoa_agroecosystems_-_Biotropica_2026/32050599",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "132459 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.7910/dvn/bbd99l",
+      "titles": [
+        {
+          "title": "Replication Data for: Plant sex changes the outcome of ant-plant interactions in a facultative myrmecophytic cactus"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Ecología A.C."
+          ],
+          "givenName": "Mario",
+          "familyName": "Sandoval",
+          "name": "Sandoval, Mario",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8536-6006"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Research Group in Ecology and Evolutionary Biology, Department of Natural Sciences, Autonomous University of the State of Mexico"
+          ],
+          "givenName": "Mariusz",
+          "familyName": "Janczur",
+          "name": "Janczur, Mariusz",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-3886-6710"
+            }
+          ]
+        }
+      ],
+      "publisher": "Harvard Dataverse",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "subject": "Agricultural Sciences"
+        },
+        {
+          "subject": "Earth and Environmental Sciences"
+        },
+        {
+          "subject": "Other"
+        },
+        {
+          "subject": "extrafloral nectaries"
+        },
+        {
+          "subject": "indirect defense"
+        },
+        {
+          "subject": "mutualism"
+        },
+        {
+          "subject": "optimal defense theory"
+        },
+        {
+          "subject": "resource allocation"
+        },
+        {
+          "subject": "cost of defense"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://dataverse.harvard.edu/citation?persistentId=doi:10.7910/DVN/BBD99L",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsUri": "https://dataverse.harvard.edu/api/datasets/:persistentId/versions/1.0/customlicense?persistentId=doi:10.7910/DVN/BBD99L",
+          "rights": "Custom terms specific to this dataset"
+        }
+      ],
+      "sizes": [
+        "11377",
+        "39661",
+        "18858",
+        "29323"
+      ],
+      "formats": [
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.5281/zenodo.18806936",
+      "titles": [
+        {
+          "title": "Emergence of Aspekt (ANT) — directed network dataset (nodes and edges)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Constantine the Philosopher University in Nitra",
+            "Slovak Academy of Sciences"
+          ],
+          "givenName": "Ivana",
+          "familyName": "Hostová",
+          "name": "Hostová, Ivana",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-0901-3759"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "translation studies"
+        },
+        {
+          "subject": "periodical studies"
+        },
+        {
+          "subject": "actor-network theory"
+        },
+        {
+          "subject": "Gephi"
+        },
+        {
+          "subject": "Slovakia"
+        },
+        {
+          "subject": "Aspekt"
+        },
+        {
+          "subject": "Slovenské pohľady"
+        },
+        {
+          "subject": "ANT"
+        },
+        {
+          "subject": "ForceAtlas2"
+        },
+        {
+          "subject": "feminism"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.18806936",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.18806937",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.18939481",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18939481",
+      "titles": [
+        {
+          "title": "Emergence of Aspekt (ANT) — directed network dataset (nodes and edges)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Constantine the Philosopher University in Nitra",
+            "Slovak Academy of Sciences"
+          ],
+          "givenName": "Ivana",
+          "familyName": "Hostová",
+          "name": "Hostová, Ivana",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-0901-3759"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "translation studies"
+        },
+        {
+          "subject": "periodical studies"
+        },
+        {
+          "subject": "actor-network theory"
+        },
+        {
+          "subject": "Gephi"
+        },
+        {
+          "subject": "Slovakia"
+        },
+        {
+          "subject": "Aspekt"
+        },
+        {
+          "subject": "Slovenské pohľady"
+        },
+        {
+          "subject": "ANT"
+        },
+        {
+          "subject": "ForceAtlas2"
+        },
+        {
+          "subject": "feminism"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.18939481",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.18806936",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30920237",
+      "titles": [
+        {
+          "title": "<b>Conflict in ant phylogeny results from complex interaction between multiple evolutionary signals and tree reconstruction artifacts</b>"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Wentao",
+          "familyName": "Tao",
+          "name": "Tao, Wentao",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-3730-8071"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Giorgio",
+          "familyName": "Bianchini",
+          "name": "Bianchini, Giorgio",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0223-0339"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Enrico",
+          "familyName": "Schifani",
+          "name": "Schifani, Enrico",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0684-6229"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Chris",
+          "familyName": "Kay",
+          "name": "Kay, Chris",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4381-7438"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Donato A.",
+          "familyName": "Grasso",
+          "name": "Grasso, Donato A.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-9334-4280"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Philip C. J.",
+          "familyName": "Donoghue",
+          "name": "Donoghue, Philip C. J.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3116-7463"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Davide",
+          "familyName": "Pisani",
+          "name": "Pisani, Davide",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0949-6682"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310410",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Phylogeny and comparative analysis",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310204",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Genomics and transcriptomics",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310206",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Sequence analysis",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310207",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Statistical and quantitative genetics",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/_b_Conflict_in_ant_phylogeny_results_from_complex_interaction_between_multiple_evolutionary_signals_and_tree_reconstruction_artifacts_b_/30920237",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "1730149592 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.30920237.v1",
+      "titles": [
+        {
+          "title": "<b>Conflict in ant phylogeny results from complex interaction between multiple evolutionary signals and tree reconstruction artifacts</b>"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Wentao",
+          "familyName": "Tao",
+          "name": "Tao, Wentao",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-3730-8071"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Giorgio",
+          "familyName": "Bianchini",
+          "name": "Bianchini, Giorgio",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0223-0339"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Enrico",
+          "familyName": "Schifani",
+          "name": "Schifani, Enrico",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0684-6229"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Chris",
+          "familyName": "Kay",
+          "name": "Kay, Chris",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4381-7438"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Donato A.",
+          "familyName": "Grasso",
+          "name": "Grasso, Donato A.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-9334-4280"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Philip C. J.",
+          "familyName": "Donoghue",
+          "name": "Donoghue, Philip C. J.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3116-7463"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Davide",
+          "familyName": "Pisani",
+          "name": "Pisani, Davide",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0949-6682"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310410",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Phylogeny and comparative analysis",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310204",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Genomics and transcriptomics",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310206",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Sequence analysis",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310207",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Statistical and quantitative genetics",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/_b_Conflict_in_ant_phylogeny_results_from_complex_interaction_between_multiple_evolutionary_signals_and_tree_reconstruction_artifacts_b_/30920237/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "1730149592 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.30920237",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.31456480",
+      "titles": [
+        {
+          "title": "Interaction frequency dataset of an EFN-mediated ant–plant network in a seasonally dry tropical forest (Caatinga, Brazil)"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Xavier",
+          "familyName": "Arnan",
+          "name": "Arnan, Xavier",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Kailane B.",
+          "familyName": "Lourenço",
+          "name": "Lourenço, Kailane B.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Geraldo",
+          "familyName": "Nascimento",
+          "name": "Nascimento, Geraldo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-5034-6136"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Talita",
+          "familyName": "Câmara",
+          "name": "Câmara, Talita",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2793-8907"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Fernanda Maria Pereira",
+          "familyName": "Oliveira",
+          "name": "Oliveira, Fernanda Maria Pereira",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Interaction_frequency_dataset_of_an_EFN-mediated_ant_plant_network_in_a_seasonally_dry_tropical_forest_Caatinga_Brazil_/31456480",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "82215 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.31456480.v1",
+      "titles": [
+        {
+          "title": "Interaction frequency dataset of an EFN-mediated ant–plant network in a seasonally dry tropical forest (Caatinga, Brazil)"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Xavier",
+          "familyName": "Arnan",
+          "name": "Arnan, Xavier",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Kailane B.",
+          "familyName": "Lourenço",
+          "name": "Lourenço, Kailane B.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Geraldo",
+          "familyName": "Nascimento",
+          "name": "Nascimento, Geraldo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-5034-6136"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Talita",
+          "familyName": "Câmara",
+          "name": "Câmara, Talita",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2793-8907"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Fernanda Maria Pereira",
+          "familyName": "Oliveira",
+          "name": "Oliveira, Fernanda Maria Pereira",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Interaction_frequency_dataset_of_an_EFN-mediated_ant_plant_network_in_a_seasonally_dry_tropical_forest_Caatinga_Brazil_/31456480/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "82215 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.31456480",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.18806937",
+      "titles": [
+        {
+          "title": "Emergence of Aspekt (ANT) — directed network dataset (nodes and edges)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Constantine the Philosopher University in Nitra",
+            "Slovak Academy of Sciences"
+          ],
+          "givenName": "Ivana",
+          "familyName": "Hostová",
+          "name": "Hostová, Ivana",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-0901-3759"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "translation studies"
+        },
+        {
+          "subject": "periodical studies"
+        },
+        {
+          "subject": "actor-network theory"
+        },
+        {
+          "subject": "Gephi"
+        },
+        {
+          "subject": "Slovakia"
+        },
+        {
+          "subject": "Aspekt"
+        },
+        {
+          "subject": "Slovenské pohľady"
+        },
+        {
+          "subject": "ANT"
+        },
+        {
+          "subject": "ForceAtlas2"
+        },
+        {
+          "subject": "feminism"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.18806937",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.18806936",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.02v6wwqhk",
+      "titles": [
+        {
+          "title": "Data from: The role of habitat simplification and seasonality in shaping interactions between ants, plants and herbivores in a Neotropical savanna"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Estadual de Montes Claros"
+          ],
+          "givenName": "Edvânia",
+          "familyName": "Costa de Oliveira Sá",
+          "name": "Costa de Oliveira Sá, Edvânia",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-1447-3314"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Estadual de Montes Claros"
+          ],
+          "givenName": "Flávio",
+          "familyName": "Camarota",
+          "name": "Camarota, Flávio",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4452-7755"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Estadual de Montes Claros"
+          ],
+          "givenName": "Poliane",
+          "familyName": "Neres Morais",
+          "name": "Neres Morais, Poliane",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Estadual de Montes Claros"
+          ],
+          "givenName": "Érica",
+          "familyName": "Vanessa Durães de Freitas",
+          "name": "Vanessa Durães de Freitas, Érica",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Minas Gerais"
+          ],
+          "givenName": "Frederico",
+          "familyName": "Neves",
+          "name": "Neves, Frederico",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2691-3743"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto Federal de Educação Ciência e Tecnologia do Norte de Minas Gerais"
+          ],
+          "givenName": "Tatianne",
+          "familyName": "Gizelle Marques Silva",
+          "name": "Gizelle Marques Silva, Tatianne",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Estadual de Montes Claros"
+          ],
+          "givenName": "Walter",
+          "familyName": "Santos de Araújo",
+          "name": "Santos de Araújo, Walter",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0157-6151"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "ant-plant mutualism"
+        },
+        {
+          "subject": "extrafloral nectaries"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "climatic seasonality"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Herbivory",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Anthropization"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.02v6wwqhk",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "55205 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/een.70047",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.dfn2z358r",
+      "titles": [
+        {
+          "title": "Data from: Ant social network structure is highly conserved"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Lausanne"
+          ],
+          "givenName": "Tomas",
+          "familyName": "Kay",
+          "name": "Kay, Tomas",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2453-2514"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Social networks",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Behavior",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.dfn2z358r",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "1036233541 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "https://github.com/MO-Katy/AntSocialNetworkComparative",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.12192891",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2024.0898",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.nzs7h44x7",
+      "titles": [
+        {
+          "title": "Effects of dominant ant species on ant community structure and ant-hemipteran interactions"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade de São Paulo"
+          ],
+          "givenName": "Vitor",
+          "familyName": "Costa-Silva",
+          "name": "Costa-Silva, Vitor",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-5406-1891"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Florida"
+          ],
+          "givenName": "Eduardo",
+          "familyName": "Calixto",
+          "name": "Calixto, Eduardo",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Misión Biológica de Galicia"
+          ],
+          "givenName": "Xoaquín",
+          "familyName": "Moreira",
+          "name": "Moreira, Xoaquín",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0166-838X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Uberlândia"
+          ],
+          "givenName": "Kleber",
+          "familyName": "Del-Claro",
+          "name": "Del-Claro, Kleber",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "subject": "Ant assemblages"
+        },
+        {
+          "subject": "Brazilian Cerrado"
+        },
+        {
+          "subject": "Camponotus crassus"
+        },
+        {
+          "subject": "Cephalotes pusillus"
+        },
+        {
+          "subject": "Enchenopa brasiliensis"
+        },
+        {
+          "subject": "honeydew"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.nzs7h44x7",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "179926 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/oik.10084",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.vdncjsz17",
+      "titles": [
+        {
+          "title": "Data from: Ant-plant specialisation influenced more by network types than by disturbance, elevation, or latitude"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Queen Mary University of London"
+          ],
+          "givenName": "Tom Maurice",
+          "familyName": "Fayle",
+          "name": "Fayle, Tom Maurice",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Czech Academy of Sciences, Biology Centre"
+          ],
+          "givenName": "Leonardo Re",
+          "familyName": "Jorge",
+          "name": "Jorge, Leonardo Re",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4518-4328"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Czech Academy of Sciences, Biology Centre"
+          ],
+          "givenName": "Petr",
+          "familyName": "Klimes",
+          "name": "Klimes, Petr",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6561-4455"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Ecología"
+          ],
+          "givenName": "Wesley",
+          "familyName": "Dáttilo",
+          "name": "Dáttilo, Wesley",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4758-4379"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Aarhus University"
+          ],
+          "givenName": "Paola",
+          "familyName": "De Lima Ferreira",
+          "name": "De Lima Ferreira, Paola",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de São Carlos"
+          ],
+          "givenName": "Alexander",
+          "familyName": "Christianini",
+          "name": "Christianini, Alexander",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-1538-791X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal Rural do Rio de Janeiro"
+          ],
+          "givenName": "André Felippe",
+          "familyName": "Nunes-Freitas",
+          "name": "Nunes-Freitas, André Felippe",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal Rural do Rio de Janeiro"
+          ],
+          "givenName": "Bianca F.",
+          "familyName": "da Silva Laviski",
+          "name": "da Silva Laviski, Bianca F.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Xishuangbanna Tropical Botanical Garden"
+          ],
+          "givenName": "Bo",
+          "familyName": "Wang",
+          "name": "Wang, Bo",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Pesquisas Jardim Botânico do Rio de Janeiro"
+          ],
+          "givenName": "Carine",
+          "familyName": "Emer",
+          "name": "Emer, Carine",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-1258-2816"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Autonomous University of Tlaxcala"
+          ],
+          "givenName": "Carlos",
+          "familyName": "Lara",
+          "name": "Lara, Carlos",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-6037-0327"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Autonomous University of Tlaxcala"
+          ],
+          "givenName": "Citlalli Castillo",
+          "familyName": "Guevara",
+          "name": "Guevara, Citlalli Castillo",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universitat de Girona"
+          ],
+          "givenName": "Crisanto",
+          "familyName": "Gómez",
+          "name": "Gómez, Crisanto",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidad Veracruzana"
+          ],
+          "givenName": "Erick J.",
+          "familyName": "Corro",
+          "name": "Corro, Erick J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of South Bohemia in České Budějovice"
+          ],
+          "givenName": "Jan",
+          "familyName": "Lenc",
+          "name": "Lenc, Jan",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Ecología"
+          ],
+          "givenName": "Jéssica C. F.",
+          "familyName": "Falcão",
+          "name": "Falcão, Jéssica C. F.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidad Nacional de Córdoba"
+          ],
+          "givenName": "Julia",
+          "familyName": "Tavella",
+          "name": "Tavella, Julia",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidad Nacional de Córdoba"
+          ],
+          "givenName": "Luciano",
+          "familyName": "Cagnolo",
+          "name": "Cagnolo, Luciano",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4836-1193"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Estadual Paulista (Unesp)"
+          ],
+          "givenName": "Marco A.",
+          "familyName": "Pizo",
+          "name": "Pizo, Marco A.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-3103-0371"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Autonomous University of Tlaxcala"
+          ],
+          "givenName": "Mariana",
+          "familyName": "Cuautle",
+          "name": "Cuautle, Mariana",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9694-7578"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of South Bohemia in České Budějovice"
+          ],
+          "givenName": "Marketa",
+          "familyName": "Tahadlova",
+          "name": "Tahadlova, Marketa",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2985-2963"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Technical University of Darmstadt"
+          ],
+          "givenName": "Michael",
+          "familyName": "Staab",
+          "name": "Staab, Michael",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0894-7576"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bergen"
+          ],
+          "givenName": "Ondrej",
+          "familyName": "Mottl",
+          "name": "Mottl, Ondrej",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9796-5081"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto Federal do Acre"
+          ],
+          "givenName": "Patricia Nakayama",
+          "familyName": "Miranda",
+          "name": "Miranda, Patricia Nakayama",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Estadual de Campinas (UNICAMP)"
+          ],
+          "givenName": "Paulo S.",
+          "familyName": "Oliveira",
+          "name": "Oliveira, Paulo S.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Czech Academy of Sciences, Biology Centre"
+          ],
+          "givenName": "Philip",
+          "familyName": "Butterill",
+          "name": "Butterill, Philip",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stephen F. Austin State University"
+          ],
+          "givenName": "Reuber",
+          "familyName": "Antoniazzi",
+          "name": "Antoniazzi, Reuber",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0052-3867"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "National Sun Yat-sen University"
+          ],
+          "givenName": "Shuang",
+          "familyName": "Xing",
+          "name": "Xing, Shuang",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-5956-6904"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Mato Grosso"
+          ],
+          "givenName": "Thiago",
+          "familyName": "Izzo",
+          "name": "Izzo, Thiago",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4613-3787"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Czech Academy of Sciences, Biology Centre"
+          ],
+          "givenName": "Vojtech",
+          "familyName": "Novotny",
+          "name": "Novotny, Vojtech",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-7918-8023"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Czech Academy of Sciences, Biology Centre"
+          ],
+          "givenName": "Shafia",
+          "familyName": "Zahra",
+          "name": "Zahra, Shafia",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4290-9656"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Natural sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Natural sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "bipartite network"
+        },
+        {
+          "subject": "geographical gradient"
+        },
+        {
+          "subject": "global scale"
+        },
+        {
+          "subject": "ant-plant interaction"
+        },
+        {
+          "subject": "phylogenetic relatedness"
+        },
+        {
+          "subject": "meta-analysis"
+        },
+        {
+          "subject": "specialisation"
+        },
+        {
+          "subject": "myrmecophyte"
+        },
+        {
+          "subject": "myrmecophile"
+        },
+        {
+          "subject": "myrmecochore."
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.vdncjsz17",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "473849 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.22541/au.171500704.45910925/v1",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.547d7wmbw",
+      "titles": [
+        {
+          "title": "Plant species with larger extrafloral nectaries produce better quality nectar only when needed and favour interactions with best ant partners"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal do ABC"
+          ],
+          "givenName": "Anselmo",
+          "familyName": "Nogueira",
+          "name": "Nogueira, Anselmo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8232-4636"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal do Ceará"
+          ],
+          "givenName": "Cícero Luanderson da Silva",
+          "familyName": "Alencar",
+          "name": "Alencar, Cícero Luanderson da Silva",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto Nacional da Mata Atlântica"
+          ],
+          "givenName": "Ricardo Eduardo",
+          "familyName": "Vicente",
+          "name": "Vicente, Ricardo Eduardo",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal do Ceará"
+          ],
+          "givenName": "Ítalo Antônio Cotta",
+          "familyName": "Coutinho",
+          "name": "Coutinho, Ítalo Antônio Cotta",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "subject": "cost"
+        },
+        {
+          "subject": "Extrafloral nectar"
+        },
+        {
+          "subject": "induced defence"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Mutualism",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "phenotypic plasticity"
+        },
+        {
+          "subject": "plant resistance"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.547d7wmbw",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "170902 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/jxb/erad160",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.qfttdz0k1",
+      "titles": [
+        {
+          "title": "Ant body size mediates functional performance and species interactions in carrion decomposer communities"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Würzburg"
+          ],
+          "givenName": "Sabine Sylvia",
+          "familyName": "Nooten",
+          "name": "Nooten, Sabine Sylvia",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-1798-315X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Hong Kong"
+          ],
+          "givenName": "Kin",
+          "familyName": "Chan",
+          "name": "Chan, Kin",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Hong Kong"
+          ],
+          "givenName": "Patrick",
+          "familyName": "Schultheiss",
+          "name": "Schultheiss, Patrick",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Hong Kong"
+          ],
+          "givenName": "Taylor",
+          "familyName": "Bogar",
+          "name": "Bogar, Taylor",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Hong Kong"
+          ],
+          "givenName": "Benoit",
+          "familyName": "Guénard",
+          "name": "Guénard, Benoit",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-7144-1175"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "subject": "vertebrate carcass"
+        },
+        {
+          "subject": "mouse"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "flies"
+        },
+        {
+          "subject": "decomposition rate"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.qfttdz0k1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "64795 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/1365-2435.14039",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.3tx95x6hd",
+      "titles": [
+        {
+          "title": "Ground-foraging ant communities in invaded (by Hovenia dulcis) and non-invaded Atlantic Forest sites, and ant-H. dulcis diaspore interactions"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal do Rio Grande do Sul"
+          ],
+          "givenName": "Luciana",
+          "familyName": "Podgaiski",
+          "name": "Podgaiski, Luciana",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-8020-2312"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal do Rio Grande do Sul"
+          ],
+          "givenName": "William",
+          "familyName": "Drose",
+          "name": "Drose, William",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade La Salle"
+          ],
+          "givenName": "Mauricio",
+          "familyName": "Almerão",
+          "name": "Almerão, Mauricio",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade La Salle"
+          ],
+          "givenName": "Gabriel",
+          "familyName": "Guimarães",
+          "name": "Guimarães, Gabriel",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.3tx95x6hd",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "79154 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.5061/dryad.rxwdbrv8f",
+      "titles": [
+        {
+          "title": "Plant species-specificity of ant-plant mutualistic interactions: Differential predation of termites by Camponotus crassus on five species of extrafloral nectaried plants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade de São Paulo"
+          ],
+          "givenName": "Eduardo",
+          "familyName": "Calixto",
+          "name": "Calixto, Eduardo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3617-2464"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Tecnológica Federal do Paraná"
+          ],
+          "givenName": "Denise",
+          "familyName": "Lange",
+          "name": "Lange, Denise",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-5386-7252"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Misión Biológica de Galicia"
+          ],
+          "givenName": "Xoaquín",
+          "familyName": "Moreira",
+          "name": "Moreira, Xoaquín",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0166-838X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Uberlândia"
+          ],
+          "givenName": "Kleber",
+          "familyName": "Del-Claro",
+          "name": "Del-Claro, Kleber",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-8886-9568"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "subject": "ant-plant mutualism"
+        },
+        {
+          "subject": "biotic defence"
+        },
+        {
+          "subject": "Cerrado"
+        },
+        {
+          "subject": "Camponotus crassus"
+        },
+        {
+          "subject": "Extrafloral nectar"
+        },
+        {
+          "subject": "indirect defense"
+        },
+        {
+          "subject": "Protective effectiveness"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.rxwdbrv8f",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "148280 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/btp.12991",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.cjsxksn5x",
+      "titles": [
+        {
+          "title": "Temporal consistency in interactions among birds, ants, and plants in a neotropical savanna"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de São Carlos"
+          ],
+          "givenName": "Mariana",
+          "familyName": "Campagnoli",
+          "name": "Campagnoli, Mariana",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2784-871X"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Cerrado"
+        },
+        {
+          "subject": "fruit chemical content"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Mutualism",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "quantitative effectiveness"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.cjsxksn5x",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "172699 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/oik.08231",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSourceOf",
+          "relatedIdentifier": "10.5281/zenodo.4775984",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.bvq83bk6x",
+      "titles": [
+        {
+          "title": "Nest choice in arboreal ants is an emergent consequence of network creation under spatial constraints"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Harvey Mudd College"
+          ],
+          "givenName": "Matina",
+          "familyName": "Donaldson-Matasci",
+          "name": "Donaldson-Matasci, Matina",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9877-384X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Imperial College London"
+          ],
+          "givenName": "Joanna",
+          "familyName": "Chang",
+          "name": "Chang, Joanna",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-7725-0989"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "George Washington University"
+          ],
+          "givenName": "Scott",
+          "familyName": "Powell",
+          "name": "Powell, Scott",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-5970-8941"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of York"
+          ],
+          "givenName": "Elva J. H.",
+          "familyName": "Robinson",
+          "name": "Robinson, Elva J. H.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4914-9327"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Cephalotes varians"
+        },
+        {
+          "subject": "Cephalotes texanus"
+        },
+        {
+          "subject": "Nest choice"
+        },
+        {
+          "subject": "transportation networks"
+        },
+        {
+          "subject": "arboreal ants"
+        },
+        {
+          "subject": "animal collective behaviors"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.bvq83bk6x",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "1205979 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementedBy",
+          "relatedIdentifier": "10.5061/dryad.8gtht76n5",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1007/s11721-021-00187-5",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.6547741",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSourceOf",
+          "relatedIdentifier": "10.5281/zenodo.6547743",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.wm37pvmkv",
+      "titles": [
+        {
+          "title": "Phytochemistry-mediated disruption of ant-aphid interactions by root-feeding nematodes"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Nevada, Reno"
+          ],
+          "givenName": "Elizabeth",
+          "familyName": "Pringle",
+          "name": "Pringle, Elizabeth",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4398-9272"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Nevada, Reno"
+          ],
+          "givenName": "Fabiane",
+          "familyName": "Mundim",
+          "name": "Mundim, Fabiane",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0149-1783"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.wm37pvmkv",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "80400 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1007/s00442-020-04777-8",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.wwpzgmshb",
+      "titles": [
+        {
+          "title": "Immune challenges increase network centrality in a queenless ant"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "ETH Zurich"
+          ],
+          "givenName": "Giacomo",
+          "familyName": "Alciatore",
+          "name": "Alciatore, Giacomo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-5626-728X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Copenhagen"
+          ],
+          "givenName": "Line V.",
+          "familyName": "Ugelvig",
+          "name": "Ugelvig, Line V.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Würzburg"
+          ],
+          "givenName": "Erik",
+          "familyName": "Frank",
+          "name": "Frank, Erik",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Lausanne"
+          ],
+          "givenName": "Jérémie",
+          "familyName": "Bidaux",
+          "name": "Bidaux, Jérémie",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Rockefeller University"
+          ],
+          "givenName": "Asaf",
+          "familyName": "Gal",
+          "name": "Gal, Asaf",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Würzburg"
+          ],
+          "givenName": "Thomas",
+          "familyName": "Schmitt",
+          "name": "Schmitt, Thomas",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Rockefeller University"
+          ],
+          "givenName": "Daniel J.C.",
+          "familyName": "Kronauer",
+          "name": "Kronauer, Daniel J.C.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Max Planck Institute for Chemical Ecology"
+          ],
+          "givenName": "Yuko",
+          "familyName": "Ulrich",
+          "name": "Ulrich, Yuko",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-9380-7863"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "subject": "Behaviour, Evolution"
+        },
+        {
+          "subject": "clonal raider ant"
+        },
+        {
+          "subject": "Social immunity"
+        },
+        {
+          "subject": "automated tracking"
+        },
+        {
+          "subject": "interaction network"
+        },
+        {
+          "subject": "Ooceraea biroi"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.wwpzgmshb",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "24467885499 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2021.1456",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.5513857",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.sbcc2fr45",
+      "titles": [
+        {
+          "title": "Climate seasonality drives ant-plant-herbivore interactions via plant phenology in an extrafloral nectary-bearing plant community"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade de São Paulo"
+          ],
+          "givenName": "Eduardo",
+          "familyName": "Calixto",
+          "name": "Calixto, Eduardo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3617-2464"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Uberlândia"
+          ],
+          "givenName": "Letícia",
+          "familyName": "Novaes",
+          "name": "Novaes, Letícia",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade de São Paulo"
+          ],
+          "givenName": "Danilo",
+          "familyName": "Santos",
+          "name": "Santos, Danilo",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Tecnológica Federal do Paraná"
+          ],
+          "givenName": "Denise",
+          "familyName": "Lange",
+          "name": "Lange, Denise",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Misión Biológica de Galicia"
+          ],
+          "givenName": "Xoaquín",
+          "familyName": "Moreira",
+          "name": "Moreira, Xoaquín",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0166-838X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Uberlândia"
+          ],
+          "givenName": "Kleber",
+          "familyName": "Del-Claro",
+          "name": "Del-Claro, Kleber",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-8886-9568"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "subject": "ant-plant interactions"
+        },
+        {
+          "subject": "indirect defence"
+        },
+        {
+          "subject": "biotic defence"
+        },
+        {
+          "subject": "Brazilian Cerrado"
+        },
+        {
+          "subject": "Seasonal environment"
+        },
+        {
+          "subject": "Phenophases"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.sbcc2fr45",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "1163607 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/1365-2745.13492",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.mkkwh70x0",
+      "titles": [
+        {
+          "title": "Data from: Interactions between seed-dispersing ant species affect plant community composition in field mesocosms"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Binghamton University"
+          ],
+          "givenName": "Kirsten",
+          "familyName": "Prior",
+          "name": "Prior, Kirsten",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9930-6370"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "McGill University"
+          ],
+          "givenName": "Shannon",
+          "familyName": "Meadley-Dunphy",
+          "name": "Meadley-Dunphy, Shannon",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2180-066X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Toronto"
+          ],
+          "givenName": "Megan",
+          "familyName": "Frederickson",
+          "name": "Frederickson, Megan",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9058-7137"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "subject": "multispecies mutualism"
+        },
+        {
+          "subject": "myrmecochory"
+        },
+        {
+          "subject": "Aphaenogaster"
+        },
+        {
+          "subject": "Myrmica rubra"
+        },
+        {
+          "subject": "generalized mutualism"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.mkkwh70x0",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "91491 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/1365-2656.13310",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.d7wm37pxr",
+      "titles": [
+        {
+          "title": "Diurnal foraging ant–tree co-occurrence networks are similar between canopy and understorey in a Neotropical rain forest"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Ecología"
+          ],
+          "givenName": "Reuber",
+          "familyName": "Antoniazzi",
+          "name": "Antoniazzi, Reuber",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0052-3867"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Ecología"
+          ],
+          "givenName": "Jose",
+          "familyName": "Garcia-Franco",
+          "name": "Garcia-Franco, Jose",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0540-6045"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidad Nacional Autónoma de México"
+          ],
+          "givenName": "Milan",
+          "familyName": "Janda",
+          "name": "Janda, Milan",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université Libre de Bruxelles"
+          ],
+          "givenName": "Maurice",
+          "familyName": "Leponce",
+          "name": "Leponce, Maurice",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2474-5915"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Ecología"
+          ],
+          "givenName": "Wesley",
+          "familyName": "Dáttilo",
+          "name": "Dáttilo, Wesley",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4758-4379"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "subject": "animal-plant co-occurrence"
+        },
+        {
+          "subject": "Habitat-niche partitioning"
+        },
+        {
+          "subject": "interaction diversity"
+        },
+        {
+          "subject": "Modularity"
+        },
+        {
+          "subject": "nestedness"
+        },
+        {
+          "subject": "species core"
+        },
+        {
+          "subject": "vertical stratification"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.d7wm37pxr",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "65622 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/btp.12773",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.c5g4qt7",
+      "titles": [
+        {
+          "title": "Data from: Anthropogenic disturbance and rainfall variation threaten the stability of plant‐ant interactions in the Brazilian Caatinga"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Talita",
+          "familyName": "Câmara",
+          "name": "Câmara, Talita",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Inara R.",
+          "familyName": "Leal",
+          "name": "Leal, Inara R.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Nico",
+          "familyName": "Blüthgen",
+          "name": "Blüthgen, Nico",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Fernanda M. P.",
+          "familyName": "Oliveira",
+          "name": "Oliveira, Fernanda M. P.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Xavier",
+          "familyName": "Arnan",
+          "name": "Arnan, Xavier",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "subject": "environmental fluctuation"
+        },
+        {
+          "subject": "Mutualisms"
+        },
+        {
+          "subject": "chronic anthropogenic disturbance"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.c5g4qt7",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "45088 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/ecog.04531",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.ft4sn88",
+      "titles": [
+        {
+          "title": "Data from: Ant-plant interactions evolved through increasing interdependence"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Field Museum of Natural History"
+          ],
+          "givenName": "Matthew P.",
+          "familyName": "Nelsen",
+          "name": "Nelsen, Matthew P.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Field Museum of Natural History"
+          ],
+          "givenName": "Richard H.",
+          "familyName": "Ree",
+          "name": "Ree, Richard H.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Field Museum of Natural History"
+          ],
+          "givenName": "Corrie S.",
+          "familyName": "Moreau",
+          "name": "Moreau, Corrie S.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2018,
+      "subjects": [
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Coevolution",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.ft4sn88",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "42018897 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1073/pnas.1719794115",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:50:59.364931+00:00"
+}

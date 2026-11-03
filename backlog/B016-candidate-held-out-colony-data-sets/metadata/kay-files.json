@@ -1,0 +1,1008 @@
+{
+  "url": "https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.dfn2z358r",
+  "record": {
+    "identifier": "doi:10.5061/dryad.dfn2z358r",
+    "id": 124694,
+    "title": "Data from: Ant social network structure is highly conserved",
+    "authors": [
+      {
+        "firstName": "Tomas",
+        "lastName": "Kay",
+        "email": "tkay@rockefeller.edu",
+        "affiliation": "University of Lausanne",
+        "affiliationROR": "https://ror.org/019whta54",
+        "affiliations": [
+          {
+            "organization": "University of Lausanne",
+            "identifier": "https://ror.org/019whta54"
+          }
+        ],
+        "orcid": "0000-0003-2453-2514"
+      }
+    ],
+    "keywords": [
+      "Social networks",
+      "Behavior",
+      "Ants"
+    ],
+    "publicationDate": "2024-06-24",
+    "versionNumber": 7,
+    "license": "https://spdx.org/licenses/CC0-1.0.html",
+    "relatedWorks": [
+      {
+        "relationship": "software",
+        "identifierType": "URL",
+        "identifier": "https://github.com/MO-Katy/AntSocialNetworkComparative"
+      },
+      {
+        "relationship": "software",
+        "identifierType": "DOI",
+        "identifier": "https://doi.org/10.5281/zenodo.12192891"
+      },
+      {
+        "relationship": "primary_article",
+        "identifierType": "DOI",
+        "identifier": "https://doi.org/10.1098/rspb.2024.0898"
+      }
+    ],
+    "storageSize": 1036233541,
+    "_links": {
+      "self": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.dfn2z358r"
+      },
+      "stash:versions": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.dfn2z358r/versions"
+      },
+      "stash:version": {
+        "href": "/api/v2/versions/301163"
+      },
+      "stash:download": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.dfn2z358r/download"
+      },
+      "curies": [
+        {
+          "name": "stash",
+          "href": "https://github.com/datadryad/dryad-app/blob/main/documentation/apis/link_relations.md#{rel}",
+          "templated": "true"
+        }
+      ]
+    }
+  },
+  "files_url": "https://datadryad.org/api/v2/versions/301163/files",
+  "file_metadata": [
+    {
+      "path": "edgelist_cfel1.csv",
+      "size": 40929,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_cfel2.csv",
+      "size": 24186,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_cfel3.csv",
+      "size": 30762,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_cfel4.csv",
+      "size": 29478,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_cfel5.csv",
+      "size": 42172,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_drug1.csv",
+      "size": 48394,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_drug2.csv",
+      "size": 52310,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_drug3.csv",
+      "size": 58430,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_drug4.csv",
+      "size": 65159,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_drug5.csv",
+      "size": 37663,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_ipur1.csv",
+      "size": 49618,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_ipur2.csv",
+      "size": 21470,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_ipur3.csv",
+      "size": 51317,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_ipur4.csv",
+      "size": 32930,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_ipur5.csv",
+      "size": 39016,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_pbar1.csv",
+      "size": 55001,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_pbar2.csv",
+      "size": 40551,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_pbar3.csv",
+      "size": 34522,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_pbar4.csv",
+      "size": 20309,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_pbar5.csv",
+      "size": 33563,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_rmet1.csv",
+      "size": 46522,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_rmet2.csv",
+      "size": 29725,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_rmet3.csv",
+      "size": 43489,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_rmet4.csv",
+      "size": 56746,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "edgelist_rmet5.csv",
+      "size": 37880,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_cfel1.csv",
+      "size": 88772,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_cfel2.csv",
+      "size": 73764,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_cfel3.csv",
+      "size": 82144,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_cfel4.csv",
+      "size": 73621,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_cfel5.csv",
+      "size": 76640,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_drug1.csv",
+      "size": 81987,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_drug2.csv",
+      "size": 77792,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_drug3.csv",
+      "size": 72900,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_drug4.csv",
+      "size": 106391,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_drug5.csv",
+      "size": 64184,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_ipur1.csv",
+      "size": 149095,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_ipur2.csv",
+      "size": 161604,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_ipur3.csv",
+      "size": 137189,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_ipur4.csv",
+      "size": 170118,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_ipur5.csv",
+      "size": 128165,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_pbar1.csv",
+      "size": 139625,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_pbar2.csv",
+      "size": 180215,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_pbar3.csv",
+      "size": 112837,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_pbar4.csv",
+      "size": 119516,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_pbar5.csv",
+      "size": 118815,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_rmet1.csv",
+      "size": 146584,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_rmet2.csv",
+      "size": 83525,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_rmet3.csv",
+      "size": 145521,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_rmet4.csv",
+      "size": 125115,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "forage_rmet5.csv",
+      "size": 115894,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_cfel1.csv",
+      "size": 88051959,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_cfel2.csv",
+      "size": 24981236,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_cfel3.csv",
+      "size": 67391881,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_cfel4.csv",
+      "size": 30802468,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_cfel5.csv",
+      "size": 55252075,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_drug1.csv",
+      "size": 53182794,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_drug2.csv",
+      "size": 102484100,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_drug3.csv",
+      "size": 38583884,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_drug4.csv",
+      "size": 66727324,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_drug5.csv",
+      "size": 40502565,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_ipur1.csv",
+      "size": 29187346,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_ipur2.csv",
+      "size": 79468435,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_ipur3.csv",
+      "size": 31717839,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_ipur4.csv",
+      "size": 13877638,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_ipur5.csv",
+      "size": 21161625,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_pbar1.csv",
+      "size": 45862854,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_pbar2.csv",
+      "size": 22858750,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_pbar3.csv",
+      "size": 13604959,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_pbar4.csv",
+      "size": 36730337,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_pbar5.csv",
+      "size": 62176643,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_rmet1.csv",
+      "size": 13668820,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_rmet2.csv",
+      "size": 18587652,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_rmet3.csv",
+      "size": 21080128,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_rmet4.csv",
+      "size": 34488889,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "interaction_rmet5.csv",
+      "size": 16373064,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_cfel1.csv",
+      "size": 3392,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_cfel2.csv",
+      "size": 4692,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_cfel3.csv",
+      "size": 3288,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_cfel4.csv",
+      "size": 4543,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_cfel5.csv",
+      "size": 3450,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_drug1.csv",
+      "size": 5541,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_drug2.csv",
+      "size": 4995,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_drug3.csv",
+      "size": 5701,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_drug4.csv",
+      "size": 5450,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_drug5.csv",
+      "size": 4092,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_ipur1.csv",
+      "size": 5301,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_ipur2.csv",
+      "size": 3327,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_ipur3.csv",
+      "size": 5149,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_ipur4.csv",
+      "size": 6306,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_ipur5.csv",
+      "size": 4533,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_pbar1.csv",
+      "size": 3658,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_pbar2.csv",
+      "size": 5053,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_pbar3.csv",
+      "size": 3393,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_pbar4.csv",
+      "size": 4000,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_pbar5.csv",
+      "size": 4126,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_rmet1.csv",
+      "size": 5030,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_rmet2.csv",
+      "size": 3859,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_rmet3.csv",
+      "size": 5440,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_rmet4.csv",
+      "size": 5457,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "md_rmet5.csv",
+      "size": 3958,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_cfel1.csv",
+      "size": 114229,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_cfel2.csv",
+      "size": 98580,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_cfel3.csv",
+      "size": 112409,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_cfel4.csv",
+      "size": 98691,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_cfel5.csv",
+      "size": 95914,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_drug1.csv",
+      "size": 103716,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_drug2.csv",
+      "size": 86698,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_drug3.csv",
+      "size": 107638,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_drug4.csv",
+      "size": 109879,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_drug5.csv",
+      "size": 80288,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_ipur1.csv",
+      "size": 199435,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_ipur2.csv",
+      "size": 175782,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_ipur3.csv",
+      "size": 160284,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_ipur4.csv",
+      "size": 207745,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_ipur5.csv",
+      "size": 163716,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_pbar1.csv",
+      "size": 144396,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_pbar2.csv",
+      "size": 192186,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_pbar3.csv",
+      "size": 151845,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_pbar4.csv",
+      "size": 142434,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_pbar5.csv",
+      "size": 141499,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_rmet1.csv",
+      "size": 158346,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_rmet2.csv",
+      "size": 112681,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_rmet3.csv",
+      "size": 174173,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_rmet4.csv",
+      "size": 157122,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "nest_rmet5.csv",
+      "size": 126625,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_cfel1.csv",
+      "size": 1477,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_cfel2.csv",
+      "size": 1479,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_cfel3.csv",
+      "size": 1677,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_cfel4.csv",
+      "size": 1680,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_cfel5.csv",
+      "size": 1680,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_drug1.csv",
+      "size": 1679,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_drug2.csv",
+      "size": 1678,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_drug3.csv",
+      "size": 1679,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_drug4.csv",
+      "size": 1673,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_drug5.csv",
+      "size": 1679,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_ipur1.csv",
+      "size": 1679,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_ipur2.csv",
+      "size": 1678,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_ipur3.csv",
+      "size": 1681,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_ipur4.csv",
+      "size": 1680,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_ipur5.csv",
+      "size": 1680,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_pbar1.csv",
+      "size": 1676,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_pbar2.csv",
+      "size": 1675,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_pbar3.csv",
+      "size": 1680,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_pbar4.csv",
+      "size": 1682,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_pbar5.csv",
+      "size": 1484,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_rmet1.csv",
+      "size": 1478,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_rmet2.csv",
+      "size": 1482,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_rmet3.csv",
+      "size": 1679,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_rmet4.csv",
+      "size": 1679,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "randMod_rmet5.csv",
+      "size": 1676,
+      "mimeType": "text/csv",
+      "status": "copied"
+    },
+    {
+      "path": "README.md",
+      "size": 1727,
+      "mimeType": "text/markdown",
+      "status": "copied"
+    },
+    {
+      "path": "SoftModularity.csv",
+      "size": 1379,
+      "mimeType": "text/csv",
+      "status": "copied"
+    }
+  ],
+  "file_catalogue_pages_read": 8,
+  "file_catalogue_keys": [
+    "_links",
+    "count",
+    "total",
+    "_embedded"
+  ],
+  "file_catalogue_links": {
+    "self": {
+      "href": "/api/v2/versions/301163/files?page=8"
+    },
+    "first": {
+      "href": "/api/v2/versions/301163/files"
+    },
+    "last": {
+      "href": "/api/v2/versions/301163/files?page=8"
+    },
+    "prev": {
+      "href": "/api/v2/versions/301163/files?page=7"
+    }
+  },
+  "retrieved_at": "2026-11-03T06:53:15.981486+00:00"
+}

@@ -1,0 +1,40 @@
+{
+  "url": "https://zenodo.org/api/records/7310287",
+  "record": {
+    "title": "Group-level trait and individual performance: the impact of in-nest activity on food recruitment in ants",
+    "creators": [
+      {
+        "name": "Vaes Oscar",
+        "affiliation": "Université Libre de Bruxelles",
+        "orcid": "0000-0002-6770-0699"
+      }
+    ],
+    "publication_date": "2022-11-10",
+    "doi": "10.5281/zenodo.7310287",
+    "version": null,
+    "keywords": [
+      "Ant",
+      "Activity level",
+      "Food recruitment",
+      "Collective behavior"
+    ],
+    "license": {
+      "id": "cc-by-4.0"
+    },
+    "access_right": "open",
+    "related_identifiers": null,
+    "resource_type": {
+      "title": "Dataset",
+      "type": "dataset"
+    }
+  },
+  "file_metadata": [
+    {
+      "key": "Data article.xlsx",
+      "size": 404760,
+      "type": null,
+      "checksum": "md5:616a26c38506be0f12eee60748aaec77"
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:52:25.626587+00:00"
+}

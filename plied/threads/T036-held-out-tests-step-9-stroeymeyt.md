@@ -20,3 +20,4 @@ Draft label: T4 (docs/threads-draft.md revision 2). Step 9 on hold (D114).
 - 2026-11-03 00:44 UTC lead (session eac59010): reviewed F113@cc956875fada; Reviewed F113: it cites T023 only; no change to the held-out plan
 - 2026-11-03 00:53 UTC lead (session eac59010): reviewed D260@33ffee2d7b35, F113@51c6d0624bfe; Reviewed the corrected D260 and F113 (wording only): no change to the held-out plan
 - 2026-11-03 16:27 UTC lead (session e38b977a): reviewed D270@93338b6cdd5e; D270 reaches T036 through T023 only: it queues an assessment of the synchrony explanations (T063); the held-out test stays held, waiting on T023 (P03).
+- 2026-11-03 16:32 UTC lead (session e38b977a): reviewed D271@59fa1169345e; D271: B016 delivered candidate held-out sources (C01-C08, none an independent joint L. niger colony test; exposures X030); T036 stays held on T023, and T037's next step is the user's (Q38).

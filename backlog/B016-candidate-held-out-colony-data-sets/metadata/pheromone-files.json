@@ -1,0 +1,102 @@
+{
+  "url": "https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.mr73c",
+  "record": {
+    "identifier": "doi:10.5061/dryad.mr73c",
+    "id": 25535,
+    "title": "Data from: Ants adjust their pheromone deposition to a changing environment and their probability of making errors",
+    "authors": [
+      {
+        "firstName": "Tomer J.",
+        "lastName": "Czaczkes",
+        "affiliation": "University of Regensburg",
+        "affiliationROR": "https://ror.org/01eezs655",
+        "affiliations": [
+          {
+            "organization": "University of Regensburg",
+            "identifier": "https://ror.org/01eezs655"
+          }
+        ]
+      },
+      {
+        "firstName": "Jürgen",
+        "lastName": "Heinze",
+        "affiliation": "University of Regensburg",
+        "affiliationROR": "https://ror.org/01eezs655",
+        "affiliations": [
+          {
+            "organization": "University of Regensburg",
+            "identifier": "https://ror.org/01eezs655"
+          }
+        ]
+      }
+    ],
+    "keywords": [
+      "pheromone trails",
+      "Memory",
+      "Environmental uncertainty",
+      "Metacognition",
+      "Lasius niger",
+      "metamemory"
+    ],
+    "publicationDate": "2015-05-13",
+    "versionNumber": 1,
+    "license": "https://spdx.org/licenses/CC0-1.0.html",
+    "relatedWorks": [
+      {
+        "relationship": "primary_article",
+        "identifierType": "DOI",
+        "identifier": "https://doi.org/10.1098/rspb.2015.0679"
+      }
+    ],
+    "storageSize": 4498427,
+    "_links": {
+      "self": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.mr73c"
+      },
+      "stash:versions": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.mr73c/versions"
+      },
+      "stash:version": {
+        "href": "/api/v2/versions/25608"
+      },
+      "stash:download": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.mr73c/download"
+      },
+      "curies": [
+        {
+          "name": "stash",
+          "href": "https://github.com/datadryad/dryad-app/blob/main/documentation/apis/link_relations.md#{rel}",
+          "templated": "true"
+        }
+      ]
+    }
+  },
+  "files_url": "https://datadryad.org/api/v2/versions/25608/files",
+  "file_metadata": [
+    {
+      "path": "ESM 3 - raw data.xlsx",
+      "size": 4498427,
+      "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "status": "created"
+    }
+  ],
+  "file_catalogue_pages_read": 1,
+  "file_catalogue_keys": [
+    "_links",
+    "count",
+    "total",
+    "_embedded"
+  ],
+  "file_catalogue_links": {
+    "self": {
+      "href": "/api/v2/versions/25608/files"
+    },
+    "first": {
+      "href": "/api/v2/versions/25608/files"
+    },
+    "last": {
+      "href": "/api/v2/versions/25608/files?page=1"
+    }
+  },
+  "retrieved_at": "2026-11-03T06:53:13.125396+00:00"
+}

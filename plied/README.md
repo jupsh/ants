@@ -6,13 +6,13 @@
 
 **lead**
 
-1. [T037](threads/T037-candidate-held-out-colony-data-sets.md) Candidate held-out colony data sets
+1. [T063](threads/T063-synchrony-which-remaining-explanations-the-available.md) Synchrony: which remaining explanations the available evidence can distinguish (D270)
 2. [T033](threads/T033-part-d-stages-1-3.md) Part D Stages 1-3
-2. [T063](threads/T063-synchrony-which-remaining-explanations-the-available.md) Synchrony: which remaining explanations the available evidence can distinguish (D270)
 
 **user**
 
 1. [T020](threads/T020-mailleux-1999-clearance-its-contact-definition.md) Mailleux 1999 clearance: its contact definition
+1. [T037](threads/T037-candidate-held-out-colony-data-sets.md) Candidate held-out colony data sets
 2. [T012](threads/T012-forager-trips-entrance-excursions.md) Forager trips; entrance excursions
 
 
@@ -21,7 +21,9 @@
 
 ## Open questions
 
-None.
+| id | question | raised | bears on |
+|---|---|---|---|
+| [Q38](questions/Q38-t037-after-b016-d271-what-next.md) | T037 after B016 (D271): what next for the candidate held-out sources (C01-C08; exposures in X030) | D271 | T037 |
 
 ## Commitments
 
@@ -186,8 +188,8 @@ None.
 | [P70](commitments/P70-b005-a-mixture-is-a-class.md) | B005: a mixture is a class, not foraging intent | D181 | open | T012 |
 | [P71](commitments/P71-b007-criterion-proposed-approved-and-frozen.md) | B007 criterion proposed, approved and frozen before any comparison | D181 | open | T010 |
 | [P72](commitments/P72-b007-source-x015-s-previously-reviewed.md) | B007 source: X015's previously reviewed Methods sections only | D181 | open | T010 |
-| [P73](commitments/P73-b016-reads-metadata-only.md) | B016 reads metadata only | D181 | open | T037 |
-| [P74](commitments/P74-b016-incidental-exposures-recorded.md) | B016 incidental exposures recorded | D181 | open | T037 |
+| [P73](commitments/P73-b016-reads-metadata-only.md) | B016 reads metadata only | D181 | fulfilled | T037 |
+| [P74](commitments/P74-b016-incidental-exposures-recorded.md) | B016 incidental exposures recorded | D181 | fulfilled | T037 |
 | [P75](commitments/P75-b017-patch-applied-only-after-partd2b.md) | B017 patch applied only after partd2b-read and capfiles finish | D190 | fulfilled | T046 |
 | [P76](commitments/P76-trail-sigma-sourced-and-grid-checked.md) | Trail sigma sourced and grid checked before any trail-following result | D190 | open | T046 |
 | [P77](commitments/P77-t057-judge-starts-only-after-partd2b.md) | T057 judge starts only after partd2b-read has finished; src/sim unchanged until both arms end | D191 | superseded → P79 | T057 |
@@ -273,9 +275,9 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │       ├── T059  H6 initiation and directional-transfer test: design (D238 item …   closed, lead, outcome D260, carries F113, F114, F115, F116
 │       ├── T060  Contact-reset timing test: design (D238 item 2)                    closed, lead, outcome D269, carries F117, F114
 │       ├── T061  Feasibility inventory of permitted metadata for food state and …   closed, lead, outcome D240, carries F108
-│       └── T063  Synchrony: which remaining explanations the available evidence …   open, next 2, lead
+│       └── T063  Synchrony: which remaining explanations the available evidence …   open, next 1, lead
 ├── T036  Held-out tests (step 9): Stroeymeyt age-experiment colonies                held, ⟵ T023
-│   └── T037  Candidate held-out colony data sets                                    open, next 1, lead, [B016]
+│   └── T037  Candidate held-out colony data sets                                    open, next 1, user, [B016]
 ├── T038  E6: Bles et al. 2022, development benchmark on the best step-5 …           held, ⟵ T036
 │   ├── T040  Directed navigation, frozen before any E6 run                          open
 │   ├── T041  E6 ensemble rule reconciled with D104                                  open

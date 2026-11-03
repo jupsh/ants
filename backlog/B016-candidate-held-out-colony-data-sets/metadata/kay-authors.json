@@ -1,0 +1,185 @@
+{
+  "url": "https://api.crossref.org/works/10.1098/rspb.2024.0898",
+  "record": {
+    "DOI": "10.1098/rspb.2024.0898",
+    "title": [
+      "Ant social network structure is highly conserved across species"
+    ],
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0003-2453-2514",
+        "authenticated-orcid": true,
+        "given": "Tomas",
+        "family": "Kay",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Laboratory of Social Evolution and Behavior, The Rockefeller University",
+            "place": [
+              "New York, USA"
+            ]
+          },
+          {
+            "name": "Department of Ecology and Evolution, University of Lausanne",
+            "place": [
+              "Lausanne, Switzerland"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Alba",
+        "family": "Motes-Rodrigo",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Ecology and Evolution, University of Lausanne",
+            "place": [
+              "Lausanne, Switzerland"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Arthur",
+        "family": "Royston",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Ecology and Evolution, University of Lausanne",
+            "place": [
+              "Lausanne, Switzerland"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Thomas O.",
+        "family": "Richardson",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "School of Biological Sciences, University of Bristol",
+            "place": [
+              "Bristol, UK"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-8047-449X",
+        "authenticated-orcid": true,
+        "given": "Nathalie",
+        "family": "Stroeymeyt",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "School of Biological Sciences, University of Bristol",
+            "place": [
+              "Bristol, UK"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Laurent",
+        "family": "Keller",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Ecology and Evolution, University of Lausanne",
+            "place": [
+              "Lausanne, Switzerland"
+            ]
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "publisher": "The Royal Society",
+    "published": {
+      "date-parts": [
+        [
+          2024,
+          7
+        ]
+      ]
+    },
+    "container-title": [
+      "Proceedings of the Royal Society B: Biological Sciences"
+    ],
+    "URL": "https://doi.org/10.1098/rspb.2024.0898",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2024,
+              7,
+              1
+            ]
+          ],
+          "date-time": "2024-07-01T00:00:00Z",
+          "timestamp": 1719792000000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://creativecommons.org/licenses/by/4.0/"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2024,
+              7,
+              1
+            ]
+          ],
+          "date-time": "2024-07-01T00:00:00Z",
+          "timestamp": 1719792000000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "http://creativecommons.org/licenses/by/4.0/"
+      }
+    ],
+    "relation": {},
+    "type": "journal-article"
+  },
+  "retrieved_at": "2026-11-03T06:55:31.299900+00:00"
+}

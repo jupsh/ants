@@ -16,3 +16,5 @@ nodes: [T045]
 - 2026-10-30 05:00 UTC lead (session 9aa22476): reviewed D193: it cites D181 only for the scope of the Q04 judge (sensitivity, no refit); the reading touches none of D181's answer on B013 adoption, so P69 is unaffected
 - 2026-10-31 02:17 UTC lead (session 6b5fb317): reviewed D223@b738f2de5839; D223 cites D181 only for B005's Done-when 1; it needs no checkpoints or shared warm-ups (no new run), so B013 adoption is not triggered
 - 2026-10-31 02:32 UTC lead (session 6b5fb317): reviewed D223@d91126ff338b; D223 amendment 1 adds no run needing checkpoints or shared warm-ups (no new run); B013 adoption is not triggered
+- 2026-11-03 16:31 UTC lead (session e38b977a): reviewed X030@e0fc1a79ac45; X030 cites D181 for B016's exposure rules only; it has nothing on B013 or a consumer for it. Unaffected.
+- 2026-11-03 16:32 UTC lead (session e38b977a): reviewed D271@59fa1169345e; D271 cites D181 for B016's exposure rules only; nothing on B013. Unaffected.

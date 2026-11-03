@@ -1,0 +1,125 @@
+{
+  "url": "https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.gb8h60p",
+  "record": {
+    "identifier": "doi:10.5061/dryad.gb8h60p",
+    "id": 27790,
+    "title": "Data from: The multi-dimensional nature of information drives prioritisation of private over social information in ants",
+    "authors": [
+      {
+        "firstName": "Tomer J.",
+        "lastName": "Czaczkes"
+      },
+      {
+        "firstName": "John J.",
+        "lastName": "Beckwith"
+      },
+      {
+        "firstName": "Anna-Lena",
+        "lastName": "Horsch"
+      },
+      {
+        "firstName": "Florian",
+        "lastName": "Hartig"
+      }
+    ],
+    "keywords": [
+      "strategic information use",
+      "pheromone trails",
+      "Lasius niger",
+      "social insects",
+      "social information",
+      "certainty effect",
+      "ambiguity aversion"
+    ],
+    "publicationDate": "2019-08-07",
+    "versionNumber": 2,
+    "license": "https://spdx.org/licenses/CC0-1.0.html",
+    "relatedWorks": [
+      {
+        "relationship": "primary_article",
+        "identifierType": "DOI",
+        "identifier": "https://doi.org/10.1098/rspb.2019.1136"
+      }
+    ],
+    "storageSize": 90972112,
+    "_links": {
+      "self": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.gb8h60p"
+      },
+      "stash:versions": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.gb8h60p/versions"
+      },
+      "stash:version": {
+        "href": "/api/v2/versions/28740"
+      },
+      "stash:download": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.gb8h60p/download"
+      },
+      "curies": [
+        {
+          "name": "stash",
+          "href": "https://github.com/datadryad/dryad-app/blob/main/documentation/apis/link_relations.md#{rel}",
+          "templated": "true"
+        }
+      ]
+    }
+  },
+  "files_url": "https://datadryad.org/api/v2/versions/28740/files",
+  "file_metadata": [
+    {
+      "path": "Czaczkessupp3s.zip",
+      "size": 42328690,
+      "mimeType": "application/zip",
+      "status": "copied"
+    },
+    {
+      "path": "Czaczkessupp3s.zip",
+      "size": 42328690,
+      "mimeType": "application/zip",
+      "status": "created"
+    },
+    {
+      "path": "README_for_Czaczkessupp3s.docx",
+      "size": 12276,
+      "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "status": "copied"
+    },
+    {
+      "path": "README_for_Czaczkessupp3s.docx",
+      "size": 12276,
+      "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "status": "created"
+    },
+    {
+      "path": "S2-RProjectAndData.zip",
+      "size": 3145090,
+      "mimeType": "application/zip",
+      "status": "copied"
+    },
+    {
+      "path": "S2-RProjectAndData.zip",
+      "size": 3145090,
+      "mimeType": "application/zip",
+      "status": "created"
+    }
+  ],
+  "file_catalogue_pages_read": 1,
+  "file_catalogue_keys": [
+    "_links",
+    "count",
+    "total",
+    "_embedded"
+  ],
+  "file_catalogue_links": {
+    "self": {
+      "href": "/api/v2/versions/28740/files"
+    },
+    "first": {
+      "href": "/api/v2/versions/28740/files"
+    },
+    "last": {
+      "href": "/api/v2/versions/28740/files?page=1"
+    }
+  },
+  "retrieved_at": "2026-11-03T06:53:14.004264+00:00"
+}

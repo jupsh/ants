@@ -1,0 +1,860 @@
+{
+  "url": "https://api.datacite.org/dois?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers&query=types.resourceTypeGeneral%3ADataset+AND+%28subjects.subject%3ALasius+OR+titles.title%3ALasius%29+AND+%28titles.title%3A%28food+OR+recruitment+OR+foraging+OR+contact+OR+interaction+OR+network+OR+trophallaxis%29+OR+subjects.subject%3A%28trophallaxis+OR+recruitment%29%29&page%5Bsize%5D=50&page%5Bnumber%5D=1",
+  "total": 9,
+  "records": [
+    {
+      "doi": "10.6084/m9.figshare.34062405.v1",
+      "titles": [
+        {
+          "title": "Rissanen_Gene_expression_tables_ESM2 from Infection-induced changes in gene expression linked to foraging choices in self-medicating <i>Lasius platythorax</i> ants"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Rissanen",
+          "familyName": "Jason",
+          "name": "Rissanen Jason",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Christophe",
+          "familyName": "Hahn",
+          "name": "Christophe Hahn",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Heikki",
+          "familyName": "Helantera",
+          "name": "Heikki Helantera",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Dalial",
+          "familyName": "Freitak",
+          "name": "Dalial Freitak",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "The Royal Society",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310901",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Animal behaviour",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://rs.figshare.com/articles/dataset/Rissanen_Gene_expression_tables_ESM2_from_Infection-induced_changes_in_gene_expression_linked_to_foraging_choices_in_self-medicating_i_Lasius_platythorax_i_ants/34062405/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "157883 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.6084/m9.figshare.34062405",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1098/rspb.2026.2357",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34062405.v2",
+      "titles": [
+        {
+          "title": "Rissanen_Gene_expression_tables_ESM2 from Infection-induced changes in gene expression linked to foraging choices in self-medicating <i>Lasius platythorax</i> ants"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Jason",
+          "familyName": "Rissanen",
+          "name": "Jason Rissanen",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Christoph",
+          "familyName": "Hahn",
+          "name": "Christoph Hahn",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Heikki",
+          "familyName": "Helantera",
+          "name": "Heikki Helantera",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Dalial",
+          "familyName": "Freitak",
+          "name": "Dalial Freitak",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "The Royal Society",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310901",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Animal behaviour",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://rs.figshare.com/articles/dataset/Rissanen_Gene_expression_tables_ESM2_from_Infection-induced_changes_in_gene_expression_linked_to_foraging_choices_in_self-medicating_i_Lasius_platythorax_i_ants/34062405/2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "157883 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.34062405",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1098/rspb.2026.2357",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34062405",
+      "titles": [
+        {
+          "title": "Rissanen_Gene_expression_tables_ESM2 from Infection-induced changes in gene expression linked to foraging choices in self-medicating <i>Lasius platythorax</i> ants"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Jason",
+          "familyName": "Rissanen",
+          "name": "Jason Rissanen",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Christoph",
+          "familyName": "Hahn",
+          "name": "Christoph Hahn",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Heikki",
+          "familyName": "Helantera",
+          "name": "Heikki Helantera",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Dalial",
+          "familyName": "Freitak",
+          "name": "Dalial Freitak",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "The Royal Society",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310901",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Animal behaviour",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://rs.figshare.com/articles/dataset/Rissanen_Gene_expression_tables_ESM2_from_Infection-induced_changes_in_gene_expression_linked_to_foraging_choices_in_self-medicating_i_Lasius_platythorax_i_ants/34062405",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "157883 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1098/rspb.2026.2357",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.9j1cp",
+      "titles": [
+        {
+          "title": "Data from: Individual learning performance and exploratory activity are linked to colony foraging success in a mass-recruiting ant"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Lausanne"
+          ],
+          "givenName": "Grégoire",
+          "familyName": "Pasquier",
+          "name": "Pasquier, Grégoire",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Lausanne"
+          ],
+          "givenName": "Christoph",
+          "familyName": "Grüter",
+          "name": "Grüter, Christoph",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2016,
+      "subjects": [
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Navigation",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Lasius niger"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.9j1cp",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "116490 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/beheco/arw079",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23256578.v2",
+      "titles": [
+        {
+          "title": "Metadata - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant Lasius niger"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Gema",
+          "familyName": "Trigos Peral",
+          "name": "Trigos Peral, Gema",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8713-5703"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "classificationCode": "310308",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Terrestrial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "319999",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Other biological sciences not elsewhere classified",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Metadata_-_Urban_abiotic_stressors_drive_changes_in_the_foraging_activity_and_colony_growth_of_the_black_garden_ant_Lasius_niger/23256578/2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "2581837 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.23256578",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23507211.v1",
+      "titles": [
+        {
+          "title": "Data - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant <i>Lasius niger</i>"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Gema",
+          "familyName": "Trigos Peral",
+          "name": "Trigos Peral, Gema",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8713-5703"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Jürgen",
+          "familyName": "Heinze",
+          "name": "Heinze, Jürgen",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9403-5946"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Istvan Elek",
+          "familyName": "Maák",
+          "name": "Maák, Istvan Elek",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0999-4916"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Tomer",
+          "familyName": "Caczkes",
+          "name": "Caczkes, Tomer",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-1350-4975"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Magdalena",
+          "familyName": "Witek",
+          "name": "Witek, Magdalena",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6172-8981"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Luca Pietro",
+          "familyName": "Casacci",
+          "name": "Casacci, Luca Pietro",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3083-7357"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Daniel",
+          "familyName": "Sánchez-García",
+          "name": "Sánchez-García, Daniel",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0710-6292"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Adam",
+          "familyName": "Lőrincz",
+          "name": "Lőrincz, Adam",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0212-8035"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Michal",
+          "familyName": "Kochanowski",
+          "name": "Kochanowski, Michal",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4687-5104"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "classificationCode": "310308",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Terrestrial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Data_-_Urban_abiotic_stressors_drive_changes_in_the_foraging_activity_and_colony_growth_of_the_black_garden_ant_i_Lasius_niger_i_/23507211/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "2445156 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.23507211",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23507211",
+      "titles": [
+        {
+          "title": "Data - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant <i>Lasius niger</i>"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Gema",
+          "familyName": "Trigos Peral",
+          "name": "Trigos Peral, Gema",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8713-5703"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Jürgen",
+          "familyName": "Heinze",
+          "name": "Heinze, Jürgen",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9403-5946"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Istvan Elek",
+          "familyName": "Maák",
+          "name": "Maák, Istvan Elek",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0999-4916"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Tomer",
+          "familyName": "Caczkes",
+          "name": "Caczkes, Tomer",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-1350-4975"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Magdalena",
+          "familyName": "Witek",
+          "name": "Witek, Magdalena",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6172-8981"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Luca Pietro",
+          "familyName": "Casacci",
+          "name": "Casacci, Luca Pietro",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3083-7357"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Daniel",
+          "familyName": "Sánchez-García",
+          "name": "Sánchez-García, Daniel",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0710-6292"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Adam",
+          "familyName": "Lőrincz",
+          "name": "Lőrincz, Adam",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0212-8035"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Michal",
+          "familyName": "Kochanowski",
+          "name": "Kochanowski, Michal",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4687-5104"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "classificationCode": "310308",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Terrestrial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Data_-_Urban_abiotic_stressors_drive_changes_in_the_foraging_activity_and_colony_growth_of_the_black_garden_ant_i_Lasius_niger_i_/23507211",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "2445156 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.23256578.v1",
+      "titles": [
+        {
+          "title": "Metadata - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant Lasius niger"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Gema",
+          "familyName": "Trigos Peral",
+          "name": "Trigos Peral, Gema",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8713-5703"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "classificationCode": "310308",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Terrestrial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "319999",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Other biological sciences not elsewhere classified",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Metadata_-_Urban_abiotic_stressors_drive_changes_in_the_foraging_activity_and_colony_growth_of_the_black_garden_ant_Lasius_niger/23256578/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "97792 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.6084/m9.figshare.23256578",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.23256578",
+      "titles": [
+        {
+          "title": "Metadata - Urban abiotic stressors drive changes in the foraging activity and colony growth of the black garden ant Lasius niger"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Gema",
+          "familyName": "Trigos Peral",
+          "name": "Trigos Peral, Gema",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8713-5703"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "classificationCode": "310308",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Terrestrial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "319999",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Other biological sciences not elsewhere classified",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Metadata_-_Urban_abiotic_stressors_drive_changes_in_the_foraging_activity_and_colony_growth_of_the_black_garden_ant_Lasius_niger/23256578",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "2581837 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:50:09.197491+00:00"
+}

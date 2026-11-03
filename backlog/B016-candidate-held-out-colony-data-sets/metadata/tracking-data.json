@@ -1,0 +1,336 @@
+{
+  "url": "https://api.datacite.org/dois?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers&query=types.resourceTypeGeneral%3ADataset+AND+titles.title%3A%28ant+OR+ants%29+AND+titles.title%3A%28%22social+network%22+OR+%22interaction+network%22+OR+%22contact+network%22+OR+%22crop+loads%22+OR+%22food+intake%22%29&page%5Bsize%5D=50&page%5Bnumber%5D=1",
+  "total": 4,
+  "records": [
+    {
+      "doi": "10.5061/dryad.dfn2z358r",
+      "titles": [
+        {
+          "title": "Data from: Ant social network structure is highly conserved"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Lausanne"
+          ],
+          "givenName": "Tomas",
+          "familyName": "Kay",
+          "name": "Kay, Tomas",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2453-2514"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Social networks",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Behavior",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.dfn2z358r",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "1036233541 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "https://github.com/MO-Katy/AntSocialNetworkComparative",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.12192891",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2024.0898",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.hk5n4m1",
+      "titles": [
+        {
+          "title": "Data from: The influence of spatial sampling scales on ant-plant interaction network architecture"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Instituto de Ecología"
+          ],
+          "givenName": "Wesley",
+          "familyName": "Dáttilo",
+          "name": "Dáttilo, Wesley",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Illinois Urbana-Champaign"
+          ],
+          "givenName": "Jeferson",
+          "familyName": "Vizentin-Bugoni",
+          "name": "Vizentin-Bugoni, Jeferson",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal do Rio Grande do Sul"
+          ],
+          "givenName": "Vanderlei J.",
+          "familyName": "Debastiani",
+          "name": "Debastiani, Vanderlei J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Estación Biológica de Doñana"
+          ],
+          "givenName": "Pedro",
+          "familyName": "Jordano",
+          "name": "Jordano, Pedro",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Mato Grosso"
+          ],
+          "givenName": "Thiago J.",
+          "familyName": "Izzo",
+          "name": "Izzo, Thiago J.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2019,
+      "subjects": [
+        {
+          "subject": "ecological networks"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ants",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "sampling scale dependence"
+        },
+        {
+          "subject": "sampling variation"
+        },
+        {
+          "subject": "plant-animal interaction"
+        },
+        {
+          "subject": "network structure"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.hk5n4m1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "123442 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/1365-2656.12978",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.3443210.v2",
+      "titles": [
+        {
+          "title": "Multi-interaction network involving different types of mutualism (animal pollination, seed-dispersal by frugivorous birds, and anti-herbivore defense by protective ants) sampled in a coastal tropical environment in Mexico."
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "D.",
+          "familyName": "Wesley",
+          "name": "Wesley, D.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2016,
+      "subjects": [
+        {
+          "subject": "60299 Ecology not elsewhere classified",
+          "subjectScheme": "FOR"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Interaction_matrix_A_in_which_elements_aij_1_represent_the_presence_of_an_interaction_between_the_plant_species_i_and_the_animal_species_j_and_zero_for_no_observed_interaction/3443210/2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "271360 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.3443210",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.3443210",
+      "titles": [
+        {
+          "title": "Multi-interaction network involving different types of mutualism (animal pollination, seed-dispersal by frugivorous birds, and anti-herbivore defense by protective ants) sampled in a coastal tropical environment in Mexico."
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "D.",
+          "familyName": "Wesley",
+          "name": "Wesley, D.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2016,
+      "subjects": [
+        {
+          "subject": "60299 Ecology not elsewhere classified",
+          "subjectScheme": "FOR"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Interaction_matrix_A_in_which_elements_aij_1_represent_the_presence_of_an_interaction_between_the_plant_species_i_and_the_animal_species_j_and_zero_for_no_observed_interaction/3443210",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "271360 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:51:29.951132+00:00"
+}

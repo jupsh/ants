@@ -107,3 +107,5 @@ reviews:
 - 2026-10-31 03:23 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — no mixture fitted
 - 2026-10-31 03:34 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — re-read D226 after its change: the change appends D228's result only (the independent check agrees); the check was a reproduction on existing records, so this commitment still does not bear on it
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — no mixture is fitted; D226 says B005 stays separate
+- 2026-11-03 16:31 UTC lead (session e38b977a): reviewed X030@e0fc1a79ac45; X030 cites D181 for B016's exposure rules only; nothing on B005's mixture classes. Unaffected.
+- 2026-11-03 16:32 UTC lead (session e38b977a): reviewed D271@59fa1169345e; D271 cites D181 for B016's exposure rules only; nothing on B005. Unaffected.

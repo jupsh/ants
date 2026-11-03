@@ -27,3 +27,5 @@ reviews:
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — No B007 work in this commit.
 - 2026-10-31 02:17 UTC lead (session 6b5fb317): reviewed D223@b738f2de5839; D223 cites D181 only for B005's Done-when 1; it reads no X015 source, so P72 is unaffected
 - 2026-10-31 02:32 UTC lead (session 6b5fb317): reviewed D223@d91126ff338b; D223 amendment 1 reads no X015 source. Unaffected
+- 2026-11-03 16:31 UTC lead (session e38b977a): reviewed X030@e0fc1a79ac45; X030 cites D181 for B016's exposure rules only; B007's source (X015's Methods sections) is not touched. Unaffected.
+- 2026-11-03 16:32 UTC lead (session e38b977a): reviewed D271@59fa1169345e; D271 cites D181 for B016's exposure rules only; B007's source untouched. Unaffected.

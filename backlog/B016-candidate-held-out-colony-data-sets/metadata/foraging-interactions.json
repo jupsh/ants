@@ -1,0 +1,88 @@
+{
+  "url": "https://zenodo.org/api/records/8132462",
+  "record": {
+    "title": "Social interactions differ in their impact on foraging decisions",
+    "creators": [
+      {
+        "name": "Noa Pinter-Wollman",
+        "affiliation": "UCLA"
+      }
+    ],
+    "publication_date": "2023-07-10",
+    "doi": "10.5281/zenodo.8132463",
+    "version": null,
+    "keywords": null,
+    "license": {
+      "id": "cc-by-4.0"
+    },
+    "access_right": "open",
+    "related_identifiers": null,
+    "resource_type": {
+      "title": "Dataset",
+      "type": "dataset"
+    }
+  },
+  "file_metadata": [
+    {
+      "key": "interactions-AA10F20180802.csv",
+      "size": 476998,
+      "type": null,
+      "checksum": "md5:10d185c27ba49d682d9ea4386ffcbcaa"
+    },
+    {
+      "key": "interactions-AA11F20180802.csv",
+      "size": 927020,
+      "type": null,
+      "checksum": "md5:8ad55fac732ffb903442146e8c8923be"
+    },
+    {
+      "key": "interactions-AA12F20180802.csv",
+      "size": 836569,
+      "type": null,
+      "checksum": "md5:e4cd7ae69819e1ee5b23ae86e8ee2af6"
+    },
+    {
+      "key": "data_analysis_for_paper.R",
+      "size": 33645,
+      "type": null,
+      "checksum": "md5:893eb886c266a4b91444c7eae0ed4ed9"
+    },
+    {
+      "key": "interactions-AA5F20180714.csv",
+      "size": 949227,
+      "type": null,
+      "checksum": "md5:e4ce302250a8c5967ff9d6a4e01703e4"
+    },
+    {
+      "key": "interactions-AA14F20180802.csv",
+      "size": 1078892,
+      "type": null,
+      "checksum": "md5:1bda70bc9b630447861abeef038563c6"
+    },
+    {
+      "key": "Readme.docx",
+      "size": 13255,
+      "type": null,
+      "checksum": "md5:2da9bf7e2be7e0570d8177d6c6335292"
+    },
+    {
+      "key": "interactions-AA3F20180714.csv",
+      "size": 1220409,
+      "type": null,
+      "checksum": "md5:9fe4e3d6dd587c48269d5f7723632f95"
+    },
+    {
+      "key": "interactions-AA4F20180714.csv",
+      "size": 1258675,
+      "type": null,
+      "checksum": "md5:1ef9ec9eb27b0ac269c9128857559e9b"
+    },
+    {
+      "key": "interactions-AA9F20180802.csv",
+      "size": 686213,
+      "type": null,
+      "checksum": "md5:6a755ba9acde013953ca4da365a79988"
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:54:19.782802+00:00"
+}

@@ -1,0 +1,6115 @@
+{
+  "url": "https://api.datacite.org/dois?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers&query=types.resourceTypeGeneral%3ADataset+AND+titles.title%3A%28%22in-nest%22+OR+%22intranidal%22+OR+%22collective+food%22+OR+%22food+dissemination%22%29&page%5Bsize%5D=50&page%5Bnumber%5D=1",
+  "total": 130,
+  "records": [
+    {
+      "doi": "10.5061/dryad.t76hdr835",
+      "titles": [
+        {
+          "title": "No apparent trade-off between the quality of nest grown feathers and time spent in the nest in an aerial insectivore, the tree swallow"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "name": "Taff, Conor",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-1497-7990"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "name": "Johnson, Brianna A.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3214-284X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "name": "Anker, Allison T.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "name": "Rodriguez, Alyssa M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "name": "Houtz, Jennifer L.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-1022-1398"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "name": "Uehling, Jennifer J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "name": "Vitousek, Maren N.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "subject": "feather quality"
+        },
+        {
+          "subject": "developmental timing"
+        },
+        {
+          "subject": "Resource allocation"
+        },
+        {
+          "subject": "fledging age"
+        },
+        {
+          "subject": "aerial insectivore"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.t76hdr835",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "347333 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1101/2021.04.07.438834",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/ornithology/ukac017",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.6t8vb41",
+      "titles": [
+        {
+          "title": "Data from: Spatial and temporal variation in nest temperatures forecasts sex ratio skews in a crocodilian with environmental sex determination"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Georgia"
+          ],
+          "name": "Bock, Samantha L.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Kennedy Space Center"
+          ],
+          "name": "Lowers, Russell H.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Clemson University"
+          ],
+          "name": "Rainwater, Thomas R.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Kennedy Space Center"
+          ],
+          "name": "Stolen, Eric",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Georgia"
+          ],
+          "name": "Drake, John M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Tom Yawkey Wildlife Center"
+          ],
+          "name": "Wilkinson, Philip M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Kennedy Space Center"
+          ],
+          "name": "Weiss, Stephanie",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Kennedy Space Center"
+          ],
+          "name": "Brenton, Back",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Medical University of South Carolina"
+          ],
+          "name": "Guillette, Louis",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Georgia"
+          ],
+          "name": "Parrott, Benjamin B.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "subject": "Alligator mississippiensis"
+        },
+        {
+          "subject": "american alligator"
+        },
+        {
+          "subject": "crocodilian"
+        },
+        {
+          "subject": "temperature-dependent sex determination"
+        },
+        {
+          "subject": "nesting ecology"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.6t8vb41",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "27240 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2020.0210",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.nd4169j",
+      "titles": [
+        {
+          "title": "Data from: Variation in nest characteristics and brooding patterns of female Black-throated Blue Warblers is associated with thermal cues"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "name": "Smith, Maria G.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "name": "Kaiser, Sara A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Smithsonian Conservation Biology Institute"
+          ],
+          "name": "Sillett, T. Scott",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "name": "Webster, Michael S.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2018,
+      "subjects": [
+        {
+          "subject": "brooding"
+        },
+        {
+          "subject": "environmental cues"
+        },
+        {
+          "subject": "nest microclimate"
+        },
+        {
+          "subject": "nest construction"
+        },
+        {
+          "subject": "Setophaga caerulescens"
+        },
+        {
+          "subject": "nestling condition"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.nd4169j",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "362431 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1642/auk-17-195.1",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.17026/dans-xtr-v3rg",
+      "titles": [
+        {
+          "title": "Ethnographic DATA: ERC Consolidator project Food Citizens? Collective food procurement in European cities: solidarity and diversity, skill and scale (2017-2024). Field reports from ethnographic research in Gdańsk, Rotterdam and Turin, 2019-2020"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Leiden University"
+          ],
+          "name": "C. Grasseni",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4545-1978"
+            }
+          ]
+        }
+      ],
+      "publisher": "DANS Data Station Social Sciences and Humanities",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "subject": "Social Sciences"
+        },
+        {
+          "subject": "alternative food networks"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://ssh.datastations.nl/citation?persistentId=doi:10.17026/DANS-XTR-V3RG",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/restrictedAccess"
+        },
+        {
+          "rightsUri": "https://doi.org/10.17026/fp39-0x58",
+          "rights": "DANS Licence",
+          "lang": "en"
+        }
+      ],
+      "sizes": [
+        "20381",
+        "4736426",
+        "806694",
+        "9353720"
+      ],
+      "formats": [
+        "application/zip",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.17026/dans-xuc-7ahg",
+      "titles": [
+        {
+          "title": "Ethnographic DATA: ERC Consolidator project Food Citizens? Collective food procurement in European cities: solidarity and diversity, skill and scale (2017-2024). Materials for documentary analysis from Gdańsk, Rotterdam and Turin, 2019-2020"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Leiden University"
+          ],
+          "name": "C. Grasseni",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4545-1978"
+            }
+          ]
+        }
+      ],
+      "publisher": "DANS Data Station Social Sciences and Humanities",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "subject": "Social Sciences"
+        },
+        {
+          "subject": "alternative food networks"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://ssh.datastations.nl/citation?persistentId=doi:10.17026/DANS-XUC-7AHG",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "7075624",
+        "747062",
+        "170995",
+        "1794817",
+        "316581",
+        "429093",
+        "99988",
+        "3118882",
+        "266708",
+        "308609",
+        "54685",
+        "2341497",
+        "164493",
+        "2698251",
+        "4169144",
+        "288700",
+        "2219594",
+        "802037",
+        "166476",
+        "515144",
+        "1639128",
+        "1395579",
+        "4206289",
+        "1530097",
+        "2114666",
+        "4474613",
+        "444023",
+        "336045",
+        "807129",
+        "418605",
+        "273066",
+        "10313168",
+        "214132",
+        "1027094",
+        "65558",
+        "7122892",
+        "219462",
+        "2959858",
+        "106406",
+        "92963",
+        "66715",
+        "1136618",
+        "192333",
+        "252123",
+        "347919",
+        "99073",
+        "95323",
+        "1771055",
+        "2541204",
+        "10584647",
+        "9244007",
+        "14907092",
+        "2826145",
+        "1426609",
+        "1371187",
+        "3670471",
+        "342600",
+        "3683744",
+        "246927",
+        "600962",
+        "7093255",
+        "457036",
+        "427815",
+        "3564489",
+        "2466739",
+        "189264",
+        "2735840",
+        "10951984",
+        "3684543",
+        "1793592",
+        "4278826",
+        "77985",
+        "5663969",
+        "1444815",
+        "4569720",
+        "507285",
+        "200804",
+        "1578144",
+        "5237340",
+        "791450",
+        "1133356",
+        "568931",
+        "1647230",
+        "218811",
+        "7653306",
+        "30108",
+        "394162",
+        "707448",
+        "3430638",
+        "527110",
+        "2196489",
+        "33640",
+        "722355",
+        "1736273",
+        "249332",
+        "3055614",
+        "263041",
+        "1217963",
+        "1115220",
+        "1678757",
+        "389699",
+        "202165",
+        "9648309",
+        "2348958",
+        "2627623",
+        "907093",
+        "124257",
+        "41707541",
+        "24960393",
+        "2691128",
+        "2197786",
+        "837896",
+        "10432175",
+        "2703245",
+        "1292102",
+        "193118",
+        "35439",
+        "79335",
+        "5555408",
+        "266241",
+        "252842",
+        "4411677",
+        "1123578",
+        "1965888",
+        "112254",
+        "645980",
+        "1209877",
+        "5273484",
+        "478849",
+        "231144",
+        "7749000",
+        "5909050",
+        "969792",
+        "893434",
+        "1034752",
+        "469175",
+        "81347",
+        "486898",
+        "277757",
+        "954375",
+        "10927623",
+        "86886",
+        "216247",
+        "77295",
+        "1584609",
+        "22234",
+        "653434",
+        "1573132",
+        "234947",
+        "2161201",
+        "5011290",
+        "189169",
+        "5579349",
+        "1703991",
+        "31697537",
+        "1703667",
+        "2296665",
+        "2855749",
+        "706138",
+        "2427288",
+        "149772",
+        "161550",
+        "10629942",
+        "2576978",
+        "215293",
+        "172891",
+        "1230667",
+        "684683",
+        "1939213",
+        "1410058",
+        "9680398",
+        "683960",
+        "175770",
+        "1987544",
+        "534294",
+        "176345",
+        "960975",
+        "1775556",
+        "1152105",
+        "543959",
+        "88057",
+        "41068173",
+        "1608904",
+        "462068",
+        "1664335",
+        "3078635",
+        "15124079",
+        "740388",
+        "79689",
+        "263452",
+        "6268213",
+        "27897478",
+        "2848422",
+        "1760944",
+        "91802",
+        "2267273",
+        "2141725",
+        "355636",
+        "3754228",
+        "43673",
+        "610949",
+        "3085860",
+        "4138263",
+        "1671268",
+        "1441768",
+        "798530",
+        "2595228",
+        "140867",
+        "948487",
+        "8583648",
+        "2115125",
+        "2088437",
+        "1603354",
+        "1070751",
+        "1934773",
+        "213232",
+        "202717",
+        "2237686",
+        "547490",
+        "70442",
+        "205804",
+        "1075591",
+        "213822",
+        "11047125",
+        "25600",
+        "1613071",
+        "3235016",
+        "1261232",
+        "90981",
+        "188965"
+      ],
+      "formats": [
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "image/png",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "image/jpeg",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/png",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "image/png",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/zip",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "image/png",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "image/png",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/png",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "image/jpeg",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "image/jpeg",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/octet-stream",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/pdf",
+        "application/zip"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.32541894",
+      "titles": [
+        {
+          "title": "<b>Variation in nest height of the azure-winged magpie (</b><b><i>Cyanopica cyanus</i></b><b>) across an urbanization gradient</b>"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Zongjun",
+          "familyName": "Zhang",
+          "name": "Zhang, Zongjun",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0009-7457-7340"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Caizhen",
+          "familyName": "Wen",
+          "name": "Wen, Caizhen",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0002-0090-8281"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Peng",
+          "familyName": "Pan",
+          "name": "Pan, Peng",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0006-5183-4250"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Wei",
+          "familyName": "Liang",
+          "name": "Liang, Wei",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0004-9707"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310408",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Life histories",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/_b_Variation_in_nest_height_of_the_azure-winged_magpie_b_b_i_Cyanopica_cyanus_i_b_b_across_an_urbanization_gradient_b_/32541894",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "7509972 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.32541894.v1",
+      "titles": [
+        {
+          "title": "<b>Variation in nest height of the azure-winged magpie (</b><b><i>Cyanopica cyanus</i></b><b>) across an urbanization gradient</b>"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Zongjun",
+          "familyName": "Zhang",
+          "name": "Zhang, Zongjun",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0009-7457-7340"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Caizhen",
+          "familyName": "Wen",
+          "name": "Wen, Caizhen",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0002-0090-8281"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Peng",
+          "familyName": "Pan",
+          "name": "Pan, Peng",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0006-5183-4250"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Wei",
+          "familyName": "Liang",
+          "name": "Liang, Wei",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0004-9707"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310408",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Life histories",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/_b_Variation_in_nest_height_of_the_azure-winged_magpie_b_b_i_Cyanopica_cyanus_i_b_b_across_an_urbanization_gradient_b_/32541894/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "7509972 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.32541894",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.547d7wmgs",
+      "titles": [
+        {
+          "title": "Video recordings from: Observation of interspecific feeding by white-browed shrike-babbler (<em>Pteruthius aeralatus</em>) of brood-parasitic nestlings of chestnut-winged cuckoo (<em>Clamator coromandus</em>) in a nest of greater necklaced laughingthrush (<em>Pterorhinus pectoralis</em>)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institute of Geochemistry"
+          ],
+          "givenName": "Kang",
+          "familyName": "Luo",
+          "name": "Luo, Kang",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8043-1171"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Administration Bureau of Nuozhadu Provincial Nature Reserve"
+          ],
+          "givenName": "Jinfa",
+          "familyName": "Li",
+          "name": "Li, Jinfa",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Administration Bureau of Nuozhadu Provincial Nature Reserve"
+          ],
+          "givenName": "Wen",
+          "familyName": "Lu",
+          "name": "Lu, Wen",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Administration Bureau of Nuozhadu Provincial Nature Reserve"
+          ],
+          "givenName": "Yuan",
+          "familyName": "Lei",
+          "name": "Lei, Yuan",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Administration Bureau of Nuozhadu Provincial Nature Reserve"
+          ],
+          "givenName": "Jingnan",
+          "familyName": "Duan",
+          "name": "Duan, Jingnan",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Interspecific Feeding"
+        },
+        {
+          "subject": "multiple parasitism"
+        },
+        {
+          "subject": "Chestnut-winged Cuckoos"
+        },
+        {
+          "subject": "White-browed Shrike-Babbler"
+        },
+        {
+          "subject": "Greater Necklaced Laughingthrush"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.547d7wmgs",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "9586 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1002/ece3.11465",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSourceOf",
+          "relatedIdentifier": "10.5281/zenodo.11063465",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.jq2bvq86c",
+      "titles": [
+        {
+          "title": "Temporal variation in maternal nest choice and its consequences for lizard embryos"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Auburn University"
+          ],
+          "givenName": "Jenna",
+          "familyName": "Pruett",
+          "name": "Pruett, Jenna",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-6469-6447"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Auburn University"
+          ],
+          "givenName": "Amelie",
+          "familyName": "Fargevieille",
+          "name": "Fargevieille, Amelie",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Auburn University"
+          ],
+          "givenName": "Daniel",
+          "familyName": "Warner",
+          "name": "Warner, Daniel",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "subject": "maternal effects"
+        },
+        {
+          "subject": "Anolis sagrei"
+        },
+        {
+          "subject": "developmental plasticity"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.jq2bvq86c",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "197955 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/beheco/araa032",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.31563076",
+      "titles": [
+        {
+          "title": "<b>Medusa in the nest: Human hair causes the death of breeding barn swallows (</b><b><i>Hirundo rustica</i></b><b>)</b>"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Cong",
+          "familyName": "Peng",
+          "name": "Peng, Cong",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-3150-2738"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Kui",
+          "familyName": "Yan",
+          "name": "Yan, Kui",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0586-7389"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Sidan",
+          "familyName": "Lin",
+          "name": "Lin, Sidan",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2969-4144"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Wei",
+          "familyName": "Liang",
+          "name": "Liang, Wei",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0004-9707"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "330404",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Land use and environmental planning",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310901",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Animal behaviour",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/_b_Medusa_in_the_nest_Human_hair_causes_the_death_of_breeding_barn_swallows_b_b_i_Hirundo_rustica_i_b_b_b_/31563076",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "29056 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.31563076.v1",
+      "titles": [
+        {
+          "title": "<b>Medusa in the nest: Human hair causes the death of breeding barn swallows (</b><b><i>Hirundo rustica</i></b><b>)</b>"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Cong",
+          "familyName": "Peng",
+          "name": "Peng, Cong",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-3150-2738"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Kui",
+          "familyName": "Yan",
+          "name": "Yan, Kui",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0586-7389"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Sidan",
+          "familyName": "Lin",
+          "name": "Lin, Sidan",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2969-4144"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Wei",
+          "familyName": "Liang",
+          "name": "Liang, Wei",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0004-9707"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "330404",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Land use and environmental planning",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310901",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Animal behaviour",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/_b_Medusa_in_the_nest_Human_hair_causes_the_death_of_breeding_barn_swallows_b_b_i_Hirundo_rustica_i_b_b_b_/31563076/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "29056 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.31563076",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.b5mkkwhcb",
+      "titles": [
+        {
+          "title": "The correlates of intraspecific variation in nest height and nest building duration in the Eurasian blue tit Cyanistes caeruleus"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Edinburgh"
+          ],
+          "givenName": "Dagmar",
+          "familyName": "der Weduwen",
+          "name": "der Weduwen, Dagmar",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3538-5388"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Edinburgh"
+          ],
+          "givenName": "Katharine",
+          "familyName": "Keogan",
+          "name": "Keogan, Katharine",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Edinburgh"
+          ],
+          "givenName": "Jelmer",
+          "familyName": "Samplonius",
+          "name": "Samplonius, Jelmer",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Edinburgh"
+          ],
+          "givenName": "Albert",
+          "familyName": "Phillimore",
+          "name": "Phillimore, Albert",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Edinburgh"
+          ],
+          "givenName": "Jack",
+          "familyName": "Shutt",
+          "name": "Shutt, Jack",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "subject": "Nest structure"
+        },
+        {
+          "subject": "hole-nesting bird"
+        },
+        {
+          "subject": "egg-laying"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Cyanistes caeruleus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.b5mkkwhcb",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "278549 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/jav.02528",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.k98sf7mn6",
+      "titles": [
+        {
+          "title": "Data and code from: Large-scale source-sink dynamics in <em>Tachycineta bicolor</em> breeding in nest-boxes across eastern Canada's farmlands"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université du Québec en Abitibi-Témiscamingue"
+          ],
+          "givenName": "Gabriel",
+          "familyName": "Pigeon",
+          "name": "Pigeon, Gabriel",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9166-8633"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université de Sherbrooke"
+          ],
+          "givenName": "Justine",
+          "familyName": "Le Vaillant",
+          "name": "Le Vaillant, Justine",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université de Sherbrooke"
+          ],
+          "givenName": "Carolyne",
+          "familyName": "Houle",
+          "name": "Houle, Carolyne",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université de Sherbrooke"
+          ],
+          "givenName": "Dany",
+          "familyName": "Garant",
+          "name": "Garant, Dany",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université de Sherbrooke"
+          ],
+          "givenName": "Marc",
+          "familyName": "Bélisle",
+          "name": "Bélisle, Marc",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université de Sherbrooke"
+          ],
+          "givenName": "Fanie",
+          "familyName": "Pelletier",
+          "name": "Pelletier, Fanie",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0113-5412"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Aerial insectivores"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Population dynamics",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Elasticity",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "matrix model"
+        },
+        {
+          "subject": "life-history variation"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Agriculture",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Birds",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.k98sf7mn6",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "219211 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1139/cjz-2025-0105",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.2ngf1vj0x",
+      "titles": [
+        {
+          "title": "Data from: A wide range of abiotic and biotic variables leaves most variation in bird nest architecture unexplained"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Birmingham"
+          ],
+          "givenName": "Michał",
+          "familyName": "Jezierski",
+          "name": "Jezierski, Michał",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9895-2215"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "American Museum of Natural History"
+          ],
+          "givenName": "Roger",
+          "familyName": "Benson",
+          "name": "Benson, Roger",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-8244-6177"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Nottingham"
+          ],
+          "givenName": "William",
+          "familyName": "Smith",
+          "name": "Smith, William",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Oxford"
+          ],
+          "givenName": "Erin",
+          "familyName": "Saupe",
+          "name": "Saupe, Erin",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0370-9897"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Oxford"
+          ],
+          "givenName": "Sonya",
+          "familyName": "Clegg",
+          "name": "Clegg, Sonya",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Birds",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Natural sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Natural sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Animal evolution",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Behavioral ecology",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Nesting habits",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.2ngf1vj0x",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "11167162 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2025.2013",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.7pvmcvf53",
+      "titles": [
+        {
+          "title": "Data from: Upcycling in the Hawaiian Islands: Native forest birds commonly engage in nest material kleptoparasitism"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "Erin",
+          "familyName": "Rankin",
+          "name": "Rankin, Erin",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-7741-113X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Wheaton College - Massachusetts"
+          ],
+          "givenName": "Jessie",
+          "familyName": "Knowlton",
+          "name": "Knowlton, Jessie",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Michigan Technological University"
+          ],
+          "givenName": "David",
+          "familyName": "Flaspohler",
+          "name": "Flaspohler, David",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "David",
+          "familyName": "Rankin",
+          "name": "Rankin, David",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Hawaii",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "native birds"
+        },
+        {
+          "subject": "nest material kleptoparasitism"
+        },
+        {
+          "subject": "nest height"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.7pvmcvf53",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "54029 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1086/740144",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.47d7wm3r8",
+      "titles": [
+        {
+          "title": "Causes and consequences of material variation in avian nest building"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Newcastle University"
+          ],
+          "givenName": "Shoko",
+          "familyName": "Sugasawa",
+          "name": "Sugasawa, Shoko",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4452-1177"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Glasgow"
+          ],
+          "givenName": "Mike",
+          "familyName": "Hansell",
+          "name": "Hansell, Mike",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "The Hunterian"
+          ],
+          "givenName": "Maggie",
+          "familyName": "Reilly",
+          "name": "Reilly, Maggie",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Susan",
+          "familyName": "Healy",
+          "name": "Healy, Susan",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Nest building"
+        },
+        {
+          "subject": "nest material"
+        },
+        {
+          "subject": "nest composition"
+        },
+        {
+          "subject": "behavioural plasticity"
+        },
+        {
+          "subject": "Sylvia undata"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.47d7wm3r8",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "9931 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.14931156",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1002/jav.03438",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.34tmpg4v1",
+      "titles": [
+        {
+          "title": "Social control of egg-laying in independently nest-founding bumble bee queens"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "Blanca R.",
+          "familyName": "Peto",
+          "name": "Peto, Blanca R.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4278-796X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "Claudinéia",
+          "familyName": "Costa",
+          "name": "Costa, Claudinéia",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-5458-4502"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "Meghan E.",
+          "familyName": "Moore",
+          "name": "Moore, Meghan E.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0009-0002-1899-9046"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "S. Hollis",
+          "familyName": "Woodard",
+          "name": "Woodard, S. Hollis",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4948-1282"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Other natural sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Other natural sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Bumble bee"
+        },
+        {
+          "subject": "Social Control"
+        },
+        {
+          "subject": "Queens"
+        },
+        {
+          "subject": "egg-laying"
+        },
+        {
+          "subject": "Life history strategy"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.34tmpg4v1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "10666753180 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.14537872",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1186/s12862-025-02364-0",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.8pk0p2ntd",
+      "titles": [
+        {
+          "title": "The Asian koel rapidly locates hosts breeding in novel nest sites"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Hainan Normal University"
+          ],
+          "givenName": "Mominul Islam",
+          "familyName": "Nahid",
+          "name": "Nahid, Mominul Islam",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Norwegian University of Science and Technology"
+          ],
+          "givenName": "Peter S.",
+          "familyName": "Ranke",
+          "name": "Ranke, Peter S.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3757-8626"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Hainan Normal University"
+          ],
+          "givenName": "Wei",
+          "familyName": "Liang",
+          "name": "Liang, Wei",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0004-9707"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "host imprinting"
+        },
+        {
+          "subject": "nest box"
+        },
+        {
+          "subject": "Asian Koel"
+        },
+        {
+          "subject": "nest type"
+        },
+        {
+          "subject": "common myna"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.8pk0p2ntd",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "34811 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1002/ece3.11345",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.kwh70rz8z",
+      "titles": [
+        {
+          "title": "Data for: Long-term environmental stability does not erode plasticity in nest building repsonses to changing ambient conditions"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Australian National University"
+          ],
+          "givenName": "Meng-Han",
+          "familyName": "Chung",
+          "name": "Chung, Meng-Han",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Aberystwyth University"
+          ],
+          "givenName": "Iain",
+          "familyName": "Barber",
+          "name": "Barber, Iain",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Australian National University"
+          ],
+          "givenName": "Megan",
+          "familyName": "Head",
+          "name": "Head, Megan",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8123-7661"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Nest building"
+        },
+        {
+          "subject": "animal construction"
+        },
+        {
+          "subject": "phenotypic plasticity"
+        },
+        {
+          "subject": "environmental-dependence"
+        },
+        {
+          "subject": "parental care"
+        },
+        {
+          "subject": "stickleback"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.kwh70rz8z",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "123284 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rstb.2022.0154",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.mw6m9060v",
+      "titles": [
+        {
+          "title": "Data for: Microclimate shifts in nest-boxes and natural cavities throughout reproduction"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Groningen"
+          ],
+          "givenName": "Joanna",
+          "familyName": "Sudyka",
+          "name": "Sudyka, Joanna",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3006-3806"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Warsaw"
+          ],
+          "givenName": "Irene",
+          "familyName": "Di Lecce",
+          "name": "Di Lecce, Irene",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Warsaw"
+          ],
+          "givenName": "Marta",
+          "familyName": "Szulkin",
+          "name": "Szulkin, Marta",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "absolute humidity"
+        },
+        {
+          "subject": "Anthropocene"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Climate change",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "natural cavities"
+        },
+        {
+          "subject": "nest boxes"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Birds",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Temperature"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.mw6m9060v",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "2538014 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "https://ecoevorxiv.org/zf49y/",
+          "relatedIdentifierType": "URL"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/jav.03000",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.2bvq83bt7",
+      "titles": [
+        {
+          "title": "The role of a synanthropic bird in the nest niche expansion of a secondary cavity-nester to man-made structures"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "National Taiwan Normal University"
+          ],
+          "givenName": "Jing-Chia",
+          "familyName": "Guo",
+          "name": "Guo, Jing-Chia",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "National Chiayi University"
+          ],
+          "givenName": "Jo-Szu",
+          "familyName": "Tsai",
+          "name": "Tsai, Jo-Szu",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Academia Sinica"
+          ],
+          "givenName": "Jhih-Syuan",
+          "familyName": "Wang",
+          "name": "Wang, Jhih-Syuan",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "National Chiayi University"
+          ],
+          "givenName": "Ya-Wen",
+          "familyName": "Lin",
+          "name": "Lin, Ya-Wen",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "National Taiwan Normal University"
+          ],
+          "givenName": "Pei-Jen",
+          "familyName": "Shaner",
+          "name": "Shaner, Pei-Jen",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Academia Sinica"
+          ],
+          "givenName": "Chih-Ming",
+          "familyName": "Hung",
+          "name": "Hung, Chih-Ming",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4785-6370"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Passer cinnamomeus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.2bvq83bt7",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "64728 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1002/ece3.9188",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.5mkkwh777",
+      "titles": [
+        {
+          "title": "Lack of avian predators is associated with behavioural plasticity in nest construction and height in an island songbird"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Colorado State University"
+          ],
+          "givenName": "Rebecca",
+          "familyName": "Cheek",
+          "name": "Cheek, Rebecca",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-7935-3153"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Colorado State University"
+          ],
+          "givenName": "Sarah",
+          "familyName": "Hays",
+          "name": "Hays, Sarah",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-5772-454X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Smithsonian Institution"
+          ],
+          "givenName": "James",
+          "familyName": "Mouton",
+          "name": "Mouton, James",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Smithsonian Institution"
+          ],
+          "givenName": "Scott",
+          "familyName": "Sillett",
+          "name": "Sillett, Scott",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Colorado State University"
+          ],
+          "givenName": "Cameron",
+          "familyName": "Ghalambor",
+          "name": "Ghalambor, Cameron",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2515-4981"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "behavioural plasticity"
+        },
+        {
+          "subject": "California Channel Islands"
+        },
+        {
+          "subject": "Leiothlypis celata sordida"
+        },
+        {
+          "subject": "nest construction"
+        },
+        {
+          "subject": "nest site selection"
+        },
+        {
+          "subject": "orange-crowned warbler"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Predation",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.5mkkwh777",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "290517 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.5773196",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1016/j.anbehav.2022.08.017",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6086/d10q22",
+      "titles": [
+        {
+          "title": "Pollen diet mediates how pesticide exposure impacts brain gene expression in nest-founding bumble bee queens"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "Claudineia",
+          "familyName": "Costa",
+          "name": "Costa, Claudineia",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-5458-4502"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universitat de les Illes Balears"
+          ],
+          "givenName": "Mar",
+          "familyName": "Leza",
+          "name": "Leza, Mar",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Saint Vincent College"
+          ],
+          "givenName": "Michelle",
+          "familyName": "Duennes",
+          "name": "Duennes, Michelle",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "Kaleigh",
+          "familyName": "Fisher",
+          "name": "Fisher, Kaleigh",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "Alyssa",
+          "familyName": "Vollaro",
+          "name": "Vollaro, Alyssa",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "Manhoi",
+          "familyName": "Hur",
+          "name": "Hur, Manhoi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "Jay",
+          "familyName": "Kirkwood",
+          "name": "Kirkwood, Jay",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "S. Hollis",
+          "familyName": "Woodard",
+          "name": "Woodard, S. Hollis",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Agricultural sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Agricultural sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.6086/D10Q22",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "3635968 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2018.0761",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1016/j.scitotenv.2022.155216",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.sf7m0cg50",
+      "titles": [
+        {
+          "title": "Datasets used for the publication: State-dependence explains individual variation in nest defence behaviour in a long-lived bird"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Vienna"
+          ],
+          "givenName": "Margje E.",
+          "familyName": "de Jong",
+          "name": "de Jong, Margje E.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4941-8323"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Groningen"
+          ],
+          "givenName": "Marion",
+          "familyName": "Nicolaus",
+          "name": "Nicolaus, Marion",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-1808-1526"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Groningen"
+          ],
+          "givenName": "Rienk W.",
+          "familyName": "Fokkema",
+          "name": "Fokkema, Rienk W.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-8238-5308"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Groningen"
+          ],
+          "givenName": "Maarten J.J.E.",
+          "familyName": "Loonen",
+          "name": "Loonen, Maarten J.J.E.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-3426-4595"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.sf7m0cg50",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "360063 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/1365-2656.13411",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.cnp5hqc27",
+      "titles": [
+        {
+          "title": "Juvenile socio-ecological environment shapes material technology in nest-building birds"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Alexis",
+          "familyName": "Breen",
+          "name": "Breen, Alexis",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2331-0920"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Keren",
+          "familyName": "Lovie",
+          "name": "Lovie, Keren",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "École Nationale Vétérinaire de Toulouse"
+          ],
+          "givenName": "Chloé",
+          "familyName": "Guerard",
+          "name": "Guerard, Chloé",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Sophie",
+          "familyName": "Edwards",
+          "name": "Edwards, Sophie",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Jasmine",
+          "familyName": "Cooper",
+          "name": "Cooper, Jasmine",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Susan",
+          "familyName": "Healy",
+          "name": "Healy, Susan",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Lauren",
+          "familyName": "Guillette",
+          "name": "Guillette, Lauren",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "subject": "Animal material technology"
+        },
+        {
+          "subject": "nest construction"
+        },
+        {
+          "subject": "early-life environment"
+        },
+        {
+          "subject": "Material preference"
+        },
+        {
+          "subject": "Construction speed"
+        },
+        {
+          "subject": "Technological evolution"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.cnp5hqc27",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "80187 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/beheco/araa027",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.4152128",
+      "titles": [
+        {
+          "title": "Data from: Integrated population model reveals that Kestrels breeding in nest boxes operate as a source population"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Rémi",
+          "familyName": "Fay",
+          "name": "Fay, Rémi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Stephanie",
+          "familyName": "Michler",
+          "name": "Michler, Stephanie",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Jacques",
+          "familyName": "Laesser",
+          "name": "Laesser, Jacques",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Michael",
+          "familyName": "Schaub",
+          "name": "Schaub, Michael",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2019,
+      "subjects": [
+        {
+          "subject": "source population"
+        },
+        {
+          "subject": "integrated population model"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.4152128",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "27795 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/ecog.04559",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.7cq1st8",
+      "titles": [
+        {
+          "title": "Data from: Gone with the rain: negative effects of rainfall on male mating success in a nest-building arachnid"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade de São Paulo"
+          ],
+          "givenName": "Andrés",
+          "familyName": "Rojas",
+          "name": "Rojas, Andrés",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidad de Costa Rica"
+          ],
+          "givenName": "Diego",
+          "familyName": "Solano-Brenes",
+          "name": "Solano-Brenes, Diego",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade de São Paulo"
+          ],
+          "givenName": "Danilo G.",
+          "familyName": "Muniz",
+          "name": "Muniz, Danilo G.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade de São Paulo"
+          ],
+          "givenName": "Glauco",
+          "familyName": "Machado",
+          "name": "Machado, Glauco",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2019,
+      "subjects": [
+        {
+          "subject": "male attractiveness"
+        },
+        {
+          "subject": "Paternal Care"
+        },
+        {
+          "subject": "nest abandonment"
+        },
+        {
+          "subject": "Quindina limbata"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Reproductive success",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "nest integrity"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.7cq1st8",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "44857 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/beheco/arz063",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.1vp7476",
+      "titles": [
+        {
+          "title": "Data from: Changing of the guard: mixed specialization and flexibility in nest defense (Tetragonisca angustula)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Kaitlin",
+          "familyName": "Baudier",
+          "name": "Baudier, Kaitlin",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Madeleine",
+          "familyName": "Ostwald",
+          "name": "Ostwald, Madeleine",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Christoph",
+          "familyName": "Grüter",
+          "name": "Grüter, Christoph",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Francisca",
+          "familyName": "Segers",
+          "name": "Segers, Francisca",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "David",
+          "familyName": "Roubik",
+          "name": "Roubik, David",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Theodore",
+          "familyName": "Pavlic",
+          "name": "Pavlic, Theodore",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Stephen",
+          "familyName": "Pratt",
+          "name": "Pratt, Stephen",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Jennifer",
+          "familyName": "Fewell",
+          "name": "Fewell, Jennifer",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2019,
+      "subjects": [
+        {
+          "subject": "task allocation"
+        },
+        {
+          "subject": "temporal polyethism"
+        },
+        {
+          "subject": "Caste"
+        },
+        {
+          "subject": "division of labor"
+        },
+        {
+          "subject": "jataí"
+        },
+        {
+          "subject": "abejas angelitas"
+        },
+        {
+          "subject": "Tetragonisca angustula"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.1vp7476",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "99896 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/beheco/arz047",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.np757",
+      "titles": [
+        {
+          "title": "Data from: No phenotypic plasticity in nest-site selection in response to extreme flooding events"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Australian National University"
+          ],
+          "givenName": "Liam D.",
+          "familyName": "Bailey",
+          "name": "Bailey, Liam D.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Dutch Centre for Field Ornithology"
+          ],
+          "givenName": "Bruno",
+          "familyName": "Ens",
+          "name": "Ens, Bruno",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Groningen"
+          ],
+          "givenName": "Christiaan",
+          "familyName": "Both",
+          "name": "Both, Christiaan",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Bern"
+          ],
+          "givenName": "Dik",
+          "familyName": "Heg",
+          "name": "Heg, Dik",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Dutch Centre for Field Ornithology"
+          ],
+          "givenName": "Kees",
+          "familyName": "Oosterbeek",
+          "name": "Oosterbeek, Kees",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Australian National University"
+          ],
+          "givenName": "Martijn",
+          "familyName": "van de Pol",
+          "name": "van de Pol, Martijn",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2018,
+      "subjects": [
+        {
+          "subject": "extreme event"
+        },
+        {
+          "subject": "Haematopus ostralegus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.np757",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "6265553 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rstb.2016.0139",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.n3k7f",
+      "titles": [
+        {
+          "title": "Data from: Food supplementation mitigates dispersal-dependent differences in nest defence in a passerine bird."
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Centre National de la Recherche Scientifique"
+          ],
+          "givenName": "Charlotte",
+          "familyName": "Récapet",
+          "name": "Récapet, Charlotte",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Centre National de la Recherche Scientifique"
+          ],
+          "givenName": "Grégory",
+          "familyName": "Daniel",
+          "name": "Daniel, Grégory",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université Claude Bernard Lyon 1"
+          ],
+          "givenName": "Joëlle",
+          "familyName": "Taroni",
+          "name": "Taroni, Joëlle",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Aberdeen"
+          ],
+          "givenName": "Pierre",
+          "familyName": "Bize",
+          "name": "Bize, Pierre",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Centre National de la Recherche Scientifique"
+          ],
+          "givenName": "Blandine",
+          "familyName": "Doligez",
+          "name": "Doligez, Blandine",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2016,
+      "subjects": [
+        {
+          "subject": "Ficedula albicollis"
+        },
+        {
+          "subject": "anti-predator behaviour"
+        },
+        {
+          "subject": "habitat quality"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.n3k7f",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "2232743 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rsbl.2016.0097",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.36ng4",
+      "titles": [
+        {
+          "title": "Data from: Nest size and aromatic plants in the nest as sexually selected female traits in blue tits"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museo Nacional de Ciencias Naturales"
+          ],
+          "givenName": "Gustavo",
+          "familyName": "Tomás",
+          "name": "Tomás, Gustavo",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museo Nacional de Ciencias Naturales"
+          ],
+          "givenName": "Santiago",
+          "familyName": "Merino",
+          "name": "Merino, Santiago",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museo Nacional de Ciencias Naturales"
+          ],
+          "givenName": "Josué",
+          "familyName": "Martínez-de la Puente",
+          "name": "Martínez-de la Puente, Josué",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museo Nacional de Ciencias Naturales"
+          ],
+          "givenName": "Juan",
+          "familyName": "Moreno",
+          "name": "Moreno, Juan",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museo Nacional de Ciencias Naturales"
+          ],
+          "givenName": "Judith",
+          "familyName": "Morales",
+          "name": "Morales, Judith",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museo Nacional de Ciencias Naturales"
+          ],
+          "givenName": "Juan",
+          "familyName": "Rivero-de Aguilar",
+          "name": "Rivero-de Aguilar, Juan",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2013,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.36ng4",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "34484 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/beheco/art015",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.pb2rp",
+      "titles": [
+        {
+          "title": "Data from: Fitness in invasive social wasps: the role of variation in viral load, immune response and paternity in predicting nest size and reproductive output"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Victoria University of Wellington"
+          ],
+          "givenName": "Jana",
+          "familyName": "Dobelmann",
+          "name": "Dobelmann, Jana",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Riverside"
+          ],
+          "givenName": "Kevin J.",
+          "familyName": "Loope",
+          "name": "Loope, Kevin J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Victoria University of Wellington"
+          ],
+          "givenName": "Erin",
+          "familyName": "Wilson-Rankin",
+          "name": "Wilson-Rankin, Erin",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Victoria University of Wellington"
+          ],
+          "givenName": "Oliver",
+          "familyName": "Quinn",
+          "name": "Quinn, Oliver",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Malaghan Institute of Medical Research",
+            "Victoria University of Wellington"
+          ],
+          "givenName": "James W.",
+          "familyName": "Baty",
+          "name": "Baty, James W.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Victoria University of Wellington"
+          ],
+          "givenName": "Monica A. M.",
+          "familyName": "Gruber",
+          "name": "Gruber, Monica A. M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Victoria University of Wellington"
+          ],
+          "givenName": "Philip J.",
+          "familyName": "Lester",
+          "name": "Lester, Philip J.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2017,
+      "subjects": [
+        {
+          "subject": "Kashmir Bee Virus"
+        },
+        {
+          "subject": "polyandry"
+        },
+        {
+          "subject": "Vespula vulgaris"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.pb2rp",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "45253 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/oik.04117",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.qg80q",
+      "titles": [
+        {
+          "title": "Data from: Hypoxia increases the risk of egg predation in a nest-guarding fish"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Gothenburg"
+          ],
+          "givenName": "Karin H.",
+          "familyName": "Olsson",
+          "name": "Olsson, Karin H.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Gothenburg"
+          ],
+          "givenName": "Charlotta",
+          "familyName": "Kvarnemo",
+          "name": "Kvarnemo, Charlotta",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Gothenburg"
+          ],
+          "givenName": "Maria Norevik",
+          "familyName": "Andrén",
+          "name": "Andrén, Maria Norevik",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Gothenburg"
+          ],
+          "givenName": "Therese",
+          "familyName": "Larsson",
+          "name": "Larsson, Therese",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2016,
+      "subjects": [
+        {
+          "subject": "clutch cannibalism"
+        },
+        {
+          "subject": "nest defence"
+        },
+        {
+          "subject": "egg predation"
+        },
+        {
+          "subject": "low oxygen"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.qg80q",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "42867 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rsos.160326",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.n925d21",
+      "titles": [
+        {
+          "title": "Data from: Phenotypic integration in an extended phenotype: among‐individual variation in nest‐building traits of the alfalfa leafcutting bee (Megachile rotundata)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "North Dakota State University"
+          ],
+          "givenName": "Raphaël",
+          "familyName": "Royauté",
+          "name": "Royauté, Raphaël",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "North Dakota State University"
+          ],
+          "givenName": "Elisabeth S.",
+          "familyName": "Wilson",
+          "name": "Wilson, Elisabeth S.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "North Dakota State University"
+          ],
+          "givenName": "Bryan R.",
+          "familyName": "Helm",
+          "name": "Helm, Bryan R.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "North Dakota State University"
+          ],
+          "givenName": "Rachel E.",
+          "familyName": "Malinger",
+          "name": "Malinger, Rachel E.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Agricultural Research Service"
+          ],
+          "givenName": "Jarrad",
+          "familyName": "Prasifka",
+          "name": "Prasifka, Jarrad",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "North Dakota State University"
+          ],
+          "givenName": "Kendra J.",
+          "familyName": "Greenlee",
+          "name": "Greenlee, Kendra J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "North Dakota State University"
+          ],
+          "givenName": "Julia H.",
+          "familyName": "Bowsher",
+          "name": "Bowsher, Julia H.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2018,
+      "subjects": [
+        {
+          "subject": "nesting behavior"
+        },
+        {
+          "subject": "behavioral syndromes"
+        },
+        {
+          "subject": "extended phenotype"
+        },
+        {
+          "subject": "phenotypic integration"
+        },
+        {
+          "subject": "Megachile rotundata"
+        },
+        {
+          "subject": "leafcutting bee"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.n925d21",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "48497 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/jeb.13259",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.k5f6q",
+      "titles": [
+        {
+          "title": "Data from: Female in-nest chatter song increases predation"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Flinders University"
+          ],
+          "givenName": "Sonia",
+          "familyName": "Kleindorfer",
+          "name": "Kleindorfer, Sonia",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Flinders University"
+          ],
+          "givenName": "Christine",
+          "familyName": "Evans",
+          "name": "Evans, Christine",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Veterinary Medicine"
+          ],
+          "givenName": "Katharina",
+          "familyName": "Mahr",
+          "name": "Mahr, Katharina",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2015,
+      "subjects": [
+        {
+          "subject": "nest attendance"
+        },
+        {
+          "subject": "2013 and 2014"
+        },
+        {
+          "subject": "song rate"
+        },
+        {
+          "subject": "predation risk"
+        },
+        {
+          "subject": "superb fairy-wren"
+        },
+        {
+          "subject": "Malurus cyaneus"
+        },
+        {
+          "subject": "reproductive cost"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.k5f6q",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "49440 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rsbl.2015.0513",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.8nm8r6s",
+      "titles": [
+        {
+          "title": "Data from: Spatial, temporal and individual-based differences in nest-site visits and subsequent reproductive success in wild great tits"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Oxford"
+          ],
+          "givenName": "Joshua A.",
+          "familyName": "Firth",
+          "name": "Firth, Joshua A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Oxford"
+          ],
+          "givenName": "Brecht L.",
+          "familyName": "Verhelst",
+          "name": "Verhelst, Brecht L.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Australian National University",
+            "University of Oxford"
+          ],
+          "givenName": "Ross A.",
+          "familyName": "Crates",
+          "name": "Crates, Ross A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Manitoba",
+            "University of Oxford"
+          ],
+          "givenName": "Colin J.",
+          "familyName": "Garroway",
+          "name": "Garroway, Colin J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Oxford"
+          ],
+          "givenName": "Ben C.",
+          "familyName": "Sheldon",
+          "name": "Sheldon, Ben C.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Oxford"
+          ],
+          "givenName": "Josh A.",
+          "familyName": "Firth",
+          "name": "Firth, Josh A.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2018,
+      "subjects": [
+        {
+          "subject": "Breeding Locations"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Reproductive success",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Parus major"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.8nm8r6s",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "58369 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/jav.01740",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.70s5t",
+      "titles": [
+        {
+          "title": "Data from: Timber harvest and tree size near nests explains variation in nest site occupancy but not productivity in northern goshawks (Accipiter gentilis)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Whitman College"
+          ],
+          "givenName": "Sabrina A.",
+          "familyName": "Rodriguez",
+          "name": "Rodriguez, Sabrina A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Oregon State University"
+          ],
+          "givenName": "Patricia L.",
+          "familyName": "Kennedy",
+          "name": "Kennedy, Patricia L.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Whitman College"
+          ],
+          "givenName": "Timothy H.",
+          "familyName": "Parker",
+          "name": "Parker, Timothy H.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2017,
+      "subjects": [
+        {
+          "subject": "raptor"
+        },
+        {
+          "subject": "mature forest"
+        },
+        {
+          "subject": "Accipiter gentilis"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.70s5t",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "148272 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1016/j.foreco.2016.04.052",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.104t1",
+      "titles": [
+        {
+          "title": "Data from: Don't put all eggs in one nest - spread them and cut time at risk"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Malte",
+          "familyName": "Andersson",
+          "name": "Andersson, Malte",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Matti",
+          "familyName": "Åhlund",
+          "name": "Åhlund, Matti",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2012,
+      "subjects": [
+        {
+          "subject": "Rhea americana"
+        },
+        {
+          "subject": "Reproduction: strategies"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Waterfowl",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Behavior: reproductive"
+        },
+        {
+          "subject": "Ratites"
+        },
+        {
+          "subject": "Centropus grillii"
+        },
+        {
+          "subject": "Mating Systems"
+        },
+        {
+          "subject": "Tinamidae"
+        },
+        {
+          "subject": "Behavior: antipredator"
+        },
+        {
+          "subject": "Bucephala clangula"
+        },
+        {
+          "subject": "Tinamous"
+        },
+        {
+          "subject": "Life history: theory"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.104t1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "172397 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1086/667191",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.r29th82",
+      "titles": [
+        {
+          "title": "Data from: Food dissemination in ants: robustness of the trophallactic network against resource quality"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université Libre de Bruxelles"
+          ],
+          "givenName": "Olivier",
+          "familyName": "Bles",
+          "name": "Bles, Olivier",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université Libre de Bruxelles"
+          ],
+          "givenName": "Jean-Louis",
+          "familyName": "Deneubourg",
+          "name": "Deneubourg, Jean-Louis",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université Libre de Bruxelles"
+          ],
+          "givenName": "Stamatios C.",
+          "familyName": "Nicolis",
+          "name": "Nicolis, Stamatios C.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2018,
+      "subjects": [
+        {
+          "subject": "Sucrose concentration"
+        },
+        {
+          "subject": "ant"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Foraging",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.r29th82",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "228188 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1242/jeb.192492",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5683/sp3/tt6zxp",
+      "titles": [
+        {
+          "title": "Supplemental data for: Assessing cognitive performance in nature: brain size and personality correlates of novel object recognition in nest-guarding male pumpkinseed sunfish"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Integrative Biology. College of Biological Science. University of Guelph."
+          ],
+          "givenName": "Keith",
+          "familyName": "McAllister",
+          "name": "McAllister, Keith",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Integrative Biology. College of Biological Science. University of Guelph."
+          ],
+          "givenName": "Maria",
+          "familyName": "Dolan",
+          "name": "Dolan, Maria",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2880-0176"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Integrative Biology. College of Biological Science. University of Guelph."
+          ],
+          "givenName": "Caleb J.",
+          "familyName": "Axelrod",
+          "name": "Axelrod, Caleb J.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6130-0168"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Integrative Biology. College of Biological Science. University of Guelph."
+          ],
+          "givenName": "Beren W.",
+          "familyName": "Robinson",
+          "name": "Robinson, Beren W.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2868-5411"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Integrative Biology. College of Biological Science. University of Guelph."
+          ],
+          "givenName": "Frédéric",
+          "familyName": "Laberge",
+          "name": "Laberge, Frédéric",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2469-9720"
+            }
+          ]
+        }
+      ],
+      "publisher": "Borealis",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "subject": "Other"
+        },
+        {
+          "subject": "animal personality"
+        },
+        {
+          "subject": "brain size"
+        },
+        {
+          "subject": "cognition"
+        },
+        {
+          "subject": "exploration behaviour"
+        },
+        {
+          "subject": "fish"
+        },
+        {
+          "subject": "novel object recognition assay"
+        },
+        {
+          "subject": "shy-bold continuum"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Experimental data"
+      },
+      "url": "https://borealisdata.ca/citation?persistentId=doi:10.5683/SP3/TT6ZXP",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "lang": "en",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "4580",
+        "2098",
+        "10098",
+        "5702",
+        "7405",
+        "5234",
+        "3314",
+        "12850",
+        "3529",
+        "4533",
+        "8659",
+        "8677"
+      ],
+      "formats": [
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/plain",
+        "text/plain",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/plain",
+        "text/plain"
+      ],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.3389/fetho.2025.1683770",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.27953055.v2",
+      "titles": [
+        {
+          "title": "Bacterial microbiota in nest samples - Experimental study"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Hélène",
+          "familyName": "Dion-Phénix",
+          "name": "Dion-Phénix, Hélène",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4877-9968"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Gabrielle",
+          "familyName": "Gingras",
+          "name": "Gingras, Gabrielle",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Claire",
+          "familyName": "Doutrelant",
+          "name": "Doutrelant, Claire",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-1893-3960"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Anne",
+          "familyName": "Charmantier",
+          "name": "Charmantier, Anne",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0691-2647"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Steven",
+          "familyName": "W. Kembel",
+          "name": "W. Kembel, Steven",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Denis",
+          "familyName": "Réale",
+          "name": "Réale, Denis",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0419-7125"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310703",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Microbial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310299",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Bioinformatics and computational biology not elsewhere classified",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Bacterial_microbiota_in_nest_samples_-_Experimental_study/27953055/2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "7682093918 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.27953055",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.27953055.v1",
+      "titles": [
+        {
+          "title": "Bacterial microbiota in nest samples - Experimental study"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Hélène",
+          "familyName": "Dion-Phénix",
+          "name": "Dion-Phénix, Hélène",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4877-9968"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Gabrielle",
+          "familyName": "Gingras",
+          "name": "Gingras, Gabrielle",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Anne",
+          "familyName": "Charmantier",
+          "name": "Charmantier, Anne",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0691-2647"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Claire",
+          "familyName": "Doutrelant",
+          "name": "Doutrelant, Claire",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-1893-3960"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Steven",
+          "familyName": "W. Kembel",
+          "name": "W. Kembel, Steven",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Denis",
+          "familyName": "Réale",
+          "name": "Réale, Denis",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0419-7125"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310703",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Microbial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310299",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Bioinformatics and computational biology not elsewhere classified",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Bacterial_microbiota_in_nest_samples_-_Experimental_study/27953055/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "7682093918 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.6084/m9.figshare.27953055",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.27953055",
+      "titles": [
+        {
+          "title": "Bacterial microbiota in nest samples - Experimental study"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Hélène",
+          "familyName": "Dion-Phénix",
+          "name": "Dion-Phénix, Hélène",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4877-9968"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Gabrielle",
+          "familyName": "Gingras",
+          "name": "Gingras, Gabrielle",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Claire",
+          "familyName": "Doutrelant",
+          "name": "Doutrelant, Claire",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-1893-3960"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Anne",
+          "familyName": "Charmantier",
+          "name": "Charmantier, Anne",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0691-2647"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Steven",
+          "familyName": "W. Kembel",
+          "name": "W. Kembel, Steven",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Denis",
+          "familyName": "Réale",
+          "name": "Réale, Denis",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0419-7125"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310703",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Microbial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310299",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Bioinformatics and computational biology not elsewhere classified",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Bacterial_microbiota_in_nest_samples_-_Experimental_study/27953055",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "7682093918 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.28640093.v1",
+      "titles": [
+        {
+          "title": "Bacterial microbiota in nest and eggshell samples - Observational study"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Hélène",
+          "familyName": "Dion-Phénix",
+          "name": "Dion-Phénix, Hélène",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4877-9968"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310703",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Microbial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310299",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Bioinformatics and computational biology not elsewhere classified",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Bacterial_microbiota_in_nest_and_eggshell_samples_-_Observational_study/28640093/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "1735272425 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.6084/m9.figshare.28640093",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28640093.v2",
+      "titles": [
+        {
+          "title": "Bacterial microbiota in nest and eggshell samples - Observational study"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Hélène",
+          "familyName": "Dion-Phénix",
+          "name": "Dion-Phénix, Hélène",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4877-9968"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Gabrielle",
+          "familyName": "Gingras",
+          "name": "Gingras, Gabrielle",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Claire",
+          "familyName": "Doutrelant",
+          "name": "Doutrelant, Claire",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-1893-3960"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Anne",
+          "familyName": "Charmantier",
+          "name": "Charmantier, Anne",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0691-2647"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Steven",
+          "familyName": "Kembel",
+          "name": "Kembel, Steven",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-5224-0952"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Denis",
+          "familyName": "Réale",
+          "name": "Réale, Denis",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0419-7125"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310703",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Microbial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310299",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Bioinformatics and computational biology not elsewhere classified",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Bacterial_microbiota_in_nest_and_eggshell_samples_-_Observational_study/28640093/2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "1735272425 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.28640093",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28640093",
+      "titles": [
+        {
+          "title": "Bacterial microbiota in nest and eggshell samples - Observational study"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Hélène",
+          "familyName": "Dion-Phénix",
+          "name": "Dion-Phénix, Hélène",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4877-9968"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Gabrielle",
+          "familyName": "Gingras",
+          "name": "Gingras, Gabrielle",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Claire",
+          "familyName": "Doutrelant",
+          "name": "Doutrelant, Claire",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-1893-3960"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Anne",
+          "familyName": "Charmantier",
+          "name": "Charmantier, Anne",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0691-2647"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Steven",
+          "familyName": "Kembel",
+          "name": "Kembel, Steven",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-5224-0952"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Denis",
+          "familyName": "Réale",
+          "name": "Réale, Denis",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0419-7125"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310301",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Behavioural ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310302",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Community ecology (excl. invasive species ecology)",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310703",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Microbial ecology",
+          "subjectScheme": "ANZSRC Fields of Research"
+        },
+        {
+          "classificationCode": "310299",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Bioinformatics and computational biology not elsewhere classified",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/Bacterial_microbiota_in_nest_and_eggshell_samples_-_Observational_study/28640093",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "1735272425 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.30175467.v1",
+      "titles": [
+        {
+          "title": "Supplementary_File_1 from A wide range of abiotic and biotic variables leaves most variation in bird nest architecture unexplained."
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Michał Tomasz",
+          "familyName": "Jezierski",
+          "name": "Jezierski, Michał Tomasz",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Roger",
+          "familyName": "Benson",
+          "name": "Benson, Roger",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "William J",
+          "familyName": "Smith",
+          "name": "Smith, William J",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Erin",
+          "familyName": "Saupe",
+          "name": "Saupe, Erin",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Sonya",
+          "familyName": "Clegg",
+          "name": "Clegg, Sonya",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "The Royal Society",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310901",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Animal behaviour",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://rs.figshare.com/articles/dataset/Supplementary_File_1_from_A_wide_range_of_abiotic_and_biotic_variables_leaves_most_variation_in_bird_nest_architecture_unexplained_/30175467/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "7804 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.30175467",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1098/rspb.2025.2013",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.30175467",
+      "titles": [
+        {
+          "title": "Supplementary_File_1 from A wide range of abiotic and biotic variables leaves most variation in bird nest architecture unexplained."
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Michał Tomasz",
+          "familyName": "Jezierski",
+          "name": "Jezierski, Michał Tomasz",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Roger",
+          "familyName": "Benson",
+          "name": "Benson, Roger",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "William J",
+          "familyName": "Smith",
+          "name": "Smith, William J",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Erin",
+          "familyName": "Saupe",
+          "name": "Saupe, Erin",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Sonya",
+          "familyName": "Clegg",
+          "name": "Clegg, Sonya",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "The Royal Society",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "classificationCode": "310901",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Animal behaviour",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://rs.figshare.com/articles/dataset/Supplementary_File_1_from_A_wide_range_of_abiotic_and_biotic_variables_leaves_most_variation_in_bird_nest_architecture_unexplained_/30175467",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "7804 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1098/rspb.2025.2013",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.15454/pxde4k",
+      "titles": [
+        {
+          "title": "Habitat choice versus habitat transformation in a nest-building species: which matters most?"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "(INRAE/UPPA)"
+          ],
+          "givenName": "Marius",
+          "familyName": "Dhamelincourt",
+          "name": "Dhamelincourt, Marius",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Portail Data INRAE",
+      "publicationYear": 2021,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://data.inrae.fr/citation?persistentId=doi:10.15454/PXDE4K",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasPart",
+          "relatedIdentifier": "10.15454/pxde4k/d5rlcm",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "HasPart",
+          "relatedIdentifier": "10.15454/pxde4k/dlbsqv",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.17632/vs2g9cdfx4",
+      "titles": [
+        {
+          "title": "Data: Leino et al. 2024 - Pollution-related changes in nest microbiota: Implications for growth and fledging in three passerine birds"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Turun yliopisto Biologian laitos"
+          ],
+          "givenName": "Lyydia",
+          "familyName": "Leino",
+          "name": "Leino, Lyydia",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-3423-0811"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Turun yliopisto Biologian laitos"
+          ],
+          "givenName": "Eero",
+          "familyName": "Vesterinen",
+          "name": "Vesterinen, Eero",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Norges Teknisk Naturvitenskapelige Universitet Fakultet for naturvitenskap og teknologi"
+          ],
+          "givenName": "Pablo",
+          "familyName": "Sánchez-Virosta",
+          "name": "Sánchez-Virosta, Pablo",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Turun yliopisto Biologian laitos"
+          ],
+          "givenName": "Pere",
+          "familyName": "Puigbò",
+          "name": "Puigbò, Pere",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Turun yliopisto Biologian laitos"
+          ],
+          "givenName": "Tapio",
+          "familyName": "Eeva",
+          "name": "Eeva, Tapio",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Turun yliopisto Biologian laitos"
+          ],
+          "givenName": "Miia",
+          "familyName": "Rainio",
+          "name": "Rainio, Miia",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Mendeley Data",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "subject": "Microbiology"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Industrial Pollution"
+        },
+        {
+          "subject": "Aves"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://data.mendeley.com/datasets/vs2g9cdfx4",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "resourceTypeGeneral": "Dataset",
+          "relatedIdentifier": "10.17632/vs2g9cdfx4.1",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:53:39.308919+00:00"
+}

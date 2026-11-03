@@ -29,3 +29,5 @@ reviews:
 - 2026-10-30 22:07 UTC lead (session 108deea8): review for commit:partd-1a-20261030: not-applicable — No B007 comparison in this commit.
 - 2026-10-31 02:17 UTC lead (session 6b5fb317): reviewed D223@b738f2de5839; D223 cites D181 only for B005's Done-when 1; it makes no B007 comparison, so B007's criterion rule is untouched
 - 2026-10-31 02:32 UTC lead (session 6b5fb317): reviewed D223@d91126ff338b; D223 amendment 1 makes no B007 comparison; D181 cited only for B005. Unaffected
+- 2026-11-03 16:31 UTC lead (session e38b977a): reviewed X030@e0fc1a79ac45; X030 cites D181 for B016's exposure rules only; no B007 comparison or criterion is touched. Unaffected.
+- 2026-11-03 16:32 UTC lead (session e38b977a): reviewed D271@59fa1169345e; D271 cites D181 for B016's exposure rules only; no B007 criterion or comparison. Unaffected.

@@ -1,0 +1,72 @@
+{
+  "url": "https://api.datacite.org/dois/10.17632/4scn23hcgj.1?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers",
+  "total": null,
+  "records": [
+    {
+      "doi": "10.17632/4scn23hcgj.1",
+      "titles": [
+        {
+          "title": "Camponotus Fellah Trophallaxis Detection Dataset"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Kushnir, Dmytro",
+          "nameType": "Personal",
+          "givenName": "Dmytro",
+          "familyName": "Kushnir",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Mendeley Data",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Computer Science"
+        },
+        {
+          "subject": "Entomology"
+        },
+        {
+          "subject": "Object Recognition"
+        },
+        {
+          "subject": "Ant"
+        }
+      ],
+      "types": {
+        "ris": "DATA",
+        "bibtex": "misc",
+        "citeproc": "dataset",
+        "schemaOrg": "Dataset",
+        "resourceType": "Dataset",
+        "resourceTypeGeneral": "Dataset"
+      },
+      "url": "https://data.mendeley.com/datasets/4scn23hcgj/1",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rightsIdentifier": "cc-by-4.0",
+          "rightsIdentifierScheme": "SPDX"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.17632/4scn23hcgj",
+          "resourceTypeGeneral": "Dataset",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:54:19.823219+00:00"
+}

@@ -1,0 +1,1535 @@
+{
+  "url": "https://api.datacite.org/dois?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers&query=types.resourceTypeGeneral%3ADataset+AND+%28titles.title%3Aant+OR+titles.title%3Aants%29+AND+titles.title%3A%28contacts+OR+%22social+networks%22+OR+%22interaction+networks%22+OR+recruitment%29&page%5Bsize%5D=50&page%5Bnumber%5D=1",
+  "total": 13,
+  "records": [
+    {
+      "doi": "10.7910/dvn/f20tio",
+      "titles": [
+        {
+          "title": "Replication Data for: \"Recruitment boosts participation and transfers route information during collective migration in ants\""
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Georgia SSO"
+          ],
+          "givenName": "Supraja",
+          "familyName": "Rajagopal",
+          "name": "Rajagopal, Supraja",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3322-2243"
+            }
+          ]
+        }
+      ],
+      "publisher": "Harvard Dataverse",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Earth and Environmental Sciences"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://dataverse.harvard.edu/citation?persistentId=doi:10.7910/DVN/F20TIO",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "2513",
+        "2718",
+        "1522",
+        "7702",
+        "5054",
+        "2550",
+        "3804",
+        "3399",
+        "6138",
+        "5110",
+        "4458",
+        "1636",
+        "3804",
+        "2346",
+        "6723",
+        "73",
+        "2171",
+        "3476",
+        "1299",
+        "3240",
+        "1593",
+        "4450",
+        "1091",
+        "1291",
+        "5968",
+        "9378",
+        "3303",
+        "1368",
+        "5028",
+        "2513",
+        "2574",
+        "2110",
+        "1775",
+        "3399",
+        "8101",
+        "1249",
+        "4926",
+        "5843",
+        "108",
+        "1667",
+        "2163",
+        "4007",
+        "3979",
+        "2715",
+        "5347",
+        "2119",
+        "2509",
+        "2304",
+        "5054",
+        "4450",
+        "1053",
+        "1334",
+        "3350",
+        "3303",
+        "4461",
+        "2810",
+        "6015",
+        "4548",
+        "4112",
+        "4461",
+        "3197",
+        "7010",
+        "6929",
+        "3805",
+        "1543",
+        "5028",
+        "3201",
+        "3097",
+        "2208",
+        "1547",
+        "1951",
+        "5082",
+        "6268",
+        "9378",
+        "5316",
+        "3699",
+        "3576",
+        "5423",
+        "1724",
+        "8101",
+        "1098",
+        "5886",
+        "4458",
+        "3325",
+        "8991",
+        "2216",
+        "83",
+        "1413",
+        "2495",
+        "4379",
+        "2610",
+        "4320",
+        "2012",
+        "5110",
+        "6862",
+        "6862"
+      ],
+      "formats": [
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/plain",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/plain",
+        "text/plain"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.5061/dryad.w0vt4b921",
+      "titles": [
+        {
+          "title": "Data from: How do birds and ants contribute to the recruitment of a tropical?"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Viçosa"
+          ],
+          "givenName": "José Eduardo",
+          "familyName": "Falcon",
+          "name": "Falcon, José Eduardo",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0149-0649"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Viçosa"
+          ],
+          "givenName": "José Henrique",
+          "familyName": "Schoereder",
+          "name": "Schoereder, José Henrique",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Viçosa"
+          ],
+          "givenName": "Vanessa",
+          "familyName": "Soares",
+          "name": "Soares, Vanessa",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de São Carlos"
+          ],
+          "givenName": "Alexander",
+          "familyName": "Christianini",
+          "name": "Christianini, Alexander",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Pennsylvania State University"
+          ],
+          "givenName": "Paulo Henrique",
+          "familyName": "Camargo",
+          "name": "Camargo, Paulo Henrique",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Universidade Federal de Viçosa"
+          ],
+          "givenName": "Lucas",
+          "familyName": "Paolucci",
+          "name": "Paolucci, Lucas",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Atlantic Rainforest"
+        },
+        {
+          "subject": "diplochory"
+        },
+        {
+          "subject": "myrmecochory"
+        },
+        {
+          "subject": "ornithochory"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Earth and related environmental sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Earth and related environmental sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.w0vt4b921",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "75903 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/btp.13372",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.7910/dvn/yllfgp",
+      "titles": [
+        {
+          "title": "Replication RTR Data for: \"Recruitment boosts participation and transfers route information during collective migration in ants\""
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Georgia SSO"
+          ],
+          "givenName": "Supraja",
+          "familyName": "Rajagopal",
+          "name": "Rajagopal, Supraja",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3322-2243"
+            }
+          ]
+        }
+      ],
+      "publisher": "Harvard Dataverse",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Earth and Environmental Sciences"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://dataverse.harvard.edu/citation?persistentId=doi:10.7910/DVN/YLLFGP",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "5028",
+        "4379",
+        "2810",
+        "9378",
+        "3699",
+        "2495",
+        "6723",
+        "3325",
+        "3804",
+        "4461",
+        "1299",
+        "1291",
+        "3399",
+        "83",
+        "5054",
+        "4450",
+        "2509",
+        "2110",
+        "3240",
+        "5110",
+        "4458",
+        "1543",
+        "1334",
+        "8101",
+        "2513",
+        "3303",
+        "1249",
+        "5082",
+        "1636"
+      ],
+      "formats": [
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.7910/dvn/tmwhu7",
+      "titles": [
+        {
+          "title": "Replication Carrying Data for: \"Recruitment boosts participation and transfers route information during collective migration in ants\""
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Georgia SSO"
+          ],
+          "givenName": "Supraja",
+          "familyName": "Rajagopal",
+          "name": "Rajagopal, Supraja",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3322-2243"
+            }
+          ]
+        }
+      ],
+      "publisher": "Harvard Dataverse",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Earth and Environmental Sciences"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://dataverse.harvard.edu/citation?persistentId=doi:10.7910/DVN/TMWHU7",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "5968",
+        "3350",
+        "2550",
+        "1667",
+        "1522",
+        "2610",
+        "1775",
+        "1413",
+        "2715",
+        "1368",
+        "73",
+        "5843",
+        "2208",
+        "1053",
+        "5316",
+        "2171",
+        "6138",
+        "3097",
+        "3197",
+        "2163",
+        "1724",
+        "3201",
+        "1547",
+        "4112",
+        "1951"
+      ],
+      "formats": [
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.7910/dvn/r7g7a8",
+      "titles": [
+        {
+          "title": "Replication Data for : \"Recruitment boosts participation and transfers route information during collective migration in ants\""
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Georgia SSO"
+          ],
+          "givenName": "Supraja",
+          "familyName": "Rajagopal",
+          "name": "Rajagopal, Supraja",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3322-2243"
+            }
+          ]
+        }
+      ],
+      "publisher": "Harvard Dataverse",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Earth and Environmental Sciences"
+        },
+        {
+          "subject": "Other"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://dataverse.harvard.edu/citation?persistentId=doi:10.7910/DVN/R7G7A8",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "9378",
+        "1299",
+        "4450",
+        "3303",
+        "5028",
+        "5054",
+        "2513",
+        "5028",
+        "2208",
+        "1636",
+        "2495",
+        "6929",
+        "6723",
+        "8991",
+        "1547",
+        "5347",
+        "4461",
+        "73",
+        "4548",
+        "2304",
+        "3201",
+        "3197",
+        "4379",
+        "1291",
+        "6138",
+        "3476",
+        "5843",
+        "2810",
+        "1053",
+        "2550",
+        "1593",
+        "5110",
+        "1724",
+        "3399",
+        "3097",
+        "2012",
+        "5082",
+        "7702",
+        "3979",
+        "2110",
+        "1775",
+        "4007",
+        "4450",
+        "3240",
+        "2346",
+        "6268",
+        "8101",
+        "5886",
+        "5423",
+        "2513",
+        "3805",
+        "2610",
+        "3576",
+        "1334",
+        "2119",
+        "3804",
+        "1951",
+        "5054",
+        "4458",
+        "1249",
+        "4926",
+        "1543",
+        "4320",
+        "5110",
+        "1368",
+        "5968",
+        "4458",
+        "6015",
+        "1522",
+        "3303",
+        "9378",
+        "2216",
+        "1413",
+        "2163",
+        "3699",
+        "3399",
+        "2509",
+        "5316",
+        "1091",
+        "2715",
+        "2718",
+        "83",
+        "10599",
+        "4461",
+        "1098",
+        "1667",
+        "3350",
+        "3804",
+        "2171",
+        "3325",
+        "4112",
+        "8101",
+        "2574"
+      ],
+      "formats": [
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.7910/dvn/spniog",
+      "titles": [
+        {
+          "title": "Replication RTR Data for: \"Recruitment boosts participation and transfers route information during collective migration in ants\""
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Georgia SSO"
+          ],
+          "givenName": "Supraja",
+          "familyName": "Rajagopal",
+          "name": "Rajagopal, Supraja",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3322-2243"
+            }
+          ]
+        }
+      ],
+      "publisher": "Harvard Dataverse",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Earth and Environmental Sciences"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://dataverse.harvard.edu/citation?persistentId=doi:10.7910/DVN/SPNIOG",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "lang": "en",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "1098",
+        "3805",
+        "4926",
+        "5028",
+        "7702",
+        "5110",
+        "392",
+        "4461",
+        "4548",
+        "5054",
+        "1091",
+        "3303",
+        "2718",
+        "3476",
+        "2513",
+        "6015",
+        "2346",
+        "5886",
+        "5347",
+        "8101",
+        "2574",
+        "4450",
+        "2119",
+        "4007",
+        "4458",
+        "5423",
+        "3804",
+        "3576",
+        "6929",
+        "9378",
+        "8991",
+        "4320",
+        "3979",
+        "2304",
+        "6268",
+        "2012",
+        "1593",
+        "3399",
+        "2216"
+      ],
+      "formats": [
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/comma-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values"
+      ],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.5061/dryad.wh70rxx08",
+      "titles": [
+        {
+          "title": "Data from: Running in the rain: Impact of water droplets on tandem running recruitment in a tropical ant"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Indian Institute of Science Education and Research Kolkata"
+          ],
+          "givenName": "Sumana",
+          "familyName": "Annagiri",
+          "name": "Annagiri, Sumana",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0257-844X"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Indian Institute of Science Education and Research Kolkata"
+          ],
+          "givenName": "Kushankur",
+          "familyName": "Bhattacharyya",
+          "name": "Bhattacharyya, Kushankur",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Indian Institute of Science Education and Research Kolkata"
+          ],
+          "givenName": "Anwesha",
+          "familyName": "Acharjee",
+          "name": "Acharjee, Anwesha",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "Tandem running"
+        },
+        {
+          "subject": "Diacamma indicum"
+        },
+        {
+          "subject": "Ponerinae"
+        },
+        {
+          "subject": "Colony relocation"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Monsoons",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.wh70rxx08",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "54749 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/een.13445",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.wm37pvmkz",
+      "titles": [
+        {
+          "title": "Desiccation limits recruitment in the pleometrotic desert seed-harvester ant Veromessor pergandei"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Arizona State University"
+          ],
+          "givenName": "Robert",
+          "familyName": "Johnson",
+          "name": "Johnson, Robert",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0242-6385"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.wm37pvmkz",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "130333 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1002/ece3.7039",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.22541/au.159505747.72233779",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.n4h17",
+      "titles": [
+        {
+          "title": "Data from: Characterization of recruitment through tandem running in an Indian queenless ant Diacamma indicum"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Hyderabad"
+          ],
+          "givenName": "Rajbir",
+          "familyName": "Kaur",
+          "name": "Kaur, Rajbir",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Hyderabad"
+          ],
+          "givenName": "Joby",
+          "familyName": "Joseph",
+          "name": "Joseph, Joby",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Indian Institute of Science Education and Research Kolkata"
+          ],
+          "givenName": "Anoop",
+          "familyName": "Karunakaran",
+          "name": "Karunakaran, Anoop",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Indian Institute of Science Education and Research Kolkata"
+          ],
+          "givenName": "Sumana",
+          "familyName": "Annagiri",
+          "name": "Annagiri, Sumana",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2017,
+      "subjects": [
+        {
+          "subject": "tandem running speed"
+        },
+        {
+          "subject": "direct recruitment"
+        },
+        {
+          "subject": "path efficiency"
+        },
+        {
+          "subject": "Diacamma indicum"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.n4h17",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "109384 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rsos.160476",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.11031825",
+      "titles": [
+        {
+          "title": "Group-level trait and individual performance: the impact of in-nest activity on food recruitment in ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "familyName": "Anonymous",
+          "name": "Anonymous",
+          "nameIdentifiers": [],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "subject": "Ant"
+        },
+        {
+          "subject": "Activity level"
+        },
+        {
+          "subject": "Food recruitment"
+        },
+        {
+          "subject": "Collective behavior"
+        },
+        {
+          "subject": "Personality"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.11031825",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.7310286",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.7310286",
+      "titles": [
+        {
+          "title": "Group-level trait and individual performance: the impact of in-nest activity on food recruitment in ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "familyName": "Anonymous",
+          "name": "Anonymous",
+          "nameIdentifiers": [],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "subject": "Ant"
+        },
+        {
+          "subject": "Activity level"
+        },
+        {
+          "subject": "Food recruitment"
+        },
+        {
+          "subject": "Collective behavior"
+        },
+        {
+          "subject": "Personality"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.7310286",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.7310287",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.11068070",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.11031825",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.11068070",
+      "titles": [
+        {
+          "title": "Group-level trait and individual performance: the impact of in-nest activity on food recruitment in ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "familyName": "Anonymous",
+          "name": "Anonymous",
+          "nameIdentifiers": [],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "subject": "Ant"
+        },
+        {
+          "subject": "Activity level"
+        },
+        {
+          "subject": "Food recruitment"
+        },
+        {
+          "subject": "Collective behavior"
+        },
+        {
+          "subject": "Personality"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.11068070",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.7310286",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.7310287",
+      "titles": [
+        {
+          "title": "Group-level trait and individual performance: the impact of in-nest activity on food recruitment in ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université Libre de Bruxelles"
+          ],
+          "givenName": "Vaes",
+          "familyName": "Oscar",
+          "name": "Oscar, Vaes",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-6770-0699"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "subject": "Ant"
+        },
+        {
+          "subject": "Activity level"
+        },
+        {
+          "subject": "Food recruitment"
+        },
+        {
+          "subject": "Collective behavior"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://zenodo.org/record/7310287",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        },
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess",
+          "rights": "Open Access"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.7310286",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:50:21.304009+00:00"
+}

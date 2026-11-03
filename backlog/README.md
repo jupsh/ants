@@ -10,7 +10,6 @@ A claim with no progress for 24 h is stale and may be taken over.
 | pri | id | status | size | title | claim | last progress |
 |---|---|---|---|---|---|---|
 | 50 | [B005](B005-entrance-excursions-vs-foraging-trips/README.md) | blocked | M | Entrance excursions vs foraging trips (path audit) — *approved (D181); starts after the active synchrony work (Part D, T033)* |  | 2026-10-29 |
-| 60 | [B016](B016-candidate-held-out-colony-data-sets/README.md) | open | S | Candidate held-out colony data sets — *metadata-only survey and web search approved (D181)* |  | 2026-10-29 |
 | 70 | [B007](B007-contact-observer-validation-and-row-4/README.md) | open | L | Stroeymeyt contact observer: write it and validate it against the authors' tool — *source and tool settled (D181); the agreement criterion is proposed, approved and frozen before any comparison* |  | 2026-10-29 |
 | 140 | [B010](B010-e1-data-orientation-and-axis-tilt/README.md) | blocked | S | E1 data orientation and axis tilt — *E1 is paused (STATUS); not before it resumes* |  |  |
 | 930 | [B021](B021-b018-rate-tables-on-the-model-through/README.md) | unscoped | ? | B018 rate tables on the model through the observer |  |  |

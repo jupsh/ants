@@ -1,0 +1,111 @@
+{
+  "url": "https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.r29th82",
+  "record": {
+    "identifier": "doi:10.5061/dryad.r29th82",
+    "id": 7281,
+    "title": "Data from: Food dissemination in ants: robustness of the trophallactic network against resource quality",
+    "authors": [
+      {
+        "firstName": "Olivier",
+        "lastName": "Bles",
+        "affiliation": "Université Libre de Bruxelles",
+        "affiliationROR": "https://ror.org/01r9htc13",
+        "affiliations": [
+          {
+            "organization": "Université Libre de Bruxelles",
+            "identifier": "https://ror.org/01r9htc13"
+          }
+        ]
+      },
+      {
+        "firstName": "Jean-Louis",
+        "lastName": "Deneubourg",
+        "affiliation": "Université Libre de Bruxelles",
+        "affiliationROR": "https://ror.org/01r9htc13",
+        "affiliations": [
+          {
+            "organization": "Université Libre de Bruxelles",
+            "identifier": "https://ror.org/01r9htc13"
+          }
+        ]
+      },
+      {
+        "firstName": "Stamatios C.",
+        "lastName": "Nicolis",
+        "affiliation": "Université Libre de Bruxelles",
+        "affiliationROR": "https://ror.org/01r9htc13",
+        "affiliations": [
+          {
+            "organization": "Université Libre de Bruxelles",
+            "identifier": "https://ror.org/01r9htc13"
+          }
+        ]
+      }
+    ],
+    "keywords": [
+      "Sucrose concentration",
+      "ant",
+      "Foraging"
+    ],
+    "publicationDate": "2018-11-30",
+    "versionNumber": 1,
+    "license": "https://spdx.org/licenses/CC0-1.0.html",
+    "relatedWorks": [
+      {
+        "relationship": "primary_article",
+        "identifierType": "DOI",
+        "identifier": "https://doi.org/10.1242/jeb.192492"
+      }
+    ],
+    "storageSize": 211762,
+    "_links": {
+      "self": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.r29th82"
+      },
+      "stash:versions": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.r29th82/versions"
+      },
+      "stash:version": {
+        "href": "/api/v2/versions/7318"
+      },
+      "stash:download": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.r29th82/download"
+      },
+      "curies": [
+        {
+          "name": "stash",
+          "href": "https://github.com/datadryad/dryad-app/blob/main/documentation/apis/link_relations.md#{rel}",
+          "templated": "true"
+        }
+      ]
+    }
+  },
+  "files_url": "https://datadryad.org/api/v2/versions/7318/files",
+  "file_metadata": [
+    {
+      "path": "Data.rar",
+      "size": 211762,
+      "mimeType": "application/x-rar-compressed",
+      "status": "created"
+    }
+  ],
+  "file_catalogue_pages_read": 1,
+  "file_catalogue_keys": [
+    "_links",
+    "count",
+    "total",
+    "_embedded"
+  ],
+  "file_catalogue_links": {
+    "self": {
+      "href": "/api/v2/versions/7318/files"
+    },
+    "first": {
+      "href": "/api/v2/versions/7318/files"
+    },
+    "last": {
+      "href": "/api/v2/versions/7318/files?page=1"
+    }
+  },
+  "retrieved_at": "2026-11-03T06:54:19.862385+00:00"
+}

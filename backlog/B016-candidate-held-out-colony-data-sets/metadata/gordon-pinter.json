@@ -1,0 +1,4513 @@
+{
+  "url": "https://api.datacite.org/dois?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers&query=types.resourceTypeGeneral%3ADataset+AND+creators.name%3A%28Gordon+OR+Pinter-Wollman%29+AND+titles.title%3A%28ant+OR+ants+OR+foraging+OR+colony%29&page%5Bsize%5D=50&page%5Bnumber%5D=1",
+  "total": 75,
+  "records": [
+    {
+      "doi": "10.48580/dgqkw",
+      "titles": [
+        {
+          "title": "Nest structure of the bark-digging ant Rhopalomastix (Formicidae, Myrmicinae) and notes on its mutualistic associations with diaspidids in a Thai mango plantation"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Gordon",
+          "familyName": "Yong",
+          "name": "Yong, Gordon",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Weeyawat",
+          "familyName": "Jaitrong",
+          "name": "Jaitrong, Weeyawat",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Christian",
+          "familyName": "Peeters",
+          "name": "Peeters, Christian",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/309948",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.20362/am.013005",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dgqkw.v10",
+      "titles": [
+        {
+          "title": "Nest structure of the bark-digging ant Rhopalomastix (Formicidae, Myrmicinae) and notes on its mutualistic associations with diaspidids in a Thai mango plantation"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Gordon",
+          "familyName": "Yong",
+          "name": "Yong, Gordon",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Weeyawat",
+          "familyName": "Jaitrong",
+          "name": "Jaitrong, Weeyawat",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Christian",
+          "familyName": "Peeters",
+          "name": "Peeters, Christian",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/309948/imports/10",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dgqkw.v9",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.20362/am.013005",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dgqkw",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d35zt",
+      "titles": [
+        {
+          "title": "The ant genus Rhopalomastix (Hymenoptera: Formicidae: Myrmicinae) in Southeast Asia, with descriptions of four new species from Singapore based on morphology and DNA barcoding"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Wendy Y.",
+          "familyName": "Wang",
+          "name": "Wang, Wendy Y.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Gordon W. J.",
+          "familyName": "Yong",
+          "name": "Yong, Gordon W. J.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Weeyawat",
+          "familyName": "Jaitrong",
+          "name": "Jaitrong, Weeyawat",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/27747",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4532.3.1",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d35zt.v88",
+      "titles": [
+        {
+          "title": "The ant genus Rhopalomastix (Hymenoptera: Formicidae: Myrmicinae) in Southeast Asia, with descriptions of four new species from Singapore based on morphology and DNA barcoding"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Wendy Y.",
+          "familyName": "Wang",
+          "name": "Wang, Wendy Y.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Gordon W. J.",
+          "familyName": "Yong",
+          "name": "Yong, Gordon W. J.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Weeyawat",
+          "familyName": "Jaitrong",
+          "name": "Jaitrong, Weeyawat",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/27747/imports/88",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d35zt.v87",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4532.3.1",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d35zt",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dc6j",
+      "titles": [
+        {
+          "title": "Revision of the elusive ant genus Rhopalomastix (Hymenoptera, Formicidae, Myrmicinae) in Thailand based on morphology and DNA barcodes, with descriptions of three new species"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Lee Kong Chian Natural History Museum, National University of Singapore, 2 Conservatory Drive, Singapore 117377."
+          ],
+          "givenName": "Wendy Y.",
+          "familyName": "Wang",
+          "name": "Wang, Wendy Y.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-0745-4702"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biological Sciences, Faculty of Science, National University of Singapore, 16 Science Drive 4, Singapore 117558."
+          ],
+          "givenName": "Gordon W. J.",
+          "familyName": "Yong",
+          "name": "Yong, Gordon W. J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Natural History Museum, National Science Museum, Technopolis, Khlong 5, Khlong Luang, Pathum Thani, 12120 Thailand."
+          ],
+          "givenName": "Weeyawat",
+          "familyName": "Jaitrong",
+          "name": "Jaitrong, Weeyawat",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-1362-0754"
+            }
+          ]
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/7699",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5852/ejt.2021.739.1271",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dc6j.v90",
+      "titles": [
+        {
+          "title": "Revision of the elusive ant genus Rhopalomastix (Hymenoptera, Formicidae, Myrmicinae) in Thailand based on morphology and DNA barcodes, with descriptions of three new species"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Lee Kong Chian Natural History Museum, National University of Singapore, 2 Conservatory Drive, Singapore 117377."
+          ],
+          "givenName": "Wendy Y.",
+          "familyName": "Wang",
+          "name": "Wang, Wendy Y.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-0745-4702"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biological Sciences, Faculty of Science, National University of Singapore, 16 Science Drive 4, Singapore 117558."
+          ],
+          "givenName": "Gordon W. J.",
+          "familyName": "Yong",
+          "name": "Yong, Gordon W. J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Natural History Museum, National Science Museum, Technopolis, Khlong 5, Khlong Luang, Pathum Thani, 12120 Thailand."
+          ],
+          "givenName": "Weeyawat",
+          "familyName": "Jaitrong",
+          "name": "Jaitrong, Weeyawat",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-1362-0754"
+            }
+          ]
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/7699/imports/90",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dc6j.v89",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5852/ejt.2021.739.1271",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dc6j",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dgqkw.v9",
+      "titles": [
+        {
+          "title": "Nest structure of the bark-digging ant Rhopalomastix (Formicidae, Myrmicinae) and notes on its mutualistic associations with diaspidids in a Thai mango plantation"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Gordon",
+          "familyName": "Yong",
+          "name": "Yong, Gordon",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Weeyawat",
+          "familyName": "Jaitrong",
+          "name": "Jaitrong, Weeyawat",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Christian",
+          "familyName": "Peeters",
+          "name": "Peeters, Christian",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/309948/imports/9",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dgqkw.v8",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.20362/am.013005",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dgqkw",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d35zt.v87",
+      "titles": [
+        {
+          "title": "The ant genus Rhopalomastix (Hymenoptera: Formicidae: Myrmicinae) in Southeast Asia, with descriptions of four new species from Singapore based on morphology and DNA barcoding"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Wendy Y.",
+          "familyName": "Wang",
+          "name": "Wang, Wendy Y.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Gordon W. J.",
+          "familyName": "Yong",
+          "name": "Yong, Gordon W. J.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Weeyawat",
+          "familyName": "Jaitrong",
+          "name": "Jaitrong, Weeyawat",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/27747/imports/87",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d35zt.v86",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4532.3.1",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d35zt",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dc6j.v89",
+      "titles": [
+        {
+          "title": "Revision of the elusive ant genus Rhopalomastix (Hymenoptera, Formicidae, Myrmicinae) in Thailand based on morphology and DNA barcodes, with descriptions of three new species"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Lee Kong Chian Natural History Museum, National University of Singapore, 2 Conservatory Drive, Singapore 117377."
+          ],
+          "givenName": "Wendy Y.",
+          "familyName": "Wang",
+          "name": "Wang, Wendy Y.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-0745-4702"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biological Sciences, Faculty of Science, National University of Singapore, 16 Science Drive 4, Singapore 117558."
+          ],
+          "givenName": "Gordon W. J.",
+          "familyName": "Yong",
+          "name": "Yong, Gordon W. J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Natural History Museum, National Science Museum, Technopolis, Khlong 5, Khlong Luang, Pathum Thani, 12120 Thailand."
+          ],
+          "givenName": "Weeyawat",
+          "familyName": "Jaitrong",
+          "name": "Jaitrong, Weeyawat",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0003-1362-0754"
+            }
+          ]
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/7699/imports/89",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dc6j.v88",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5852/ejt.2021.739.1271",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dc6j",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.15468/tnd5gy",
+      "titles": [
+        {
+          "title": "Nest structure of the bark-digging ant Rhopalomastix (Formicidae, Myrmicinae) and notes on its mutualistic associations with diaspidids in a Thai mango plantation"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Gordon Yong",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Weeyawat Jaitrong",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Christian Peeters",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi.org taxonomic treatments database",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "subject": "Fruit"
+        },
+        {
+          "subject": "pupillarial"
+        },
+        {
+          "subject": "Ligaspis"
+        },
+        {
+          "subject": "ant-plant"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/83ba390b-5fa3-44cc-a89b-9f3663b4cbeb",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.25740/pj435tq4463",
+      "titles": [
+        {
+          "title": "Glinka, F., Steiner E.S., Privman E;, Gordon D. M. 2026. Shifts in demography in changing ecological conditions in a dependent-lineage population of harvester ant colonies\n"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Haifa"
+          ],
+          "givenName": "Felix",
+          "familyName": "Glinka",
+          "name": "Glinka, Felix",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Oregon University System"
+          ],
+          "givenName": "Erik",
+          "familyName": "Steiner",
+          "name": "Steiner, Erik",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Haifa"
+          ],
+          "givenName": "Eyal",
+          "familyName": "Privman",
+          "name": "Privman, Eyal",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Deborah M",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "https://orcid.org/0000-0002-1090-9539"
+            }
+          ]
+        }
+      ],
+      "publisher": "Stanford Digital Repository",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Demography",
+          "subjectScheme": "fast"
+        },
+        {
+          "subject": "Kinship",
+          "subjectScheme": "fast"
+        },
+        {
+          "subject": "drought"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Tabular data"
+      },
+      "url": "https://purl.stanford.edu/pj435tq4463",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.25740/qy007jv4648",
+      "titles": [
+        {
+          "title": "Better tired than lost: turtle ant trail networks favor coherence over short edges. 2021. Chandrasekhar, A., Marshall, J. A. R., Austin, C., Navhlakha, S. ,Gordon, D. M. PLoS Computational Biology."
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Arjun",
+          "familyName": "Chandrasekhar",
+          "name": "Chandrasekhar, Arjun",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "James A. R.",
+          "familyName": "Marshall",
+          "name": "Marshall, James A. R.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Cortnea",
+          "familyName": "Austin",
+          "name": "Austin, Cortnea",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Saket",
+          "familyName": "Navklakha",
+          "name": "Navklakha, Saket",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Deborah M.",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Stanford Digital Repository",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "search algorithm"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://purl.stanford.edu/qy007jv4648",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution Non Commercial No Derivatives 4.0 International",
+          "rightsIdentifier": "cc-by-nc-nd-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.25740/kp523dt7562",
+      "titles": [
+        {
+          "title": "Menzel, Florian; Fiocca, Katherine; Steiner, Erik; Gordon, Deborah M.2025. Cuticular hydrocarbons and collective response to water stress in a desert ant. Functional Ecology"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Johannes Gutenberg University Mainz"
+          ],
+          "givenName": "Florian",
+          "familyName": "Menzel",
+          "name": "Menzel, Florian",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Katherine",
+          "familyName": "Fiocca",
+          "name": "Fiocca, Katherine",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Oregon"
+          ],
+          "givenName": "Erik",
+          "familyName": "Steiner",
+          "name": "Steiner, Erik",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Deborah M",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "https://orcid.org/0000-0002-1090-9539"
+            }
+          ]
+        }
+      ],
+      "publisher": "Stanford Digital Repository",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Behavioural physiology"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Tabular data"
+      },
+      "url": "https://purl.stanford.edu/kp523dt7562",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.14288/1.0397980",
+      "titles": [
+        {
+          "title": "Data from: Nutrient foraging behaviour of four co-occuring perennial grassland plant species alone does not predict behaviour with neighbours"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Gordon G.",
+          "familyName": "McNickle",
+          "name": "McNickle, Gordon G.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Michael K.",
+          "familyName": "Deyholos",
+          "name": "Deyholos, Michael K.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "name": "Cahill Jr., James F.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "James F.",
+          "familyName": "Cahill",
+          "name": "Cahill, James F.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "The University of British Columbia",
+      "publicationYear": 2020,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://doi.library.ubc.ca/10.14288/1.0397980",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.5683/sp2/wipfnw",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.5061/dryad.91nd2",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.1594/pangaea.734981",
+      "titles": [
+        {
+          "title": "Physical oceanography during POLARSTERN cruise ANT-V/2"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Arnold L",
+          "familyName": "Gordon",
+          "name": "Gordon, Arnold L",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-6480-6095"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "PANGAEA",
+      "publicationYear": 2010,
+      "subjects": [
+        {
+          "subject": "Event label",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Date/Time of event",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Latitude of event",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Longitude of event",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "DEPTH, water",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pressure, water",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Temperature, water",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Conductivity",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Salinity",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Temperature, water, potential",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Density, sigma-theta (0)",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "CTD/Rosette",
+          "subjectScheme": "Method"
+        },
+        {
+          "subject": "Computed",
+          "subjectScheme": "Method"
+        },
+        {
+          "subject": "CTD, Neil Brown, Mark III B",
+          "subjectScheme": "Method"
+        },
+        {
+          "subject": "Calculated",
+          "subjectScheme": "Method"
+        },
+        {
+          "subject": "ANT-V/2",
+          "subjectScheme": "Campaign"
+        },
+        {
+          "subject": "Polarstern",
+          "subjectScheme": "Basis"
+        },
+        {
+          "subject": "Physical Oceanography @ AWI (AWI_PhyOce)",
+          "subjectScheme": "Project"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.734981",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/3.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 3.0 Unported",
+          "rightsIdentifier": "cc-by-3.0"
+        }
+      ],
+      "sizes": [
+        "2167536 data points"
+      ],
+      "formats": [
+        "text/tab-separated-values"
+      ],
+      "relatedIdentifiers": [
+        {
+          "relationType": "References",
+          "relatedIdentifier": "10.2312/bzp_0039_1987",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.1594/pangaea.672319",
+      "titles": [
+        {
+          "title": "Water temperature profiles from 174 XBT drops along the track of POLARSTERN cruise ANT-V/2"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Arnold L",
+          "familyName": "Gordon",
+          "name": "Gordon, Arnold L",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-6480-6095"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "PANGAEA",
+      "publicationYear": 2007,
+      "subjects": [
+        {
+          "subject": "DATE/TIME",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "LATITUDE",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "LONGITUDE",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "DEPTH, water",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Temperature, water",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sample code/label",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Underway cruise track measurements",
+          "subjectScheme": "Method"
+        },
+        {
+          "subject": "XBT, Sippican Ocean Systems",
+          "subjectScheme": "Method"
+        },
+        {
+          "subject": "ANT-V/2",
+          "subjectScheme": "Campaign"
+        },
+        {
+          "subject": "Polarstern",
+          "subjectScheme": "Basis"
+        },
+        {
+          "subject": "Physical Oceanography @ AWI (AWI_PhyOce)",
+          "subjectScheme": "Project"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.672319",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/3.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 3.0 Unported",
+          "rightsIdentifier": "cc-by-3.0"
+        }
+      ],
+      "sizes": [
+        "105758 data points"
+      ],
+      "formats": [
+        "text/tab-separated-values"
+      ],
+      "relatedIdentifiers": [
+        {
+          "relationType": "References",
+          "relatedIdentifier": "10.2312/bzp_0039_1987",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.7wm37pw2z",
+      "titles": [
+        {
+          "title": "Possible limitations in the management of a small ant pest species (Plagiolepis alluaudi) using gel baits"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Florida"
+          ],
+          "givenName": "Johnalyn",
+          "familyName": "Gordon",
+          "name": "Gordon, Johnalyn",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4495-0684"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Florida"
+          ],
+          "givenName": "Asher",
+          "familyName": "Timar",
+          "name": "Timar, Asher",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Florida"
+          ],
+          "givenName": "Andrea",
+          "familyName": "Lucky",
+          "name": "Lucky, Andrea",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Florida"
+          ],
+          "givenName": "Faith",
+          "familyName": "Oi",
+          "name": "Oi, Faith",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Florida"
+          ],
+          "givenName": "Thomas",
+          "familyName": "Chouvenc",
+          "name": "Chouvenc, Thomas",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3154-2489"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2024,
+      "subjects": [
+        {
+          "subject": "Ant control"
+        },
+        {
+          "subject": "pest management"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Viscosity",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "invasive ants"
+        },
+        {
+          "subject": "little yellow ant"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.7wm37pw2z",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "144161 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/jen.13411",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.0gb5mkm69",
+      "titles": [
+        {
+          "title": "Foraging behavior affects nest architecture in a cross-species comparison of ant nests"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Sean",
+          "familyName": "O'Fallon",
+          "name": "O'Fallon, Sean",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0169-3692"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Illinois Urbana-Champaign"
+          ],
+          "givenName": "Kim",
+          "familyName": "Drager",
+          "name": "Drager, Kim",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Art",
+          "familyName": "Zhao",
+          "name": "Zhao, Art",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Illinois Urbana-Champaign"
+          ],
+          "givenName": "Andrew",
+          "familyName": "Suarez",
+          "name": "Suarez, Andrew",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2257-3366"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0448-8037"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "ant"
+        },
+        {
+          "subject": "nest architecture"
+        },
+        {
+          "subject": "ecosystem engineers"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Foraging",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.0gb5mkm69",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "552272 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.7927820",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rstb.2022.0146",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.83bk3j9wk",
+      "titles": [
+        {
+          "title": "Data for: Female foraging strategy co-evolve with sexual harassment intensity in the Trinidadian guppy"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of South Florida"
+          ],
+          "givenName": "Yusan",
+          "familyName": "Yang",
+          "name": "Yang, Yusan",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-2765-4197"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Washington University in St. Louis"
+          ],
+          "givenName": "Eleanor",
+          "familyName": "Grant",
+          "name": "Grant, Eleanor",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "givenName": "Andrés",
+          "familyName": "López-Sepulcre",
+          "name": "López-Sepulcre, Andrés",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "givenName": "Swanne P.",
+          "familyName": "Gordon",
+          "name": "Gordon, Swanne P.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2023,
+      "subjects": [
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Sexual conflict",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "co-evolution"
+        },
+        {
+          "subject": "Poecilia reticulata"
+        },
+        {
+          "subject": "alternative mating strategy"
+        },
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.83bk3j9wk",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "110441 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.7761202",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/beheco/arad027",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5068/d1fx0d",
+      "titles": [
+        {
+          "title": "Data from: Harvester ant nest architecture is more strongly affected by intrinsic than extrinsic factors"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Sean",
+          "familyName": "O'Fallon",
+          "name": "O'Fallon, Sean",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0169-3692"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Eva",
+          "familyName": "Horna Lowell",
+          "name": "Horna Lowell, Eva",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Doug",
+          "familyName": "Daniels",
+          "name": "Daniels, Doug",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-6250-1677"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0448-8037"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        },
+        {
+          "subject": "extended phenotype"
+        },
+        {
+          "subject": "Collective behavior"
+        },
+        {
+          "subject": "nest architecture"
+        },
+        {
+          "subject": "social insects"
+        },
+        {
+          "subject": "Pogonomyrmex californicus"
+        },
+        {
+          "subject": "Veromessor andrei"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5068/D1FX0D",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "342574 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.5784661",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/beheco/arac026",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5068/d18d7b",
+      "titles": [
+        {
+          "title": "Data from: Modularity and connectivity of nest structure scale with colony size"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Julie",
+          "familyName": "Miller",
+          "name": "Miller, Julie",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2301-1955"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0448-8037"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Sean",
+          "familyName": "O'Fallon",
+          "name": "O'Fallon, Sean",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0169-3692"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Emma",
+          "familyName": "Wan",
+          "name": "Wan, Emma",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "schemeUri": "https://web-archive.oecd.org/2012-06-15/138575-38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "fos"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5068/D18D7B",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "347119 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/evo.14402",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.5281/zenodo.5636719",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.6q573n601",
+      "titles": [
+        {
+          "title": "Data from: Prey encounters and spatial memory influence use of foraging patches in a marine central place forager"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Aberdeen"
+          ],
+          "givenName": "Virginia",
+          "familyName": "Iorio-Merlo",
+          "name": "Iorio-Merlo, Virginia",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-3728-2622"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Aberdeen"
+          ],
+          "givenName": "Isla M.",
+          "familyName": "Graham",
+          "name": "Graham, Isla M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Aberdeen"
+          ],
+          "givenName": "Rebecca C.",
+          "familyName": "Hewitt",
+          "name": "Hewitt, Rebecca C.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Wageningen University & Research"
+          ],
+          "givenName": "Geert",
+          "familyName": "Aarts",
+          "name": "Aarts, Geert",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Enrico",
+          "familyName": "Pirotta",
+          "name": "Pirotta, Enrico",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Gordon D.",
+          "familyName": "Hastie",
+          "name": "Hastie, Gordon D.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Aberdeen"
+          ],
+          "givenName": "Paul M.",
+          "familyName": "Thompson",
+          "name": "Thompson, Paul M.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "subject": "ARS"
+        },
+        {
+          "subject": "Harbour seal"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Spatial memory",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Hidden Markov models",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "accelerometer"
+        },
+        {
+          "subject": "repeatability"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.6q573n601",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "14445657921 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2021.2261",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.tqjq2bvzv",
+      "titles": [
+        {
+          "title": "Data from: Acoustic risk balancing by marine mammals: anthropogenic noise can influence the foraging decisions by seals"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Gordon",
+          "familyName": "Hastie",
+          "name": "Hastie, Gordon",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9773-2755"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Loughborough University"
+          ],
+          "givenName": "Paul",
+          "familyName": "Lepper",
+          "name": "Lepper, Paul",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Chris",
+          "familyName": "McKnight",
+          "name": "McKnight, Chris",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Ryan",
+          "familyName": "Milne",
+          "name": "Milne, Ryan",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Debbie",
+          "familyName": "Russell",
+          "name": "Russell, Debbie",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of St Andrews"
+          ],
+          "givenName": "Dave",
+          "familyName": "Thompson",
+          "name": "Thompson, Dave",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.tqjq2bvzv",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "203715 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/1365-2664.13931",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.05qfttf2x",
+      "titles": [
+        {
+          "title": "Sex differences in the foraging behavior of a generalist hawkmoth"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Cornell University"
+          ],
+          "givenName": "Gordon",
+          "familyName": "Smith",
+          "name": "Smith, Gordon",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-6681-542X"
+            }
+          ]
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Ecology",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.05qfttf2x",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "298482 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/1744-7917.12926",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.59zw3r24h",
+      "titles": [
+        {
+          "title": "Colony-age-dependent variation in cuticular hydrocarbon profiles in subterranean termite colonies"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Florida"
+          ],
+          "givenName": "Johnalyn",
+          "familyName": "Gordon",
+          "name": "Gordon, Johnalyn",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4495-0684"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Czech University of Life Sciences Prague"
+          ],
+          "givenName": "Jan",
+          "familyName": "Šobotník",
+          "name": "Šobotník, Jan",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Florida"
+          ],
+          "givenName": "Thomas",
+          "familyName": "Chouvenc",
+          "name": "Chouvenc, Thomas",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2021,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.59zw3r24h",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "56498 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1002/ece3.6669",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.7j0c8dm",
+      "titles": [
+        {
+          "title": "Data from: Molecular diet analysis finds an insectivorous desert bat community dominated by resource sharing despite diverse echolocation and foraging strategies"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Queen Mary University of London"
+          ],
+          "givenName": "Rowena",
+          "familyName": "Gordon",
+          "name": "Gordon, Rowena",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Queen Mary University of London"
+          ],
+          "givenName": "Sally",
+          "familyName": "Ivens",
+          "name": "Ivens, Sally",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Angelo State University"
+          ],
+          "givenName": "Loren K.",
+          "familyName": "Ammerman",
+          "name": "Ammerman, Loren K.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Western University"
+          ],
+          "givenName": "M. Brock",
+          "familyName": "Fenton",
+          "name": "Fenton, M. Brock",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Queen Mary University of London"
+          ],
+          "givenName": "Joanne E.",
+          "familyName": "Littlefair",
+          "name": "Littlefair, Joanne E.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Toronto"
+          ],
+          "givenName": "John M.",
+          "familyName": "Ratcliffe",
+          "name": "Ratcliffe, John M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Queen Mary University of London"
+          ],
+          "givenName": "Elizabeth L.",
+          "familyName": "Clare",
+          "name": "Clare, Elizabeth L.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2019,
+      "subjects": [
+        {
+          "subject": "dietary analysis"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Chiroptera",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "bat foraging ecology"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.7j0c8dm",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "17201300 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1002/ece3.4896",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.kg593qs",
+      "titles": [
+        {
+          "title": "Data from: Asynchrony between ant seed dispersal activity and fruit dehiscence of myrmecochorous plants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Toronto"
+          ],
+          "givenName": "Susan C. C.",
+          "familyName": "Gordon",
+          "name": "Gordon, Susan C. C.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Toronto"
+          ],
+          "givenName": "Shannon A.",
+          "familyName": "Meadley-Dunphy",
+          "name": "Meadley-Dunphy, Shannon A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Binghamton University"
+          ],
+          "givenName": "Kirsten M.",
+          "familyName": "Prior",
+          "name": "Prior, Kirsten M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Toronto"
+          ],
+          "givenName": "Megan E.",
+          "familyName": "Frederickson",
+          "name": "Frederickson, Megan E.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2019,
+      "subjects": [
+        {
+          "subject": "Asarum canadense"
+        },
+        {
+          "subject": "Trillium grandiflorum"
+        },
+        {
+          "subject": "myrmecochory"
+        },
+        {
+          "subject": "elaiosome"
+        },
+        {
+          "subject": "satiation"
+        },
+        {
+          "subject": "Aphaenogaster rudis"
+        },
+        {
+          "subject": "Trillium erectum"
+        },
+        {
+          "subject": "Sanguinaria canadensis"
+        },
+        {
+          "subject": "Aphaenogaster"
+        },
+        {
+          "subject": "Arion subfuscus"
+        },
+        {
+          "subject": "Holocene"
+        },
+        {
+          "subject": "Anemone acutiloba"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.kg593qs",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "1228036 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1002/ajb2.1214",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.nj811",
+      "titles": [
+        {
+          "title": "Data from: Context-dependent expression of the foraging gene in field colonies of ants: the interacting roles of age, environment and task"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Colgate University"
+          ],
+          "givenName": "Krista K.",
+          "familyName": "Ingram",
+          "name": "Ingram, Krista K.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Deborah M.",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Daniel A.",
+          "familyName": "Friedman",
+          "name": "Friedman, Daniel A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Colorado Denver"
+          ],
+          "givenName": "Michael",
+          "familyName": "Greene",
+          "name": "Greene, Michael",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Colgate University"
+          ],
+          "givenName": "John",
+          "familyName": "Kahler",
+          "name": "Kahler, John",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Texas A&M University"
+          ],
+          "givenName": "Swetha",
+          "familyName": "Peteru",
+          "name": "Peteru, Swetha",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2016,
+      "subjects": [
+        {
+          "subject": "task allocation"
+        },
+        {
+          "subject": "foraging gene"
+        },
+        {
+          "subject": "Division of labour"
+        },
+        {
+          "subject": "Pogonomyrmex barbatus"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.nj811",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "71126 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rspb.2016.0841",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.35rt2",
+      "titles": [
+        {
+          "title": "Data from: Nest architecture shapes the collective behavior of harvester ants"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2015,
+      "subjects": [
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Network theory",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Foraging",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Collective behavior"
+        },
+        {
+          "subject": "Veromessor andrei"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.35rt2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "18565 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1098/rsbl.2015.0695",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.ft80s9n",
+      "titles": [
+        {
+          "title": "Data from: Underlying mechanisms and ecological context of variation in exploratory behavior of the Argentine ant, Linepithema humile"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Hannah",
+          "familyName": "Page",
+          "name": "Page, Hannah",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California San Diego"
+          ],
+          "givenName": "Andrew",
+          "familyName": "Sweeney",
+          "name": "Sweeney, Andrew",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Anna",
+          "familyName": "Pilko",
+          "name": "Pilko, Anna",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2018,
+      "subjects": [
+        {
+          "subject": "Linepithema humile"
+        },
+        {
+          "subject": "Collective behavior"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.ft80s9n",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "59695 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1242/jeb.188722",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.3dt11m7",
+      "titles": [
+        {
+          "title": "Data from: Collective behavior and colony persistence of social spiders depends on their physical environment"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Santa Barbara",
+            "University of California, Berkeley"
+          ],
+          "givenName": "Ambika",
+          "familyName": "Kamath",
+          "name": "Kamath, Ambika",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Santa Barbara"
+          ],
+          "givenName": "Skylar D.",
+          "familyName": "Primavera",
+          "name": "Primavera, Skylar D.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Pennsylvania State University"
+          ],
+          "givenName": "Colin M.",
+          "familyName": "Wright",
+          "name": "Wright, Colin M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Santa Barbara"
+          ],
+          "givenName": "Grant N.",
+          "familyName": "Doering",
+          "name": "Doering, Grant N.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Santa Barbara"
+          ],
+          "givenName": "Kirsten A.",
+          "familyName": "Sheehy",
+          "name": "Sheehy, Kirsten A.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Santa Barbara"
+          ],
+          "givenName": "Jonathan N.",
+          "familyName": "Pruitt",
+          "name": "Pruitt, Jonathan N.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2018,
+      "subjects": [
+        {
+          "subject": "habitat modification"
+        },
+        {
+          "subject": "web"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Foraging",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "Stegodyphyus dumicola"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.3dt11m7",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "77965 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1093/beheco/ary158",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.91nd2",
+      "titles": [
+        {
+          "title": "Data from: Nutrient foraging behaviour of four co-occuring perennial grassland plant species alone does not predict behaviour with neighbours"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Alberta"
+          ],
+          "givenName": "Gordon G.",
+          "familyName": "McNickle",
+          "name": "McNickle, Gordon G.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of British Columbia"
+          ],
+          "givenName": "Michael K.",
+          "familyName": "Deyholos",
+          "name": "Deyholos, Michael K.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Alberta"
+          ],
+          "name": "Cahill Jr., James F.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Alberta"
+          ],
+          "givenName": "James F.",
+          "familyName": "Cahill",
+          "name": "Cahill, James F.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2016,
+      "subjects": [
+        {
+          "subject": "root foraging precision"
+        },
+        {
+          "subject": "over-proliferation"
+        },
+        {
+          "subject": "plant-plant competition"
+        },
+        {
+          "subject": "Koeleria macrantha"
+        },
+        {
+          "subject": "Achillea millefolium"
+        },
+        {
+          "subject": "resource selection function"
+        },
+        {
+          "subject": "Poa pratensis"
+        },
+        {
+          "subject": "plant behaviour"
+        },
+        {
+          "subject": "Artemisia ludoviciana"
+        },
+        {
+          "subject": "plant foraging"
+        },
+        {
+          "subject": "tragedy of the commons game"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.91nd2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "82113 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/1365-2435.12508",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.p8n5kb15",
+      "titles": [
+        {
+          "title": "Data from: Diversification and phylogeographic structure in widespread Azteca plant-ants from the northern Neotropics"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Elizabeth G.",
+          "familyName": "Pringle",
+          "name": "Pringle, Elizabeth G.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Timothy C.",
+          "familyName": "Bonebrake",
+          "name": "Bonebrake, Timothy C.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of California, Berkeley"
+          ],
+          "givenName": "Santiago R.",
+          "familyName": "Ramírez",
+          "name": "Ramírez, Santiago R.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Deborah M.",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Rodolfo",
+          "familyName": "Dirzo",
+          "name": "Dirzo, Rodolfo",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2012,
+      "subjects": [
+        {
+          "subject": "ant-plant mutualism"
+        },
+        {
+          "subject": "Azteca"
+        },
+        {
+          "subject": "seasonally dry tropical forests"
+        },
+        {
+          "subject": "gene trees"
+        },
+        {
+          "subject": "Pleistocene climate changes"
+        },
+        {
+          "subject": "Azteca pittieri"
+        },
+        {
+          "subject": "Cordia alliodora"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.p8n5kb15",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "140340 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1111/j.1365-294x.2012.05618.x",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5061/dryad.nq816",
+      "titles": [
+        {
+          "title": "Data from: Water stress strengthens mutualism among ants, trees, and scale insects"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University",
+            "University of Michigan"
+          ],
+          "givenName": "Elizabeth G.",
+          "familyName": "Pringle",
+          "name": "Pringle, Elizabeth G.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Princeton University",
+            "Stanford University",
+            "University of Tennessee at Knoxville"
+          ],
+          "givenName": "Erol",
+          "familyName": "Akçay",
+          "name": "Akçay, Erol",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Carnegie Institution for Science"
+          ],
+          "givenName": "Ted K.",
+          "familyName": "Raab",
+          "name": "Raab, Ted K.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Rodolfo",
+          "familyName": "Dirzo",
+          "name": "Dirzo, Rodolfo",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Stanford University"
+          ],
+          "givenName": "Deborah M.",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Dryad",
+      "publicationYear": 2014,
+      "subjects": [
+        {
+          "subject": "ant-plant mutualism"
+        },
+        {
+          "subject": "context dependence"
+        },
+        {
+          "subject": "bet-hedging"
+        },
+        {
+          "schemeUri": "https://github.com/PLOS/plos-thesaurus",
+          "subject": "Species interactions",
+          "subjectScheme": "PLOS Subject Area Thesaurus"
+        },
+        {
+          "subject": "carbon starvation"
+        },
+        {
+          "subject": "seasonally dry tropical forests"
+        },
+        {
+          "subject": "Azteca pittieri"
+        },
+        {
+          "subject": "Cordia alliodora"
+        },
+        {
+          "subject": "Mesoamerica"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "dataset"
+      },
+      "url": "https://datadryad.org/dataset/doi:10.5061/dryad.nq816",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [
+        "298340 bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsCitedBy",
+          "relatedIdentifier": "10.1371/journal.pbio.1001705",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.25740/cc037jw0373",
+      "titles": [
+        {
+          "title": "Colony life history in the turtle ant, Cephalotes goniodontus"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Ian",
+          "familyName": "Butler",
+          "name": "Butler, Ian",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Milan",
+          "familyName": "Janda",
+          "name": "Janda, Milan",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Taggert",
+          "familyName": "Butterfield",
+          "name": "Butterfield, Taggert",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Deborah M",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-1090-9539"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Butler",
+          "familyName": "Ian",
+          "name": "Ian, Butler",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Stanford Digital Repository",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "turtle ants"
+        },
+        {
+          "subject": "ant colony life history"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Database"
+      },
+      "url": "https://purl.stanford.edu/cc037jw0373",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.25740/pp407bs8360",
+      "titles": [
+        {
+          "title": "Gordon, Steiner, Das, Walker .2023 Harvester ant colonies differ in collective behavioral plasticity to regulate water loss"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Deborah M",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-1090-9539"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Erik",
+          "familyName": "Steiner",
+          "name": "Steiner, Erik",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Biplabendu",
+          "familyName": "Das",
+          "name": "Das, Biplabendu",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Nia",
+          "familyName": "Walker",
+          "name": "Walker, Nia",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Stanford Digital Repository",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "collective behavior"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Tabular data"
+      },
+      "url": "https://purl.stanford.edu/pp407bs8360",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.25740/gr652yp4782",
+      "titles": [
+        {
+          "title": "Data for Nova, N., Pagliara, R., Gordon, D. M. 2022. Individual variation does not regulate foraging response to humidity in harvester ants. Frontiers Ecology and Evolution"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Nicole",
+          "familyName": "Nova",
+          "name": "Nova, Nicole",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Renato",
+          "familyName": "Pagliara",
+          "name": "Pagliara, Renato",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Deborah M.",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Stanford Digital Repository",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Collective behavior--Decision making",
+          "subjectScheme": "fast"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Tabular data"
+      },
+      "url": "https://purl.stanford.edu/gr652yp4782",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.25740/xd864rp1501",
+      "titles": [
+        {
+          "title": "Critical thermal limits and temperature-dependent walking speed may mediate coexistence between the native winter ant (Prenolepis imparis) and the invasive Argentine ant (Linepithema humile)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Rebecca",
+          "familyName": "Nelson",
+          "name": "Nelson, Rebecca",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Dylan",
+          "familyName": "MacArthur-Waltz",
+          "name": "MacArthur-Waltz, Dylan",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Deborah",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Stanford Digital Repository",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Climate variability hypothesis, invasive species, thermal tolerance, CTmax, CTmin, niche"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Tabular data; Code"
+      },
+      "url": "https://purl.stanford.edu/xd864rp1501",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.25740/sq515dd6404",
+      "titles": [
+        {
+          "title": "Nova, N., Pagliara, R., Gordon, D. M. Individual variation does not regulate foraging response to humidity in harvester ant colonies. Frontiers Ecology and Evolution."
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Nicole",
+          "familyName": "Nova",
+          "name": "Nova, Nicole",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Renato",
+          "familyName": "Pagliara",
+          "name": "Pagliara, Renato",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Deborah M.",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Stanford Digital Repository",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "foraging, harvester ants, humidity, individual variation, phenotypic plasticity, Pogonomyrmex barbatus, reaction norm, task allocation"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Tabular data"
+      },
+      "url": "https://purl.stanford.edu/sq515dd6404",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.25740/sz403bn0186",
+      "titles": [
+        {
+          "title": "Rainfall, neighbors and foraging: the dynamics of a population of red harvester ant colonies 1988-2019. Sundaram, Steiner, Gordon. 2021. Ecological Monographs"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Mekala",
+          "familyName": "Sundaram",
+          "name": "Sundaram, Mekala",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Erik",
+          "familyName": "Steiner",
+          "name": "Steiner, Erik",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Deborah M.",
+          "familyName": "Gordon",
+          "name": "Gordon, Deborah M.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Stanford Digital Repository",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "climate change"
+        },
+        {
+          "subject": "competition"
+        },
+        {
+          "subject": "density-dependence"
+        },
+        {
+          "subject": "drought"
+        },
+        {
+          "subject": "spatial distribution"
+        },
+        {
+          "subject": "adaptive capacity"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Tabular data"
+      },
+      "url": "https://purl.stanford.edu/sz403bn0186",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.6084/m9.figshare.3619779.v1",
+      "titles": [
+        {
+          "title": "Task allocation and site fidelity jointly influence foraging regulation in honey bee colonies"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Chelsea",
+          "familyName": "Cook",
+          "name": "Cook, Chelsea",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Thiago",
+          "familyName": "Mosqueiro",
+          "name": "Mosqueiro, Thiago",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "https://orcid.org/0000-0001-5808-8189"
+            }
+          ]
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Ramon",
+          "familyName": "Huerta",
+          "name": "Huerta, Ramon",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Jurgen",
+          "familyName": "Gadau",
+          "name": "Gadau, Jurgen",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Brian",
+          "familyName": "Smith",
+          "name": "Smith, Brian",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Figshare",
+      "publicationYear": 2017,
+      "subjects": [
+        {
+          "subject": "60201 Behavioural Ecology",
+          "subjectScheme": "FOR"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/Task_allocation_and_site_fidelity_jointly_influence_foraging_regulation_in_honey_bee_colonies/3619779/1",
+      "rightsList": [
+        {
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0",
+          "rights": "CC BY 4.0"
+        }
+      ],
+      "sizes": [
+        "44203 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.3619779",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.16786558.v3",
+      "titles": [
+        {
+          "title": "R Code for analysis - The effect of resource availability on interspecific competition between a native and an invasive ant"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Kevin",
+          "familyName": "Neumann",
+          "name": "Neumann, Kevin",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "60201 Behavioural Ecology",
+          "subjectScheme": "FOR"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://figshare.com/articles/dataset/R_Code_for_analysis_-_The_effect_of_resource_availability_on_interspecific_competition_between_a_native_and_an_invasive_ant_/16786558/3",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "6603 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.16786558",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630145.v1",
+      "titles": [
+        {
+          "title": "Additional file 3 of Social organization and physical environment shape the microbiome of harvester ants"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Denisse Alejandra",
+          "familyName": "Gamboa",
+          "name": "Gamboa, Denisse Alejandra",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Harvard University"
+          ],
+          "givenName": "Peter J.",
+          "familyName": "Flynn",
+          "name": "Flynn, Peter J.",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles",
+            "San Diego Natural History Museum"
+          ],
+          "givenName": "Eva Sofia",
+          "familyName": "Horna-Lowell",
+          "name": "Horna-Lowell, Eva Sofia",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Microbiology"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://springernature.figshare.com/articles/dataset/Additional_file_3_of_Social_organization_and_physical_environment_shape_the_microbiome_of_harvester_ants/28630145/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "10520 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.28630145",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1186/s42523-025-00390-3",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630142.v1",
+      "titles": [
+        {
+          "title": "Additional file 2 of Social organization and physical environment shape the microbiome of harvester ants"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Denisse Alejandra",
+          "familyName": "Gamboa",
+          "name": "Gamboa, Denisse Alejandra",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Harvard University"
+          ],
+          "givenName": "Peter J.",
+          "familyName": "Flynn",
+          "name": "Flynn, Peter J.",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles",
+            "San Diego Natural History Museum"
+          ],
+          "givenName": "Eva Sofia",
+          "familyName": "Horna-Lowell",
+          "name": "Horna-Lowell, Eva Sofia",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Microbiology"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://springernature.figshare.com/articles/dataset/Additional_file_2_of_Social_organization_and_physical_environment_shape_the_microbiome_of_harvester_ants/28630142/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "10558 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.28630142",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1186/s42523-025-00390-3",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630139.v1",
+      "titles": [
+        {
+          "title": "Additional file 1 of Social organization and physical environment shape the microbiome of harvester ants"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Denisse Alejandra",
+          "familyName": "Gamboa",
+          "name": "Gamboa, Denisse Alejandra",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Harvard University"
+          ],
+          "givenName": "Peter J.",
+          "familyName": "Flynn",
+          "name": "Flynn, Peter J.",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles",
+            "San Diego Natural History Museum"
+          ],
+          "givenName": "Eva Sofia",
+          "familyName": "Horna-Lowell",
+          "name": "Horna-Lowell, Eva Sofia",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Microbiology"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://springernature.figshare.com/articles/dataset/Additional_file_1_of_Social_organization_and_physical_environment_shape_the_microbiome_of_harvester_ants/28630139/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "10351 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.28630139",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1186/s42523-025-00390-3",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630145",
+      "titles": [
+        {
+          "title": "Additional file 3 of Social organization and physical environment shape the microbiome of harvester ants"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Denisse Alejandra",
+          "familyName": "Gamboa",
+          "name": "Gamboa, Denisse Alejandra",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Harvard University"
+          ],
+          "givenName": "Peter J.",
+          "familyName": "Flynn",
+          "name": "Flynn, Peter J.",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles",
+            "San Diego Natural History Museum"
+          ],
+          "givenName": "Eva Sofia",
+          "familyName": "Horna-Lowell",
+          "name": "Horna-Lowell, Eva Sofia",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Microbiology"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://springernature.figshare.com/articles/dataset/Additional_file_3_of_Social_organization_and_physical_environment_shape_the_microbiome_of_harvester_ants/28630145",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "10520 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1186/s42523-025-00390-3",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630142",
+      "titles": [
+        {
+          "title": "Additional file 2 of Social organization and physical environment shape the microbiome of harvester ants"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Denisse Alejandra",
+          "familyName": "Gamboa",
+          "name": "Gamboa, Denisse Alejandra",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Harvard University"
+          ],
+          "givenName": "Peter J.",
+          "familyName": "Flynn",
+          "name": "Flynn, Peter J.",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles",
+            "San Diego Natural History Museum"
+          ],
+          "givenName": "Eva Sofia",
+          "familyName": "Horna-Lowell",
+          "name": "Horna-Lowell, Eva Sofia",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Microbiology"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://springernature.figshare.com/articles/dataset/Additional_file_2_of_Social_organization_and_physical_environment_shape_the_microbiome_of_harvester_ants/28630142",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "10558 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1186/s42523-025-00390-3",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.28630139",
+      "titles": [
+        {
+          "title": "Additional file 1 of Social organization and physical environment shape the microbiome of harvester ants"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Denisse Alejandra",
+          "familyName": "Gamboa",
+          "name": "Gamboa, Denisse Alejandra",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Harvard University"
+          ],
+          "givenName": "Peter J.",
+          "familyName": "Flynn",
+          "name": "Flynn, Peter J.",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles",
+            "San Diego Natural History Museum"
+          ],
+          "givenName": "Eva Sofia",
+          "familyName": "Horna-Lowell",
+          "name": "Horna-Lowell, Eva Sofia",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "University of California, Los Angeles"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "figshare",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Microbiology"
+        },
+        {
+          "schemeUri": "http://www.oecd.org/science/inno/38235147.pdf",
+          "subject": "FOS: Biological sciences",
+          "subjectScheme": "Fields of Science and Technology (FOS)"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://springernature.figshare.com/articles/dataset/Additional_file_1_of_Social_organization_and_physical_environment_shape_the_microbiome_of_harvester_ants/28630139",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "10351 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1186/s42523-025-00390-3",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.15468/x8jscn",
+      "titles": [
+        {
+          "title": "The ant genus Rhopalomastix (Hymenoptera: Formicidae: Myrmicinae) in Southeast Asia, with descriptions of four new species from Singapore based on morphology and DNA barcoding"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Wendy Y.",
+          "familyName": "Wang",
+          "name": "Wang, Wendy Y.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [],
+          "givenName": "Gordon W. J.",
+          "familyName": "Yong",
+          "name": "Yong, Gordon W. J.",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [],
+          "name": "Weeyawat Jaitrong",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi.org taxonomic treatments database",
+      "publicationYear": 2018,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/92005c51-bac6-4193-acc5-5a6b56c0b5cd",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.11646/zootaxa.4532.3.1",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.8132462",
+      "titles": [
+        {
+          "title": "Social interactions differ in their impact on foraging decisions"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "UCLA"
+          ],
+          "givenName": "Noa",
+          "familyName": "Pinter-Wollman",
+          "name": "Pinter-Wollman, Noa",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2023,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://zenodo.org/record/8132462",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        },
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess",
+          "rights": "Open Access"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.8132463",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:53:42.187937+00:00"
+}

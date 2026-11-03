@@ -1,0 +1,5854 @@
+{
+  "url": "https://api.datacite.org/dois?fields%5Bdois%5D=doi%2Ctitles%2Ccreators%2Cpublisher%2CpublicationYear%2Csubjects%2Ctypes%2Curl%2CrightsList%2Csizes%2Cformats%2CrelatedIdentifiers&query=types.resourceTypeGeneral%3ADataset+AND+%28subjects.subject%3ALasius+OR+titles.title%3ALasius%29&page%5Bsize%5D=50&page%5Bnumber%5D=1",
+  "total": 188,
+  "records": [
+    {
+      "doi": "10.5281/zenodo.23771395",
+      "titles": [
+        {
+          "title": "Fore wings of black garden ant (Lasius niger)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Agriculture in Krakow"
+          ],
+          "givenName": "Adam",
+          "familyName": "Tofilski",
+          "name": "Tofilski, Adam",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-3898-7029"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.23771395",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "http://www.opendatacommons.org/licenses/odbl/1.0/",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "ODC Open Database License v1.0",
+          "rightsIdentifier": "odbl-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.23771396",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.23771396",
+      "titles": [
+        {
+          "title": "Fore wings of black garden ant (Lasius niger)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "University of Agriculture in Krakow"
+          ],
+          "givenName": "Adam",
+          "familyName": "Tofilski",
+          "name": "Tofilski, Adam",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0000-0002-3898-7029"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.23771396",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "http://www.opendatacommons.org/licenses/odbl/1.0/",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "ODC Open Database License v1.0",
+          "rightsIdentifier": "odbl-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.23771395",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.20489631",
+      "titles": [
+        {
+          "title": "Superseded dataset"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université Libre de Bruxelles"
+          ],
+          "givenName": "Romain",
+          "familyName": "Willeput",
+          "name": "Willeput, Romain",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0006-1636-736X"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Lasius flavus"
+        },
+        {
+          "subject": "Beauveria bassiana"
+        },
+        {
+          "subject": "social immunity"
+        },
+        {
+          "subject": "necrophoresis"
+        },
+        {
+          "subject": "grooming behaviour"
+        },
+        {
+          "subject": "pathogen susceptibility"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.20489631",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "HasVersion",
+          "relatedIdentifier": "10.5281/zenodo.20489632",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.5281/zenodo.20489632",
+      "titles": [
+        {
+          "title": "Superseded dataset"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Université Libre de Bruxelles"
+          ],
+          "givenName": "Romain",
+          "familyName": "Willeput",
+          "name": "Willeput, Romain",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "nameIdentifier": "0009-0006-1636-736X"
+            }
+          ]
+        }
+      ],
+      "publisher": "Zenodo",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "subject": "Lasius flavus"
+        },
+        {
+          "subject": "Beauveria bassiana"
+        },
+        {
+          "subject": "social immunity"
+        },
+        {
+          "subject": "necrophoresis"
+        },
+        {
+          "subject": "grooming behaviour"
+        },
+        {
+          "subject": "pathogen susceptibility"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": ""
+      },
+      "url": "https://zenodo.org/doi/10.5281/zenodo.20489632",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.5281/zenodo.20489631",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34062405.v1",
+      "titles": [
+        {
+          "title": "Rissanen_Gene_expression_tables_ESM2 from Infection-induced changes in gene expression linked to foraging choices in self-medicating <i>Lasius platythorax</i> ants"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Rissanen",
+          "familyName": "Jason",
+          "name": "Rissanen Jason",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Christophe",
+          "familyName": "Hahn",
+          "name": "Christophe Hahn",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Heikki",
+          "familyName": "Helantera",
+          "name": "Heikki Helantera",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Dalial",
+          "familyName": "Freitak",
+          "name": "Dalial Freitak",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "The Royal Society",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310901",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Animal behaviour",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://rs.figshare.com/articles/dataset/Rissanen_Gene_expression_tables_ESM2_from_Infection-induced_changes_in_gene_expression_linked_to_foraging_choices_in_self-medicating_i_Lasius_platythorax_i_ants/34062405/1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "157883 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.6084/m9.figshare.34062405",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1098/rspb.2026.2357",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34062405.v2",
+      "titles": [
+        {
+          "title": "Rissanen_Gene_expression_tables_ESM2 from Infection-induced changes in gene expression linked to foraging choices in self-medicating <i>Lasius platythorax</i> ants"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Jason",
+          "familyName": "Rissanen",
+          "name": "Jason Rissanen",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Christoph",
+          "familyName": "Hahn",
+          "name": "Christoph Hahn",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Heikki",
+          "familyName": "Helantera",
+          "name": "Heikki Helantera",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Dalial",
+          "familyName": "Freitak",
+          "name": "Dalial Freitak",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "The Royal Society",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310901",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Animal behaviour",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://rs.figshare.com/articles/dataset/Rissanen_Gene_expression_tables_ESM2_from_Infection-induced_changes_in_gene_expression_linked_to_foraging_choices_in_self-medicating_i_Lasius_platythorax_i_ants/34062405/2",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "157883 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsIdenticalTo",
+          "relatedIdentifier": "10.6084/m9.figshare.34062405",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1098/rspb.2026.2357",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.6084/m9.figshare.34062405",
+      "titles": [
+        {
+          "title": "Rissanen_Gene_expression_tables_ESM2 from Infection-induced changes in gene expression linked to foraging choices in self-medicating <i>Lasius platythorax</i> ants"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Jason",
+          "familyName": "Rissanen",
+          "name": "Jason Rissanen",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Christoph",
+          "familyName": "Hahn",
+          "name": "Christoph Hahn",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Heikki",
+          "familyName": "Helantera",
+          "name": "Heikki Helantera",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Dalial",
+          "familyName": "Freitak",
+          "name": "Dalial Freitak",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "The Royal Society",
+      "publicationYear": 2026,
+      "subjects": [
+        {
+          "classificationCode": "310901",
+          "schemeUri": "http://www.abs.gov.au/ausstats/abs@.nsf/0/6BB427AB9696C225CA2574180004463E",
+          "subject": "Animal behaviour",
+          "subjectScheme": "ANZSRC Fields of Research"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://rs.figshare.com/articles/dataset/Rissanen_Gene_expression_tables_ESM2_from_Infection-induced_changes_in_gene_expression_linked_to_foraging_choices_in_self-medicating_i_Lasius_platythorax_i_ants/34062405",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "157883 Bytes"
+      ],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1098/rspb.2026.2357",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dfz7b",
+      "titles": [
+        {
+          "title": "A taxonomic revision of the Palaearctic members of the subgenus Lasius s. str. (Hymenoptera, Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Bernhard",
+          "familyName": "Seifert",
+          "name": "Seifert, Bernhard",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/291980",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.25674/so92iss1pp15",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dfz7b.v17",
+      "titles": [
+        {
+          "title": "A taxonomic revision of the Palaearctic members of the subgenus Lasius s. str. (Hymenoptera, Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Bernhard",
+          "familyName": "Seifert",
+          "name": "Seifert, Bernhard",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/291980/imports/17",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dfz7b.v16",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.25674/so92iss1pp15",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dfz7b",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dcwpr",
+      "titles": [
+        {
+          "title": "A New Polygynous Lasius Species (Hymenoptera; Formicidae) From Central Europe, I. Description and General Biology"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Population Biology and Evolution, University of Utrecht, Podualaan 8, 3584 CH Utrecht, The Netherlands & Institute of Taxonomic Zoology, University of Amsterdam, Mauritskade 61, 1092 AD, Amsterdam, The Netherlands."
+          ],
+          "givenName": "A. J. Van",
+          "familyName": "Loon",
+          "name": "Loon, A. J. Van",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Population Biology and Evolution, University of Utrecht, Podualaan 8, 3584 CH Utrecht, The Netherlands & Institute of Ecology and Genetics, University of Aarhus, Ny Munkegade, 8000 Aarhus C, Denmark."
+          ],
+          "givenName": "J. J.",
+          "familyName": "Boomsma",
+          "name": "Boomsma, J. J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Vegetable Crops Research Institute and Company, Station, P. O. Box 95, Budapest H- 1775, Hungary."
+          ],
+          "givenName": "A.",
+          "familyName": "Andrasfalvy",
+          "name": "Andrasfalvy, A.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/241098",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.1007/bf02225997",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dcwpr.v43",
+      "titles": [
+        {
+          "title": "A New Polygynous Lasius Species (Hymenoptera; Formicidae) From Central Europe, I. Description and General Biology"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Population Biology and Evolution, University of Utrecht, Podualaan 8, 3584 CH Utrecht, The Netherlands & Institute of Taxonomic Zoology, University of Amsterdam, Mauritskade 61, 1092 AD, Amsterdam, The Netherlands."
+          ],
+          "givenName": "A. J. Van",
+          "familyName": "Loon",
+          "name": "Loon, A. J. Van",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Population Biology and Evolution, University of Utrecht, Podualaan 8, 3584 CH Utrecht, The Netherlands & Institute of Ecology and Genetics, University of Aarhus, Ny Munkegade, 8000 Aarhus C, Denmark."
+          ],
+          "givenName": "J. J.",
+          "familyName": "Boomsma",
+          "name": "Boomsma, J. J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Vegetable Crops Research Institute and Company, Station, P. O. Box 95, Budapest H- 1775, Hungary."
+          ],
+          "givenName": "A.",
+          "familyName": "Andrasfalvy",
+          "name": "Andrasfalvy, A.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/241098/imports/43",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dcwpr.v42",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.1007/bf02225997",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dcwpr",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d6wtn",
+      "titles": [
+        {
+          "title": "Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institut de Biologia Evolutiva (CSIC-UPF), Passeig Marítim de la Barceloneta, 37, 08003 Barcelona, Catalonia, Spain"
+          ],
+          "givenName": "Sämi",
+          "familyName": "Schär",
+          "name": "Schär, Sämi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institut Botànic de Barcelona (IBB, CSIC-Ajuntament de Barcelona), Passeig del Migdia s / n, 08038 Barcelona, Catalonia, Spain"
+          ],
+          "givenName": "Gerard",
+          "familyName": "Talavera",
+          "name": "Talavera, Gerard",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biological Sciences, The George Washington University, 800 22 nd Street, NW, Suite 6000, Washington, DC 20052, USA"
+          ],
+          "givenName": "Jignasha D.",
+          "familyName": "Rana",
+          "name": "Rana, Jignasha D.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "CREAF and Unitat d’Ecologia, Facultat de Ciències, Universitat Autònoma de Barcelona, 08193 Bellaterra, Spain"
+          ],
+          "givenName": "Xavier",
+          "familyName": "Espadaler",
+          "name": "Espadaler, Xavier",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museum of Comparative Zoology, Harvard University, 26 Oxford Street, Cambridge, MA 02138, USA"
+          ],
+          "givenName": "Stefan P.",
+          "familyName": "Cover",
+          "name": "Cover, Stefan P.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museum of Comparative Zoology, Harvard University, 26 Oxford Street, Cambridge, MA 02138, USA"
+          ],
+          "givenName": "Steven O.",
+          "familyName": "Shattuck",
+          "name": "Shattuck, Steven O.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institut de Biologia Evolutiva (CSIC-UPF), Passeig Marítim de la Barceloneta, 37, 08003 Barcelona, Catalonia, Spain"
+          ],
+          "givenName": "Roger",
+          "familyName": "Vila",
+          "name": "Vila, Roger",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/119266",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.1038/s41598-022-10047-9",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d6wtn.v80",
+      "titles": [
+        {
+          "title": "Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institut de Biologia Evolutiva (CSIC-UPF), Passeig Marítim de la Barceloneta, 37, 08003 Barcelona, Catalonia, Spain"
+          ],
+          "givenName": "Sämi",
+          "familyName": "Schär",
+          "name": "Schär, Sämi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institut Botànic de Barcelona (IBB, CSIC-Ajuntament de Barcelona), Passeig del Migdia s / n, 08038 Barcelona, Catalonia, Spain"
+          ],
+          "givenName": "Gerard",
+          "familyName": "Talavera",
+          "name": "Talavera, Gerard",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biological Sciences, The George Washington University, 800 22 nd Street, NW, Suite 6000, Washington, DC 20052, USA"
+          ],
+          "givenName": "Jignasha D.",
+          "familyName": "Rana",
+          "name": "Rana, Jignasha D.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "CREAF and Unitat d’Ecologia, Facultat de Ciències, Universitat Autònoma de Barcelona, 08193 Bellaterra, Spain"
+          ],
+          "givenName": "Xavier",
+          "familyName": "Espadaler",
+          "name": "Espadaler, Xavier",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museum of Comparative Zoology, Harvard University, 26 Oxford Street, Cambridge, MA 02138, USA"
+          ],
+          "givenName": "Stefan P.",
+          "familyName": "Cover",
+          "name": "Cover, Stefan P.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museum of Comparative Zoology, Harvard University, 26 Oxford Street, Cambridge, MA 02138, USA"
+          ],
+          "givenName": "Steven O.",
+          "familyName": "Shattuck",
+          "name": "Shattuck, Steven O.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institut de Biologia Evolutiva (CSIC-UPF), Passeig Marítim de la Barceloneta, 37, 08003 Barcelona, Catalonia, Spain"
+          ],
+          "givenName": "Roger",
+          "familyName": "Vila",
+          "name": "Vila, Roger",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/119266/imports/80",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d6wtn.v79",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.1038/s41598-022-10047-9",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d6wtn",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d45v8",
+      "titles": [
+        {
+          "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Punjabi University"
+          ],
+          "givenName": "Himender",
+          "familyName": "Bharti",
+          "name": "Bharti, Himender",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "ChecklistBank",
+      "publicationYear": 2014,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/52003",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.48580/d45v8.v98",
+      "titles": [
+        {
+          "title": "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Punjabi University"
+          ],
+          "givenName": "Himender",
+          "familyName": "Bharti",
+          "name": "Bharti, Himender",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "ChecklistBank",
+      "publicationYear": 2014,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/52003/imports/98",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d45v8.v97",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d45v8",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3mvt",
+      "titles": [
+        {
+          "title": "Myrmecophilous pygmephoroid mites (Acari: Pygmephoroidea) associated with Lasius flavus (Hymenoptera: Formicidae) in Russia"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Alexander A.",
+          "familyName": "Khaustov",
+          "name": "Khaustov, Alexander A.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/39405",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4044.3.2",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3mvt.v78",
+      "titles": [
+        {
+          "title": "Myrmecophilous pygmephoroid mites (Acari: Pygmephoroidea) associated with Lasius flavus (Hymenoptera: Formicidae) in Russia"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Alexander A.",
+          "familyName": "Khaustov",
+          "name": "Khaustov, Alexander A.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/39405/imports/78",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d3mvt.v77",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4044.3.2",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d3mvt",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3m2j",
+      "titles": [
+        {
+          "title": "The Westpalaearctic Lasius paralienus complex (Hymenoptera: Formicidae) contains three species"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Bernhard",
+          "familyName": "Seifert",
+          "name": "Seifert, Bernhard",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Christophe",
+          "familyName": "Galkowski",
+          "name": "Galkowski, Christophe",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/38700",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4132.1.4",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3lwn",
+      "titles": [
+        {
+          "title": "New species and a record of myrmecophilous mites of the families Neopygmephoridae and Microdispidae (Acari: Heterostigmatina: Pygmephoroidea) associated with Lasius umbratus (Hymenoptera: Formicidae) from Western Siberia, Russia"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Alexander A.",
+          "familyName": "Khaustov",
+          "name": "Khaustov, Alexander A.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/38588",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4137.3.5",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3m2j.v86",
+      "titles": [
+        {
+          "title": "The Westpalaearctic Lasius paralienus complex (Hymenoptera: Formicidae) contains three species"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Bernhard",
+          "familyName": "Seifert",
+          "name": "Seifert, Bernhard",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Christophe",
+          "familyName": "Galkowski",
+          "name": "Galkowski, Christophe",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/38700/imports/86",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d3m2j.v85",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4132.1.4",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d3m2j",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3lwn.v79",
+      "titles": [
+        {
+          "title": "New species and a record of myrmecophilous mites of the families Neopygmephoridae and Microdispidae (Acari: Heterostigmatina: Pygmephoroidea) associated with Lasius umbratus (Hymenoptera: Formicidae) from Western Siberia, Russia"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Alexander A.",
+          "familyName": "Khaustov",
+          "name": "Khaustov, Alexander A.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/38588/imports/79",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d3lwn.v78",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4137.3.5",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d3lwn",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3h8d",
+      "titles": [
+        {
+          "title": "Description of Pella maoershanensis sp. n. (Coleoptera, Staphylinidae, Aleocharinae) associated with Lasius spathepus from Guangxi, South China"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Xiao-Bin",
+          "familyName": "Song",
+          "name": "Song, Xiao-Bin",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Li-Zhen",
+          "familyName": "Li",
+          "name": "Li, Li-Zhen",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/35506",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/zookeys.275.4449",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3h8d.v33",
+      "titles": [
+        {
+          "title": "Description of Pella maoershanensis sp. n. (Coleoptera, Staphylinidae, Aleocharinae) associated with Lasius spathepus from Guangxi, South China"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Xiao-Bin",
+          "familyName": "Song",
+          "name": "Song, Xiao-Bin",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Li-Zhen",
+          "familyName": "Li",
+          "name": "Li, Li-Zhen",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/35506/imports/33",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d3h8d.v32",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/zookeys.275.4449",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d3h8d",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d37nl",
+      "titles": [
+        {
+          "title": "A new species of the ant genus Lasius Fabricius, 1804 from Crete (Hymenoptera, Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Sebastian",
+          "familyName": "Salata",
+          "name": "Salata, Sebastian",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Lech",
+          "familyName": "Borowiec",
+          "name": "Borowiec, Lech",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/29132",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/zookeys.789.27022",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d37nl.v83",
+      "titles": [
+        {
+          "title": "A new species of the ant genus Lasius Fabricius, 1804 from Crete (Hymenoptera, Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Sebastian",
+          "familyName": "Salata",
+          "name": "Salata, Sebastian",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Lech",
+          "familyName": "Borowiec",
+          "name": "Borowiec, Lech",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/29132/imports/83",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d37nl.v82",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/zookeys.789.27022",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d37nl",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dvqc",
+      "titles": [
+        {
+          "title": "Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Entomology and Nematology, University of California, Davis CA, U. S. A. & Friedrich-Schiller-Universität Jena, Institut für Spezielle Zoologie, Jena, Germany"
+          ],
+          "givenName": "Brendon E.",
+          "familyName": "Boudinot",
+          "name": "Boudinot, Brendon E.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Entomology and Nematology, University of California, Davis CA, U. S. A. & Department of Plant Pathology, Entomology and Nematology, University of Idaho, Moscow ID, U. S. A. & Institute for Bioinformatics and Evolutionary Studies, University of Idaho, Moscow ID, U. S. A."
+          ],
+          "givenName": "Marek L.",
+          "familyName": "Borowiec",
+          "name": "Borowiec, Marek L.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Entomology and Nematology, University of California, Davis CA, U. S. A. & School of Life Sciences, Arizona State University, Tempe AZ, U. S. A."
+          ],
+          "givenName": "Matthew M.",
+          "familyName": "Prebus",
+          "name": "Prebus, Matthew M.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/20773",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.1111/syen.12522",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dvqc.v78",
+      "titles": [
+        {
+          "title": "Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Entomology and Nematology, University of California, Davis CA, U. S. A. & Friedrich-Schiller-Universität Jena, Institut für Spezielle Zoologie, Jena, Germany"
+          ],
+          "givenName": "Brendon E.",
+          "familyName": "Boudinot",
+          "name": "Boudinot, Brendon E.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Entomology and Nematology, University of California, Davis CA, U. S. A. & Department of Plant Pathology, Entomology and Nematology, University of Idaho, Moscow ID, U. S. A. & Institute for Bioinformatics and Evolutionary Studies, University of Idaho, Moscow ID, U. S. A."
+          ],
+          "givenName": "Marek L.",
+          "familyName": "Borowiec",
+          "name": "Borowiec, Marek L.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Entomology and Nematology, University of California, Davis CA, U. S. A. & School of Life Sciences, Arizona State University, Tempe AZ, U. S. A."
+          ],
+          "givenName": "Matthew M.",
+          "familyName": "Prebus",
+          "name": "Prebus, Matthew M.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/20773/imports/78",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dvqc.v77",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.1111/syen.12522",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dvqc",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dfz7b.v16",
+      "titles": [
+        {
+          "title": "A taxonomic revision of the Palaearctic members of the subgenus Lasius s. str. (Hymenoptera, Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Bernhard",
+          "familyName": "Seifert",
+          "name": "Seifert, Bernhard",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/291980/imports/16",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dfz7b.v15",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.25674/so92iss1pp15",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dfz7b",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dcwpr.v42",
+      "titles": [
+        {
+          "title": "A New Polygynous Lasius Species (Hymenoptera; Formicidae) From Central Europe, I. Description and General Biology"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Population Biology and Evolution, University of Utrecht, Podualaan 8, 3584 CH Utrecht, The Netherlands & Institute of Taxonomic Zoology, University of Amsterdam, Mauritskade 61, 1092 AD, Amsterdam, The Netherlands."
+          ],
+          "givenName": "A. J. Van",
+          "familyName": "Loon",
+          "name": "Loon, A. J. Van",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Population Biology and Evolution, University of Utrecht, Podualaan 8, 3584 CH Utrecht, The Netherlands & Institute of Ecology and Genetics, University of Aarhus, Ny Munkegade, 8000 Aarhus C, Denmark."
+          ],
+          "givenName": "J. J.",
+          "familyName": "Boomsma",
+          "name": "Boomsma, J. J.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Vegetable Crops Research Institute and Company, Station, P. O. Box 95, Budapest H- 1775, Hungary."
+          ],
+          "givenName": "A.",
+          "familyName": "Andrasfalvy",
+          "name": "Andrasfalvy, A.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/241098/imports/42",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dcwpr.v41",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.1007/bf02225997",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dcwpr",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d6wtn.v79",
+      "titles": [
+        {
+          "title": "Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institut de Biologia Evolutiva (CSIC-UPF), Passeig Marítim de la Barceloneta, 37, 08003 Barcelona, Catalonia, Spain"
+          ],
+          "givenName": "Sämi",
+          "familyName": "Schär",
+          "name": "Schär, Sämi",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institut Botànic de Barcelona (IBB, CSIC-Ajuntament de Barcelona), Passeig del Migdia s / n, 08038 Barcelona, Catalonia, Spain"
+          ],
+          "givenName": "Gerard",
+          "familyName": "Talavera",
+          "name": "Talavera, Gerard",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Biological Sciences, The George Washington University, 800 22 nd Street, NW, Suite 6000, Washington, DC 20052, USA"
+          ],
+          "givenName": "Jignasha D.",
+          "familyName": "Rana",
+          "name": "Rana, Jignasha D.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "CREAF and Unitat d’Ecologia, Facultat de Ciències, Universitat Autònoma de Barcelona, 08193 Bellaterra, Spain"
+          ],
+          "givenName": "Xavier",
+          "familyName": "Espadaler",
+          "name": "Espadaler, Xavier",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museum of Comparative Zoology, Harvard University, 26 Oxford Street, Cambridge, MA 02138, USA"
+          ],
+          "givenName": "Stefan P.",
+          "familyName": "Cover",
+          "name": "Cover, Stefan P.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Museum of Comparative Zoology, Harvard University, 26 Oxford Street, Cambridge, MA 02138, USA"
+          ],
+          "givenName": "Steven O.",
+          "familyName": "Shattuck",
+          "name": "Shattuck, Steven O.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Institut de Biologia Evolutiva (CSIC-UPF), Passeig Marítim de la Barceloneta, 37, 08003 Barcelona, Catalonia, Spain"
+          ],
+          "givenName": "Roger",
+          "familyName": "Vila",
+          "name": "Vila, Roger",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/119266/imports/79",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d6wtn.v78",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.1038/s41598-022-10047-9",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d6wtn",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3mvt.v77",
+      "titles": [
+        {
+          "title": "Myrmecophilous pygmephoroid mites (Acari: Pygmephoroidea) associated with Lasius flavus (Hymenoptera: Formicidae) in Russia"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Alexander A.",
+          "familyName": "Khaustov",
+          "name": "Khaustov, Alexander A.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/39405/imports/77",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d3mvt.v76",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4044.3.2",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d3mvt",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3m2j.v85",
+      "titles": [
+        {
+          "title": "The Westpalaearctic Lasius paralienus complex (Hymenoptera: Formicidae) contains three species"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Bernhard",
+          "familyName": "Seifert",
+          "name": "Seifert, Bernhard",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Christophe",
+          "familyName": "Galkowski",
+          "name": "Galkowski, Christophe",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/38700/imports/85",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d3m2j.v84",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4132.1.4",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d3m2j",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3lwn.v78",
+      "titles": [
+        {
+          "title": "New species and a record of myrmecophilous mites of the families Neopygmephoridae and Microdispidae (Acari: Heterostigmatina: Pygmephoroidea) associated with Lasius umbratus (Hymenoptera: Formicidae) from Western Siberia, Russia"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Alexander A.",
+          "familyName": "Khaustov",
+          "name": "Khaustov, Alexander A.",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MagnoliaPress via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/38588/imports/78",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d3lwn.v77",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.11646/zootaxa.4137.3.5",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d3lwn",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d3h8d.v32",
+      "titles": [
+        {
+          "title": "Description of Pella maoershanensis sp. n. (Coleoptera, Staphylinidae, Aleocharinae) associated with Lasius spathepus from Guangxi, South China"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Xiao-Bin",
+          "familyName": "Song",
+          "name": "Song, Xiao-Bin",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Li-Zhen",
+          "familyName": "Li",
+          "name": "Li, Li-Zhen",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/35506/imports/32",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d3h8d.v31",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/zookeys.275.4449",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d3h8d",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/d37nl.v82",
+      "titles": [
+        {
+          "title": "A new species of the ant genus Lasius Fabricius, 1804 from Crete (Hymenoptera, Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "givenName": "Sebastian",
+          "familyName": "Salata",
+          "name": "Salata, Sebastian",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "givenName": "Lech",
+          "familyName": "Borowiec",
+          "name": "Borowiec, Lech",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Pensoft via Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/29132/imports/82",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/d37nl.v81",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.3897/zookeys.789.27022",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/d37nl",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.48580/dvqc.v77",
+      "titles": [
+        {
+          "title": "Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Entomology and Nematology, University of California, Davis CA, U. S. A. & Friedrich-Schiller-Universität Jena, Institut für Spezielle Zoologie, Jena, Germany"
+          ],
+          "givenName": "Brendon E.",
+          "familyName": "Boudinot",
+          "name": "Boudinot, Brendon E.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Entomology and Nematology, University of California, Davis CA, U. S. A. & Department of Plant Pathology, Entomology and Nematology, University of Idaho, Moscow ID, U. S. A. & Institute for Bioinformatics and Evolutionary Studies, University of Idaho, Moscow ID, U. S. A."
+          ],
+          "givenName": "Marek L.",
+          "familyName": "Borowiec",
+          "name": "Borowiec, Marek L.",
+          "nameIdentifiers": []
+        },
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "Department of Entomology and Nematology, University of California, Davis CA, U. S. A. & School of Life Sciences, Arizona State University, Tempe AZ, U. S. A."
+          ],
+          "givenName": "Matthew M.",
+          "familyName": "Prebus",
+          "name": "Prebus, Matthew M.",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi",
+      "publicationYear": 2025,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Dataset"
+      },
+      "url": "https://www.checklistbank.org/dataset/20773/imports/77",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "10.48580/dvqc.v76",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsDerivedFrom",
+          "relatedIdentifier": "10.1111/syen.12522",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsVersionOf",
+          "relatedIdentifier": "10.48580/dvqc",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.15468/bnnp7v",
+      "titles": [
+        {
+          "title": "Contribution to the knowledge of the genus Imparipes Berlese (Acari: Heterostigmata: Scutacaridae) associated with ants in Iran"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "Department of Plant Protection, Faculty of Plant Production, Gorgan University of Agricultural Sciences and Natural Resources, Gorgan, Iran."
+          ],
+          "name": "Vahid Rahiminejad",
+          "nameIdentifiers": []
+        },
+        {
+          "affiliation": [
+            "Department of Plant Protection, Faculty of Plant Production, Gorgan University of Agricultural Sciences and Natural Resources, Gorgan, Iran. & nadimi @ gau. ac. ir; https: // orcid. org / 0000 - 0002 - 1169 - 2407"
+          ],
+          "name": "Ahmad Nadimi",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-1169-2407"
+            }
+          ]
+        },
+        {
+          "affiliation": [
+            "Department of Plant Protection, Faculty of Plant Production, Gorgan University of Agricultural Sciences and Natural Resources, Gorgan, Iran. & s. seyedin @ gau. ac. ir; https: // orcid. org / 0000 - 0002 - 4906 - 4422"
+          ],
+          "name": "Sarina Seyedein",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4906-4422"
+            }
+          ]
+        }
+      ],
+      "publisher": "Catalogue of Life",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "phoresy"
+        },
+        {
+          "subject": "Hyrcanian forest"
+        },
+        {
+          "subject": "Lasius"
+        },
+        {
+          "subject": "symbiosis"
+        },
+        {
+          "subject": "mites"
+        },
+        {
+          "subject": "insect"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/59287bd0-af9f-421a-bc0f-5dfce435d52b",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.48580/d4b5k",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.15468/kdkj2d",
+      "titles": [
+        {
+          "title": "Taxonomy of Homoeusa Kraatz, 1856 (Coleoptera, Staphylinidae, Aleocharinae) from the East Palearctic: II. Revision of Japanese species"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "Entomological Laboratory, Graduate School of Bioresource and Bioenvironmental Sciences, Kyushu University, Fukuoka 819 - 0395, Japan & The Kyushu University Museum, Fukuoka 812 - 8581, Japan"
+          ],
+          "name": "Tsubasa Nozaki",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2419-4968"
+            }
+          ]
+        },
+        {
+          "affiliation": [
+            "The Kyushu University Museum, Fukuoka 812 - 8581, Japan"
+          ],
+          "name": "Munetoshi Maruyama",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4531-1008"
+            }
+          ]
+        }
+      ],
+      "publisher": "Catalogue of Life",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "inquiline"
+        },
+        {
+          "subject": "new species"
+        },
+        {
+          "subject": "rove beetles"
+        },
+        {
+          "subject": "Dinardina"
+        },
+        {
+          "subject": "Lasius"
+        },
+        {
+          "subject": "Aleocharine"
+        },
+        {
+          "subject": "description"
+        },
+        {
+          "subject": "myrmecophily"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/f358f0d2-51b9-451f-ad76-fe8411043fd9",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsPreviousVersionOf",
+          "relatedIdentifier": "10.48580/dgvl6",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    },
+    {
+      "doi": "10.15468/s9f2ut",
+      "titles": [
+        {
+          "title": "Phylogeny, evolution, and classification of the ant genus Lasius, the tribe Lasiini and the subfamily Formicinae (Hymenoptera: Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Brendon E. Boudinot",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Marek L. Borowiec",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Matthew M. Prebus",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi.org taxonomic treatments database",
+      "publicationYear": 2022,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/564eaad8-6245-4f42-9a88-42b97bf30807",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.15468/qhe6a3",
+      "titles": [
+        {
+          "title": "Contribution to the knowledge of the genus Imparipes Berlese (Acari: Heterostigmata: Scutacaridae) associated with ants in Iran"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Vahid Rahiminejad",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Ahmad Nadimi",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-1169-2407"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "name": "Sarina Seyedein",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4906-4422"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Plazi.org taxonomic treatments database",
+      "publicationYear": 2022,
+      "subjects": [
+        {
+          "subject": "phoresy"
+        },
+        {
+          "subject": "Hyrcanian forest"
+        },
+        {
+          "subject": "Lasius"
+        },
+        {
+          "subject": "symbiosis"
+        },
+        {
+          "subject": "mites"
+        },
+        {
+          "subject": "insect"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/43a60d2f-4219-4799-9475-996f95bdd8c1",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.15468/vebvtp",
+      "titles": [
+        {
+          "title": "A new species of Diartiger Sharp from Sichuan, China (Coleoptera: Staphylinidae: Pselaphinae)"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Zi-Wei Yin",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Li He",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi.org taxonomic treatments database",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "subject": "Taxonomy"
+        },
+        {
+          "subject": "Asia"
+        },
+        {
+          "subject": "myrmecophile"
+        },
+        {
+          "subject": "Lasius ant"
+        },
+        {
+          "subject": "key"
+        },
+        {
+          "subject": "Clavigeritae"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/7870afbb-c7a4-4368-820d-5b5a1ab0cc21",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.15468/3bsm3w",
+      "titles": [
+        {
+          "title": "Integrative taxonomy reveals cryptic diversity in North American Lasius ants, and an overlooked introduced species"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Sämi Schär",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Gerard Talavera",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Jignasha D. Rana",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Xavier Espadaler",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Stefan P. Cover",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Steven O. Shattuck",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Roger Vila",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi.org taxonomic treatments database",
+      "publicationYear": 2022,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/511e61d0-c5f9-4952-b270-bfe31f64e7f6",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.15468/w3gg62",
+      "titles": [
+        {
+          "title": "A New Polygynous Lasius Species (Hymenoptera; Formicidae) From Central Europe, I. Description and General Biology"
+        }
+      ],
+      "creators": [
+        {
+          "name": "A. J. Van Loon",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "J. J. Boomsma",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "A. Andrasfalvy",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi.org taxonomic treatments database",
+      "publicationYear": 1990,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/6fbe41fc-f572-46f0-96ca-1c8846288939",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.15468/exndaj",
+      "titles": [
+        {
+          "title": "A taxonomic revision of the Palaearctic members of the subgenus Lasius s. str. (Hymenoptera, Formicidae)"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Bernhard Seifert",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi.org taxonomic treatments database",
+      "publicationYear": 2020,
+      "subjects": [
+        {
+          "subject": "nest centroid clUstering"
+        },
+        {
+          "subject": "nUmeric morphology-based alpha-taxonomy"
+        },
+        {
+          "subject": "cryptic species"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/02d14621-e5b0-41a6-88b4-e5186c7e6711",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.15468/texf95",
+      "titles": [
+        {
+          "title": "Description of Aleochara (Xenochara) ichikawai sp. nov., the first confirmed myrmecophilous species of Aleochara Gravenhorst, 1802 from the East Palearctic Region (Coleoptera: Staphylinidae: Aleocharinae)"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Munetoshi Maruyama",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Tsubasa Nozaki",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "name": "Hiromu Kamezawa",
+          "affiliation": [],
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "Plazi.org taxonomic treatments database",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "ecological specialization"
+        },
+        {
+          "subject": "morphological comparison"
+        },
+        {
+          "subject": "convergent evolution"
+        },
+        {
+          "subject": "Lasius fuliginosus species group"
+        },
+        {
+          "subject": "ant-associated beetles"
+        },
+        {
+          "subject": "Palearctic biogeography"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/96f0c1ff-3965-4a9b-8e1a-c690303830fb",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.15468/tkyhrf",
+      "titles": [
+        {
+          "title": "Taxonomy of Homoeusa Kraatz, 1856 (Coleoptera, Staphylinidae, Aleocharinae) from the East Palearctic: II. Revision of Japanese species"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Tsubasa Nozaki",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-2419-4968"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "name": "Munetoshi Maruyama",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-4531-1008"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Deutsche Entomologische Zeitschrift",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "inquiline"
+        },
+        {
+          "subject": "new species"
+        },
+        {
+          "subject": "rove beetles"
+        },
+        {
+          "subject": "Dinardina"
+        },
+        {
+          "subject": "Lasius"
+        },
+        {
+          "subject": "Aleocharine"
+        },
+        {
+          "subject": "description"
+        },
+        {
+          "subject": "myrmecophily"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "CHECKLIST"
+      },
+      "url": "https://www.gbif.org/dataset/90e8c8b7-5c32-4e18-b8cf-6122f7530232",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Zero v1.0 Universal",
+          "rightsIdentifier": "cc0-1.0"
+        }
+      ],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.25345/c51z4273d",
+      "titles": [
+        {
+          "lang": "en-US",
+          "title": "MassIVE MSV000102817 - Bottom-up proteomics data of Lasius fuliginosus venom"
+        },
+        {
+          "titleType": "Subtitle",
+          "lang": "en-US",
+          "title": "Proteomic characterization of Lasius fuliginosus venom using bottom-up mass spectrometry"
+        }
+      ],
+      "creators": [
+        {
+          "affiliation": [
+            "Department of Biology, Chemistry, and Pharmacy, FU Berlin"
+          ],
+          "name": "Timo H.J. Niedermeyer",
+          "nameIdentifiers": []
+        }
+      ],
+      "publisher": "MassIVE",
+      "publicationYear": 2026,
+      "subjects": [],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Mass Spectrometry"
+      },
+      "url": "https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?accession=MSV000102817",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.1594/pangaea.895988",
+      "titles": [
+        {
+          "title": "Data from: Decline of rare and specialist species across multiple taxonomic groups after grassland intensification and abandonment"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Andreas",
+          "familyName": "Hilpold",
+          "name": "Hilpold, Andreas",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0262-8080"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Julia",
+          "familyName": "Seeber",
+          "name": "Seeber, Julia",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0003-0189-7377"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Veronika",
+          "familyName": "Fontana",
+          "name": "Fontana, Veronika",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0666-7434"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Georg",
+          "familyName": "Niedrist",
+          "name": "Niedrist, Georg",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-7511-6273"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Alexander",
+          "familyName": "Rief",
+          "name": "Rief, Alexander",
+          "affiliation": [],
+          "nameIdentifiers": []
+        },
+        {
+          "givenName": "Michael",
+          "familyName": "Steinwandter",
+          "name": "Steinwandter, Michael",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0001-8545-6047"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Erich",
+          "familyName": "Tasser",
+          "name": "Tasser, Erich",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-9179-7494"
+            }
+          ],
+          "affiliation": []
+        },
+        {
+          "givenName": "Ulrike",
+          "familyName": "Tappeiner",
+          "name": "Tappeiner, Ulrike",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-0195-7459"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "PANGAEA",
+      "publicationYear": 2018,
+      "subjects": [
+        {
+          "subject": "Event label",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Latitude of event",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Longitude of event",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Elevation of event",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Land use",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Name",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Abietinella abietina",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Acalypta marginata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Achillea millefolium agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Achipteria coleoptrata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Acrogalumna longipluma",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Aculepeira ceropegia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Adelphocoris seticornis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Adoristes ovatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Aelia rostrata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Agelena labyrinthica",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Agonum sexpunctatum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Agrypnus murinus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Agyneta affinis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Agyneta cauta",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Agyneta conigera",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Agyneta rurestris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Alchemilla vulgaris agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Alopecosa cuneata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Alopecosa fabrilis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Alopecosa farinosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Alopecosa trabalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Alydus calcaratus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Alyssum alyssoides",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Amara aenea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Amara communis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Amara familiaris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Amara lunicollis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Amara montivaga",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Amphicyllis globus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Anaulacaspis nigra",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Anguis fragilis agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Anoplotrupes stercorosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Anotylus rugosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Anthaxia helvetica",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Anthriscus sylvestris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Anthus trivialis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Aporrectodea caliginosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Aporrectodea rosea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Araeoncus humilis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Araneus diadematus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Araneus quadratus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Araneus sturmi",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Araniella alpica",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Araniella cucurbitina",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Araniella opisthographa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Arctium lappa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Arenaria serpyllifolia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Argenna subnigra",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Arrhenatherum elatius",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Artemisia absinthium",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Artemisia vulgaris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Asagena phalerata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Astragalus exscapus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Astragalus glycyphyllos",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Atheta amplicollis / fungi",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Atheta indubia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Atheta sodalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Avenula praeusta",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bembidion lampros",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Berberis vulgaris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Berniniella bicarinata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Berytinus minor",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Berytinus signoreti",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Brachypodium rupestre",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Brachytheciastrum velutinum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bradycellus caucasicus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Brigittea latens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Briza media",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Brommella falcigera",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bromus erectus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bromus hordeaceus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bryoria fuscescens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bryoria nadvornikiana",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bryum argenteum var. lanatum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bryum caespiticium agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bryum capillare agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bryum moravicum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Bryum subapiculatum agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Buellia griseovirens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Buellia schaereri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Calathus fuscipes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Calathus melanocephalus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Caleremaeus monilipes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Camisia biurus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Camisia horrida",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Campanula glomerata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Campanula rotundifolia agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Camponotus ligniperda",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cantharis fusca",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Canthophorus impressus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Canthophorus melanopterus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Caprimulgus europaeus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Capsella bursa-pastoris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Capsus ater",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carabodes areolatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carabodes labyrinthicus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carabodes ornatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Caracladus avicula",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carduelis carduelis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carduelis flammea cabaret",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carex caryophyllea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carex ericetorum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carex humilis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carex muricata agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carex supina",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carlina acaulis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carlina vulgaris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carpocoris fuscispinus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carpocoris purpureipennis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Carum carvi",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Centaurea stoebe",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cepheus latus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cerastium arvense",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cerastium holosteoides",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ceratinella brevis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ceratodon purpureus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ceratozetes gracilis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Chaerophyllum hirsutum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Chaetocnema hortensis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Chamobates birulai",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Chamobates voigtsi",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cheiracanthium punctorium",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cheiracanthium virescens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Chlamydatus pulicarius",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Chlamydatus pullus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Chorthippus biguttulus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Chorthippus mollis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Chorthippus parallelus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Chrysothrix candelaris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cirsium eriophorum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cirsium vulgare",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cladonia furcata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cladonia furcata subsp. subrangiformis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cladonia pyxidata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cladonia rangiformis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Clivina fossor",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Clubiona neglecta",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Clubiona terrestris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Coccinella septempunctata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Coenonympha pamphilus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Collinsia inerrans",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Compsidolon absinthii",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Corizus hyoscyami",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Corvus corax",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Crepis biennis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ctenobelba pectinigera",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cylindroiulus meinerti",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Cymbaeremaeus cymba",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dactylis glomerata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Damaeus gracilipes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Damaeus riparius",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Danthonia decumbens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dendrobaena octaedra",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Deraeocoris punctulatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Derephysia foliacea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Deschampsia cespitosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Descurainia sophia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dianthus sylvestris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Diapterobates humeralis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dicranum montanum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dicranum scoparium",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dictyna pusilla",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dicymbium nigrum brevisetosum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dinothenarus fossor",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Diplocephalus alpinus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Diplostyla concolor",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dipoena torva",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dolycoris baccarum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Draba nemorosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Drassodes cupreus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Drassodes lapidosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Drassodes pubescens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Drassyllus praeficus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Drassyllus pusillus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Drymus sylvaticus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Dyschirius globosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Emberiza cia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eniochthonius minutissimus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Enoplognatha ovata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Enoplognatha thoracica",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Episinus angulatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Erebia alberganus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Erebia medusa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eremaeus hepaticus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eresus kollari",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Erigone atra",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Erigone dentipalpis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ero furcata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Erysimum rhaeticum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eueremaeus oblongus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eueremaeus silvestris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eueremaeus valkanovi",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eupelops acromios",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eupelops plicatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eupelops tardus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eupelops torulosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Euphorbia cyparissias",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Euphrasia minima",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Europiella albipennis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Europiella artemisiae",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eurydema oleracea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eurygaster maura",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Eusphalerum stramineum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Euthystira brachyptera",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Evernia divaricata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Evernia mesomorpha",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Evernia prunastri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Feiderzetes latus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Festuca guestfalica",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Festuca nigrescens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Festuca pratensis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Festuca rubra agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Festuca rupicola",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Festuca valesiaca",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Formica clara",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Formica fusca",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Formica sanguinea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Fragaria vesca",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Fraxinus excelsior",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Fringilla coelebs",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Frontinellina frutetorum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Gabrius appendiculatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Galium aparine",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Galium mollugo agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Galium pusillum agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Galium verum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Galumna lanceata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Garrulus glandarius",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Geum urbanum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Glomeris hexasticha",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Gnaphosa muscorum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Gonatium hilare",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Grimmia laevigata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Grimmia ovalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Gryllus campestris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Gymnodamaeus meyeri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Haplodrassus signifer",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Harpalus rufipes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hedwigia ciliata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Helianthemum nummularium",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Heliophanus flavipes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Heliophanus lineiventris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hemileius initialis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Heracleum sphondylium",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Heterothops dissimilis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hieracium pilosella",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hieracium velutinum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Histricostoma dentipalpe",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hypericum perforatum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hypnum cupressiforme",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hypocenomyce scalaris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hypochthonius rufulus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hypogymnia bitteri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hypogymnia physodes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hypogymnia tubulosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Hypsosinga albovittata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Improphantes nitidus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Imshaugia aleurites",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ischnosoma splendidum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Jalla dumosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Jugatala angulata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Juniperus communis subsp. communis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Kalama tricornis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Koeleria macrantha",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Koeleria pyramidata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Kunstidamaeus tecticola",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lacerta bilineata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lanius collurio",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Larix decidua",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lasaeola prona",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lasiacantha capucina",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lasius fuliginosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lasius meridionalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lasius psammophilus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lasius umbratus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lathyrus pratensis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lecanora chlarotera subsp. chlarotera",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lecanora expallens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Leontodon hispidus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lepidozetes singularis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Leptopterna dolabrata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Leptothorax acervorum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Leptusa pulchella",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Leucanthemum vulgare agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Licneremaeus licnophorus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Liebstadia humerata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Liebstadia similis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Linaria angustissima",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Linum catharticum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Linyphia hortensis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Liochthonius lapponicus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Liogluta alpestris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Liogluta longiuscula",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Liogluta wuesthoffi",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Liparus glabrirostris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lolium perenne",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lordithon bimaculatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lordithon thoracicus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lotus corniculatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lullula arborea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lumbricus rubellus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Luzula campestris agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Luzula luzuloides",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lygus gemellatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lygus pratensis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lygus rugulipennis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Lygus wagneri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Mansuphantes fragilis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Maso sundevalli",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Mecopisthes silus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Medicago sativa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Megalonotus chiragra",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Melanelixia glabratula",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Melanelixia subaurifera",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Melanohalea exasperatula",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Mermessus trilobatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Metabelba papillipes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Metellina mengei",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Metrioptera roeselii",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Micaria aenea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Micaria fulgens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Micrargus subaequalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Micreremus brevipes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Microzetorchestes emeryi",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Minicia candida",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Minyriolus pusillus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Mitopus morio",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Mycetoporus baudueri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Mycetoporus caliginosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Mycobates parmeliae",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Myosotis sylvatica",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Myrmica ruginodis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Myrmica rugulosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Nabis pseudoferus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Nabis rugosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Nardus stricta",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Neoribates aurantiacus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Neottiura bimaculata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Neriene clathrata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Neriene peltata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Nicrophorus vespillo",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Nicrophorus vespilloides",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Nigma puella",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Nucifraga caryocatactes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Nuctenea umbratica",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Obscuriphantes obscurus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Octolasion lacteum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ocypus ophthalmicus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ocypus rhaeticus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Odontoscelis fuliginosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Odontoscelis lineola",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Odontotarsus purpureolineatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oedipoda caerulescens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oligolophus tridens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ommatoiulus sabulosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Omocestus haemorrhoidalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ontholestes haroldi",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ophonus puncticeps",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ophyiulus pilosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oppiella keilbachi",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oppiella nova",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oppiella subpectinata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oppiella uliginosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oribatella longispina",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oribatella quadricornuta",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oribatula amblyptera",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oribatula interrupta",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oribatula longelamellata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oribatula tibialis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orius niger",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orthonotus rufifrons",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orthops basalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orthops kalmii",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orthotrichum affine",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orthotrichum anomalum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orthotrichum diaphanum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orthotrichum pallens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orthotrichum rogeri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orthotrichum rupestre",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Orthotrichum speciosum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Othius punctulatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oxypoda annularis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oxypoda islandica",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oxypoda mutata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Oxypoda vittata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ozyptila atomaria",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pachygnatha degeeri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Palliduphantes pallidus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pantelozetes paolii",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Parachipteria punctata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Paranemastoma quadripunctatum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pardosa bifasciata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pardosa blanda",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pardosa lugubris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pardosa monticola",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pardosa palustris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pardosa prativaga",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pardosa riparia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Parmelia sulcata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Parmeliopsis ambigua",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Parus major",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Passalozetes africanus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Passalozetes intermedius",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pelecopsis elongata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pelecopsis radicicola",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pella humeralis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pellenes tripunctatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Peloptulus phaenotus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Peltigera lepidophora",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Peltigera rufescens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pergalumna formicaria",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pergalumna nervosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Periparus ater",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Peritrechus geniculatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phalangium opilio",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phascum cuspidatum var. piliferum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phauloppia lucorum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Philodromus aureolus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Philodromus cespitum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Philodromus emarginatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Philonthus albipes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Philonthus carbonarius",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Philonthus cognatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Philonthus decorus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Philonthus laminatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Philonthus lepidus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Philonthus nimbicola",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phlegra fasciata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phleum phleoides",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phleum pratense",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phlyctis argena",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pholidoptera griseoaptera",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phrurolithus festivus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phthiracarus laevigatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phthiracarus longulus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phyllobius arborator",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phyllodrepa salicis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phylloneta impressa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phylloneta sisyphia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Phylloscopus bonelli",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Physconia muscigena",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Picea abies",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pilogalumna crassiclava",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pimpinella major",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pimpinella saxifraga",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pinus sylvestris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pisaura mirabilis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Placidium squamulosum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Plantago lanceolata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Plantago media",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Plantago strictissima",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Plataraea dubiosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Platybunus pinetorum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Platycleis albopunctata subsp. grisea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Plebejus argus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Plinthisus pusillus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Poa angustifolia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Poa annua",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Poa molineri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Poa nemoralis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Poa pratensis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Poa trivialis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pocadicnemis pumila",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Poecile montanus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Poecilus versicolor",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Polycauliona candelaria",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Polydesmus complanatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Polytrichum juniperinum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Porobelba spinosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Potentilla argentea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Potentilla pusilla",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Primula veris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Protoribates capucinus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Provertex kuehnelti",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Prunus avium",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Prunus padus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pseudevernia furfuracea var. ceratea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Psophus stridulus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pterigynandrum filiforme",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pterostichus melanarius",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pterostichus multipunctatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pterostichus strenuus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pterostichus unctulatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pulsatilla montana",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pulsatilla vernalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Punctelia jeckeri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Punctoribates punctum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pylaisia polyantha",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pyrgus carthami",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Pyrgus serratulae",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Quadroppia quadricarinata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Quedius fuliginosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Quedius nemoralis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Quedius xanthopus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ramalina farinacea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ranunculus bulbosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Ranunculus repens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Rhamnus cathartica",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Rhopalus conspersus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Rhopalus parumpunctatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Rhyparochromus pini",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Rhytidium rugosum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Rinodina degeliana",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Rosa canina agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Rubus idaeus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Rumex acetosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Rumex scutatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Saldula orthochila",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Salix caprea",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Salticus scenicus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sambucus nigra",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sambucus racemosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sanionia uncinata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Scheloribates holsaticus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Scheloribates laevigatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Scheloribates pallidulus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sciocoris cursitans",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sciodrepoides watsoni",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Scolopostethus thomsoni",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Scutovertex sculptus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sedum acre",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sedum rupestre agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Segestria senoculata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sellnickochthonius immaculatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sempervivum arachnoideum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sepedophilus nigripennis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sepedophilus testaceus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sibianor aurocinctus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Silene latifolia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Silene nutans subsp. nutans",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Silene otites",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Silene vulgaris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sorbus aucuparia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Staphylinus caesareus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Staphylinus dimidiaticornis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stauroderus scalaris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Steatoda albomaculata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stellaria media",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stemonyphantes lineatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stenobothrus lineatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stenobothrus nigromaculatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stenodema laevigata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stenus clavicornis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stenus nanus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stygnocoris fuligineus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stygnocoris rusticus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Stygnocoris sabulosus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Styloctetor romanus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Suctobelba altvateri",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Suctobelbata prelli",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Suctobelbella sarekensis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Suctobelbella subcornigera",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Suctobelbella subtrigona",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Syedra gracilis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Sylvia atricapilla",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Syntomus truncatellus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Syntrichia papillosa",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Syntrichia ruralis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Syromastes rhombeus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Systellonotus triguttatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tachinus laticollis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tachinus rufipes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tachyporus abdominalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tachyporus chrysomelinus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tachyporus dispar",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tapinocyba pallens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Taraxacum officinale agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tectocepheus sarekensis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Temnothorax interruptus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tenuiphantes flavipes",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tenuiphantes mengei",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tenuiphantes tenebricola",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tenuiphantes tenuis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tetramorium alpestre",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tetramorium impurum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tetramorium indocile",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tetrix bipunctata subsp. bipunctata",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tettigonia cantans",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Teucrium montanum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Thanatus arenarius",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Thanatus oblongiusculus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Theonina cornix",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Theridion mystaceum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Theridion varians",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Thesium linophyllon",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Thymus praecox agg.",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tiso vagans",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trapezonotus arenarius",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trapezonotus dispar",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trichoncus affinis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trichoncus cf. auritus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trichophya pilicornis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trichoribates berlesei",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trichoribates incisellus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trichoribates novus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trifolium alpestre",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trifolium arvense",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trifolium campestre",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trifolium montanum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trifolium pratense",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trifolium repens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trigonotylus caelestialium",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trisetum flavescens",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tritegeus bisulcatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trochosa ruricola",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Trochosa terricola",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Tuckermannopsis chlorophylla",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Turdus merula",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Turdus philomelos",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Turdus pilaris",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Urtica dioica",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Usnea hirta",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Valeriana officinalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Vanessa cardui",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Veronica arvensis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Veronica chamaedrys",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Veronica officinalis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Veronica spicatum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Vicia cracca",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Vicia sepium",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Viola riviniana",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Viola tricolor subsp. saxatilis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Vipera berus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Weissia longifolia",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Xantholinus laevigatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Xantholinus tricolor",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Xanthoparmelia stenophylla",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Xenillus tegeocranus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Xysticus audax",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Xysticus cristatus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Xysticus erraticus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Xysticus kochi",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Xysticus ninnii",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Zelotes electus",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Zodarion rubidum",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Zora spinimana",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Zygaena purpuralis",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Zygiella montana",
+          "subjectScheme": "Parameter"
+        },
+        {
+          "subject": "Biology",
+          "subjectScheme": "Method"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Supplementary Dataset"
+      },
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.895988",
+      "rightsList": [
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution Non Commercial Share Alike 4.0 International",
+          "rightsIdentifier": "cc-by-nc-sa-4.0"
+        }
+      ],
+      "sizes": [
+        "5760 data points"
+      ],
+      "formats": [
+        "text/tab-separated-values"
+      ],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1007/s10531-018-1623-x",
+          "relatedIdentifierType": "DOI"
+        },
+        {
+          "relationType": "IsNewVersionOf",
+          "relatedIdentifier": "https://store.pangaea.de/Publications/Hilpold-etal_2018/Species_list_original.xlsx",
+          "relatedIdentifierType": "URL"
+        }
+      ]
+    },
+    {
+      "doi": "10.34808/tcev-1z14",
+      "titles": [
+        {
+          "title": "Imaging of biological samples: the ant Lasius Niger"
+        }
+      ],
+      "creators": [
+        {
+          "givenName": "Artur",
+          "familyName": "Zieliński",
+          "name": "Artur Zieliński",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org/",
+              "nameIdentifier": "0000-0002-4501-7071"
+            }
+          ],
+          "affiliation": []
+        }
+      ],
+      "publisher": "Gdańsk University of Technology",
+      "publicationYear": 2021,
+      "subjects": [
+        {
+          "subject": "atomic force microscopy",
+          "lang": "en"
+        },
+        {
+          "subject": "biological materials",
+          "lang": "en"
+        },
+        {
+          "subject": "topography",
+          "lang": "en"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA"
+      },
+      "url": "https://mostwiedzy.pl/en/open-research-data/imaging-of-biological-samples-the-ant-lasius-niger,806084458858775-0",
+      "rightsList": [],
+      "sizes": [],
+      "formats": [],
+      "relatedIdentifiers": []
+    },
+    {
+      "doi": "10.5683/sp3/6s7jkp",
+      "titles": [
+        {
+          "title": "Supplemental data and R code for: A novel method for testing the impacts of pesticide exposure on soil-nesting insects: A case study using the ant Lasius neoniger and the neonicotinoid insecticide Imidacloprid"
+        }
+      ],
+      "creators": [
+        {
+          "nameType": "Personal",
+          "affiliation": [
+            "School of Environmental Sciences. Ontario Agricultural College. University of Guelph."
+          ],
+          "givenName": "Aaron D.",
+          "familyName": "Fairweather",
+          "name": "Fairweather, Aaron D.",
+          "nameIdentifiers": [
+            {
+              "nameIdentifierScheme": "ORCID",
+              "schemeUri": "https://orcid.org",
+              "nameIdentifier": "https://orcid.org/0000-0002-4026-8461"
+            }
+          ]
+        }
+      ],
+      "publisher": "Borealis",
+      "publicationYear": 2025,
+      "subjects": [
+        {
+          "subject": "Agricultural Sciences"
+        },
+        {
+          "subject": "Earth and Environmental Sciences"
+        },
+        {
+          "subject": "entomology"
+        },
+        {
+          "subject": "ecotoxicology"
+        },
+        {
+          "subject": "insecticide"
+        },
+        {
+          "subject": "methods"
+        },
+        {
+          "subject": "myrmecology"
+        }
+      ],
+      "types": {
+        "schemaOrg": "Dataset",
+        "resourceTypeGeneral": "Dataset",
+        "citeproc": "dataset",
+        "bibtex": "misc",
+        "ris": "DATA",
+        "resourceType": "Experimental data"
+      },
+      "url": "https://borealisdata.ca/citation?persistentId=doi:10.5683/SP3/6S7JKP",
+      "rightsList": [
+        {
+          "rightsUri": "info:eu-repo/semantics/openAccess"
+        },
+        {
+          "rightsIdentifierScheme": "SPDX",
+          "rightsUri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "schemeUri": "https://spdx.org/licenses/",
+          "rights": "Creative Commons Attribution 4.0 International",
+          "lang": "en",
+          "rightsIdentifier": "cc-by-4.0"
+        }
+      ],
+      "sizes": [
+        "2871",
+        "2760",
+        "2912",
+        "800",
+        "144",
+        "3012",
+        "480",
+        "574",
+        "12677",
+        "21519",
+        "12752"
+      ],
+      "formats": [
+        "type/x-r-syntax",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/tab-separated-values",
+        "text/plain",
+        "text/tab-separated-values",
+        "text/plain"
+      ],
+      "relatedIdentifiers": [
+        {
+          "relationType": "IsSupplementTo",
+          "relatedIdentifier": "10.1093/etojnl/vgag146",
+          "relatedIdentifierType": "DOI"
+        }
+      ]
+    }
+  ],
+  "retrieved_at": "2026-11-03T06:49:49.220423+00:00"
+}

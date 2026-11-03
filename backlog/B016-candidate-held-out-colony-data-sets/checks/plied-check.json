@@ -1,0 +1,21 @@
+{
+  "plied": 1,
+  "ok": true,
+  "exit": 0,
+  "status": "ok",
+  "result": {
+    "diagnostics": [],
+    "errors": 0,
+    "warnings": 0,
+    "records": 275,
+    "linked": 437,
+    "config": "367f8d3d6876773528338ef958e8cb8bf3b1f6123fdb682c840e55ab02139a6a",
+    "comparison_basis": {
+      "v": 1,
+      "warnings": true,
+      "policy": "90a1fda0dc8100696355130162462cbc98c2709d8c6f8e1a9fec3d7a78bed05e",
+      "entries": []
+    }
+  },
+  "notes": []
+}

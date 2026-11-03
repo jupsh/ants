@@ -1,0 +1,82 @@
+{
+  "url": "https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.9j1cp",
+  "record": {
+    "identifier": "doi:10.5061/dryad.9j1cp",
+    "id": 10752,
+    "title": "Data from: Individual learning performance and exploratory activity are linked to colony foraging success in a mass-recruiting ant",
+    "authors": [
+      {
+        "firstName": "Grégoire",
+        "lastName": "Pasquier",
+        "affiliation": "University of Lausanne",
+        "affiliationROR": "https://ror.org/019whta54",
+        "affiliations": [
+          {
+            "organization": "University of Lausanne",
+            "identifier": "https://ror.org/019whta54"
+          }
+        ]
+      },
+      {
+        "firstName": "Christoph",
+        "lastName": "Grüter",
+        "affiliation": "University of Lausanne",
+        "affiliationROR": "https://ror.org/019whta54",
+        "affiliations": [
+          {
+            "organization": "University of Lausanne",
+            "identifier": "https://ror.org/019whta54"
+          }
+        ]
+      }
+    ],
+    "keywords": [
+      "Ants",
+      "Navigation",
+      "Lasius niger"
+    ],
+    "publicationDate": "2016-05-04",
+    "versionNumber": 1,
+    "license": "https://spdx.org/licenses/CC0-1.0.html",
+    "relatedWorks": [
+      {
+        "relationship": "primary_article",
+        "identifierType": "DOI",
+        "identifier": "https://doi.org/10.1093/beheco/arw079"
+      }
+    ],
+    "storageSize": 98001,
+    "_links": {
+      "self": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.9j1cp"
+      },
+      "stash:versions": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.9j1cp/versions"
+      },
+      "stash:version": {
+        "href": "/api/v2/versions/10795"
+      },
+      "stash:download": {
+        "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.9j1cp/download"
+      },
+      "curies": [
+        {
+          "name": "stash",
+          "href": "https://github.com/datadryad/dryad-app/blob/main/documentation/apis/link_relations.md#{rel}",
+          "templated": "true"
+        }
+      ]
+    }
+  },
+  "files_url": "https://datadryad.org/api/v2/versions/10795/files",
+  "file_metadata": [
+    {
+      "path": "Pasquier_Grüter_Raw_Data.xlsx",
+      "size": 98001,
+      "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "status": "created"
+    }
+  ],
+  "file_page_count": null,
+  "retrieved_at": "2026-11-03T06:52:31.841542+00:00"
+}

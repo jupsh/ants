@@ -91,6 +91,14 @@ reviews:
       redesign of T060's analysis (D270).
     by: lead (session e38b977a)
     at: "2026-11-03 16:28 UTC"
+  - action: commit:b016-records-20261103
+    disposition: not-triggered
+    because: >-
+      The commit holds records only (nothing under src/, scripts/ or test/): B016's item folder
+      (README, results, metadata snapshots, item scripts, hand-offs), the generated backlog index,
+      X030, D271, D272, Q38, STATUS and plied records (notes, P73/P74 states). No redesign of T060.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:37 UTC"
 ---
 
 ## History
@@ -103,3 +111,4 @@ reviews:
 - 2026-11-03 16:06 UTC lead (session e38b977a): review for run:t060-support-audit-20261103: not-triggered — The run is the support-only audit (D266, D267): the frozen scripts/frozen/t060/ support.ts --colony i for the 22 colonies (extraction in memory, no event table written, only whitelisted counts to logs/t060-support/), then --pool. The sealed folder is never named or written. No redesign.
 - 2026-11-03 16:15 UTC lead (session e38b977a): added T023 to nodes — T060 closes (D269); a redesign would start under T023, so the commitment stays open and applies there too
 - 2026-11-03 16:28 UTC lead (session e38b977a): review for commit:t060-close-20261103: satisfied — The commit holds records only (git status: nothing under src/, scripts/ or test/; backlog/ left out): the T060 reading D269, F117, D270, T060's close and its commitment states, P186, T063, notes, STATUS. No redesign is opened; T060 closes and T063 is an assessment, not a redesign of T060's analysis (D270).
+- 2026-11-03 16:37 UTC lead (session e38b977a): review for commit:b016-records-20261103: not-triggered — The commit holds records only (nothing under src/, scripts/ or test/): B016's item folder (README, results, metadata snapshots, item scripts, hand-offs), the generated backlog index, X030, D271, D272, Q38, STATUS and plied records (notes, P73/P74 states). No redesign of T060.
