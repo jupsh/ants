@@ -19,3 +19,4 @@ Draft label: T4 (docs/threads-draft.md revision 2). Step 9 on hold (D114).
 - 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.
 - 2026-11-03 00:44 UTC lead (session eac59010): reviewed F113@cc956875fada; Reviewed F113: it cites T023 only; no change to the held-out plan
 - 2026-11-03 00:53 UTC lead (session eac59010): reviewed D260@33ffee2d7b35, F113@51c6d0624bfe; Reviewed the corrected D260 and F113 (wording only): no change to the held-out plan
+- 2026-11-03 16:27 UTC lead (session e38b977a): reviewed D270@93338b6cdd5e; D270 reaches T036 through T023 only: it queues an assessment of the synchrony explanations (T063); the held-out test stays held, waiting on T023 (P03).

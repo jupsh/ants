@@ -8,7 +8,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 
 | status | meaning | n |
 |---|---|---|
-| established | a pre-registered reading, read mechanically against its rule | 35 |
+| established | a pre-registered reading, read mechanically against its rule | 36 |
 | indicated | descriptive, post hoc, exploratory or measured without a prior rule | 59 |
 | literature | reported by a cleared source; not tested here | 10 |
 | hypothesis | our reasoning; untested | 3 |
@@ -85,6 +85,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F114](F114-in-the-stroeymeyt-fit-colonies-a-covered.md) | indicated | In the Stroeymeyt fit colonies, windows without an observed contact almost never meet H6's coverage rule (covered contact-free windows are 0.0005 of classified onsets and 0.0022 of classified at-risk times at 10 s, 0 at 60 s; 76-97 % of windows are unknown at 10 s), so whether onsets are spontaneous or contact-preceded (S1) is not identifiable from these tracks | 2026-11-03 |
 | [F115](F115-granger-tests-between-the-low-and-high.md) | indicated | Granger tests between the low- and high-forager-visit zones' moving fractions (22 colonies, light) show no direction by current location (lag-2 dF 0.24 [-1.16, 1.66]); by each ant's modal zone dF is positive at every lag (1.73 [0.43, 3.09]) but within the UTC-aligned cross-colony reference (-4.31 to 2.89), so no directional transfer is distinguished | 2026-11-03 |
 | [F116](F116-under-d212-s-isolation-rule-zone.md) | indicated | Under D212's isolation rule zone crossings are never isolated (all 1.1 million dropped), so H6 S3's crossing arms are not estimable; arena entries into the high-forager-visit zone are followed by a small rise in its moving fraction beyond matched controls (DiD 0.0042 [0.0017, 0.0070], 16 colonies), entries into the other zone too rare (3) | 2026-11-03 |
+| [F117](F117-in-the-22-stroeymeyt-fit-colonies-the.md) | established | In the 22 Stroeymeyt fit colonies, the frozen T060 extraction leaves no light-phase inactive interval (at least 60 s) with a complete PDC history under D243's complete-history rule (every tag a partner, v = 20 mm/s; also at 10 mm/s, with focal bridging, the plain onset or no death record), so Cole's three-interval comparison has no support (0a and 0b entry 0/22) and is unsupported by this extraction and observation rule; not evidence about contact resetting as a mechanism | 2026-11-03 |
 
 ## Packing, walls and resting sites
 

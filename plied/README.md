@@ -6,8 +6,9 @@
 
 **lead**
 
-1. [T060](threads/T060-contact-reset-timing-test-design-d238.md) Contact-reset timing test: design (D238 item 2)
+1. [T037](threads/T037-candidate-held-out-colony-data-sets.md) Candidate held-out colony data sets
 2. [T033](threads/T033-part-d-stages-1-3.md) Part D Stages 1-3
+2. [T063](threads/T063-synchrony-which-remaining-explanations-the-available.md) Synchrony: which remaining explanations the available evidence can distinguish (D270)
 
 **user**
 
@@ -15,7 +16,7 @@
 2. [T012](threads/T012-forager-trips-entrance-excursions.md) Forager trips; entrance excursions
 
 
-**Open, not scheduled:** T001, T010, T023, T030, T034, T037, T040, T041, T046, T047, T048, T052, T062
+**Open, not scheduled:** T001, T010, T023, T030, T034, T040, T041, T046, T047, T048, T052, T062
 
 
 ## Open questions
@@ -74,8 +75,8 @@ None.
 | [P132](commitments/P132-h6-design-what-it-adds-beyond.md) | H6 design: what it adds beyond the existing spatial and entry analyses | D238 | fulfilled | T059 |
 | [P133](commitments/P133-h6-design-missed-contacts-tracking-gaps.md) | H6 design: missed contacts, tracking gaps, ongoing rises and spatially varying common inputs addressed | D238 | fulfilled | T059 |
 | [P134](commitments/P134-h6-no-observed-preceding-contact-stays.md) | H6: 'no observed preceding contact' stays an observational definition | D238 | fulfilled | T059 |
-| [P135](commitments/P135-contact-reset-design-identifiability-of-the.md) | Contact-reset design: identifiability of the three-interval comparison established first | D238 | open | T060 |
-| [P136](commitments/P136-contact-reset-h2-versus-h3-kept.md) | Contact-reset: H2 versus H3 kept unresolved unless the design can distinguish them | D238 | open | T060 |
+| [P135](commitments/P135-contact-reset-design-identifiability-of-the.md) | Contact-reset design: identifiability of the three-interval comparison established first | D238 | fulfilled | T060 |
+| [P136](commitments/P136-contact-reset-h2-versus-h3-kept.md) | Contact-reset: H2 versus H3 kept unresolved unless the design can distinguish them | D238 | fulfilled | T060 |
 | [P137](commitments/P137-contact-associations-and-granger-predictability-are.md) | Contact associations and Granger predictability are not causal evidence | D238 | open | T059, T060 |
 | [P138](commitments/P138-food-state-and-clock-a-feasibility.md) | Food state and clock: a feasibility inventory of permitted metadata only, before any design | D238 | fulfilled | T061 |
 | [P139](commitments/P139-the-synchrony-review-stays-local-no.md) | The synchrony review stays local; no private page | D238 | open | T058, T023 |
@@ -94,21 +95,21 @@ None.
 | [P150](commitments/P150-h6-synthetic-null-and-recovery-checks.md) | H6: synthetic null and recovery checks with acceptance rules fixed first | D242 | fulfilled | T059 |
 | [P151](commitments/P151-h6-reader-frozen-and-checks-passed.md) | H6: reader frozen and checks passed before any empirical result is inspected; failures back to the user | D242 | fulfilled | T059 |
 | [P152](commitments/P152-contact-reset-design-brought-to-the.md) | Contact-reset design brought to the user for approval before anything runs | D238 | fulfilled | T060 |
-| [P153](commitments/P153-contact-reset-histories-unknown-unless-independently.md) | Contact-reset: histories unknown unless independently bounded | D244 | open | T060 |
-| [P154](commitments/P154-contact-reset-focal-bridging-only-as.md) | Contact-reset: focal bridging only as a sensitivity | D244 | open | T060 |
-| [P155](commitments/P155-contact-reset-4-1-mm-crossings.md) | Contact-reset: 4.1-mm crossings described as proximity-defined contacts | D244 | open | T060 |
-| [P156](commitments/P156-contact-reset-coherent-synthetic-observation-or.md) | Contact-reset: coherent synthetic observation or separate validation scopes, generator settings frozen | D244 | open | T060 |
-| [P157](commitments/P157-contact-reset-stage-0b-s-reference.md) | Contact-reset: Stage 0b's reference rate defined despite threshold, censoring and selection | D244 | open | T060 |
-| [P158](commitments/P158-contact-reset-regularity-assessed-on-the.md) | Contact-reset: regularity assessed on the ants supplying the matched triplets | D244 | open | T060 |
-| [P159](commitments/P159-contact-reset-stage-0b-failure-means.md) | Contact-reset: Stage 0b failure means 'not established for this comparison' | D244 | open | T060 |
+| [P153](commitments/P153-contact-reset-histories-unknown-unless-independently.md) | Contact-reset: histories unknown unless independently bounded | D244 | fulfilled | T060 |
+| [P154](commitments/P154-contact-reset-focal-bridging-only-as.md) | Contact-reset: focal bridging only as a sensitivity | D244 | fulfilled | T060 |
+| [P155](commitments/P155-contact-reset-4-1-mm-crossings.md) | Contact-reset: 4.1-mm crossings described as proximity-defined contacts | D244 | fulfilled | T060 |
+| [P156](commitments/P156-contact-reset-coherent-synthetic-observation-or.md) | Contact-reset: coherent synthetic observation or separate validation scopes, generator settings frozen | D244 | fulfilled | T060 |
+| [P157](commitments/P157-contact-reset-stage-0b-s-reference.md) | Contact-reset: Stage 0b's reference rate defined despite threshold, censoring and selection | D244 | fulfilled | T060 |
+| [P158](commitments/P158-contact-reset-regularity-assessed-on-the.md) | Contact-reset: regularity assessed on the ants supplying the matched triplets | D244 | fulfilled | T060 |
+| [P159](commitments/P159-contact-reset-stage-0b-failure-means.md) | Contact-reset: Stage 0b failure means 'not established for this comparison' | D244 | fulfilled | T060 |
 | [P16](commitments/P16-a-partner-counted-twice-within-one.md) | D139: rule 1 does not fire (partner-repeat inside its bout 0.00 on every day). | D135 | not-triggered | T018 |
-| [P160](commitments/P160-contact-reset-stage-1-s-equivalence.md) | Contact-reset: Stage 1's equivalence reading narrowed to change relative to references | D244 | open | T060 |
-| [P161](commitments/P161-contact-reset-reader-edge-cases-resolved.md) | Contact-reset: reader edge cases resolved before freezing | D244 | open | T060 |
-| [P162](commitments/P162-contact-reset-v6-kept-as-a.md) | Contact-reset: V6 kept as a fixed stress test | D244 | open | T060 |
-| [P163](commitments/P163-contact-reset-stage-0-extraction-matching.md) | Contact-reset: Stage 0 extraction, matching and V0 built after the amendments; Stage 1 deferred | D244 | open | T060 |
-| [P164](commitments/P164-contact-reset-stage-0-outputs-sealed.md) | Contact-reset Stage 0: outputs sealed until the reader is frozen and V0 and the reproduction pass | D243 | open | T060 |
+| [P160](commitments/P160-contact-reset-stage-1-s-equivalence.md) | Contact-reset: Stage 1's equivalence reading narrowed to change relative to references | D244 | not-triggered | T060 |
+| [P161](commitments/P161-contact-reset-reader-edge-cases-resolved.md) | Contact-reset: reader edge cases resolved before freezing | D244 | fulfilled | T060 |
+| [P162](commitments/P162-contact-reset-v6-kept-as-a.md) | Contact-reset: V6 kept as a fixed stress test | D244 | not-triggered | T060 |
+| [P163](commitments/P163-contact-reset-stage-0-extraction-matching.md) | Contact-reset: Stage 0 extraction, matching and V0 built after the amendments; Stage 1 deferred | D244 | fulfilled | T060 |
+| [P164](commitments/P164-contact-reset-stage-0-outputs-sealed.md) | Contact-reset Stage 0: outputs sealed until the reader is frozen and V0 and the reproduction pass | D243 | fulfilled | T060 |
 | [P165](commitments/P165-contact-reset-the-speed-bound-checked.md) | Contact-reset: the speed bound checked before anything else is read | D243 | not-triggered | T060 |
-| [P166](commitments/P166-contact-reset-a-failed-check-or.md) | Contact-reset: a failed check or a substantive change comes back to the user | D244 | open | T060 |
+| [P166](commitments/P166-contact-reset-a-failed-check-or.md) | Contact-reset: a failed check or a substantive change comes back to the user | D244 | fulfilled | T060 |
 | [P167](commitments/P167-h6-blind-check-of-s1-s.md) | H6 blind check of S1's unknown share prints only the two pooled shares | D246 | superseded → P170 | T059 |
 | [P168](commitments/P168-h6-s1-mostly-unknown-a-radius.md) | H6: S1 mostly unknown, a radius proposal to the user before the freeze | D246 | superseded → P171 | T059 |
 | [P169](commitments/P169-h6-s3-entry-rule-given-d212.md) | H6: S3 entry rule given D212's observed condition before the freeze | D245 | fulfilled | T059 |
@@ -118,18 +119,19 @@ None.
 | [P172](commitments/P172-at-each-freeze-the-frozen-reader.md) | At each freeze, the frozen reader and its imports committed byte-identical under scripts/frozen/ | D249 | open | T059, T060 |
 | [P173](commitments/P173-h6-after-the-second-blind-check.md) | H6: after the second blind check, no further coverage tuning; S1 reported as it falls (coverage-limited) if the cutoff is met, and the freeze proceeds | D252 | fulfilled | T059 |
 | [P174](commitments/P174-h6-v-computed-once-from-the.md) | H6: v computed once from the tracks and recorded before the rebuilt intermediates are read | D252 | fulfilled | T059 |
-| [P175](commitments/P175-contact-reset-0b-established-only-if.md) | Contact-reset 0b: established only if k-bar over the memoryless reference's median clears 1.5 | D262 | open | T060 |
+| [P175](commitments/P175-contact-reset-0b-established-only-if.md) | Contact-reset 0b: established only if k-bar over the memoryless reference's median clears 1.5 | D262 | not-triggered | T060 |
 | [P176](commitments/P176-contact-reset-v0-a-sparse-cell.md) | Contact-reset V0: a sparse-cell case, established in at most 5 % | D262 | fulfilled | T060 |
 | [P177](commitments/P177-contact-reset-v0-case-b-kept.md) | Contact-reset V0: case (b) kept, disclosed as passing by support; (b2) Weibull k = 0.7 added | D262 | fulfilled | T060 |
-| [P178](commitments/P178-contact-reset-audit-worded-as-support.md) | Contact-reset audit: worded as support retained by the frozen extraction, not true counts | D266 | open | T060 |
-| [P179](commitments/P179-contact-reset-audit-not-evidence-against.md) | Contact-reset audit: not evidence against contact resetting as a biological mechanism | D266 | open | T060 |
+| [P178](commitments/P178-contact-reset-audit-worded-as-support.md) | Contact-reset audit: worded as support retained by the frozen extraction, not true counts | D266 | fulfilled | T060 |
+| [P179](commitments/P179-contact-reset-audit-not-evidence-against.md) | Contact-reset audit: not evidence against contact resetting as a biological mechanism | D266 | fulfilled | T060 |
 | [P18](commitments/P18-e2-adoption-preconditions.md) | Only if E2 reopens. | S001 | open | T004 |
-| [P180](commitments/P180-contact-reset-audit-a-restricted-support.md) | Contact-reset audit: a restricted support reader; back to the user if support passes | D266 | open | T060 |
-| [P181](commitments/P181-contact-reset-audit-tag-52-conservative.md) | Contact-reset audit: tag 52 conservative; colony 237's retag ambiguity flagged separately | D266 | open | T060 |
-| [P182](commitments/P182-contact-reset-audit-a-support-failure.md) | Contact-reset audit: a support failure closes the comparison as unsupported by this extraction | D266 | open | T060 |
-| [P183](commitments/P183-contact-reset-any-redesign-a-separate.md) | Contact-reset: any redesign a separate decision | D266 | open | T060 |
-| [P184](commitments/P184-contact-reset-audit-freeze-committed-gated.md) | Contact-reset audit: freeze committed, gated, before the audit, only once the equality, whitelist and colony-237 checks pass | D267 | open | T060 |
-| [P185](commitments/P185-contact-reset-audit-back-to-the.md) | Contact-reset audit: back to the user if the primary or any sensitivity would pass support; otherwise T060 closes as unsupported | D267 | open | T060 |
+| [P180](commitments/P180-contact-reset-audit-a-restricted-support.md) | Contact-reset audit: a restricted support reader; back to the user if support passes | D266 | fulfilled | T060 |
+| [P181](commitments/P181-contact-reset-audit-tag-52-conservative.md) | Contact-reset audit: tag 52 conservative; colony 237's retag ambiguity flagged separately | D266 | fulfilled | T060 |
+| [P182](commitments/P182-contact-reset-audit-a-support-failure.md) | Contact-reset audit: a support failure closes the comparison as unsupported by this extraction | D266 | fulfilled | T060 |
+| [P183](commitments/P183-contact-reset-any-redesign-a-separate.md) | Contact-reset: any redesign a separate decision | D266 | open | T060, T023 |
+| [P184](commitments/P184-contact-reset-audit-freeze-committed-gated.md) | Contact-reset audit: freeze committed, gated, before the audit, only once the equality, whitelist and colony-237 checks pass | D267 | fulfilled | T060 |
+| [P185](commitments/P185-contact-reset-audit-back-to-the.md) | Contact-reset audit: back to the user if the primary or any sensitivity would pass support; otherwise T060 closes as unsupported | D267 | fulfilled | T060 |
+| [P186](commitments/P186-contact-reset-the-empty-stage-0.md) | Contact-reset: the empty Stage 0 folder stays sealed; no reopening without a decision | D270 | open | T060, T023 |
 | [P19](commitments/P19-after-or-alongside-e6-scans-recovery.md) | Plan step 10. | S001 | open | T038 |
 | [P20](commitments/P20-the-held-out-test-is-reported.md) | The user may reassign it (D127). | D127 | open | T053 |
 | [P21](commitments/P21-stages-1-3-driver-multiplier-before.md) | With D128: the 2-D separation rule deferred until calibrated. | D129 | open | T033 |
@@ -269,10 +271,11 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │       ├── T035  Forager-entry and queen triggers                                   closed, approval: approved (D213), outcome D221, carries F109, F104, [B023]
 │       ├── T058  Focused review of experimental synchrony work, before item 1(e)…   closed, user, outcome D238
 │       ├── T059  H6 initiation and directional-transfer test: design (D238 item …   closed, lead, outcome D260, carries F113, F114, F115, F116
-│       ├── T060  Contact-reset timing test: design (D238 item 2)                    open, next 1, lead
-│       └── T061  Feasibility inventory of permitted metadata for food state and …   closed, lead, outcome D240, carries F108
+│       ├── T060  Contact-reset timing test: design (D238 item 2)                    closed, lead, outcome D269, carries F117, F114
+│       ├── T061  Feasibility inventory of permitted metadata for food state and …   closed, lead, outcome D240, carries F108
+│       └── T063  Synchrony: which remaining explanations the available evidence …   open, next 2, lead
 ├── T036  Held-out tests (step 9): Stroeymeyt age-experiment colonies                held, ⟵ T023
-│   └── T037  Candidate held-out colony data sets                                    open, [B016]
+│   └── T037  Candidate held-out colony data sets                                    open, next 1, lead, [B016]
 ├── T038  E6: Bles et al. 2022, development benchmark on the best step-5 …           held, ⟵ T036
 │   ├── T040  Directed navigation, frozen before any E6 run                          open
 │   ├── T041  E6 ensemble rule reconciled with D104                                  open

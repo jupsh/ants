@@ -2,10 +2,15 @@
 id: T060
 title: "Contact-reset timing test: design (D238 item 2)"
 parent: T023
-status: open
-next: 1
+status: closed
 actor: lead
-links: [D237, D238, D243, Q32, D244, D261, Q36, D262, D264, D265, Q37, D266, D267]
+outcome:
+  quote: >-
+    the three-interval comparison is unsupported by this extraction and observation rule, and T060
+    closes.
+  ref: D269
+carries: [F117, F114]
+links: [D237, D238, D243, Q32, D244, D261, Q36, D262, D264, D265, Q37, D266, D267, D268, D269]
 scanned:
   - record: D265
     rev: 78ad4ca2f334fa5f8cc4f7ad113df8220666b1cc9d7463bd0aafce0eb2bf0046
@@ -46,3 +51,6 @@ scanned:
 - 2026-11-03 15:42 UTC lead (session e38b977a): added D267 to links — D267: the freeze commit approved, gated, once the checks pass; the stop rule kept
 - 2026-11-03 16:02 UTC lead (session e38b977a): scanned D268 (rev a611d465e140): no commitment to record — read in full: its 'before any track is read' describes where an invalid-index run stops; no conditional or deferral
 - 2026-11-03 16:02 UTC lead (session e38b977a): reviewed D268@a611d465e140, D243@a0ceb72f78ab; D268: the support reader and audit CLI built and checked (equality with readStage0, whitelist and forbidden-name tests, colony-237 repro byte-identical). D243's freeze block: support.ts, extract.ts and their 26-file closure frozen under scripts/frozen/t060/ (SHA-256s there); the frozen copy reproduces colony 237 and pools identically (logs/t060-freeze-check/). Next: the gated freeze commit (D267, P184), then the audit from the frozen copy.
+- 2026-11-03 16:06 UTC lead (session e38b977a): Audit running: logs/runs/t060-support-audit-20261103-20261103T160635Z (gate run:t060-support-audit-20261103 passed; frozen code from 0e13c45; 3 colonies at a time, about 25-35 min), outputs logs/t060-support/ (support-c<i>.json, pooled.json; whitelisted counts only, no event table).
+- 2026-11-03 16:15 UTC lead (session e38b977a): set status=closed; cleared next; added D268 to links; added D269 to links; set outcome.quote=the three-interval comparison is unsupported by this extraction and observati…; set outcome.ref=D269; set carries=["F117","F114"] — D269: support retained by the frozen extraction fails in the primary and every sensitivity; closed by the stop rule (D266, D267)
+- 2026-11-03 16:27 UTC lead (session e38b977a): reviewed D270@93338b6cdd5e; D270: the closing records approved for a gated commit; the empty Stage 0 folder stays sealed (P186). The close stands; nothing reopens.
