@@ -240,6 +240,19 @@ reviews:
         rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
       - record: D228
         rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
+  - action: commit:partd-1a-20261030
+    disposition: satisfied
+    because: >-
+      Re-read F108@1f7135c39159: since the b5dd9256 bytes this review read (committed in 1e5f59e),
+      one dated update was added (D240: lights-on is 06 UTC for every colony; time of day and time
+      since lights-on cannot be separated). It leaves 'does not establish a 10-min oscillator' and
+      the time-of-day reading this disposition rests on unchanged, and the commit holds the version
+      read, so the disposition stands.
+    by: lead (session 0e89af04)
+    at: "2026-11-02 05:56 UTC"
+    inputs:
+      - record: F108
+        rev: 1f7135c3915940ea485b428dd86f547f6ee415c339d28a917c97c6f2b126bdf7
 ---
 
 ## History
@@ -276,3 +289,5 @@ reviews:
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — D221 and D226 read the block patterns narrowly, confounded with time since recording began
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 restates P83 for F108 and keeps a non-biological account (H7) among the untested hypotheses; applied, unchanged
 - 2026-11-01 19:12 UTC lead (session f6ab21fd): reviewed D239@a5d3879fe9c2, D240@5875f9598246; D239 and D240 read: no change here (D240 is the T061 inventory; D239 starts T059 and T061).
+- 2026-11-02 05:56 UTC lead (session 0e89af04): review for commit:partd-1a-20261030: satisfied — Re-read F108@1f7135c39159: since the b5dd9256 bytes this review read (committed in 1e5f59e), one dated update was added (D240: lights-on is 06 UTC for every colony; time of day and time since lights-on cannot be separated). It leaves 'does not establish a 10-min oscillator' and the time-of-day reading this disposition rests on unchanged, and the commit holds the version read, so the disposition stands.
+- 2026-11-02 05:57 UTC lead (session 0e89af04): reviewed D231@80fe73e46b1b; D231 restates P83 among F108's limits and under H7 (a non-biological account); it reads the time-of-day pattern as narrowly as P83 asks. Unchanged

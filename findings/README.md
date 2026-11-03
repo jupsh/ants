@@ -9,7 +9,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | status | meaning | n |
 |---|---|---|
 | established | a pre-registered reading, read mechanically against its rule | 34 |
-| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 55 |
+| indicated | descriptive, post hoc, exploratory or measured without a prior rule | 56 |
 | literature | reported by a cleared source; not tested here | 10 |
 | hypothesis | our reasoning; untested | 3 |
 | closed | a tested line with no further arms (a negative result) | 6 |
@@ -123,6 +123,7 @@ Query: `node findings/findings.mjs find '{"topic":"packing","status":{"$in":["es
 | [F015](F015-still-still-crossings-observer-sensitive.md) | established | Still–still contact crossings are strongly observation-sensitive (×2.4 under tag drift M); near share is robust | 2026-10-17 |
 | [F016](F016-no-robust-crossing-statistic.md) | established | No band × dwell crossing statistic is robust for still–still contacts; moving-involved are robust with a dwell ≥ 2 frames | 2026-10-17 |
 | [F099](F099-in-long-still-periods-of-the-stroeymeyt.md) | indicated | In long still periods of the Stroeymeyt fit colonies the slow displacement is bursty and bounded, diffusive after the post-stop decay, not continuous creep; a tag-rotation offset carries 12-15 % of it; the C2 model lacks it (foragers) or has other structure (nurses) | 2026-10-29 |
+| [F112](F112-e6-flow-bouts-and-mouth-contact-differ-by-at-most-0-2-s.md) | indicated | In the provisional spatial colony, flow-associated mouth contact outlasts positive flow by at most 0.2 s (mean 0.014 s over 630 bouts), below E6's 60-s scan, yet one of 60 colony/scan-phase comparisons gains one observed event; 84,437 no-flow mouth episodes are excluded and unscored | 2026-11-02 |
 
 ## Light / dark
 

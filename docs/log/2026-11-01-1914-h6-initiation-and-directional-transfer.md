@@ -188,3 +188,34 @@ title: H6 initiation and directional-transfer test designed (T059; D238, D239; p
       statistic is computed. Until then the empirical outputs' path `logs/h6/` is sealed (`.claude/sealed-paths.txt`);
       only the reproduction values and the synthetic results are printed. If any acceptance rule fails, or a check
       needs a substantive design change, nothing empirical is read and the user decides.
+  - **2026-11-01 — implementation details fixed by the lead before the brief (no change to the design):**
+    - **Onsets** use the existing definition in `scripts/scratch/onsetStats.ts` (moving = a step of at least 0.6 mm per
+      frame from the last detection at most 3 frames back; an onset after at least 20 still frames, with detection gaps
+      of at most 3 frames, 1.5 s, allowed), so that Test A reproduces. This is the "gaps of up to 2 s" above, made exact.
+    - **Coverage radius** for "an ant last seen within reach plus 2 s of travel": 25 mm (the 4.1 mm contact radius plus
+      2 s at 10 mm/s, well above in-nest walking speeds).
+    - **S1's at-risk reference** samples still, at-risk ant-frames every 20th frame (10 s), under the same coverage rule.
+    - **Runs:** the implementer builds the code, its tests and a smoke (a few synthetic data sets per case, under 10
+      min); the full V1–V4 checks (200 data sets per case) run as a lead's long run (`scripts/run.sh`).
+    - **Queens:** the existing onset code counts nurses and foragers only. The H6 pipeline includes the queen as an ant
+      (its role is one of the three in the primary question); the reproduction of Test A and Test B runs in a mode that
+      excludes her, as they did.
+  - **2026-11-02 ≈ 05:46 UTC — amendment 2 (D246, the user's answer to Q33, after the build check D245).** Where this
+    differs from the text above, it governs.
+    - **Null 3's eligibility** is point 1's three conditions only: detected on the initiator's onset frame, detected
+      in at least 90 % of the preceding 10 s, and still throughout those 10 s. Point 3's coverage rule (its neighbour
+      clause included) no longer applies to it; it still classes "no observed contact" against "unknown" for onsets and
+      S1's at-risk reference. The observed initiator must meet the same three conditions, or the episode is excluded
+      from null 3 (counted).
+    - **S3's entries from the arena** require D212 amendment 1's *observed* condition (every detection in the 30 s
+      before the entry outside the nest, observed: detections at most 10 s apart from the last one at or before the
+      window's start up to the entry).
+    - **The implementer's fill-ins** where this entry is silent (build report, Deviations and doubts point 4) are
+      confirmed and frozen with the reader.
+    - **One blind check** of S1's unknown share before the freeze, as D246 sets it; "mostly unknown" (above 50 % in
+      either) returns a radius proposal to the user before the freeze.
+    - **2026-11-02 ≈ 15:27 UTC — the blind check's cutoff is the user's (D249):** a radius proposal returns if either pooled share or either zone's share (L or H, onsets or at-risk reference) is above 50 %; one yes/no zone flag is printed beside the two pooled shares.
+  - **2026-11-03 ≈ 00:04 UTC — the reader frozen (D259; the user's go-ahead D258, after V1–V4 passed, D257):** `reader.ts`
+    SHA-256 `3c3985c09c3148a65d03c97b08eb5bcd08c8b118e3cfc19f7db58cf69c1b87d1`, with the reachability extractor
+    `extract.ts` SHA-256 `ea889e9dc43984053963b4d8dfe30999ccae78aab1f399a9aa2ac66c990b9f71`; both, with every file
+    they import, committed under `scripts/frozen/h6/` (P172); the full list of hashes is in D259.

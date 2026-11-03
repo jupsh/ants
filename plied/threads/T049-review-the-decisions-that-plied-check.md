@@ -296,6 +296,48 @@ scanned:
       nothing read if a check fails) bind only on the user's approval and are recorded as
       commitments then, as D241's were by D242 (P150, P151); the approval gate itself is P152, made
       by D238
+  - record: D241
+    rev: 3bb427d5e808bcf95b817ba7c78c9a4e1dd9c7362ea8b74050f656a4f6ce9bce
+    at: "2026-11-02 04:04 UTC"
+    by: lead (session f6ab21fd)
+    because: >-
+      D241's 'deferred' is the Stage 2b arms, deferred by the user in D242 and held by P145 (made
+      D242); the dated lead details add no conditional.
+  - record: D241
+    rev: 36eec164deeba73a16dff9496b8751e4f5e97dac430d82b680322735d3dd2280
+    at: "2026-11-02 05:48 UTC"
+    by: lead (session 0e89af04)
+    because: >-
+      read in full at this revision: the only new text since the last scan is amendment 2, whose one
+      conditional (mostly unknown returns a radius proposal) is recorded as P168 from D246;
+      'deferred' remains the Stage 2b arms, P145
+  - record: D241
+    rev: 07a71b62d68a8e5fc8683b31f3075cc5bbfe0ceae9456ec136104339bfcbf2a9
+    at: "2026-11-02 15:35 UTC"
+    by: lead (session 0e89af04)
+    because: >-
+      read in full: the only text since the last scan is one dated line recording D249's blind-check
+      cutoff, whose obligation is P171 (from D249); 'deferred' remains the Stage 2b arms, P145
+  - record: D253
+    rev: a4a119c34e10db99c04d85e1dc320813754b9c73e85327a8b762f16986b5704b
+    at: "2026-11-02 16:19 UTC"
+    by: lead (session 0e89af04)
+    because: >-
+      read in full: 'before any rebuilt intermediate exists' states when v was recorded (P174, now
+      fulfilled); no new obligation
+  - record: D256
+    rev: 18f3534436d222bbb3523c59cd1caccf205f78517408195ede8944058aef9bef
+    at: "2026-11-02 16:57 UTC"
+    by: lead (session 0e89af04)
+    because: "read in full: the only obligation it states is P173's (quoted), already recorded; no new conditional"
+  - record: D241
+    rev: b1dd437cb8eb845458917e3f9ecf780f783e4ff2bbacbe3adccc128e70630f74
+    at: "2026-11-03 00:07 UTC"
+    by: lead (session eac59010)
+    because: >-
+      Revision 07a71b62d68a was scanned; the only change since is the lead's appended freeze line
+      (D259: the reader's and extractor's SHA-256s, committed under scripts/frozen/h6/), which holds
+      no conditional or deferral
 ---
 Draft label: T6.5 (docs/threads-draft.md revision 2). plied check (scan_commitments, since 2026-10-17) flags 44 entries, D004 to D142, with a conditional or deferral that no commitment links. The draft review (D138) harvested commitments by search, not entry by entry.
 
@@ -352,3 +394,9 @@ Draft label: T6.5 (docs/threads-draft.md revision 2). plied check (scan_commitme
 - 2026-11-01 22:45 UTC lead (session f6ab21fd): scanned D241 (rev 597483bc51a5): no commitment to record — D241's 'deferred' (the Stage 2b arms) is the user's choice in D242, recorded as P145 made by D242; D241 holds no further commitment
 - 2026-11-02 03:15 UTC lead (session 7b85e17e): scanned D243 (rev a378543b442b): no commitment to record — read in full: a design proposal; its conditionals (reader frozen before any empirical statistic, Stage 1 only if Stage 0 says identifiable, nothing read if a check fails) bind only on the user's approval and are recorded as commitments then, as D241's were by D242 (P150, P151); the approval gate itself is P152, made by D238
 - 2026-11-02 03:16 UTC lead (session 7b85e17e): scanned D243 (rev 9fcd5b57058b): no commitment to record — read in full (revision with the sustained-onset rule): a design proposal; its conditionals (reader frozen before any empirical statistic, Stage 1 only if Stage 0 says identifiable, nothing read if a check fails) bind only on the user's approval and are recorded as commitments then, as D241's were by D242 (P150, P151); the approval gate itself is P152, made by D238
+- 2026-11-02 04:04 UTC lead (session f6ab21fd): scanned D241 (rev 3bb427d5e808): no commitment to record — D241's 'deferred' is the Stage 2b arms, deferred by the user in D242 and held by P145 (made D242); the dated lead details add no conditional.
+- 2026-11-02 05:48 UTC lead (session 0e89af04): scanned D241 (rev 36eec164deeb): no commitment to record — read in full at this revision: the only new text since the last scan is amendment 2, whose one conditional (mostly unknown returns a radius proposal) is recorded as P168 from D246; 'deferred' remains the Stage 2b arms, P145
+- 2026-11-02 15:35 UTC lead (session 0e89af04): scanned D241 (rev 07a71b62d68a): no commitment to record — read in full: the only text since the last scan is one dated line recording D249's blind-check cutoff, whose obligation is P171 (from D249); 'deferred' remains the Stage 2b arms, P145
+- 2026-11-02 16:19 UTC lead (session 0e89af04): scanned D253 (rev a4a119c34e10): no commitment to record — read in full: 'before any rebuilt intermediate exists' states when v was recorded (P174, now fulfilled); no new obligation
+- 2026-11-02 16:57 UTC lead (session 0e89af04): scanned D256 (rev 18f3534436d2): no commitment to record — read in full: the only obligation it states is P173's (quoted), already recorded; no new conditional
+- 2026-11-03 00:07 UTC lead (session eac59010): scanned D241 (rev b1dd437cb8eb): no commitment to record — Revision 07a71b62d68a was scanned; the only change since is the lead's appended freeze line (D259: the reader's and extractor's SHA-256s, committed under scripts/frozen/h6/), which holds no conditional or deferral

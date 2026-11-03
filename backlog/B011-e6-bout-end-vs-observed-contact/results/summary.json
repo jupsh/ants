@@ -1,0 +1,7826 @@
+{
+  "provenance": {
+    "simHash": "eb48ce968127e6a8",
+    "commit": "f9ad78fb7af8b397eb2bb8a4040f70d429cf98e2",
+    "dirty": true,
+    "node": "v22.22.1",
+    "argv": [],
+    "date": "2026-11-02T03:28:00.227Z",
+    "item": "B011-e6-bout-end-vs-observed-contact",
+    "depends": {
+      "backlog/B011-e6-bout-end-vs-observed-contact/analyse.ts": "4cc8e23b8cc9fbf7",
+      "backlog/B011-e6-bout-end-vs-observed-contact/run.ts": "3be99802639715a7",
+      "backlog/B011-e6-bout-end-vs-observed-contact/check.ts": "9f56eeab13a797e1",
+      "backlog/B011-e6-bout-end-vs-observed-contact/reduce.ts": "853a5c217e1a86fd",
+      "scripts/lib.ts": "788b131c475fc31d",
+      "scripts/simHash.ts": "7b0b071a6d80e387",
+      "docs/research/bles-tec-spec.md": "1e02f08c018b3ebe"
+    }
+  },
+  "method": "Three diagnostic colonies; 20 paired random phases per colony. Pooled bout summaries are descriptive; phases reuse the same colony and are not independent colony replicates.",
+  "counts": {
+    "colonies": 3,
+    "colonyPhases": 60,
+    "flowBouts": 630,
+    "matchedBouts": 630,
+    "uncensoredBouts": 630,
+    "noFlowMouthEpisodes": 84437,
+    "boutPhasePairs": 12600,
+    "alteredBoutPhasePairs": 1,
+    "alteredColonyPhases": 1
+  },
+  "pooledRawSeconds": {
+    "flow": {
+      "n": 630,
+      "mean": 5.9649206349205395,
+      "min": 0.09999999999990905,
+      "median": 3.25,
+      "p90": 15.210000000000038,
+      "p95": 20.09999999999991,
+      "p99": 31.89699999999992,
+      "max": 38.5,
+      "atLeast60": 0
+    },
+    "mouth": {
+      "n": 630,
+      "mean": 5.978571428571334,
+      "min": 0.09999999999990905,
+      "median": 3.299999999999727,
+      "p90": 15.210000000000061,
+      "p95": 20.09999999999991,
+      "p99": 31.89699999999992,
+      "max": 38.5,
+      "atLeast60": 0
+    },
+    "pre": {
+      "n": 630,
+      "mean": 0.006825396825397475,
+      "min": 0,
+      "median": 0,
+      "p90": 0,
+      "p95": 0.09999999999990905,
+      "p99": 0.10000000000013642,
+      "max": 0.1000000000003638,
+      "atLeast60": 0
+    },
+    "post": {
+      "n": 630,
+      "mean": 0.00682539682539567,
+      "min": 0,
+      "median": 0,
+      "p90": 0,
+      "p95": 0.09999999999990905,
+      "p99": 0.10000000000013642,
+      "max": 0.1000000000003638,
+      "atLeast60": 0
+    },
+    "padding": {
+      "n": 630,
+      "mean": 0.013650793650793145,
+      "min": 0,
+      "median": 0,
+      "p90": 0.09999999999990905,
+      "p95": 0.09999999999990905,
+      "p99": 0.1000000000003638,
+      "max": 0.20000000000027285,
+      "atLeast60": 0
+    }
+  },
+  "rawPaddingHistogram": [
+    {
+      "seconds": 0,
+      "count": 548
+    },
+    {
+      "seconds": 0.1,
+      "count": 78
+    },
+    {
+      "seconds": 0.2,
+      "count": 4
+    }
+  ],
+  "observedBinDifferenceHistogram": [
+    {
+      "seconds": 0,
+      "count": 12599
+    },
+    {
+      "seconds": 60,
+      "count": 1
+    }
+  ],
+  "eventDifference": {
+    "n": 60,
+    "mean": 0.016666666666666666,
+    "min": 0,
+    "median": 0,
+    "p90": 0,
+    "p95": 0,
+    "p99": 0.4099999999999966,
+    "max": 1,
+    "atLeast60": 0
+  },
+  "changedCases": [
+    {
+      "index": 1,
+      "phase": 50.06761101074517,
+      "bout": 15,
+      "flowScans": 0,
+      "mouthScans": 1,
+      "occupiedBinDifferenceSeconds": 60,
+      "raw": {
+        "bout": 15,
+        "episode": 10961,
+        "pre": 0.10000000000013642,
+        "post": 0,
+        "padding": 0.10000000000013642,
+        "flow": 7.399999999999864,
+        "mouth": 7.5,
+        "leftCensored": false,
+        "rightCensored": false
+      }
+    }
+  ],
+  "colonies": [
+    {
+      "provenance": {
+        "simHash": "eb48ce968127e6a8",
+        "commit": "f9ad78fb7af8b397eb2bb8a4040f70d429cf98e2",
+        "dirty": true,
+        "node": "v22.22.1",
+        "argv": [
+          "--index",
+          "0",
+          "--verify-recorder"
+        ],
+        "date": "2026-11-02T03:21:50.954Z",
+        "item": "B011-e6-bout-end-vs-observed-contact",
+        "depends": {
+          "backlog/B011-e6-bout-end-vs-observed-contact/analyse.ts": "4cc8e23b8cc9fbf7",
+          "backlog/B011-e6-bout-end-vs-observed-contact/run.ts": "3be99802639715a7",
+          "scripts/lib.ts": "788b131c475fc31d",
+          "scripts/simHash.ts": "7b0b071a6d80e387",
+          "docs/research/bles-tec-spec.md": "1e02f08c018b3ebe"
+        }
+      },
+      "inputs": {
+        "parameters": {
+          "walk": {
+            "speed": 55.41107606391765,
+            "speedSdBetween": 0.2811567723111964,
+            "speedSdWithin": 0.3587457208467387,
+            "speedTau": 1.2434674811191244,
+            "meanFreePath": 10.079370624664397,
+            "g": 0.6037790001800335,
+            "jitter": 0.0014251144941529975,
+            "jitterTime": 0,
+            "turnRateTime": 0,
+            "turnDip": 0,
+            "turnDipTau": 0.25,
+            "stopTurnG": 1,
+            "stopHomePull": 0,
+            "pauseRate": 0.052917957368167186,
+            "pauseMean": 0.700448109160251,
+            "slopeSpeedK": 0.40753600717295324,
+            "slopePauseK": 1.0852347821015746,
+            "slopeJitterK": 0.9288189507766671,
+            "slopeSpeedSdK": 0.9464482809941557,
+            "geoRunGain": 0.03294786488082038,
+            "geoHeadingPull": 0.10184865039410958,
+            "geoTorque": 0,
+            "geoPolar": 0,
+            "slopeSpeedKSd": 0,
+            "homeRunBias": 0.5670750863131675,
+            "homeHeadingPull": 0.1272881357687236,
+            "homeRange": 76.51631881258147
+          },
+          "forager": {
+            "desiredFed": 0.9027526449702385,
+            "desiredHungry": 1.28658806559568,
+            "hungerScale": 0.3,
+            "desiredSd": 0.047716933971332615,
+            "stopHazard": 0.1617035092104739,
+            "stopEta": 4.3,
+            "stopPerVolume": 0,
+            "satiationOnTime": 0,
+            "nominalIntake": 0.0095,
+            "emptyPatience": 3,
+            "neverLayFraction": 0.07694308366293515,
+            "unsatisfiedLayProb": 0.2825686301412362,
+            "layIntensity": 0.13,
+            "layIntensitySd": 0.08,
+            "gasterBout": 0.25,
+            "arsMean": 184.81599119863068,
+            "arsRunScale": 0.4,
+            "homeGain": 1,
+            "homeRunScale": 3,
+            "compassBias": 0.08,
+            "searchMode": 1,
+            "arsMeanLay": 80,
+            "layRule": 0,
+            "layKappa": 10,
+            "layRatio50": 0.7,
+            "loadSlowdown": 0
+          },
+          "phys": {
+            "intakeRate": 0.009661243120898107,
+            "intakeSd": 0.07640894285550197,
+            "metabolic": 0.0012,
+            "activeFactor": 3,
+            "cropAbsorption": 0,
+            "cropWaterRate": 0,
+            "permeability": 20,
+            "surfaceArea": 16,
+            "depositPerMm": 1,
+            "compassNoise": 0.0005,
+            "boutFastUl": 0.006984175416892337,
+            "boutFastRate": 0.05
+          },
+          "morph": {
+            "len": 4.1,
+            "mass": 2,
+            "cropCapacity": 2,
+            "antennaReach": 2.6,
+            "cropFullFrac": 0.98,
+            "reserveDays": 14
+          },
+          "nest": {
+            "restToActive": 0.008333333333333333,
+            "activeToRest": 0.005555555555555556,
+            "giveFrac": 0.1,
+            "thirstFrac": 0,
+            "receiveReserve": 0.8,
+            "shareEnd": 0.0195,
+            "stallTime": 3,
+            "partRefractory": 5,
+            "shareRate": 0.016666666666666666,
+            "leaveRate": 0.0033333333333333335,
+            "leaveCropFrac": 0.05,
+            "forageDriveSd": 1,
+            "leaveGain": 1.5,
+            "returnRate": 0.016666666666666666,
+            "giveUpTime": 120,
+            "reserveSd": 0.5,
+            "nestSpeedFactor": 1,
+            "nestPauseFactor": 1,
+            "nestSpeedSdFactor": 1,
+            "nestSpeedTauFactor": 1,
+            "encounterStop": 0,
+            "encounterMin": 0.2,
+            "encounterGap": 0,
+            "restCrowdExp": 0,
+            "restShape": 0,
+            "restDeepFrac": 0,
+            "restDeepRatio": 1,
+            "walkOnSd": 0,
+            "driveSd": 0,
+            "driveTau": 60,
+            "wallRule": "follow",
+            "foragerFrac": 0,
+            "outRate": 0
+          }
+        },
+        "options": {
+          "seed": 3452263190,
+          "ants": 53,
+          "dt": 0.1,
+          "minutes": 91.08333333333333,
+          "foodMinute": 30,
+          "starvationDays": 4,
+          "frameEvery": 0
+        },
+        "index": 0,
+        "phases": [
+          26.1212654504925,
+          10.248273792676628,
+          55.625378102995455,
+          15.076005226001143,
+          16.91642840858549,
+          21.165692475624382,
+          3.706369260326028,
+          41.00455407053232,
+          27.926964503712952,
+          59.09792685415596,
+          29.126808419823647,
+          11.024717562831938,
+          14.971593436785042,
+          50.89339782949537,
+          0.5008368054404855,
+          0.5044313706457615,
+          9.253440289758146,
+          36.39562985859811,
+          21.99376547243446,
+          31.269231643527746
+        ],
+        "observer": {
+          "period": 60,
+          "minContact": 5,
+          "rule": "after",
+          "scans": 61,
+          "foodMinute": 30
+        },
+        "geometry": "post-step in-nest mouthContact, uninterrupted, sampled at dt; no gap merging",
+        "direction": "only one flow direction in the whole mouth episode; no-flow, reversing or incomplete episodes excluded and counted",
+        "duration": "raw mouth episode minus flow bout; observed occupied scan bins = scan count * 60 s; event span = (last - first scan minute) * 60 s"
+      },
+      "runtime": {
+        "simulationSeconds": 29.175489526,
+        "totalSeconds": 58.403673610999995
+      },
+      "observationChecks": {
+        "unmatchedBouts": 0,
+        "incompleteEpisodes": 0,
+        "reversingEpisodes": 0,
+        "lostScans": 0
+      },
+      "recorderIdentity": true,
+      "counts": {
+        "flowBouts": 278,
+        "matchedBouts": 278,
+        "uniqueMatchedMouthEpisodes": 278,
+        "directionIdentifiableEpisodes": 278,
+        "noFlowMouthEpisodes": 28227,
+        "uncensoredBouts": 278,
+        "leftCensoredBouts": 0,
+        "rightCensoredBouts": 0
+      },
+      "rawSeconds": {
+        "flow": {
+          "n": 278,
+          "mean": 5.5003597122301295,
+          "min": 0.09999999999990905,
+          "median": 3,
+          "p90": 14.489999999999853,
+          "p95": 17.914999999999882,
+          "p99": 27.890000000000047,
+          "max": 34.59999999999991,
+          "atLeast60": 0
+        },
+        "mouth": {
+          "n": 278,
+          "mean": 5.515107913668974,
+          "min": 0.09999999999990905,
+          "median": 3,
+          "p90": 14.489999999999853,
+          "p95": 17.914999999999882,
+          "p99": 27.890000000000047,
+          "max": 34.59999999999991,
+          "atLeast60": 0
+        },
+        "pre": {
+          "n": 278,
+          "mean": 0.006834532374100229,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0.09999999999990905,
+          "p99": 0.10000000000018872,
+          "max": 0.1000000000003638,
+          "atLeast60": 0
+        },
+        "post": {
+          "n": 278,
+          "mean": 0.007913669064744276,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0.09999999999990905,
+          "p99": 0.09999999999996134,
+          "max": 0.1000000000003638,
+          "atLeast60": 0
+        },
+        "padding": {
+          "n": 278,
+          "mean": 0.014748201438844505,
+          "min": 0,
+          "median": 0,
+          "p90": 0.09999999999990905,
+          "p95": 0.09999999999990905,
+          "p99": 0.1000000000003638,
+          "max": 0.20000000000027285,
+          "atLeast60": 0
+        },
+        "uncensoredPadding": {
+          "n": 278,
+          "mean": 0.014748201438844505,
+          "min": 0,
+          "median": 0,
+          "p90": 0.09999999999990905,
+          "p95": 0.09999999999990905,
+          "p99": 0.1000000000003638,
+          "max": 0.20000000000027285,
+          "atLeast60": 0
+        },
+        "nonFlowPerUniqueDirectedEpisode": {
+          "n": 278,
+          "mean": 0.014748201438844505,
+          "min": 0,
+          "median": 0,
+          "p90": 0.09999999999990905,
+          "p95": 0.09999999999990905,
+          "p99": 0.1000000000003638,
+          "max": 0.20000000000027285,
+          "atLeast60": 0
+        }
+      },
+      "observedSummary": {
+        "occupiedBinDifferenceSeconds": {
+          "n": 5560,
+          "mean": 0,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "atLeast60": 0
+        },
+        "boutPhasePairs": 5560,
+        "extraSeenBoutPhasePairs": 0,
+        "alteredBoutPhasePairs": 0,
+        "eventDifference": {
+          "n": 20,
+          "mean": 0,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "atLeast60": 0
+        },
+        "flowEventSpanSeconds": {
+          "n": 226,
+          "mean": 0,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "atLeast60": 0
+        },
+        "mouthEventSpanSeconds": {
+          "n": 226,
+          "mean": 0,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "atLeast60": 0
+        }
+      },
+      "observed": [
+        {
+          "phase": 26.1212654504925,
+          "rule": "after",
+          "flowScans": 9,
+          "mouthScans": 9,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 9,
+          "mouthEvents": 9,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 16,
+            "gini": 0.7274633123689728,
+            "giniParticipants": 0.09722222222222222,
+            "bothRoles": 0.0625,
+            "efficiency": 0.08333333333333333
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 16,
+            "gini": 0.7274633123689728,
+            "giniParticipants": 0.09722222222222222,
+            "bothRoles": 0.0625,
+            "efficiency": 0.08333333333333333
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                5
+              ],
+              "mouthHistogram": [
+                12,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                17
+              ],
+              "mouthHistogram": [
+                17
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                28,
+                7,
+                1
+              ],
+              "mouthHistogram": [
+                28,
+                7,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 10.248273792676628,
+          "rule": "after",
+          "flowScans": 16,
+          "mouthScans": 16,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 16,
+          "mouthEvents": 16,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 16,
+            "t50": 4,
+            "participants": 25,
+            "gini": 0.6025943396226415,
+            "giniParticipants": 0.1575,
+            "bothRoles": 0.12,
+            "efficiency": 0.06722222222222222
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 16,
+            "t50": 4,
+            "participants": 25,
+            "gini": 0.6025943396226415,
+            "giniParticipants": 0.1575,
+            "bothRoles": 0.12,
+            "efficiency": 0.06722222222222222
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                8,
+                1
+              ],
+              "mouthHistogram": [
+                8,
+                8,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16,
+                1
+              ],
+              "mouthHistogram": [
+                16,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                4,
+                1
+              ],
+              "mouthHistogram": [
+                31,
+                4,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                23,
+                11,
+                2
+              ],
+              "mouthHistogram": [
+                23,
+                11,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 55.625378102995455,
+          "rule": "after",
+          "flowScans": 13,
+          "mouthScans": 13,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 13,
+          "mouthEvents": 13,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 13,
+            "t50": 3,
+            "participants": 23,
+            "gini": 0.6124818577648766,
+            "giniParticipants": 0.10702341137123746,
+            "bothRoles": 0.08695652173913043,
+            "efficiency": 0.061923583662714096
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 13,
+            "t50": 3,
+            "participants": 23,
+            "gini": 0.6124818577648766,
+            "giniParticipants": 0.10702341137123746,
+            "bothRoles": 0.08695652173913043,
+            "efficiency": 0.061923583662714096
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                10,
+                7
+              ],
+              "mouthHistogram": [
+                10,
+                7
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                30,
+                6
+              ],
+              "mouthHistogram": [
+                30,
+                6
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                26,
+                9,
+                1
+              ],
+              "mouthHistogram": [
+                26,
+                9,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 15.076005226001143,
+          "rule": "after",
+          "flowScans": 11,
+          "mouthScans": 11,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 11,
+          "mouthEvents": 11,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 4,
+            "participants": 18,
+            "gini": 0.7084048027444254,
+            "giniParticipants": 0.1414141414141414,
+            "bothRoles": 0.1111111111111111,
+            "efficiency": 0.08714596949891068
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 4,
+            "participants": 18,
+            "gini": 0.7084048027444254,
+            "giniParticipants": 0.1414141414141414,
+            "bothRoles": 0.1111111111111111,
+            "efficiency": 0.08714596949891068
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                8,
+                1
+              ],
+              "mouthHistogram": [
+                8,
+                8,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16,
+                1
+              ],
+              "mouthHistogram": [
+                16,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                1
+              ],
+              "mouthHistogram": [
+                35,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                27,
+                8,
+                1
+              ],
+              "mouthHistogram": [
+                27,
+                8,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 16.91642840858549,
+          "rule": "after",
+          "flowScans": 9,
+          "mouthScans": 9,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 9,
+          "mouthEvents": 9,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 14,
+            "gini": 0.7777777777777778,
+            "giniParticipants": 0.15873015873015872,
+            "bothRoles": 0.14285714285714285,
+            "efficiency": 0.12087912087912088
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 14,
+            "gini": 0.7777777777777778,
+            "giniParticipants": 0.15873015873015872,
+            "bothRoles": 0.14285714285714285,
+            "efficiency": 0.12087912087912088
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                5
+              ],
+              "mouthHistogram": [
+                12,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16,
+                1
+              ],
+              "mouthHistogram": [
+                16,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                30,
+                4,
+                2
+              ],
+              "mouthHistogram": [
+                30,
+                4,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 21.165692475624382,
+          "rule": "after",
+          "flowScans": 10,
+          "mouthScans": 10,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 10,
+          "mouthEvents": 10,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 3,
+            "participants": 16,
+            "gini": 0.7490566037735849,
+            "giniParticipants": 0.16875,
+            "bothRoles": 0.0625,
+            "efficiency": 0.10416666666666667
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 3,
+            "participants": 16,
+            "gini": 0.7490566037735849,
+            "giniParticipants": 0.16875,
+            "bothRoles": 0.0625,
+            "efficiency": 0.10416666666666667
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                5
+              ],
+              "mouthHistogram": [
+                12,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                17
+              ],
+              "mouthHistogram": [
+                17
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5
+              ],
+              "mouthHistogram": [
+                31,
+                5
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                5,
+                1,
+                1
+              ],
+              "mouthHistogram": [
+                29,
+                5,
+                1,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 3.706369260326028,
+          "rule": "after",
+          "flowScans": 9,
+          "mouthScans": 9,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 9,
+          "mouthEvents": 9,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 10,
+            "participants": 15,
+            "gini": 0.7589098532494759,
+            "giniParticipants": 0.14814814814814814,
+            "bothRoles": 0.06666666666666667,
+            "efficiency": 0.10476190476190476
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 10,
+            "participants": 15,
+            "gini": 0.7589098532494759,
+            "giniParticipants": 0.14814814814814814,
+            "bothRoles": 0.06666666666666667,
+            "efficiency": 0.10476190476190476
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                4
+              ],
+              "mouthHistogram": [
+                13,
+                4
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                17
+              ],
+              "mouthHistogram": [
+                17
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                3,
+                1
+              ],
+              "mouthHistogram": [
+                32,
+                3,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                28,
+                7,
+                1
+              ],
+              "mouthHistogram": [
+                28,
+                7,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 41.00455407053232,
+          "rule": "after",
+          "flowScans": 9,
+          "mouthScans": 9,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 9,
+          "mouthEvents": 9,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 2,
+            "participants": 16,
+            "gini": 0.7274633123689728,
+            "giniParticipants": 0.09722222222222222,
+            "bothRoles": 0,
+            "efficiency": 0.08333333333333333
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 2,
+            "participants": 16,
+            "gini": 0.7274633123689728,
+            "giniParticipants": 0.09722222222222222,
+            "bothRoles": 0,
+            "efficiency": 0.08333333333333333
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                11,
+                6
+              ],
+              "mouthHistogram": [
+                11,
+                6
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                17
+              ],
+              "mouthHistogram": [
+                17
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                33,
+                3
+              ],
+              "mouthHistogram": [
+                33,
+                3
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                5,
+                2
+              ],
+              "mouthHistogram": [
+                29,
+                5,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 27.926964503712952,
+          "rule": "after",
+          "flowScans": 8,
+          "mouthScans": 8,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 8,
+          "mouthEvents": 8,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 13,
+            "gini": 0.7948113207547169,
+            "giniParticipants": 0.16346153846153846,
+            "bothRoles": 0.07692307692307693,
+            "efficiency": 0.1282051282051282
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 13,
+            "gini": 0.7948113207547169,
+            "giniParticipants": 0.16346153846153846,
+            "bothRoles": 0.07692307692307693,
+            "efficiency": 0.1282051282051282
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                5
+              ],
+              "mouthHistogram": [
+                12,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                17
+              ],
+              "mouthHistogram": [
+                17
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                33,
+                3
+              ],
+              "mouthHistogram": [
+                33,
+                3
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                30,
+                5,
+                0,
+                1
+              ],
+              "mouthHistogram": [
+                30,
+                5,
+                0,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 59.09792685415596,
+          "rule": "after",
+          "flowScans": 12,
+          "mouthScans": 12,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 12,
+          "mouthEvents": 12,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 3,
+            "participants": 19,
+            "gini": 0.7028301886792453,
+            "giniParticipants": 0.17105263157894737,
+            "bothRoles": 0.10526315789473684,
+            "efficiency": 0.0969785575048733
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 3,
+            "participants": 19,
+            "gini": 0.7028301886792453,
+            "giniParticipants": 0.17105263157894737,
+            "bothRoles": 0.10526315789473684,
+            "efficiency": 0.0969785575048733
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                5
+              ],
+              "mouthHistogram": [
+                12,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16,
+                1
+              ],
+              "mouthHistogram": [
+                16,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                7
+              ],
+              "mouthHistogram": [
+                29,
+                7
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                28,
+                6,
+                1,
+                1
+              ],
+              "mouthHistogram": [
+                28,
+                6,
+                1,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 29.126808419823647,
+          "rule": "after",
+          "flowScans": 8,
+          "mouthScans": 8,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 8,
+          "mouthEvents": 8,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 14,
+            "gini": 0.7665094339622641,
+            "giniParticipants": 0.11607142857142858,
+            "bothRoles": 0,
+            "efficiency": 0.1043956043956044
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 14,
+            "gini": 0.7665094339622641,
+            "giniParticipants": 0.11607142857142858,
+            "bothRoles": 0,
+            "efficiency": 0.1043956043956044
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                5
+              ],
+              "mouthHistogram": [
+                12,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16,
+                1
+              ],
+              "mouthHistogram": [
+                16,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                33,
+                3
+              ],
+              "mouthHistogram": [
+                33,
+                3
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                4,
+                0,
+                1
+              ],
+              "mouthHistogram": [
+                31,
+                4,
+                0,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 11.024717562831938,
+          "rule": "after",
+          "flowScans": 13,
+          "mouthScans": 13,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 13,
+          "mouthEvents": 13,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 13,
+            "t50": 4,
+            "participants": 23,
+            "gini": 0.6095791001451378,
+            "giniParticipants": 0.10033444816053512,
+            "bothRoles": 0.08695652173913043,
+            "efficiency": 0.05862977602108037
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 13,
+            "t50": 4,
+            "participants": 23,
+            "gini": 0.6095791001451378,
+            "giniParticipants": 0.10033444816053512,
+            "bothRoles": 0.08695652173913043,
+            "efficiency": 0.05862977602108037
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                10,
+                6,
+                1
+              ],
+              "mouthHistogram": [
+                10,
+                6,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16,
+                1
+              ],
+              "mouthHistogram": [
+                16,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5
+              ],
+              "mouthHistogram": [
+                31,
+                5
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                24,
+                12
+              ],
+              "mouthHistogram": [
+                24,
+                12
+              ]
+            }
+          }
+        },
+        {
+          "phase": 14.971593436785042,
+          "rule": "after",
+          "flowScans": 11,
+          "mouthScans": 11,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 11,
+          "mouthEvents": 11,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 4,
+            "participants": 18,
+            "gini": 0.7084048027444254,
+            "giniParticipants": 0.1414141414141414,
+            "bothRoles": 0.1111111111111111,
+            "efficiency": 0.08714596949891068
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 4,
+            "participants": 18,
+            "gini": 0.7084048027444254,
+            "giniParticipants": 0.1414141414141414,
+            "bothRoles": 0.1111111111111111,
+            "efficiency": 0.08714596949891068
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                8,
+                1
+              ],
+              "mouthHistogram": [
+                8,
+                8,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16,
+                1
+              ],
+              "mouthHistogram": [
+                16,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                1
+              ],
+              "mouthHistogram": [
+                35,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                27,
+                8,
+                1
+              ],
+              "mouthHistogram": [
+                27,
+                8,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 50.89339782949537,
+          "rule": "after",
+          "flowScans": 12,
+          "mouthScans": 12,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 12,
+          "mouthEvents": 12,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 2,
+            "participants": 21,
+            "gini": 0.64937106918239,
+            "giniParticipants": 0.11507936507936507,
+            "bothRoles": 0,
+            "efficiency": 0.06666666666666667
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 2,
+            "participants": 21,
+            "gini": 0.64937106918239,
+            "giniParticipants": 0.11507936507936507,
+            "bothRoles": 0,
+            "efficiency": 0.06666666666666667
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                8,
+                1
+              ],
+              "mouthHistogram": [
+                8,
+                8,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                2
+              ],
+              "mouthHistogram": [
+                34,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                28,
+                7,
+                0,
+                1
+              ],
+              "mouthHistogram": [
+                28,
+                7,
+                0,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.5008368054404855,
+          "rule": "after",
+          "flowScans": 12,
+          "mouthScans": 12,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 12,
+          "mouthEvents": 12,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 4,
+            "participants": 19,
+            "gini": 0.7028301886792453,
+            "giniParticipants": 0.17105263157894737,
+            "bothRoles": 0.05263157894736842,
+            "efficiency": 0.09697855750487326
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 4,
+            "participants": 19,
+            "gini": 0.7028301886792453,
+            "giniParticipants": 0.17105263157894737,
+            "bothRoles": 0.05263157894736842,
+            "efficiency": 0.09697855750487326
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                28,
+                7,
+                1
+              ],
+              "mouthHistogram": [
+                28,
+                7,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                5,
+                1,
+                1
+              ],
+              "mouthHistogram": [
+                29,
+                5,
+                1,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 0.5044313706457615,
+          "rule": "after",
+          "flowScans": 12,
+          "mouthScans": 12,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 12,
+          "mouthEvents": 12,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 4,
+            "participants": 19,
+            "gini": 0.7028301886792453,
+            "giniParticipants": 0.17105263157894737,
+            "bothRoles": 0.05263157894736842,
+            "efficiency": 0.09697855750487326
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 4,
+            "participants": 19,
+            "gini": 0.7028301886792453,
+            "giniParticipants": 0.17105263157894737,
+            "bothRoles": 0.05263157894736842,
+            "efficiency": 0.09697855750487326
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                28,
+                7,
+                1
+              ],
+              "mouthHistogram": [
+                28,
+                7,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                5,
+                1,
+                1
+              ],
+              "mouthHistogram": [
+                29,
+                5,
+                1,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 9.253440289758146,
+          "rule": "after",
+          "flowScans": 16,
+          "mouthScans": 16,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 16,
+          "mouthEvents": 16,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 16,
+            "t50": 4,
+            "participants": 25,
+            "gini": 0.6025943396226415,
+            "giniParticipants": 0.1575,
+            "bothRoles": 0.12,
+            "efficiency": 0.06722222222222222
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 16,
+            "t50": 4,
+            "participants": 25,
+            "gini": 0.6025943396226415,
+            "giniParticipants": 0.1575,
+            "bothRoles": 0.12,
+            "efficiency": 0.06722222222222222
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                8,
+                1
+              ],
+              "mouthHistogram": [
+                8,
+                8,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16,
+                1
+              ],
+              "mouthHistogram": [
+                16,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                4,
+                1
+              ],
+              "mouthHistogram": [
+                31,
+                4,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                23,
+                11,
+                2
+              ],
+              "mouthHistogram": [
+                23,
+                11,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 36.39562985859811,
+          "rule": "after",
+          "flowScans": 15,
+          "mouthScans": 15,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 15,
+          "mouthEvents": 15,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 15,
+            "t50": 3,
+            "participants": 23,
+            "gini": 0.6440251572327044,
+            "giniParticipants": 0.17971014492753623,
+            "bothRoles": 0.13043478260869565,
+            "efficiency": 0.06653491436100131
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 15,
+            "t50": 3,
+            "participants": 23,
+            "gini": 0.6440251572327044,
+            "giniParticipants": 0.17971014492753623,
+            "bothRoles": 0.13043478260869565,
+            "efficiency": 0.06653491436100131
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                10,
+                5,
+                2
+              ],
+              "mouthHistogram": [
+                10,
+                5,
+                2
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                30,
+                6
+              ],
+              "mouthHistogram": [
+                30,
+                6
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                25,
+                9,
+                2
+              ],
+              "mouthHistogram": [
+                25,
+                9,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 21.99376547243446,
+          "rule": "after",
+          "flowScans": 10,
+          "mouthScans": 10,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 10,
+          "mouthEvents": 10,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 3,
+            "participants": 15,
+            "gini": 0.7641509433962265,
+            "giniParticipants": 0.16666666666666666,
+            "bothRoles": 0.06666666666666667,
+            "efficiency": 0.12777777777777777
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 3,
+            "participants": 15,
+            "gini": 0.7641509433962265,
+            "giniParticipants": 0.16666666666666666,
+            "bothRoles": 0.06666666666666667,
+            "efficiency": 0.12777777777777777
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                5
+              ],
+              "mouthHistogram": [
+                12,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                17
+              ],
+              "mouthHistogram": [
+                17
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                3,
+                1
+              ],
+              "mouthHistogram": [
+                32,
+                3,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                4,
+                3
+              ],
+              "mouthHistogram": [
+                29,
+                4,
+                3
+              ]
+            }
+          }
+        },
+        {
+          "phase": 31.269231643527746,
+          "rule": "after",
+          "flowScans": 11,
+          "mouthScans": 11,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 11,
+          "mouthEvents": 11,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 3,
+            "participants": 20,
+            "gini": 0.6552315608919382,
+            "giniParticipants": 0.08636363636363636,
+            "bothRoles": 0,
+            "efficiency": 0.06578947368421052
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 3,
+            "participants": 20,
+            "gini": 0.6552315608919382,
+            "giniParticipants": 0.08636363636363636,
+            "bothRoles": 0,
+            "efficiency": 0.06578947368421052
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                10,
+                7
+              ],
+              "mouthHistogram": [
+                10,
+                7
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                6,
+                0,
+                1
+              ],
+              "mouthHistogram": [
+                29,
+                6,
+                0,
+                1
+              ]
+            }
+          }
+        }
+      ],
+      "unmatched": [],
+      "reversing": [],
+      "incomplete": [],
+      "details": "out/colony-0.json",
+      "detailsSha256": "b9e21a1a5bbd0c8f675f9aff883d52f027a8fdd004cbf47a5cbcf46d3409e0a9"
+    },
+    {
+      "provenance": {
+        "simHash": "eb48ce968127e6a8",
+        "commit": "f9ad78fb7af8b397eb2bb8a4040f70d429cf98e2",
+        "dirty": true,
+        "node": "v22.22.1",
+        "argv": [
+          "--index",
+          "1"
+        ],
+        "date": "2026-11-02T03:24:31.707Z",
+        "item": "B011-e6-bout-end-vs-observed-contact",
+        "depends": {
+          "backlog/B011-e6-bout-end-vs-observed-contact/analyse.ts": "4cc8e23b8cc9fbf7",
+          "backlog/B011-e6-bout-end-vs-observed-contact/run.ts": "3be99802639715a7",
+          "scripts/lib.ts": "788b131c475fc31d",
+          "scripts/simHash.ts": "7b0b071a6d80e387",
+          "docs/research/bles-tec-spec.md": "1e02f08c018b3ebe"
+        }
+      },
+      "inputs": {
+        "parameters": {
+          "walk": {
+            "speed": 55.41107606391765,
+            "speedSdBetween": 0.2811567723111964,
+            "speedSdWithin": 0.3587457208467387,
+            "speedTau": 1.2434674811191244,
+            "meanFreePath": 10.079370624664397,
+            "g": 0.6037790001800335,
+            "jitter": 0.0014251144941529975,
+            "jitterTime": 0,
+            "turnRateTime": 0,
+            "turnDip": 0,
+            "turnDipTau": 0.25,
+            "stopTurnG": 1,
+            "stopHomePull": 0,
+            "pauseRate": 0.052917957368167186,
+            "pauseMean": 0.700448109160251,
+            "slopeSpeedK": 0.40753600717295324,
+            "slopePauseK": 1.0852347821015746,
+            "slopeJitterK": 0.9288189507766671,
+            "slopeSpeedSdK": 0.9464482809941557,
+            "geoRunGain": 0.03294786488082038,
+            "geoHeadingPull": 0.10184865039410958,
+            "geoTorque": 0,
+            "geoPolar": 0,
+            "slopeSpeedKSd": 0,
+            "homeRunBias": 0.5670750863131675,
+            "homeHeadingPull": 0.1272881357687236,
+            "homeRange": 76.51631881258147
+          },
+          "forager": {
+            "desiredFed": 0.9027526449702385,
+            "desiredHungry": 1.28658806559568,
+            "hungerScale": 0.3,
+            "desiredSd": 0.047716933971332615,
+            "stopHazard": 0.1617035092104739,
+            "stopEta": 4.3,
+            "stopPerVolume": 0,
+            "satiationOnTime": 0,
+            "nominalIntake": 0.0095,
+            "emptyPatience": 3,
+            "neverLayFraction": 0.07694308366293515,
+            "unsatisfiedLayProb": 0.2825686301412362,
+            "layIntensity": 0.13,
+            "layIntensitySd": 0.08,
+            "gasterBout": 0.25,
+            "arsMean": 184.81599119863068,
+            "arsRunScale": 0.4,
+            "homeGain": 1,
+            "homeRunScale": 3,
+            "compassBias": 0.08,
+            "searchMode": 1,
+            "arsMeanLay": 80,
+            "layRule": 0,
+            "layKappa": 10,
+            "layRatio50": 0.7,
+            "loadSlowdown": 0
+          },
+          "phys": {
+            "intakeRate": 0.009661243120898107,
+            "intakeSd": 0.07640894285550197,
+            "metabolic": 0.0012,
+            "activeFactor": 3,
+            "cropAbsorption": 0,
+            "cropWaterRate": 0,
+            "permeability": 20,
+            "surfaceArea": 16,
+            "depositPerMm": 1,
+            "compassNoise": 0.0005,
+            "boutFastUl": 0.006984175416892337,
+            "boutFastRate": 0.05
+          },
+          "morph": {
+            "len": 4.1,
+            "mass": 2,
+            "cropCapacity": 2,
+            "antennaReach": 2.6,
+            "cropFullFrac": 0.98,
+            "reserveDays": 14
+          },
+          "nest": {
+            "restToActive": 0.008333333333333333,
+            "activeToRest": 0.005555555555555556,
+            "giveFrac": 0.1,
+            "thirstFrac": 0,
+            "receiveReserve": 0.8,
+            "shareEnd": 0.0195,
+            "stallTime": 3,
+            "partRefractory": 5,
+            "shareRate": 0.016666666666666666,
+            "leaveRate": 0.0033333333333333335,
+            "leaveCropFrac": 0.05,
+            "forageDriveSd": 1,
+            "leaveGain": 1.5,
+            "returnRate": 0.016666666666666666,
+            "giveUpTime": 120,
+            "reserveSd": 0.5,
+            "nestSpeedFactor": 1,
+            "nestPauseFactor": 1,
+            "nestSpeedSdFactor": 1,
+            "nestSpeedTauFactor": 1,
+            "encounterStop": 0,
+            "encounterMin": 0.2,
+            "encounterGap": 0,
+            "restCrowdExp": 0,
+            "restShape": 0,
+            "restDeepFrac": 0,
+            "restDeepRatio": 1,
+            "walkOnSd": 0,
+            "driveSd": 0,
+            "driveTau": 60,
+            "wallRule": "follow",
+            "foragerFrac": 0,
+            "outRate": 0
+          }
+        },
+        "options": {
+          "seed": 3369865956,
+          "ants": 53,
+          "dt": 0.1,
+          "minutes": 91.08333333333333,
+          "foodMinute": 30,
+          "starvationDays": 4,
+          "frameEvery": 0
+        },
+        "index": 1,
+        "phases": [
+          16.118999607861042,
+          15.516900862567127,
+          41.99182473588735,
+          6.5900276228785515,
+          25.20759680774063,
+          1.5452751098200679,
+          10.208642645739019,
+          14.489122359082103,
+          18.52106172591448,
+          39.45009117946029,
+          7.470321818254888,
+          50.06761101074517,
+          35.58020874392241,
+          16.820516609586775,
+          53.492729659192264,
+          59.260556660592556,
+          9.492094027809799,
+          45.81238662824035,
+          12.298056869767606,
+          22.55155960097909
+        ],
+        "observer": {
+          "period": 60,
+          "minContact": 5,
+          "rule": "after",
+          "scans": 61,
+          "foodMinute": 30
+        },
+        "geometry": "post-step in-nest mouthContact, uninterrupted, sampled at dt; no gap merging",
+        "direction": "only one flow direction in the whole mouth episode; no-flow, reversing or incomplete episodes excluded and counted",
+        "duration": "raw mouth episode minus flow bout; observed occupied scan bins = scan count * 60 s; event span = (last - first scan minute) * 60 s"
+      },
+      "runtime": {
+        "simulationSeconds": 44.643414906000004,
+        "totalSeconds": 44.765195695
+      },
+      "observationChecks": {
+        "unmatchedBouts": 0,
+        "incompleteEpisodes": 0,
+        "reversingEpisodes": 0,
+        "lostScans": 0
+      },
+      "recorderIdentity": null,
+      "counts": {
+        "flowBouts": 166,
+        "matchedBouts": 166,
+        "uniqueMatchedMouthEpisodes": 166,
+        "directionIdentifiableEpisodes": 166,
+        "noFlowMouthEpisodes": 26990,
+        "uncensoredBouts": 166,
+        "leftCensoredBouts": 0,
+        "rightCensoredBouts": 0
+      },
+      "rawSeconds": {
+        "flow": {
+          "n": 166,
+          "mean": 7.1457831325300125,
+          "min": 0.29999999999972715,
+          "median": 5.699999999999704,
+          "p90": 19.09999999999991,
+          "p95": 21.949999999999875,
+          "p99": 31.754999999999953,
+          "max": 38.09999999999991,
+          "atLeast60": 0
+        },
+        "mouth": {
+          "n": 166,
+          "mean": 7.158433734939656,
+          "min": 0.29999999999972715,
+          "median": 5.699999999999704,
+          "p90": 19.09999999999991,
+          "p95": 21.97499999999991,
+          "p99": 31.754999999999953,
+          "max": 38.09999999999991,
+          "atLeast60": 0
+        },
+        "pre": {
+          "n": 166,
+          "mean": 0.006626506024098577,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0.09999999999990905,
+          "p99": 0.10000000000013642,
+          "max": 0.10000000000013642,
+          "atLeast60": 0
+        },
+        "post": {
+          "n": 166,
+          "mean": 0.006024096385544908,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0.09999999999990905,
+          "p99": 0.100000000000216,
+          "max": 0.1000000000003638,
+          "atLeast60": 0
+        },
+        "padding": {
+          "n": 166,
+          "mean": 0.012650602409643484,
+          "min": 0,
+          "median": 0,
+          "p90": 0.09999999999990905,
+          "p95": 0.10000000000013642,
+          "p99": 0.1000000000003638,
+          "max": 0.1999999999998181,
+          "atLeast60": 0
+        },
+        "uncensoredPadding": {
+          "n": 166,
+          "mean": 0.012650602409643484,
+          "min": 0,
+          "median": 0,
+          "p90": 0.09999999999990905,
+          "p95": 0.10000000000013642,
+          "p99": 0.1000000000003638,
+          "max": 0.1999999999998181,
+          "atLeast60": 0
+        },
+        "nonFlowPerUniqueDirectedEpisode": {
+          "n": 166,
+          "mean": 0.012650602409643484,
+          "min": 0,
+          "median": 0,
+          "p90": 0.09999999999990905,
+          "p95": 0.10000000000013642,
+          "p99": 0.1000000000003638,
+          "max": 0.1999999999998181,
+          "atLeast60": 0
+        }
+      },
+      "observedSummary": {
+        "occupiedBinDifferenceSeconds": {
+          "n": 3320,
+          "mean": 0.018072289156626505,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 60,
+          "atLeast60": 1
+        },
+        "boutPhasePairs": 3320,
+        "extraSeenBoutPhasePairs": 1,
+        "alteredBoutPhasePairs": 1,
+        "eventDifference": {
+          "n": 20,
+          "mean": 0.05,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0.05000000000000071,
+          "p99": 0.8099999999999987,
+          "max": 1,
+          "atLeast60": 0
+        },
+        "flowEventSpanSeconds": {
+          "n": 198,
+          "mean": 0,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "atLeast60": 0
+        },
+        "mouthEventSpanSeconds": {
+          "n": 199,
+          "mean": 0,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "atLeast60": 0
+        }
+      },
+      "observed": [
+        {
+          "phase": 16.118999607861042,
+          "rule": "after",
+          "flowScans": 11,
+          "mouthScans": 11,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 11,
+          "mouthEvents": 11,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 4,
+            "participants": 19,
+            "gini": 0.6826758147512865,
+            "giniParticipants": 0.11483253588516747,
+            "bothRoles": 0.10526315789473684,
+            "efficiency": 0.07309941520467836
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 4,
+            "participants": 19,
+            "gini": 0.6826758147512865,
+            "giniParticipants": 0.11483253588516747,
+            "bothRoles": 0.10526315789473684,
+            "efficiency": 0.07309941520467836
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                8
+              ],
+              "mouthHistogram": [
+                8,
+                8
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                1
+              ],
+              "mouthHistogram": [
+                15,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                3
+              ],
+              "mouthHistogram": [
+                34,
+                3
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                28,
+                8,
+                1
+              ],
+              "mouthHistogram": [
+                28,
+                8,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 15.516900862567127,
+          "rule": "after",
+          "flowScans": 11,
+          "mouthScans": 11,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 11,
+          "mouthEvents": 11,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 4,
+            "participants": 18,
+            "gini": 0.7135506003430532,
+            "giniParticipants": 0.15656565656565657,
+            "bothRoles": 0.1111111111111111,
+            "efficiency": 0.08823529411764706
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 4,
+            "participants": 18,
+            "gini": 0.7135506003430532,
+            "giniParticipants": 0.15656565656565657,
+            "bothRoles": 0.1111111111111111,
+            "efficiency": 0.08823529411764706
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                9,
+                6,
+                1
+              ],
+              "mouthHistogram": [
+                9,
+                6,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                2
+              ],
+              "mouthHistogram": [
+                14,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                3
+              ],
+              "mouthHistogram": [
+                34,
+                3
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                7,
+                1
+              ],
+              "mouthHistogram": [
+                29,
+                7,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 41.99182473588735,
+          "rule": "after",
+          "flowScans": 9,
+          "mouthScans": 9,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 9,
+          "mouthEvents": 9,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 16,
+            "gini": 0.7274633123689728,
+            "giniParticipants": 0.09722222222222222,
+            "bothRoles": 0.0625,
+            "efficiency": 0.08333333333333333
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 16,
+            "gini": 0.7274633123689728,
+            "giniParticipants": 0.09722222222222222,
+            "bothRoles": 0.0625,
+            "efficiency": 0.08333333333333333
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                11,
+                4,
+                1
+              ],
+              "mouthHistogram": [
+                11,
+                4,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                3
+              ],
+              "mouthHistogram": [
+                13,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                3
+              ],
+              "mouthHistogram": [
+                34,
+                3
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                6
+              ],
+              "mouthHistogram": [
+                31,
+                6
+              ]
+            }
+          }
+        },
+        {
+          "phase": 6.5900276228785515,
+          "rule": "after",
+          "flowScans": 9,
+          "mouthScans": 9,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 9,
+          "mouthEvents": 9,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 15,
+            "gini": 0.7547169811320755,
+            "giniParticipants": 0.13333333333333333,
+            "bothRoles": 0.06666666666666667,
+            "efficiency": 0.10317460317460317
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 15,
+            "gini": 0.7547169811320755,
+            "giniParticipants": 0.13333333333333333,
+            "bothRoles": 0.06666666666666667,
+            "efficiency": 0.10317460317460317
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                9,
+                7
+              ],
+              "mouthHistogram": [
+                9,
+                7
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                2
+              ],
+              "mouthHistogram": [
+                14,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                2
+              ],
+              "mouthHistogram": [
+                35,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                3,
+                2
+              ],
+              "mouthHistogram": [
+                32,
+                3,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 25.20759680774063,
+          "rule": "after",
+          "flowScans": 10,
+          "mouthScans": 10,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 10,
+          "mouthEvents": 10,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 3,
+            "participants": 18,
+            "gini": 0.690566037735849,
+            "giniParticipants": 0.08888888888888889,
+            "bothRoles": 0.1111111111111111,
+            "efficiency": 0.0718954248366013
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 3,
+            "participants": 18,
+            "gini": 0.690566037735849,
+            "giniParticipants": 0.08888888888888889,
+            "bothRoles": 0.1111111111111111,
+            "efficiency": 0.0718954248366013
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                8
+              ],
+              "mouthHistogram": [
+                8,
+                8
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                2
+              ],
+              "mouthHistogram": [
+                14,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                2
+              ],
+              "mouthHistogram": [
+                35,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                8
+              ],
+              "mouthHistogram": [
+                29,
+                8
+              ]
+            }
+          }
+        },
+        {
+          "phase": 1.5452751098200679,
+          "rule": "after",
+          "flowScans": 10,
+          "mouthScans": 10,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 10,
+          "mouthEvents": 10,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 4,
+            "participants": 15,
+            "gini": 0.7716981132075472,
+            "giniParticipants": 0.19333333333333333,
+            "bothRoles": 0.2,
+            "efficiency": 0.1487301587301587
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 4,
+            "participants": 15,
+            "gini": 0.7716981132075472,
+            "giniParticipants": 0.19333333333333333,
+            "bothRoles": 0.2,
+            "efficiency": 0.1487301587301587
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                3
+              ],
+              "mouthHistogram": [
+                13,
+                3
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                3
+              ],
+              "mouthHistogram": [
+                13,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5,
+                1
+              ],
+              "mouthHistogram": [
+                31,
+                5,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5,
+                1
+              ],
+              "mouthHistogram": [
+                31,
+                5,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 10.208642645739019,
+          "rule": "after",
+          "flowScans": 9,
+          "mouthScans": 9,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 9,
+          "mouthEvents": 9,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 17,
+            "gini": 0.6960167714884696,
+            "giniParticipants": 0.05228758169934641,
+            "bothRoles": 0,
+            "efficiency": 0.06985294117647059
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 17,
+            "gini": 0.6960167714884696,
+            "giniParticipants": 0.05228758169934641,
+            "bothRoles": 0,
+            "efficiency": 0.06985294117647059
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                9,
+                7
+              ],
+              "mouthHistogram": [
+                9,
+                7
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                1
+              ],
+              "mouthHistogram": [
+                15,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                2
+              ],
+              "mouthHistogram": [
+                35,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                30,
+                6,
+                1
+              ],
+              "mouthHistogram": [
+                30,
+                6,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 14.489122359082103,
+          "rule": "after",
+          "flowScans": 12,
+          "mouthScans": 12,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 12,
+          "mouthEvents": 12,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 4,
+            "participants": 19,
+            "gini": 0.6965408805031447,
+            "giniParticipants": 0.15350877192982457,
+            "bothRoles": 0.05263157894736842,
+            "efficiency": 0.08674463937621833
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 4,
+            "participants": 19,
+            "gini": 0.6965408805031447,
+            "giniParticipants": 0.15350877192982457,
+            "bothRoles": 0.05263157894736842,
+            "efficiency": 0.08674463937621833
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                6,
+                2
+              ],
+              "mouthHistogram": [
+                8,
+                6,
+                2
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                2
+              ],
+              "mouthHistogram": [
+                14,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                2
+              ],
+              "mouthHistogram": [
+                35,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                6,
+                2
+              ],
+              "mouthHistogram": [
+                29,
+                6,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 18.52106172591448,
+          "rule": "after",
+          "flowScans": 13,
+          "mouthScans": 13,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 13,
+          "mouthEvents": 13,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 13,
+            "t50": 3,
+            "participants": 23,
+            "gini": 0.6095791001451378,
+            "giniParticipants": 0.10033444816053512,
+            "bothRoles": 0.043478260869565216,
+            "efficiency": 0.05731225296442688
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 13,
+            "t50": 3,
+            "participants": 23,
+            "gini": 0.6095791001451378,
+            "giniParticipants": 0.10033444816053512,
+            "bothRoles": 0.043478260869565216,
+            "efficiency": 0.05731225296442688
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                5,
+                11
+              ],
+              "mouthHistogram": [
+                5,
+                11
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                1
+              ],
+              "mouthHistogram": [
+                15,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                2
+              ],
+              "mouthHistogram": [
+                35,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                27,
+                8,
+                2
+              ],
+              "mouthHistogram": [
+                27,
+                8,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 39.45009117946029,
+          "rule": "after",
+          "flowScans": 12,
+          "mouthScans": 12,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 12,
+          "mouthEvents": 12,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 3,
+            "participants": 19,
+            "gini": 0.6965408805031447,
+            "giniParticipants": 0.15350877192982457,
+            "bothRoles": 0.15789473684210525,
+            "efficiency": 0.09015594541910331
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 12,
+            "t50": 3,
+            "participants": 19,
+            "gini": 0.6965408805031447,
+            "giniParticipants": 0.15350877192982457,
+            "bothRoles": 0.15789473684210525,
+            "efficiency": 0.09015594541910331
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                9,
+                6,
+                1
+              ],
+              "mouthHistogram": [
+                9,
+                6,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                3
+              ],
+              "mouthHistogram": [
+                13,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                33,
+                4
+              ],
+              "mouthHistogram": [
+                33,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                7,
+                1
+              ],
+              "mouthHistogram": [
+                29,
+                7,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 7.470321818254888,
+          "rule": "after",
+          "flowScans": 10,
+          "mouthScans": 10,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 10,
+          "mouthEvents": 10,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 4,
+            "participants": 17,
+            "gini": 0.7188679245283018,
+            "giniParticipants": 0.12352941176470589,
+            "bothRoles": 0.058823529411764705,
+            "efficiency": 0.08700980392156862
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 4,
+            "participants": 17,
+            "gini": 0.7188679245283018,
+            "giniParticipants": 0.12352941176470589,
+            "bothRoles": 0.058823529411764705,
+            "efficiency": 0.08700980392156862
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                8
+              ],
+              "mouthHistogram": [
+                8,
+                8
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                2
+              ],
+              "mouthHistogram": [
+                14,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                2
+              ],
+              "mouthHistogram": [
+                35,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                4,
+                2
+              ],
+              "mouthHistogram": [
+                31,
+                4,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 50.06761101074517,
+          "rule": "after",
+          "flowScans": 7,
+          "mouthScans": 8,
+          "addedScans": 1,
+          "lostScans": 0,
+          "flowEvents": 7,
+          "mouthEvents": 8,
+          "eventDifference": 1,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 7,
+            "t50": 3,
+            "participants": 11,
+            "gini": 0.8247978436657682,
+            "giniParticipants": 0.15584415584415584,
+            "bothRoles": 0.18181818181818182,
+            "efficiency": 0.16060606060606059
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 13,
+            "gini": 0.7900943396226415,
+            "giniParticipants": 0.14423076923076922,
+            "bothRoles": 0.15384615384615385,
+            "efficiency": 0.12606837606837606
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                4
+              ],
+              "mouthHistogram": [
+                12,
+                4
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16
+              ],
+              "mouthHistogram": [
+                16
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 1,
+              "maxAbsChange": 1,
+              "flowHistogram": [
+                34,
+                3
+              ],
+              "mouthHistogram": [
+                33,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 1,
+              "maxAbsChange": 1,
+              "flowHistogram": [
+                31,
+                5,
+                1
+              ],
+              "mouthHistogram": [
+                30,
+                6,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 35.58020874392241,
+          "rule": "after",
+          "flowScans": 11,
+          "mouthScans": 11,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 11,
+          "mouthEvents": 11,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 3,
+            "participants": 18,
+            "gini": 0.7084048027444254,
+            "giniParticipants": 0.1414141414141414,
+            "bothRoles": 0.2222222222222222,
+            "efficiency": 0.0718954248366013
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 3,
+            "participants": 18,
+            "gini": 0.7084048027444254,
+            "giniParticipants": 0.1414141414141414,
+            "bothRoles": 0.2222222222222222,
+            "efficiency": 0.0718954248366013
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                11,
+                5
+              ],
+              "mouthHistogram": [
+                11,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                3
+              ],
+              "mouthHistogram": [
+                13,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                6
+              ],
+              "mouthHistogram": [
+                31,
+                6
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                8
+              ],
+              "mouthHistogram": [
+                29,
+                8
+              ]
+            }
+          }
+        },
+        {
+          "phase": 16.820516609586775,
+          "rule": "after",
+          "flowScans": 10,
+          "mouthScans": 10,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 10,
+          "mouthEvents": 10,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 4,
+            "participants": 17,
+            "gini": 0.7188679245283018,
+            "giniParticipants": 0.12352941176470589,
+            "bothRoles": 0.11764705882352941,
+            "efficiency": 0.08455882352941177
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 4,
+            "participants": 17,
+            "gini": 0.7188679245283018,
+            "giniParticipants": 0.12352941176470589,
+            "bothRoles": 0.11764705882352941,
+            "efficiency": 0.08455882352941177
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                8
+              ],
+              "mouthHistogram": [
+                8,
+                8
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                1
+              ],
+              "mouthHistogram": [
+                15,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                2
+              ],
+              "mouthHistogram": [
+                35,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                7,
+                1
+              ],
+              "mouthHistogram": [
+                29,
+                7,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 53.492729659192264,
+          "rule": "after",
+          "flowScans": 10,
+          "mouthScans": 10,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 10,
+          "mouthEvents": 10,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 3,
+            "participants": 17,
+            "gini": 0.7188679245283018,
+            "giniParticipants": 0.12352941176470589,
+            "bothRoles": 0.058823529411764705,
+            "efficiency": 0.08455882352941177
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 3,
+            "participants": 17,
+            "gini": 0.7188679245283018,
+            "giniParticipants": 0.12352941176470589,
+            "bothRoles": 0.058823529411764705,
+            "efficiency": 0.08455882352941177
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                11,
+                5
+              ],
+              "mouthHistogram": [
+                11,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16
+              ],
+              "mouthHistogram": [
+                16
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                5
+              ],
+              "mouthHistogram": [
+                32,
+                5
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                6,
+                2
+              ],
+              "mouthHistogram": [
+                29,
+                6,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 59.260556660592556,
+          "rule": "after",
+          "flowScans": 6,
+          "mouthScans": 6,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 6,
+          "mouthEvents": 6,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 6,
+            "t50": 3,
+            "participants": 9,
+            "gini": 0.8647798742138365,
+            "giniParticipants": 0.2037037037037037,
+            "bothRoles": 0.1111111111111111,
+            "efficiency": 0.24074074074074073
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 6,
+            "t50": 3,
+            "participants": 9,
+            "gini": 0.8647798742138365,
+            "giniParticipants": 0.2037037037037037,
+            "bothRoles": 0.1111111111111111,
+            "efficiency": 0.24074074074074073
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                3
+              ],
+              "mouthHistogram": [
+                13,
+                3
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16
+              ],
+              "mouthHistogram": [
+                16
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                3
+              ],
+              "mouthHistogram": [
+                34,
+                3
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                33,
+                3,
+                0,
+                1
+              ],
+              "mouthHistogram": [
+                33,
+                3,
+                0,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 9.492094027809799,
+          "rule": "after",
+          "flowScans": 8,
+          "mouthScans": 8,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 8,
+          "mouthEvents": 8,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 4,
+            "participants": 15,
+            "gini": 0.7334905660377359,
+            "giniParticipants": 0.058333333333333334,
+            "bothRoles": 0,
+            "efficiency": 0.08095238095238096
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 4,
+            "participants": 15,
+            "gini": 0.7334905660377359,
+            "giniParticipants": 0.058333333333333334,
+            "bothRoles": 0,
+            "efficiency": 0.08095238095238096
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                9,
+                7
+              ],
+              "mouthHistogram": [
+                9,
+                7
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                1
+              ],
+              "mouthHistogram": [
+                15,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                36,
+                1
+              ],
+              "mouthHistogram": [
+                36,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5,
+                1
+              ],
+              "mouthHistogram": [
+                31,
+                5,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 45.81238662824035,
+          "rule": "after",
+          "flowScans": 8,
+          "mouthScans": 8,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 8,
+          "mouthEvents": 8,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 13,
+            "gini": 0.7900943396226415,
+            "giniParticipants": 0.14423076923076922,
+            "bothRoles": 0.07692307692307693,
+            "efficiency": 0.12179487179487179
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 13,
+            "gini": 0.7900943396226415,
+            "giniParticipants": 0.14423076923076922,
+            "bothRoles": 0.07692307692307693,
+            "efficiency": 0.12179487179487179
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                3,
+                1
+              ],
+              "mouthHistogram": [
+                12,
+                3,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                2
+              ],
+              "mouthHistogram": [
+                14,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                3
+              ],
+              "mouthHistogram": [
+                34,
+                3
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4,
+                1
+              ],
+              "mouthHistogram": [
+                32,
+                4,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 12.298056869767606,
+          "rule": "after",
+          "flowScans": 11,
+          "mouthScans": 11,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 11,
+          "mouthEvents": 11,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 4,
+            "participants": 20,
+            "gini": 0.6535162950257289,
+            "giniParticipants": 0.08181818181818182,
+            "bothRoles": 0,
+            "efficiency": 0.06315789473684211
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 4,
+            "participants": 20,
+            "gini": 0.6535162950257289,
+            "giniParticipants": 0.08181818181818182,
+            "bothRoles": 0,
+            "efficiency": 0.06315789473684211
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                8
+              ],
+              "mouthHistogram": [
+                8,
+                8
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                1
+              ],
+              "mouthHistogram": [
+                15,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                3
+              ],
+              "mouthHistogram": [
+                34,
+                3
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                6,
+                2
+              ],
+              "mouthHistogram": [
+                29,
+                6,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 22.55155960097909,
+          "rule": "after",
+          "flowScans": 11,
+          "mouthScans": 11,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 11,
+          "mouthEvents": 11,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 3,
+            "participants": 18,
+            "gini": 0.7084048027444254,
+            "giniParticipants": 0.1414141414141414,
+            "bothRoles": 0.05555555555555555,
+            "efficiency": 0.08932461873638343
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 11,
+            "t50": 3,
+            "participants": 18,
+            "gini": 0.7084048027444254,
+            "giniParticipants": 0.1414141414141414,
+            "bothRoles": 0.05555555555555555,
+            "efficiency": 0.08932461873638343
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                8,
+                6,
+                2
+              ],
+              "mouthHistogram": [
+                8,
+                6,
+                2
+              ]
+            },
+            "fRecv": {
+              "n": 16,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                2
+              ],
+              "mouthHistogram": [
+                14,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                36,
+                1
+              ],
+              "mouthHistogram": [
+                36,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 37,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                29,
+                7,
+                1
+              ],
+              "mouthHistogram": [
+                29,
+                7,
+                1
+              ]
+            }
+          }
+        }
+      ],
+      "unmatched": [],
+      "reversing": [],
+      "incomplete": [],
+      "details": "out/colony-1.json",
+      "detailsSha256": "4599aeba60a48c956114970e50b979775dc121238bfd63fd3c0bd0237cbcac92"
+    },
+    {
+      "provenance": {
+        "simHash": "eb48ce968127e6a8",
+        "commit": "f9ad78fb7af8b397eb2bb8a4040f70d429cf98e2",
+        "dirty": true,
+        "node": "v22.22.1",
+        "argv": [
+          "--index",
+          "2"
+        ],
+        "date": "2026-11-02T03:25:45.376Z",
+        "item": "B011-e6-bout-end-vs-observed-contact",
+        "depends": {
+          "backlog/B011-e6-bout-end-vs-observed-contact/analyse.ts": "4cc8e23b8cc9fbf7",
+          "backlog/B011-e6-bout-end-vs-observed-contact/run.ts": "3be99802639715a7",
+          "scripts/lib.ts": "788b131c475fc31d",
+          "scripts/simHash.ts": "7b0b071a6d80e387",
+          "docs/research/bles-tec-spec.md": "1e02f08c018b3ebe"
+        }
+      },
+      "inputs": {
+        "parameters": {
+          "walk": {
+            "speed": 55.41107606391765,
+            "speedSdBetween": 0.2811567723111964,
+            "speedSdWithin": 0.3587457208467387,
+            "speedTau": 1.2434674811191244,
+            "meanFreePath": 10.079370624664397,
+            "g": 0.6037790001800335,
+            "jitter": 0.0014251144941529975,
+            "jitterTime": 0,
+            "turnRateTime": 0,
+            "turnDip": 0,
+            "turnDipTau": 0.25,
+            "stopTurnG": 1,
+            "stopHomePull": 0,
+            "pauseRate": 0.052917957368167186,
+            "pauseMean": 0.700448109160251,
+            "slopeSpeedK": 0.40753600717295324,
+            "slopePauseK": 1.0852347821015746,
+            "slopeJitterK": 0.9288189507766671,
+            "slopeSpeedSdK": 0.9464482809941557,
+            "geoRunGain": 0.03294786488082038,
+            "geoHeadingPull": 0.10184865039410958,
+            "geoTorque": 0,
+            "geoPolar": 0,
+            "slopeSpeedKSd": 0,
+            "homeRunBias": 0.5670750863131675,
+            "homeHeadingPull": 0.1272881357687236,
+            "homeRange": 76.51631881258147
+          },
+          "forager": {
+            "desiredFed": 0.9027526449702385,
+            "desiredHungry": 1.28658806559568,
+            "hungerScale": 0.3,
+            "desiredSd": 0.047716933971332615,
+            "stopHazard": 0.1617035092104739,
+            "stopEta": 4.3,
+            "stopPerVolume": 0,
+            "satiationOnTime": 0,
+            "nominalIntake": 0.0095,
+            "emptyPatience": 3,
+            "neverLayFraction": 0.07694308366293515,
+            "unsatisfiedLayProb": 0.2825686301412362,
+            "layIntensity": 0.13,
+            "layIntensitySd": 0.08,
+            "gasterBout": 0.25,
+            "arsMean": 184.81599119863068,
+            "arsRunScale": 0.4,
+            "homeGain": 1,
+            "homeRunScale": 3,
+            "compassBias": 0.08,
+            "searchMode": 1,
+            "arsMeanLay": 80,
+            "layRule": 0,
+            "layKappa": 10,
+            "layRatio50": 0.7,
+            "loadSlowdown": 0
+          },
+          "phys": {
+            "intakeRate": 0.009661243120898107,
+            "intakeSd": 0.07640894285550197,
+            "metabolic": 0.0012,
+            "activeFactor": 3,
+            "cropAbsorption": 0,
+            "cropWaterRate": 0,
+            "permeability": 20,
+            "surfaceArea": 16,
+            "depositPerMm": 1,
+            "compassNoise": 0.0005,
+            "boutFastUl": 0.006984175416892337,
+            "boutFastRate": 0.05
+          },
+          "morph": {
+            "len": 4.1,
+            "mass": 2,
+            "cropCapacity": 2,
+            "antennaReach": 2.6,
+            "cropFullFrac": 0.98,
+            "reserveDays": 14
+          },
+          "nest": {
+            "restToActive": 0.008333333333333333,
+            "activeToRest": 0.005555555555555556,
+            "giveFrac": 0.1,
+            "thirstFrac": 0,
+            "receiveReserve": 0.8,
+            "shareEnd": 0.0195,
+            "stallTime": 3,
+            "partRefractory": 5,
+            "shareRate": 0.016666666666666666,
+            "leaveRate": 0.0033333333333333335,
+            "leaveCropFrac": 0.05,
+            "forageDriveSd": 1,
+            "leaveGain": 1.5,
+            "returnRate": 0.016666666666666666,
+            "giveUpTime": 120,
+            "reserveSd": 0.5,
+            "nestSpeedFactor": 1,
+            "nestPauseFactor": 1,
+            "nestSpeedSdFactor": 1,
+            "nestSpeedTauFactor": 1,
+            "encounterStop": 0,
+            "encounterMin": 0.2,
+            "encounterGap": 0,
+            "restCrowdExp": 0,
+            "restShape": 0,
+            "restDeepFrac": 0,
+            "restDeepRatio": 1,
+            "walkOnSd": 0,
+            "driveSd": 0,
+            "driveTau": 60,
+            "wallRule": "follow",
+            "foragerFrac": 0,
+            "outRate": 0
+          }
+        },
+        "options": {
+          "seed": 1568448732,
+          "ants": 53,
+          "dt": 0.1,
+          "minutes": 91.08333333333333,
+          "foodMinute": 30,
+          "starvationDays": 4,
+          "frameEvery": 0
+        },
+        "index": 2,
+        "phases": [
+          53.503927630372345,
+          34.52936353627592,
+          38.19660714827478,
+          5.108180441893637,
+          21.59814657177776,
+          37.28740372695029,
+          5.743792760185897,
+          4.720869390293956,
+          31.62749325390905,
+          58.06170464493334,
+          22.876111795194447,
+          56.677379719913006,
+          1.509610628709197,
+          5.1579989260062575,
+          52.95542978681624,
+          54.14060838986188,
+          10.126843987964094,
+          9.162298268638551,
+          43.55239728000015,
+          33.35853099357337
+        ],
+        "observer": {
+          "period": 60,
+          "minContact": 5,
+          "rule": "after",
+          "scans": 61,
+          "foodMinute": 30
+        },
+        "geometry": "post-step in-nest mouthContact, uninterrupted, sampled at dt; no gap merging",
+        "direction": "only one flow direction in the whole mouth episode; no-flow, reversing or incomplete episodes excluded and counted",
+        "duration": "raw mouth episode minus flow bout; observed occupied scan bins = scan count * 60 s; event span = (last - first scan minute) * 60 s"
+      },
+      "runtime": {
+        "simulationSeconds": 42.16404498,
+        "totalSeconds": 42.259448422
+      },
+      "observationChecks": {
+        "unmatchedBouts": 0,
+        "incompleteEpisodes": 0,
+        "reversingEpisodes": 0,
+        "lostScans": 0
+      },
+      "recorderIdentity": null,
+      "counts": {
+        "flowBouts": 186,
+        "matchedBouts": 186,
+        "uniqueMatchedMouthEpisodes": 186,
+        "directionIdentifiableEpisodes": 186,
+        "noFlowMouthEpisodes": 29220,
+        "uncensoredBouts": 186,
+        "leftCensoredBouts": 0,
+        "rightCensoredBouts": 0
+      },
+      "rawSeconds": {
+        "flow": {
+          "n": 186,
+          "mean": 5.605376344085929,
+          "min": 0.1999999999998181,
+          "median": 2.999999999999659,
+          "p90": 14.750000000000114,
+          "p95": 19.67499999999984,
+          "p99": 32.39999999999992,
+          "max": 38.5,
+          "atLeast60": 0
+        },
+        "mouth": {
+          "n": 186,
+          "mean": 5.6182795698923815,
+          "min": 0.1999999999998181,
+          "median": 2.999999999999659,
+          "p90": 14.800000000000068,
+          "p95": 19.67499999999984,
+          "p99": 32.39999999999992,
+          "max": 38.5,
+          "atLeast60": 0
+        },
+        "pre": {
+          "n": 186,
+          "mean": 0.006989247311828935,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0.09999999999990905,
+          "p99": 0.10000000000017054,
+          "max": 0.1000000000003638,
+          "atLeast60": 0
+        },
+        "post": {
+          "n": 186,
+          "mean": 0.005913978494623167,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0.09999999999990905,
+          "p99": 0.09999999999997726,
+          "max": 0.1000000000003638,
+          "atLeast60": 0
+        },
+        "padding": {
+          "n": 186,
+          "mean": 0.012903225806452102,
+          "min": 0,
+          "median": 0,
+          "p90": 0.09999999999990905,
+          "p95": 0.09999999999990905,
+          "p99": 0.1000000000003638,
+          "max": 0.1999999999998181,
+          "atLeast60": 0
+        },
+        "uncensoredPadding": {
+          "n": 186,
+          "mean": 0.012903225806452102,
+          "min": 0,
+          "median": 0,
+          "p90": 0.09999999999990905,
+          "p95": 0.09999999999990905,
+          "p99": 0.1000000000003638,
+          "max": 0.1999999999998181,
+          "atLeast60": 0
+        },
+        "nonFlowPerUniqueDirectedEpisode": {
+          "n": 186,
+          "mean": 0.012903225806452102,
+          "min": 0,
+          "median": 0,
+          "p90": 0.09999999999990905,
+          "p95": 0.09999999999990905,
+          "p99": 0.1000000000003638,
+          "max": 0.1999999999998181,
+          "atLeast60": 0
+        }
+      },
+      "observedSummary": {
+        "occupiedBinDifferenceSeconds": {
+          "n": 3720,
+          "mean": 0,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "atLeast60": 0
+        },
+        "boutPhasePairs": 3720,
+        "extraSeenBoutPhasePairs": 0,
+        "alteredBoutPhasePairs": 0,
+        "eventDifference": {
+          "n": 20,
+          "mean": 0,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "atLeast60": 0
+        },
+        "flowEventSpanSeconds": {
+          "n": 169,
+          "mean": 0,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "atLeast60": 0
+        },
+        "mouthEventSpanSeconds": {
+          "n": 169,
+          "mean": 0,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "atLeast60": 0
+        }
+      },
+      "observed": [
+        {
+          "phase": 53.503927630372345,
+          "rule": "after",
+          "flowScans": 13,
+          "mouthScans": 13,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 13,
+          "mouthEvents": 13,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 13,
+            "t50": 3,
+            "participants": 20,
+            "gini": 0.683599419448476,
+            "giniParticipants": 0.16153846153846155,
+            "bothRoles": 0.15,
+            "efficiency": 0.08771929824561404
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 13,
+            "t50": 3,
+            "participants": 20,
+            "gini": 0.683599419448476,
+            "giniParticipants": 0.16153846153846155,
+            "bothRoles": 0.15,
+            "efficiency": 0.08771929824561404
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                7,
+                9,
+                1
+              ],
+              "mouthHistogram": [
+                7,
+                9,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                2
+              ],
+              "mouthHistogram": [
+                34,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                27,
+                7,
+                2
+              ],
+              "mouthHistogram": [
+                27,
+                7,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 34.52936353627592,
+          "rule": "after",
+          "flowScans": 8,
+          "mouthScans": 8,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 8,
+          "mouthEvents": 8,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 13,
+            "gini": 0.7948113207547169,
+            "giniParticipants": 0.16346153846153846,
+            "bothRoles": 0.15384615384615385,
+            "efficiency": 0.13675213675213674
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 13,
+            "gini": 0.7948113207547169,
+            "giniParticipants": 0.16346153846153846,
+            "bothRoles": 0.15384615384615385,
+            "efficiency": 0.13675213675213674
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                4
+              ],
+              "mouthHistogram": [
+                13,
+                4
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                4,
+                1
+              ],
+              "mouthHistogram": [
+                31,
+                4,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 38.19660714827478,
+          "rule": "after",
+          "flowScans": 5,
+          "mouthScans": 5,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 5,
+          "mouthEvents": 5,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 5,
+            "t50": 3,
+            "participants": 8,
+            "gini": 0.8716981132075472,
+            "giniParticipants": 0.15,
+            "bothRoles": 0.125,
+            "efficiency": 0.2261904761904762
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 5,
+            "t50": 3,
+            "participants": 8,
+            "gini": 0.8716981132075472,
+            "giniParticipants": 0.15,
+            "bothRoles": 0.125,
+            "efficiency": 0.2261904761904762
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16,
+                1
+              ],
+              "mouthHistogram": [
+                16,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                2
+              ],
+              "mouthHistogram": [
+                34,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                33,
+                2,
+                1
+              ],
+              "mouthHistogram": [
+                33,
+                2,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 5.108180441893637,
+          "rule": "after",
+          "flowScans": 8,
+          "mouthScans": 8,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 8,
+          "mouthEvents": 8,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 4,
+            "participants": 14,
+            "gini": 0.7641509433962265,
+            "giniParticipants": 0.10714285714285714,
+            "bothRoles": 0.14285714285714285,
+            "efficiency": 0.10256410256410255
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 4,
+            "participants": 14,
+            "gini": 0.7641509433962265,
+            "giniParticipants": 0.10714285714285714,
+            "bothRoles": 0.14285714285714285,
+            "efficiency": 0.10256410256410255
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                4
+              ],
+              "mouthHistogram": [
+                13,
+                4
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5
+              ],
+              "mouthHistogram": [
+                31,
+                5
+              ]
+            }
+          }
+        },
+        {
+          "phase": 21.59814657177776,
+          "rule": "after",
+          "flowScans": 6,
+          "mouthScans": 6,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 6,
+          "mouthEvents": 6,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 6,
+            "t50": 3,
+            "participants": 10,
+            "gini": 0.8364779874213837,
+            "giniParticipants": 0.13333333333333333,
+            "bothRoles": 0,
+            "efficiency": 0.15555555555555556
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 6,
+            "t50": 3,
+            "participants": 10,
+            "gini": 0.8364779874213837,
+            "giniParticipants": 0.13333333333333333,
+            "bothRoles": 0,
+            "efficiency": 0.15555555555555556
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                4
+              ],
+              "mouthHistogram": [
+                13,
+                4
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                17
+              ],
+              "mouthHistogram": [
+                17
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                2
+              ],
+              "mouthHistogram": [
+                34,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                2,
+                2
+              ],
+              "mouthHistogram": [
+                32,
+                2,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 37.28740372695029,
+          "rule": "after",
+          "flowScans": 6,
+          "mouthScans": 6,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 6,
+          "mouthEvents": 6,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 6,
+            "t50": 3,
+            "participants": 10,
+            "gini": 0.8364779874213837,
+            "giniParticipants": 0.13333333333333333,
+            "bothRoles": 0.1,
+            "efficiency": 0.16296296296296295
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 6,
+            "t50": 3,
+            "participants": 10,
+            "gini": 0.8364779874213837,
+            "giniParticipants": 0.13333333333333333,
+            "bothRoles": 0.1,
+            "efficiency": 0.16296296296296295
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                4
+              ],
+              "mouthHistogram": [
+                13,
+                4
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                2
+              ],
+              "mouthHistogram": [
+                34,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                33,
+                2,
+                1
+              ],
+              "mouthHistogram": [
+                33,
+                2,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 5.743792760185897,
+          "rule": "after",
+          "flowScans": 7,
+          "mouthScans": 7,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 7,
+          "mouthEvents": 7,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 7,
+            "t50": 4,
+            "participants": 12,
+            "gini": 0.8005390835579514,
+            "giniParticipants": 0.11904761904761904,
+            "bothRoles": 0.16666666666666666,
+            "efficiency": 0.12626262626262624
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 7,
+            "t50": 4,
+            "participants": 12,
+            "gini": 0.8005390835579514,
+            "giniParticipants": 0.11904761904761904,
+            "bothRoles": 0.16666666666666666,
+            "efficiency": 0.12626262626262624
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5
+              ],
+              "mouthHistogram": [
+                31,
+                5
+              ]
+            }
+          }
+        },
+        {
+          "phase": 4.720869390293956,
+          "rule": "after",
+          "flowScans": 8,
+          "mouthScans": 8,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 8,
+          "mouthEvents": 8,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 4,
+            "participants": 14,
+            "gini": 0.7641509433962265,
+            "giniParticipants": 0.10714285714285714,
+            "bothRoles": 0.14285714285714285,
+            "efficiency": 0.10256410256410255
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 4,
+            "participants": 14,
+            "gini": 0.7641509433962265,
+            "giniParticipants": 0.10714285714285714,
+            "bothRoles": 0.14285714285714285,
+            "efficiency": 0.10256410256410255
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                4
+              ],
+              "mouthHistogram": [
+                13,
+                4
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5
+              ],
+              "mouthHistogram": [
+                31,
+                5
+              ]
+            }
+          }
+        },
+        {
+          "phase": 31.62749325390905,
+          "rule": "after",
+          "flowScans": 9,
+          "mouthScans": 9,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 9,
+          "mouthEvents": 9,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 17,
+            "gini": 0.6960167714884696,
+            "giniParticipants": 0.05228758169934641,
+            "bothRoles": 0.058823529411764705,
+            "efficiency": 0.06985294117647059
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 17,
+            "gini": 0.6960167714884696,
+            "giniParticipants": 0.05228758169934641,
+            "bothRoles": 0.058823529411764705,
+            "efficiency": 0.06985294117647059
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                5
+              ],
+              "mouthHistogram": [
+                12,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                30,
+                6
+              ],
+              "mouthHistogram": [
+                30,
+                6
+              ]
+            }
+          }
+        },
+        {
+          "phase": 58.06170464493334,
+          "rule": "after",
+          "flowScans": 8,
+          "mouthScans": 8,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 8,
+          "mouthEvents": 8,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 13,
+            "gini": 0.7900943396226415,
+            "giniParticipants": 0.14423076923076922,
+            "bothRoles": 0.15384615384615385,
+            "efficiency": 0.12606837606837606
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 13,
+            "gini": 0.7900943396226415,
+            "giniParticipants": 0.14423076923076922,
+            "bothRoles": 0.15384615384615385,
+            "efficiency": 0.12606837606837606
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                11,
+                5,
+                1
+              ],
+              "mouthHistogram": [
+                11,
+                5,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                4
+              ],
+              "mouthHistogram": [
+                13,
+                4
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                1
+              ],
+              "mouthHistogram": [
+                35,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            }
+          }
+        },
+        {
+          "phase": 22.876111795194447,
+          "rule": "after",
+          "flowScans": 6,
+          "mouthScans": 6,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 6,
+          "mouthEvents": 6,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 6,
+            "t50": 3,
+            "participants": 10,
+            "gini": 0.8364779874213837,
+            "giniParticipants": 0.13333333333333333,
+            "bothRoles": 0,
+            "efficiency": 0.15555555555555556
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 6,
+            "t50": 3,
+            "participants": 10,
+            "gini": 0.8364779874213837,
+            "giniParticipants": 0.13333333333333333,
+            "bothRoles": 0,
+            "efficiency": 0.15555555555555556
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                4
+              ],
+              "mouthHistogram": [
+                13,
+                4
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                17
+              ],
+              "mouthHistogram": [
+                17
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                2
+              ],
+              "mouthHistogram": [
+                34,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                2,
+                2
+              ],
+              "mouthHistogram": [
+                32,
+                2,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 56.677379719913006,
+          "rule": "after",
+          "flowScans": 8,
+          "mouthScans": 8,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 8,
+          "mouthEvents": 8,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 14,
+            "gini": 0.7641509433962265,
+            "giniParticipants": 0.10714285714285714,
+            "bothRoles": 0.07142857142857142,
+            "efficiency": 0.0989010989010989
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 3,
+            "participants": 14,
+            "gini": 0.7641509433962265,
+            "giniParticipants": 0.10714285714285714,
+            "bothRoles": 0.07142857142857142,
+            "efficiency": 0.0989010989010989
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                11,
+                5,
+                1
+              ],
+              "mouthHistogram": [
+                11,
+                5,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                1
+              ],
+              "mouthHistogram": [
+                35,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5
+              ],
+              "mouthHistogram": [
+                31,
+                5
+              ]
+            }
+          }
+        },
+        {
+          "phase": 1.509610628709197,
+          "rule": "after",
+          "flowScans": 6,
+          "mouthScans": 6,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 6,
+          "mouthEvents": 6,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 6,
+            "t50": 4,
+            "participants": 10,
+            "gini": 0.839622641509434,
+            "giniParticipants": 0.15,
+            "bothRoles": 0.1,
+            "efficiency": 0.16666666666666666
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 6,
+            "t50": 4,
+            "participants": 10,
+            "gini": 0.839622641509434,
+            "giniParticipants": 0.15,
+            "bothRoles": 0.1,
+            "efficiency": 0.16666666666666666
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                2,
+                1
+              ],
+              "mouthHistogram": [
+                14,
+                2,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                2
+              ],
+              "mouthHistogram": [
+                34,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            }
+          }
+        },
+        {
+          "phase": 5.1579989260062575,
+          "rule": "after",
+          "flowScans": 8,
+          "mouthScans": 8,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 8,
+          "mouthEvents": 8,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 4,
+            "participants": 14,
+            "gini": 0.7641509433962265,
+            "giniParticipants": 0.10714285714285714,
+            "bothRoles": 0.14285714285714285,
+            "efficiency": 0.10256410256410255
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 8,
+            "t50": 4,
+            "participants": 14,
+            "gini": 0.7641509433962265,
+            "giniParticipants": 0.10714285714285714,
+            "bothRoles": 0.14285714285714285,
+            "efficiency": 0.10256410256410255
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                4
+              ],
+              "mouthHistogram": [
+                13,
+                4
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5
+              ],
+              "mouthHistogram": [
+                31,
+                5
+              ]
+            }
+          }
+        },
+        {
+          "phase": 52.95542978681624,
+          "rule": "after",
+          "flowScans": 14,
+          "mouthScans": 14,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 14,
+          "mouthEvents": 14,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 14,
+            "t50": 3,
+            "participants": 20,
+            "gini": 0.6873315363881402,
+            "giniParticipants": 0.17142857142857143,
+            "bothRoles": 0.2,
+            "efficiency": 0.1030701754385965
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 14,
+            "t50": 3,
+            "participants": 20,
+            "gini": 0.6873315363881402,
+            "giniParticipants": 0.17142857142857143,
+            "bothRoles": 0.2,
+            "efficiency": 0.1030701754385965
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                7,
+                8,
+                2
+              ],
+              "mouthHistogram": [
+                7,
+                8,
+                2
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                2
+              ],
+              "mouthHistogram": [
+                34,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                27,
+                7,
+                2
+              ],
+              "mouthHistogram": [
+                27,
+                7,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 54.14060838986188,
+          "rule": "after",
+          "flowScans": 13,
+          "mouthScans": 13,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 13,
+          "mouthEvents": 13,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 13,
+            "t50": 3,
+            "participants": 20,
+            "gini": 0.683599419448476,
+            "giniParticipants": 0.16153846153846155,
+            "bothRoles": 0.15,
+            "efficiency": 0.08771929824561404
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 13,
+            "t50": 3,
+            "participants": 20,
+            "gini": 0.683599419448476,
+            "giniParticipants": 0.16153846153846155,
+            "bothRoles": 0.15,
+            "efficiency": 0.08771929824561404
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                7,
+                9,
+                1
+              ],
+              "mouthHistogram": [
+                7,
+                9,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                15,
+                2
+              ],
+              "mouthHistogram": [
+                15,
+                2
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                34,
+                2
+              ],
+              "mouthHistogram": [
+                34,
+                2
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                27,
+                7,
+                2
+              ],
+              "mouthHistogram": [
+                27,
+                7,
+                2
+              ]
+            }
+          }
+        },
+        {
+          "phase": 10.126843987964094,
+          "rule": "after",
+          "flowScans": 10,
+          "mouthScans": 10,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 10,
+          "mouthEvents": 10,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 4,
+            "participants": 18,
+            "gini": 0.690566037735849,
+            "giniParticipants": 0.08888888888888889,
+            "bothRoles": 0,
+            "efficiency": 0.07407407407407408
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 4,
+            "participants": 18,
+            "gini": 0.690566037735849,
+            "giniParticipants": 0.08888888888888889,
+            "bothRoles": 0,
+            "efficiency": 0.07407407407407408
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                3,
+                1
+              ],
+              "mouthHistogram": [
+                13,
+                3,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                17
+              ],
+              "mouthHistogram": [
+                17
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5
+              ],
+              "mouthHistogram": [
+                31,
+                5
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                27,
+                8,
+                1
+              ],
+              "mouthHistogram": [
+                27,
+                8,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 9.162298268638551,
+          "rule": "after",
+          "flowScans": 10,
+          "mouthScans": 10,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 10,
+          "mouthEvents": 10,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 4,
+            "participants": 18,
+            "gini": 0.690566037735849,
+            "giniParticipants": 0.08888888888888889,
+            "bothRoles": 0,
+            "efficiency": 0.07407407407407408
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 10,
+            "t50": 4,
+            "participants": 18,
+            "gini": 0.690566037735849,
+            "giniParticipants": 0.08888888888888889,
+            "bothRoles": 0,
+            "efficiency": 0.07407407407407408
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                13,
+                3,
+                1
+              ],
+              "mouthHistogram": [
+                13,
+                3,
+                1
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                17
+              ],
+              "mouthHistogram": [
+                17
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                31,
+                5
+              ],
+              "mouthHistogram": [
+                31,
+                5
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                27,
+                8,
+                1
+              ],
+              "mouthHistogram": [
+                27,
+                8,
+                1
+              ]
+            }
+          }
+        },
+        {
+          "phase": 43.55239728000015,
+          "rule": "after",
+          "flowScans": 7,
+          "mouthScans": 7,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 7,
+          "mouthEvents": 7,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 7,
+            "t50": 3,
+            "participants": 14,
+            "gini": 0.7358490566037735,
+            "giniParticipants": 0,
+            "bothRoles": 0,
+            "efficiency": 0.07692307692307693
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 7,
+            "t50": 3,
+            "participants": 14,
+            "gini": 0.7358490566037735,
+            "giniParticipants": 0,
+            "bothRoles": 0,
+            "efficiency": 0.07692307692307693
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                11,
+                6
+              ],
+              "mouthHistogram": [
+                11,
+                6
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                16,
+                1
+              ],
+              "mouthHistogram": [
+                16,
+                1
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                35,
+                1
+              ],
+              "mouthHistogram": [
+                35,
+                1
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                30,
+                6
+              ],
+              "mouthHistogram": [
+                30,
+                6
+              ]
+            }
+          }
+        },
+        {
+          "phase": 33.35853099357337,
+          "rule": "after",
+          "flowScans": 9,
+          "mouthScans": 9,
+          "addedScans": 0,
+          "lostScans": 0,
+          "flowEvents": 9,
+          "mouthEvents": 9,
+          "eventDifference": 0,
+          "flowSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "mouthSpanSeconds": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "flowStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 17,
+            "gini": 0.6960167714884696,
+            "giniParticipants": 0.05228758169934641,
+            "bothRoles": 0.058823529411764705,
+            "efficiency": 0.06985294117647059
+          },
+          "mouthStats": {
+            "colony": 1,
+            "events": 9,
+            "t50": 4,
+            "participants": 17,
+            "gini": 0.6960167714884696,
+            "giniParticipants": 0.05228758169934641,
+            "bothRoles": 0.058823529411764705,
+            "efficiency": 0.06985294117647059
+          },
+          "perAnt": {
+            "fGive": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                12,
+                5
+              ],
+              "mouthHistogram": [
+                12,
+                5
+              ]
+            },
+            "fRecv": {
+              "n": 17,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                14,
+                3
+              ],
+              "mouthHistogram": [
+                14,
+                3
+              ]
+            },
+            "nfGive": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                32,
+                4
+              ],
+              "mouthHistogram": [
+                32,
+                4
+              ]
+            },
+            "nfRecv": {
+              "n": 36,
+              "changed": 0,
+              "maxAbsChange": 0,
+              "flowHistogram": [
+                30,
+                6
+              ],
+              "mouthHistogram": [
+                30,
+                6
+              ]
+            }
+          }
+        }
+      ],
+      "unmatched": [],
+      "reversing": [],
+      "incomplete": [],
+      "details": "out/colony-2.json",
+      "detailsSha256": "0bcb4346cc7fcfaa075bdb58dc6856a45ef77e99d8845b73494cf36edd31bcaf"
+    }
+  ]
+}

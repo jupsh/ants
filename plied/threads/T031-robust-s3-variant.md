@@ -25,3 +25,6 @@ Draft label: T3.3.4d (docs/threads-draft.md revision 2). Bounded and secondary (
 - 2026-10-31 03:38 UTC lead (session 6b5fb317): reviewed D229@096feb17dd28, F111@caa79874f712; reviewed D229 and F111 (via D138): B020 is unrelated to the robust S3 variant; stays held
 - 2026-11-01 19:16 UTC lead (session f6ab21fd): reviewed D241@c351e62616d5; D241 (H6 design proposal) read: it cites this record's links for context; nothing here changes.
 - 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.
+- 2026-11-02 05:57 UTC lead (session 0e89af04): reviewed D241@36eec164deeb; D241 (with its later lead details and amendment 2) cites D134 only for brood coordinates being descriptive and unused in the zone method; the robust S3 variant stays held
+- 2026-11-02 15:35 UTC lead (session 0e89af04): reviewed D241@07a71b62d68a; D241 changed only by a dated line recording D249's blind-check cutoff; its D134 citation (brood coordinates descriptive, unused) is unchanged; T031 stays held
+- 2026-11-03 00:07 UTC lead (session eac59010): reviewed D241@b1dd437cb8eb; Reviewed D241's appended freeze line (D259 hashes): no change to anything this thread links

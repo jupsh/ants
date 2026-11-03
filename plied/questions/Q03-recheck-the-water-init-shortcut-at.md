@@ -27,3 +27,4 @@ Draft label: Q3 (docs/threads-draft.md revision 2).
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: cites Q03's outcome as a carried disclosure; does not reopen it
 - 2026-10-30 05:36 UTC lead (session 9d2b15e6): reviewed D194: D194 and F103 cite Q03 to disclose that its recheck covered C2 base only; they do not reopen it (answered by D159, recheck done, D163). Stays answered.
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 cites Q03 only as a carried limitation (not rechecked for the members, F103); the answered question is not reopened
+- 2026-11-02 05:57 UTC lead (session 0e89af04): reviewed D231@80fe73e46b1b; D231 cites Q03 only to carry a limit: the warm-up recheck (D163) was at C2 settings, not for the members (F103). That is a disclosed limitation; it does not reopen this answered question

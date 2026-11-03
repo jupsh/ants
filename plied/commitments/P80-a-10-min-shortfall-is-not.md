@@ -241,6 +241,19 @@ reviews:
         rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
       - record: D228
         rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
+  - action: commit:partd-1a-20261030
+    disposition: satisfied
+    because: >-
+      Re-read F108@1f7135c39159: since the b5dd9256 bytes this review read (committed in 1e5f59e),
+      one dated update was added (D240: lights-on is 06 UTC for every colony; time of day and time
+      since lights-on cannot be separated). It leaves 'does not establish a 10-min oscillator' and
+      the time-of-day reading this disposition rests on unchanged, and the commit holds the version
+      read, so the disposition stands.
+    by: lead (session 0e89af04)
+    at: "2026-11-02 05:56 UTC"
+    inputs:
+      - record: F108
+        rev: 1f7135c3915940ea485b428dd86f547f6ee415c339d28a917c97c6f2b126bdf7
 ---
 
 ## History
@@ -280,3 +293,5 @@ reviews:
 - 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.
 - 2026-11-02 03:16 UTC lead (session 7b85e17e): reviewed D243@9fcd5b57058b; D243 cites P80 only for the transfer limit (periodicity in our data unresolved); it reads no 10-min oscillator; unaffected
 - 2026-11-02 03:30 UTC lead (session 7b85e17e): reviewed D243@a5fef01895d5; D243 amendment 1 does not touch P80's subject; the earlier citation (transfer limit) is unchanged; unaffected
+- 2026-11-02 05:56 UTC lead (session 0e89af04): review for commit:partd-1a-20261030: satisfied — Re-read F108@1f7135c39159: since the b5dd9256 bytes this review read (committed in 1e5f59e), one dated update was added (D240: lights-on is 06 UTC for every colony; time of day and time since lights-on cannot be separated). It leaves 'does not establish a 10-min oscillator' and the time-of-day reading this disposition rests on unchanged, and the commit holds the version read, so the disposition stands.
+- 2026-11-02 05:57 UTC lead (session 0e89af04): reviewed D231@80fe73e46b1b, D241@36eec164deeb; D231 restates P80 among F108's limits; D241 cites it as a transfer limit (periodicity in our data unresolved). Both keep the shortfall apart from any oscillator claim; P80 unchanged

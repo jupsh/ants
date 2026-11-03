@@ -31,6 +31,165 @@ reviews:
         rev: 597483bc51a5737e117a90e3c044b57b707aa0098848143a71938914bc3ba4ca
       - record: D240
         rev: 5875f95982462051e5fa97516cc789db1066fed33cc94c549cb361b80746300d
+  - action: run:h6-build-smoke
+    disposition: not-triggered
+    because: >-
+      The run builds and smoke-tests code; what the design adds is fixed in D241, not changed by the
+      build.
+    by: lead (session f6ab21fd)
+    at: "2026-11-01 22:49 UTC"
+    inputs:
+      - record: D241
+        rev: 2b609a47d2744c5c6281b681206c6f72784e3a354f9daaf856c669f9a08f92e5
+      - record: D242
+        rev: 95cc70c9ace090981dbc595ffb10d18a35f19fdbcf8455a6bf43acf2b0db63fa
+  - action: run:h6-fixes-20261102
+    disposition: not-triggered
+    because: >-
+      The fixes change null-3 eligibility, S3's entry rule and add a two-number script; what H6 adds
+      beyond earlier analyses (D241's design text) is unchanged and no output speaks to it
+    by: lead (session 0e89af04)
+    at: "2026-11-02 05:50 UTC"
+    inputs:
+      - record: D241
+        rev: 36eec164deeba73a16dff9496b8751e4f5e97dac430d82b680322735d3dd2280
+  - action: commit:h6-design-20261101
+    disposition: not-triggered
+    because: >-
+      Re-read D241@36eec164deeb: since the 597483 bytes this review read (the bytes committed in
+      f9ad78f), only two blocks were appended, the lead's implementation details (onset rule, 25 mm
+      radius, S1 sampling, runs, queens) and amendment 2 (D246). The commit holds the version read,
+      so this disposition for it stands; the additions are reviewed at the next commit's gate.
+    by: lead (session 0e89af04)
+    at: "2026-11-02 05:55 UTC"
+    inputs:
+      - record: D241
+        rev: 36eec164deeba73a16dff9496b8751e4f5e97dac430d82b680322735d3dd2280
+  - action: run:h6-build-smoke
+    disposition: not-triggered
+    because: >-
+      Re-read D241@36eec164deeb: since the 2b609a47 bytes this review read, the queen bullet was
+      appended (already stated in the brief; T059 note 03:11) and amendment 2 (D246), written after
+      this run finished and was read in D245. The run was done under the text it was gated on, so
+      this disposition stands; amendment 2's changes are gated in run:h6-fixes-20261102.
+    by: lead (session 0e89af04)
+    at: "2026-11-02 05:55 UTC"
+    inputs:
+      - record: D241
+        rev: 36eec164deeba73a16dff9496b8751e4f5e97dac430d82b680322735d3dd2280
+  - action: run:h6-zoneflag-20261102
+    disposition: not-triggered
+    because: Adds one yes/no line to the blind-check script; nothing about what H6 adds beyond earlier analyses
+    by: lead (session 0e89af04)
+    at: "2026-11-02 15:29 UTC"
+  - action: run:h6-v1v4-20261102
+    disposition: not-triggered
+    because: Synthetic validation of the two labels; nothing about what H6 adds is read
+    by: lead (session 0e89af04)
+    at: "2026-11-02 15:29 UTC"
+  - action: commit:h6-design-20261101
+    disposition: not-triggered
+    because: >-
+      Re-read D241@07a71b62d68a: one dated line appended under amendment 2 (D249: the blind check's
+      cutoff is the user's, either pooled or either zone share above 50 %, one zone flag printed)
+      (and, since the 597483/2b609a47 pins, the lead's implementation details and amendment 2,
+      reviewed at 05:5x UTC). The commit holds the version first read (597483), so this disposition
+      for it stands; the later text is reviewed at the next commit's gate.
+    by: lead (session 0e89af04)
+    at: "2026-11-02 15:32 UTC"
+    inputs:
+      - record: D241
+        rev: 07a71b62d68a8e5fc8683b31f3075cc5bbfe0ceae9456ec136104339bfcbf2a9
+  - action: run:h6-build-smoke
+    disposition: not-triggered
+    because: >-
+      Re-read D241@07a71b62d68a: one dated line appended under amendment 2 (D249: the blind check's
+      cutoff is the user's, either pooled or either zone share above 50 %, one zone flag printed)
+      (and, since the 597483/2b609a47 pins, the lead's implementation details and amendment 2,
+      reviewed at 05:5x UTC). The run finished before the change and was read in D245, under the
+      text it was gated on; the disposition stands.
+    by: lead (session 0e89af04)
+    at: "2026-11-02 15:32 UTC"
+    inputs:
+      - record: D241
+        rev: 07a71b62d68a8e5fc8683b31f3075cc5bbfe0ceae9456ec136104339bfcbf2a9
+  - action: run:h6-fixes-20261102
+    disposition: not-triggered
+    because: >-
+      Re-read D241@07a71b62d68a: one dated line appended under amendment 2 (D249: the blind check's
+      cutoff is the user's, either pooled or either zone share above 50 %, one zone flag printed).
+      The fixes run finished and was checked (D250) before the change; the cutoff concerns only the
+      blind check, which is gated separately (run:h6-zoneflag-20261102 and the check itself), so the
+      disposition stands.
+    by: lead (session 0e89af04)
+    at: "2026-11-02 15:32 UTC"
+    inputs:
+      - record: D241
+        rev: 07a71b62d68a8e5fc8683b31f3075cc5bbfe0ceae9456ec136104339bfcbf2a9
+  - action: run:h6-blindcheck-20261102
+    disposition: not-triggered
+    because: A pooled coverage check; nothing about what H6 adds
+    by: lead (session 0e89af04)
+    at: "2026-11-02 15:36 UTC"
+  - action: run:h6-reach-20261102
+    disposition: not-triggered
+    because: A coverage-rule change; nothing about what H6 adds
+    by: lead (session 0e89af04)
+    at: "2026-11-02 16:01 UTC"
+  - action: run:h6-blindcheck2-20261102
+    disposition: not-triggered
+    because: A pooled coverage check; nothing about what H6 adds
+    by: lead (session 0e89af04)
+    at: "2026-11-02 16:55 UTC"
+  - action: commit:h6-design-20261101
+    disposition: not-triggered
+    because: >-
+      Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and
+      extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules
+      or any amendment. The commit holds the version it was gated on; the later text is reviewed at
+      the next commit's gate (commit:h6-freeze-20261102).
+    by: lead (session eac59010)
+    at: "2026-11-03 00:06 UTC"
+    inputs:
+      - record: D241
+        rev: b1dd437cb8eb845458917e3f9ecf780f783e4ff2bbacbe3adccc128e70630f74
+  - action: run:h6-build-smoke
+    disposition: not-triggered
+    because: >-
+      Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and
+      extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules
+      or any amendment. The run finished and was read before the change, under the text it was gated
+      on; the disposition stands.
+    by: lead (session eac59010)
+    at: "2026-11-03 00:06 UTC"
+    inputs:
+      - record: D241
+        rev: b1dd437cb8eb845458917e3f9ecf780f783e4ff2bbacbe3adccc128e70630f74
+  - action: run:h6-fixes-20261102
+    disposition: not-triggered
+    because: >-
+      Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and
+      extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules
+      or any amendment. The run finished and was read before the change, under the text it was gated
+      on; the disposition stands.
+    by: lead (session eac59010)
+    at: "2026-11-03 00:06 UTC"
+    inputs:
+      - record: D241
+        rev: b1dd437cb8eb845458917e3f9ecf780f783e4ff2bbacbe3adccc128e70630f74
+  - action: commit:h6-freeze-20261102
+    disposition: not-triggered
+    because: >-
+      The commit holds records, the frozen code (D259) and no empirical statistic; the sealed output
+      folder is untouched until after the commit; what H6 adds is stated in the approved design
+      (D241), unchanged by the freeze
+    by: lead (session eac59010)
+    at: "2026-11-03 00:08 UTC"
+    inputs:
+      - record: D241
+        rev: b1dd437cb8eb845458917e3f9ecf780f783e4ff2bbacbe3adccc128e70630f74
+      - record: D259
+        rev: da68ade2ca9f550792fdbb88369ec191646cd6fef041de62b8c6cd7d508f05ef
 ---
 
 ## History
@@ -40,3 +199,21 @@ reviews:
 - 2026-11-01 19:15 UTC lead (session f6ab21fd): reviewed D241@c351e62616d5; D241 (the H6 design) read against this; addressed in the design, open until it is approved and read.
 - 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.
 - 2026-11-01 22:46 UTC lead (session f6ab21fd): review for commit:h6-design-20261101: not-triggered — The commit records the T061 inventory (D240), the H6 design and its amendment (D241), the user's answers (D242), F108's update and plied records; no model change, analysis, run or reading of new results.
+- 2026-11-01 22:49 UTC lead (session f6ab21fd): review for run:h6-build-smoke: not-triggered — The run builds and smoke-tests code; what the design adds is fixed in D241, not changed by the build.
+- 2026-11-02 03:17 UTC lead (session 7b85e17e): reviewed D243@9fcd5b57058b; D243 cites D238 for T060's own source; T060 lists its additions beyond Test B, F062, F009/F061/F089 itself; this H6 obligation is unaffected
+- 2026-11-02 03:31 UTC lead (session 7b85e17e): reviewed D243@a5fef01895d5; D243 amendment 1 cites no H6 record beyond D244's terms; nothing about what H6 adds; unaffected
+- 2026-11-02 05:50 UTC lead (session 0e89af04): review for run:h6-fixes-20261102: not-triggered — The fixes change null-3 eligibility, S3's entry rule and add a two-number script; what H6 adds beyond earlier analyses (D241's design text) is unchanged and no output speaks to it
+- 2026-11-02 05:55 UTC lead (session 0e89af04): review for commit:h6-design-20261101: not-triggered — Re-read D241@36eec164deeb: since the 597483 bytes this review read (the bytes committed in f9ad78f), only two blocks were appended, the lead's implementation details (onset rule, 25 mm radius, S1 sampling, runs, queens) and amendment 2 (D246). The commit holds the version read, so this disposition for it stands; the additions are reviewed at the next commit's gate.
+- 2026-11-02 05:55 UTC lead (session 0e89af04): review for run:h6-build-smoke: not-triggered — Re-read D241@36eec164deeb: since the 2b609a47 bytes this review read, the queen bullet was appended (already stated in the brief; T059 note 03:11) and amendment 2 (D246), written after this run finished and was read in D245. The run was done under the text it was gated on, so this disposition stands; amendment 2's changes are gated in run:h6-fixes-20261102.
+- 2026-11-02 15:29 UTC lead (session 0e89af04): review for run:h6-zoneflag-20261102: not-triggered — Adds one yes/no line to the blind-check script; nothing about what H6 adds beyond earlier analyses
+- 2026-11-02 15:29 UTC lead (session 0e89af04): review for run:h6-v1v4-20261102: not-triggered — Synthetic validation of the two labels; nothing about what H6 adds is read
+- 2026-11-02 15:32 UTC lead (session 0e89af04): review for commit:h6-design-20261101: not-triggered — Re-read D241@07a71b62d68a: one dated line appended under amendment 2 (D249: the blind check's cutoff is the user's, either pooled or either zone share above 50 %, one zone flag printed) (and, since the 597483/2b609a47 pins, the lead's implementation details and amendment 2, reviewed at 05:5x UTC). The commit holds the version first read (597483), so this disposition for it stands; the later text is reviewed at the next commit's gate.
+- 2026-11-02 15:32 UTC lead (session 0e89af04): review for run:h6-build-smoke: not-triggered — Re-read D241@07a71b62d68a: one dated line appended under amendment 2 (D249: the blind check's cutoff is the user's, either pooled or either zone share above 50 %, one zone flag printed) (and, since the 597483/2b609a47 pins, the lead's implementation details and amendment 2, reviewed at 05:5x UTC). The run finished before the change and was read in D245, under the text it was gated on; the disposition stands.
+- 2026-11-02 15:32 UTC lead (session 0e89af04): review for run:h6-fixes-20261102: not-triggered — Re-read D241@07a71b62d68a: one dated line appended under amendment 2 (D249: the blind check's cutoff is the user's, either pooled or either zone share above 50 %, one zone flag printed). The fixes run finished and was checked (D250) before the change; the cutoff concerns only the blind check, which is gated separately (run:h6-zoneflag-20261102 and the check itself), so the disposition stands.
+- 2026-11-02 15:36 UTC lead (session 0e89af04): review for run:h6-blindcheck-20261102: not-triggered — A pooled coverage check; nothing about what H6 adds
+- 2026-11-02 16:01 UTC lead (session 0e89af04): review for run:h6-reach-20261102: not-triggered — A coverage-rule change; nothing about what H6 adds
+- 2026-11-02 16:55 UTC lead (session 0e89af04): review for run:h6-blindcheck2-20261102: not-triggered — A pooled coverage check; nothing about what H6 adds
+- 2026-11-03 00:06 UTC lead (session eac59010): review for commit:h6-design-20261101: not-triggered — Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules or any amendment. The commit holds the version it was gated on; the later text is reviewed at the next commit's gate (commit:h6-freeze-20261102).
+- 2026-11-03 00:06 UTC lead (session eac59010): review for run:h6-build-smoke: not-triggered — Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules or any amendment. The run finished and was read before the change, under the text it was gated on; the disposition stands.
+- 2026-11-03 00:06 UTC lead (session eac59010): review for run:h6-fixes-20261102: not-triggered — Re-read D241@b1dd437cb8eb: one dated line appended (D259: the reader frozen, reader.ts and extract.ts SHA-256s, committed under scripts/frozen/h6/); no change to the design, the rules or any amendment. The run finished and was read before the change, under the text it was gated on; the disposition stands.
+- 2026-11-03 00:08 UTC lead (session eac59010): review for commit:h6-freeze-20261102: not-triggered — The commit holds records, the frozen code (D259) and no empirical statistic; the sealed output folder is untouched until after the commit; what H6 adds is stated in the approved design (D241), unchanged by the freeze

@@ -1,3 +1,4 @@
 {"v":1,"id":"01JHOOKTEST0000000000000001","type":"message","node":"T049","at":"2026-10-24T22:13:14Z","from":"hooktest","session":"104e7640-14b7-47c9-9121-46b5b2b32165","to":["lead"],"present":[{"agent":"lead","session":"104e7640-14b7-47c9-9121-46b5b2b32165"}],"reply_to":null,"text":"Hook delivery test from the D142 integration (safe to ignore)."}
 {"v":1,"id":"01M5QZK986V6SNB3HGFY7AWHP8","type":"delivered","msg":"01JHOOKTEST0000000000000001","agent":"lead","session":"104e7640-14b7-47c9-9121-46b5b2b32165","at":"2026-10-24T22:13:14Z","via":"hook:PostToolUse"}
 {"v":1,"id":"01M5QZKTHKEDARJACVF96BKBQB","type":"ack","msg":"01JHOOKTEST0000000000000001","agent":"lead","session":"104e7640-14b7-47c9-9121-46b5b2b32165","at":"2026-10-24T22:13:31Z"}
+{"v":1,"id":"01M6D487ZSN04V3G6YKF5WBT46","type":"read","msg":"01JHOOKTEST0000000000000001","agent":"lead","session":"f6ab21fd-6881-42cf-80ae-1ced3a719a78","at":"2026-11-02T03:18:38Z"}

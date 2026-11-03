@@ -356,3 +356,4 @@ reviews:
 - 2026-11-01 17:38 UTC lead (session f6ab21fd): reviewed D237@aeef03977adf; D237 read: the review runs nothing and changes no model; any check it proposes needs its own design. No change.
 - 2026-11-01 18:21 UTC lead (session f6ab21fd): reviewed D237@2e84a192f41d, D238@7655ef093c1f; D237 (corrected) and D238 read: every proposed check needs its own design; nothing run or changed. No change.
 - 2026-11-01 19:12 UTC lead (session f6ab21fd): reviewed D239@a5d3879fe9c2, D240@5875f9598246; D239 and D240 read: no change here (D240 is the T061 inventory; D239 starts T059 and T061).
+- 2026-11-02 05:57 UTC lead (session 0e89af04): reviewed D232@5c00fbac6f47; D232 classes existing-data discriminators as needing their own design (P87); H6 is such a separate design (D241, T059), so this commitment is being followed, not changed

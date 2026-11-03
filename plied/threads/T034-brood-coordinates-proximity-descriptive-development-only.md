@@ -19,3 +19,6 @@ Draft label: T3.3.6 (docs/threads-draft.md revision 2). Allowlist frozen (D137);
 - 2026-10-31 00:59 UTC lead (session 108deea8): reviewed D212@c08d81a72ffe; D212's latest line is a pooled-SD wording correction for item 1(b); no brood data. Unaffected
 - 2026-11-01 19:16 UTC lead (session f6ab21fd): reviewed D241@c351e62616d5; D241 (H6 design proposal) read: it cites this record's links for context; nothing here changes.
 - 2026-11-01 22:45 UTC lead (session f6ab21fd): reviewed D241@597483bc51a5, D242@95cc70c9ace0; D241 amendment 1 and D242 read: nothing here changes beyond what D242's commitments record.
+- 2026-11-02 05:57 UTC lead (session 0e89af04): reviewed D241@36eec164deeb; D241 says the zone method does not use brood coordinates (descriptive only, D134), which is this thread's rule; amendment 2 does not touch it
+- 2026-11-02 15:35 UTC lead (session 0e89af04): reviewed D241@07a71b62d68a; D241 changed only by a dated line recording D249's blind-check cutoff; the zone method still does not use brood coordinates (D134); unchanged
+- 2026-11-03 00:07 UTC lead (session eac59010): reviewed D241@b1dd437cb8eb; Reviewed D241's appended freeze line (D259 hashes): no change to anything this thread links

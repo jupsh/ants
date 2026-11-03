@@ -236,6 +236,19 @@ reviews:
         rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
       - record: D228
         rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
+  - action: commit:partd-1a-20261030
+    disposition: satisfied
+    because: >-
+      Re-read F108@1f7135c39159: since the b5dd9256 bytes this review read (committed in 1e5f59e),
+      one dated update was added (D240: lights-on is 06 UTC for every colony; time of day and time
+      since lights-on cannot be separated). It leaves 'does not establish a 10-min oscillator' and
+      the time-of-day reading this disposition rests on unchanged, and the commit holds the version
+      read, so the disposition stands.
+    by: lead (session 0e89af04)
+    at: "2026-11-02 05:56 UTC"
+    inputs:
+      - record: F108
+        rev: 1f7135c3915940ea485b428dd86f547f6ee415c339d28a917c97c6f2b126bdf7
 ---
 
 ## History
@@ -269,3 +282,4 @@ reviews:
 - 2026-10-31 03:23 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — no Stage 2b class is used or changed
 - 2026-10-31 03:34 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — re-read D226 after its change: the change appends D228's result only (the independent check agrees); the check was a reproduction on existing records, so this commitment still does not bear on it
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — D226 copies Stage 2b's outside/unresolved classes unchanged and says its intervals reclassify nothing
+- 2026-11-02 05:56 UTC lead (session 0e89af04): review for commit:partd-1a-20261030: satisfied — Re-read F108@1f7135c39159: since the b5dd9256 bytes this review read (committed in 1e5f59e), one dated update was added (D240: lights-on is 06 UTC for every colony; time of day and time since lights-on cannot be separated). It leaves 'does not establish a 10-min oscillator' and the time-of-day reading this disposition rests on unchanged, and the commit holds the version read, so the disposition stands.

@@ -5,3 +5,5 @@
 {"v":1,"id":"01M67WVJ3DRSCJF56JAPQEB67D","type":"delivered","msg":"c7b49e12-b020-handoff","agent":"lead","session":"6b5fb317-b573-4cbe-8113-3bc637e472f3","at":"2026-10-31T02:33:10Z","via":"hook:PostToolUse"}
 {"v":1,"id":"01M67WW7NMX2K52R3NTX9R02PC","type":"ack","msg":"c7b49e12-b020-handoff","agent":"lead","session":"6b5fb317-b573-4cbe-8113-3bc637e472f3","at":"2026-10-31T02:33:32Z"}
 {"v":1,"id":"lead-b020-recorded-20261031","type":"message","node":"T022","at":"2026-10-31T03:38:04Z","from":"lead","session":"6b5fb317-b573-4cbe-8113-3bc637e472f3","to":[],"present":[],"reply_to":"c7b49e12-b020-handoff","text":"Lead: B020 recorded as D229 (finding F111, F058 qualified); T022 closed carrying F111. Thank you; nothing further is asked of this item."}
+{"v":1,"id":"01M6D487ZSEWZYKVRDK82H9PRS","type":"read","msg":"c7b49e12-b020-start","agent":"lead","session":"f6ab21fd-6881-42cf-80ae-1ced3a719a78","at":"2026-11-02T03:18:38Z"}
+{"v":1,"id":"01M6D487ZSN50Q37H6CEXVE5CA","type":"read","msg":"c7b49e12-b020-handoff","agent":"lead","session":"f6ab21fd-6881-42cf-80ae-1ced3a719a78","at":"2026-11-02T03:18:38Z"}

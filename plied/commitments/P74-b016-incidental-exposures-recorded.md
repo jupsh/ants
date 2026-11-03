@@ -15,3 +15,4 @@ nodes: [T037]
 - 2026-10-31 02:18 UTC lead (session 6b5fb317): reviewed D223@b738f2de5839; D223 cites D181 only for B005's Done-when 1; no title or snippet is involved, so P74 is unaffected
 - 2026-10-31 02:32 UTC lead (session 6b5fb317): reviewed D223@d91126ff338b; D223 amendment 1 involves no title or snippet. Unaffected
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D232@7e78fcc5a5c3; D232 takes P74's wording as the review's own exposure rule, by reference (a commitment of its own follows only if the user approves D232, Q27); P74 still governs B016's survey (T037), unchanged
+- 2026-11-02 05:57 UTC lead (session 0e89af04): reviewed D232@5c00fbac6f47; D232 applies this rule to the synchrony review's literature search (one contamination entry per search session; done as X024). It changes neither B016's survey nor the rule

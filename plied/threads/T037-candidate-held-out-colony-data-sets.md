@@ -11,3 +11,4 @@ Draft label: T4.1 (docs/threads-draft.md revision 2).
 - 2026-10-24 22:11 UTC lead (session 104e7640): created — migrated from docs/threads-draft.md revision 2 (D142)
 - 2026-10-29 20:06 UTC lead (session 7f762276): set status=open; cleared waiting_on — D181 (Q10): B016's metadata-only survey and web search approved (P73, P74)
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D232@7e78fcc5a5c3; D232 borrows B016's exposure rule (P74) for the synchrony review's literature search; it neither touches B016's survey of candidate held-out data sets nor changes P73/P74
+- 2026-11-02 05:57 UTC lead (session 0e89af04): reviewed D232@5c00fbac6f47; Current D232 (with amendment 1, D233) still borrows B016's exposure rule (P74) for the review's search; it changes neither B016's survey of candidate held-out data sets nor P73/P74
