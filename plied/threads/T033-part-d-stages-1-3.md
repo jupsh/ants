@@ -243,3 +243,5 @@ Draft label: T3.3.4e (docs/threads-draft.md revision 2). Amended (D126 amendment
 - 2026-11-03 00:07 UTC lead (session eac59010): reviewed D241@b1dd437cb8eb; Reviewed D241's appended freeze line (D259 hashes): no change to anything this thread links
 - 2026-11-03 00:44 UTC lead (session eac59010): reviewed D260@9eb91774b9da, F116@fbe7736f6c09; Reviewed D260, F116: they cite D212 because H6's S3 used its matching, under which zone crossings are never isolated; nothing in Part D's Stages 1-3 changes
 - 2026-11-03 00:53 UTC lead (session eac59010): reviewed D260@33ffee2d7b35; Reviewed the corrected D260 (wording of the primary and S1 only): nothing about D212 or Part D changes
+- 2026-11-05 05:10 UTC lead (session bd70e4eb): reviewed D275@8a62e7098822; D275 cites D205's items 1(d)/1(e) and D212's isolation rule (via F116); Part D Stages 1-3 are unchanged; a 1(e) design would be new, if the user chooses it
+- 2026-11-05 05:20 UTC lead (session bd70e4eb): reviewed D275@332d2e843e26; D275's correction changes only its food-state wording (variation unknown, not absent; D276); Part D is unchanged; T064 is a new design under T023, judged with an attainable rule (P190)

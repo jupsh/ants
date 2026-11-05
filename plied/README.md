@@ -6,7 +6,7 @@
 
 **lead**
 
-1. [T063](threads/T063-synchrony-which-remaining-explanations-the-available.md) Synchrony: which remaining explanations the available evidence can distinguish (D270)
+1. [T064](threads/T064-bounded-model-side-design-item-1.md) Bounded model-side design (item 1(e)): slow per-ant state (H2) and slower or spatially structured common driver (H1) judged against C1-C5 (D276)
 2. [T033](threads/T033-part-d-stages-1-3.md) Part D Stages 1-3
 
 **user**
@@ -132,7 +132,17 @@ None.
 | [P185](commitments/P185-contact-reset-audit-back-to-the.md) | Contact-reset audit: back to the user if the primary or any sensitivity would pass support; otherwise T060 closes as unsupported | D267 | fulfilled | T060 |
 | [P186](commitments/P186-contact-reset-the-empty-stage-0.md) | Contact-reset: the empty Stage 0 folder stays sealed; no reopening without a decision | D270 | open | T060, T023 |
 | [P187](commitments/P187-t037-reopened-when-step-9-resumes.md) | T037 reopened when step 9 resumes, before any held-out role is assigned | D273 | open | T036, T037 |
+| [P188](commitments/P188-1-e-design-brought-back-before.md) | 1(e) design brought back before implementation or runs | D276 | open | T064 |
+| [P189](commitments/P189-a-successful-candidate-establishes-compatibility-not.md) | A successful candidate establishes compatibility, not the cause | D276 | open | T064 |
 | [P19](commitments/P19-after-or-alongside-e6-scans-recovery.md) | Plan step 10. | S001 | open | T038 |
+| [P190](commitments/P190-1-e-an-attainable-judging-rule.md) | 1(e): an attainable judging rule; discrepancies, unresolved and equivalence kept separate | D276 | open | T064 |
+| [P191](commitments/P191-1-e-f106-gives-no-error.md) | 1(e): F106 gives no error control for new candidates | D276 | open | T064 |
+| [P192](commitments/P192-1-e-each-candidate-addresses-the.md) | 1(e): each candidate addresses the whole target, C4 and C5 specified | D276 | open | T064 |
+| [P193](commitments/P193-1-e-f113-f115-uncertainty-kept.md) | 1(e): F113/F115 uncertainty kept; F116's crossing effects never zero targets | D276 | open | T064 |
+| [P194](commitments/P194-1-e-search-frozen-structures-bounds.md) | 1(e): search frozen: structures, bounds, controls, budget, stopping rules | D276 | open | T064 |
+| [P195](commitments/P195-1-e-both-compatible-both-explanations.md) | 1(e): both compatible, both explanations retained | D276 | open | T064 |
+| [P196](commitments/P196-1-e-neither-succeeds-or-unresolved.md) | 1(e): neither succeeds or unresolved: stop within budget, argue omission, H1/H2 not rejected generally | D276 | open | T064 |
+| [P197](commitments/P197-1-e-adoption-a-separate-decision.md) | 1(e): adoption a separate decision; new data stays open | D276 | open | T064 |
 | [P20](commitments/P20-the-held-out-test-is-reported.md) | The user may reassign it (D127). | D127 | open | T053 |
 | [P21](commitments/P21-stages-1-3-driver-multiplier-before.md) | With D128: the 2-D separation rule deferred until calibrated. | D129 | open | T033 |
 | [P22](commitments/P22-s2-audit-output-sealed-on-approval.md) | On approval, add logs/s2audit/ to .claude/sealed-paths.txt (CLAUDE.md). | D136 | fulfilled | T032 |
@@ -273,7 +283,8 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │       ├── T059  H6 initiation and directional-transfer test: design (D238 item …   closed, lead, outcome D260, carries F113, F114, F115, F116
 │       ├── T060  Contact-reset timing test: design (D238 item 2)                    closed, lead, outcome D269, carries F117, F114
 │       ├── T061  Feasibility inventory of permitted metadata for food state and …   closed, lead, outcome D240, carries F108
-│       └── T063  Synchrony: which remaining explanations the available evidence …   open, next 1, lead
+│       ├── T063  Synchrony: which remaining explanations the available evidence …   closed, outcome D275, carries F108, F114, F117
+│       └── T064  Bounded model-side design (item 1(e)): slow per-ant state (H2) …   open, next 1, lead
 ├── T036  Held-out tests (step 9): Stroeymeyt age-experiment colonies                held, ⟵ T023
 │   └── T037  Candidate held-out colony data sets                                    closed, outcome D273, [B016]
 ├── T038  E6: Bles et al. 2022, development benchmark on the best step-5 …           held, ⟵ T036
