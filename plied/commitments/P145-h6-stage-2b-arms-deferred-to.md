@@ -205,6 +205,16 @@ reviews:
     inputs:
       - record: D260
         rev: 33ffee2d7b35cc68baca7141a758621b02f8e5a016a185532a7b57b6aa1126cf
+  - action: merge:browser-sim-m1@f8d29d5
+    disposition: not-triggered
+    because: >-
+      A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond
+      the 18 commits already on the branch, each of them gated when made
+      (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this
+      commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model
+      change, run, held-out use or new reading is in it.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:40 UTC"
 ---
 
 ## History
@@ -232,3 +242,4 @@ reviews:
 - 2026-11-03 00:30 UTC lead (session eac59010): review for run:h6-reading-20261103: not-triggered — No Stage 2b arm is computed
 - 2026-11-03 00:35 UTC lead (session eac59010): review for run:h6-reading2-20261103: not-triggered — As for run:h6-reading-20261103, which died of heap exhaustion before writing anything: the same frozen reader, inputs and options, rerun with Node's heap raised to 6000 MB (no change to code or results)
 - 2026-11-03 01:00 UTC lead (session f6353347): review for commit:h6-reading-20261103: not-triggered — D260 runs only the registered H6 parts (primary, sensitivities, S1-S3); no Stage 2b arm is run, designed or committed.
+- 2026-11-03 16:40 UTC lead (session e38b977a): review for merge:browser-sim-m1@f8d29d5: not-triggered — A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond the 18 commits already on the branch, each of them gated when made (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model change, run, held-out use or new reading is in it.

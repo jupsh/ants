@@ -2,11 +2,14 @@
 id: T037
 title: Candidate held-out colony data sets
 parent: T036
-status: open
-next: 1
-actor: user
+status: closed
+outcome:
+  quote: >-
+    T037 closes: the candidate list was delivered (B016), its exposures were entered (X030), and no
+    role is assigned to any of C01-C08
+  ref: D273
 backlog: B016
-links: [D270, D271, X030]
+links: [D270, D271, X030, D273]
 ---
 Draft label: T4.1 (docs/threads-draft.md revision 2).
 
@@ -18,3 +21,5 @@ Draft label: T4.1 (docs/threads-draft.md revision 2).
 - 2026-11-03 16:27 UTC lead (session e38b977a): set actor=lead; set next=1; added D270 to links — D270: B016 next, its contamination entry first
 - 2026-11-03 16:32 UTC lead (session e38b977a): set actor=user; added D271 to links; added X030 to links — D271: B016 read, X030 entered; T037's next step is the user's (Q38)
 - 2026-11-03 16:37 UTC lead (session e38b977a): reviewed D272@9fcbf7f31568; D272 commits B016's item files, X030 and D271; T037's next step stays with the user (Q38).
+- 2026-11-05 05:03 UTC lead (session bd70e4eb): set status=closed; cleared next; cleared actor; set outcome.quote=T037 closes: the candidate list was delivered (B016), its exposures were ente…; set outcome.ref=D273; added D273 to links — D273: user closed T037 with no roles assigned
+- 2026-11-05 05:06 UTC lead (session bd70e4eb): reviewed D274@f4898d5ef930; D274 commits T037's close (D273); it does not reopen T037

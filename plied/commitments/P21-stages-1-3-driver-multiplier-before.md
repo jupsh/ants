@@ -60,6 +60,16 @@ reviews:
         rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
       - record: D228
         rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
+  - action: merge:browser-sim-m1@f8d29d5
+    disposition: not-triggered
+    because: >-
+      A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond
+      the 18 commits already on the branch, each of them gated when made
+      (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this
+      commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model
+      change, run, held-out use or new reading is in it.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:40 UTC"
 ---
 Draft label: P21 (docs/threads-draft.md revision 2).
 
@@ -96,3 +106,4 @@ Draft label: P21 (docs/threads-draft.md revision 2).
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: not-applicable — no driver multiplier is reported in these records; Es's clipping (F100) is only cited beside an activity row in D226
 - 2026-10-31 04:22 UTC lead (session 548cad34): reviewed D231@68d492443f36; D231 cites D158 only to name the Part D members and repeats that Es is clipped 94 % (F100); no new run or reporting of the multiplier, so P21 is unaffected
 - 2026-11-02 05:57 UTC lead (session 0e89af04): reviewed D231@80fe73e46b1b; D231 cites D158 only for the member names; its limits disclose Es clipped 94 % (F100), in line with P21's reporting; nothing changes the multiplier reporting
+- 2026-11-03 16:40 UTC lead (session e38b977a): review for merge:browser-sim-m1@f8d29d5: not-triggered — A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond the 18 commits already on the branch, each of them gated when made (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model change, run, held-out use or new reading is in it.

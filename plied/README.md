@@ -12,7 +12,6 @@
 **user**
 
 1. [T020](threads/T020-mailleux-1999-clearance-its-contact-definition.md) Mailleux 1999 clearance: its contact definition
-1. [T037](threads/T037-candidate-held-out-colony-data-sets.md) Candidate held-out colony data sets
 2. [T012](threads/T012-forager-trips-entrance-excursions.md) Forager trips; entrance excursions
 
 
@@ -21,9 +20,7 @@
 
 ## Open questions
 
-| id | question | raised | bears on |
-|---|---|---|---|
-| [Q38](questions/Q38-t037-after-b016-d271-what-next.md) | T037 after B016 (D271): what next for the candidate held-out sources (C01-C08; exposures in X030) | D271 | T037 |
+None.
 
 ## Commitments
 
@@ -134,6 +131,7 @@
 | [P184](commitments/P184-contact-reset-audit-freeze-committed-gated.md) | Contact-reset audit: freeze committed, gated, before the audit, only once the equality, whitelist and colony-237 checks pass | D267 | fulfilled | T060 |
 | [P185](commitments/P185-contact-reset-audit-back-to-the.md) | Contact-reset audit: back to the user if the primary or any sensitivity would pass support; otherwise T060 closes as unsupported | D267 | fulfilled | T060 |
 | [P186](commitments/P186-contact-reset-the-empty-stage-0.md) | Contact-reset: the empty Stage 0 folder stays sealed; no reopening without a decision | D270 | open | T060, T023 |
+| [P187](commitments/P187-t037-reopened-when-step-9-resumes.md) | T037 reopened when step 9 resumes, before any held-out role is assigned | D273 | open | T036, T037 |
 | [P19](commitments/P19-after-or-alongside-e6-scans-recovery.md) | Plan step 10. | S001 | open | T038 |
 | [P20](commitments/P20-the-held-out-test-is-reported.md) | The user may reassign it (D127). | D127 | open | T053 |
 | [P21](commitments/P21-stages-1-3-driver-multiplier-before.md) | With D128: the 2-D separation rule deferred until calibrated. | D129 | open | T033 |
@@ -277,7 +275,7 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │       ├── T061  Feasibility inventory of permitted metadata for food state and …   closed, lead, outcome D240, carries F108
 │       └── T063  Synchrony: which remaining explanations the available evidence …   open, next 1, lead
 ├── T036  Held-out tests (step 9): Stroeymeyt age-experiment colonies                held, ⟵ T023
-│   └── T037  Candidate held-out colony data sets                                    open, next 1, user, [B016]
+│   └── T037  Candidate held-out colony data sets                                    closed, outcome D273, [B016]
 ├── T038  E6: Bles et al. 2022, development benchmark on the best step-5 …           held, ⟵ T036
 │   ├── T040  Directed navigation, frozen before any E6 run                          open
 │   ├── T041  E6 ensemble rule reconciled with D104                                  open

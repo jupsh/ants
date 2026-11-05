@@ -18,6 +18,16 @@ reviews:
     because: No B007 comparison in this commit.
     by: lead (session 108deea8)
     at: "2026-10-30 22:07 UTC"
+  - action: merge:browser-sim-m1@f8d29d5
+    disposition: not-triggered
+    because: >-
+      A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond
+      the 18 commits already on the branch, each of them gated when made
+      (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this
+      commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model
+      change, run, held-out use or new reading is in it.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:41 UTC"
 ---
 
 ## History
@@ -31,3 +41,4 @@ reviews:
 - 2026-10-31 02:32 UTC lead (session 6b5fb317): reviewed D223@d91126ff338b; D223 amendment 1 makes no B007 comparison; D181 cited only for B005. Unaffected
 - 2026-11-03 16:31 UTC lead (session e38b977a): reviewed X030@e0fc1a79ac45; X030 cites D181 for B016's exposure rules only; no B007 comparison or criterion is touched. Unaffected.
 - 2026-11-03 16:32 UTC lead (session e38b977a): reviewed D271@59fa1169345e; D271 cites D181 for B016's exposure rules only; no B007 criterion or comparison. Unaffected.
+- 2026-11-03 16:41 UTC lead (session e38b977a): review for merge:browser-sim-m1@f8d29d5: not-triggered — A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond the 18 commits already on the branch, each of them gated when made (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model change, run, held-out use or new reading is in it.

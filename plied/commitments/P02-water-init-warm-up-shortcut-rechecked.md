@@ -352,6 +352,16 @@ reviews:
         rev: 0772038601c49958aa6d4ffa11e0232dbc95648dd8485abef48c8abfc270d480
       - record: D228
         rev: e6f75b99836a72362b3c3186da6f861d048daec16ba326fd504555151c889b23
+  - action: merge:browser-sim-m1@f8d29d5
+    disposition: not-triggered
+    because: >-
+      A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond
+      the 18 commits already on the branch, each of them gated when made
+      (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this
+      commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model
+      change, run, held-out use or new reading is in it.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:40 UTC"
 ---
 Draft label: P2 (docs/threads-draft.md revision 2).
 
@@ -417,3 +427,4 @@ Draft label: P2 (docs/threads-draft.md revision 2).
 - 2026-10-31 03:23 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — no simulation or warm-up: a second implementation of D223's statistics on existing minute records
 - 2026-10-31 03:34 UTC lead (session 6b5fb317): review for run:foragers1c-second: not-applicable — re-read D226 after its change: the change appends D228's result only (the independent check agrees); the check was a reproduction on existing records, so this commitment still does not bear on it
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: not-applicable — the commit holds records of data analyses (items 1(b), 1(c)); no warm-up shortcut or walk-on rate is changed
+- 2026-11-03 16:40 UTC lead (session e38b977a): review for merge:browser-sim-m1@f8d29d5: not-triggered — A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond the 18 commits already on the branch, each of them gated when made (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model change, run, held-out use or new reading is in it.

@@ -213,6 +213,29 @@ reviews:
       model change, E6 run, held-out data, paper or simulation is in it.
     by: lead (session e38b977a)
     at: "2026-11-03 16:37 UTC"
+  - action: merge:browser-sim-m1@f8d29d5
+    disposition: not-triggered
+    because: >-
+      A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond
+      the 18 commits already on the branch, each of them gated when made
+      (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this
+      commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model
+      change, run, held-out use or new reading is in it.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:40 UTC"
+  - action: commit:q38-records-20261105
+    disposition: not-applicable
+    because: >-
+      The commit holds records only (D273, D274, P187, T037's close, Q38's answer, node notes,
+      STATUS, generated views, and D272's merge-gate dispositions); nothing under src/, scripts/ or
+      test/. No structure freeze is made.
+    by: lead (session bd70e4eb)
+    at: "2026-11-05 05:06 UTC"
+    inputs:
+      - record: D273
+        rev: 971eb345342564bda21598cb43c8e576e704a7de4697ed0f942081aae1a269cf
+      - record: D274
+        rev: f4898d5ef93059e86eeb0fdf449c06180820c023de1b5c03beca59487f7dc48e
 ---
 Draft label: P3 (docs/threads-draft.md revision 2).
 
@@ -240,3 +263,6 @@ Draft label: P3 (docs/threads-draft.md revision 2).
 - 2026-11-03 16:28 UTC lead (session e38b977a): review for commit:t060-close-20261103: not-triggered — The commit holds records only (git status: nothing under src/, scripts/ or test/; backlog/ left out): the T060 reading D269, F117, D270, T060's close and its commitment states, P186, T063, notes, STATUS. No structure freeze, model change, E6 run, held-out data, paper or simulation is in it.
 - 2026-11-03 16:32 UTC lead (session e38b977a): reviewed D271@59fa1169345e; D271 cites P03 and D114 only to say step 9 is held until the synchrony cause is settled, so no candidate needs a role now; P03 itself is unchanged and open.
 - 2026-11-03 16:37 UTC lead (session e38b977a): review for commit:b016-records-20261103: not-triggered — The commit holds records only (nothing under src/, scripts/ or test/): B016's item folder (README, results, metadata snapshots, item scripts, hand-offs), the generated backlog index, X030, D271, D272, Q38, STATUS and plied records (notes, P73/P74 states). No structure freeze, model change, E6 run, held-out data, paper or simulation is in it.
+- 2026-11-03 16:40 UTC lead (session e38b977a): review for merge:browser-sim-m1@f8d29d5: not-triggered — A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond the 18 commits already on the branch, each of them gated when made (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model change, run, held-out use or new reading is in it.
+- 2026-11-05 05:03 UTC lead (session bd70e4eb): reviewed D273@971eb3453425; D273 cites P03 only for why step 9 stays held; it closes T037 and freezes nothing, so P03 stays open and unchanged
+- 2026-11-05 05:06 UTC lead (session bd70e4eb): review for commit:q38-records-20261105: not-applicable — The commit holds records only (D273, D274, P187, T037's close, Q38's answer, node notes, STATUS, generated views, and D272's merge-gate dispositions); nothing under src/, scripts/ or test/. No structure freeze is made.

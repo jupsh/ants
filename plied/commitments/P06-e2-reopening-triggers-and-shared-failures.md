@@ -42,6 +42,16 @@ reviews:
         rev: 25de831cb5ba88c9c56856ffa9d73c045779348d2121ff2758897b158cb8b97a
       - record: D181
         rev: 101dc5a8d17bb98b12a2d8d26d30e658c4224eab5b17b36cbf667bbd8bbf4f17
+  - action: merge:browser-sim-m1@f8d29d5
+    disposition: not-triggered
+    because: >-
+      A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond
+      the 18 commits already on the branch, each of them gated when made
+      (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this
+      commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model
+      change, run, held-out use or new reading is in it.
+    by: lead (session e38b977a)
+    at: "2026-11-03 16:40 UTC"
 ---
 Draft label: P6 (docs/threads-draft.md revision 2).
 
@@ -56,3 +66,4 @@ Draft label: P6 (docs/threads-draft.md revision 2).
 - 2026-10-30 04:50 UTC lead (session 9aa22476): review for run:t057-judge-20261030: satisfied — This run evaluates (c) only, paired by seed (judge seeds in both arms), as D181/D191 define; (a) and (b) wait on E6 and are not read here; shared failures are not touched
 - 2026-10-30 04:52 UTC lead (session 9aa22476): review for run:t057-judge-20261030: satisfied — Re-read D191 after its launch line: unchanged design; the run evaluates (c) only, paired by seed
 - 2026-10-30 05:00 UTC lead (session 9aa22476): set summary=(a), (b) and the shared failures are evaluated with E6 ((a) was written for E…; added D193 to links — D193 reads (c): it does not fire; P06 stays open for (a), (b) and the shared failures
+- 2026-11-03 16:40 UTC lead (session e38b977a): review for merge:browser-sim-m1@f8d29d5: not-triggered — A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond the 18 commits already on the branch, each of them gated when made (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model change, run, held-out use or new reading is in it.
