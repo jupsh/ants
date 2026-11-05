@@ -33,7 +33,9 @@ acting on it.
 ## Who decides what
 - **The user decides** model adoption, changes to the plan, pre-registrations
   and frozen artifacts, the roles of data, clearing literature, commits and
-  merges.
+  merges. Under D277 the research lab's review panel may approve commits to
+  `browser-sim-m1`, plan order, procedural questions and the plied tool's own
+  changes, merges and releases; everything else stays the user's.
 - **Claude agents are the lead agents** (`CLAUDE.md`): they keep
   `docs/STATUS.md`, `docs/log/`, `docs/contamination/` and `findings/`, start
   long runs, manage the backlog and hand out tasks.

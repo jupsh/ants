@@ -224,6 +224,10 @@ Process (see also CLAUDE.md):
 - **Implementation by the implementer subagent** (D208): the lead agent
   writes a brief and keeps the record; the implementer writes the code and
   a report (`docs/HANDOFF.md`).
+- **Research lab and delegated approvals** (D277): the lab (`~/repos/ants-lab`, local) may approve commits to
+  `browser-sim-m1`, plan order, procedural plied questions, and changes, merges and releases of the plied tool
+  itself, through a cross-model review panel (all reviewers pass, `delegated by D277`); everything else the user decides, rentals included, goes to the user by push
+  notification.
 - **Blind while a pre-registration is open:** check only that outputs
   exist; if anything is seen, say exactly what, here and in the reply.
 - **New rules only if they block a known way to get a wrong answer**

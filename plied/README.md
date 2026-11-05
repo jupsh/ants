@@ -15,7 +15,7 @@
 2. [T012](threads/T012-forager-trips-entrance-excursions.md) Forager trips; entrance excursions
 
 
-**Open, not scheduled:** T001, T010, T023, T030, T034, T040, T041, T046, T047, T048, T052, T062
+**Open, not scheduled:** T001, T010, T023, T030, T034, T040, T041, T046, T047, T048, T052, T062, T065
 
 
 ## Open questions
@@ -143,7 +143,10 @@ None.
 | [P195](commitments/P195-1-e-both-compatible-both-explanations.md) | 1(e): both compatible, both explanations retained | D276 | open | T064 |
 | [P196](commitments/P196-1-e-neither-succeeds-or-unresolved.md) | 1(e): neither succeeds or unresolved: stop within budget, argue omission, H1/H2 not rejected generally | D276 | open | T064 |
 | [P197](commitments/P197-1-e-adoption-a-separate-decision.md) | 1(e): adoption a separate decision; new data stays open | D276 | open | T064 |
+| [P198](commitments/P198-lab-a-failed-or-split-review.md) | Lab: a failed or split review panel goes to the user | D277 | open | T065 |
+| [P199](commitments/P199-lab-plied-check-after-each-plied.md) | Lab: plied check after each plied install; new errors roll back and go to the user | D277 | open | T065 |
 | [P20](commitments/P20-the-held-out-test-is-reported.md) | The user may reassign it (D127). | D127 | open | T053 |
+| [P200](commitments/P200-lab-an-independent-second-implementation-for.md) | Lab: an independent second implementation for every statistic a pre-registration freezes | D278 | open | T065 |
 | [P21](commitments/P21-stages-1-3-driver-multiplier-before.md) | With D128: the 2-D separation rule deferred until calibrated. | D129 | open | T033 |
 | [P22](commitments/P22-s2-audit-output-sealed-on-approval.md) | On approval, add logs/s2audit/ to .claude/sealed-paths.txt (CLAUDE.md). | D136 | fulfilled | T032 |
 | [P23](commitments/P23-paper-1-reopening-condition.md) | Paper 1 reopening condition | D127 | open | T051 |
@@ -306,4 +309,6 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │   │   └── T055  Clear the Bles paper after the E6 run                              waiting, ⟵ T038
 │   └── T056  Incline walking, simulator paper, process perspective                  parked
 └── T062  Frozen code back-fill: scratch code behind existing findings in…           open
+
+T065  Research lab (D277): a guarded autonomous lab outside the repo …               open, lead, ⇠ D277
 ```
