@@ -69,7 +69,7 @@ image_path = ".cache/paper-img/{id}/p{page:02d}-150dpi.png"
 
 [checks]
 approve_authorities = ["user", "delegated"]
-actors = ["lead", "user", "agent"]
+actors = ["lead", "user", "agent", "lab"]  # lab: the ants-lab conductor (D302)
 commitments_since = "2026-10-17"
 action_kinds = ["run", "fit", "fetch", "rent", "commit", "merge", "publish"]
 

@@ -338,6 +338,18 @@ scanned:
       Revision 07a71b62d68a was scanned; the only change since is the lead's appended freeze line
       (D259: the reader's and extractor's SHA-256s, committed under scripts/frozen/h6/), which holds
       no conditional or deferral
+  - record: D305
+    rev: 781dc037c0682164fcf88b81f18f0d602faeefc85f92323988ed34d1a08b7cf3
+    at: "2026-11-06 02:59 UTC"
+    by: lead (session 487510ed)
+    because: >-
+      D305 lists the T064 dry-run packet (governing entries and P188-P197 as the lab read them); it
+      changes none of them and holds no commitment
+  - record: D320
+    rev: 98296f0f84b9be636e10fff28df7f774a6caea0e90fe9a4d66ea05b776ab1aec
+    at: "2026-11-06 16:32 UTC"
+    by: lead (session 487510ed)
+    because: "'pending' only describes ask L0004's state; no commitment"
 ---
 Draft label: T6.5 (docs/threads-draft.md revision 2). plied check (scan_commitments, since 2026-10-17) flags 44 entries, D004 to D142, with a conditional or deferral that no commitment links. The draft review (D138) harvested commitments by search, not entry by entry.
 
@@ -400,3 +412,5 @@ Draft label: T6.5 (docs/threads-draft.md revision 2). plied check (scan_commitme
 - 2026-11-02 16:19 UTC lead (session 0e89af04): scanned D253 (rev a4a119c34e10): no commitment to record — read in full: 'before any rebuilt intermediate exists' states when v was recorded (P174, now fulfilled); no new obligation
 - 2026-11-02 16:57 UTC lead (session 0e89af04): scanned D256 (rev 18f3534436d2): no commitment to record — read in full: the only obligation it states is P173's (quoted), already recorded; no new conditional
 - 2026-11-03 00:07 UTC lead (session eac59010): scanned D241 (rev b1dd437cb8eb): no commitment to record — Revision 07a71b62d68a was scanned; the only change since is the lead's appended freeze line (D259: the reader's and extractor's SHA-256s, committed under scripts/frozen/h6/), which holds no conditional or deferral
+- 2026-11-06 02:59 UTC lead (session 487510ed): scanned D305 (rev 781dc037c068): no commitment to record — D305 lists the T064 dry-run packet (governing entries and P188-P197 as the lab read them); it changes none of them and holds no commitment
+- 2026-11-06 16:32 UTC lead (session 487510ed): scanned D320 (rev 98296f0f84b9): no commitment to record — 'pending' only describes ask L0004's state; no commitment

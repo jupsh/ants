@@ -4,9 +4,12 @@
 
 ## Frontier
 
-**lead**
+**lab**
 
 1. [T064](threads/T064-bounded-model-side-design-item-1.md) Bounded model-side design (item 1(e)): slow per-ant state (H2) and slower or spatially structured common driver (H1) judged against C1-C5 (D276)
+
+**lead**
+
 2. [T033](threads/T033-part-d-stages-1-3.md) Part D Stages 1-3
 
 **user**
@@ -147,6 +150,8 @@ None.
 | [P199](commitments/P199-lab-plied-check-after-each-plied.md) | Lab: plied check after each plied install; new errors roll back and go to the user | D277 | open | T065 |
 | [P20](commitments/P20-the-held-out-test-is-reported.md) | The user may reassign it (D127). | D127 | open | T053 |
 | [P200](commitments/P200-lab-an-independent-second-implementation-for.md) | Lab: an independent second implementation for every statistic a pre-registration freezes | D278 | open | T065 |
+| [P201](commitments/P201-lab-the-thread-queue-queue-actor.md) | Lab: the thread queue (queue.actor, a plied lab actor) goes to the user with 2c | D300 | fulfilled | T065 |
+| [P202](commitments/P202-lab-trial-restore-claude-pacing-reserve.md) | Lab trial: restore Claude pacing (reserve 0.15, paceSlack 0.05) before the 2026-11-12 01:00 UTC reset | D308 | open | T065 |
 | [P21](commitments/P21-stages-1-3-driver-multiplier-before.md) | With D128: the 2-D separation rule deferred until calibrated. | D129 | open | T033 |
 | [P22](commitments/P22-s2-audit-output-sealed-on-approval.md) | On approval, add logs/s2audit/ to .claude/sealed-paths.txt (CLAUDE.md). | D136 | fulfilled | T032 |
 | [P23](commitments/P23-paper-1-reopening-condition.md) | Paper 1 reopening condition | D127 | open | T051 |
@@ -287,7 +292,7 @@ T001  M1: L. niger reproduces food collection and sharing with local …        
 │       ├── T060  Contact-reset timing test: design (D238 item 2)                    closed, lead, outcome D269, carries F117, F114
 │       ├── T061  Feasibility inventory of permitted metadata for food state and …   closed, lead, outcome D240, carries F108
 │       ├── T063  Synchrony: which remaining explanations the available evidence …   closed, outcome D275, carries F108, F114, F117
-│       └── T064  Bounded model-side design (item 1(e)): slow per-ant state (H2) …   open, next 1, lead
+│       └── T064  Bounded model-side design (item 1(e)): slow per-ant state (H2) …   open, next 1, lab
 ├── T036  Held-out tests (step 9): Stroeymeyt age-experiment colonies                held, ⟵ T023
 │   └── T037  Candidate held-out colony data sets                                    closed, outcome D273, [B016]
 ├── T038  E6: Bles et al. 2022, development benchmark on the best step-5 …           held, ⟵ T036

@@ -68,6 +68,174 @@ reviews:
     inputs:
       - record: D277
         rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-1c
+    disposition: not-applicable
+    because: >-
+      run:lab-1c installs no plied version; the brief forbids touching ~/repos/plied or the
+      installed binary
+    by: lead (session 772be7be)
+    at: "2026-11-05 16:58 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-1c-fix
+    disposition: not-applicable
+    because: run:lab-1c-fix installs no plied version; ~/repos/plied and the installed binary are untouched
+    by: lead (session 772be7be)
+    at: "2026-11-05 17:35 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-1c-fix2
+    disposition: not-applicable
+    because: run:lab-1c-fix2 installs no plied version
+    by: lead (session 772be7be)
+    at: "2026-11-05 17:52 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-1c-fix3
+    disposition: not-applicable
+    because: No plied install happens in this follow-up; it changes only the lab's box and adapter code (D291).
+    by: lead (session 772be7be)
+    at: "2026-11-05 18:02 UTC"
+    inputs:
+      - record: D291
+        rev: 02d5b0a9caebf920b2e88f39a4a6e4135782d1bacd48b9fe106ded757faf9540
+  - action: run:lab-1c-fix4
+    disposition: not-applicable
+    because: No plied install; lab box code only (D293).
+    by: lead (session 772be7be)
+    at: "2026-11-05 21:04 UTC"
+    inputs:
+      - record: D293
+        rev: 7917c299322726c9edfc56e548e73b04f6e2dc532b2faa47018c32f645789c47
+  - action: run:lab-2a
+    disposition: not-applicable
+    because: No plied install; the plied install kinds are sent to the user as not yet supported in 2a (D296).
+    by: lead (session 772be7be)
+    at: "2026-11-05 21:12 UTC"
+    inputs:
+      - record: D296
+        rev: 2a20f9f4f648c7594479973d065f00f070f3ccd680721a094a08087b152dbe21
+  - action: run:lab-2a-fix1
+    disposition: not-applicable
+    because: No plied install; the plied install kinds stay asks marked not yet supported (D296, D297).
+    by: lead (session 487510ed)
+    at: "2026-11-05 22:08 UTC"
+    inputs:
+      - record: D297
+        rev: e33106d3fa8a1ce0ec2ef77bd17ba08a7e90249beb7a1bc132f03286eca52074
+  - action: run:lab-2b
+    disposition: not-applicable
+    because: No plied install in 2b; the install kinds stay asks marked not yet supported (D296, D300).
+    by: lead (session 487510ed)
+    at: "2026-11-05 22:21 UTC"
+    inputs:
+      - record: D300
+        rev: d6bfb7a6d85a1d5d13f80c010edaef17ffa9baa09cbab4b1363cf46fd2e17b42
+  - action: run:lab-2c-prep
+    disposition: not-applicable
+    because: No plied install in this stage (D302 brief scope).
+    by: lead (session 487510ed)
+    at: "2026-11-05 23:13 UTC"
+    inputs:
+      - record: D302
+        rev: 1aa559d7d917b1cf8363c627e9d718523699029d78f5d986a21cc2030e69f532
+  - action: run:lab-2c-prep-fix1
+    disposition: not-applicable
+    because: No plied install (D303 follow-up scope).
+    by: lead (session 487510ed)
+    at: "2026-11-05 23:39 UTC"
+    inputs:
+      - record: D303
+        rev: af28df3b4f7690c8904db184752b48575e8828b31cff3c10a1ff8a4a80e447d1
+  - action: run:lab-probe-flag
+    disposition: not-applicable
+    because: no plied install in this build
+    by: lead (session 487510ed)
+    at: "2026-11-06 02:59 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-probe-1
+    disposition: not-applicable
+    because: no plied install
+    by: lead (session 487510ed)
+    at: "2026-11-06 03:04 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-test-fixture
+    disposition: not-applicable
+    because: no plied install
+    by: lead (session 487510ed)
+    at: "2026-11-06 03:11 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-ui
+    disposition: not-applicable
+    because: no plied install; the page runs plied read commands only
+    by: lead (session 487510ed)
+    at: "2026-11-06 03:17 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-session-errors
+    disposition: not-applicable
+    because: no plied install
+    by: lead (session 487510ed)
+    at: "2026-11-06 03:30 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-claude-schema
+    disposition: not-applicable
+    because: no plied install
+    by: lead (session 487510ed)
+    at: "2026-11-06 03:38 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-packet-plied
+    disposition: not-applicable
+    because: >-
+      no plied install or version change: the host's existing plied 0.14.1 binary is mounted
+      read-only into the box
+    by: lead (session 487510ed)
+    at: "2026-11-06 04:19 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-rehearsal
+    disposition: not-applicable
+    because: no plied install or version change
+    by: lead (session 487510ed)
+    at: "2026-11-06 04:26 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: run:lab-codex-plied
+    disposition: not-applicable
+    because: >-
+      no plied install: the wrapper hands the existing binary a tmpfs config; the plied version is
+      unchanged
+    by: lead (session 9871fd6b)
+    at: "2026-11-07 05:17 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+  - action: commit:partd-backfill-records-20261107
+    disposition: not-applicable
+    because: no plied install; plied.toml gains only the lab actor (D302)
+    by: lead (session 9871fd6b)
+    at: "2026-11-07 05:33 UTC"
+    inputs:
+      - record: D277
+        rev: 11d2ab364d49247eb1bdc2a64a20b5c5ff62712e457b945ca9405d43aebb26bf
+      - record: D325
+        rev: 7326260db82fda4cc885860de4618ee923614d23b6c81f286bed853e1ff5aaa9
 ---
 
 ## History
@@ -81,3 +249,23 @@ reviews:
 - 2026-11-05 06:21 UTC lead (session 48c74063): review for run:lab-1b: not-applicable — run:lab-1b installs no plied version; the brief forbids touching ~/repos/plied or the installed binary
 - 2026-11-05 07:02 UTC lead (session 48c74063): review for run:lab-1b-fix: not-applicable — run:lab-1b-fix installs no plied version and runs no plied check rollback; the lab's code is built and tested only
 - 2026-11-05 16:54 UTC lead (session 772be7be): review for commit:lab-1b-records-20261105: not-applicable — no plied version is installed or changed by this commit; ~/repos/plied and the installed binary are untouched
+- 2026-11-05 16:58 UTC lead (session 772be7be): review for run:lab-1c: not-applicable — run:lab-1c installs no plied version; the brief forbids touching ~/repos/plied or the installed binary
+- 2026-11-05 17:35 UTC lead (session 772be7be): review for run:lab-1c-fix: not-applicable — run:lab-1c-fix installs no plied version; ~/repos/plied and the installed binary are untouched
+- 2026-11-05 17:52 UTC lead (session 772be7be): review for run:lab-1c-fix2: not-applicable — run:lab-1c-fix2 installs no plied version
+- 2026-11-05 18:02 UTC lead (session 772be7be): review for run:lab-1c-fix3: not-applicable — No plied install happens in this follow-up; it changes only the lab's box and adapter code (D291).
+- 2026-11-05 21:04 UTC lead (session 772be7be): review for run:lab-1c-fix4: not-applicable — No plied install; lab box code only (D293).
+- 2026-11-05 21:12 UTC lead (session 772be7be): review for run:lab-2a: not-applicable — No plied install; the plied install kinds are sent to the user as not yet supported in 2a (D296).
+- 2026-11-05 22:08 UTC lead (session 487510ed): review for run:lab-2a-fix1: not-applicable — No plied install; the plied install kinds stay asks marked not yet supported (D296, D297).
+- 2026-11-05 22:21 UTC lead (session 487510ed): review for run:lab-2b: not-applicable — No plied install in 2b; the install kinds stay asks marked not yet supported (D296, D300).
+- 2026-11-05 23:13 UTC lead (session 487510ed): review for run:lab-2c-prep: not-applicable — No plied install in this stage (D302 brief scope).
+- 2026-11-05 23:39 UTC lead (session 487510ed): review for run:lab-2c-prep-fix1: not-applicable — No plied install (D303 follow-up scope).
+- 2026-11-06 02:59 UTC lead (session 487510ed): review for run:lab-probe-flag: not-applicable — no plied install in this build
+- 2026-11-06 03:04 UTC lead (session 487510ed): review for run:lab-probe-1: not-applicable — no plied install
+- 2026-11-06 03:11 UTC lead (session 487510ed): review for run:lab-test-fixture: not-applicable — no plied install
+- 2026-11-06 03:17 UTC lead (session 487510ed): review for run:lab-ui: not-applicable — no plied install; the page runs plied read commands only
+- 2026-11-06 03:30 UTC lead (session 487510ed): review for run:lab-session-errors: not-applicable — no plied install
+- 2026-11-06 03:38 UTC lead (session 487510ed): review for run:lab-claude-schema: not-applicable — no plied install
+- 2026-11-06 04:19 UTC lead (session 487510ed): review for run:lab-packet-plied: not-applicable — no plied install or version change: the host's existing plied 0.14.1 binary is mounted read-only into the box
+- 2026-11-06 04:26 UTC lead (session 487510ed): review for run:lab-rehearsal: not-applicable — no plied install or version change
+- 2026-11-07 05:17 UTC lead (session 9871fd6b): review for run:lab-codex-plied: not-applicable — no plied install: the wrapper hands the existing binary a tmpfs config; the plied version is unchanged
+- 2026-11-07 05:33 UTC lead (session 9871fd6b): review for commit:partd-backfill-records-20261107: not-applicable — no plied install; plied.toml gains only the lab actor (D302)
