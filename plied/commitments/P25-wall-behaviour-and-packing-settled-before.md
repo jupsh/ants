@@ -530,6 +530,20 @@ reviews:
         rev: 332d2e843e26abf8e2eebe32c644ec88dd9f551f1ebdebe77269aee237bc70e5
       - record: D276
         rev: 78ee97edd611e4b322410f6441fc6585434af1b6252b72f4bdb32d49e1271dec
+  - action: merge:browser-sim-m1@78765aa
+    disposition: not-triggered
+    because: >-
+      A fast-forward of main (f8d29d5) to browser-sim-m1 (78765aa), pushed with the user's
+      instruction (D326): five commits already on the branch, each gated when made
+      (commit:q38-records-20261105 ... commit:partd-backfill-records-20261107). They hold records
+      and byte-identical copies of frozen Part D readers; no src/, public/, fit or data change, so
+      the published pages are unchanged. No freeze, model change, run, held-out use or new reading
+      is in it.
+    by: lead (session 9871fd6b)
+    at: "2026-11-07 05:44 UTC"
+    inputs:
+      - record: D326
+        rev: 4af08c5fa754c9b883af7b755d3b50d8b0f284acdc6fa13039d238587d0e1a6b
 ---
 
 ## History
@@ -612,3 +626,4 @@ reviews:
 - 2026-11-03 16:40 UTC lead (session e38b977a): review for merge:browser-sim-m1@f8d29d5: not-triggered — A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond the 18 commits already on the branch, each of them gated when made (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model change, run, held-out use or new reading is in it.
 - 2026-11-05 05:07 UTC lead (session bd70e4eb): review for commit:q38-records-20261105: not-applicable — The commit holds records only (D273, D274, P187, T037's close, Q38's answer, node notes, STATUS, generated views, and D272's merge-gate dispositions); nothing under src/, scripts/ or test/. No spatial coupling is introduced.
 - 2026-11-05 05:20 UTC lead (session bd70e4eb): review for commit:q39-records-20261105: not-applicable — Records-only commit (D275 as corrected, D276, Q39's answer, T063's close, T064 and P188-P197, node notes, STATUS, generated views); nothing under src/, scripts/ or test/, and nothing runs. No spatial coupling is introduced; T064's design must address P25 before any spatially coupled member runs.
+- 2026-11-07 05:44 UTC lead (session 9871fd6b): review for merge:browser-sim-m1@78765aa: not-triggered — A fast-forward of main (f8d29d5) to browser-sim-m1 (78765aa), pushed with the user's instruction (D326): five commits already on the branch, each gated when made (commit:q38-records-20261105 ... commit:partd-backfill-records-20261107). They hold records and byte-identical copies of frozen Part D readers; no src/, public/, fit or data change, so the published pages are unchanged. No freeze, model change, run, held-out use or new reading is in it.

@@ -259,6 +259,20 @@ reviews:
       change, run, held-out use or new reading is in it.
     by: lead (session e38b977a)
     at: "2026-11-03 16:41 UTC"
+  - action: merge:browser-sim-m1@78765aa
+    disposition: not-triggered
+    because: >-
+      A fast-forward of main (f8d29d5) to browser-sim-m1 (78765aa), pushed with the user's
+      instruction (D326): five commits already on the branch, each gated when made
+      (commit:q38-records-20261105 ... commit:partd-backfill-records-20261107). They hold records
+      and byte-identical copies of frozen Part D readers; no src/, public/, fit or data change, so
+      the published pages are unchanged. No freeze, model change, run, held-out use or new reading
+      is in it.
+    by: lead (session 9871fd6b)
+    at: "2026-11-07 05:44 UTC"
+    inputs:
+      - record: D326
+        rev: 4af08c5fa754c9b883af7b755d3b50d8b0f284acdc6fa13039d238587d0e1a6b
 ---
 
 ## History
@@ -294,3 +308,4 @@ reviews:
 - 2026-10-31 03:35 UTC lead (session 6b5fb317): review for commit:partd-1b1c-20261031: satisfied — D226 copies Stage 2b's outside/unresolved classes unchanged and says its intervals reclassify nothing
 - 2026-11-02 05:56 UTC lead (session 0e89af04): review for commit:partd-1a-20261030: satisfied — Re-read F108@1f7135c39159: since the b5dd9256 bytes this review read (committed in 1e5f59e), one dated update was added (D240: lights-on is 06 UTC for every colony; time of day and time since lights-on cannot be separated). It leaves 'does not establish a 10-min oscillator' and the time-of-day reading this disposition rests on unchanged, and the commit holds the version read, so the disposition stands.
 - 2026-11-03 16:41 UTC lead (session e38b977a): review for merge:browser-sim-m1@f8d29d5: not-triggered — A local fast-forward of main (8bc7789) to browser-sim-m1 (f8d29d5): it adds no content beyond the 18 commits already on the branch, each of them gated when made (commit:synchrony-review-20261101 ... commit:b016-records-20261103), where the content this commitment governs was reviewed. Nothing is pushed or published by this step. No freeze, model change, run, held-out use or new reading is in it.
+- 2026-11-07 05:44 UTC lead (session 9871fd6b): review for merge:browser-sim-m1@78765aa: not-triggered — A fast-forward of main (f8d29d5) to browser-sim-m1 (78765aa), pushed with the user's instruction (D326): five commits already on the branch, each gated when made (commit:q38-records-20261105 ... commit:partd-backfill-records-20261107). They hold records and byte-identical copies of frozen Part D readers; no src/, public/, fit or data change, so the published pages are unchanged. No freeze, model change, run, held-out use or new reading is in it.

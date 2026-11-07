@@ -9,6 +9,7 @@ Kinds: **decision** a decision (the user's, or delegated); **design** a design o
 
 | id | date | time | kind | entry |
 |---|---|---|---|---|
+| D326 | 2026-11-07 | 05:43 | decision | [User: push browser-sim-m1 and merge it to main (fast-forward to 78765aa, five commits since f8d29d5)](2026-11-07-0543-user-push-browser-sim-m1-and-merge-it-to.md) |
 | D325 | 2026-11-07 | 05:32 | decision | [User: commit the T062 Part D back-fill with the records; the ants-repo commit carries D288-D324 and their plied changes, lifting D294's hold for the ants records; the ants-lab code stays uncommitted](2026-11-07-0532-user-commit-the-t062-part-d-back-fill.md) |
 | D324 | 2026-11-07 | 05:27 | run | [T062 Part D back-fill checked: the readers of D185, D207, D212 and D223, with every file they import or run, copied byte-identical into scripts/frozen/partd/ (35 files and a manifest, all matching their logged hashes); the copies still call scratch paths, so re-running them in a clone needs a path fix at T064's build; no commit](2026-11-07-0527-t062-part-d-back-fill-checked-the.md) |
 | D323 | 2026-11-07 | 05:16 | decision | [User: Q42 and Q43 answered as the lead recommended: diagnose Codex's missing shell tool before any allowedFeatures change; plied in the box gets a tmpfs config with an empty sealed list](2026-11-07-0516-user-q42-and-q43-answered-as-the-lead.md) |

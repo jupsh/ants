@@ -249,6 +249,20 @@ reviews:
         rev: 332d2e843e26abf8e2eebe32c644ec88dd9f551f1ebdebe77269aee237bc70e5
       - record: D276
         rev: 78ee97edd611e4b322410f6441fc6585434af1b6252b72f4bdb32d49e1271dec
+  - action: merge:browser-sim-m1@78765aa
+    disposition: not-triggered
+    because: >-
+      A fast-forward of main (f8d29d5) to browser-sim-m1 (78765aa), pushed with the user's
+      instruction (D326): five commits already on the branch, each gated when made
+      (commit:q38-records-20261105 ... commit:partd-backfill-records-20261107). They hold records
+      and byte-identical copies of frozen Part D readers; no src/, public/, fit or data change, so
+      the published pages are unchanged. No freeze, model change, run, held-out use or new reading
+      is in it.
+    by: lead (session 9871fd6b)
+    at: "2026-11-07 05:43 UTC"
+    inputs:
+      - record: D326
+        rev: 4af08c5fa754c9b883af7b755d3b50d8b0f284acdc6fa13039d238587d0e1a6b
 ---
 Draft label: P3 (docs/threads-draft.md revision 2).
 
@@ -282,3 +296,4 @@ Draft label: P3 (docs/threads-draft.md revision 2).
 - 2026-11-05 05:10 UTC lead (session bd70e4eb): reviewed D275@8a62e7098822; D275 names P03's argued-omission route as one option for Q39 and in the lead's recommendation; no freeze is made and P03 stays open
 - 2026-11-05 05:19 UTC lead (session bd70e4eb): reviewed D275@332d2e843e26; D275's correction changes only its food-state wording (variation unknown, not absent; D276); P03 is untouched, still the route if 1(e) fails (P196)
 - 2026-11-05 05:20 UTC lead (session bd70e4eb): review for commit:q39-records-20261105: not-applicable — Records-only commit (D275 as corrected, D276, Q39's answer, T063's close, T064 and P188-P197, node notes, STATUS, generated views); nothing under src/, scripts/ or test/, and nothing runs. No structure freeze.
+- 2026-11-07 05:43 UTC lead (session 9871fd6b): review for merge:browser-sim-m1@78765aa: not-triggered — A fast-forward of main (f8d29d5) to browser-sim-m1 (78765aa), pushed with the user's instruction (D326): five commits already on the branch, each gated when made (commit:q38-records-20261105 ... commit:partd-backfill-records-20261107). They hold records and byte-identical copies of frozen Part D readers; no src/, public/, fit or data change, so the published pages are unchanged. No freeze, model change, run, held-out use or new reading is in it.

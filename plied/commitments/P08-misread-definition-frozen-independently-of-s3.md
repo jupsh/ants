@@ -10,6 +10,21 @@ summary: >-
 made: D129
 state: open
 nodes: [T030]
+reviews:
+  - action: merge:browser-sim-m1@78765aa
+    disposition: not-triggered
+    because: >-
+      A fast-forward of main (f8d29d5) to browser-sim-m1 (78765aa), pushed with the user's
+      instruction (D326): five commits already on the branch, each gated when made
+      (commit:q38-records-20261105 ... commit:partd-backfill-records-20261107). They hold records
+      and byte-identical copies of frozen Part D readers; no src/, public/, fit or data change, so
+      the published pages are unchanged. No freeze, model change, run, held-out use or new reading
+      is in it.
+    by: lead (session 9871fd6b)
+    at: "2026-11-07 05:43 UTC"
+    inputs:
+      - record: D326
+        rev: 4af08c5fa754c9b883af7b755d3b50d8b0f284acdc6fa13039d238587d0e1a6b
 ---
 Draft label: P8 (docs/threads-draft.md revision 2).
 
@@ -20,3 +35,4 @@ Draft label: P8 (docs/threads-draft.md revision 2).
 - 2026-10-29 05:27 UTC lead (session 20261029): reviewed D176: it cites D129 only for the Stage 0 S3 audit's code and colony rule (>= 5 episodes), reused unchanged for the primary S3_2; no misread removal is involved. Unaffected.
 - 2026-10-29 05:32 UTC lead (session 20261029): reviewed D177: it cites D129 only for the Stage 0 colony rule (>= 5 episodes with S3_2), now confirmed for capability datasets; misread handling is not involved. Unaffected.
 - 2026-10-29 22:15 UTC lead (session 20261029): reviewed D185: cites D129 only for the frozen S3 audit hashes it reuses; unaffected
+- 2026-11-07 05:43 UTC lead (session 9871fd6b): review for merge:browser-sim-m1@78765aa: not-triggered — A fast-forward of main (f8d29d5) to browser-sim-m1 (78765aa), pushed with the user's instruction (D326): five commits already on the branch, each gated when made (commit:q38-records-20261105 ... commit:partd-backfill-records-20261107). They hold records and byte-identical copies of frozen Part D readers; no src/, public/, fit or data change, so the published pages are unchanged. No freeze, model change, run, held-out use or new reading is in it.
